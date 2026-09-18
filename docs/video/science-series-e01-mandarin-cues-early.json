@@ -1,0 +1,279 @@
+{
+  "episode": 1,
+  "sections": [
+    {
+      "id": "E01-01",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {"en": "Watch this one drop of water.", "zh": "看这滴水。"},
+            {"en": "It's getting smaller.", "zh": "它正在变小。"},
+            {"en": "Beside it, a snow crystal is growing.", "zh": "旁边的雪晶却在长大。"},
+            {"en": "But the drop never touches the crystal.", "zh": "可水滴始终没有碰到雪晶。"},
+            {"en": "Where does its water go?", "zh": "它的水去哪儿了？"}
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {"en": "It leaves as water vapour—the invisible gas form of water.", "zh": "水以水蒸气的形式离开水滴，也就是变成了看不见的气体。"},
+            {"en": "That gas can travel through the air and join the ice.", "zh": "这些气态的水可以穿过空气，成为冰的一部分。"},
+            {"en": "We can't see the journey with our eyes, so our close-up uses white dots to follow it.", "zh": "肉眼看不到这段旅程，所以我们在放大画面里用白点把它显示出来。"},
+            {"en": "Each stands for a water molecule, a tiny unit of water.", "zh": "每个白点代表一个水分子，也就是组成水的一个微小单位。"},
+            {"en": "An enormous number of those molecules make up just one drop.", "zh": "仅仅一滴水，就包含了数量庞大的水分子。"}
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {"en": "Now imagine this happening with many drops around the crystal.", "zh": "现在想象，雪晶周围的许多水滴都在这样变化。"},
+            {"en": "Kenneth Libbrecht is a physicist at Caltech who grows and studies ice crystals under controlled conditions to understand how snowflakes form.", "zh": "肯尼斯·利布雷希特是加州理工学院的物理学家。他在受控条件下培育和研究冰晶，想弄清雪花是怎样形成的。"},
+            {"en": "He gives a striking example: about a hundred thousand cloud droplets can supply the water for one large, star-shaped crystal.", "zh": "他举过一个很惊人的例子：大约十万个云滴，就能提供一颗大型星状雪晶所需的水。"},
+            {"en": "Not every snowflake needs that number.", "zh": "不是每一片雪花都需要这个数目。"},
+            {"en": "It's an example of how much those tiny drops can contribute.", "zh": "这个例子是想让我们感受一下，这些小水滴加起来能提供多少水。"}
+          ]
+        },
+        {
+          "index": 3,
+          "pairs": [
+            {"en": "Liquid becomes gas.", "zh": "液态的水变成气体，"},
+            {"en": "Gas becomes ice.", "zh": "气体又变成冰。"},
+            {"en": "But here's the puzzle: how can the same cold air let one neighbour lose water while the other gains it?", "zh": "但问题来了：在同一片冷空气里，为什么一个邻居在失去水，另一个却在得到水？"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E01-02",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {"en": "Freeze a drop of rain and you get an ice pellet.", "zh": "把一滴雨水冻起来，就得到了一颗冰粒。"},
+            {"en": "The water was already gathered together.", "zh": "水原本已经聚在一起，"},
+            {"en": "Freezing turned that liquid into solid ice.", "zh": "冻结只是让这团液态的水变成了固态的冰。"}
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {"en": "Look at the crystal beside it.", "zh": "再看旁边的雪晶。"},
+            {"en": "Here, water arrives as gas and joins ice that's already there.", "zh": "这里的水是以气体的形式到来，加入已经存在的冰。"},
+            {"en": "Bit by bit, the solid gets bigger.", "zh": "冰就这样一点一点地长大。"},
+            {"en": "That change from gas straight to solid is called deposition.", "zh": "气体直接变成固体，这种变化叫凝华。"},
+            {"en": "Nothing is carving branches out of a frozen bead.", "zh": "没有谁在把一颗冻住的水珠雕成枝杈。"},
+            {"en": "The crystal is being built by addition.", "zh": "雪晶是靠不断添入新材料长出来的。"}
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {"en": "Real snow can mix several stories.", "zh": "真实的降雪也会把几种过程混在一起。"},
+            {"en": "A liquid drop can hit a crystal and freeze onto it, leaving a little frozen bead.", "zh": "液态水滴可以撞上雪晶，在上面冻结，留下一颗小冰珠。"},
+            {"en": "A coating of these beads is called rime.", "zh": "这些小冰珠形成的附着层叫凇，也就是英文的 rime。"},
+            {"en": "Add enough and the original shape can disappear inside a lumpy pellet called graupel.", "zh": "附着得足够多，原来的形状就可能被埋住，变成一颗表面凹凸不平的冰粒，叫作霰。"}
+          ]
+        },
+        {
+          "index": 3,
+          "pairs": [
+            {"en": "Or two crystals can collide and stick together.", "zh": "也可能是两颗雪晶碰到一起，粘住了。"},
+            {"en": "That big, fluffy snowflake falling past the window might be a cluster of smaller crystals, not one giant crystal.", "zh": "窗外飘过的那片又大又蓬松的雪花，可能是许多小雪晶聚成的一团，而不是一颗巨大的雪晶。"}
+          ]
+        },
+        {
+          "index": 4,
+          "pairs": [
+            {"en": "The useful difference is what arrives: a liquid drop, a piece of ice, or water carried as gas.", "zh": "关键是分清楚，到来的究竟是什么：液态水滴、一块冰，还是气态的水。"},
+            {"en": "We're following that last route.", "zh": "我们要跟着看的是最后一种。"},
+            {"en": "How does something we can't even see build a crystal we can?", "zh": "看不见的水，怎么会搭出一颗看得见的雪晶？"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E01-03",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {"en": "From a distance, a cloud looks like one white thing.", "zh": "远远看去，云像一整团白色的东西。"},
+            {"en": "Get closer and that whiteness comes from tiny particles.", "zh": "靠近看，这片白色其实来自许多微小颗粒。"},
+            {"en": "In our cloud, many are liquid drops.", "zh": "在我们跟着观察的这朵云里，很多颗粒是液态水滴，"},
+            {"en": "There can be ice too.", "zh": "也可能有冰。"},
+            {"en": "But the white mist isn't water vapour.", "zh": "但那片白色的雾不是水蒸气。"},
+            {"en": "Vapour is invisible.", "zh": "水蒸气是看不见的。"}
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {"en": "Look between the drops.", "zh": "再看水滴之间。"},
+            {"en": "There's mostly air: gases such as nitrogen and oxygen, with water molecules mixed among them.", "zh": "那里主要是空气：氮气、氧气等气体，水分子也混在其中。"},
+            {"en": "Water hasn't vanished when it becomes vapour.", "zh": "水变成水蒸气，并没有凭空消失。"},
+            {"en": "It's still water, just in a different form.", "zh": "它还是水，只是换了一种状态。"}
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {"en": "How did the liquid drops get here?", "zh": "这些液态水滴又是怎么来的？"},
+            {"en": "One way begins with moist air rising.", "zh": "有一种过程，从潮湿的空气上升开始。"},
+            {"en": "It expands and cools.", "zh": "空气一边膨胀，一边冷却。"},
+            {"en": "In the right conditions, some of its water vapour collects on tiny particles and becomes liquid.", "zh": "条件合适时，其中一些水蒸气会聚到微小颗粒上，变成液态水。"},
+            {"en": "Watch a drop appear where there was only invisible water in the gas.", "zh": "看，原来那些看不见的气态水，现在聚成了一滴水。"},
+            {"en": "That change is condensation.", "zh": "气体变成液体，这种变化叫凝结。"}
+          ]
+        },
+        {
+          "index": 3,
+          "pairs": [
+            {"en": "These drops are much smaller than raindrops.", "zh": "这些水滴比雨滴小得多。"},
+            {"en": "In Libbrecht's account, a typical one is only one or two hundredths of a millimetre across.", "zh": "按照利布雷希特的描述，典型云滴的直径只有百分之一到百分之二毫米。"},
+            {"en": "Air resistance slows their fall, and moving air can keep them suspended.", "zh": "空气阻力减慢了它们下落的速度，流动的空气还能让它们悬浮在空中。"},
+            {"en": "A cloud isn't simply rain waiting to hit the ground.", "zh": "云并不是一场正在等着落地的雨。"}
+          ]
+        },
+        {
+          "index": 4,
+          "pairs": [
+            {"en": "So we have water gathered in liquid drops, and water moving through the air as gas.", "zh": "所以，我们既有聚在水滴里的液态水，也有在空气中运动的气态水。"},
+            {"en": "Cool our cloud below zero and something else is surprising: many drops are still liquid.", "zh": "再让这朵云冷到零度以下，会看到另一件出乎意料的事：许多水滴依然是液体。"},
+            {"en": "Why haven't they frozen?", "zh": "它们为什么还没结冰？"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E01-04",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {"en": "Below zero, we expect water to freeze.", "zh": "到了零度以下，我们会觉得水该结冰了。"},
+            {"en": "But a small drop can stay liquid.", "zh": "但一滴小水滴仍然可能保持液态。"},
+            {"en": "We call that supercooled water.", "zh": "这叫过冷水。"},
+            {"en": "It isn't halfway to being ice.", "zh": "它不是结了一半的冰，"},
+            {"en": "It's still liquid—cold enough for ice to form, but the freezing hasn't started.", "zh": "仍然是液态水——温度已经低到可以形成冰，只是冻结还没有开始。"}
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {"en": "Look through the magnifying glass into this drop.", "zh": "透过放大镜，看看这滴水里面。"},
+            {"en": "See that irregular speck?", "zh": "看到那颗形状不规则的小颗粒了吗？"},
+            {"en": "It's not ice.", "zh": "它不是冰，"},
+            {"en": "It's another material sitting in the water.", "zh": "而是水里的一种别的材料。"},
+            {"en": "If its surface is helpful, nearby water molecules can arrange themselves into a small patch of ice.", "zh": "如果它的表面能帮上忙，附近的水分子就可能排列起来，形成一小片冰。"},
+            {"en": "Now there's a tiny bit of solid inside a drop that's otherwise still liquid.", "zh": "这时，水滴里面有了一点固体，其余部分却仍然是液体。"}
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {"en": "Watch the ice spread.", "zh": "看，冰正在扩展开来。"},
+            {"en": "The crucial step was getting that first patch started.", "zh": "关键的一步，是最初那一小片冰怎么出现。"},
+            {"en": "Scientists call that beginning nucleation.", "zh": "科学家把这个开头叫作成核。"},
+            {"en": "Some surfaces help more than others; some don't help much at all.", "zh": "有些表面很能帮忙，有些作用就小得多。"},
+            {"en": "A particle that helped a liquid drop form doesn't necessarily help it freeze.", "zh": "一颗帮助液态水滴形成的颗粒，不一定也能帮助它结冰。"}
+          ]
+        },
+        {
+          "index": 3,
+          "pairs": [
+            {"en": "That's why a cloud doesn't have to freeze all at once.", "zh": "所以，一朵云不必一下子全部冻住。"},
+            {"en": "Very clean small drops can stay liquid far below zero,", "zh": "很干净的小水滴可以在远低于零度时仍然保持液态；"},
+            {"en": "while certain proteins made by bacteria can help ice start much closer to zero.", "zh": "而某些细菌产生的特定蛋白质，却能帮助冰在更接近零度时就开始形成。"},
+            {"en": "Temperature matters, but so does how the ice gets its start.", "zh": "温度重要，冰是怎么开始形成的，也同样重要。"}
+          ]
+        },
+        {
+          "index": 4,
+          "pairs": [
+            {"en": "Keep the drop that froze in view.", "zh": "继续看着刚才冻住的那滴水。"},
+            {"en": "It's now a small ice seed among liquid neighbours.", "zh": "现在，它成了一颗小小的冰种子，周围还是液态水滴。"},
+            {"en": "Not every ice particle begins this way, but this is the one we'll follow.", "zh": "自然界里的冰不全是这样开始的，但我们接下来就跟着这一颗。"},
+            {"en": "The speck helped it get started.", "zh": "小颗粒帮助它起了个头，"},
+            {"en": "It didn't carry a drawing of a snowflake.", "zh": "却没有藏着一张雪花的图纸。"},
+            {"en": "The branches still have to grow.", "zh": "那些枝杈，还得慢慢长出来。"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E01-05",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {"en": "Put that seed in a sealed box with air around it, and keep the temperature steady.", "zh": "把这颗冰种子放进一个密封盒子，周围留着空气，温度保持不变。"},
+            {"en": "It looks still.", "zh": "它看起来静静的。"},
+            {"en": "But zoom in on its surface: below this line is solid ice; above it is gas.", "zh": "但把表面放大：这条线下面是固态的冰，上面是气体。"},
+            {"en": "There's a lot happening at the boundary.", "zh": "就在这个交界处，许多事情正在发生。"}
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {"en": "Water molecules are arriving from the air, and some stay on the ice.", "zh": "水分子从空气中来到冰的表面，其中一些留了下来。"},
+            {"en": "Others are leaving.", "zh": "另一些水分子则正在离开。"},
+            {"en": "Both journeys happen at once.", "zh": "来和去同时发生。"},
+            {"en": "To tell whether the ice will grow, we have to compare them: is more water joining, or more leaving?", "zh": "想知道冰会不会长大，就要比较：加入冰的水多，还是离开的水多？"}
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {"en": "Start with very little water vapour in the box.", "zh": "一开始，让盒子里只有很少的水蒸气。"},
+            {"en": "More leaves than returns, so the ice shrinks.", "zh": "离开的水比回来的多，所以冰会变小。"},
+            {"en": "But the water hasn't disappeared.", "zh": "但这些水没有消失，"},
+            {"en": "It's entered the gas.", "zh": "而是进入了气体。"},
+            {"en": "As more water molecules collect there, more can come back to the ice.", "zh": "随着气体里的水分子越来越多，能回到冰表面的也会增加。"},
+            {"en": "We've left enough ice in this example for the two journeys eventually to balance.", "zh": "在这个例子里，我们留了足够多的冰，让这两个方向的变化最终能够达到平衡。"}
+          ]
+        },
+        {
+          "index": 3,
+          "pairs": [
+            {"en": "Watch for a moment.", "zh": "看一会儿。"},
+            {"en": "Just as much water joins the ice as leaves it, so the ice stays the same size.", "zh": "加入冰的水和离开冰的水一样多，所以冰的大小没有变化。"},
+            {"en": "That balance has a name: equilibrium.", "zh": "这种状态叫平衡。"},
+            {"en": "It doesn't mean everything has stopped.", "zh": "它不是说一切都停下来了，"},
+            {"en": "It means the two changes cancel out.", "zh": "而是两个方向的变化正好相互抵消。"}
+          ]
+        },
+        {
+          "index": 4,
+          "pairs": [
+            {"en": "What if we add more water vapour?", "zh": "如果再加一些水蒸气呢？"},
+            {"en": "Briefly open the box to add it, then close it again.", "zh": "把盒子短暂打开，加入水蒸气，再关上。"},
+            {"en": "Don't change the temperature or the box's size.", "zh": "温度不变，盒子的大小也不变。"},
+            {"en": "Which way do you think the ice surface will move?", "zh": "你觉得冰的表面会往哪个方向移动？"}
+          ]
+        },
+        {
+          "index": 5,
+          "pairs": [
+            {"en": "More water can now join than leave.", "zh": "现在，加入的水可以比离开的多。"},
+            {"en": "The ice grows, taking some of that extra water out of the gas.", "zh": "冰开始长大，从气体里取走一部分多出来的水。"},
+            {"en": "Let it reach balance again.", "zh": "让它重新达到平衡。"},
+            {"en": "Then briefly remove some vapour and close the box.", "zh": "然后，再短暂取走一些水蒸气，关上盒子。"},
+            {"en": "Now there's less than the balance amount: more water leaves than returns, and the ice shrinks.", "zh": "现在的水蒸气少于平衡所需的量：离开的水比回来的多，冰又变小了。"},
+            {"en": "Same temperature.", "zh": "同样的温度，"},
+            {"en": "Different result.", "zh": "却有不同的结果。"}
+          ]
+        },
+        {
+          "index": 6,
+          "pairs": [
+            {"en": "So the useful question isn't whether the air is “full”.", "zh": "所以，真正该问的不是空气有没有“装满”，"},
+            {"en": "It's whether there's enough water vapour to replace what this ice surface loses.", "zh": "而是周围的水蒸气，够不够补回这个冰表面失去的水。"},
+            {"en": "More than that can grow the ice.", "zh": "比这个量多，冰就可能长大；"},
+            {"en": "Less can shrink it.", "zh": "比这个量少，冰就可能变小。"}
+          ]
+        }
+      ]
+    }
+  ]
+}

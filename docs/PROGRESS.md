@@ -19,12 +19,18 @@ detail.
 
 ## Current state
 
-- **Mandarin narration and seamless language switching in progress (2026-09-17).** Maker
+- **Mandarin narration and same-page language switching complete (2026-09-17).** Maker
   supplied voice `4AfodMgwXps9oZFhHzoj`, authorizing production for the already translated E01/E02.
   The [bilingual plan amendment](plans/science-series-bilingual.md#mandarin-production-amendment--2026-09-17)
   now covers source-bound takes, semantic alignment and same-page audio switching. Preserve
-  current English source/audio and visuals. Next: generate Mandarin once per section, build
-  phrase-based clock mappings, then review switching, playback and audio identity.
+  current English source/audio and visuals. Both source-bound Mandarin masters and semantic
+  mappings are generated in website `explore/film-part1@d434084`; the same-page toggle selects
+  matching audio at the current idea.
+  The [production review](reviews/science-series-mandarin-production-2026-09-17.md) records
+  independent source/signal/timing checks, late-reveal repairs and bounded live desktop/narrow
+  playback. Website `docs/series-mandarin-tests.txt` records 76 passes, zero failures;
+  `docs/series-mandarin-build.json` records TypeScript/build pass. No complete human listening
+  or audience acceptance is claimed. Next: maker listens in 中文 and reviews understanding.
 
 - **Episode 1 maker playback repair complete (2026-09-17).** The
   [active series plan](plans/explore-journey-science-series.md#maker-playback-repair--2026-09-17-planned-before-implementation)
@@ -37,7 +43,7 @@ detail.
   **956.3235169999996 s**, SHA-256
   `d69db9caac009f1e73b8b64d6126950732ba3ec3437bc3b655c9e17b8105cb6e`.
   Every future spoken-English rewrite now includes matching Juniper narration under maker
-  direction. Mandarin recording remains deferred. Next: maker listening/teach-back; no
+  direction. Mandarin production is tracked above. Next: maker listening/teach-back; no
   subjective or audience acceptance is inferred from these technical checks.
 
 - **Same-page Chinese text complete (2026-09-17).** Website `explore/film-part1@e37bf80`
@@ -47,8 +53,8 @@ detail.
   [review](reviews/science-series-bilingual-2026-09-17.md) records translation/runtime repairs
   and bounded browser checks; website `docs/series-localization-tests.txt` records **64 passes,
   zero failures**, and the TypeScript/production build passes. The
-  [plan](plans/science-series-bilingual.md) is complete for text only. Next: maker reads Chinese;
-  Mandarin generation/alignment waits for a supplied voice ID and production request.
+  [plan](plans/science-series-bilingual.md) records that text-only milestone and the newly
+  authorized Mandarin extension above. Next: maker reads/listens to Chinese.
 
 - **Episode 2 full Juniper narration complete (2026-09-17).** Website
   `explore/film-part1@5fcd95a` adds the latest E01 voice to all eight unchanged E02 scenes.
@@ -662,8 +668,8 @@ and every superseded attempt live in the linked plans and historical progress sn
 
 ## Active plan
 
-The [same-page bilingual plan](plans/science-series-bilingual.md) records the completed Simplified
-Chinese text pass and its review. Mandarin speech is explicitly deferred; English narration remains.
+The [same-page bilingual plan](plans/science-series-bilingual.md) records completed Simplified
+Chinese text, Mandarin narration and semantic switching. English narration remains preserved.
 
 The [science-series plan](plans/explore-journey-science-series.md) is the active editorial record
 on `explore/film-part1-plan`, including JTS-M012's library-reuse and rendering direction.
@@ -763,16 +769,17 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Same-page Chinese translation — ready to read; Mandarin voice pending
+### Same-page Chinese and Mandarin — ready to listen and review
 
-Open [the bilingual review](reviews/science-series-bilingual-2026-09-17.md) and
+Open [the Mandarin production review](reviews/science-series-mandarin-production-2026-09-17.md) and
 `http://127.0.0.1:5185/series/episode-1`; select **中文**. The retained website worktree is
 `/Users/clipper/github/snowcrystal_website-film-part1`; both current episodes are translated,
 including the later [E01 repair](reviews/science-series-e01-clearer-2026-09-17.md). The reviews
 name the focused rerun commands and outstanding coverage limits.
-Wait for the maker's Mandarin voice ID/production request before Mandarin synthesis.
-Then align actual Mandarin speech by shared scene/paragraph/cue identities, not equal elapsed
-seconds. English source, alignment and recordings remain preserved.
+Mandarin voice `4AfodMgwXps9oZFhHzoj` is generated for both episodes. Review pronunciation,
+delivery and understanding; the report lists uncertain offline-ASR checkpoints. Reproduce checks
+with the focused command in that review. The supplied-language recordings follow shared
+scene/paragraph/cue identities, not equal elapsed seconds. English remains preserved.
 
 ### Episode 1 — listen and test comprehension of the clearer revision
 
@@ -789,7 +796,8 @@ of balance, the two neighbours, water-vapour pressure, and reference versus extr
 records distinguish automated audio checks and sampled browser playback from those open
 acceptance questions. Preserve the original film/audio, home and narrated E02. For every future
 spoken-English rewrite, automatically refresh the affected Juniper takes in a new retained
-revision and retime captions/cues. Mandarin audio remains deferred. Do not start E03, publish
+revision and retime captions/cues. Refresh changed Mandarin words with the now-approved Mandarin
+voice and rebuild the semantic map as well. Do not start E03, publish
 or run scientific gates without a new relevant request.
 Requested E01 revisions begin with `src/series/episodeCues.ts`, `laterEpisodeCues.ts` and their
 corresponding drawing files; the focused check command is in the review.

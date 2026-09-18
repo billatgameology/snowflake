@@ -9,6 +9,8 @@ The [conversational production review](../reviews/science-series-e01-conversatio
 records the latest repairs and their limits. Those self-review findings inform the requirements
 below; they are not new maker praise or evidence of audience comprehension. Earlier scene
 numbers in the feedback record refer to the earlier cut, not the revised episode's section order.
+The later [Mandarin production review](../reviews/science-series-mandarin-production-2026-09-17.md)
+records bilingual audio, same-page switching and their separate listening limits.
 
 ## Start here when creating an episode
 
@@ -27,14 +29,14 @@ as another set of production documents:
 5. Review a complete temporary-voice performance for pacing and understanding before scaling
    production. Record any partial coverage honestly; sampled checks do not fulfill that review.
 6. Follow the [audio and timing contract](#narration-and-timing-contract), including the maker's
-   standing direction to refresh affected English narration when its words are rewritten.
+   standing direction to refresh affected narration when its words are rewritten.
    Retime cues to the delivered performance; rehearse again after pause or tempo changes.
 7. Apply the [viewing method](#how-a-future-reviewer-should-critique-a-scene) and
    [completion checklist](#completion-checklist-and-acceptance-boundaries). Fix specific defects,
    then distinguish technical readiness from listening and audience acceptance.
 
 No fixed duration or authorization to start another episode follows from this guide. The
-standing English-narration refresh does not authorize a new voice or Mandarin recording.
+standing narration refresh does not authorize a different voice or an unrequested episode.
 Keep the previous film and approved features intact.
 
 ## The central reading of the feedback
@@ -79,8 +81,8 @@ samples and full E01 AI sample narration. The maker's subsequent standing direct
 refresh affected English narration whenever the spoken English is rewritten, as specified in
 the [audio contract](#narration-and-timing-contract). Visual-only changes do not by themselves
 require new speech. Draft words and visuals together and retime to the actual performance.
-Mandarin voice selection and recording remain explicitly deferred; an English sample or refresh
-is not permission to invent them.
+The later maker-supplied Mandarin voice `4AfodMgwXps9oZFhHzoj` lifts the Mandarin deferral for
+the translated episodes. It does not authorize inventing another voice.
 
 ### Scene-by-scene critique and response
 
@@ -222,7 +224,8 @@ The maker found the revised tone too technical, requested a teenager-friendly sa
 hardest idea, then explicitly liked the two-neighbours sample and asked to apply its tone to
 the draft. That approved the **voice direction**. Later requests authorized production and
 English audio, followed by the standing refresh direction below. None of these actions
-establishes audience understanding or authorizes Mandarin narration.
+establishes audience understanding. Mandarin production was separately authorized by the later
+voice-ID message, not inferred from the tone approval.
 
 Sound like a curious person helping someone notice a surprising event. Start with concrete
 subjects (“a drop and a piece of ice”), ask an honest question (“same cold air, opposite
@@ -357,9 +360,24 @@ explicit ongoing direction, not permission inferred from an old sample. Reuse un
 where appropriate; do not leave old spoken words playing against a rewritten transcript.
 Visual-only or optional-reader-only edits do not require synthesis when the spoken words are
 unchanged. Preserve earlier recordings and the exact source of each new take. Keep the Chinese
-text in step with the revised meaning, but do not generate Mandarin speech: its voice and
-production remain deferred until the maker supplies that separate direction. The standing
-refresh does not authorize a different English voice or an unrequested new episode.
+text in step with the revised meaning. The maker has now supplied Mandarin voice
+`4AfodMgwXps9oZFhHzoj`, authorizing narration for the translated E01/E02. When a rewrite changes
+performed Chinese words, refresh the affected Mandarin take and rebuild its semantic alignment
+as well; do not play a stale translation against the new meaning. The standing refresh does
+not authorize a different voice or an unrequested new episode.
+
+**One bilingual performance, not two pages.** The top English / 中文 control selects Simplified
+Chinese text and Mandarin audio together, on the same route and DOM. Languages have different
+real durations. Preserve section, paragraph and semantic phrase position—not elapsed seconds
+or a whole-episode duration fraction. Each selected recording owns the clock; convert it to
+the shared visual score through reviewed phrase anchors. Retain actual prediction pauses and
+their withheld answers. Show the selected recording's duration. Pause the old element before
+playing the new one, keep speed and paused/manual mode, invalidate old play promises, and apply
+the latest position when metadata arrives. Test round trips, rapid switches, buffering/error
+handling and live switches during a prediction pause. No autoplay from a paused language toggle.
+Sentence-internal animation progress is interpolated; it is not independently measured word
+timing. A natural pause may exist in only one language, so record coincident anchor reductions
+and inspect the affected cues. Fluent listening remains distinct from machine alignment.
 
 - Before recording or synthesis, review the exact spoken source and its diagram implications.
   Separate spoken text, reader text and animator instructions. Record the approved source

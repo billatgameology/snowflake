@@ -1,6 +1,6 @@
 # Plan — same-page English / 中文 series
 
-- **Status:** text complete; Mandarin production and semantic switching authorized, in progress
+- **Status:** text, Mandarin production and semantic switching complete; fluent listening/understanding review remains
 - **Started:** 2026-09-17
 - **Scope:** existing Simplified Chinese series plus maker-authorized Mandarin voice `4AfodMgwXps9oZFhHzoj`
 - **Parent:** [series plan](explore-journey-science-series.md), [episode design guide](../video/science-series-design-guide.md)
@@ -83,7 +83,7 @@ languages at the corresponding story position without resetting the episode, wit
 and preserved English assets. No new episode, voice-library mutation, solver work, scientific
 gate, new language page, export, deployment, push or publication is authorized by this amendment.
 
-## Execution and verification — 2026-09-17
+## Text-only execution and verification — 2026-09-17 (historical milestone)
 
 Website `explore/film-part1@e37bf80` implements the shared top toggle, translated home/E01/E02
 reader and diagrams, CJK typography, position restoration and an explicit English-audio notice.
@@ -104,18 +104,37 @@ manual reading, optional-note continuity, persisted preference, and representati
 phone-sized layouts. Physical-phone interaction, a full listening pass and live switching
 inside a prediction hold were not verified. Mandarin performance/timing remains unproduced.
 
-Next: maker reads the Chinese text on the existing series URL. Wait for the voice ID and
-production request before synthesis; then align actual Mandarin speech to semantic story
-positions rather than raw English seconds. Preserve the completed English performances.
+The later Mandarin amendment supersedes that milestone's speech deferral.
+
+## Mandarin execution and review — 2026-09-17
+
+Website `explore/film-part1@d434084` is the completed implementation. The
+[production review](../reviews/science-series-mandarin-production-2026-09-17.md) records the
+source-bound recordings, reversible phrase clock, same-page player, independent audio checks,
+and bounded browser observations. E01/E02 both use the supplied Mandarin voice; English source
+and MP3 bytes are preserved. Original requests/takes/masters and the first semantic score are
+retained. The active `semantic-onsets-v2` clocks fix late E02 reveals without new synthesis.
+Website `docs/series-mandarin-tests.txt` records 76 passes, zero failures; TypeScript/build pass
+is recorded in `docs/series-mandarin-build.json`. The canonical episode guide now carries this
+bilingual production/timing contract. No solver, evidence gate or publication changed.
+
+Next: maker listens in 中文 on the same episode links and gives pronunciation/delivery and
+comprehension feedback. The review names the uncertain machine-transcription checkpoints;
+no fluent-listener or audience acceptance is claimed. Refresh affected authorized-language
+takes when their spoken text changes; never leave a stale recording against rewritten words.
 
 ## Tried and rejected
 
-- Matching languages by elapsed seconds: translations have different durations. Retain shared
-  story identities now; actual Mandarin phrase timing belongs to later audio production.
+- Matching languages by elapsed seconds: translations have different durations. Shared
+  story identities and actual Mandarin phrase timing now drive the reversible map.
 - Creating a Chinese route or remounting the player on toggle: loses continuity and conflicts
   with the maker's explicit same-page/same-link requirement.
-- Generating a placeholder Mandarin voice: specifically disallowed by the current request.
+- Generating a placeholder Mandarin voice before selection: explicitly disallowed in the text
+  pass. The later maker-supplied voice lifts that deferral only for its authorized scope.
 - Re-running clock effects when language changes: their cleanup pauses narration. Keep the
   transport effects independent of locale and update only displayed content/geometry.
 - English character-count pill sizing and the old hidden-header fallback: translated glyphs
   and the taller phone toggle header require measured widths and correct reading geometry.
+- Prioritizing PCM cut points over spoken onsets when one performance has no natural gap:
+  delayed some E02 answer reveals. Preserve actual cue onsets; record collapsed lower-priority
+  endpoints and test the entire thinking interval through actual answer release.

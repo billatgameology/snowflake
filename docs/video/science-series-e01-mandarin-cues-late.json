@@ -1,0 +1,341 @@
+{
+  "episode": 1,
+  "sections": [
+    {
+      "id": "E01-06",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            { "en": "Keep our ice at balance.", "zh": "让刚才那块冰保持平衡。" },
+            { "en": "Beside it, put liquid water in a separate box.", "zh": "在旁边另放一个盒子，里面放液态水。" },
+            { "en": "Same temperature, same space for the gas, same starting amount of vapour.", "zh": "温度一样，给气体留下的空间一样，一开始的水蒸气量也一样。" }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            { "en": "Watch the liquid surface fall.", "zh": "看，液态水的表面在下降。" },
+            { "en": "More water leaves than joins.", "zh": "离开的水比加入的多。" },
+            { "en": "Water escapes more readily from liquid than from ice, so this vapour amount cannot replace everything the liquid loses.", "zh": "与冰相比，水分子更容易从液态水中离开，所以这些水蒸气不足以补回液态水失去的全部水。" },
+            { "en": "In these drawings, we control the vapour from outside, keeping it at the amount we choose while the surface changes.", "zh": "在这些示意图里，我们从外部调节水蒸气：即使表面在变化，也让水蒸气保持在我们选定的量。" }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            { "en": "Add water vapour to the liquid's box.", "zh": "往液态水的盒子里加入水蒸气。" },
+            { "en": "More water can now return to its surface.", "zh": "现在，能返回表面的水更多了。" },
+            { "en": "Keep adding until the liquid stops shrinking.", "zh": "继续加，直到液态水不再变少。" },
+            { "en": "Molecules still come and go, but now the amounts joining and leaving match.", "zh": "分子仍然来来往往，但加入的水和离开的水现在一样多了。" },
+            { "en": "The liquid needed more vapour than the ice did.", "zh": "液态水达到平衡，需要的水蒸气比冰更多。" }
+          ]
+        },
+        {
+          "index": 3,
+          "pairs": [
+            { "en": "Now give the ice that same, larger amount of vapour.", "zh": "现在，也把冰周围的水蒸气增加到同样的量。" },
+            { "en": "Keep the temperature unchanged.", "zh": "温度保持不变。" },
+            { "en": "What will happen to it?", "zh": "冰会怎么样？" }
+          ]
+        },
+        {
+          "index": 4,
+          "pairs": [
+            { "en": "It grows.", "zh": "它会长大。" },
+            { "en": "The liquid stays the same size, while the ice gains water.", "zh": "液态水的大小不变，冰却在得到水。" },
+            { "en": "Both now have the same amount of vapour around them, but that amount is above the ice's balance point.", "zh": "两边现在有同样多的水蒸气，但这个量已经高于冰的平衡值。" }
+          ]
+        },
+        {
+          "index": 5,
+          "pairs": [
+            { "en": "Put the two surfaces together in the same air.", "zh": "把两个表面放进同一片空气。" },
+            { "en": "Then remove a little vapour—not all the way down to the ice's balance point.", "zh": "再取走一点水蒸气，但还没少到冰的平衡值。" },
+            { "en": "Watch both surfaces.", "zh": "看看两个表面：" },
+            { "en": "The liquid starts shrinking, but the ice keeps growing.", "zh": "液态水开始变少，冰却还在长大。" },
+            { "en": "There is still more than the ice needs for balance, yet less than the liquid needs.", "zh": "水蒸气仍然比冰达到平衡所需的多，却比液态水所需的少。" }
+          ]
+        },
+        {
+          "index": 6,
+          "pairs": [
+            { "en": "Same air.", "zh": "同一片空气，" },
+            { "en": "Same temperature.", "zh": "同一个温度。" },
+            { "en": "Two different surfaces, losing and gaining water.", "zh": "两个不同的表面，一个在失去水，一个在得到水。" },
+            { "en": "Now take that picture back into the cloud.", "zh": "带着这幅画面，再回到云里。" },
+            { "en": "Where does the water go as the drops shrink?", "zh": "水滴变小时，它的水去了哪里？" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E01-07",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            { "en": "As the ice grows, it takes water out of the nearby gas.", "zh": "冰长大时，会从附近的气体中取走水。" },
+            { "en": "Fewer water molecules return to the liquid drops, so the drops lose more than they get back.", "zh": "返回液态水滴的水分子变少了，于是水滴失去的水比收回的多。" },
+            { "en": "Their water enters the air, where some of it can reach the ice.", "zh": "这些水进入空气，其中一部分就可能到达冰。" }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            { "en": "Watch the connection: the ice gains water, the nearby gas loses some, and the shrinking drops help replace it.", "zh": "看这几个变化怎么连在一起：冰得到水，附近气体里的水少了一些，而正在缩小的水滴又帮着补回来。" },
+            { "en": "With many drops around, that replacement can keep supplying the growing ice.", "zh": "如果周围有许多水滴，这样的补充就能继续为冰的生长供水。" }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            { "en": "Follow one water molecule.", "zh": "跟着一个水分子看看。" },
+            { "en": "It leaves a drop, moves through the air as gas, and—if it reaches the crystal and stays—becomes part of the ice.", "zh": "它离开水滴，以气体的状态穿过空气；如果到达雪晶后留了下来，它就成为冰的一部分。" },
+            { "en": "Liquid, then gas, then solid.", "zh": "先是液体，再是气体，最后是固体。" }
+          ]
+        },
+        {
+          "index": 3,
+          "pairs": [
+            { "en": "Other molecules are going the opposite way.", "zh": "还有其他分子在往相反的方向走。" },
+            { "en": "Not every molecule that leaves a drop will end up here.", "zh": "不是每个离开水滴的分子都会来到这颗雪晶。" },
+            { "en": "We're following the overall change: the drops are losing water while the crystal gains it.", "zh": "我们关注的是总体变化：水滴在失去水，雪晶在得到水。" }
+          ]
+        },
+        {
+          "index": 4,
+          "pairs": [
+            { "en": "Remember those hundred thousand drops in Libbrecht's example?", "zh": "还记得利布雷希特例子里的十万个水滴吗？" },
+            { "en": "That's a water budget, not a count of collisions.", "zh": "那是在算水的总量，不是在数碰撞次数。" },
+            { "en": "The crystal doesn't have to catch the drops like a net.", "zh": "雪晶不必像一张网那样，把水滴都兜过来。" },
+            { "en": "A drop's water can make the journey without the drop itself.", "zh": "水滴里的水能走完这段路，水滴本身却不必跟着走。" }
+          ]
+        },
+        {
+          "index": 5,
+          "pairs": [
+            { "en": "But watch the space between them.", "zh": "不过，看看它们之间的空隙。" },
+            { "en": "The water has to travel through that air; it can't jump straight from drop to crystal.", "zh": "水必须穿过那里的空气，不能直接从水滴跳到雪晶上。" },
+            { "en": "That journey will matter when we ask why some parts of a crystal grow differently from others.", "zh": "等我们追问雪晶不同部位为什么长得不一样时，这段路就会变得很重要。" },
+            { "en": "For now, we've followed the water all the way to the ice.", "zh": "现在，我们已经一路跟着水，来到了冰里。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E01-08",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            { "en": "How could we put a number on the water vapour around the ice?", "zh": "要用一个数字描述冰周围的水蒸气，我们该怎么做？" },
+            { "en": "You'll often see scientists use the words “water-vapour pressure”.", "zh": "你常会看到科学家使用“水蒸气压”这个词。" },
+            { "en": "It sounds like a new idea, but it connects to the same moving molecules we've been watching.", "zh": "听起来像是一个新概念，其实，它仍然与我们一直看着的那些运动中的分子有关。" }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            { "en": "Picture those molecules inside a box.", "zh": "想象这些分子待在一个盒子里。" },
+            { "en": "They move around and bump into the walls.", "zh": "它们到处运动，撞到盒壁上。" },
+            { "en": "Each collision gives the wall a tiny push.", "zh": "每次碰撞，都会给盒壁一个小小的推力。" },
+            { "en": "Put all those pushes together and spread them over the wall's area: that's pressure.", "zh": "把这些推力合在一起，再看每单位面积上受到多少力，这就是压强。" }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            { "en": "But most of the molecules in air aren't water.", "zh": "但空气里的大多数分子并不是水。" },
+            { "en": "Pick out just the water molecules.", "zh": "只挑出水分子来看。" },
+            { "en": "The part of the pressure that comes from them is water-vapour pressure.", "zh": "总压强中由它们贡献的那一部分，就是水蒸气压，也叫水蒸气分压。" },
+            { "en": "We're not counting the push from all the other gases, or the weight of liquid drops.", "zh": "这里不算其他气体的作用，也不是在算液态水滴的重量。" }
+          ]
+        },
+        {
+          "index": 3,
+          "pairs": [
+            { "en": "Keep the box the same size and the temperature steady.", "zh": "让盒子大小和温度都保持不变，" },
+            { "en": "Add more water molecules to the gas.", "zh": "往气体里加入更多水分子。" },
+            { "en": "Their contribution to the pressure goes up.", "zh": "它们贡献的压强就会上升。" },
+            { "en": "As long as those conditions stay the same, more water-vapour pressure means more water vapour in that space.", "zh": "只要这些条件不变，水蒸气压越高，就表示同样空间里的水蒸气越多。" },
+            { "en": "It's another way to describe how much gaseous water is there.", "zh": "这是描述气态水有多少的另一种方式。" }
+          ]
+        },
+        {
+          "index": 4,
+          "pairs": [
+            { "en": "Bring back our piece of ice.", "zh": "再把那块冰带回来。" },
+            { "en": "Remember the moment when just as much water joined as left?", "zh": "还记得加入的水和离开的水一样多的时候吗？" },
+            { "en": "That was equilibrium.", "zh": "那就是平衡。" },
+            { "en": "The water-vapour pressure at that balance is its equilibrium vapour pressure.", "zh": "达到这个平衡时的水蒸气压，就叫冰的平衡水蒸气压。" },
+            { "en": "For the ice surface we're using, you'll also hear that balance value called saturation vapour pressure.", "zh": "对于我们这里使用的冰表面，你也会听到人们把这个平衡值叫作饱和水蒸气压。" }
+          ]
+        },
+        {
+          "index": 5,
+          "pairs": [
+            { "en": "If there's more vapour than that, scientists say the air is supersaturated with respect to ice.", "zh": "如果水蒸气比这个量更多，科学家就会说，空气相对于冰处于过饱和状态。" },
+            { "en": "Behind the long phrase is our simple picture: more water can join the ice than leave it.", "zh": "这句话有点长，背后却还是刚才那幅画面：加入冰的水可以比离开的多。" },
+            { "en": "The air isn't full.", "zh": "空气并没有被装满。" },
+            { "en": "And, as we saw with the liquid drop, a different surface can have a different balance point.", "zh": "而且，就像刚才看到的液态水滴，不同表面可以有不同的平衡点。" }
+          ]
+        },
+        {
+          "index": 6,
+          "pairs": [
+            { "en": "Whenever those names appear, come back to the ice.", "zh": "以后再遇到这些名称，就回头想想那块冰。" },
+            { "en": "Is it gaining water, losing water, or staying the same size while molecules keep moving both ways?", "zh": "它是在得到水、失去水，还是大小没变，分子却依旧在两个方向上来来往往？" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E01-09",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            { "en": "Take a sample of air at minus fifteen degrees Celsius.", "zh": "先取一份零下十五摄氏度的空气。" },
+            { "en": "Start with just enough water vapour to balance ice.", "zh": "一开始，只放入刚好能让冰达到平衡的水蒸气。" },
+            { "en": "As much water joins the ice as leaves it.", "zh": "加入冰的水和离开的水一样多。" },
+            { "en": "Mark that vapour amount: it is our starting point.", "zh": "把这个水蒸气量标出来，作为我们的起点。" }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            { "en": "Now add vapour until there is enough to balance liquid water at the same temperature.", "zh": "现在加入水蒸气，直到足以让同一温度下的液态水达到平衡。" },
+            { "en": "We need more, just as we saw with our two neighbours.", "zh": "需要的量更多，就像刚才那两个邻居一样。" },
+            { "en": "Mark the original amount first, then pick out what we added.", "zh": "先标出原来的量，再挑出后来加入的部分。" },
+            { "en": "That difference is the extra vapour above ice balance.", "zh": "这个差，就是高出冰平衡值的那部分水蒸气。" }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            { "en": "Move those extra dots aside so we can see them clearly.", "zh": "把多出的白点移到旁边，好让我们看清。" },
+            { "en": "They are still water vapour, not little pieces of ice.", "zh": "它们仍然代表水蒸气，不是小冰块。" },
+            { "en": "We are counting how much water lies above the ice's balance amount.", "zh": "我们数的是，比冰达到平衡所需的量多出来的那些水。" }
+          ]
+        },
+        {
+          "index": 3,
+          "pairs": [
+            { "en": "Now make a second, calculated comparison at minus forty degrees.", "zh": "现在，用计算再做一个零下四十摄氏度的比较。" },
+            { "en": "Use the same size of air sample, and let every dot represent the same amount of water in both pictures.", "zh": "取同样体积的空气，两幅图里的每个白点也都代表同样多的水。" },
+            { "en": "At this colder temperature, both surfaces balance with much smaller amounts of vapour.", "zh": "在这个更低的温度下，两种表面达到平衡所需的水蒸气量都小得多。" },
+            { "en": "Mark the ice reference again, then separate the extra needed to reach the liquid-water balance.", "zh": "再次标出冰的平衡量，再把让液态水达到平衡所需的额外部分分出来。" }
+          ]
+        },
+        {
+          "index": 4,
+          "pairs": [
+            { "en": "Bring the two extra amounts together.", "zh": "把两边多出的水放到一起比较。" },
+            { "en": "Which contains more water?", "zh": "哪边更多？" },
+            { "en": "In this comparison, the minus fifteen sample has more extra vapour than the minus forty sample.", "zh": "在这组比较里，零下十五度那份空气多出的水蒸气，比零下四十度的更多。" },
+            { "en": "The colder sample does not automatically provide more.", "zh": "更冷，并不自动意味着能提供更多。" },
+            { "en": "We have to compare the actual amounts, not just the temperatures.", "zh": "我们得比较实际的量，不能只看温度。" }
+          ]
+        },
+        {
+          "index": 5,
+          "pairs": [
+            { "en": "These are calculated balance comparisons, not observations of two clouds.", "zh": "这些是根据平衡值算出的比较，不是对两朵云的观测。" },
+            { "en": "They do not promise liquid droplets at minus forty.", "zh": "它们并不保证零下四十度还有液态水滴。" },
+            { "en": "And the extra vapour is not all the water a crystal could ever receive: droplets and moving air can replenish it.", "zh": "而且，多出的水蒸气并不是雪晶今后能得到的全部水：水滴和流动的空气还能继续补充。" },
+            { "en": "This comparison answers one question about the supply; it does not predict the crystal's growth speed.", "zh": "这个比较只回答了关于水源的一个问题，并不能预测雪晶会长得多快。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E01-10",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            { "en": "Keep watching our cloud.", "zh": "继续看这朵云。" },
+            { "en": "Some drops freeze.", "zh": "有些水滴冻成了冰，" },
+            { "en": "Others get smaller as their water passes through the gas and into growing ice.", "zh": "另一些水滴则在变小，里面的水经过气体，进入正在生长的冰。" },
+            { "en": "Either way, there's less liquid water left in the drops.", "zh": "不管走哪条路，水滴里剩下的液态水都在减少。" }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            { "en": "Look around when the last drop in our picture disappears.", "zh": "当画面里的最后一滴水消失时，再看看周围。" },
+            { "en": "The ice is still there.", "zh": "冰还在，" },
+            { "en": "So is some water vapour.", "zh": "也仍然有一些水蒸气。" },
+            { "en": "The cloud hasn't lost all its water.", "zh": "这朵云并没有失去所有的水。" },
+            { "en": "It's lost the liquid drops that were helping feed this particular journey.", "zh": "消失的是那些液态水滴——刚才那条供水路线，需要它们帮忙。" }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            { "en": "A cold cloud isn't an endless supply.", "zh": "一朵冷云，并不等于无穷无尽的水源。" },
+            { "en": "To know what a crystal can do next, we need to ask what's left and whether that water can reach it.", "zh": "要知道雪晶接下来还能怎样生长，得先问：还剩下什么水？这些水能不能到达它？" },
+            { "en": "The cloud's history matters.", "zh": "这朵云之前经历了什么，也很重要。" }
+          ]
+        },
+        {
+          "index": 3,
+          "pairs": [
+            { "en": "That doesn't give us a temperature below which snow becomes impossible.", "zh": "但这并没有给出一个低于它就绝不可能下雪的温度。" },
+            { "en": "Crystals that already exist can still fall.", "zh": "已经存在的雪晶仍然可以落下来。" },
+            { "en": "Ice can grow in colder conditions when water is available.", "zh": "只要有水可供生长，冰在更冷的条件下也能继续长大。" },
+            { "en": "There's no magic switch on the thermometer that tells the whole story.", "zh": "温度计上没有一个神奇的开关，能把整个故事说完。" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E01-11",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            { "en": "Look again at the drop and the crystal we started with.", "zh": "再看一眼开头的那滴水和那颗雪晶。" },
+            { "en": "Can you follow the water between them now?", "zh": "现在，你能跟着水走完它们之间的路了吗？" }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            { "en": "It leaves the drop as invisible gas, travels through the air, and can join the ice.", "zh": "水以看不见的气体离开水滴，穿过空气，并可能成为冰的一部分。" },
+            { "en": "With the right amount of vapour around them, the drop loses more water than it gets back while the ice gains more than it loses.", "zh": "当周围的水蒸气量合适时，水滴失去的水比收回的多，而冰得到的水比失去的多。" },
+            { "en": "The drop never has to touch the crystal.", "zh": "整个过程中，水滴都不必碰到雪晶。" }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            { "en": "But look at what was built.", "zh": "但看看最后长出了什么。" },
+            { "en": "Flat faces.", "zh": "平整的晶面。" },
+            { "en": "Six main directions.", "zh": "六个主要方向。" },
+            { "en": "Branching arms.", "zh": "分出枝杈的晶枝。" },
+            { "en": "We've followed the water.", "zh": "我们已经跟着水走过来了，" },
+            { "en": "We haven't yet explained why it made this shape.", "zh": "却还没解释，它为什么会长成这个形状。" }
+          ]
+        },
+        {
+          "index": 3,
+          "pairs": [
+            { "en": "There was no drawing of those branches inside the seed.", "zh": "冰种子里面没有藏着枝杈的图纸，" },
+            { "en": "No one carved them out of a larger lump.", "zh": "也没有谁把一大块冰雕成了这样。" },
+            { "en": "They appeared as new water joined the ice.", "zh": "是新的水不断加入，才长出了这些形状。" },
+            { "en": "To understand why, we'll need to look inside the solid—and then at how its different surfaces grow.", "zh": "要弄明白为什么，我们得往固体内部看看，再看看它的不同表面是怎样生长的。" }
+          ]
+        },
+        {
+          "index": 4,
+          "pairs": [
+            { "en": "First, let's start with the number that keeps coming back.", "zh": "先从那个反复出现的数字开始吧。" },
+            { "en": "Why six?", "zh": "为什么是六？" }
+          ]
+        }
+      ]
+    }
+  ]
+}
