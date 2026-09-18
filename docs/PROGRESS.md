@@ -6,7 +6,7 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
-## Active media export — 2026-09-17
+## Completed media export — 2026-09-17
 
 The maker requests twice-speed series opening growth and one home → continuous entry → E01 MP4.
 The [bounded export plan](plans/science-series-home-e01-export.md) governs the implementation in
@@ -14,9 +14,11 @@ the retained website worktree. Current Mandarin narration and landscape export a
 working choices. No source words, recordings, old film, solver or scientific gate will change.
 The faster opening and fixed-frame compositor are implemented; the prototype and sampled section
 frames were inspected. Website `docs/series-export-checks.json` records focused tests/build results.
-The complete render is running under website `export/series-e01-zh-2026-09-17-fast-v2/`; its manifest and
-worker-equivalence record bind the actual recipe. Next: finish assembly, decode/inspect the final
-movie and audit audio alignment. Do not rebuild the website during capture.
+The complete MP4 is under website `export/series-e01-zh-2026-09-17-fast-v2/`; the
+[review](reviews/science-series-home-e01-export-2026-09-17.md) records full decoding/timestamp
+verification, independent audio/chunk audits and bounded decoded visual inspection. Website
+`docs/series-export-final.json` records the exact file identity and source receipts. Next: maker
+playback review of the retained MP4; no further render or narration rewrite is required.
 
 ## Historical record
 
@@ -780,6 +782,16 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 0043–0044's Phase 7 deferrals remain authoritative and cannot be discharged by Phase 10.
 
 ## Next step
+
+### Home → E01 MP4 — ready to watch
+
+Open the [export review](reviews/science-series-home-e01-export-2026-09-17.md), then the retained
+website worktree's `export/series-e01-zh-2026-09-17-fast-v2/Cryosphere-home-and-episode-1-mandarin.mp4`.
+The opening grows at twice its previous speed; the complete movie preserves current Mandarin
+audio and Chinese reader content. Website `docs/series-export.md` names the reproducible commands;
+`docs/series-export-final.json` binds the delivered bytes and independent audit receipts. No render
+is running. Preserve this file and the earlier prototype/partial directories; any requested new
+export uses a new directory, not an overwrite. Human viewing/listening acceptance remains open.
 
 ### Same-page Chinese and Mandarin — ready to listen and review
 

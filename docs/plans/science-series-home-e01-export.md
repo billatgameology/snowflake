@@ -1,6 +1,6 @@
 # Plan — faster opening and complete home-to-E01 MP4
 
-- Status: implementation and prototype checked; full export in progress
+- Status: complete; delivered artifact checked, maker playback review next
 - Date: 2026-09-17
 - Baselines: authority `a60e4d3`; website `d434084`
 - Parent: [series plan](explore-journey-science-series.md)
@@ -45,7 +45,7 @@ deployment, upload, push, merge, deletion or public release. Product-sized check
 
 Mandarin and landscape are explicit working assumptions; adjust if the maker requests otherwise.
 
-## Execution — prototype complete, full render running
+## Execution — prototype and initial render
 
 Website `docs/series-export.md` records the capture implementation and exact checks. Its
 `docs/series-export-checks.json` records 54 focused passes, zero failures and TypeScript/build
@@ -59,7 +59,7 @@ The full run uses `node scripts/export-series-e01.mjs`; live receipts are under
 starting at 17.9 seconds, using the existing source MP3 and semantic-onsets-v2 clock. Independent
 code review repaired a full-duration decimal-rounding assertion before launch. `worker-equivalence.json`
 records matching composed PNG bytes across both workers at one crystal and one diagram time.
-Next: finish the render and verify the assembled artifact; do not rebuild during capture.
+The initial run was superseded by the capture repair below without rebuilding the site.
 
 ### Lossless capture performance repair
 
@@ -80,7 +80,20 @@ for fonts and two animation frames, reads layout and captures the explicit viewp
 `export/series-e01-zh-2026-09-17-fast-v2/worker-equivalence.json` records equal decoded RGB across
 workers **and** the ordinary screenshot path at both probes. Its saved proof PNGs make the
 comparison independently inspectable. This changes only the exporter, not the frozen site.
-The full render continues there; the earlier directories and partial files remain intact.
+The full render completed there; the earlier directories and partial files remain intact.
+
+## Completion
+
+Website `docs/series-export-final.json` copies the finished report and independent audit values
+at write time and records their source paths/hashes. The output is
+`export/series-e01-zh-2026-09-17-fast-v2/Cryosphere-home-and-episode-1-mandarin.mp4` in the retained
+website worktree: 41,756 frames, 1,391.8666666666666 seconds, 338,183,144 bytes, SHA-256
+`a1f8a16c351df5b66db3985df968a521f9d6c5cf03f535cfaff2432ae5f106f6` (adjacent `report.json`).
+Full decode and timestamp checks passed. Independent audio samples all align at the declared
+opening offset; the completed-chunk review found no recorded semantic/scroll discontinuities.
+Root inspected decoded samples of the opening, transition, all scenes and ending.
+See the [review](../reviews/science-series-home-e01-export-2026-09-17.md) for coverage and limits.
+Next: maker watches this retained MP4; no further render or source rewrite is required by this task.
 
 ## Tried and rejected
 
