@@ -1,6 +1,6 @@
 # Plan — same-page English / 中文 series
 
-- **Status:** translation refinement and Susan-voice Mandarin re-production complete (2026-09-18); fluent listening/understanding review remains
+- **Status:** Yun voice restoration on the refined text in progress (2026-09-18, later); Susan revisions retained; fluent listening/understanding review remains
 - **Started:** 2026-09-17
 - **Scope:** existing Simplified Chinese series; Mandarin voice `4AfodMgwXps9oZFhHzoj` (2026-09-17 revisions, retained) superseded by maker-supplied `0H4ruoQ81Ei2FCwjW5j1` (2026-09-18 amendment below)
 - **Parent:** [series plan](explore-journey-science-series.md), [episode design guide](../video/science-series-design-guide.md)
@@ -192,6 +192,27 @@ No English text, audio, solver, gate, export or publication changed; E02 remains
 
 Next: maker listens in 中文 on the existing E01 page and judges Susan's delivery and the refined wording;
 decide whether to match Mandarin loudness to English. Human listening and audience comprehension stay open.
+
+## Yun voice restoration on the refined text — 2026-09-18 (planned before implementation)
+
+After listening, the maker prefers the earlier Mandarin voice and asked to switch back. The retained
+2026-09-17 Yun takes speak the superseded wording, so re-pointing the live scores at them would play a
+stale recording against the refined text. Baselines: authority `d105441`, website `e3bfbb4`.
+
+1. Before any paid request, run an independent non-author review of the refined E01/E02 Chinese
+   (per-section meaning, qualifiers, numbers, naturalness, terminology consistency) with adversarial
+   verification of each finding; apply accepted fixes through the phrase-anchor authoring so paragraphs
+   and cue pairs stay identical, and rebuild the authority/website assets.
+2. Regenerate both episodes with Yun (`4AfodMgwXps9oZFhHzoj`, explicit `--voice=`) into new immutable
+   revisions `2026-09-18-e01-mandarin-yun` and `2026-09-18-e02-mandarin-yun`, one request per section, no
+   retry; pace with revision-specific cue files; restore Yun as the generator's default Mandarin voice.
+   Susan and 2026-09-17 revisions remain retained.
+3. Re-pin the voice in tests, rerun the focused tests, TypeScript/build, the parameterized audits, the
+   ASR spot-check and the sampled live checks; then an independent records check of the quoted numbers.
+4. Update the review, this plan, PROGRESS, guide and prompt voice lines; scoped commits per repository.
+
+Done when both live Mandarin scores play Yun over the refined (reviewed) text with verified cues and
+retained prior assets. Not claimed: listener acceptance, audience comprehension, E02 release, export.
 
 ## Tried and rejected
 
