@@ -21,6 +21,12 @@ source/audio checks, sampled phone/desktop visual checks and remaining listening
 The design guide is updated. Prior film, E02 and completed export stay preserved. Next: maker
 viewing of the same series/E01 page, not a new export or an audience-acceptance claim.
 
+Small follow-up: website `64ce9c6` changes the shared visible English language button to `EN`,
+retaining `English` as its accessible name and preserving switching behavior. Localization
+checks (`node --test --test-reporter=dot scripts/series-localization.test.mjs`) and the Sites
+portable build (`tsc -b && vite build`) passed; no audio or content changed. Next remains
+maker viewing of the existing page.
+
 ## Completed English E01 attention revision — 2026-09-17
 
 The maker requests a sweeping declutter/progressive-reveal pass after the scene-7 screenshot,
