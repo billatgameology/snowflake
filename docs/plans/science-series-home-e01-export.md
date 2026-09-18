@@ -61,6 +61,18 @@ code review repaired a full-duration decimal-rounding assertion before launch. `
 records matching composed PNG bytes across both workers at one crystal and one diagram time.
 Next: finish the render and verify the assembled artifact; do not rebuild during capture.
 
+### Lossless capture performance repair
+
+The initial full-render path spends substantial time compressing PNGs, not changing the visual.
+Website `export/series-capture-benchmark/report.json` compares twelve standard screenshots
+(2.070202166 seconds) with twelve speed-optimized lossless PNGs (0.583091792 seconds), while
+the original render was running. Both decode to the same RGB SHA-256 at the sampled diagram.
+Use the faster PNG-compression option without changing the frozen site, dimensions or frames.
+Retain the original run directory. A new versioned recipe may copy only completed chunks after
+checking the original manifest, identical built bytes/timing/renderer/encoder contract, receipt
+and file hashes, dimensions and decoded frame count; record explicit reuse provenance. Partial
+chunks are not reused. This is a capture-encoding repair, not lower-resolution or lossy imagery.
+
 ## Tried and rejected
 
 - Canvas-only capture: excludes the reader, title and multi-layer snowfall.
