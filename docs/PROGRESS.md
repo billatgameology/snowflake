@@ -6,14 +6,19 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
-## Active Nivogenesis opening update — 2026-09-17
+## Completed Nivogenesis opening update — 2026-09-17
 
 The maker requests the Nivogenesis series name, removal of the top original-film link, three
 additional E02 recordings in the opening and original sound design. The
 [bounded amendment](plans/explore-journey-science-series.md#nivogenesis-identity-opening-collection-and-sound--planned-2026-09-17)
-governs implementation. Next: extend the existing recorded collection, synthesize a quiet
-optional opening atmosphere, integrate sound controls without narration overlap and inspect
-the existing page. Original film, narration, routes and completed export remain preserved.
+governs implementation. Website `explore/film-part1@1f0fbd5` adds the name, recorded collection
+and optional original sound, including reviewed loading/cancellation, replay and resize fixes.
+Website `docs/series-nivogenesis-verification.json` records 67 focused passes, zero failures,
+TypeScript/build success and complete WAV reproduction/decode. The
+[review](reviews/science-series-nivogenesis-2026-09-17.md) records sampled visual checks and the
+remaining human-listening/performance limits. Design guide updated. Next: maker viewing and
+audition with **Play with sound** at the existing series URL. Original film, narration, routes
+and completed export remain preserved; no deployment or new MP4.
 
 ## Completed opening inspection and E01 follow-up — 2026-09-17
 
@@ -829,12 +834,15 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Nivogenesis opening — implement
+### Nivogenesis opening — ready for maker viewing and listening
 
-Read the [amendment](plans/explore-journey-science-series.md#nivogenesis-identity-opening-collection-and-sound--planned-2026-09-17).
-Work in the retained website checkout from `64ce9c6`: `SeriesHome.tsx`, recorded marker
-selection and a new isolated optional opening-audio controller. Do not edit episode narration
-or the original film; root owns site edits and browser checks.
+Read the [review](reviews/science-series-nivogenesis-2026-09-17.md), then open
+`http://127.0.0.1:5185/series` and choose **Play with sound**. Inspect the added hollow column,
+capped column and sectored plate. For a concrete follow-up, start in website
+`src/series/SeriesHome.tsx`, `src/series/openingSound.ts` and `src/hero1/recordedCollection.ts`;
+run `node --test scripts/series-opening-sound.test.mjs`. Preserve the explicit opt-in,
+pending-play cancellation and pre-narration stop. Human audition remains the next useful check;
+do not regenerate narration or the previous MP4 without a new request.
 
 ### Opening inspection and E01 follow-up — ready for maker viewing
 

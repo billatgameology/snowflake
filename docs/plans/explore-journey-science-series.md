@@ -945,7 +945,34 @@ are available in the opening, and the optional sound behaves coherently without 
 narration. Existing material is preserved. Root owns site/browser edits; delegated work is
 bounded asset generation or read-only review, never independent site mutation.
 
+### Implementation and verification
+
+Website `explore/film-part1@1f0fbd5` implements this amendment. The opening starts with plate,
+column, hollow column, capped column and sectored plate plus the arriving Run B; later
+replacements continue cycling the existing catalog. Nivogenesis is the series name; the
+instrument identity and historical film/export names remain intact. Only the top film link
+was removed. Spoken source and both language recordings are unchanged.
+
+The original composition and reproducible recipe are retained in website
+`public/series/sound/nivogenesis-opening-v1.wav` and `docs/series-sound/nivogenesis-v1/`.
+Website `docs/series-nivogenesis-verification.json` records 20 seconds, 3840044 bytes,
+SHA-256 `237f432b6335363f090dd63195cae10c5e79fed36772129f05820b5384795f2b`,
+67 focused passes, zero failures and successful TypeScript/Sites build, reproduction and full
+audio decode. The [review](../reviews/science-series-nivogenesis-2026-09-17.md) records independent
+lifecycle findings, repaired async-boot/DPR defects, sampled browser checks and the lack of a
+human audition or long mobile performance measurement. Next is maker viewing/listening on the
+existing series page, not new narration, export, deployment or another episode.
+
 ## Tried and rejected
+
+- **Mute audio while waiting for slow visual loading.** Playback still consumes the file and
+  may end before the crystal appears. Hold the already user-authorized element paused at the
+  start; resume only once the visual clock exists. Skip must invalidate pending play as well.
+- **Cancel a GPU boot only after the factory returns.** Its obsolete asynchronous initialization
+  can configure the replacement's canvas before cleanup unconfigures it. Abort inside the
+  factory after each device/adapter await and before touching the shared context.
+- **Invalidate static renders only for CSS width/height changes.** A changed backing-store
+  pixel ratio clears the retained buffer too; notify exact rendering after DPR changes.
 
 - **Static exact-rendered canvas without a retained drawing buffer.** Browser enlargement
   could leave the model blank after compositing/resizing. Retain its draw; do not substitute

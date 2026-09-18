@@ -2,7 +2,7 @@
 
 Captured 2026-09-16 from the maker's feedback; updated 2026-09-17 with the conversational E01
 production lessons and the subsequent introduction, visual-flow, comparison, visual-clutter,
-real-model inspection and closing-hook feedback.
+real-model inspection, closing-hook feedback and Nivogenesis opening sound direction.
 This is the reusable editorial/design guide for
 the [active series plan](../plans/explore-journey-science-series.md), not a scientific gate.
 The [E01 visual guide](science-series-e01-visual-guide.md) holds that episode's shot history.
@@ -190,6 +190,29 @@ Refresh the changed narration and its visual cues together. These are implemente
 to the maker's requests, not yet new praise or comprehension evidence. The
 [follow-up review](../reviews/science-series-e01-opening-followup-2026-09-17.md) records verification
 and remaining limits.
+
+## Nivogenesis collection and optional sound — 2026-09-17
+
+The maker names the series **Nivogenesis** and asks for the three additional E02 crystal
+recordings in the opening. Reuse a varied, identifiable collection rather than filling every
+position with the same attractive star. Keep the established renderer, inspection controls and
+the original Run B arrival. Additional recordings need a bounded rendering budget: static
+demand-driven previews, one expanded inspection at a time, low-tier decimation and release
+when offscreen. This is a product decision, not acceptance of the models as physical predictions.
+
+The maker also authorizes the suggested quiet air-and-crystalline-tone soundscape. Sound
+supports the opening's mood; it does not represent measured crystal vibrations or explain a
+scientific mechanism. Keep it explicitly opt-in, with an obvious mute control and no automatic
+restart. Wait for the visual to be ready, follow its clock, and stop before narration takes
+ownership. Skip, Still, leaving the home, hiding the page and unmount must cancel pending
+playback too. A quiet waveform and successful decoding are technical checks, not a listening
+review: distinguish them and ask the maker to audition on their own speakers or headphones.
+
+Inspect replay and display-density changes as well as first load. A retained drawing buffer
+can still be cleared by a DPR change; an obsolete asynchronous renderer must not reconfigure
+or dispose the replacement's canvas. The
+[Nivogenesis review](../reviews/science-series-nivogenesis-2026-09-17.md) records these repaired
+failures and the bounded visual/audio checks. This request is not new praise for the result.
 
 ## What to carry forward from the praise
 
