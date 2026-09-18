@@ -45,6 +45,22 @@ deployment, upload, push, merge, deletion or public release. Product-sized check
 
 Mandarin and landscape are explicit working assumptions; adjust if the maker requests otherwise.
 
+## Execution — prototype complete, full render running
+
+Website `docs/series-export.md` records the capture implementation and exact checks. Its
+`docs/series-export-checks.json` records 54 focused passes, zero failures and TypeScript/build
+success. Root inspected the prototype's decoded growth/title/descent frames and compositor
+samples of all eleven sections, plus the live snowfall/title. The prototype receipt is
+`export/series-e01-zh-2026-09-17-preview/report.json` in that worktree. This is bounded inspection,
+not a full listening or audience acceptance claim.
+
+The full run uses `node scripts/export-series-e01.mjs`; live receipts are under
+`export/series-e01-zh-2026-09-17/`. Its `manifest.json` registers 41,756 frames with narration
+starting at 17.9 seconds, using the existing source MP3 and semantic-onsets-v2 clock. Independent
+code review repaired a full-duration decimal-rounding assertion before launch. `worker-equivalence.json`
+records matching composed PNG bytes across both workers at one crystal and one diagram time.
+Next: finish the render and verify the assembled artifact; do not rebuild during capture.
+
 ## Tried and rejected
 
 - Canvas-only capture: excludes the reader, title and multi-layer snowfall.
