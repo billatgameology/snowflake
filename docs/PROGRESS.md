@@ -6,6 +6,22 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
+## In progress: iOS report on the live site — 2026-09-18
+
+The maker reports the live site works on Android but on iPhone "the opening didn't cover the whole
+screen" and "the play button didn't work". No iOS device or simulator exists on this Mac; Playwright
+WebKit under iPhone emulation runs the site fine. Measured under phone emulation, the opening held nine
+live WebGL2 contexts and a 112 MB heap at arrival (hero, WebGL snowfall, six marker renderers), which
+iOS Safari tolerates far less than Android Chrome. Website `explore/film-part1@6d0a210` (not yet live)
+keeps three live recorded renderers and half-resolution marker volumes on touch devices (peak seven
+contexts, 62 MB heap), adds plain-`vh` fallbacks before the `svh` rules, and adds an opt-in `?diag=1`
+overlay reporting user agent, viewport/canvas metrics, live/peak contexts, marker states and every media
+`play()` outcome with its refusal reason. It is deployed to the preview channel
+`https://nivogenesis--ios-dp3vhdsa.web.app` (expires 2026-09-25); focused tests 99/99, release test and
+preview smoke clean. Next: the maker opens that URL with `?diag=1` on the iPhone, taps Play and reports the
+overlay; then promote to live (`firebase deploy --only hosting`) if it resolves the report, or fix from the
+readout. The live site remains at `30d05f6`.
+
 ## Completed Nivogenesis public release — 2026-09-18
 
 **Live at https://nivogenesis.web.app** (Firebase Hosting, Spark). The maker-authored
