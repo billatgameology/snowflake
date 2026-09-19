@@ -1044,7 +1044,10 @@ episode; 100 focused tests passed, 0 failed; emulator and preview smokes clean; 
 review (runtime/loading and design; Fable, no shared context) confirmed eleven findings, all repaired
 before the commit (listed in the website record). Deviation from the plan as written: Episode 1 mounts on
 arrival as well as on scroll, so the central Play is instant after the opening; a Play pressed earlier
-takes the queued path. Next: the maker views the preview on desktop and phone; promotion is their call.
+takes the queued path. Maker's phone test of the preview (Android and iOS, 2026-09-19) led to `7415380`:
+Play after the opening (as directed, reverting the review's early Play), touch panning restored on the
+series and stage canvases, and the WebGL2 (iOS) snowfall brought to the WebGPU field's density (details in
+the website record and PROGRESS). Preview redeployed; promotion is the maker's call.
 
 ## Tried and rejected
 

@@ -18,10 +18,17 @@ from website `docs/series-home-verification.json`: public home chunk 1,244 KB (f
 258 KB, Episode 1 173 KB plus its 159 KB Mandarin-score chunk; 100 focused tests passed, 0 failed;
 emulator and preview smokes clean; live check clean at 1280×800 and 360×780 emulation including the
 queued-start case. An independent two-lens review confirmed eleven findings, all repaired before the
-commit. Preview channel `https://nivogenesis--home-zd11o6bj.web.app` (expires 2026-09-26); the live site
-stays at `84af23f`. Next: the maker views the preview on desktop and phone; promote with
-`firebase deploy --only hosting --project nivogenesis` from the committed head when confirmed, then tag
-(`nivogenesis-public-2026-09-19`) and record here and in the public release plan.
+commit. The maker's Android and iOS test of that preview found three things, fixed in website `7415380`
+(records website `docs/science-series.md`, receipt `phoneFindings2026_09_19`): Play now appears only after
+the opening; touch scrolling on the opening works again (the global canvas `touch-action: none` had blocked
+a finger on the snow once the cards no longer covered it; series and stage canvases allow vertical
+panning); and the iOS snowfall, drawn by the WebGL2 path on every iOS browser, measured a sixteenth of the
+WebGPU field's flakes at phone size (four-core tier demotion, a half-size count table, half the population
+hidden at rest, shrunk sprites) and now measures within a few percent of it (dim coverage 10.8% vs 10.4%
+in emulation). Preview channel `https://nivogenesis--home-zd11o6bj.web.app` (expires 2026-09-26) redeployed
+from `7415380`, smoke clean; the live site stays at `84af23f`. Next: the maker retests on both phones;
+promote with `firebase deploy --only hosting --project nivogenesis` from the committed head when
+confirmed, then tag (`nivogenesis-public-2026-09-19`) and record here and in the public release plan.
 
 ## Completed Episode 2 design-guide catch-up — 2026-09-18 (still unreleased)
 
