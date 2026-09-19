@@ -6,29 +6,24 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
-## Series home redesign on a preview channel — 2026-09-19 (awaiting the maker's confirmation)
+## Completed series home redesign — live 2026-09-19
 
 Maker direction: with thirty episodes coming, do not load every episode to show one; make the opening
-"super clean" (snow scene, one central Play that starts Episode 1, cards in the next scene, Still and
-Replay opening in the Menu). Plan amendment `ddcee92` first ([series plan](plans/explore-journey-science-series.md#opening-redesign-and-per-episode-loading--2026-09-19-planned-before-implementation)),
-implemented in website `4c335d6`: opening → selection (catalog cards, centred grid) → the chosen episode,
-every episode its own chunk (Episode 1 prefetched during the opening and mounted on arrival or on scroll;
-a Play pressed earlier queues the start; the capture harness loads only in capture mode). Numbers copied
-from website `docs/series-home-verification.json`: public home chunk 1,244 KB (from 1,583 KB), index
-258 KB, Episode 1 173 KB plus its 159 KB Mandarin-score chunk; 100 focused tests passed, 0 failed;
-emulator and preview smokes clean; live check clean at 1280×800 and 360×780 emulation including the
-queued-start case. An independent two-lens review confirmed eleven findings, all repaired before the
-commit. The maker's Android and iOS test of that preview found three things, fixed in website `7415380`
-(records website `docs/science-series.md`, receipt `phoneFindings2026_09_19`): Play now appears only after
-the opening; touch scrolling on the opening works again (the global canvas `touch-action: none` had blocked
-a finger on the snow once the cards no longer covered it; series and stage canvases allow vertical
-panning); and the iOS snowfall, drawn by the WebGL2 path on every iOS browser, measured a sixteenth of the
-WebGPU field's flakes at phone size (four-core tier demotion, a half-size count table, half the population
-hidden at rest, shrunk sprites) and now measures within a few percent of it (dim coverage 10.8% vs 10.4%
-in emulation). Preview channel `https://nivogenesis--home-zd11o6bj.web.app` (expires 2026-09-26) redeployed
-from `7415380`, smoke clean; the live site stays at `84af23f`. Next: the maker retests on both phones;
-promote with `firebase deploy --only hosting --project nivogenesis` from the committed head when
-confirmed, then tag (`nivogenesis-public-2026-09-19`) and record here and in the public release plan.
+"super clean". Plan amendment `ddcee92` ([series plan](plans/explore-journey-science-series.md#opening-redesign-and-per-episode-loading--2026-09-19-planned-before-implementation)).
+**Live at https://nivogenesis.web.app from website `8ef55a9`** (tag `nivogenesis-public-2026-09-19`, pushed;
+records `81f9bc6`), promoted without a preview channel at the maker's direction after their Android and
+iOS test of the `home` channel. What shipped: the opening (snow scene, title, one central Play shown after
+the opening, a bottom-right Skip shown during it that lands on the full snow field); the episode
+selection as the second scene (catalog cards, centred grid); every episode its own chunk (Episode 1
+prefetched during the opening; other episodes load when chosen); Still and Replay opening in the Menu;
+touch panning restored on the opening; the iOS (WebGL2) snowfall at the WebGPU field's density. Numbers
+copied from website `docs/public-release-verification.json` and `docs/series-home-verification.json`:
+`dist-public` 36 files, 70,553,846 bytes; home chunk 1,245 KB (was 1,583 KB), Episode 1 173 KB plus its
+159 KB Mandarin-score chunk; 100 focused tests passed, 0 failed; release test 2/2; emulator and live
+smokes clean on desktop and phone emulation; live check clean incl. Skip (113×44 px, arrival ~70 ms),
+queued start and a synthesized touch scroll. Two independent reviews (two-lens redesign review, eleven
+findings; the Episode 2 three-lens review's shared player fixes) are recorded in the website notes. Not
+checked: the maker's phones on the final build; the snowfall match is measured in emulation.
 
 ## Completed Episode 2 design-guide catch-up — 2026-09-18 (still unreleased)
 
@@ -1010,10 +1005,9 @@ export uses a new directory, not an overwrite. Human viewing/listening acceptanc
 
 ### Nivogenesis is live — view it, then decide the follow-ups
 
-Open **https://nivogenesis--home-zd11o6bj.web.app** first (the 2026-09-19 home redesign on its preview
-channel: one central Play, cards in the next scene, Still and Replay in the Menu) on desktop and phone;
-say so and it is promoted from website `4c335d6`. The live site is still the 2026-09-18 phone pass:
-website `84af23f`, tag `nivogenesis-public-2026-09-18.2`. Everything shipped is in the
+Open **https://nivogenesis.web.app** on desktop and phone: live since 2026-09-19 from website `8ef55a9`
+(tag `nivogenesis-public-2026-09-19`): the opening with a bottom-right Skip and, after it, one central Play;
+the episode cards in the next scene; Still and Replay in the Menu. Everything shipped is in the
 [plan's completion record](plans/explore-nivogenesis-public-release.md#completion-record--2026-09-18).
 To change the site: work on `explore/film-part1` in the retained website worktree, run
 `npm run build:public`, `node --test scripts/public-release.test.mjs`, the smoke against

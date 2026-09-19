@@ -1,7 +1,7 @@
 # Plan — Nivogenesis public release (completed work only, clean URLs)
 
 - **Phase:** Maker-directed Journey/media release; no scientific phase, solver or gate change
-- **Status:** complete — live at https://nivogenesis.web.app since 2026-09-18; currently from website `84af23f` (tag `nivogenesis-public-2026-09-18.2`, the same-day phone pass), first from `30d05f6` (tag `nivogenesis-public-2026-09-18`); see the completion record at the end
+- **Status:** complete — live at https://nivogenesis.web.app since 2026-09-18; currently from website `8ef55a9` (tag `nivogenesis-public-2026-09-19`, the series home redesign), before that `84af23f` (tag `nivogenesis-public-2026-09-18.2`) and first `30d05f6` (tag `nivogenesis-public-2026-09-18`); see the completion record at the end
 - **Started:** 2026-09-18
 - **Last touched:** 2026-09-18 by Claude Fable 5.1 (second-pass review, maker decisions D10–D21, execution)
 - **Related:** [science series plan](explore-journey-science-series.md), [bilingual plan](science-series-bilingual.md) (the Yun-voice amendment in flight), [next-session file map](../video/nivogenesis-next-session-prompt.md)
@@ -339,6 +339,19 @@ after the card tap. D21 unchanged: releases are tags on `explore/film-part1`; `r
 stays at `fa26ecd` on origin as the first-release line and is not advanced. Deferred, unchanged: the
 education-chapter follow-ups, loudness matching, a custom domain; Episode 2 frozen, with the phone pass
 still to be ported into `EpisodeTwo.tsx` before any release.
+
+### Third deploy — 2026-09-19, series home redesign
+
+Live from website `8ef55a9` (tag `nivogenesis-public-2026-09-19`, pushed; records `81f9bc6`), promoted without
+a preview channel at the maker's direction after their Android and iOS test of the `home` channel. Scope in
+the [series plan](explore-journey-science-series.md#opening-redesign-and-per-episode-loading--2026-09-19-planned-before-implementation).
+Deployed `dist-public/`: **36 files, 70,553,846 bytes** (website `docs/public-release-verification.json`,
+regenerated in place with SHA-256 per file); the public build now emits per-episode chunks (home 1,245 KB,
+Episode 1 173 KB, its Mandarin score 159 KB). Checks: `npm run build` and `npm run build:public` exit 0;
+**100 focused tests passed, 0 failed**; release test 2/2 with leak probes derived from the live Episode 2
+scores; emulator and post-deploy live smokes clean, now also asserting the opening structure (Skip during
+the opening, one Play after it, no cards in the opening), the chunk set on landing, the central Play and
+the selection card each starting English narration. D21 unchanged: a tag on `explore/film-part1`.
 
 ## Tried and rejected
 

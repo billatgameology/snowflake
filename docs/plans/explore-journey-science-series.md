@@ -1048,6 +1048,9 @@ takes the queued path. Maker's phone test of the preview (Android and iOS, 2026-
 Play after the opening (as directed, reverting the review's early Play), touch panning restored on the
 series and stage canvases, and the WebGL2 (iOS) snowfall brought to the WebGPU field's density (details in
 the website record and PROGRESS). Preview redeployed; promotion is the maker's call.
+The maker then asked for a bottom-right Skip during the opening that lands on the home scene (website
+`8ef55a9`; a skipped opening starts the snowfall full) and authorized publishing without a preview:
+live from `8ef55a9`, tag `nivogenesis-public-2026-09-19`, live smoke clean. This amendment is complete.
 
 ## Tried and rejected
 
