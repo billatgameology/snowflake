@@ -6,44 +6,36 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
-## In progress: iOS report on the live site — 2026-09-18
+## Completed phone pass on the live site — 2026-09-18
 
-The maker's iPhone screenshots (Chrome for iOS, a WebKit WebView) of the live site show large soft snow
-blobs, oversized episode cards, a story card whose tap does nothing and a Play that "moves a little"
-then stops; Android is fine. No iOS device or simulator exists on this Mac. Diagnosis from code and
-phone emulation: iOS WebViews get the WebGL2 snowfall, whose near sprites are art-directed 15 px discs;
-Episode 1's guided scroll treated iOS WebKit's asynchronously reported scroll positions (and tap wobble on
-`touchmove`) as a manual takeover and paused itself; the opening held nine live WebGL2 contexts and a
-112 MB heap at arrival. Website `explore/film-part1@3c3677e` (not yet live; live stays at `30d05f6`):
-phone-scaled WebGL2 sprites, an envelope-based takeover test plus a ten-pixel touch threshold, compact
-cards (336×102 CSS px), three live recorded renderers and half-resolution marker volumes on touch devices
-(peak seven contexts, 62 MB heap), plain-`vh` fallbacks, and an opt-in `?diag=1` overlay (user agent,
-viewport/canvas metrics, renderer mode, contexts, marker states, every media `play()` outcome, errors).
-The maker confirmed Play works on the preview and asked for smaller cards, no Play with sound, no
-Mandarin badge in the player and a more noticeable paused Play: website `efc136b` shrinks phone cards to
-272×77 CSS px, removes the opening sound from the home (asset, recipe and module retained, WAV no
-longer shipped), removes the badge (AI narration stays identified in the intro text, status label and
-Sources panel) and highlights the paused Play. The independent three-lens review of that change set
-(Fable, no shared context; re-ran the build, tests and phone captures) found: an ordering gap in the
-takeover envelope (the first programmatic scroll on iOS could still read as a swipe), a never-cleared
-envelope, a paused Play that grew on phones, an illegible kicker and a top bar that overflowed at 360 px.
-Website `84af23f` fixes those and, from the phone captures, keeps the opening crystals off the cards on
-viewports ≤ 600 px: side bands only (`avoidCentre` 0.3, `edge` 0.09), the opening crystal lands in the
-right band, and the marker layer sits under the headline and cards (z 20 < 25) unless a crystal is open
-for inspection (z 30) — a crystal drifting behind the Episode 1 card had been able to take its tap.
-Deployed to the preview channel `https://nivogenesis--ios-dp3vhdsa.web.app` (expires 2026-09-25) from
-`84af23f`; 99/99 focused tests, emulator and preview smokes clean
-(`docs/public-release-smoke-*.json` are the earlier live records; this round's receipts are scratch);
-360 px Chrome phone capture: markers at x 23–79 and 281–338 beside the 44–316 card, the card centre
-hit-tests to the card, layer z 20 closed / 30 open. Known gap, deliberately left: the frozen, unreleased
-`EpisodeTwo.tsx` still carries the Mandarin badge and the old `expectedY` takeover code; port both
-before any Episode 2 release. Next: the maker retests the preview on the iPhone; promote with
-`firebase deploy --only hosting --project nivogenesis` from the committed head when accepted, then tag
-and record the live commit here and in the public release plan.
+The maker's iPhone report against the first deploy (Chrome for iOS, a WebKit WebView: large soft snow
+blobs, oversized episode cards, a story card whose tap did nothing, a Play that "moved a little" then
+stopped; Android fine; no iOS device or simulator on this Mac) was diagnosed from code and phone
+emulation and fixed over two rounds on the `ios` preview channel, which the maker confirmed on the
+iPhone before promotion. **Live at https://nivogenesis.web.app from website `84af23f`** (tag
+`nivogenesis-public-2026-09-18.2`, pushed; records at website `71b25af`). Shipped: phone-scaled WebGL2
+snow sprites; a guided scroll that treats iOS WebKit's asynchronously reported scroll positions as its
+own (an expected-position envelope seeded before the entering mode and cleared on pause, plus a
+ten-pixel touch threshold); 272×79 CSS px episode cards; three live recorded renderers and
+half-resolution marker volumes on touch devices; no opening sound on the home (module, asset and recipe
+retained, WAV no longer shipped); no Mandarin narration badge in the player (AI narration stays
+identified in the intro text, status label and Sources); a highlighted paused Play of fixed width; on
+viewports ≤ 600 px the opening crystals keep to the side bands (`avoidCentre` 0.3, `edge` 0.09), the
+opening crystal lands in the right band, and the marker layer sits under the headline and cards unless a
+crystal is open — a crystal drifting behind the Episode 1 card had been able to take its tap; an opt-in
+`?diag=1` field overlay. Evidence (website `docs/public-release-verification.json`, `-smoke-preview.json`,
+`-smoke-live.json`): `dist-public` 31 files, 70,552,920 bytes, largest the Mandarin narration at
+21,787,001 B; `npm run build` and `npm run build:public` exit 0 (13 allowlisted assets); 99 focused tests
+passed, 0 failed; emulator, `ios` preview and post-deploy live smokes clean on desktop and phone
+emulation; the 360 px capture hit-tests the card centre to the card with markers at x 23–79 and 281–338
+beside it. An independent three-lens review (Fable, no shared context; re-ran build, tests and captures)
+drove the second round. Known gap, deliberate: frozen, unreleased `EpisodeTwo.tsx` still carries the
+badge and the old `expectedY` takeover; port both before any Episode 2 release.
 
 ## Completed Nivogenesis public release — 2026-09-18
 
-**Live at https://nivogenesis.web.app** (Firebase Hosting, Spark). The maker-authored
+**Live at https://nivogenesis.web.app** (Firebase Hosting, Spark); superseded the same day by the
+phone-pass deploy from `84af23f` (entry above). The maker-authored
 [public release plan](plans/explore-nivogenesis-public-release.md) was executed after a second-pass
 review; its completion record names the deployed website commit `30d05f6` (tag
 `nivogenesis-public-2026-09-18`, pushed; merged into `explore/film-part1` at `fa26ecd`), the 32-file,
@@ -927,11 +919,12 @@ the prompt's baseline references; the E02 release hold remains intentional.
 ### Nivogenesis opening — ready for maker viewing and listening
 
 Read the [review](reviews/science-series-nivogenesis-2026-09-17.md), then open
-`http://127.0.0.1:5185/series` and choose **Play with sound**. Inspect the added hollow column,
+`http://127.0.0.1:5185/` (live: https://nivogenesis.web.app). Inspect the added hollow column,
 capped column and sectored plate. For a concrete follow-up, start in website
-`src/series/SeriesHome.tsx`, `src/series/openingSound.ts` and `src/hero1/recordedCollection.ts`;
-run `node --test scripts/series-opening-sound.test.mjs`. Preserve the explicit opt-in,
-pending-play cancellation and pre-narration stop. Human audition remains the next useful check;
+`src/series/SeriesHome.tsx` and `src/hero1/recordedCollection.ts`;
+run `node --test scripts/series-opening-sound.test.mjs`. The opening sound was removed from the home
+at the maker's request on 2026-09-18 (`src/series/openingSound.ts` and its asset are retained,
+unshipped; that test now pins its absence). Human audition remains the next useful check;
 do not regenerate narration or the previous MP4 without a new request.
 The latest opening has no experiment links and says “Every flake is a record of its fall.”
 E02's matching card says Coming soon; `src/series/seriesRelease.ts` deliberately keeps it
@@ -941,7 +934,7 @@ the maker asks to expose it; do not mistake preserved E02 source/assets for a li
 ### Opening inspection and E01 follow-up — ready for maker viewing
 
 Open the [follow-up review](reviews/science-series-e01-opening-followup-2026-09-17.md), then
-`http://127.0.0.1:5185/series` and `/series/episode-1`. Check hover/drag/zoom on recorded snowfall
+`http://127.0.0.1:5185/` and `/episode-1`. Check hover/drag/zoom on recorded snowfall
 crystals, scene 3's below-drop labelled airflow and the final English hook. For a concrete
 follow-up edit, start in `src/hero1/RecordedSnowMarker.tsx`, `src/series/earlyEpisodeDrawing.ts`
 or the canonical E01 draft as appropriate. Reproduce the website receipt's focused commands,
@@ -954,7 +947,7 @@ Human listening and uncoached audience comprehension remain unverified.
 Open the [series amendment](plans/explore-journey-science-series.md#english-e01-attention-pass--2026-09-17-planned-before-implementation).
 The retained website has the Menu and progressive, decluttered scenes. Open the
 [attention review](reviews/science-series-e01-attention-2026-09-17.md), then
-`http://127.0.0.1:5185/series/episode-1` in English: review the scene-7 budget, scene-4 magnifier
+`http://127.0.0.1:5185/episode-1` in English: review the scene-7 budget, scene-4 magnifier
 entrance and the separate ending feature reveals. Focused tests/build and sampled live checks
 are recorded; no complete uninterrupted viewing or audience comprehension is claimed.
 That attention-only pass did not change audio; the newer follow-up above owns the current
@@ -973,14 +966,18 @@ export uses a new directory, not an overwrite. Human viewing/listening acceptanc
 ### Nivogenesis is live — view it, then decide the follow-ups
 
 Open **https://nivogenesis.web.app** (and `/episode-1`) on desktop and phone; switch EN / 中文 and press
-Play with sound. Everything shipped is in the [plan's completion record](plans/explore-nivogenesis-public-release.md#completion-record--2026-09-18).
+Play. Live since the 2026-09-18 phone pass: website `84af23f`, tag `nivogenesis-public-2026-09-18.2`, the
+maker having confirmed the `ios` preview channel on an iPhone. Everything shipped is in the
+[plan's completion record](plans/explore-nivogenesis-public-release.md#completion-record--2026-09-18).
 To change the site: work on `explore/film-part1` in the retained website worktree, run
 `npm run build:public`, `node --test scripts/public-release.test.mjs`, the smoke against
 `firebase serve --only hosting --host 127.0.0.1 --port 5099`, commit, then
 `firebase deploy --only hosting --project nivogenesis` from that committed head and tag it. Never deploy
 `dist/`. Candidate follow-ups, none started: the education-chapter findings in the
 [science review](reviews/nivogenesis-e01-public-science-review-2026-09-18.md); Mandarin loudness matching;
-a custom domain. Episode 2 remains frozen and unreleased.
+a custom domain; `?diag=1` on the live site shows the field diagnostics overlay on any device. Episode 2
+remains frozen and unreleased; before any Episode 2 release, port the phone pass into `EpisodeTwo.tsx`,
+which still carries the Mandarin badge and the old `expectedY` takeover code.
 
 ### Same-page Chinese and Mandarin — Yun voice on reviewed E01 text, ready to listen
 

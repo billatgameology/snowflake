@@ -1,7 +1,7 @@
 # Plan — Nivogenesis public release (completed work only, clean URLs)
 
 - **Phase:** Maker-directed Journey/media release; no scientific phase, solver or gate change
-- **Status:** complete — live at https://nivogenesis.web.app since 2026-09-18 from website `30d05f6` (tag `nivogenesis-public-2026-09-18`); see the completion record at the end
+- **Status:** complete — live at https://nivogenesis.web.app since 2026-09-18; currently from website `84af23f` (tag `nivogenesis-public-2026-09-18.2`, the same-day phone pass), first from `30d05f6` (tag `nivogenesis-public-2026-09-18`); see the completion record at the end
 - **Started:** 2026-09-18
 - **Last touched:** 2026-09-18 by Claude Fable 5.1 (second-pass review, maker decisions D10–D21, execution)
 - **Related:** [science series plan](explore-journey-science-series.md), [bilingual plan](science-series-bilingual.md) (the Yun-voice amendment in flight), [next-session file map](../video/nivogenesis-next-session-prompt.md)
@@ -322,6 +322,23 @@ the opening is `/`, Episode 1 `/episode-1`, the experiments index `/experiments`
 Open after launch: the maker's own viewing/listening on the live site; loudness matching (Mandarin about
 3.6 LU below English) if wanted; the education-chapter follow-ups from the science review; the AMS
 glossary links answer a bot challenge to automated clients; Episode 2 stays frozen and local.
+
+### Second deploy — 2026-09-18, phone pass
+
+Live from website `84af23f` (tag `nivogenesis-public-2026-09-18.2`, pushed; records at `71b25af`).
+Trigger: the maker's iPhone report against `30d05f6` (PROGRESS, "Completed phone pass on the live
+site"). Two rounds on the `ios` preview channel `https://nivogenesis--ios-dp3vhdsa.web.app` (expires
+2026-09-25), the second after an independent three-lens review; the maker confirmed the preview on the
+iPhone, then said "Promote". Deployed `dist-public/`: **31 files, 70,552,920 bytes** (the opening WAV no
+longer ships; 13 allowlisted assets), largest the Mandarin narration at 21,787,001 B (website
+`docs/public-release-verification.json`, regenerated in place; the first release's receipts remain at
+`fa26ecd`). Checks: `npm run build` and `npm run build:public` exit 0; **99 focused tests passed, 0
+failed** (release test unchanged since `30d05f6`); emulator, preview and post-deploy live smokes clean,
+now also asserting that the opening sound control is absent and that English narration actually starts
+after the card tap. D21 unchanged: releases are tags on `explore/film-part1`; `release/nivogenesis-public`
+stays at `fa26ecd` on origin as the first-release line and is not advanced. Deferred, unchanged: the
+education-chapter follow-ups, loudness matching, a custom domain; Episode 2 frozen, with the phone pass
+still to be ported into `EpisodeTwo.tsx` before any release.
 
 ## Tried and rejected
 
