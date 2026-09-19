@@ -14,7 +14,12 @@ records the latest repairs and their limits. Those self-review findings inform t
 below; they are not new maker praise or evidence of audience comprehension. Earlier scene
 numbers in the feedback record refer to the earlier cut, not the revised episode's section order.
 The later [Mandarin production review](../reviews/science-series-mandarin-production-2026-09-17.md)
-records bilingual audio, same-page switching and their separate listening limits.
+records bilingual audio, same-page switching and their separate listening limits. The newer records
+a future episode will want are the [Episode 2 script](science-series-e02-script.md) and its
+[review with the 2026-09-18 catch-up addendum](../reviews/science-series-e02-review-2026-09-16.md#design-guide-catch-up--2026-09-18),
+the [public science review of the deployed Episode 1](../reviews/nivogenesis-e01-public-science-review-2026-09-18.md),
+the [Mandarin voice review](../reviews/science-series-mandarin-susan-2026-09-18.md), and the
+website's own running record `docs/science-series.md`, where the shipped facts and receipts live.
 
 ## Start here when creating an episode
 
@@ -32,6 +37,9 @@ as another set of production documents:
    explanatory passage with a spoken rehearsal before multiplying the treatment.
 5. Review a complete temporary-voice performance for pacing and understanding before scaling
    production. Record any partial coverage honestly; sampled checks do not fulfill that review.
+   This is the step that keeps being skipped: Episode 2's own review records complete uninterrupted
+   viewing at narration speed as **not checked**, because its reviewers seeked to instants. A
+   sampled pass is worth having and is not this.
 6. Follow the [audio and timing contract](#narration-and-timing-contract), including the maker's
    standing direction to refresh affected narration when its words are rewritten.
    Retime cues to the delivered performance; rehearse again after pause or tempo changes.
@@ -495,12 +503,19 @@ joined it. Simplifying the vocabulary must not simplify away the mechanism or it
     The animation is not a slide deck: do not stack the chapter title, a subsection title,
     an action heading and a full-sentence explanation of the same event. Put chapter navigation,
     sources, Still and Replay opening in an accessible secondary menu; leave core playback
-    reachable. Keep
+    reachable. Still is one series-wide toggle owned by the page — it freezes the opening snowfall
+    and the episode illustrations together — and Replay returns to the top, replays the opening and
+    keeps the visitor's Still choice. Keep
     chapter titles in the reader/navigation. On the stage use at most one current-beat heading
     when it helps, and prefer direct object labels/pointing to repeated headlines.
+    Make the primary Play unmistakable while paused and quiet while playing: a fixed minimum width
+    so the control does not resize, a filled highlight with a play glyph, and a gentle pulse that
+    becomes a static ring under reduced motion. The home's central Play follows the same rule.
     A useful label identifies an otherwise ambiguous object, condition, quantity or change.
     Introduce it when it becomes relevant; retain it only while it helps decode the image.
-    Remove a redundant label rather than shrinking it or dimming it into illegibility.
+    Remove a redundant label rather than shrinking it or dimming it into illegibility. Canvas text
+    has a floor that must survive the stage transform: hold a minimum on-screen size rather than
+    scaling a desktop-tuned one down, and switch to a small-screen type ramp on narrow viewports.
     Move generic repeated production caveats into Sources; keep model identity and validation
     status tied to the renderer actually displayed in those accessible details. A persistent
     on-stage badge is not mandatory (the maker explicitly removed E01's first-scene badge). The
@@ -535,8 +550,9 @@ this structure, and it must supply what the structure expects.
 (number, kicker, title, route, released) and one lazily imported module. The selection cards, the
 Coming-soon state and whether the public build contains the episode all derive from that row;
 nothing else enumerates episodes. Episode 1 is prefetched during the opening because its Play is
-the fast path; every other episode loads when it is chosen. At thirty episodes this is the property
-that matters: **the home must never carry an episode nobody asked for.** Measured on the live build
+the fast path; every other episode loads when it is chosen. As the series grows — the maker speaks of thirty, while the series plan's working map lists eleven
+units and disclaims a fixed count — this is the property that matters: **the home must never carry
+an episode nobody asked for.** Measured on the live build
 of 2026-09-19, a visitor who never presses Play loads the home chunk and Episode 1's prefetch and
 nothing else.
 
@@ -656,7 +672,10 @@ explicit ongoing direction, not permission inferred from an old sample. Reuse un
 where appropriate; do not leave old spoken words playing against a rewritten transcript.
 Visual-only or optional-reader-only edits do not require synthesis when the spoken words are
 unchanged. Preserve earlier recordings and the exact source of each new take. Keep the Chinese
-text in step with the revised meaning. The maker supplied Mandarin voice **Yun**
+text in step with the revised meaning: a qualifier must survive translation at equal strength, and
+neither language may carry a claim the other does not. Every new or changed canvas caption and
+interface string needs its Chinese entry in the shared dictionaries — a missing key falls back to
+English silently by design, so add an explicit assertion for each episode's own keys. The maker supplied Mandarin voice **Yun**
 (`4AfodMgwXps9oZFhHzoj`) on 2026-09-17, auditioned **Susan** (`0H4ruoQ81Ei2FCwjW5j1`) on 2026-09-18
 and chose Yun again the same day; Yun is the current Mandarin refresh voice, and the Susan
 revisions stay retained (E02 moved to Yun on 2026-09-18 when the maker reopened it for the design-guide
@@ -670,7 +689,11 @@ Chinese text and Mandarin audio together, on the same route and DOM. Languages h
 real durations. Preserve section, paragraph and semantic phrase position—not elapsed seconds
 or a whole-episode duration fraction. Each selected recording owns the clock; convert it to
 the shared visual score through reviewed phrase anchors. Retain actual prediction pauses and
-their withheld answers. Show the selected recording's duration. Pause the old element before
+their withheld answers. A hold is inserted silence in the paced master of **both** languages, not a
+visual pause over continuing speech: it runs before the named answer phrase, the answer releases on
+that phrase's measured onset, and the on-screen labels share the same release state. Durations are
+per episode (Episode 1 holds 2.4 seconds, Episode 2 three), so author them as data, not as a
+constant. Show the selected recording's duration. Pause the old element before
 playing the new one, keep speed and paused/manual mode, invalidate old play promises, and apply
 the latest position when metadata arrives. Test round trips, rapid switches, buffering/error
 handling and live switches during a prediction pause. No autoplay from a paused language toggle.
@@ -688,6 +711,11 @@ and inspect the affected cues. Fluent listening remains distinct from machine al
 - Preserve original takes and request text, non-secret voice/model/settings, source hashes,
   alignment and decoded durations. Keep any paced derivative separate. Never log credentials,
   overwrite prior masters or automatically repeat an uncertain paid request.
+- Measure and record integrated loudness for every delivered master in both languages at each
+  refresh. Mandarin currently sits about three units below English on both episodes (Episode 1:
+  −28.8 against −25.2 LUFS; Episode 2: −28.6 against −25.6), so the language toggle is a step down
+  in level. No gain change has been made: matching them is a maker decision, and the measurement is
+  what makes it decidable.
 - Actual media time owns captions, visual cues and guided scrolling. Buffering or a failed
   play request must not let an independent clock keep narrating visually. Silent rehearsal
   timing remains explicitly provisional; user input pauses guided playback and hands over.
@@ -881,6 +909,32 @@ These are design prompts for the provisional episode map, not new science claims
 | E03 — delivery through air | Answer the question Episode 2 ends on, in its words: how does water actually reach a growing crystal, and what happens to it on the way? Let the air region do visible explanatory work. Connect the chosen representation to an identifiable surface; distinguish material motion, field depiction and any model result. Shipping it also means updating the previous episode's Continue wiring, its closing promise and the release flag together — a next-episode hook is a site obligation as well as an editorial one. |
 | E04–E05 — face growth and branching | Keep reference geometry and old material readable while the relevant location changes. Use the library/camera to reveal the narrated feature, not to replace a mechanism with a glamour shot. |
 | E06 onward — comparisons, histories and measurement | Name the held-fixed conditions, carry specimens/history forward, show what an instrument observes before inferred quantities, and give each number a physical referent. No single unexplained map or table for an entire argument. |
+
+## Releasing an episode
+
+Publishing adds obligations the drafting sections do not cover.
+
+**Public-facing wording is its own pass.** The page must not promise numbered future episodes, name
+an internal production document, or address the visitor as the person who chose the voice. Name the
+AI voices actually served in both languages and say plainly that the narration is not a recording by
+or an endorsement from a real person. Keep the model status *and* the rendering recipe of any
+recorded example in Sources, not on the stage. Do this at render time where you can, so the reviewed
+source text and its hash bindings stay untouched.
+
+**A deployed episode earns a review of the deployed artifact,** not only of the draft: the words as
+served, the links as served, and the provenance a visitor can actually reach. Keep its findings
+separate from maker praise and from audience understanding, both of which remain unproven by any
+deploy.
+
+**Mechanics belong to the runbook.** Deploy only from a committed head and only the public build; use
+a preview channel with an expiry for review unless the maker waives it; replace the verification and
+smoke receipts in place; tag the deployed commit and record it in both repositories. The website's
+`docs/adding-an-episode.md` and `docs/public-release.md` hold the commands.
+
+**Holding an episode is a first-class state.** An episode can be complete, reviewed and deliberately
+unreleased — Episode 2 is. Say so in the records rather than implying it is unfinished, and keep its
+content out of the public build by the four mechanisms named in
+[the delivery surface](#the-delivery-surface-an-episode-plugs-into).
 
 ## Maintenance
 
