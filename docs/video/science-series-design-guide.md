@@ -466,7 +466,8 @@ unchanged. Preserve earlier recordings and the exact source of each new take. Ke
 text in step with the revised meaning. The maker supplied Mandarin voice **Yun**
 (`4AfodMgwXps9oZFhHzoj`) on 2026-09-17, auditioned **Susan** (`0H4ruoQ81Ei2FCwjW5j1`) on 2026-09-18
 and chose Yun again the same day; Yun is the current Mandarin refresh voice, and the Susan
-revisions stay retained (E02's live score keeps its Susan revision while E02 is frozen). When a rewrite changes
+revisions stay retained (E02 moved to Yun on 2026-09-18 when the maker reopened it for the design-guide
+catch-up; its Susan revision stays retained). When a rewrite changes
 performed Chinese words, refresh the affected Mandarin take and rebuild its semantic alignment
 as well; do not play a stale translation against the new meaning. The standing refresh does
 not authorize a different voice or an unrequested new episode.

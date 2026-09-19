@@ -6,6 +6,25 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
+## In progress: Episode 2 design-guide catch-up — 2026-09-18
+
+Maker request: "Following the design guide for episode design, there have been several updates on content,
+design, approaches. Please update episode 2 based on those new requirements." Plan amendment committed
+first (`647e805`, [E02 plan](plans/science-series-episode-2.md#design-guide-catch-up--2026-09-18-planned-before-implementation)).
+Release hold unchanged (`EPISODE_TWO_RELEASED` false; public build verified free of E02 bytes).
+Landed so far on website `explore/film-part1`: part 1 `b7ed794` (player/layout parity with E01: Menu,
+no stage text stack, model key, highlighted Play, no badge, takeover envelope and touch threshold,
+shared phone CSS; public-neutral Sources and reader wording; phrase-gated attention pass on the eight
+scenes; non-public preview gate `/?e02=preview`). Part 2 in the working tree: the English script's two
+passages rewritten (E02-09 p2 introduces Libbrecht; E02-10 closes on the next episode's question), Juniper
+revision `2026-09-18-e02-juniper-hook` (two synthesized takes, six reused byte-for-byte; paced 682.3 s),
+the eight deferred Chinese findings applied through the phrase anchors, Mandarin revision
+`2026-09-18-e02-mandarin-yun` (Yun, eight takes; paced 922.2 s, 241 anchors, 4 holds), independent
+integrity/pace/semantic audits passing (`docs/series-narration/mandarin-review-2026-09-18-e02-yun/`),
+100/100 focused tests, both builds. Pending: the live check with the new audio, the independent
+three-lens review and its repairs, then the records (E02 review addendum, plan completion, this entry)
+and the part-2 commit. Loudness: Yun E02 −28.7 LUFS vs English −25.6 (no gain change; same pattern as E01).
+
 ## Completed phone pass on the live site — 2026-09-18
 
 The maker's iPhone report against the first deploy (Chrome for iOS, a WebKit WebView: large soft snow
