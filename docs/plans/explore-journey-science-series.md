@@ -988,6 +988,52 @@ non-author audit identified the complete entry surface before implementation. Ne
 viewing of the same series page; release E02 only on explicit maker direction. No narration,
 original film, export, source content or scientific contract changed.
 
+## Opening redesign and per-episode loading — 2026-09-19, planned before implementation
+
+Maker direction (2026-09-19): with thirty episodes coming, the site must not load every episode to
+show one; and the opening should be "super clean": the snow scene with one central Play that starts
+Episode 1 directly, the episode cards relocated to the next scene reached by scrolling, and Still view
+and Replay opening moved into the Menu. Sections become **opening → episode selection → episode**.
+
+Measured baseline (website `4e33879`, public build): the home chunk is 1,583 KB of JavaScript because
+the shared volume renderer (three.js growth stage, ~1.2 MB) and Episode 1 (~340 KB: scores, cues,
+drawings) are bundled together; Episode 2's local chunk is 344 KB. Narration streams through `<audio>`
+(both languages `preload="metadata"`), recorded models are fetched on demand. So the cost that scales
+with episode count is roughly 340 KB of script per episode plus its audio metadata, and the fix is to
+stop mounting episodes that nobody chose.
+
+1. **Per-episode lazy loading.** A small catalog module lists every episode (number, titles in both
+   languages, status, route, loader). The home mounts only: the opening; the selection; the episode
+   the visitor chose (central Play, a card, a direct `/episode-N` route, or Continue at the end of the
+   previous episode). Episode 1's chunk is prefetched while the opening plays so Play starts without a
+   wait; other episodes load when chosen; the next episode's chunk is prefetched when the current one
+   nears its end. Pressing Play before the chunk has arrived queues the start until the episode mounts.
+   Capture mode keeps Episode 1 mounted immediately. Unreleased episodes keep their gate: the release
+   flag decides whether a card is playable and whether a chunk exists in the public build; the
+   non-public preview gate stays for review.
+2. **Opening.** The snow scene with the series title and one central Play (aria "Play Episode 1");
+   pressing it during the opening skips the rest of the opening and starts Episode 1; the language
+   toggle stays as the only other control. No opening-controls bar: Skip is Play or a scroll; Still
+   view and Replay opening move into the episode Menu (one Still that applies to the opening and the
+   episode illustrations; Replay returns to the top and replays). The opening is exactly one viewport.
+3. **Selection scene.** The second viewport lists the episodes from the catalog as cards in a grid that
+   scales to thirty (released cards play; unreleased cards say Coming soon), with the series tagline.
+   Scrolling from the opening reveals it; the central Play skips it.
+4. **Episode scene.** The chosen episode follows the selection as today (one document, interruptible
+   entry, exclusive playback, manual takeover, direct routes, Continue to the next released episode).
+5. **Checks.** Focused product tests updated for the new home structure and release pins; `npm run
+   build` and `npm run build:public` with chunk sizes recorded (home chunk without any episode, each
+   episode chunk); the release test and smoke against the hosting emulator (opening Play starts
+   Episode 1; the selection card starts it; `/episode-2` still lands on the opening; no Episode 2 bytes);
+   a live check at desktop and 360 px emulation with captures of the three scenes; an independent
+   read-only review; preview channel for the maker's phone before any promotion.
+
+Done when: the opening shows the snow scene, title and one Play; the selection is the next scene and
+scales by data; only the chosen episode's chunk loads (numbers recorded); Still and Replay live in the
+Menu; all checks pass and are recorded; the release hold and public exclusions are unchanged; the maker
+has a preview channel to confirm before the live site changes. Not part of this: new episodes, narration,
+science content, or the release of Episode 2.
+
 ## Tried and rejected
 
 - **Mute audio while waiting for slow visual loading.** Playback still consumes the file and
