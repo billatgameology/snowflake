@@ -8,19 +8,21 @@ isolated worktrees per Rule 16.
 
 ## In progress: iOS report on the live site — 2026-09-18
 
-The maker reports the live site works on Android but on iPhone "the opening didn't cover the whole
-screen" and "the play button didn't work". No iOS device or simulator exists on this Mac; Playwright
-WebKit under iPhone emulation runs the site fine. Measured under phone emulation, the opening held nine
-live WebGL2 contexts and a 112 MB heap at arrival (hero, WebGL snowfall, six marker renderers), which
-iOS Safari tolerates far less than Android Chrome. Website `explore/film-part1@6d0a210` (not yet live)
-keeps three live recorded renderers and half-resolution marker volumes on touch devices (peak seven
-contexts, 62 MB heap), adds plain-`vh` fallbacks before the `svh` rules, and adds an opt-in `?diag=1`
-overlay reporting user agent, viewport/canvas metrics, live/peak contexts, marker states and every media
-`play()` outcome with its refusal reason. It is deployed to the preview channel
-`https://nivogenesis--ios-dp3vhdsa.web.app` (expires 2026-09-25); focused tests 99/99, release test and
-preview smoke clean. Next: the maker opens that URL with `?diag=1` on the iPhone, taps Play and reports the
-overlay; then promote to live (`firebase deploy --only hosting`) if it resolves the report, or fix from the
-readout. The live site remains at `30d05f6`.
+The maker's iPhone screenshots (Chrome for iOS, a WebKit WebView) of the live site show large soft snow
+blobs, oversized episode cards, a story card whose tap does nothing and a Play that "moves a little"
+then stops; Android is fine. No iOS device or simulator exists on this Mac. Diagnosis from code and
+phone emulation: iOS WebViews get the WebGL2 snowfall, whose near sprites are art-directed 15 px discs;
+Episode 1's guided scroll treated iOS WebKit's asynchronously reported scroll positions (and tap wobble on
+`touchmove`) as a manual takeover and paused itself; the opening held nine live WebGL2 contexts and a
+112 MB heap at arrival. Website `explore/film-part1@3c3677e` (not yet live; live stays at `30d05f6`):
+phone-scaled WebGL2 sprites, an envelope-based takeover test plus a ten-pixel touch threshold, compact
+cards (336×102 CSS px), three live recorded renderers and half-resolution marker volumes on touch devices
+(peak seven contexts, 62 MB heap), plain-`vh` fallbacks, and an opt-in `?diag=1` overlay (user agent,
+viewport/canvas metrics, renderer mode, contexts, marker states, every media `play()` outcome, errors).
+Deployed to the preview channel `https://nivogenesis--ios-dp3vhdsa.web.app` (expires 2026-09-25);
+99/99 focused tests, release test and preview smoke clean; phone-emulation captures viewed. Next: the
+maker tests that preview on the iPhone (`?diag=1` for the readout); promote with
+`firebase deploy --only hosting --project nivogenesis` from a committed head if it resolves the report.
 
 ## Completed Nivogenesis public release — 2026-09-18
 
