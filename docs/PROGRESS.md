@@ -19,10 +19,15 @@ phone-scaled WebGL2 sprites, an envelope-based takeover test plus a ten-pixel to
 cards (336×102 CSS px), three live recorded renderers and half-resolution marker volumes on touch devices
 (peak seven contexts, 62 MB heap), plain-`vh` fallbacks, and an opt-in `?diag=1` overlay (user agent,
 viewport/canvas metrics, renderer mode, contexts, marker states, every media `play()` outcome, errors).
-Deployed to the preview channel `https://nivogenesis--ios-dp3vhdsa.web.app` (expires 2026-09-25);
-99/99 focused tests, release test and preview smoke clean; phone-emulation captures viewed. Next: the
-maker tests that preview on the iPhone (`?diag=1` for the readout); promote with
-`firebase deploy --only hosting --project nivogenesis` from a committed head if it resolves the report.
+The maker confirmed Play works on the preview and asked for smaller cards, no Play with sound, no
+Mandarin badge in the player and a more noticeable paused Play: website `efc136b` shrinks phone cards to
+272×77 CSS px, removes the opening sound from the home (asset, recipe and module retained, WAV no
+longer shipped), removes the badge (AI narration stays identified in the intro text, status label and
+Sources panel) and highlights the paused Play. Deployed to the preview channel
+`https://nivogenesis--ios-dp3vhdsa.web.app` (expires 2026-09-25); 99/99 focused tests, release test and
+preview smoke clean; phone-emulation captures viewed; an independent three-lens review of the change set
+was launched. Next: the maker retests the preview on the iPhone; promote with
+`firebase deploy --only hosting --project nivogenesis` from a committed head when accepted.
 
 ## Completed Nivogenesis public release — 2026-09-18
 
