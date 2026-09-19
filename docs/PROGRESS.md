@@ -6,6 +6,27 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
+## Episode design guide refreshed for future episodes — 2026-09-19
+
+The [design guide](video/science-series-design-guide.md) is now usable cold, including on a machine
+that has just cloned the repositories. Added: **where the work lives** (the two repositories and
+what each holds, the required sibling layout with the authority directory named `snowflake`, the
+fresh-machine setup, what is deliberately outside Git — the ignored `out/` tree the served models
+are hashed against and the ElevenLabs key — and the branch truth that the current work sits on
+unpushed local branches); **the delivery surface an episode plugs into** (three scenes, one catalog
+row and one chunk per episode, the four places a held episode is held, and the pairwise wiring to
+generalize before Episode 3); **device and platform rules every episode inherits** (touch panning,
+the two snowfall renderers with iOS always on WebGL2, the guided-scroll envelope, the touch render
+budget, 360 px composition, the diagnostics overlay, and that emulation is not a phone); production
+invariants in the narration contract; loading, site-integration and device items in the completion
+checklist; a device-budget cell in the scene worksheet; and an eighth start-here step for shipping.
+Corrections from an independent currency pass: the removed opening sound, the rebuilt opening, the
+Menu's contents, the model key, measured word timing, Episode 2 as a held worked example, Episode 3
+inheriting Episode 2's closing question, and an honest authorship line. The file-by-file commands
+live in the website's new `docs/adding-an-episode.md` (website `b1a7986`); guide at `d96c9ad`.
+Facts were gathered by a four-reader read-only fan-out over both repositories and verified in the
+files; no audience or listening claim follows from any of it.
+
 ## Completed series home redesign — live 2026-09-19
 
 Maker direction: with thirty episodes coming, do not load every episode to show one; make the opening
