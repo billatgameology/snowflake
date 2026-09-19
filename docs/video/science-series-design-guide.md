@@ -1,8 +1,11 @@
 # Science series — maker's critique and episode design guide
 
-Captured 2026-09-16 from the maker's feedback; updated 2026-09-17 with the conversational E01
-production lessons and the subsequent introduction, visual-flow, comparison, visual-clutter,
-real-model inspection, closing-hook feedback and Nivogenesis opening sound direction.
+Captured 2026-09-16 from the maker's feedback and **last updated 2026-09-19**. It accumulates the
+conversational E01 production lessons and the later introduction, visual-flow, comparison,
+visual-clutter, real-model inspection and closing-hook feedback, then the 2026-09-18 Episode 2
+catch-up and phone passes and the 2026-09-19 home redesign. A direction here can be reversed by a
+later one: the 2026-09-17 opening soundscape was removed on 2026-09-18, and the opening itself was
+rebuilt on 2026-09-19. Where a section is superseded it says so in place.
 This is the reusable editorial/design guide for
 the [active series plan](../plans/explore-journey-science-series.md), not a scientific gate.
 The [E01 visual guide](science-series-e01-visual-guide.md) holds that episode's shot history.
@@ -35,10 +38,80 @@ as another set of production documents:
 7. Apply the [viewing method](#how-a-future-reviewer-should-critique-a-scene) and
    [completion checklist](#completion-checklist-and-acceptance-boundaries). Fix specific defects,
    then distinguish technical readiness from listening and audience acceptance.
+8. Ship it into the site: the catalog row, the release flag, the route, the home wiring, the
+   Chinese copies and dictionaries, and the extended tests. The
+   [delivery surface](#the-delivery-surface-an-episode-plugs-into) says what an episode must
+   provide, [device and platform rules](#device-and-platform-rules-every-episode-inherits) say what
+   it must survive, and the website runbook `docs/adding-an-episode.md` carries the exact files and
+   commands. An episode that is written, performed and reviewed but not integrated is not finished.
+
+If you are starting on a new machine, read
+[where the work lives](#where-the-work-lives--two-repositories) first: the series is split across two
+repositories that must sit side by side, and some of what the checks read is not in Git at all.
 
 No fixed duration or authorization to start another episode follows from this guide. The
 standing narration refresh does not authorize a different voice or an unrequested episode.
 Keep the previous film and approved features intact.
+
+## Where the work lives — two repositories
+
+The series is split in two on purpose: **what is true** is written and reviewed in the authority
+repository, and **what is served** is built in the website repository. Every episode has content in
+both, and several checks read across the boundary.
+
+| | Authority — `snowflake` | Website — `snowcrystal_website` |
+|---|---|---|
+| GitHub | `billatgameology/snowflake`, **public**, default `main` | `billatgameology/snowcrystal_website`, **private**, default `master` |
+| Local path in use | `/Users/clipper/github/snowflake` | `/Users/clipper/github/snowcrystal_website-film-part1` (a Rule 16 worktree) |
+| Holds | this guide; the plans, decisions and reviews; each episode's spoken script (`docs/video/science-series-eNN-script.md`), its Chinese copy (`…-zh-CN.json`), the shared diagram dictionary (`science-series-diagrams-zh-CN.json`) and the Mandarin cue sources; the education chapters the Sources links point at; the solver and its evidence | the site: episode components, cue and drawing modules, narration scores, the served narration masters under `public/series/narration/`, the served model derivatives under `public/growth/models/`, the brand files, every check script under `scripts/`, the hosting config and the deploy receipts under `docs/` |
+| Episode text is | the source of truth | imported, and byte-compared back against the authority copy by the tests |
+
+**They must be siblings, and the authority directory must be named `snowflake`.** Website checks
+resolve the authority repository as `../../snowflake` from `scripts/`; a few accept the environment
+variable `SNOWFLAKE_AUTHORITY` instead. Any other layout fails the localization and import tests.
+
+### A fresh machine
+
+1. Clone both repositories into the same parent directory, the authority one as `snowflake`.
+   Check out the working branches named below — not the default branches, which do not have this
+   work.
+2. In the website repository: `npm install`, then `npx vite --host 127.0.0.1 --port 5185` for the
+   dev server. Node 24 is what the scripts run on (24.19.0 at the time of writing).
+3. Install the tools the checks shell out to: **ffmpeg and ffprobe** (every narration and audit
+   step decodes audio), **the Playwright Chrome channel** (the live checks and the release smoke
+   launch `channel: 'chrome'`), and the **Firebase CLI** logged in to the `nivogenesis` project for
+   preview channels, the hosting emulator and deploys.
+4. Restore what is deliberately outside Git (below). Without it the site still builds and runs;
+   one test and all narration work do not.
+
+### What is not in Git, and where it comes from
+
+- **The authority repository's `out/` tree is ignored** (Rule 15). It holds the named-crystal
+  growth recordings the served models are derived from; the website's episode test re-hashes each
+  served `.bin` against its `sourcePath` inside `out/`, so that test fails on a fresh clone until
+  the collection is restored from the governed NAS. The served derivatives themselves are tracked
+  in the website repository, so the site renders without it.
+- **Credentials are never in Git.** The ElevenLabs key lives at `out/secret/elevenlabs.txt` in the
+  authority repository, restored from the NAS secrets backup. Read it inside the command that needs
+  it; never print, copy or commit it.
+- `node_modules/`, `dist/` and `dist-public/` are built, not stored. The narration masters and the
+  model derivatives **are** tracked in the website repository (about 590 MB of audio at the time of
+  writing), so a clone is large but complete.
+
+### Branch truth — check this before trusting a clone
+
+As of 2026-09-19 the series work lives on local branches that have **not** been pushed:
+
+| | Branch | Contains | On origin? |
+|---|---|---|---|
+| Authority | `explore/film-part1-plan` | the plans, reviews, scripts and translations for E01 and E02 | **no** — `main` does not contain this work |
+| Website | `explore/film-part1` | every episode and the live site | **no** as a branch; the deployed commits are reachable through the pushed tags `nivogenesis-public-2026-09-18`, `-09-18.2` and `-09-19`, and `release/nivogenesis-public` holds the first release |
+
+A second machine therefore cannot reconstruct the current state from GitHub alone. Either push the
+branches or copy the worktrees. Pushing the **website** branch is ordinary: that repository is
+private. Pushing the **authority** branch publishes Episode 2's script and translation to a public
+repository while the episode is deliberately held from the site — that is the maker's decision, not
+a housekeeping step.
 
 ## The central reading of the feedback
 
@@ -193,7 +266,12 @@ to the maker's requests, not yet new praise or comprehension evidence. The
 [follow-up review](../reviews/science-series-e01-opening-followup-2026-09-17.md) records verification
 and remaining limits.
 
-## Nivogenesis collection and optional sound — 2026-09-17
+## Nivogenesis collection and optional sound — 2026-09-17 (the sound was later removed)
+
+**Superseded in part.** The maker removed the opening soundscape on 2026-09-18 ("remove play with
+sound"): the home has no audio element and no sound control, and a test pins their absence. The
+composition and its reproducible recipe stay retained in the website repository, unshipped. The
+collection direction below still stands; read the sound paragraphs as history.
 
 The maker names the series **Nivogenesis** and asks for the three additional E02 crystal
 recordings in the opening. Reuse a varied, identifiable collection rather than filling every
@@ -206,7 +284,11 @@ The maker also authorizes the suggested quiet air-and-crystalline-tone soundscap
 supports the opening's mood; it does not represent measured crystal vibrations or explain a
 scientific mechanism. Keep it explicitly opt-in, with an obvious mute control and no automatic
 restart. Wait for the visual to be ready, follow its clock, and stop before narration takes
-ownership. Skip, Still, leaving the home, hiding the page and unmount must cancel pending
+ownership. (Superseded with the sound: there is no pending playback to cancel, and the control
+names changed — Still and Replay opening moved into the episode Menu on 2026-09-19, and the Skip
+that exists now is the opening's own bottom-right control, not the old controls bar. The rule
+survives for any future opt-in media: every exit cancels it.)
+Skip, Still, leaving the home, hiding the page and unmount must cancel pending
 playback too. A quiet waveform and successful decoding are technical checks, not a listening
 review: distinguish them and ask the maker to audition on their own speakers or headphones.
 
@@ -216,10 +298,14 @@ or dispose the replacement's canvas. The
 [Nivogenesis review](../reviews/science-series-nivogenesis-2026-09-17.md) records these repaired
 failures and the bounded visual/audio checks. This request is not new praise for the result.
 
-Opening direction, 2026-09-19: the maker wants the opening "super clean" — the snow scene, the title and
-one central Play that starts Episode 1; the episode cards are the next scene, reached by scrolling; Still
-and Replay opening live in the Menu; and with thirty episodes coming, each episode loads as its own chunk
-only when chosen. The record is the series plan's 2026-09-19 section. Not new praise for the result.
+Opening direction, 2026-09-19, as shipped: the maker asked for an opening that is "super clean", and the
+live home is the snow scene with the series title, **one central Play that appears only after the opening
+finishes**, and a **Skip at the bottom right while it plays** (the maker's phone test reversed a review
+repair that had shown the Play early). Skip lands on the finished scene with the snowfall already full;
+Play enters Episode 1 without passing the cards. The episode cards are the second scene, reached by
+scrolling; Still and Replay opening live in the episode Menu; each episode loads as its own chunk only
+when chosen. The record is the series plan's 2026-09-19 section and the website's `docs/science-series.md`.
+Not new praise for the result.
 
 ## What to carry forward from the praise
 
@@ -408,7 +494,8 @@ joined it. Simplifying the vocabulary must not simplify away the mechanism or it
     annotations into the image. Attractive rendering must not mask identity or imply validation.
     The animation is not a slide deck: do not stack the chapter title, a subsection title,
     an action heading and a full-sentence explanation of the same event. Put chapter navigation,
-    sources and Still in an accessible secondary menu; leave core playback reachable. Keep
+    sources, Still and Replay opening in an accessible secondary menu; leave core playback
+    reachable. Keep
     chapter titles in the reader/navigation. On the stage use at most one current-beat heading
     when it helps, and prefer direct object labels/pointing to repeated headlines.
     A useful label identifies an otherwise ambiguous object, condition, quantity or change.
@@ -416,7 +503,11 @@ joined it. Simplifying the vocabulary must not simplify away the mechanism or it
     Remove a redundant label rather than shrinking it or dimming it into illegibility.
     Move generic repeated production caveats into Sources; keep model identity and validation
     status tied to the renderer actually displayed in those accessible details. A persistent
-    on-stage badge is not mandatory (the maker explicitly removes E01's first-scene badge).
+    on-stage badge is not mandatory (the maker explicitly removed E01's first-scene badge). The
+    pattern both episodes now use instead: a compact model key appears **only while a recorded model
+    is actually on screen**, names its status in a few words, and is a button that opens
+    Menu → Sources for the full provenance. A key that outlives its renderer, or that sits over a
+    diagram fallback, is the defect this replaced.
     Keep inference-critical qualifiers
     locally at the relevant beat (approximate example, held prediction, fixed temperature,
     equal volume/dot unit, externally controlled vapour, or altered model thickness).
@@ -431,6 +522,102 @@ joined it. Simplifying the vocabulary must not simplify away the mechanism or it
     a universal threshold, a styled model is not measured reality, and illustrative rates
     are not predictions. Keep author/reviewer observations and maker praise distinct. Preserve
     prior work and approved features; later approval applies only to what was actually named.
+
+## The delivery surface an episode plugs into
+
+The site is three scenes in one document: **opening → episode selection → the chosen episode.** The
+opening is the snow scene with the series title, one central Play (shown once the opening arrives)
+and a Skip at the bottom right while it plays. The selection scene lists the episodes as cards. The
+chosen episode follows. Still and Replay opening live in the episode Menu. An episode is a guest in
+this structure, and it must supply what the structure expects.
+
+**One row of data, one chunk of code.** Every episode is one entry in the website's episode catalog
+(number, kicker, title, route, released) and one lazily imported module. The selection cards, the
+Coming-soon state and whether the public build contains the episode all derive from that row;
+nothing else enumerates episodes. Episode 1 is prefetched during the opening because its Play is
+the fast path; every other episode loads when it is chosen. At thirty episodes this is the property
+that matters: **the home must never carry an episode nobody asked for.** Measured on the live build
+of 2026-09-19, a visitor who never presses Play loads the home chunk and Episode 1's prefetch and
+nothing else.
+
+**What an episode component must provide.** A handle the home can drive (start, pause, and a
+language-switch position capture), an ownership contract (claim, release, and a blocked test that
+every scroll, resize, tick and takeover path consults, so exactly one episode owns playback), scene
+controls (the shared Still, a Replay that returns to the opening), and a queued start: a visitor can
+press Play before the episode's chunk has arrived, and the episode must honour that start from its
+own mount rather than dropping the press. Direct entry at `/episode-N` must land in the reader
+rather than replaying the opening.
+
+**A held episode is held in four places at once.** While an episode is unreleased, its import is
+dead code behind a build-time literal, its route redirects to the opening, the public asset
+allowlist omits its narration, and the release test plants the episode's own live strings in the
+built output as negative controls. All four must be extended for each new held episode, and the
+local review gate (a query key that mounts the held episode on non-public builds) is per episode,
+not generic. Releasing is then one flag plus the allowlist growth, a fresh public build and the
+smoke.
+
+**Generalize before Episode 3.** The current wiring is honestly pairwise: the home's playback
+ownership is typed for two episodes and pauses "the other" by name, the language-switch restore
+collects exactly two handles, and the import, pacing, cue and test scripts are per-episode files
+with hard-coded section counts. None of that is a flag away. Budget an explicit generalization pass
+— a keyed map over the catalog, and per-episode parameters instead of per-episode scripts — before
+the third episode, and do it as its own change so the diff that adds an episode stays readable.
+
+The website runbook `docs/adding-an-episode.md` holds the file-by-file steps, the exact commands and
+the known traps. Keep that runbook current when the wiring changes; this section states the rules
+that outlive it.
+
+## Device and platform rules every episode inherits
+
+These are paid-for rules. Each one came from a real failure on the maker's phones, and every
+episode's stage inherits them.
+
+**Touch must scroll.** The site's global stylesheet disables touch panning on every canvas, which
+is right for a drag-to-rotate surface and wrong for a full-screen scene: once the opening's cards
+moved away, a finger on the snow could not scroll the page at all. The series home and the episode
+stage canvases opt back in to vertical panning; a deliberate manipulation surface (the crystal
+inspector) keeps the block, and says so where it is written. A new canvas outside those selectors
+is unscrollable until you extend them.
+
+**Two snowfall renderers, and iOS always gets the second.** A WebGPU compute field runs where WebGPU
+exists and the performance tier is high enough; otherwise an analytic WebGL2 field draws the same
+weather, and a static wash is the last resort. No iOS browser exposes WebGPU, so every iPhone and
+iPad runs the WebGL2 path: **treat it as a first-class look, not a fallback.** It once drew a
+sixteenth of the flakes the compute path drew at phone size — four compounding causes: iOS reports
+at most four cores and no memory, so the tier heuristic demoted it; the WebGL2 count table was half
+the compute one; that path hid half its particles until the page was scrolled; and its sprites were
+shrunk on narrow screens. All four are fixed, and the tier rule now recognises Apple touch devices
+explicitly. If you touch a count table, a sprite size or a device heuristic, re-measure the two
+paths side by side at phone size and record the numbers.
+
+**Guided scroll survives an asynchronous browser.** iOS WebKit applies a programmatic scroll
+asynchronously, so a naive "did the position change?" test reads the site's own writes as the
+visitor taking over, and playback stops a second after it starts. The episodes keep an envelope of
+recent programmatic positions and ignore scroll events inside it, re-seeding that envelope on pause
+so a late event cannot flip the reader into manual. A touch takeover additionally needs ten pixels
+of movement, because a tap wobbles. Reuse these; do not re-derive them.
+
+**Budget the renderers on touch devices.** iOS Safari recycles WebGL contexts and reloads the tab
+under memory pressure where Android Chrome does not. Fewer live recorded models, half-resolution
+volumes, a capped device pixel ratio and a capped tier brought the opening from nine live contexts
+and a 112 MB heap to seven and 62 MB. Count the contexts a new scene mounts, release them when it is
+hidden, and handle context loss with a legible status rather than a dead canvas.
+
+**Compose at 360 px, not only at desktop.** Canvas labels that sit clear on a laptop collide on a
+phone: the stage scales, so drawing code holds a minimum on-screen type size rather than shrinking a
+desktop-tuned one, and each collision found in review needed its own repair (a halo behind a label,
+spaced legend lines, a smaller outline, a shortened tag). Full-height rules ship a plain-`vh`
+declaration before the `svh` one for older iOS. The stage becomes a sticky band on phones and any
+height change must be mirrored in the scroll offsets that depend on it. Bottom-anchored controls
+clear the home indicator with a safe-area inset and are at least 44 px tall.
+
+**Debug on the real device, then believe only what you measured there.** `?diag=1` prints an overlay
+with the user agent, capability probes, viewport and canvas metrics, the active renderer, live and
+peak WebGL contexts, the heap, and every media-play outcome including refusals. Narration start is a
+user gesture on iOS and can still be refused, so the retry path stays. And note the standing limit:
+every check the records describe ran under Chrome phone emulation, which cannot reproduce the iOS
+memory pressure that motivated the budget. A clean emulated run is not evidence that an iPhone
+survives a new scene; the maker's own device is.
 
 ## Small scene-design worksheet
 
@@ -449,7 +636,8 @@ A scene can have several conceptual beats. Group sentences that share one visibl
 | Attention and disclosure | What enters now, what remains as reference, what retires; which local labels are necessary and which headings/details belong in the reader or Menu → Sources. |
 | Visual choice | Asset identity and growth interval; renderer/camera; reuse, adaptation or new diagram; model/schematic/source status. |
 | Connection | Which object/state survives the preceding and following shot; explicit reset/example change if any. |
-| Reading alternatives | Essential labels and description; phone composition; Still/discrete pose preserving the argument. |
+| Reading alternatives | Essential labels and description; phone composition at 360 px; Still/discrete pose preserving the argument. |
+| Device budget | How many live WebGL contexts this scene mounts and when they are released; whether it depends on the WebGL2 snowfall path; the phone stage height it assumes. |
 | Review outcome | Build/time range, actual observed problem, repair, check performed, remaining uncertainty and exact maker response if any. |
 
 For a comparison, include the denominator, units and held-fixed conditions in these cells.
@@ -486,8 +674,11 @@ their withheld answers. Show the selected recording's duration. Pause the old el
 playing the new one, keep speed and paused/manual mode, invalidate old play promises, and apply
 the latest position when metadata arrives. Test round trips, rapid switches, buffering/error
 handling and live switches during a prediction pause. No autoplay from a paused language toggle.
-Sentence-internal animation progress is interpolated; it is not independently measured word
-timing. A natural pause may exist in only one language, so record coincident anchor reductions
+Sentence-internal animation progress is interpolated **when no word timing exists**. It usually now
+does: the delivered English takes carry measured word onsets, and Episode 2 gates its reveals on
+authored phrases resolved against them — a phrase that is missing or ambiguous inside its paragraph
+throws rather than guessing. Mandarin carries no word array, so a cue reaches it through the
+bilingual anchors. Provider timings remain provider timings, not a phonetic measurement. A natural pause may exist in only one language, so record coincident anchor reductions
 and inspect the affected cues. Fluent listening remains distinct from machine alignment.
 
 - Before recording or synthesis, review the exact spoken source and its diagram implications.
@@ -511,6 +702,38 @@ and inspect the affected cues. Fluent listening remains distinct from machine al
 - Keep AI narration visibly identified. Technical signal/source checks and optional independent
   transcription can catch defects; they cannot approve pronunciation, natural delivery or the
   emotional fit. A human listen remains a separate, explicitly recorded task.
+
+**Production invariants.** The pipeline is built so that a mistake fails loudly instead of quietly
+shipping. Do not route around any of these; the website runbook has the commands.
+
+- **The script's hash is the root of the chain.** The authority script's SHA-256 is written into the
+  imported content, carried into every retained request record and score, and recomputed from the
+  authority file by the tests. Editing the script without re-importing, or re-importing without
+  regenerating the affected takes, breaks the build by name.
+- **One request per section per take, and never an automatic retry.** Any failed or uncertain
+  synthesis stops with an explicit message; an orphan request file is a stop sign to investigate,
+  not litter to delete. A dry run is the default, and synthesis happens only with the explicit
+  generate argument and a credential path.
+- **Revision directories are immutable.** Masters, takes and provenance are written create-only, and
+  a rerun refuses to overwrite. A changed take means a new dated revision; earlier revisions stay
+  retained as reuse sources, and reuse copies a take only when the spoken text, voice, endpoint,
+  model and settings match exactly and the old audio re-hashes.
+- **Synthesis settings are pinned and test-enforced** (model, endpoint, stability, similarity,
+  speaker boost and speed). Changing them changes the performance: that is a recorded decision, not
+  a tweak. The voice itself is pinned in a test too, so a substitution cannot be quiet.
+- **Every phrase that gates a visual reveal must be resolvable and unambiguous on the English word
+  clock, and must start a Chinese anchor pair.** The lookup throws on a missing or ambiguous phrase;
+  the semantic review then maps each onset through the bilingual anchors and demands the two agree.
+  Word-level timing exists only on the English score, so a cue that needs a Mandarin word onset
+  cannot be written — reach Mandarin through the anchors.
+- **Pacing is composition, not editing.** The current standard inserts silence at natural gaps and
+  never time-stretches a take; the English pacer's older sibling did stretch one section, so do not
+  copy it. Prediction holds are authored data, and the Mandarin clock refuses a translation whose
+  recorded English hash no longer matches.
+- **Run the three independent audits** (integrity, pacing, semantic score) parameterized to the new
+  revision and keep their output in a dated directory. They re-derive from the bytes rather than
+  trusting the producer, and their hard-coded expectations — the number of phrase-gated reveals, the
+  prediction list — are alarms to update deliberately in the same pass, not noise.
 
 Worked example: E01's comparison needed more thinking time, not a blanket slower film.
 The retained take was paced locally; the changed vapour input became visible before the
@@ -580,6 +803,10 @@ marks final-audio checks pending rather than inventing speech or claiming a comp
   joins/pauses and clipping. Verify that the browser loads that exact master and that important
   phrases coincide with the intended visible action. State whether anyone actually listened;
   provider alignment or independent transcription is not listening or pronunciation acceptance.
+- **Loading and entry:** only the chosen episode's chunk loads, and you recorded the numbers; the
+  first episode is prefetched during the opening; a Play pressed before its chunk arrives still
+  starts the episode; direct entry, the selection card and the previous episode's Continue all land
+  correctly; a held episode contributes no bytes to the public build.
 - **Interaction/access:** test forward and reverse seeking, manual takeover/resume, Still,
   reduced motion, loading/buffering/error behavior, natural end and exclusive playback across
   home/episodes. Describe which wheel, keyboard, touch and device paths were exercised;
@@ -587,8 +814,21 @@ marks final-audio checks pending rather than inventing speech or claiming a comp
   Secondary menus must not move reader geometry or restart playback. Test Escape, backwards
   Tab from the first control, outside dismissal, chapter selection and focus return without
   scrolling; closing a paused menu does not silently resume narration.
+- **Site integration:** name the catalog row, the release flag and its build-time mirrors, the
+  route, the home wiring sites, the Chinese copies' cross-repository byte match, the dictionary keys
+  added and the exact test files extended. For a held episode, state which of the four hold
+  mechanisms you verified (dead-code import, redirected route, allowlist exclusion, leak probes) and
+  that the public build contains none of its bytes. Name the chunk sizes the build emitted.
+- **Device checks:** run the focused test files, both builds, the release test with its negative
+  controls, the release smoke against the hosting emulator, and the live checks at desktop and
+  360 px — including touch scrolling on the scene, a takeover and resume, the Menu's keyboard and
+  focus paths, Still, reverse seek and the natural end. Record that this was emulation and name what
+  only a physical phone can settle.
 - **Current-build checks:** cold-reload after drawing edits before the final browser verdict;
-  hot reload can retain a stale canvas callback. Record a fresh error-observation window and
+  hot reload can retain a stale canvas callback. Rebuild before you review or smoke, and check that
+  the bundle under test postdates your last edit: the first confirmed finding of the 2026-09-19
+  review was that the build being reviewed was stale, so its captures did not show the code under
+  review. Record a fresh error-observation window and
   separate existing limitations from new failures. Use focused product checks for product-only
   changes and the repository's risk-based rules for scientific/evidence changes—not blanket gates.
 - **Audience acceptance:** ask an uncoached first-time viewer to explain and predict using the
@@ -637,21 +877,34 @@ These are design prompts for the provisional episode map, not new science claims
 
 | Future story job | Apply the lesson |
 | --- | --- |
-| E02 — structure, faces and scale | Keep a parent crystal while selecting the face/lattice detail; label the scale change and make the narrated direction the focus. Do not let a beautiful lattice rotate while its meaning goes unexplained. |
-| E03 — delivery through air | Let the air region do visible explanatory work. Connect the chosen representation to an identifiable surface; distinguish material motion, field depiction and any model result. |
+| E02 — structure, faces and scale (built; held from release) | Kept a parent crystal while selecting the face/lattice detail, labelled the scale change and made the narrated direction the focus. What the 2026-09-18 catch-up added is the reusable part: names and features arrive with their spoken phrases, a focus ring follows the recording being named, a close-up is introduced whole before it zooms, a drawn teaching object says it is schematic, and the stage carries no chapter text stack. |
+| E03 — delivery through air | Answer the question Episode 2 ends on, in its words: how does water actually reach a growing crystal, and what happens to it on the way? Let the air region do visible explanatory work. Connect the chosen representation to an identifiable surface; distinguish material motion, field depiction and any model result. Shipping it also means updating the previous episode's Continue wiring, its closing promise and the release flag together — a next-episode hook is a site obligation as well as an editorial one. |
 | E04–E05 — face growth and branching | Keep reference geometry and old material readable while the relevant location changes. Use the library/camera to reveal the narrated feature, not to replace a mechanism with a glamour shot. |
 | E06 onward — comparisons, histories and measurement | Name the held-fixed conditions, carry specimens/history forward, show what an instrument observes before inferred quantities, and give each number a physical referent. No single unexplained map or table for an entire argument. |
 
 ## Maintenance
+
+**Refreshed 2026-09-19** for future-episode use, after Episode 1 went live, Episode 2 was brought up
+to this guide and held, and the home was rebuilt for a thirty-episode series. That refresh added
+[where the work lives](#where-the-work-lives--two-repositories) (the two repositories, the fresh-machine
+setup, what is deliberately outside Git and which branches actually hold the work),
+[the delivery surface](#the-delivery-surface-an-episode-plugs-into),
+[device and platform rules](#device-and-platform-rules-every-episode-inherits), the production
+invariants in the timing contract, and site/device items in the completion checklist; it corrected
+the removed opening sound, the Menu's contents and the Mandarin voice. Facts were verified in the
+two repositories at authority `648f866` and website `81f9bc6`; the numbers quoted here come from the
+receipts named beside them, not from memory. None of it is evidence of audience understanding.
 
 This guide is the reusable standard; the E01 guide and dated reviews are examples and history.
 Future feedback adds its exact scoped response and refines the relevant rule here. Do not silently
 rewrite an earlier quotation or infer approval from silence. Update the active plan's next action
 and link the latest episode review; do not copy a growing chronology into every episode.
 
-Prepared and updated by the root OpenAI Codex agent from the available maker messages and linked
-records. Shared-context read-only story review checked the original synthesis and this update;
-exact model identity was unavailable. The initial documentation-only synthesis added no browser
-inspection or audience test. The later attention-pass review separately records code changes
+Prepared originally by the root OpenAI Codex agent from the available maker messages and linked
+records, with a shared-context read-only story review of that synthesis; exact model identity was
+unavailable then, and that documentation-only synthesis added no browser inspection or audience
+test. The 2026-09-18 and 2026-09-19 updates were written in Claude sessions alongside the work they
+describe (see the commits), each with independent read-only reviews by separate agents recorded in
+the dated review documents. The later attention-pass review separately records code changes
 and sampled visual inspection; no audience test or new audio generation follows from this guide.
 A future episode must earn its own review.
