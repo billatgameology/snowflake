@@ -1,7 +1,7 @@
 # Plan — E02: Why six is only the beginning
 
 - **Phase:** Journey/media; no scientific phase or gate change
-- **Status:** design-guide catch-up in progress (2026-09-18, see the last amendment); narrated E02 remains intentionally unreleased; maker listening/comprehension review pending
+- **Status:** design-guide catch-up complete (2026-09-18, website `4e33879`); narrated E02 remains intentionally unreleased; maker viewing/listening at the preview gate pending
 - **Started:** 2026-09-16
 - **Authority:** initial silent build followed by explicit maker authorization on 2026-09-17: add audio using the latest E01 voice and synchronize timing
 - **Parent:** [series plan](explore-journey-science-series.md), [maker design guide](../video/science-series-design-guide.md)
@@ -289,6 +289,25 @@ separate from these checks.
 Done when: all six strands above are implemented on `explore/film-part1`, the checks pass and are recorded,
 the public build still contains no E02 bytes, `EPISODE_TWO_RELEASED` is still `false`, retained revisions
 are untouched, and the next step for the maker is viewing/listening on the preview gate.
+
+Completed at website `4e33879` (part 1 `b7ed794`, part 2 `4e33879`): all six strands. Records: website
+`docs/science-series.md` (catch-up section), `docs/episode-two-catchup-verification.json` (identities and
+checks, assembled from the artifacts by `scripts/episode-two-catchup-receipt.mjs`),
+`docs/series-narration/2026-09-18-e02-mandarin-yun-q/translation-application.json`, audits under
+`docs/series-narration/mandarin-review-2026-09-18-e02-yun-q/`; the
+[review addendum](../reviews/science-series-e02-review-2026-09-16.md#design-guide-catch-up--2026-09-18)
+records the three-lens review, its 29 confirmed findings and repairs, and the limits. Numbers at write
+time, copied from the receipt: Juniper `2026-09-18-e02-juniper-question` paced 683.19 s (six takes reused
+byte-for-byte from the 2026-09-17 revision); Yun `2026-09-18-e02-mandarin-yun-q` paced 932.57 s, 244 anchors,
+4 holds, audits pass (69 production phrases, onset error ≤ 2e-13 s); **100 focused tests passed, 0 failed**;
+`npm run build` and `npm run build:public` exit 0; emulator smoke clean; live check clean at 1280×800 and
+360×780 emulation. Loudness: Yun −28.6 LUFS vs English −25.6, no gain change. The Susan and 2026-09-17
+revisions and the two intermediate 2026-09-18 revisions (`-juniper-hook`, `-mandarin-yun`) are retained as
+reuse sources. Deviation from strand 4 as planned: the review found the closing still declarative, so the
+two closing sentences were swapped and the E02-10 takes regenerated once more (two further paid takes).
+Two shared player fixes from the review also landed in E01 source (envelope kept on pause; wheel/touch
+takeover re-derives the clock); the live site at `84af23f` lacks them until the next deploy. Next: the
+maker views and listens at `http://127.0.0.1:5185/?e02=preview`; release stays a separate decision.
 
 ## Tried and rejected
 

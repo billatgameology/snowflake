@@ -374,3 +374,53 @@ against slider time, 1.5× rate, reverse seeking, Still before/after, wheel and 
 natural stop at the decoded endpoint, and E01→E02 continuous entry with only one audio playing.
 This is bounded viewing, not one uninterrupted whole-episode performance or a physical-phone test.
 Maker listening and fresh audience teach-back remain pending; no E03 or export is authorized.
+
+## Design-guide catch-up — 2026-09-18
+
+Scope: bring the held Episode 2 to the design guide's post-2026-09-17 requirements
+([plan amendment](../plans/science-series-episode-2.md#design-guide-catch-up--2026-09-18-planned-before-implementation),
+authority `647e805`; website `b7ed794` and `4e33879`). Two independent reviews, both Fable-class agents
+without shared context with the implementer (Root, also Fable):
+
+1. **Fact-finding before implementation.** Five read-only readers (E01 code evolution since the freeze;
+   guide requirements against the E02 script and implementation; explicitly deferred E02 items; E01
+   content-approach changes; release, test and phone constraints) and one synthesizer produced a 33-item
+   gap map ranked must/should/could/defer, which the plan's six strands follow. Kept in session scratch;
+   the plan summarises it.
+2. **Three-lens review after implementation.** Runtime and code correctness (line-by-line comparison with
+   E01, focused tests run, headless-Chrome playback paths incl. an E01 regression check at `/episode-1`);
+   design-guide compliance (own stage captures at paragraph starts and ends, 1280×800 and 360×780, judged
+   with the guide's viewer questions); narration, translation and binding integrity (own decodes, hash
+   recomputation, cue-pair concatenation, the eight Chinese findings verified applied and the rejected
+   items verified untouched). 32 agents; every finding adversarially checked by a separate agent.
+   **29 findings confirmed (8 major, 21 minor, 0 blockers), none refuted.** All repaired in `4e33879`:
+   - shared player defects (both episodes): `pause()` now keeps the current position in the takeover
+     envelope, so the last guided write's scroll event no longer flips Pause/Menu into "Manual scroll";
+     a wheel or touch takeover re-derives the clock from the page position; the stage memo holds again;
+   - the E02 phone stage inherits E01's height; dead stage-text CSS removed;
+   - drawings: the third recording is labelled *star* as spoken; the solid column turns end-on while
+     "six around the column" is spoken; the hollow column enters whole and zooms as it is named; ring
+     numerals are radial with a dark halo (all six legible); the E02-09 layer arrows and brackets, the
+     E02-04 prediction caption, the E02-05 legend and title, the E02-09 nanometre values, the E02-10
+     feature captions and hand-over caveat, and the E02-08 growth-speed premise all wait for their
+     spoken phrases; the opening recordings grow from the question rather than after it; 360 px
+     collisions fixed (haloed wave labels inside the plot, spaced legends, smaller hand-over prism,
+     result caption below the diagram, short "schematic" tag on phones);
+   - the release test's leak probes derive from the live scores; the buried Mandarin source-hash
+     assertion is live again; the closing is now the question ("Next episode, we follow that journey
+     through the air. So how does water actually reach a growing crystal, and what happens to it on the
+     way?"), which cost two further takes; the worksheet note's "fails the build" wording corrected; a
+     translation-application record names which wording each deferred finding received.
+
+Root's own checks after the repairs: `npm run build` and `npm run build:public`; the 12-file focused set
+(100 passed, 0 failed); a grep of the built public assets and the hosting-emulator smoke (no Episode 2
+bytes); the parameterized Mandarin audits (integrity, pace, semantic score: pass, 69 production phrases,
+onset error ≤ 2e-13 s); the live check through the preview gate on desktop and phone emulation
+(`scripts/episode-two-live-check.mjs`, zero page errors); contact sheets of all eight scenes viewed at both
+viewports. Identities and results: website `docs/episode-two-catchup-verification.json`.
+
+Not checked: physical phone or touch; human listening of any take (the two new Chinese passages were
+judged by reading; the reviewer called the Libbrecht clause grammatical and faithful but dense); render
+cost on a real GPU; audience comprehension; complete uninterrupted viewing at narration speed (reviewers
+seeked to instants). Status: ready for maker review at `/?e02=preview`; not maker accepted; unreleased.
+

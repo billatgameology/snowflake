@@ -623,6 +623,10 @@ accepted fixes):
   at the very moment the audience expects the same object to become three-dimensional.
 
 This is scoped feedback on E02, not rejection of the praised E01 surface scene or home transition.
+The 2026-09-18 catch-up applied this guide's later requirements to the held Episode 2 (Menu and stage
+hierarchy, phrase-gated reveals with a focus cue, the closing question, cited-person context, Yun
+Mandarin over the reviewed Chinese); the record is the E02 plan's catch-up section and the
+[review addendum](../reviews/science-series-e02-review-2026-09-16.md#design-guide-catch-up--2026-09-18).
 
 These are design prompts for the provisional episode map, not new science claims or approved shots.
 

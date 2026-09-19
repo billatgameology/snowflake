@@ -1,8 +1,11 @@
 # E02 — Why six is only the beginning
 
-Conversational eight-scene silent revision, 2026-09-17 (stable source IDs retain gaps for removed history). Primary narrative sources: education Chapters 2–3
+Conversational eight-scene revision, 2026-09-17, narrated with Juniper the same day; the 2026-09-18
+design-guide catch-up changes two passages (E02-09 p2 introduces Libbrecht; E02-10 closes on the next
+episode's question) and refreshes their takes under the standing narration direction (stable source
+IDs retain gaps for removed history). Primary narrative sources: education Chapters 2–3
 and their citations to Libbrecht, *Snow Crystals*, with current primary-source corrections in
-the [science review](../reviews/science-series-e02-review-2026-09-16.md). No audio generation.
+the [science review](../reviews/science-series-e02-review-2026-09-16.md).
 Structure drawings are explanatory, not molecular dynamics or experimental diffraction images.
 
 ## E02-01 — The same six. A different shape.
@@ -215,10 +218,11 @@ On an end face that adds thickness; on a side face it adds width. Each step is t
 many completed layers can build a crystal we can see. How a layer starts and spreads is
 a question we'll follow later.
 
-For comparison, Libbrecht describes a real crystal two point three millimetres across—small
-enough to fit on a fingertip. About five million of those in-sheet repeat distances fit across
-it. Our scale picture skips most of that distance. It compares lengths; it isn't a literal
-zoom through every molecule or a measurement of our opening models.
+For comparison, the physicist Kenneth Libbrecht, whose snow-crystal measurements this series
+keeps returning to, describes a real crystal two point three millimetres across—small enough
+to fit on a fingertip. About five million of those in-sheet repeat distances fit across it.
+Our scale picture skips most of that distance. It compares lengths; it isn't a literal zoom
+through every molecule or a measurement of our opening models.
 
 So the small pattern can carry the same orientation across a large crystal. But there isn't
 a tiny finished snowflake at each position. Connections repeat inside the solid. Branches
@@ -251,7 +255,8 @@ are not the same event. Either part of that journey can limit how quickly the cr
 
 We've answered why six keeps appearing, not why this crystal became a plate and that one
 grew branches. Keep the crystal in view, but look at the air around it. Before water can
-join any face or tip, it has to get there. That's our next investigation.
+join any face or tip, it has to get there. Next episode, we follow that journey through the air.
+So how does water actually reach a growing crystal, and what happens to it on the way?
 
 ### Visual and sources
 
@@ -391,9 +396,15 @@ Sources: `docs/education/chapters/02-four-hundred-years-of-looking.html#noticing
 
 ## Design-guide shot worksheet
 
-All beats use the exact paragraph's words as rehearsal cues. After identity/focus, give the
+All beats use the exact paragraph's words as cues. After identity/focus, give the
 action a conspicuous part of that paragraph and hold its result; do not spread small changes
-uniformly across a whole section. Actual recorded-word alignment is pending future narration.
+uniformly across a whole section. Cues are bound to the delivered Juniper takes' word alignment
+(website `src/series/episodeTwoCues.ts`); a missing phrase throws in the player and fails
+`scripts/episode-two.test.mjs` rather than guessing.
+Attention and disclosure (2026-09-18): each beat's names and features arrive with their spoken
+phrases; a focus ring follows the recording being named; chapter titles live in the reader and
+Menu; model status and rendering recipe live in Menu → Sources with a compact on-stage model
+key while a recording is displayed; the prediction question and its hold note stay local.
 
 | Scene | Prerequisite / question and takeaway | Input → action → result; misconception | Understanding check / depth / continuity |
 | --- | --- | --- | --- |
@@ -406,7 +417,7 @@ uniformly across a whole section. Actual recorded-word alignment is pending futu
 | 09 | Repetition in 07 and layer directions in 08; how small becomes large? | Select two corresponding sites, bracket repeat; retain surfaces through layer additions; explicit broken-scale real-specimen example. | Explain repeat length versus molecule size, and why five million is a length ratio. Exact constants/calculation in reader; never assign model physical scale. |
 | 10 | Structure/face directions demonstrated; what is still unanswered? | Same opening models, then three further recordings; move focus to journey through air versus joining surface. | Explain why common structure doesn't determine rates or complete shape. Preserve model disclosure and motivate E03 without unexplained equilibrium-energy jargon. |
 
-Local prediction holds are three provisional seconds, inserted before the named answer phrase;
-they are not measured narration alignment. Screen labels share the cue's release state.
+Local prediction holds are three seconds of inserted silence before the named answer phrase in
+the paced master; screen labels share the cue's release state.
 Review outcome: see the dated review linked at the top; final voice, full spoken rehearsal
 and independent audience teach-back remain unperformed, not inferred from code tests.

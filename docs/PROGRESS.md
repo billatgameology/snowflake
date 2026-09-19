@@ -6,24 +6,26 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
-## In progress: Episode 2 design-guide catch-up — 2026-09-18
+## Completed Episode 2 design-guide catch-up — 2026-09-18 (still unreleased)
 
 Maker request: "Following the design guide for episode design, there have been several updates on content,
-design, approaches. Please update episode 2 based on those new requirements." Plan amendment committed
-first (`647e805`, [E02 plan](plans/science-series-episode-2.md#design-guide-catch-up--2026-09-18-planned-before-implementation)).
-Release hold unchanged (`EPISODE_TWO_RELEASED` false; public build verified free of E02 bytes).
-Landed so far on website `explore/film-part1`: part 1 `b7ed794` (player/layout parity with E01: Menu,
-no stage text stack, model key, highlighted Play, no badge, takeover envelope and touch threshold,
-shared phone CSS; public-neutral Sources and reader wording; phrase-gated attention pass on the eight
-scenes; non-public preview gate `/?e02=preview`). Part 2 in the working tree: the English script's two
-passages rewritten (E02-09 p2 introduces Libbrecht; E02-10 closes on the next episode's question), Juniper
-revision `2026-09-18-e02-juniper-hook` (two synthesized takes, six reused byte-for-byte; paced 682.3 s),
-the eight deferred Chinese findings applied through the phrase anchors, Mandarin revision
-`2026-09-18-e02-mandarin-yun` (Yun, eight takes; paced 922.2 s, 241 anchors, 4 holds), independent
-integrity/pace/semantic audits passing (`docs/series-narration/mandarin-review-2026-09-18-e02-yun/`),
-100/100 focused tests, both builds. Pending: the live check with the new audio, the independent
-three-lens review and its repairs, then the records (E02 review addendum, plan completion, this entry)
-and the part-2 commit. Loudness: Yun E02 −28.7 LUFS vs English −25.6 (no gain change; same pattern as E01).
+design, approaches. Please update episode 2 based on those new requirements." Plan amendment first
+(`647e805`, [E02 plan](plans/science-series-episode-2.md#design-guide-catch-up--2026-09-18-planned-before-implementation));
+implemented on website `explore/film-part1` in `b7ed794` (player/layout parity with E01, public-neutral
+wording, phrase-gated attention pass, non-public preview gate `/?e02=preview`) and `4e33879` (closing
+question and Libbrecht clause with a Juniper refresh, the eight deferred Chinese findings and a Yun
+regeneration, the three-lens review's 29 repairs). Release hold unchanged: `EPISODE_TWO_RELEASED` false,
+no E02 bytes in the public build (release test, grep of built assets, emulator smoke). Numbers copied from
+website `docs/episode-two-catchup-verification.json`: Juniper `2026-09-18-e02-juniper-question` paced
+683.19 s (six takes reused byte-for-byte); Yun `2026-09-18-e02-mandarin-yun-q` paced 932.57 s, 244 anchors,
+4 holds, audits pass (69 production phrases, onset error ≤ 2e-13 s); 100 focused tests passed, 0 failed;
+builds and emulator smoke clean; live check clean at 1280×800 and 360×780 emulation. Loudness: Yun
+−28.6 LUFS vs English −25.6, no gain change. Records: website `docs/science-series.md`, the receipt, the
+[review addendum](reviews/science-series-e02-review-2026-09-16.md#design-guide-catch-up--2026-09-18), the
+plan's completion record. Two shared player fixes also landed in E01 source (envelope kept on pause;
+wheel/touch takeover re-derives the clock); the live site at `84af23f` lacks them until the next deploy.
+Open for the maker: view and listen at `http://127.0.0.1:5185/?e02=preview`; loudness matching; a
+physical-phone check needs a preview build that includes E02; release remains a separate decision.
 
 ## Completed phone pass on the live site — 2026-09-18
 
@@ -995,16 +997,17 @@ To change the site: work on `explore/film-part1` in the retained website worktre
 `dist/`. Candidate follow-ups, none started: the education-chapter findings in the
 [science review](reviews/nivogenesis-e01-public-science-review-2026-09-18.md); Mandarin loudness matching;
 a custom domain; `?diag=1` on the live site shows the field diagnostics overlay on any device. Episode 2
-remains frozen and unreleased; before any Episode 2 release, port the phone pass into `EpisodeTwo.tsx`,
-which still carries the Mandarin badge and the old `expectedY` takeover code.
+is caught up to the design guide (2026-09-18) but unreleased: review it at
+`http://127.0.0.1:5185/?e02=preview` (non-public builds only); releasing it is the one flag in
+`src/series/seriesRelease.ts` plus the D15 allowlist growth, a fresh public build and the smoke.
 
 ### Same-page Chinese and Mandarin — Yun voice on reviewed E01 text, ready to listen
 
 Open the [review addendum](reviews/science-series-mandarin-susan-2026-09-18.md#addendum--yun-restored-for-e01-over-independently-reviewed-text-later-on-2026-09-18),
 then `http://127.0.0.1:5185/episode-1` (local; the public site is https://nivogenesis.web.app/episode-1) and select **中文**. The retained website worktree is
-`/Users/clipper/github/snowcrystal_website-film-part1` at `e343142`. E01 plays Yun
-(`4AfodMgwXps9oZFhHzoj`) over the reviewed refined Chinese; E02 is frozen on its Susan revision and stays
-unreleased until the maker asks for E02 work. Judge pronunciation, delivery and the refined wording. For
+`/Users/clipper/github/snowcrystal_website-film-part1` at `4e33879`. E01 plays Yun
+(`4AfodMgwXps9oZFhHzoj`) over the reviewed refined Chinese; E02 plays Yun too since the 2026-09-18 catch-up (`2026-09-18-e02-mandarin-yun-q`) and stays
+unreleased. Judge pronunciation, delivery and the refined wording. For
 wording edits, change the authority `docs/video/science-series-e01-zh-CN.json` through its cue pairs
 (each paragraph is the concatenation of its pairs in
 `docs/series-narration/2026-09-18-e01-mandarin-yun/cues-early.json` and `cues-late.json`), regenerate
