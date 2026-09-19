@@ -216,6 +216,11 @@ or dispose the replacement's canvas. The
 [Nivogenesis review](../reviews/science-series-nivogenesis-2026-09-17.md) records these repaired
 failures and the bounded visual/audio checks. This request is not new praise for the result.
 
+Opening direction, 2026-09-19: the maker wants the opening "super clean" — the snow scene, the title and
+one central Play that starts Episode 1; the episode cards are the next scene, reached by scrolling; Still
+and Replay opening live in the Menu; and with thirty episodes coming, each episode loads as its own chunk
+only when chosen. The record is the series plan's 2026-09-19 section. Not new praise for the result.
+
 ## What to carry forward from the praise
 
 **Home: continuity that feels physical.** The actual Run B growth shrinks/drifts into a held

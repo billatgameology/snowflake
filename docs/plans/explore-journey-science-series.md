@@ -1034,6 +1034,18 @@ Menu; all checks pass and are recorded; the release hold and public exclusions a
 has a preview channel to confirm before the live site changes. Not part of this: new episodes, narration,
 science content, or the release of Episode 2.
 
+Implemented in website `4c335d6` (records `docs/science-series.md`, `docs/public-release.md`,
+`docs/series-home-verification.json`), on the preview channel `https://nivogenesis--home-zd11o6bj.web.app`
+(expires 2026-09-26); the live site stays at `84af23f` until the maker confirms. Numbers copied from the
+receipt: public home chunk 1,244 KB (from 1,583 KB), index 258 KB, Episode 1 173 KB plus its 159 KB
+Mandarin-score chunk; on landing the home loads the home chunk and Episode 1's prefetch and no other
+episode; 100 focused tests passed, 0 failed; emulator and preview smokes clean; live check clean at
+1280×800 and 360×780 emulation including a queued start with a delayed module. An independent two-lens
+review (runtime/loading and design; Fable, no shared context) confirmed eleven findings, all repaired
+before the commit (listed in the website record). Deviation from the plan as written: Episode 1 mounts on
+arrival as well as on scroll, so the central Play is instant after the opening; a Play pressed earlier
+takes the queued path. Next: the maker views the preview on desktop and phone; promotion is their call.
+
 ## Tried and rejected
 
 - **Mute audio while waiting for slow visual loading.** Playback still consumes the file and

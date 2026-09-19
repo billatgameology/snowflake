@@ -6,6 +6,23 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
+## Series home redesign on a preview channel — 2026-09-19 (awaiting the maker's confirmation)
+
+Maker direction: with thirty episodes coming, do not load every episode to show one; make the opening
+"super clean" (snow scene, one central Play that starts Episode 1, cards in the next scene, Still and
+Replay opening in the Menu). Plan amendment `ddcee92` first ([series plan](plans/explore-journey-science-series.md#opening-redesign-and-per-episode-loading--2026-09-19-planned-before-implementation)),
+implemented in website `4c335d6`: opening → selection (catalog cards, centred grid) → the chosen episode,
+every episode its own chunk (Episode 1 prefetched during the opening and mounted on arrival or on scroll;
+a Play pressed earlier queues the start; the capture harness loads only in capture mode). Numbers copied
+from website `docs/series-home-verification.json`: public home chunk 1,244 KB (from 1,583 KB), index
+258 KB, Episode 1 173 KB plus its 159 KB Mandarin-score chunk; 100 focused tests passed, 0 failed;
+emulator and preview smokes clean; live check clean at 1280×800 and 360×780 emulation including the
+queued-start case. An independent two-lens review confirmed eleven findings, all repaired before the
+commit. Preview channel `https://nivogenesis--home-zd11o6bj.web.app` (expires 2026-09-26); the live site
+stays at `84af23f`. Next: the maker views the preview on desktop and phone; promote with
+`firebase deploy --only hosting --project nivogenesis` from the committed head when confirmed, then tag
+(`nivogenesis-public-2026-09-19`) and record here and in the public release plan.
+
 ## Completed Episode 2 design-guide catch-up — 2026-09-18 (still unreleased)
 
 Maker request: "Following the design guide for episode design, there have been several updates on content,
@@ -986,9 +1003,10 @@ export uses a new directory, not an overwrite. Human viewing/listening acceptanc
 
 ### Nivogenesis is live — view it, then decide the follow-ups
 
-Open **https://nivogenesis.web.app** (and `/episode-1`) on desktop and phone; switch EN / 中文 and press
-Play. Live since the 2026-09-18 phone pass: website `84af23f`, tag `nivogenesis-public-2026-09-18.2`, the
-maker having confirmed the `ios` preview channel on an iPhone. Everything shipped is in the
+Open **https://nivogenesis--home-zd11o6bj.web.app** first (the 2026-09-19 home redesign on its preview
+channel: one central Play, cards in the next scene, Still and Replay in the Menu) on desktop and phone;
+say so and it is promoted from website `4c335d6`. The live site is still the 2026-09-18 phone pass:
+website `84af23f`, tag `nivogenesis-public-2026-09-18.2`. Everything shipped is in the
 [plan's completion record](plans/explore-nivogenesis-public-release.md#completion-record--2026-09-18).
 To change the site: work on `explore/film-part1` in the retained website worktree, run
 `npm run build:public`, `node --test scripts/public-release.test.mjs`, the smoke against
