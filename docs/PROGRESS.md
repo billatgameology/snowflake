@@ -22,8 +22,13 @@ invariants in the narration contract; loading, site-integration and device items
 checklist; a device-budget cell in the scene worksheet; and an eighth start-here step for shipping.
 Corrections from an independent currency pass: the removed opening sound, the rebuilt opening, the
 Menu's contents, the model key, measured word timing, Episode 2 as a held worked example, Episode 3
-inheriting Episode 2's closing question, and an honest authorship line. The file-by-file commands
-live in the website's new `docs/adding-an-episode.md` (website `b1a7986`); guide at `d96c9ad`.
+inheriting Episode 2's closing question, and an honest authorship line. A follow-up pass (`4aae4a6`) folded in the
+synthesizer's remaining verified findings: front-matter links to the newer records, the Menu's
+series-wide Still and Replay behaviour, the Play affordance, the canvas type floor, translation
+parity, prediction holds as inserted silence with per-episode durations, loudness measurement and
+the measured Mandarin gap, and a **Releasing an episode** section (public-facing wording, the
+deployed-artifact review, holding as a first-class state). The file-by-file commands live in the
+website's new `docs/adding-an-episode.md` (website `b1a7986`); guide at `d96c9ad`/`4aae4a6`.
 Facts were gathered by a four-reader read-only fan-out over both repositories and verified in the
 files; no audience or listening claim follows from any of it.
 
