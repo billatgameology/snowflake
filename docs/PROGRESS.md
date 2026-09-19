@@ -23,11 +23,23 @@ The maker confirmed Play works on the preview and asked for smaller cards, no Pl
 Mandarin badge in the player and a more noticeable paused Play: website `efc136b` shrinks phone cards to
 272×77 CSS px, removes the opening sound from the home (asset, recipe and module retained, WAV no
 longer shipped), removes the badge (AI narration stays identified in the intro text, status label and
-Sources panel) and highlights the paused Play. Deployed to the preview channel
-`https://nivogenesis--ios-dp3vhdsa.web.app` (expires 2026-09-25); 99/99 focused tests, release test and
-preview smoke clean; phone-emulation captures viewed; an independent three-lens review of the change set
-was launched. Next: the maker retests the preview on the iPhone; promote with
-`firebase deploy --only hosting --project nivogenesis` from a committed head when accepted.
+Sources panel) and highlights the paused Play. The independent three-lens review of that change set
+(Fable, no shared context; re-ran the build, tests and phone captures) found: an ordering gap in the
+takeover envelope (the first programmatic scroll on iOS could still read as a swipe), a never-cleared
+envelope, a paused Play that grew on phones, an illegible kicker and a top bar that overflowed at 360 px.
+Website `84af23f` fixes those and, from the phone captures, keeps the opening crystals off the cards on
+viewports ≤ 600 px: side bands only (`avoidCentre` 0.3, `edge` 0.09), the opening crystal lands in the
+right band, and the marker layer sits under the headline and cards (z 20 < 25) unless a crystal is open
+for inspection (z 30) — a crystal drifting behind the Episode 1 card had been able to take its tap.
+Deployed to the preview channel `https://nivogenesis--ios-dp3vhdsa.web.app` (expires 2026-09-25) from
+`84af23f`; 99/99 focused tests, emulator and preview smokes clean
+(`docs/public-release-smoke-*.json` are the earlier live records; this round's receipts are scratch);
+360 px Chrome phone capture: markers at x 23–79 and 281–338 beside the 44–316 card, the card centre
+hit-tests to the card, layer z 20 closed / 30 open. Known gap, deliberately left: the frozen, unreleased
+`EpisodeTwo.tsx` still carries the Mandarin badge and the old `expectedY` takeover code; port both
+before any Episode 2 release. Next: the maker retests the preview on the iPhone; promote with
+`firebase deploy --only hosting --project nivogenesis` from the committed head when accepted, then tag
+and record the live commit here and in the public release plan.
 
 ## Completed Nivogenesis public release — 2026-09-18
 
