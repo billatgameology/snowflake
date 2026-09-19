@@ -1,7 +1,7 @@
 # Plan — E02: Why six is only the beginning
 
 - **Phase:** Journey/media; no scientific phase or gate change
-- **Status:** narrated E02 complete but intentionally unreleased (2026-09-17); source retained, maker listening/comprehension review pending
+- **Status:** design-guide catch-up in progress (2026-09-18, see the last amendment); narrated E02 remains intentionally unreleased; maker listening/comprehension review pending
 - **Started:** 2026-09-16
 - **Authority:** initial silent build followed by explicit maker authorization on 2026-09-17: add audio using the latest E01 voice and synchronize timing
 - **Parent:** [series plan](explore-journey-science-series.md), [maker design guide](../video/science-series-design-guide.md)
@@ -207,6 +207,88 @@ names retained identities, independent artifact/ASR/runtime review, repaired fin
 browser coverage. Website `docs/episode-two-audio-tests.tap` records **86 passes, zero failures**;
 TypeScript and production build pass. Human pronunciation listening and audience teach-back
 remain pending; next is maker review, not more automatic synthesis.
+
+## Design-guide catch-up — 2026-09-18 (planned before implementation)
+
+Maker request (2026-09-18, after the Nivogenesis public release and the E01 phone pass): "Following the
+design guide for episode design, there have been several updates on content, design, approaches. Please
+update episode 2 based on those new requirements." This lifts the 2026-09-18 "don't work on E02" hold for
+this task only. The **release hold stays**: `EPISODE_TWO_RELEASED` remains `false`, E02 stays out of the
+public bundle, and the Coming-soon card is unchanged. Releasing is a separate maker decision.
+
+Baseline per file (website `explore/film-part1`, HEAD `71b25af`; E02 last revised at `5fcd95a`/`1f0fbd5`):
+`EpisodeTwo.tsx` unchanged since the freeze; `EpisodeTwoVisual.tsx` gained the catalogue import at
+`833ee9e`; `episode-two.zh-CN.json` and `episode-two-narration.zh-CN.json` carry the refined text and the
+Susan revision from `e3bfbb4`. English narration: Juniper revision `2026-09-17-e02-juniper` (664.6 s).
+Mandarin: Susan revision `2026-09-18-e02-mandarin-susan` (918.7 s), never played in a browser.
+
+What changed after E02's last revision, and what E02 must therefore catch up on (a fact-finding fan-out of
+five independent readers plus synthesis, 2026-09-18, 132 raw items; the ranked gap map G01–G33 is retained
+in session scratch and summarised here):
+
+1. **Player and layout parity with E01** (guide requirement 10/11; maker's E01 attention pass and phone
+   pass, both accepted): one accessible Menu holding the section selector, Still and scene-aware Sources
+   (Escape, backwards Tab, outside dismissal, focus return, opening pauses, closing never resumes); the
+   stage carries no chapter eyebrow/title, no per-beat description sentence and no persistent production
+   note (the prediction question stays local during its hold; a compact `Model · unvalidated ⓘ` key
+   appears only while a recording is displayed and opens Menu → Sources); the Play control is the
+   highlighted fixed-width `episode-play` with the ▶ glyph when paused; the Mandarin badge leaves the
+   controls bar; the guided scroll uses the expected-position envelope (seeded before entering, cleared on
+   pause) and the ten-pixel touch threshold; phone top-bar compaction and the ≤ 400 px brand tagline
+   rule get `#episode-2` twins or a shared selector. The `series.css` comment "E02 retains its layout" was
+   a 2026-09-17 scoping choice, superseded by this request.
+2. **Public-neutral wording** (public release D16; science-review E02 finding deferred with the freeze):
+   the Sources disclosure names both served voices and Kenneth G. Libbrecht's *Snow Crystals*, drops
+   "draft" and the second-person "the voice you selected"; optional-reader paragraphs stop naming numbered
+   future episodes at render time (as E01's `publicReader` does), so no source hash changes; the footer's
+   "Episode 3 is not produced yet" becomes an unnumbered line; Sources state the recordings' model status
+   **and** rendering recipe (unit Z, fitted frames, time-compressed, unvalidated).
+3. **Attention pass on the eight scenes** (guide "what enters now, what remains, what retires"; E01's
+   accepted scene-9 method): gate always-on captions to their spoken phrases (E02-01 six-direction labels,
+   E02-04 wave/ray caption stack, E02-05 entry captions); reveal "≈ 5 million in-sheet repeats" at "About
+   five million", not at paragraph entry; give the narrated cell a focus cue in E02-01 ("the plate … the
+   column … the star"); give transition paragraphs a named inspection target instead of a static frame;
+   announce the E02-08 teaching prism as a schematic with a local label; name the one unlabeled arrow.
+   Visual-only; every new or changed canvas string gets its Chinese equivalent.
+4. **Spoken content** (guide items added after the E02 script: cited-person context; a closing that leaves
+   a specific question for the next episode): two English passages change — E02-09 p2 introduces
+   Libbrecht in one clause, and E02-10 p3 ends on the next episode's question. Under the standing refresh
+   direction the two affected Juniper takes are regenerated in a new revision that reuses the six unchanged
+   takes byte-for-byte; the paced master, captions, cues and the script/JSON hash bindings are rebuilt.
+   The other guide item (shared-action imperatives such as "Highlight those two ends") was reviewed and
+   kept on 2026-09-17 as viewer-shared actions; it is not reopened.
+5. **Chinese text and Mandarin voice.** The eight deferred E02 translation findings (seven confirmed, one
+   terminology; recorded in website `docs/series-narration/2026-09-18-e01-mandarin-yun/translation-review.json`
+   with "deferred: Episode 2 frozen") are applied through the cue pairs, and the two rewritten English
+   passages are translated. Those word changes touch seven of eight sections, so the standing direction
+   requires refreshing the Mandarin takes; the refresh voice is **Yun** (`4AfodMgwXps9oZFhHzoj`, the maker's
+   2026-09-18 choice over Susan, restated in the guide). **Assumption, stated for the maker:** all eight E02
+   Mandarin takes are regenerated with Yun in one new revision rather than leaving one Susan take among
+   Yun takes; the Susan revision stays retained. If the maker prefers Susan for E02, the same pipeline
+   reruns with `--voice=0H4ruoQ81Ei2FCwjW5j1`.
+6. **Local review surface.** With the hold in place nothing mounts E02, so a non-public-only preview gate
+   (`/?e02=preview`, dead code in the public build by the `__NIVOGENESIS_PUBLIC__` define) mounts E02
+   beneath the home for review; the pinned release patterns in `SeriesHome.tsx`, the router and the
+   release test are kept and the release test gains the gate's negative control.
+
+Not done here, recorded for the maker: loudness matching across the language toggle; a physical-phone
+check (E02 cannot reach a Firebase preview channel while the public build excludes it); human listening of
+the new Yun/Juniper takes; an uncoached teach-back; acceptance of the five 2026-09-16 E02 feedback fixes.
+
+Checks (product-sized, Rule 6): `npm run build` and `npm run build:public`; the E02-bearing focused set
+(`episode-two`, `episode-two-audio`, `series-bilingual-audio`, `series-localization`, `series-release`,
+`series-opening-sound`, `series-reading`, `public-release`) plus the release smoke against the hosting
+emulator to prove E02 still stays out of the public bytes; full decode of every new take and master with
+exact spoken-source coverage; a cold-load live check of the preview gate on the retained dev server at
+desktop and 360 px (play from the intro, takeover and resume, forward/reverse seek, Still, language switch
+during a prediction hold, Menu keyboard and focus paths, natural end) with per-scene captures viewed by the
+author; an independent read-only review (different context) of the change set; then the review record,
+this plan, `docs/PROGRESS.md` and the website receipts. Human listening and audience acceptance stay
+separate from these checks.
+
+Done when: all six strands above are implemented on `explore/film-part1`, the checks pass and are recorded,
+the public build still contains no E02 bytes, `EPISODE_TWO_RELEASED` is still `false`, retained revisions
+are untouched, and the next step for the maker is viewing/listening on the preview gate.
 
 ## Tried and rejected
 
