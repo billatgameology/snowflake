@@ -1,9 +1,9 @@
 # Plan — Snow Crystal Journey: a question-led science series
 
 - **Phase:** Maker-directed Journey/media; no scientific phase or gate change
-- **Status:** E03 authority script and bilingual production source authorized and in progress; E01/E02 retained; previous film preserved
+- **Status:** E03 English clarity revision planned before implementation; prior production retained and held; E01 live, E02 held
 - **Started:** 2026-09-15
-- **Last touched:** 2026-09-19 by OpenAI Codex (planned E03 delivery-through-air authority pass before implementation)
+- **Last touched:** 2026-09-20 by OpenAI Codex (planned maker-directed E03 English clarity revision before implementation)
 - **Direction:** [JTS-M010/M011](../journey/TRANSCRIPT.md#jts-m010--the-format-works-the-content-needs-rethinking), plus [JTS-M012 visual-production direction](../journey/TRANSCRIPT.md#jts-m012--use-the-animation-library-and-rendering-experiments-freely)
 - **Supersedes:** the single-film editorial constraints in [the Part 1 plan](explore-film-part1-science-scroll-documentary.md), not its recorded implementation or verification results
 
@@ -1136,6 +1136,116 @@ complete-performance review are recorded, and previous content remains intact. R
 a new MP4, solver changes, scientific gates and claims that the displayed field validates a model are
 out of scope. Commit this amendment and the matching live-state update before script or product edits;
 later implementation changes remain for the episode delivery commit.
+
+### Completion record — 2026-09-19
+
+The held Episode 3 production is complete. The source-reviewed authority files remain frozen at raw
+English SHA-256 `f7a420da3becdeabf88998d5c859a10ba31b548eecd7ce76a5a3cd35f6a121d0`, imported English
+SHA-256 `1743f14b1dda1c796b53d626225200344fd09aa75d3e0794234b9e50086a097d`, Simplified Chinese
+SHA-256 `fc9211cd18de25efc3137bb6a290536d5611c11f63bf25988bcf981a698a79f9` and bilingual cue
+SHA-256 `60a8423805fa82c5c5a85924c6ff308dccec55480975c9292c2cc10f9eb63e1e`. The website imports all
+nine sections and 28 paragraph-identical narration blocks, carries 121 unique ordered bilingual cue
+pairs and implements the two authored three-second same-paragraph prediction holds.
+
+Production used the standing one-request-per-section contract without retry: nine Juniper takes in
+retained revision `2026-09-19-e03-juniper` and nine Yun takes in retained revision
+`2026-09-19-e03-mandarin-yun`. The final English paced master is 632.504739229025 seconds and
+27,893,459 decoded samples, SHA-256
+`8f7cae8b7526cc699cc994590eec66eb283ec29cb288422769a949062a21082d`; the Mandarin master is
+850.0757142857143 seconds and 37,488,339 decoded samples, SHA-256
+`3b30198167d4facfabff84d5328a5616c596924be8de420e913297a9d873d3de`. Retained generation and
+pacing reports live under website `docs/series-narration/2026-09-19-e03-juniper/` and
+`docs/series-narration/2026-09-19-e03-mandarin-yun/`. The four independent receipts under
+`docs/series-narration/mandarin-review-2026-09-19-e03-yun/` pass source/integrity, English pacing,
+Mandarin pacing and semantic checks: every decoded source sample is retained, pause interiors and
+full-scale sample counts are zero, encoded/source-segment correlation stays above 0.9994, all 121
+pairs and 32 runtime reveal onsets resolve, both answer gates follow their exact holds and maximum
+measured onset error is zero. The adjacent loudness receipt records read-only FFmpeg measurement of
+−25.62 LUFS English and −28.47 LUFS Mandarin; no normalization or gain change was applied.
+
+Website `docs/episode-three-verification.json` is the compact completion receipt and
+`docs/science-series-episode-three.md` is the detailed production record. The complete temporary-voice
+frozen rehearsal is retained at `export/episode-three-rehearsal-frozen-review/review.json`; the
+continuous final-English passage from the last four seconds of E03-07 through natural end is at
+`export/episode-three-final-passage-review/review.json`. The final 90-frame scored cue-art review and
+eighteen overview compositions have no reported type-floor or bounds failure, and selected actual
+English/Mandarin phone-emulation images were inspected. The final generic live desktop/phone check at
+`export/episode-three-e03-live-final/live-check.json` reports no problems or browser errors; the held
+transition receipt at `export/episode-three-transition-final/transition-live-check.json` reports no
+problems. TypeScript, the full local build and the public build pass, along with 139 focused checks,
+six held-release checks and a 41-observation public smoke review. The public build contains no held
+E02/E03 runtime chunk, active narration, story probe or held-only translation leak. No deployment was
+performed.
+
+This closes technical production, not the review boundary. The complete uninterrupted rehearsal used
+temporary local speech; final-voice review combined integrity/semantic signal checks, a continuous
+English closing passage, live interaction checks and sampled frame inspection. It was not uninterrupted
+human listening or a complete human viewing. Proper-name pronunciation, subjective delivery and the
+2.85 LU English/Mandarin balance remain maker listening decisions. A physical-phone check, uncoached
+first-viewer explanation/prediction, maker acceptance, release and deployment remain open. E03 stays
+held, and this completion does not authorize Episode 4, a new MP4, solver work or scientific gate
+claims.
+
+## Episode 3 English clarity revision — 2026-09-20, planned before implementation
+
+The maker's first review of the held Episode 3 identifies comprehension and staging problems that
+supersede treating the 2026-09-19 technical completion as an accepted cut. Scene 4's laboratory-droplet
+image is unclear and should use a readable top-down view. Its final “observed moat / calculated halo”
+paragraph loses the maker by combining technical wording, evidence identity and a new representation.
+Scene 5 presents the complete system at once instead of introducing one element and later recapping;
+the words describe depletion, growth and movement that do not read as visible actions. The move from
+scene 5 to scene 6 is abrupt. Scene 8 is good and must be preserved. Scene 9 needs a brief visual recap
+of the main causal chain and a clearer spoken close.
+
+A shared-context OpenAI Codex agent acting as a documentary and education director reviewer—not
+claiming human directing or teaching credentials—read the complete design guide, authority script and
+current Episode 3 drawing/cue source, then inspected retained scored frames. It did not perform fresh
+normal-speed playback, human listening or an audience test. Its bounded diagnosis is novelty pile-up:
+new physical ideas, technical language and visual grammars arrive together, while finished diagrams
+appear before the viewer has earned their parts. The guide now requires one kind of novelty per beat,
+sequential build before overview, visible action for narrated verbs, a carried invariant across resets,
+observation-first evidence staging and a causal visual recap.
+
+Revise only what this feedback reaches. Keep scenes E03-01, E03-02 and E03-07 unchanged; preserve
+E03-08's English words and staged still-air/moving-air comparison. Lightly revise E03-03 so visible
+uptake/depletion supplies the top-down handoff. Rebuild E03-04 as observation first: one distinctive
+faceted plate and clearly liquid droplets on a top-down support, an already-clear scalloped moat, then
+its traced boundary, then a distinctly labelled qualitative comparison with the calculated field. Do
+not animate unobserved droplet birth/evaporation or imply that different source figures are one
+pixel-registered specimen.
+
+Remove the literal two-door drawing from E03-05. Use one ideal sphere under fixed outer conditions:
+show delivery to the surface and net added ice as separate steps, then show the easy-surface case
+depleting nearby supply and growing against a fixed before-outline. Preserve the authored question and
+three-second air-delivery answer hold. Introduce the difficult-surface case separately, without a dot
+count that implies a literal one-collision joining probability; only after both cases have meaning may
+they appear together. Keep the heat caveat as a short coda. For E03-06, collapse back to one centered
+sphere, carry its centre/scale/outer supply into an explicitly schematic shape change, identify one
+corner and one face centre, then explain that each new line marks the same amount before naming contour
+spacing and showing unequal local delivery. Preserve the source boundary that geometry affects delivery
+but does not by itself explain branching.
+
+Rebuild E03-09 as a quick sequential visual spine: one random path; many paths producing net delivery;
+growth depleting nearby supply; shape and relative airflow redirecting that delivery. Recombine to the
+same crystal, select one face and zoom without introducing terraces. The revised close says plainly
+that reaching the face is not the same as becoming ice and that either air delivery or surface response
+can slow net growth, then earns the unchanged question, “How can a growing face stay flat?”
+
+Production order is English-first by explicit maker direction. Revise and source-check the English
+authority, visual implications and exact reveal phrases; import it; stage the English visuals; make a
+complete temporary-voice rehearsal; obtain the bounded non-author review and maker English acceptance;
+only then revise Chinese, finalize bilingual semantic anchors and produce affected Yun narration. Do
+not synthesize Mandarin or finalize new Mandarin alignment before English acceptance. Retain all prior
+Juniper/Yun takes and receipts, keep stale Mandarin unavailable beside changed English meaning, make no
+automatic paid retry and leave E03 held. The standing Juniper refresh applies only after the revised
+English source and visual meaning have passed review; this planning checkpoint itself authorizes no
+synthesis.
+
+Done for this revision when the new English cut demonstrates one understood action at a time, scenes
+4/5/6/9 and their transitions have been reviewed at normal speed, scene 8 remains intact, the revised
+English has maker acceptance, and the accepted meaning is ready to begin the separate Chinese pass.
+Mandarin production, physical-phone review, audience understanding, release, deployment, Episode 4,
+new solver work and a new MP4 are not completion claims of this English-first stage.
 
 ## Tried and rejected
 

@@ -6,22 +6,58 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
-## Episode 3 delivery-through-air pass authorized and planned — 2026-09-19
+## Episode 3 English clarity revision planned before implementation — 2026-09-20
 
-The maker requests Episode 3 under the refreshed design guide, including authority script and
-Simplified Chinese source, website integration, matching Juniper/Yun narration, actual performance
-review and the pre-E03 runtime generalization the guide requires. The committed
-[series-plan amendment](plans/explore-journey-science-series.md#episode-3-authority-and-production-pass--2026-09-19-planned-before-implementation)
-defines a nine-scene investigation (`E03-01` through `E03-09`) of random motion and net diffusion,
-the persistent depleted halo, indirect fog/moat observation, the source's ideal-sphere two-bottleneck
-comparison, geometry and flux, sublimation, ventilation and the Episode 4 flat-face question. It
-requires one persistent schematic subject, explicit observation/field/model identities, substantive
-reader depth, two authored bilingual prediction holds and a bounded non-author science/depiction
-review before synthesis. E01 stays live and E02 stays complete but held; E03 is held unless release is
-separately requested. Next: draft `video/science-series-e03-script.md` and
-`video/science-series-e03-zh-CN.json` from Chapters 4–5 and the current E02 handoff, then source-review
-them before narration. No E03 production, release or audience-understanding result exists at this
-planning checkpoint.
+The maker's first review of held Episode 3 reopens its English cut. Scene 4's laboratory-droplet view
+is unclear and should read top-down; its final moat/halo paragraph combines too much technical wording
+and representation change. Scene 5 shows the whole system before its parts have meaning and leaves
+spoken depletion, movement and growth visually static. The scene 5→6 reset is abrupt. Scene 8 is good
+and stays unchanged. Scene 9 needs a quick visible recap of the causal chain and a clearer close. The
+[active series plan](plans/explore-journey-science-series.md#episode-3-english-clarity-revision--2026-09-20-planned-before-implementation)
+records the bounded scene treatment and the [design guide](video/science-series-design-guide.md) now
+requires one kind of novelty per beat, sequential build before overview, visible action for narrated
+verbs, a carried transition invariant, observation-first evidence staging and a sequential visual recap.
+
+Next: revise English E03-03/04/05/06/09 and their exact reveal phrases while preserving E03-01/02/07
+and the maker-approved E03-08; source-check the changed words and depictions; implement and rehearse the
+English cut; then obtain maker English acceptance. The maker explicitly directs English first: do not
+synthesize Mandarin or finalize revised Mandarin semantic alignment until that acceptance. Retain the
+existing Juniper/Yun masters and receipts, but do not play stale Mandarin against changed English
+meaning or reveals. Episode 3 remains held. No script, product, synthesis, release or deployment change
+exists at this planning checkpoint; human listening, physical-phone review and audience understanding
+remain open.
+
+## Episode 3 held production complete; maker review remains — 2026-09-19
+
+The maker-requested Episode 3 production is complete and held in the website repository. The frozen
+authority package and its bounded non-author science/translation review are recorded in the checkpoint
+below; the English script, Simplified Chinese source and bilingual cue authority did not change after
+that handoff. The website now contains the nine-scene investigation (`E03-01` through `E03-09`), one
+persistent schematic subject, explicit observation/field/model identities, the two authored bilingual
+prediction holds, a substantive reader and the generalized per-episode import, narration, pacing and
+audit paths. Episode 1 remains live, Episode 2 remains complete but held, and the prior film is intact.
+
+Final narration is retained as immutable Juniper revision `2026-09-19-e03-juniper` and Yun revision
+`2026-09-19-e03-mandarin-yun`. Eighteen section takes were requested once each with no retry. The paced
+English master is 632.504739229025 seconds (SHA-256
+`8f7cae8b7526cc699cc994590eec66eb283ec29cb288422769a949062a21082d`); Mandarin is
+850.0757142857143 seconds (SHA-256
+`3b30198167d4facfabff84d5328a5616c596924be8de420e913297a9d873d3de`). The retained integrity,
+English/Mandarin pacing and semantic audits pass: every decoded source sample is retained, 121 ordered
+bilingual pairs resolve, both three-second prediction holds are present and measured onset error is
+zero. Read-only loudness measurement is −25.62 LUFS English and −28.47 LUFS Mandarin; no gain change
+was made because cross-language balance remains a maker listening decision.
+
+The website's `docs/episode-three-verification.json` is the compact final receipt and
+`docs/science-series-episode-three.md` is the production record. A complete frozen temporary-voice
+rehearsal, a continuous final-English E07-to-natural-end passage, 90 scored cue compositions, eighteen
+overview compositions and final desktop/phone-emulation live checks are retained under `export/`.
+The final live receipt reports no desktop or phone problems or browser errors. The local/full and
+public builds pass, as do 139 focused checks, six held-release checks and the 41-observation public
+smoke review; held E02/E03 runtime chunks, active narration and story strings do not enter the public
+build. No deployment or release was performed. These are technical and sampled-review results, not
+human listening, pronunciation or relative-loudness acceptance, a physical-phone result, complete
+human viewing, uncoached audience understanding or maker approval. Episode 3 remains held.
 
 ## Episode design guide refreshed for future episodes — 2026-09-19
 
@@ -48,6 +84,36 @@ deployed-artifact review, holding as a first-class state). The file-by-file comm
 website's new `docs/adding-an-episode.md` (website `b1a7986`); guide at `d96c9ad`/`4aae4a6`.
 Facts were gathered by a four-reader read-only fan-out over both repositories and verified in the
 files; no audience or listening claim follows from any of it.
+
+## Episode 3 authority package source-reviewed and handed to production — 2026-09-19
+
+The nine-scene authority package is now written at
+`docs/video/science-series-e03-script.md` (raw SHA-256
+`f7a420da3becdeabf88998d5c859a10ba31b548eecd7ce76a5a3cd35f6a121d0`): 1,550 spoken words,
+five substantive reader entries, explicit source dispositions and a complete design-guide worksheet.
+It develops random molecular motion into net diffusion, defines the depleted spatial gradient,
+keeps the fog/moat observation distinct from a computed field, compares delivery-limited and
+surface-limited growth with a fixed ideal sphere, distinguishes local amount from diffusive flow,
+uses Nelson's controlled sublimation experiment and Takahashi et al.'s free-fall results with their
+qualifiers, and hands one flat face to E04. The ideal-sphere arithmetic stays in the reader; the film
+uses a meaning-first controlled comparison. A bounded non-author source review checked the load-bearing
+sphere, sublimation and ventilation claims, and its supported corrections are incorporated.
+
+The matched Simplified Chinese authority (`science-series-e03-zh-CN.json`, SHA-256
+`fc9211cd18de25efc3137bb6a290536d5611c11f63bf25988bcf981a698a79f9`) is bound to the final imported
+English JSON SHA-256 `1743f14b1dda1c796b53d626225200344fd09aa75d3e0794234b9e50086a097d`.
+The retained cue authority (`science-series-e03-mandarin-cues.json`, SHA-256
+`60a8423805fa82c5c5a85924c6ff308dccec55480975c9292c2cc10f9eb63e1e`) covers all 28 paragraphs with
+121 unique ordered bilingual pairs and two same-paragraph three-second prediction holds (E03-05 and
+E03-08). A separate parity review corrected the diagram-palette explanation, moat proposition,
+loss-rate wording, deposition-heat language and no-attraction wording. The shared diagram dictionary
+is mirrored byte-for-byte to the website at SHA-256
+`138577c6d140967a00a73558fc539a7c1377f0b0474c22d1fedb9dd48e988983`; the E03 translation and cue
+copies are byte-identical too. JSON, whitespace, source/paragraph parity and phrase-order validation
+pass. The website localization test passes its existing five runnable checks but its full source-copy
+check waits, as designed, for the not-yet-generated E03 Mandarin narration score. No narration,
+complete-performance review, public release or audience-understanding result follows from this
+authority checkpoint; those production steps remain active in the committed plan below.
 
 ## Completed series home redesign — live 2026-09-19
 

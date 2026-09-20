@@ -1,6 +1,6 @@
 # Science series — maker's critique and episode design guide
 
-Captured 2026-09-16 from the maker's feedback and **last updated 2026-09-19**. It accumulates the
+Captured 2026-09-16 from the maker's feedback and **last updated 2026-09-20**. It accumulates the
 conversational E01 production lessons and the later introduction, visual-flow, comparison,
 visual-clutter, real-model inspection and closing-hook feedback, then the 2026-09-18 Episode 2
 catch-up and phone passes and the 2026-09-19 home redesign. A direction here can be reversed by a
@@ -274,6 +274,42 @@ to the maker's requests, not yet new praise or comprehension evidence. The
 [follow-up review](../reviews/science-series-e01-opening-followup-2026-09-17.md) records verification
 and remaining limits.
 
+### Follow-up: Episode 3 needs one novelty at a time — 2026-09-20
+
+The maker's first Episode 3 review reports a specific comprehension failure rather than a request
+for more decoration. The laboratory droplet image in scene 4 is unclear and should read top-down.
+The paragraph beginning “In the source, the observed moat...” asks the viewer to learn technical
+wording, a new evidentiary distinction and a new side-by-side representation at once. Scene 5 shows
+its complete system before its parts have meaning; the narration describes depletion, movement and
+growth while the important visual states read as static. The cut from that finished sphere comparison
+to scene 6's finished hexagonal field is abrupt. Scene 8 works and should be preserved. Scene 9 needs
+a quick visible recap of the episode's causal chain and plainer words before the flat-face question.
+
+The repair is **one kind of novelty per teaching beat**: a new physical idea, a new technical name or
+a new visual grammar, not all three together. When the representation changes, use it first to restate
+an idea the viewer already understands. When the concept changes, keep the established representation.
+Name a technical concept only after its visible event has acquired ordinary-language meaning. Build
+subject → changed condition → visible action → result, then show the combined comparison or recap.
+Do not begin with the finished overview and merely highlight pieces of it later.
+
+For the laboratory reconstruction, establish a top-down faceted crystal and clearly liquid droplets
+on the support, let the viewer notice the already-clear scalloped moat, trace its boundary, and only
+then place the observation beside the calculated field. Do not animate unobserved droplets forming or
+evaporating, and do not imply pixel registration between different source figures or specimens. For
+the ideal-sphere passage, follow delivery to the surface and net addition to the ice in one case before
+introducing the changed surface case; no dot count may imply that the effective surface response is a
+literal one-collision joining probability. Put the cases side by side only after both are understood.
+Carry the centered sphere and outer supply into the shape change; identify the corner and face centre
+before contours enter, and explain in ordinary words that each contour marks the same amount before
+naming contour spacing or gradient. End by re-enacting the episode's few causal moves one at a time,
+then retain one selected face for the next question.
+
+This feedback came from the maker. The bounded synthesis above was prepared by a shared-context OpenAI
+Codex agent acting as a documentary and education director reviewer, not a person claiming human
+directing or teaching credentials. That reviewer read this guide, the complete Episode 3 authority
+script and the current drawing/cue source, and inspected retained scored frames. It did not perform a
+fresh normal-speed playback, human listening review or audience-comprehension test.
+
 ## Nivogenesis collection and optional sound — 2026-09-17 (the sound was later removed)
 
 **Superseded in part.** The maker removed the opening soundscape on 2026-09-18 ("remove play with
@@ -442,6 +478,12 @@ joined it. Simplifying the vocabulary must not simplify away the mechanism or it
 
 ### Visual and editorial requirements
 
+**Budget novelty before adding detail.** In one teaching beat, change only one of the physical idea,
+the technical wording or the visual grammar. A representation change first carries a known idea; a
+concept change keeps a known representation; a technical name follows the ordinary-language event it
+names. This is a sequencing rule, not a quota on words, cuts or drawings. The combined overview belongs
+after its components have meaning.
+
 1. **An earned investigation.** Open with an observable puzzle or transformation, promptly
    identify the question and develop its explanation. Preserve the important causal steps,
    evidence, conditions and counterexamples. End by showing what was answered and why the next
@@ -463,7 +505,10 @@ joined it. Simplifying the vocabulary must not simplify away the mechanism or it
    When a passage advances the explanation, give it a corresponding visible change or a clear
    inspection target. Do not spend several introductory paragraphs restating a puzzle over an
    almost unchanged diagram before the first useful action. Carry an already-understood state
-   forward and change one condition where that makes the next cause easier to see.
+   forward and change one condition where that makes the next cause easier to see. Treat narrated
+   verbs as shot obligations: if the words say reaches, joins, depletes, grows, reverses or refreshes,
+   the relevant state must visibly change at that phrase. Still and reduced-motion views preserve a
+   before reference and the changed result instead of exposing the final diagram from scene entry.
 5. **A comparison the viewer can read.** Preserve a before-outline, fixed boundary, scale or
    matched view when change is the lesson. Camera tracking must not conceal growth. Rotation
    is not growth; a sliding block is not added material. State what is held fixed and changed.
@@ -476,8 +521,10 @@ joined it. Simplifying the vocabulary must not simplify away the mechanism or it
    gas picture with only a different caption. Distinguish qualitative staging from counted data.
 7. **Object and scale continuity.** Carry the same parcel, donor, seed, face or crystal through
    related beats. Introduce a close-up with a selection/leader and retain a parent reference
-   when helpful. If the shot is a new specimen, example, model or schematic, say so. Preserve
-   irreversible story changes; do not refill a depleted donor or unfreeze a seed accidentally.
+   when helpful. If the shot is a new specimen, example, model or schematic, say so. Before a reset,
+   close a comparison back to one subject and carry one invariant—centre, scale, outer condition,
+   selected face or highlighted mechanism—across the cut. Then change only the intended variable.
+   Preserve irreversible story changes; do not refill a depleted donor or unfreeze a seed accidentally.
 8. **Meaning before arithmetic.** Before a chart/table/equation, establish the physical
    question and what the compared quantities do. Attach units and reference conditions to
    objects. Show the denominator and absolute amount when a percentage can mislead. Keep
@@ -495,7 +542,10 @@ joined it. Simplifying the vocabulary must not simplify away the mechanism or it
    may be useful; neither is forbidden. Reject a static diagram that stops explaining while
    narration moves on. Choose library assets/renderers by story job, reusing, adapting or
    creating treatments wherever the story benefits. Distinguish observation, explanatory
-   diagram and model output.
+   diagram and model output. When a spatial pattern is the evidence, begin in the viewpoint that
+   makes the observation readable, show it alone, focus the pattern, and only then introduce an
+   inferred or calculated representation beside it. A closing recap re-enacts the causal spine in
+   a few sequential motifs; it is not a spoken list over one already-finished image.
 10. **Beauty with readable hierarchy.** Give the crystal and its changes visual presence,
     inspect lighting/facets/depth in motion, and remove distracting artifacts. Put essential
     labels/numbers in quiet, high-contrast space. Check narrow layouts without squeezing all
@@ -650,6 +700,7 @@ A scene can have several conceptual beats. Group sentences that share one visibl
 | Subject / focus / scale | What to look at; how it is identified and selected; parent object if magnified. |
 | Before → action → after | Visible input change, observable response, fixed reference, result held for inspection; what the motion means and does not mean. |
 | Attention and disclosure | What enters now, what remains as reference, what retires; which local labels are necessary and which headings/details belong in the reader or Menu → Sources. |
+| Novelty budget and build order | Which one is new in this beat—physical idea, technical wording or visual grammar? What known reference carries it? In what order do subject, changed condition, action, result and eventual overview appear? |
 | Visual choice | Asset identity and growth interval; renderer/camera; reuse, adaptation or new diagram; model/schematic/source status. |
 | Connection | Which object/state survives the preceding and following shot; explicit reset/example change if any. |
 | Reading alternatives | Essential labels and description; phone composition at 360 px; Still/discrete pose preserving the argument. |
@@ -683,6 +734,14 @@ catch-up; its Susan revision stays retained). When a rewrite changes
 performed Chinese words, refresh the affected Mandarin take and rebuild its semantic alignment
 as well; do not play a stale translation against the new meaning. The standing refresh does
 not authorize a different voice or an unrequested new episode.
+
+**Episode 3 English-first override — 2026-09-20:** for the current clarity revision, finish and obtain
+maker acceptance of the revised English script, staging and performed English episode before producing
+revised Mandarin audio or finalizing Mandarin semantic alignment. Do not play the retained Mandarin
+performance against changed English meaning or changed reveal logic. Preserve every historical Yun
+take and receipt; this is a sequencing pause, not permission to delete or overwrite them and not a
+general reversal of bilingual parity. After English acceptance, revise and review the Chinese source,
+cues and affected Yun performance from that accepted meaning in one bounded pass.
 
 **One bilingual performance, not two pages.** The top English / 中文 control selects Simplified
 Chinese text and Mandarin audio together, on the same route and DOM. Languages have different
@@ -962,3 +1021,10 @@ describe (see the commits), each with independent read-only reviews by separate 
 the dated review documents. The later attention-pass review separately records code changes
 and sampled visual inspection; no audience test or new audio generation follows from this guide.
 A future episode must earn its own review.
+
+The 2026-09-20 Episode 3 clarity amendment records the maker's first review of that held episode and
+adds the one-novelty, verb-to-motion, evidence-staging, transition-invariant and sequential-recap rules,
+plus the maker's scoped English-first production order. The shared-context OpenAI Codex reviewer named
+above checked authority and implementation source plus retained frames; it did not claim human
+credentials, fresh full playback, listening acceptance or audience understanding. No script, visual or
+audio change follows merely from documenting that direction.
