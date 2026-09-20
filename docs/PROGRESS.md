@@ -6,6 +6,15 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
+## Episode 4 creation in progress — 2026-09-20
+
+The maker requests Episode 4 following the [design guide](video/science-series-design-guide.md).
+The [bounded production plan](plans/explore-journey-science-series.md#episode-4-creation--2026-09-20-planned-before-implementation)
+adds the flat-face investigation in the existing authority and website worktrees. English source,
+bilingual workflow and local held-episode wiring are assigned; E02/E03 work remains independently
+owned. Next: source-review the nine-scene E04 script and prototype surface-step compensation,
+then rehearse, produce and verify the integrated performance. No release or deployment is authorized.
+
 ## Episode 2 molecular-story revision planned — 2026-09-20
 
 Maker feedback reopens the narrated E02 under the updated design guide: the measurement → molecule

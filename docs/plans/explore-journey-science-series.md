@@ -1393,6 +1393,41 @@ establish human listening, complete human viewing, physical-phone behavior, audi
 English acceptance. The separate Mandarin pass remains closed until that acceptance; both episodes remain
 publicly held, and release, deployment and Episode 4 remain separate decisions.
 
+## Episode 4 creation — 2026-09-20, planned before implementation
+
+The maker requests Episode 4 following the design guide. This authorizes this episode's script,
+visuals, integrated local performance and the guide's current Juniper/Yun narration workflow;
+it does not release the episode publicly. Reuse the existing authority task worktree
+`/Users/clipper/github/snowflake` (`explore/film-part1-plan`) and website task worktree
+`/Users/clipper/github/snowcrystal_website-film-part1` (`explore/film-part1`), preserving independently
+owned E02/E03 changes. Root coordinates; shared-context agents own English source, bilingual
+production plumbing, and site wiring. No additional worktrees are needed.
+
+Question: how does a growing face stay flat? Teach surface steps and net incorporation, why slow
+orientations remain visible, new-layer formation, uneven supply, inward-moving steps and their
+compensating density, then the limit that motivates branching. Nine scenes, with authored
+three-second prediction holds in E04-03 and E04-07. Retain quantitative kinetics, microscopic
+qualifications and alternate step sources in a substantive reader. Keep the Ch5 blocky-prism
+example distinct from thin-plate transport, and exaggerate microscopic concavity only with a
+local scale disclosure. No literal collision-acceptance fraction or validated model claim.
+
+Write the authority script and scene worksheet with explicit source dispositions, then obtain
+bounded non-author review of words and diagrams. Browse the recording library and prototype
+step motion and compensation before extending the treatment. Rehearse the whole temporary-voice
+performance at 1×; report automated playback and sampled inspection separately from human
+listening or first-time audience comprehension. Import the source, retain matching Chinese and
+phrase pairs, then generate immutable Juniper/Yun revisions without retries and pace them from
+the delivered alignment. Preserve the existing sources, recordings and prior film.
+
+Integrate one catalog row, one lazy chunk, a distinct `?e04=preview` gate, E03 Continue, reader,
+shared Still/Menu/ownership controls and bilingual switching. Keep all four public hold
+mechanisms. Check source/score/audio identity, phrase gating and prediction withholding,
+bilingual integrity/pacing/semantic audits, actual desktop/360 px drawings, focused player and
+release tests, both builds and hosting smoke. Use product-sized checks; no solver suite or
+scientific gate. Completion records must distinguish ready for maker review from acceptance.
+Physical-phone review and an uncoached audience teach-back remain maker review, not automated
+claims. Publication, deployment, a new MP4 and Episode 5 are outside this request.
+
 ## Tried and rejected
 
 - **Mute audio while waiting for slow visual loading.** Playback still consumes the file and
