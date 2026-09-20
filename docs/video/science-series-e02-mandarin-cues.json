@@ -1,6 +1,6 @@
 {
   "episode": 2,
-  "status": "Authored semantic anchors for the seven-scene revision; new Mandarin synthesis, performed alignment and playback verification pending.",
+  "status": "Authored semantic anchors for the seven-scene revision; performed timing and review results are recorded with the corresponding narration revision.",
   "source": {
     "path": "docs/video/science-series-e02-script.md",
     "sha256": "dd679d6048c8398c5ca5181a7e5e52f3d9f78ea44aa35a3471833fb4f1e29f27"
@@ -8,7 +8,7 @@
   "sourceEnglishSha256": "f91a8b8aee9ff77f279e9d496688ab9aa00f8f322122352d616f189a712ecf87",
   "sourceChinese": {
     "path": "docs/video/science-series-e02-zh-CN.json",
-    "sha256": "4874fc3b3f103b314b8b0cb83a259583ab598f8e77f501096f1ae4913523b00b"
+    "sha256": "00dae0aea87e0b69e0e4329830866fee34645f3150d6fbe9dbb05f3c58310867"
   },
   "retainedCueSource": {
     "repository": "snowcrystal_website",

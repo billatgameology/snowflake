@@ -15,17 +15,35 @@ bilingual workflow and local held-episode wiring are assigned; E02/E03 work rema
 owned. Next: source-review the nine-scene E04 script and prototype surface-step compensation,
 then rehearse, produce and verify the integrated performance. No release or deployment is authorized.
 
-## Episode 2 molecular-story revision planned — 2026-09-20
+## Episode 2 molecular-story revision ready for maker review — 2026-09-20
 
 Maker feedback reopens the narrated E02 under the updated design guide: the measurement → molecule
 connection is unclear and the molecular sheets are visually indistinguishable. The bounded
 [amendment](plans/science-series-episode-2.md#molecular-story-continuity-revision--2026-09-20-planned-before-implementation)
 moves detailed diffraction into the substantive reader, carries a selected molecule into the ring,
 and reveals identifiable connected sheets in sequence without changing their physical spacing.
-Matching affected Juniper/Yun takes and phrase alignment follow the source review. Public release
-stays held; local entry remains enabled. E03's concurrent English follow-up and Mandarin pause are
-unchanged. **Next step:** revise and review `docs/video/science-series-e02-script.md`, then implement
-only this bounded E02 pass in the retained website worktree; preserve independently owned dirty files.
+Public release stays held; local entry remains enabled. Source revision `9ab9b4f` and initial
+Chinese/cue counterpart `081cce7` were committed before implementation. The Site carries one molecule
+into a ring and reveals teal/pink/orange connected sheets without changing their spacing or bonds.
+Review repaired an atom-radius jump and a stale Chinese cue-source hash. Active Juniper/Yun revisions
+are `2026-09-20-e02-juniper-continuity-v2` and `2026-09-20-e02-mandarin-continuity-v2`; their website
+`paced-report.json` files record 587.6863492063492 s and 797.5018594104308 s. Each initially refreshed
+only the affected takes; final v2 composition reused all takes with zero further provider requests.
+Both previous and current records remain intact. Website `docs/episode-two-continuity-tests.txt`
+records 32 passes, zero failures; byte/PCM/semantic audits in
+`docs/series-narration/review-2026-09-20-e02-continuity-v2/` pass. The
+[review addendum](reviews/science-series-e02-review-2026-09-16.md#molecular-continuity-and-sheet-identity--2026-09-20)
+and website `docs/science-series-episode-two.md` record exact identities, sampled desktop/narrow
+visual review, repairs and limits. No complete human viewing/listening or audience verdict is claimed.
+
+The initial E04 missing-input build blocker cleared. Fresh standalone Sites/local and public builds
+pass; three public-artifact tests including negative controls, 24 shared transport/config/release
+tests, and seven localization tests also pass (website `docs/science-series-episode-two.md`). No new
+browser-based hosting-emulator smoke was run. The authority Rule 7 scan still flags unrelated
+untracked Firebase skill prose. **Next step:** maker views/listens at
+`http://127.0.0.1:5185/?e02=preview`; do not deploy or absorb concurrent E01/E03/E04 changes.
+The temporary E01 source/audio mismatch observed during HMR was repaired by its owner before
+cold-load inspection. No full human viewing/listening or audience acceptance is implied.
 
 ## Episode 3 maker follow-up ready for maker English review — 2026-09-20
 

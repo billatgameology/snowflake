@@ -997,6 +997,25 @@ These are design prompts for the provisional episode map, not new science claims
 | E04–E05 — face growth and branching | Keep reference geometry and old material readable while the relevant location changes. Use the library/camera to reveal the narrated feature, not to replace a mechanism with a glamour shot. |
 | E06 onward — comparisons, histories and measurement | Name the held-fixed conditions, carry specimens/history forward, show what an instrument observes before inferred quantities, and give each number a physical referent. No single unexplained map or table for an entire argument. |
 
+### Episode 2 follow-up: a useful detour can still break the story — 2026-09-20
+
+The maker cannot see the connection from the X-ray measurement scene to the molecular scene even after
+several paragraphs, asks whether the measurement lesson belongs, and cannot distinguish the molecular
+sheets when everything has the same colour. This is new criticism, not acceptance of earlier repairs.
+
+At each transition ask what the previous demonstration lets the viewer do next. A correct measurement
+lesson can open a second investigation whose result is then unused. Retain its evidentiary contribution
+briefly in the main argument and its actual explanatory depth in the reader when that better serves the
+episode's question. Do not treat a transition sentence as sufficient if the two demonstrations still
+have unrelated subjects. The E02 revision follows one selected molecule into a ring, then that ring's
+sheet into a connected network; detailed interference and plane-spacing reasoning moves to the reader.
+
+When overlapping parts need identities, add a stable group key without overwriting established material
+colours. E02 keeps blue oxygen and white hydrogen while outlining connected sheets in different colours,
+with direct labels and sequential reveals. Their coordinates and connecting bonds stay unchanged. Extra
+spacing would need to be explicitly presented as an exploded inspection, not the physical structure.
+These are the implemented direction to test, not a fresh-viewer comprehension result or new maker praise.
+
 ## Releasing an episode
 
 Publishing adds obligations the drafting sections do not cover.

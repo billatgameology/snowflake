@@ -424,3 +424,51 @@ judged by reading; the reviewer called the Libbrecht clause grammatical and fait
 cost on a real GPU; audience comprehension; complete uninterrupted viewing at narration speed (reviewers
 seeked to instants). Status: ready for maker review at `/?e02=preview`; not maker accepted; unreleased.
 
+## Molecular continuity and sheet identity — 2026-09-20
+
+The maker could not connect the measurement scene to the molecule scene, questioned the measurement
+detour, and could not distinguish stacked sheets. Under the updated guide, root moved the detailed
+diffraction argument to substantive optional reading, retained brief measurement provenance, and
+made one selected molecule lead into a ring and connected sheets. Teal/pink/orange identify sheets
+through outline/halos, not new atom/material meanings or fictitious physical gaps. Source IDs remain
+E02-01/05/06/07/08/09/10. Both English and Chinese words/timing were revised; old records remain.
+
+Provenance: root implemented the Site and sampled the live browser. Three shared-context OpenAI Codex
+collaborators reviewed science/geometry, translation/source bindings and runtime; exact model IDs
+were unavailable. These are bounded code/source/artifact reviews, not human experts, independent
+listening, uncoached viewers or maker acceptance.
+
+Repairs from the loop:
+
+- Science: keep one consistent idealized in-ice H₂O geometry through the opening, rather than rigidly
+  morph an isolated molecule with a different angle. Keep measured oxygen positions distinct from one
+  allowed hydrogen arrangement; four neighbours alone do not derive a unique crystal structure.
+- Runtime: interpolate existing atom radii as well as coordinates at the neighbourhood→ring seam,
+  and fade newly introduced hydrogens. A focused test covers desktop/phone positions, radii, opacity
+  and reverse seeking. Keep the c-axis on the left through the sheet→network handoff, away from keys.
+- Provenance: a Chinese status-metadata edit had changed source bytes after cue authoring. The final
+  reviewer found the stale binding. Corrected cues name exact current bytes; new `-continuity-v2`
+  records reuse all takes with zero new provider calls. The initial records were not overwritten.
+  A new test checks both active cue-source bindings, including unspoken metadata.
+
+Final artifact-backed results are in website `docs/science-series-episode-two.md` and the reports
+under `docs/series-narration/review-2026-09-20-e02-continuity-v2/`. The final reviewer rehashed all
+43 semantic-audit inputs successfully. The semantic report records 184 pairs, 67 production onsets,
+three holds, 216 anchors and maximum onset error 0.000011337868500049808 s. Both pacing audits preserve
+complete source PCM; zero full-scale samples and zero pause-interior signal. Juniper is
+587.6863492063492 s; Yun 797.5018594104308 s, copied from their respective v2 paced reports.
+Website `docs/episode-two-continuity-tests.txt` retains 32 focused passes and zero failures.
+
+Root viewed screenshots at 1280×800 and 360×780 and sampled normal-speed changed passages: opening
+models/molecule, neighbourhood/ring, sheet handoff/reveals/orbit; also Chinese labels and Still,
+reverse reveal and a retained prediction pause. Colors and labels were legible in these samples.
+No complete uninterrupted viewing, human pronunciation/listening acceptance, physical-phone test
+or audience-comprehension conclusion. Concurrent HMR interrupted review; a temporary E01 source/audio
+language-switch failure was reported to its owner and cold reload after its fix restored inspection.
+
+Initial local/public builds hit concurrent E04's missing production narration scores and derived
+type errors. After its owner supplied the scores, the standalone Sites build and `npm run build:public`
+both passed. Three fresh-public-artifact tests including planted negative controls passed; 24 shared
+transport/config/release tests and seven localization tests passed separately. No new browser-based
+hosting-emulator smoke was run. The authority Rule 7 scan still reports unrelated untracked Firebase
+skill prose. Preserve that work. Next: maker local viewing/listening. No public release or deployment.

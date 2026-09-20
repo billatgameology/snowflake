@@ -1,7 +1,7 @@
 # Plan — E02: Why six is only the beginning
 
 - **Phase:** Journey/media; no scientific phase or gate change
-- **Status:** design-guide catch-up complete (2026-09-18, website `4e33879`); narrated E02 remains intentionally unreleased; maker viewing/listening at the preview gate pending
+- **Status:** molecular-continuity revision implemented (2026-09-20); source/audio/cue checks, local/public builds, held-release negative controls and sampled visual review complete; maker viewing/listening pending; public release held
 - **Started:** 2026-09-16
 - **Authority:** initial silent build followed by explicit maker authorization on 2026-09-17: add audio using the latest E01 voice and synchronize timing
 - **Parent:** [series plan](explore-journey-science-series.md), [maker design guide](../video/science-series-design-guide.md)
@@ -10,12 +10,13 @@
 
 ## Goal
 
-**Current release override:** the maker's later
+**Current release override:** the maker's 2026-09-20 direction enables E02 locally, not publicly.
+The earlier
 [opening-card request](explore-journey-science-series.md#opening-copy-and-episode-2-release-hold--planned-2026-09-17)
-holds E02 behind Coming soon. Website `d7eb937` gates its mounting, direct entry, home action
-and E01 continuation through `src/series/seriesRelease.ts`. Preserve this hold until explicit
-release direction; the original runtime requirements below describe the retained implementation,
-not permission to expose it now. Source, bilingual recordings and reusable crystal catalog remain.
+held E02 behind Coming soon. Website `d7eb937` gated its mounting, direct entry, home action
+and E01 continuation through `src/series/seriesRelease.ts`. Preserve the public hold until explicit
+release direction; local enabling does not authorize public exposure. Source, bilingual recordings
+and reusable crystal catalog remain.
 
 Continue E01's earned shape question: what does ice's molecular arrangement explain, and what
 does it leave for growth physics? The audience should distinguish molecule from lattice, infer
@@ -342,6 +343,37 @@ E01, the original film, the six recording assets, current player/home and concur
 No release, deployment, solver work, scientific gate, audio cleanup or E03 revision. Root alone edits
 the Site; bounded collaborators review or author authority-only translation material. Existing dirty
 E03 files in both repositories are independently owned and must not be absorbed into this revision.
+
+### Execution and remaining verification — 2026-09-20
+
+Implemented the seven-scene cut, direct selected-molecule/ring continuity, stable colored sheet
+keys and sequential reveals. Blue O/white H and coordinates/bonds stay intact. Source review
+keeps the in-ice idealized molecular geometry consistent across the handoff; no claim that the
+molecular bend proves the oxygen lattice. Runtime review caught and repaired a radius snap in
+the pullback, with a two-viewport seam/reverse/opacity regression. Updated the design guide with
+the maker's criticism and the transition/group-key principle, not a claim of new praise.
+
+Active performed revisions: website `docs/series-narration/2026-09-20-e02-juniper-continuity-v2/`
+and `2026-09-20-e02-mandarin-continuity-v2/`. Their paced reports record 587.6863492063492 s and
+797.5018594104308 s, respectively; three prediction holds remain. Source-binding metadata was
+repaired after review in a new retained revision, reusing all takes with `--expect-new=none`;
+no additional provider call. The six initially changed takes and all prior records are retained.
+Website `docs/science-series-episode-two.md` contains exact source/master hashes, commands, loudness,
+review provenance and limits. Final audits in `review-2026-09-20-e02-continuity-v2/` pass; the
+semantic report has 184 pairs, 67 production onsets, 216 anchors and maximum onset error
+0.000011337868500049808 s. `docs/episode-two-continuity-tests.txt` records 32 passes, zero failures.
+
+Root sampled normal-speed playback and inspected desktop/narrow changed passages, sheet colors,
+Chinese labels/Still, reverse reveal and a prediction hold via CUA. Not complete human listening,
+uninterrupted viewing, physical-phone coverage or audience acceptance. The shared E01 source/audio
+intermediate mismatch was reported to its owner and cold reload after its repair restored inspection.
+The standalone Sites build and `npm run build:public` initially hit concurrent E04 missing production
+scores. That blocker later cleared: both builds passed, along with three fresh-public-artifact
+release/negative-control tests, 24 shared transport/config/release tests, and seven localization
+tests. No new browser-based hosting-emulator smoke was run. Authority `npm run lint:rule7` reports three unrelated occurrences
+in `.agents/skills/firebase-hosting-basics/references/deploying.md` (untracked skills, not edited).
+Next: maker reviews the local E02 preview, preserving all independently owned E01/E03/E04 work.
+No public release is authorized. A full uninterrupted human viewing/listening remains open.
 
 ## Tried and rejected
 
