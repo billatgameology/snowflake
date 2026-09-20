@@ -1354,6 +1354,45 @@ preserve every older revision. A further word change reopens the source and requ
 disposition. Visual-only E03-03/08 repairs do not authorize new takes, and the English-first Mandarin pause
 continues unchanged.
 
+### Maker-follow-up implementation and technical verification — 2026-09-20
+
+The website implements the frozen source as Juniper revision `2026-09-20-e03-juniper-hook`. It made two
+paid requests, E03-01 and E03-09, with zero retries and reused the E03-02 through E03-08 take bytes exactly.
+The paced master is 646.7153514739229 seconds, SHA-256
+`fafaa9c6690b2c74f3f7dea0b5b44bf838b1a45f7f0e2e78ed31967ae2c54c10`; its score resolves 54 reveals and
+two prediction holds. The source binding matches the frozen authority, the retained cue mirror is
+byte-identical, decoded-source/master correlation is at least 0.9994165034700506, and no loudness gain was
+applied. No Mandarin source, alignment or audio was produced.
+
+The compact website receipt is `docs/episode-three-followup-verification.json`, SHA-256
+`b85865c43f417e73d536e544502e4e31481c1980e1d7a4e31358654ba49296c4`. Its 31 distinct path/hash/byte
+bindings were checked against the current files. Thirty-nine focused tests pass with zero failures;
+focused lint, diff check, the local build and public build pass. The scored-art run covers
+244 cue poses at 730×800 and 360×351, reports a 12.00000778658986 CSS-pixel minimum label and no problem or
+error. Automated 1× playback covers the opening from 0–67 seconds (65 samples), the revised halo from
+122–204 seconds (80), and the closing from 501 seconds through the natural 646.715351-second end (142).
+Each run completed with rate one and no recorded problem or error. Root inspected the named phone cue
+poses and closing frames; the shared-context non-author transport reviewer found no material issue in a
+bounded code/six-pose review. Neither is a complete human viewing or independent audience/director verdict.
+
+The implemented scene 3 marker counts fall from an illustrative 48 to 5 in the near field while the
+distant sample stays unchanged; these are editorial test counts, not physical measurements. Scene 8 keeps
+matched total tracers and far supply, carries white tracers along grey airflow past—not through—the ice,
+and increases near delivery only after the answer. Scene 9 retains the same enlarged face, shows the
+arrival band first, then advances net new ice separately from the already-grown position against its
+before-line, and combines the labels only after both steps. The E03-04 treatment the maker called clearer
+and the E03-05 treatment the maker called excellent remain unchanged.
+
+Episode 2 is enabled only in the local review build. The retained transition receipt covers E01
+Continue→E02 with one audio owner, a 390×844 home-card lazy start, E02→E03 and delayed E03 selection.
+The six public-release checks, including negative controls, pass; neither E02 nor E03 has a public runtime
+chunk or probe leak, and no deployment occurred.
+
+This completes the follow-up's technical work and returns the English cut to maker review. It does not
+establish human listening, complete human viewing, physical-phone behavior, audience comprehension or maker
+English acceptance. The separate Mandarin pass remains closed until that acceptance; both episodes remain
+publicly held, and release, deployment and Episode 4 remain separate decisions.
+
 ## Tried and rejected
 
 - **Mute audio while waiting for slow visual loading.** Playback still consumes the file and

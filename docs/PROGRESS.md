@@ -6,7 +6,7 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
-## Episode 3 maker follow-up source frozen; website implementation active — 2026-09-20
+## Episode 3 maker follow-up ready for maker English review — 2026-09-20
 
 The maker's next English viewing says E03-04 is clearer and E03-05 is excellent; preserve the latter's
 sequential cases and current words. The remaining bounded work is to show fewer white vapor markers in
@@ -27,10 +27,29 @@ opening promise and next-episode invitation. The revised English authority is no
 prior source, E03-01 has only the approved prefix, and E03-09 only replaces its final sentence. The
 visual notes now bind the E03-03/08/09 staging without changing their other words.
 
-Next: import that exact hash, refresh only E03-01/E03-09 in Juniper with no automatic retry, reuse the
-other seven takes exactly, implement the three visual repairs and local Episode 2 availability, then
-replay the affected passages at normal speed. Do not edit or synthesize Mandarin, play the historical
-Yun track against the changed cut, release either held episode or deploy.
+The website implements that source as Juniper revision `2026-09-20-e03-juniper-hook`. E03-01 and
+E03-09 were requested once each with zero retries; E03-02 through E03-08 reuse the preceding take bytes
+exactly. The paced master is 646.7153514739229 seconds, SHA-256
+`fafaa9c6690b2c74f3f7dea0b5b44bf838b1a45f7f0e2e78ed31967ae2c54c10`, with 54 reveals and the two
+retained prediction holds. No Mandarin source, alignment or audio changed.
+
+Website `docs/episode-three-followup-verification.json` (SHA-256
+`b85865c43f417e73d536e544502e4e31481c1980e1d7a4e31358654ba49296c4`) has 31 distinct path/hash/byte
+bindings checked against the current files. It records 39 focused passes with zero failures, successful
+lint/local/public builds and 244 scored 730 px/360 px cue poses with no problem or error. Automated 1×
+playback covers 0–67 seconds (65 samples), 122–204 seconds (80) and
+501 seconds through the natural 646.715351-second end (142), each complete with no reported problem,
+error or rate change. Sampled image inspection covers the revised halo, ventilation and final two-wait
+poses; a shared-context non-author transport review reports no material issue in its bounded code/six-pose
+scope, not a human-director or audience verdict.
+
+Episode 2 is now available only in the local review build. Recorded desktop/phone-emulation checks cover
+E01 Continue→E02, a 390×844 home-card lazy start, E02→E03 and delayed E03 selection with one audio owner.
+Six public-release tests including negative controls pass; neither held episode contributes a runtime
+chunk or probe leak to the public build, and nothing was deployed. Next: the maker watches/listens to the
+complete English E03 preview. Do not edit or synthesize Mandarin, play the historical Yun track against
+the changed cut, release either held episode or deploy. Human listening, complete human viewing, a
+physical-phone result, audience understanding and maker English acceptance remain open.
 
 ## Episode 3 English clarity cut ready for maker review — 2026-09-20
 
@@ -1127,18 +1146,20 @@ is saved for continuing this video work. It is a launcher, not another live stat
 this index and the affected active plans still govern. Read their latest entries before using
 the prompt's baseline references; the E02 release hold remains intentional.
 
-### Episode 3 English clarity revision — ready for maker viewing and listening
+### Episode 3 maker follow-up — ready for maker viewing and listening
 
-Open `http://127.0.0.1:5185/?e03=preview` and review the complete 640.0280045351474-second English
-cut, especially the top-down observation/calculation handoff in E03-04, sequential two-case build and
-E03-05→06 bridge, and causal recap/face zoom in E03-09. The current source is frozen at
+Open `http://127.0.0.1:5185/?e03=preview` and review the complete 646.7153514739229-second English
+cut, especially E03-03's visibly sparse near halo, the preserved E03-04/05 treatment, E03-08's
+wind-carried vapor after the prediction answer, and E03-09's separate air-delivery/surface-addition
+steps and next-episode invitation. The current source is frozen at
 `docs/video/science-series-e03-script.md` SHA-256
-`7339922862b7e1f5e6c9c9cbc516b3fb6a383f57e9004a99f44162d453df5303`; do not revise or resynthesize it
+`de83c253354c2b89fb2a38ef218aec003231e0a5955e3a4d118cd74469aeb639`; do not revise or resynthesize it
 without treating that as a new source revision. The technical receipt and automated 1× passages pass,
 but they are not maker listening or acceptance. Keep Episode 3 held and English-only until the maker
 accepts this cut; only then begin the separate Mandarin text, alignment and narration pass. Do not play
 the historical Yun track against the changed English visuals, release the episode, deploy it or begin
-Episode 4 from this checkpoint.
+Episode 4 from this checkpoint. Episode 2 is available in the local review build, but remains excluded
+from the public build with no deployment.
 
 ### Nivogenesis opening — ready for maker viewing and listening
 
