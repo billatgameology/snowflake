@@ -346,6 +346,12 @@ E03 files in both repositories are independently owned and must not be absorbed 
 
 ### Execution and remaining verification — 2026-09-20
 
+Episode-owned website changes are committed at `0f35f8a`; authority review/guide record at
+`8dfe8b7`. Shared in-flight E02 config (seven IDs, three holds), the historical four-hold test
+fixture, the semantic review's 67-onset expectation and ten diagram translation keys remain
+in shared dirty files alongside independently owned E01/E03/E04 work; their owners were notified.
+Do not broadly stage those files merely to make this checkout clean.
+
 Implemented the seven-scene cut, direct selected-molecule/ring continuity, stable colored sheet
 keys and sequential reveals. Blue O/white H and coordinates/bonds stay intact. Source review
 keeps the in-ice idealized molecular geometry consistent across the handoff; no claim that the
