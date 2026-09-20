@@ -6,6 +6,21 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
+## Episode 1 English clarity polish ready for maker review — 2026-09-20
+
+The two approved design-guide review suggestions are implemented in source commit `a423dc5` and
+the website worktree: scene 8 reaches its demonstration sooner, with the extra saturation-pressure
+synonym in the reader; scene 9 asks its comparison question before building the picture. Juniper
+revision `2026-09-20-e01-clarity-polish` replaces only E01-08/09 and preserves nine other takes.
+Its website `paced-report.json` reports 942.672883 seconds; Mandarin text and audio bytes are unchanged,
+with a retimed semantic map for switching languages. The
+[active plan completion](plans/explore-journey-science-series.md#e01-clarity-polish-completion--2026-09-20)
+points to the website verification record: 58 focused tests, the production build, English signal/hash
+audit and targeted 1× browser inspection passed. This is not human listening acceptance.
+**Next step:** maker reviews scenes 8 and 9 through the menu at `http://127.0.0.1:5185/episode-1`.
+No deployment, Mandarin regeneration, or new MP4 is authorized by this change.
+
+
 ## Episode 4 creation in progress — 2026-09-20
 
 The maker requests Episode 4 following the [design guide](video/science-series-design-guide.md).

@@ -1456,6 +1456,32 @@ takes and Mandarin bytes/text are preserved; the extra synonym remains in the re
 and bilingual switching remain coherent. Work in the existing two task worktrees and preserve concurrent
 E02/E03/E04 dirty work. Source and implementation review are bounded to the changed passage and mappings.
 
+### E01 clarity polish completion — 2026-09-20
+
+Source commit `a423dc5` implements the two approved edits: scene 8 loses the anticipatory vocabulary
+preamble and moves only the saturation-pressure synonym into the pressure reader; scene 9 opens with
+the colder-air supply question, retaining Celsius, the progressive comparison and its limitations.
+The source import contains 2,416 spoken words (`scripts/series.test.mjs` in the website worktree).
+Juniper revision `2026-09-20-e01-clarity-polish` regenerated E01-08/09 only; nine other raw takes are
+byte-identical to the prior revision. Its `paced-report.json` reports 942.672883 seconds and master
+SHA-256 `72056a686e8f8a1e687d420c74de923d7bfdd023448263b129830c698543c8fc`.
+
+Mandarin source and master bytes remain unchanged. The explicitly bound English editorial variation
+and retimed semantic clock keep the same-page toggle working, without translating or synthesizing
+Mandarin. The first mapping candidate remains retained but is superseded: pairing the revised English
+scene-9 introduction with the Mandarin paragraph start collapsed a spoken-onset anchor. The live
+`e01-english-clarity-polish-v2` score pairs the first shared action and leaves the English-only question
+unpaired.
+
+The website verification record is
+`docs/series-narration/review-2026-09-20-e01-clarity-polish/README.md`, with exact commands and limits.
+The six named focused test files passed 58/58; `npm run build` passed after concurrent E04 imports
+arrived. The independent English integrity/signal audit reports no warnings. Live browser sampling
+checked the revised openings, progressive reveal, and paused/playing language changes at the same
+story position. This is not a full human listening or audience-comprehension acceptance claim.
+Next: maker watches/listens to scenes 8 and 9 at the existing `/episode-1` URL. No deployment,
+Mandarin generation or new video export is requested.
+
 ## Tried and rejected
 
 - **Mute audio while waiting for slow visual loading.** Playback still consumes the file and
