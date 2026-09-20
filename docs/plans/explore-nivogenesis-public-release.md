@@ -39,10 +39,12 @@ translation/cues and missing Chinese diagram labels. The first paid-generation i
 rejected with HTTP 400 before audio returned; subsequent read-only API calls identify
 `api_key_id_used_as_api_key`. The private local credential needs its actual secret value. The
 website retains this failure separately from the intended production revision, with no secret
-in the diagnostic. Resume generation only after the credential is corrected. The website's
-preliminary all-episode build, three release tests and desktop/mobile emulator smoke pass while
-E03 still uses its explicit English fallback. Final audio audits, bilingual build/smoke and deploy
-remain outstanding. Authority Rule 7 scan reports only three existing `beta` mentions in
+in the diagnostic. The maker corrected the credential and directed retry; all nine source-bound
+takes are now composed in `2026-09-20-e03-mandarin-current` (six new, three reused). The website
+production-verification record in that revision binds the passing audio/PCM/semantic audits;
+English audio and its original cue provenance stay unchanged. The current source enables all
+four episodes and E03 Mandarin. Both builds pass; final bilingual browser checks and live deploy
+are in progress. Authority Rule 7 scan reports three pre-existing identifier violations in
 `.agents/skills/firebase-hosting-basics/references/deploying.md`, outside this change.
 
 The original release plan and completion history below remain historical records.

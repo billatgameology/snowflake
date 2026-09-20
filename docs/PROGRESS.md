@@ -17,13 +17,13 @@ E03's current Chinese translation, bilingual cues and missing diagram labels are
 `docs/series-narration/2026-09-20-e03-mandarin-current-cues/translation-review.md`; the dry run
 plans new E03-01/03/04/05/06/09 takes and reuses E03-02/07/08. Existing E01/E02/E04 Chinese
 editions are complete. Firebase login and hosting deployment permission have been verified.
-The first generation attempt received HTTP 400; read-only API diagnostics identify the local
-credential as an API key ID rather than the secret. No narration audio was returned. The rejected
-request/diagnosis is retained in website `docs/series-narration/2026-09-20-e03-mandarin-current-auth-rejected/`.
-**Next:** maker replaces the private local ElevenLabs file with the actual `sk_` secret; then
-generate/pacer/audit E03, enable Mandarin readiness, run final builds/tests and bilingual smoke,
-commit/push and deploy. Preliminary all-episode emulator smoke passes with the still-pending E03
-English fallback; it is not final bilingual release verification. No live deployment has occurred.
+The initial key-ID rejection is retained separately; the maker replaced the credential and
+generation completed with six new Yun takes and three exact reuses. The new E03 Mandarin score
+is enabled and passes source/PCM/semantic audits. Production identities and measured results are in
+website `docs/series-narration/2026-09-20-e03-mandarin-current/production-verification.json`.
+Both builds pass. **Next:** finish final bilingual browser checks, commit/push and deploy all four
+episodes; replace the website public-release receipts with the actual deployed commit and live
+results. No live deployment has occurred in this release task yet.
 
 ## Episode 1 English clarity polish ready for maker review — 2026-09-20
 
