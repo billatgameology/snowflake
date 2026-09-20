@@ -6,6 +6,18 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
+## Episode 2 molecular-story revision planned — 2026-09-20
+
+Maker feedback reopens the narrated E02 under the updated design guide: the measurement → molecule
+connection is unclear and the molecular sheets are visually indistinguishable. The bounded
+[amendment](plans/science-series-episode-2.md#molecular-story-continuity-revision--2026-09-20-planned-before-implementation)
+moves detailed diffraction into the substantive reader, carries a selected molecule into the ring,
+and reveals identifiable connected sheets in sequence without changing their physical spacing.
+Matching affected Juniper/Yun takes and phrase alignment follow the source review. Public release
+stays held; local entry remains enabled. E03's concurrent English follow-up and Mandarin pause are
+unchanged. **Next step:** revise and review `docs/video/science-series-e02-script.md`, then implement
+only this bounded E02 pass in the retained website worktree; preserve independently owned dirty files.
+
 ## Episode 3 maker follow-up ready for maker English review — 2026-09-20
 
 The maker's next English viewing says E03-04 is clearer and E03-05 is excellent; preserve the latter's

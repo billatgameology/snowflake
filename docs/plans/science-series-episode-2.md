@@ -309,7 +309,44 @@ Two shared player fixes from the review also landed in E01 source (envelope kept
 takeover re-derives the clock); the live site at `84af23f` lacks them until the next deploy. Next: the
 maker views and listens at `http://127.0.0.1:5185/?e02=preview`; release stays a separate decision.
 
+## Molecular-story continuity revision — 2026-09-20, planned before implementation
+
+The maker cannot follow the old displayed scene 2 → 3 connection, cannot distinguish the sheets in
+displayed scene 5, and questions the measurement detour. The updated guide's one-novelty and
+transition-invariant rules apply. The full diffraction lesson is scientifically useful but opens a
+second investigation before the molecular story: move its wave/interference prerequisites and
+controlled spacing comparison into the substantive reader. Retain the measurement provenance in a
+brief opening bridge; do not imply that the growth recordings contain atomistic data.
+
+1. Retain seven stable scene IDs: E02-01/05/06/07/08/09/10. Remove E02-04 from mandatory playback,
+   not from retained historical audio or Git. Revise the opening evidence bridge and molecule-to-ring
+   handoff. Keep one selected molecule recognizable into the six-oxygen ring; never deduce the measured
+   oxygen arrangement from the molecular bend or the number of neighbours alone.
+2. Reveal the sheet above, its connections, and then the sheet below sequentially at unchanged atomic
+   coordinates. Use sheet-group outlines/halos and labels, retaining blue oxygen, white hydrogen and the
+   gold landmark. Explain that the sheet colours are an inspection aid, not different substances.
+   Preserve intersheet bonds and the camera handoff; no unlabelled exploded gaps or growth-by-sheets.
+3. Source-review the exact revised words and depiction, update Chinese meaning/cues, then refresh only
+   affected Juniper and Yun takes under the standing direction. Retain all older revisions and reuse
+   unchanged verified takes. Compose new seven-scene masters with three retained face-prediction holds;
+   actual audio owns captions, animations and guided scroll. E03's English-first pause is E03-only.
+4. Apply proportionate source/translation, cue/geometry, audio/pacing/semantic and localization checks,
+   typecheck, fresh local/public builds and held-release negative controls. Inspect the changed incoming/
+   outgoing passages at normal speed plus desktop/narrow Still and reverse states. State sampled viewing
+   and machine audio checks separately from a complete human viewing/listening or audience teach-back.
+
+Done when the main argument follows crystal → molecule → ring → connected sheets → faces without
+the compulsory measurement detour, sheet identities are legible without false physical separation,
+both performed languages match the revised meaning, and checks/review limits are recorded. Preserve
+E01, the original film, the six recording assets, current player/home and concurrent E03 changes.
+No release, deployment, solver work, scientific gate, audio cleanup or E03 revision. Root alone edits
+the Site; bounded collaborators review or author authority-only translation material. Existing dirty
+E03 files in both repositories are independently owned and must not be absorbed into this revision.
+
 ## Tried and rejected
+
+- Keeping a full wave/angle lesson solely because it had already been built: its measured spacing
+  payoff was not used by the following molecular explanation. Depth now belongs in the reader.
 
 - Driving narrated playback with the provisional reading clock or matching prediction words
   after discarding punctuation (a question's “wider?” is not the answer's “Wider:”).
