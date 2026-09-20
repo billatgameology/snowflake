@@ -6,7 +6,7 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
-## Episode 3 maker follow-up planned before implementation — 2026-09-20
+## Episode 3 maker follow-up source frozen; website implementation active — 2026-09-20
 
 The maker's next English viewing says E03-04 is clearer and E03-05 is excellent; preserve the latter's
 sequential cases and current words. The remaining bounded work is to show fewer white vapor markers in
@@ -18,12 +18,19 @@ counts or reader depth. The maker also asks for Episode 2 to be enabled locally,
 the public build.
 
 The [active series plan](plans/explore-journey-science-series.md#maker-english-follow-up--2026-09-20-planned-before-implementation)
-pre-registers that scope, and the [design guide](video/science-series-design-guide.md) now records the
-maker's positive E03-04/E03-05 evidence plus the remaining transport-visibility rule. Next: obtain root
-review of the exact opening and closing phrases, then freeze a new English source revision and refresh
-only E03-01/E03-09 in Juniper while reusing the other seven takes. Do not edit or synthesize Mandarin,
-play the historical Yun track against the changed cut, release either held episode or deploy. No source,
-website, narration or release change follows from this planning checkpoint.
+pre-registers that scope, and the [design guide](video/science-series-design-guide.md) records the maker's
+positive E03-04/E03-05 evidence plus the remaining transport-visibility rule. Root approved the exact
+opening promise and next-episode invitation. The revised English authority is now frozen at
+`docs/video/science-series-e03-script.md`, raw SHA-256
+`de83c253354c2b89fb2a38ef218aec003231e0a5955e3a4d118cd74469aeb639`. Its nine IDs, paragraph shape
+`3/3/3/3/4/3/3/3/3` and reader are preserved; E03-02 through E03-08 narration compares exactly with the
+prior source, E03-01 has only the approved prefix, and E03-09 only replaces its final sentence. The
+visual notes now bind the E03-03/08/09 staging without changing their other words.
+
+Next: import that exact hash, refresh only E03-01/E03-09 in Juniper with no automatic retry, reuse the
+other seven takes exactly, implement the three visual repairs and local Episode 2 availability, then
+replay the affected passages at normal speed. Do not edit or synthesize Mandarin, play the historical
+Yun track against the changed cut, release either held episode or deploy.
 
 ## Episode 3 English clarity cut ready for maker review — 2026-09-20
 

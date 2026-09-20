@@ -1335,6 +1335,25 @@ Episode 2 entry works while both public holds remain intact; and the affected pa
 normal speed. This is technical readiness for another maker English viewing, not maker acceptance, human
 listening, physical-phone evidence, audience understanding, Mandarin authorization, release or deployment.
 
+### Maker-follow-up English source freeze — 2026-09-20
+
+Root approved the exact opening prefix, “How does water vapor reach a growing snow crystal? In this
+episode, we'll follow that journey—and discover what can hold growth back.” It also approved the exact
+last sentence, “In the next episode, we will explore why a growing face stays flat.” The authority source
+now freezes those two changes plus the pre-registered E03-03/08/09 visual notes at raw SHA-256
+`de83c253354c2b89fb2a38ef218aec003231e0a5955e3a4d118cd74469aeb639`.
+
+A bounded structural comparison against the preceding committed source confirms all nine scene IDs and
+paragraph shape `3/3/3/3/4/3/3/3/3`; E03-02 through E03-08 spoken paragraphs are exact; E03-01 differs
+only by the approved prefix; E03-09 differs only by the final-sentence replacement; and the complete reader
+block is byte-identical. Both new spoken phrases occur once in the narration. No Mandarin file changed.
+
+Production consumes this exact hash. Re-import before synthesis; create new E03-01 and E03-09 Juniper takes
+once each without automatic retry, reuse the seven matching takes from the prior clarity revision, and
+preserve every older revision. A further word change reopens the source and requires a new hash/take
+disposition. Visual-only E03-03/08 repairs do not authorize new takes, and the English-first Mandarin pause
+continues unchanged.
+
 ## Tried and rejected
 
 - **Mute audio while waiting for slow visual loading.** Playback still consumes the file and

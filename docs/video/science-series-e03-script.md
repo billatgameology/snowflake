@@ -1,21 +1,23 @@
 # E03 — The air is part of the problem
 
-English clarity revision for a nine-scene episode, 2026-09-20. It continues directly from E02 and
-remains held from publication. The 2026-09-19 English and Mandarin performances are retained, but
-this revised English has not been narrated; revised Mandarin text, alignment and audio wait for maker
-acceptance of the English cut. The opening stellar-dendrite recording is a retained computer-grown
-example from E02; every later crystal, particle path, field and airflow view is an explanatory diagram
-unless an observation is explicitly identified. Primary narrative sources are education Chapter 4,
-the attachment vocabulary introduced in Chapter 5, Libbrecht's *Snow Crystals*, Nelson's 1998
-sublimation experiment and Takahashi et al.'s 1991 free-fall experiment.
+English maker-follow-up revision for a nine-scene episode, 2026-09-20. It continues directly from E02
+and remains held from publication. The 2026-09-19 English and Mandarin performances and the 2026-09-20
+English clarity performance are retained, but this follow-up English has not been narrated; revised
+Mandarin text, alignment and audio wait for maker acceptance of the English cut. The opening
+stellar-dendrite recording is a retained computer-grown example from E02; every later crystal,
+particle path, field and airflow view is an explanatory diagram unless an observation is explicitly
+identified. Primary narrative sources are education Chapter 4, the attachment vocabulary introduced
+in Chapter 5, Libbrecht's *Snow Crystals*, Nelson's 1998 sublimation experiment and Takahashi et al.'s
+1991 free-fall experiment.
 
 ## E03-01 — Follow one molecule
 
 ### Narration
 
-Here is the stellar dendrite we left at the end of the last episode. It is one computer-grown
-recording from our library, not footage of a natural crystal. Last time we looked inside the solid.
-Now leave the crystal where it is and look at the air around it.
+How does water vapor reach a growing snow crystal? In this episode, we'll follow that journey—and
+discover what can hold growth back. Here is the stellar dendrite we left at the end of the last
+episode. It is one computer-grown recording from our library, not footage of a natural crystal. Last
+time we looked inside the solid. Now leave the crystal where it is and look at the air around it.
 
 Imagine marking one water molecule in that air. It does not see the nearest branch and steer toward
 it. Nitrogen and oxygen molecules keep knocking it onto a new path. Our marker will exaggerate that
@@ -91,6 +93,10 @@ still travel both ways. The map shows the average result of all those paths, not
 - Fade the particle paths before the top-down handoff. Preserve the same crystal and reveal the field
   only after the new view is established. Use a continuous legend—dark means less spare vapor and
   light means more—not a binary shell.
+- Make the marker population agree with that field: keep the bright far supply at one fixed density,
+  then thin the white markers smoothly toward the surface along the same elliptical falloff as the
+  dark halo. Retain sparse two-way traffic, including a few outward paths; do not aim every remaining
+  marker inward or present the schematic density as a measurement.
 - Show a short transient before the field settles. Add the net inward delivery cue after the field is
   understood; sparse two-way motion may then return. `Persistent` means a quasi-steady transport
   pattern, not frozen air.
@@ -266,6 +272,10 @@ Relative flow can matter, but how much depends on size and shape.
 - Split one persistent hex silhouette into matched still/moving cases. Hold far-field supply, size
   and surface response constant. In the moving case, deform streamlines and contours before revealing
   a larger delivery gauge. Do not animate the lattice changing under the wind.
+- Keep the far-away white-marker concentration matched in both cases. In the moving-air case, carry
+  more white vapor tracers along the grey airflow past the crystal, never through the ice. Preserve
+  some two-way molecular motion, and withhold the visibly greater inward delivery until the spoken
+  answer; tracer counts remain qualitative, not a measured enhancement.
 - Prediction hold after `Hold the surface response fixed before you choose.` Reveal on `The moving-air
   case is fed faster.` Label the comparison `schematic tendency`, not a quantitative habit model.
 - `docs/education/chapters/04-the-fuel-supply.html#falling-through-the-supply`
@@ -287,7 +297,8 @@ matters is the net result of many encounters, not the fate of one drawn dot.
 
 That gives us the answer: growth has two waits. The air controls how much water reaches the face. The
 surface controls how much becomes net added ice. Either one can slow growth. Yet molecules arrive from
-a jumble of directions and the face stays flat. How can a growing face stay flat?
+a jumble of directions and the face stays flat. In the next episode, we will explore why a growing
+face stays flat.
 
 ### Visual and sources
 
@@ -297,11 +308,13 @@ a jumble of directions and the face stays flat. How can a growing face stay flat
   next; do not show a simultaneous montage.
 - Recombine the recap into the same single hexagonal crystal, clear its temporary arrows/airflow and
   zoom continuously to one already-selected flat face.
-- At the close view, separate an arrival region above the interface from a fixed before-line and a
-  small aggregate boundary advance. Do not turn an arriving marker into a lattice dot or use collision
-  counts as a surface-response measurement.
-- End on the unresolved flat face and the exact E04 question. Do not yet depict terraces, steps or
-  nucleation, and introduce no new recording context.
+- At the close view, animate the two waits separately. On `The air controls`, show the arrival region
+  and an aggregate delivery band reaching the face. On `The surface controls`, begin a separate
+  boundary advance from the already-grown position while retaining its before-line. Briefly retain
+  both results, but do not turn a selected marker into a lattice dot or use collision counts as a
+  surface-response measurement.
+- End on the unresolved flat face and the explicit next-episode invitation. Do not yet depict terraces,
+  steps or nucleation, and introduce no new recording context.
 - `docs/education/chapters/04-the-fuel-supply.html#two-bottlenecks-in-series`
 - `docs/education/chapters/05-the-restless-surface.html#the-attachment-coefficient`
 - `docs/education/chapters/05-the-restless-surface.html#how-a-facet-stays-flat`
@@ -435,12 +448,12 @@ Sources: `docs/education/chapters/04-the-fuel-supply.html#falling-through-the-su
 
 | Scene | Learner question / prerequisite / misconception check | Source identity and main claim | Cue and focal object | Before → action → after / disclosure | Connection, reading and device budget | Review state |
 |---|---|---|---|---|---|---|
-| E03-01 | How does one molecule reach the crystal? Requires E02 arrival/joining distinction. Check: no steering or microscopic-scale recording. | Retained `stellar-dendrites` computer-grown example; Ch4 transport explanation. | `Here is the stellar dendrite` on the retained dendrite; `Imagine marking` on one vapor marker. | E02 final pose → freeze, mark molecule, exaggerate collisions → molecule faces two waits. Recording is disclosed immediately. | Exact carry-over from E02; one WebGL context, then unmount. Labels and path are canvas/DOM. Read at phone width and reduced motion. | Authority draft; visual QA, science review and accessibility review pending. |
+| E03-01 | How does one molecule reach the crystal? Requires E02 arrival/joining distinction. Check: no steering or microscopic-scale recording. | Retained `stellar-dendrites` computer-grown example; Ch4 transport explanation. | Opening promise `How does water vapor reach`; `Here is the stellar dendrite` on the retained dendrite; `Imagine marking` on one vapor marker. | Episode question over the retained E02 final pose → freeze, mark molecule, exaggerate collisions → molecule faces two waits. Recording is disclosed immediately. | Exact carry-over from E02; one WebGL context, then unmount. Labels and path are canvas/DOM. Read at phone width and reduced motion. | Maker-follow-up English revision; hook timing, visual QA, science and accessibility review pending. |
 | E03-02 | How can random motion yield directed delivery? Requires richer/depleted comparison. Check: walkers move both ways. | Explanatory particle diagram grounded in Ch4/Libbrecht. | `Keep just our marked molecule`; `Now release many markers`; `That statistical spreading`. | One random path → many two-way paths → aggregate net arrow appears last. Diagram disclosed by its schematic style and narration. | Same schematic crystal continues into E03-03. No WebGL; bounded particle count and reduced-motion stepped state. | Authority draft; visual QA, science review and accessibility review pending. |
-| E03-03 | Why does growth lower the nearby supply? Requires E03-02 net diffusion. Check: net uptake is not a filmed one-collision event; the halo is continuous, not light or a shell. | Explanatory net-uptake and supersaturation-field diagram grounded in Ch4 and Libbrecht's calculated field; no measured particle counts. | `the nearby dots thin out`; `color the surrounding air`; `That change with distance is a gradient`; `Individual molecules still travel both ways`. | Two-way particle traffic → net removal and a thin aggregate growth outline → paths retire → top-down field appears → settled gradient and net inward delivery. | Exact E03-02 silhouette continues into E03-04. Canvas/SVG only; fixed legend and before-outline survive phone and reduced-motion states. | English clarity revision; field handoff, scientific wording, visual sequencing and accessibility require review. |
+| E03-03 | Why does growth lower the nearby supply? Requires E03-02 net diffusion. Check: net uptake is not a filmed one-collision event; the halo is continuous, not light or a shell. | Explanatory net-uptake and supersaturation-field diagram grounded in Ch4 and Libbrecht's calculated field; no measured particle counts. | `the nearby dots thin out`; `color the surrounding air`; `That change with distance is a gradient`; `Individual molecules still travel both ways`. | Two-way particle traffic → net removal and a thin aggregate growth outline → paths retire → top-down field and smoothly thinning near-halo marker population appear → settled gradient and sparse two-way traffic. | Exact E03-02 silhouette continues into E03-04. Canvas/SVG only; fixed far density, continuous falloff, legend and before-outline survive phone and reduced-motion states. | Maker-follow-up visual revision; density/field agreement, visual QA and accessibility require review; spoken words unchanged. |
 | E03-04 | What can reveal an invisible vapor field? Requires the E03-03 color map. Check: no direct vapor photograph, evaporated-droplet story or pixel registration. | Rights-safe top-down reconstruction of the laboratory droplet/moat observation, followed by a separately labelled qualitative redraw of Libbrecht's calculated field. | `Look down through a microscope`; `A clear band surrounds the ice`; `Follow the edge of that clear band`; `Here is a calculation of the water vapor around a crystal`. | Known field leaves → observation alone with liquid beads and a clear band → boundary trace appears → familiar color-map calculation opens beside it → identities remain separate. | Same centered faceted subject continues conceptually but the change from explanation to observation is explicit. No WebGL; static reconstruction and text alternative carry the result. | English clarity revision; source likeness, bead/moat readability, science and accessibility require independent review. |
 | E03-05 | Which of two serial waits controls? Requires arrival versus joining. Check: no literal doors, no particle count as a surface-response measurement and no arithmetic burden in the film. | Exact steady ideal-sphere calibration from Libbrecht supports two qualitative fixed-condition cases; equations and chosen numerical values stay in the reader. | `Water first has to reach the ice`; question `which step holds everything up?`; exact answer `The air-delivery step limits the growth.`; `Start again from the same outline`; `Together these two cases`; heat/shape bridge. | One easy-surface case → prediction hold → answer, depletion and growth rim → one hard-surface case → finished cases together → heat coda → one centered sphere asks about corners. | Intentional sphere reset. Aggregate delivery, continuous field and before/after outlines only; narrow and reduced-motion views preserve the ordered cases and held result. | English clarity revision; fixed-radius/growth-rim convention and qualitative ordering require independent science, visual and accessibility review. |
 | E03-06 | How can shape redirect delivery? Requires the E03-05 sphere and fixed outer supply. Check: lines encode amount, moving markers encode flow and unequal delivery is not a branching proof. | Qualitative non-spherical field geometry grounded in Ch4/Ch5; not a solved dendrite field or measured rate profile. | `give the ball six corners`; `Look first at one projecting corner`; `look at the middle of one flat face`; `Every point on one line marks the same amount`; `More water is delivered to the corner`. | Centered sphere and outer supply → hex only → corner then face centre → equal-value lines explained plainly → contour/gradient names → unequal delivery animates last. | Carries centre, scale and outer supply from E03-05 and leaves one hex for E03-07. Canvas/SVG; labels, spacing and motion remain readable without color. | English clarity revision; qualitative contour geometry, flow comparison, visual QA and accessibility require review. |
 | E03-07 | Does drying simply reverse growth? Requires sign of supersaturation. Check: rounded shape is not a universal dry-air diagnosis. | Nelson 1998 controlled observation and diffusion calculation; reconstruction, not footage. | `Make it slightly too dry`; `The physicist Jon Nelson`; `During sublimation`. | Inward net field → sign and arrows reverse → labeled experimental reconstruction rounds while proportions remain approximately stable. | Same hex silhouette supplies transition; measured sequence is a labeled new evidence card. No WebGL; static fallback carries conclusion. | Authority draft; visual QA, independent source review and accessibility review pending. |
-| E03-08 | What does relative airflow change? Requires depleted halo. Check: matched conditions and surface response; no universal percent/habit claim. | Schematic matched comparison plus Takahashi et al. 1991 free-fall evidence. | `Compare the same`; hold after `before you choose`; answer `The moving-air case is fed faster.` | One hex duplicates into matched cases → flow deforms moving-side contours → prediction reveal → measured conditional cases bound the claim. | Recombines into one hex for E03-09. Canvas/SVG, no WebGL; animations pause offscreen and reduced-motion uses before/after frames. | Authority draft; visual QA, independent source review and accessibility review pending. |
-| E03-09 | What remains after delivery? Requires the episode's transport chain and surface-response distinction. Check: recap is sequential, ventilation stays conditional and an arrival is not literal net joining. | Compact explanatory recap of Ch4 transport plus Ch5 effective surface-response vocabulary; no new measurement or E04 mechanism. | `One molecule zigzags`; `Add many two-way paths`; `Let the crystal grow`; `Give the crystal corners`; `move air past it`; `zoom to one flat face`; final question. | One path → many/net → depletion field → shape effect → relative-airflow effect → overlays clear → same-face zoom → arrival and aggregate boundary advance separate → unresolved face. | Same crystal anchors E03 to E04. No WebGL or new object; recap steps cleanly at phone width and collapses to ordered stills under reduced motion. | English clarity revision; recap compression, attachment wording, E04 handoff, visual QA and accessibility require review. |
+| E03-08 | What does relative airflow change? Requires depleted halo. Check: matched conditions and surface response; no universal percent/habit claim. | Schematic matched comparison plus Takahashi et al. 1991 free-fall evidence. | `Compare the same`; hold after `before you choose`; answer `The moving-air case is fed faster.` | One hex duplicates into matched far-marker populations → grey airflow bends past the moving-side crystal during the prediction → answer releases more white tracers carried with the flow and greater inward delivery → measured conditional cases bound the claim. | Recombines into one hex for E03-09. Canvas/SVG, no WebGL; far density remains matched, airflow never crosses ice, and reduced-motion uses before/after frames. | Maker-follow-up visual revision; transport visibility, visual QA, source review and accessibility require review; spoken words unchanged. |
+| E03-09 | What remains after delivery? Requires the episode's transport chain and surface-response distinction. Check: recap is sequential, ventilation stays conditional and an arrival is not literal net joining. | Compact explanatory recap of Ch4 transport plus Ch5 effective surface-response vocabulary; no new measurement or E04 mechanism. | `One molecule zigzags`; `Add many two-way paths`; `Let the crystal grow`; `Give the crystal corners`; `move air past it`; `zoom to one flat face`; explicit `In the next episode` invitation. | One path → many/net → depletion field → shape effect → relative-airflow effect → overlays clear → same-face zoom → aggregate air delivery reaches face → separate surface advance against retained before-line → unresolved face. | Same crystal anchors E03 to E04. No WebGL or new object; recap and final two waits step cleanly at phone width and collapse to ordered stills under reduced motion. | Maker-follow-up English/visual revision; final separation, E04 invitation timing, visual QA and accessibility require review. |
