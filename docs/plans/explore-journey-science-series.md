@@ -1305,6 +1305,36 @@ result or an uncoached audience study. Next the maker watches and listens at
 semantic-alignment and Yun-production pass. Episode 3 remains held; release, deployment, Episode 4,
 solver work and a new MP4 remain outside this revision.
 
+### Maker English follow-up — 2026-09-20, planned before implementation
+
+The maker's next viewing says scene 4 is clearer and calls scene 5 excellent. Preserve scene 5's exact
+teaching order and current spoken text: the first condition completes, the second follows, and only then
+does the combined comparison appear. Scene 8's comparison remains conceptually successful, but its
+greater moving-air delivery needs more visible wind-carried white vapor markers. Scene 3 likewise needs
+fewer white markers within the dark depleted halo so marker density agrees with the field colour. These
+are visual repairs only; E03-03 and E03-08 narration remains byte-for-byte unchanged.
+
+In E03-09's final paragraph, stage air delivery and surface addition as two separate animated steps.
+Aggregate arrivals reach the face first; only afterward does a new rim advance beyond a fixed before-line.
+Do not convert a chosen marker into ice or imply a measured joining probability. Replace only the final
+question with an explicit next-episode invitation. Add one brief opening hook to E03-01. Preserve every
+spoken word in E03-02 through E03-08, all nine scene IDs, the existing paragraph counts and the complete
+reader. Root reviews the two proposed spoken phrases before the source freezes; any new English production
+then refreshes only E03-01 and E03-09 in Juniper, once each with no automatic retry, and reuses the seven
+unchanged takes exactly.
+
+The maker also requests Episode 2 enabled in the local review build. Change only the local availability
+surface and its tests; keep Episode 2 excluded from the public build and do not deploy. Episode 3 likewise
+remains held. Mandarin remains paused until maker acceptance of the complete revised English cut: no
+Mandarin source edit, semantic alignment, Yun synthesis or stale-track playback belongs to this pass.
+
+Done for this follow-up when the opening hook and explicit E04 invitation are source-bound to the refreshed
+English performance; scene 3's halo visibly has fewer nearby markers; scene 5 is unchanged; scene 8 visibly
+carries more vapor with the moving air; scene 9 shows delivery and net surface addition separately; local
+Episode 2 entry works while both public holds remain intact; and the affected passages have been replayed at
+normal speed. This is technical readiness for another maker English viewing, not maker acceptance, human
+listening, physical-phone evidence, audience understanding, Mandarin authorization, release or deployment.
+
 ## Tried and rejected
 
 - **Mute audio while waiting for slow visual loading.** Playback still consumes the file and

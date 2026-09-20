@@ -310,6 +310,34 @@ directing or teaching credentials. That reviewer read this guide, the complete E
 script and the current drawing/cue source, and inspected retained scored frames. It did not perform a
 fresh normal-speed playback, human listening review or audience-comprehension test.
 
+### Follow-up: Episode 3's sequential comparison works; make the remaining transport visible — 2026-09-20
+
+The maker's next English viewing supplies actual positive evidence and a smaller repair list. Scene 4
+is clearer after the top-down observation is separated from the calculation. Scene 5 is excellent and
+must be preserved: one case is introduced and completed, the second case follows, and only then does the
+overview compare them. This praise supports the sequential-build rule above; it is not permission to
+restage that passage while repairing neighbouring scenes.
+
+The remaining changes are literal visibility and handoff work. In scene 3, the dark depleted halo must
+contain visibly fewer white vapor markers than the lighter outer supply; field colour and marker density
+should tell the same “less nearby” story without turning a schematic count into a measurement. In scene
+8, moving air should visibly carry more white vapor markers toward and past the crystal over the matched
+comparison interval, so greater delivery is an action rather than only a contour or label. Keep random
+motion and two-way traffic credible; “more delivered” does not mean every marker is aimed inward.
+
+In scene 9's final paragraph, show the two waits separately and in order: first animate delivery through
+the air to the face, then animate aggregate net addition at the surface against a fixed before-line.
+Do not turn one selected particle into a lattice site. Retain the face after those two steps and end with
+the explicit bridge, “In the next episode, we will explore why a growing face stays flat.” Add one brief
+spoken hook at Episode 3's opening so the air problem is posed before the episode settles into continuity
+with Episode 2. These two small spoken changes require a new English source revision and affected Juniper
+takes; scenes 2 through 8 keep their current spoken words.
+
+The maker also asks to make Episode 2 available locally. Treat that as a local review-surface change,
+not a public release or deployment instruction: preserve the public-build hold and its leak checks unless
+the maker separately authorizes publication. Episode 3's English-first boundary remains in force; this
+follow-up does not authorize Mandarin text, alignment or audio work.
+
 ## Nivogenesis collection and optional sound — 2026-09-17 (the sound was later removed)
 
 **Superseded in part.** The maker removed the opening soundscape on 2026-09-18 ("remove play with

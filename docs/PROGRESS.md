@@ -6,6 +6,25 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
+## Episode 3 maker follow-up planned before implementation — 2026-09-20
+
+The maker's next English viewing says E03-04 is clearer and E03-05 is excellent; preserve the latter's
+sequential cases and current words. The remaining bounded work is to show fewer white vapor markers in
+E03-03's dark depleted halo, show more wind-carried white markers in E03-08's moving-air case, animate
+air delivery and aggregate surface addition as separate steps in E03-09's last paragraph, add a brief
+opening hook, and end explicitly with the next-episode flat-face invitation. E03-02 through E03-08 keep
+their exact spoken English; only E03-01 and E03-09 may change words, without changing scene IDs, paragraph
+counts or reader depth. The maker also asks for Episode 2 to be enabled locally, not deployed or added to
+the public build.
+
+The [active series plan](plans/explore-journey-science-series.md#maker-english-follow-up--2026-09-20-planned-before-implementation)
+pre-registers that scope, and the [design guide](video/science-series-design-guide.md) now records the
+maker's positive E03-04/E03-05 evidence plus the remaining transport-visibility rule. Next: obtain root
+review of the exact opening and closing phrases, then freeze a new English source revision and refresh
+only E03-01/E03-09 in Juniper while reusing the other seven takes. Do not edit or synthesize Mandarin,
+play the historical Yun track against the changed cut, release either held episode or deploy. No source,
+website, narration or release change follows from this planning checkpoint.
+
 ## Episode 3 English clarity cut ready for maker review — 2026-09-20
 
 The maker's first review of held Episode 3 reopened its English cut. The bounded revision is now frozen
