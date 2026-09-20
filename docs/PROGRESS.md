@@ -6,7 +6,7 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
-## Episode 3 English clarity source frozen; English implementation active — 2026-09-20
+## Episode 3 English clarity cut ready for maker review — 2026-09-20
 
 The maker's first review of held Episode 3 reopened its English cut. The bounded revision is now frozen
 at [the English authority](video/science-series-e03-script.md), raw SHA-256
@@ -29,13 +29,33 @@ phrases occur exactly once in their designated paragraph and globally, and the f
 match the current imported English. It did not hear a performance, exercise the timed visuals, conduct
 a physical-phone check or test an uncoached viewer. Those remain real limits, not acceptance.
 
-Next: import the frozen English and exact cues, finish the revised visual staging, and make the already
-authorized one-pass Juniper refresh only for E03-03/04/05/06/09 while reusing the four unchanged takes;
-then rehearse the complete English cut at normal speed and obtain maker English acceptance. The maker
-explicitly directs English first: do not synthesize Mandarin, revise its source, or finalize revised
-Mandarin semantic alignment until that acceptance. Retain the existing Juniper/Yun masters and receipts,
-but keep stale Mandarin unavailable beside changed English meaning or reveals. Episode 3 remains held;
-human listening, physical-phone review, audience understanding, release and deployment remain open.
+The website now implements that exact source with Juniper revision
+`2026-09-20-e03-juniper-clarity`. Five authorized sections (E03-03/04/05/06/09) were requested once
+each with zero retries; E03-01/02/07/08 reuse the prior take bytes exactly. The paced English master is
+640.0280045351474 seconds, SHA-256
+`e1f91a87882af13a2e9403367c879841bf25fee7ac5b0ca9cfc4525a3864d47c`, with 49 reveal cues and the
+two retained prediction holds. No Mandarin text, alignment or audio was produced. Episode 3 stays in
+English when Chinese is requested, with the pending status visible; the historical Yun assets remain
+preserved and other episodes retain language switching.
+
+Website `docs/episode-three-clarity-verification.json` (SHA-256
+`b571c3ef12e9caaf08546ebcf4d2fc9dacf774ab3c9305c911991ff842300cd3`) binds 36 distinct artifact
+paths and hashes. Its 29 focused tests pass with zero failures; typecheck, focused lint, local build and
+public build pass. The scored art covers 192 English poses at 730 px and 360 px widths, reports a
+12.00000778658986 px minimum type size and no bounds problem or browser error. Four automated 1×
+passages record 311, 73, 20 and 22 samples with no playback-rate change or reported problem; the two
+short passes and final cue art cover the last pointer/transition/shape-timing repairs. The final frozen
+browser run follows all nine scenes on desktop and phone emulation with empty error/problem lists. An
+earlier development-phone sample unexpectedly landed at E03-01/manual instead of E03-03; it is retained
+in the receipt, its cause is unknown, and it did not reproduce in the frozen rerun. Six public-release
+checks including planted negative controls and a 41-observation emulator smoke pass; public output
+still excludes Episode 3 and nothing was deployed.
+
+Next: the maker opens `http://127.0.0.1:5185/?e03=preview` and watches/listens to the complete English
+cut. Automated playback and selected-frame inspection are not human listening, complete human viewing,
+a physical-phone check or uncoached audience understanding. The maker's English acceptance remains the
+gate before any Mandarin revision, semantic alignment or synthesis. Retain both generations of English
+and the historical Yun masters; Episode 3 remains held, with release and deployment separate decisions.
 
 ## Episode 3 held production complete; maker review remains — 2026-09-19
 
@@ -1080,6 +1100,19 @@ User-requested [next-session prompt and two-repository file map](video/nivogenes
 is saved for continuing this video work. It is a launcher, not another live state document:
 this index and the affected active plans still govern. Read their latest entries before using
 the prompt's baseline references; the E02 release hold remains intentional.
+
+### Episode 3 English clarity revision — ready for maker viewing and listening
+
+Open `http://127.0.0.1:5185/?e03=preview` and review the complete 640.0280045351474-second English
+cut, especially the top-down observation/calculation handoff in E03-04, sequential two-case build and
+E03-05→06 bridge, and causal recap/face zoom in E03-09. The current source is frozen at
+`docs/video/science-series-e03-script.md` SHA-256
+`7339922862b7e1f5e6c9c9cbc516b3fb6a383f57e9004a99f44162d453df5303`; do not revise or resynthesize it
+without treating that as a new source revision. The technical receipt and automated 1× passages pass,
+but they are not maker listening or acceptance. Keep Episode 3 held and English-only until the maker
+accepts this cut; only then begin the separate Mandarin text, alignment and narration pass. Do not play
+the historical Yun track against the changed English visuals, release the episode, deploy it or begin
+Episode 4 from this checkpoint.
 
 ### Nivogenesis opening — ready for maker viewing and listening
 

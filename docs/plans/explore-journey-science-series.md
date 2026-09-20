@@ -1270,6 +1270,41 @@ any later wording change is a new source revision with a new hash and explicit t
 the earlier Juniper/Yun revisions as history, reuse the unchanged English takes, make no automatic paid
 retry, and keep stale Mandarin unavailable until the maker accepts the complete revised English cut.
 
+### English implementation and technical verification — 2026-09-20, maker review pending
+
+The website implements the frozen source as Juniper revision
+`2026-09-20-e03-juniper-clarity`. It made five paid requests—E03-03/04/05/06/09—with no retry and
+reused the E03-01/02/07/08 audio bytes exactly. The paced master is 640.0280045351474 seconds, SHA-256
+`e1f91a87882af13a2e9403367c879841bf25fee7ac5b0ca9cfc4525a3864d47c`; its score resolves 49 English
+reveal cues and two prediction holds. The raw authority remains
+`7339922862b7e1f5e6c9c9cbc516b3fb6a383f57e9004a99f44162d453df5303`. No Mandarin source, alignment or
+audio was revised or produced; requesting Chinese for Episode 3 retains the English cut and displays a
+pending notice.
+
+The compact website receipt is `docs/episode-three-clarity-verification.json`, SHA-256
+`b571c3ef12e9caaf08546ebcf4d2fc9dacf774ab3c9305c911991ff842300cd3`. Its 36 distinct path/hash bindings
+were re-read at closeout. Twenty-nine focused tests pass with zero failures; typecheck, focused lint,
+the local build and public build pass. The scored-art run covers 192 cue poses at 730 px and 360 px
+English layouts with minimum type size 12.00000778658986 CSS px, no bounds problem and no browser error.
+Automated 1× passage runs cover E03-03 through E03-06 and both boundaries (311 samples), E03-09 through
+natural media end (73), the final clear-band pointer repair (20) and the final E03-05→06 bridge repair
+(22); each reports completion, rate one throughout and no problem. Final cue art also verifies the
+shape change completes before the corner cue. Root inspected selected final cue and timed-passage PNGs;
+that is sampled inspection, not a complete human viewing.
+
+The final frozen browser rerun follows all nine scenes on desktop and phone emulation with empty problem
+and error lists. Preserve the earlier development-phone result too: one sample selected E03-03 but
+landed at E03-01/manual; its cause was not established, and it did not reproduce on the frozen build.
+Six held-release tests, including planted negative controls, pass, and the 41-observation public smoke
+reports no problem; Episode 3 remains excluded from public output and no deployment occurred.
+
+This reaches technical readiness for maker English review, not the plan's acceptance gate. Automated
+audio-clock playback and selected images are not human listening, a complete viewing, a physical-phone
+result or an uncoached audience study. Next the maker watches and listens at
+`http://127.0.0.1:5185/?e03=preview`. Only explicit English acceptance opens the separate Mandarin text,
+semantic-alignment and Yun-production pass. Episode 3 remains held; release, deployment, Episode 4,
+solver work and a new MP4 remain outside this revision.
+
 ## Tried and rejected
 
 - **Mute audio while waiting for slow visual loading.** Playback still consumes the file and
