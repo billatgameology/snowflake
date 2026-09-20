@@ -1428,6 +1428,34 @@ scientific gate. Completion records must distinguish ready for maker review from
 Physical-phone review and an uncoached audience teach-back remain maker review, not automated
 claims. Publication, deployment, a new MP4 and Episode 5 are outside this request.
 
+## E01 bounded English clarity polish — planned 2026-09-20
+
+The maker accepts the read-only updated-guide review's two proposals and requests implementation
+with **English-only audio**. Preserve all other E01 scenes and the praised progressive comparisons.
+This overrides bilingual refresh for this bounded pass: do not change Chinese text or synthesize
+Mandarin. Updating its English-to-Mandarin timing map against the unchanged Yun recording is in scope
+so the existing same-page language switch remains usable.
+
+1. Shorten R08's introductory reassurance to the opening question and move only the saturation-vapour-
+   pressure synonym into its substantive reader. Preserve the pressure, equilibrium and surplus
+   demonstrations and the existing paragraph structure.
+2. Start R09 with the accepted question about colder air and extra water, then keep its existing
+   reference → extra → colder reference → comparison sequence and source qualifications.
+3. Import the revised authority text, dry-run the existing narration generator with an explicit
+   expectation of exactly E01-08/E01-09 new Juniper takes, then synthesize those takes in a new retained
+   revision while reusing the other nine. Preserve earlier masters/settings and E01's existing pacing.
+4. Remove the now-unspoken English saturation heading; retime the affected visual cues to delivered
+   speech. Retain a bound English-variation record for the unchanged Chinese source/performance and
+   rebuild only its semantic timing metadata where required.
+5. Run focused E01 source/audio/cue/localization checks and the website build; inspect representative
+   revised playback and transitions. Record actual verification and listening limits. No solver tests,
+   other episode changes, Mandarin generation, public deployment or new release are included.
+
+Done when the site serves the revised English words and matching Juniper master; the remaining English
+takes and Mandarin bytes/text are preserved; the extra synonym remains in the reader; normal-speed cues
+and bilingual switching remain coherent. Work in the existing two task worktrees and preserve concurrent
+E02/E03/E04 dirty work. Source and implementation review are bounded to the changed passage and mappings.
+
 ## Tried and rejected
 
 - **Mute audio while waiting for slow visual loading.** Playback still consumes the file and
