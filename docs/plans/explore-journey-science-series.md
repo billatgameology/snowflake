@@ -1428,6 +1428,28 @@ scientific gate. Completion records must distinguish ready for maker review from
 Physical-phone review and an uncoached audience teach-back remain maker review, not automated
 claims. Publication, deployment, a new MP4 and Episode 5 are outside this request.
 
+### Episode 4 result — ready for maker review
+
+The nine-scene English source was frozen at `bc6aedd`; Chinese, semantic cues and bounded source
+review were committed at `d58991c`. The website now contains the integrated episode, six reader
+entries, 42 phrase-gated reveals and two three-second prediction pauses. All 18 approved Juniper/Yun
+takes were generated once and retained. Paced English is 562.706032 seconds; Mandarin is 788.775510
+seconds. Integrity, PCM preservation/pacing and all 141 semantic-pair checks pass, with no dropped
+spoken onsets. Source and audio identities are recorded in website
+`docs/episode-four-verification.json` and `docs/science-series-episode-four.md`.
+
+The complete temporary-voice rehearsal reached natural end at 1×; root inspected sequential
+samples rather than claiming a human full listen. Final scored English/Chinese desktop/phone
+captures, fixed-build player checks, both builds, public negative controls and Firebase smoke
+are recorded with their exact coverage. Actual visual review repaired additive growth geometry,
+delayed successive step births, prediction-answer withholding, whole-face result timing and phone
+label clearance. The development-server playback pass was invalidated by reloads and replaced
+with a built-site check. Final isolated preview: `http://127.0.0.1:5187/?e04=preview`.
+
+Ready for maker review is the delivered state. Full human listening, physical-device behavior and
+first-time audience teach-back are not claimed; all public hold mechanisms remain in place. No
+solver changes, scientific gate, deployment, new MP4 or Episode 5 was included.
+
 ## E01 bounded English clarity polish — planned 2026-09-20
 
 The maker accepts the read-only updated-guide review's two proposals and requests implementation

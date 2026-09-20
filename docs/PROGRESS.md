@@ -20,15 +20,29 @@ audit and targeted 1× browser inspection passed. This is not human listening ac
 **Next step:** maker reviews scenes 8 and 9 through the menu at `http://127.0.0.1:5185/episode-1`.
 No deployment, Mandarin regeneration, or new MP4 is authorized by this change.
 
-
-## Episode 4 creation in progress — 2026-09-20
+## Episode 4 created for maker review — 2026-09-20
 
 The maker requests Episode 4 following the [design guide](video/science-series-design-guide.md).
 The [bounded production plan](plans/explore-journey-science-series.md#episode-4-creation--2026-09-20-planned-before-implementation)
-adds the flat-face investigation in the existing authority and website worktrees. English source,
-bilingual workflow and local held-episode wiring are assigned; E02/E03 work remains independently
-owned. Next: source-review the nine-scene E04 script and prototype surface-step compensation,
-then rehearse, produce and verify the integrated performance. No release or deployment is authorized.
+adds the flat-face investigation in the existing authority and website worktrees. English source is frozen at `bc6aedd` (script SHA-256
+`7855f8384ad7f241b4a5020c47b753e03b72bb18a2d5a44360acd6497b82a49f`), and the
+[bounded source/code/translation review](reviews/science-series-e04-source-review-2026-09-20.md)
+covers nine scenes plus reader depth. Website rehearsal
+`export/episode-four-rehearsal-review-v2/review.json` reached natural end at 539.525351 seconds
+with no media/browser errors; sequential sampled image review and corrected prediction-boundary
+checks are recorded separately from human listening. Juniper/Yun production is complete: English
+562.706 seconds and Mandarin 788.776 seconds, nine scenes each, all 18 first-attempt takes retained.
+The reviewed Chinese source and 141 phrase pairs are committed at `d58991c`; both three-second
+prediction holds and all 42 reveal onsets pass independent integrity, pacing and semantic audits.
+Local/public builds, focused tests, held-release negative controls and Firebase smoke pass.
+Fixed-build desktop/360 px interaction checks pass; final visual review repairs the compensation
+result-label timing and leaves room for its rising face on the phone layout. Exact identities,
+receipts and limits are in website `docs/science-series-episode-four.md` and
+`docs/episode-four-verification.json`. E01/E02/E03 work remains independently owned.
+
+**Next:** maker views/listens at `http://127.0.0.1:5187/?e04=preview` (fixed local build), or
+`http://127.0.0.1:5185/?e04=preview` (development). Full human listening, physical-phone review and
+uncoached audience understanding remain unchecked. No public release or deployment was performed.
 
 ## Episode 2 molecular-story revision ready for maker review — 2026-09-20
 
