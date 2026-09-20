@@ -1,9 +1,10 @@
 # E02 — Why six is only the beginning
 
-Conversational eight-scene revision, 2026-09-17, narrated with Juniper the same day; the 2026-09-18
-design-guide catch-up changes two passages (E02-09 p2 introduces Libbrecht; E02-10 closes on the next
-episode's question) and refreshes their takes under the standing narration direction (stable source
-IDs retain gaps for removed history). Primary narrative sources: education Chapters 2–3
+Seven-scene molecular-continuity revision, 2026-09-20. Detailed diffraction moves to the substantive
+reader; the opening retains its evidence bridge, one selected molecule leads into the ring, and
+connected sheets gain sequential colour keys. Stable IDs retain gaps for the removed detours.
+Affected Juniper and Yun takes refresh under the standing narration direction; earlier cuts remain
+retained. Primary narrative sources: education Chapters 2–3
 and their citations to Libbrecht, *Snow Crystals*, with current primary-source corrections in
 the [science review](../reviews/science-series-e02-review-2026-09-16.md).
 Structure drawings are explanatory, not molecular dynamics or experimental diffraction images.
@@ -21,9 +22,9 @@ Six around the column when we look along its length. Six main arms on the star. 
 each example to its own view, so don't compare their sizes. Compare that recurring six.
 What could such different shapes have in common inside?
 
-The recordings pose the question; they don't prove an answer about real ice. For that, we need
-measurements. The arrangement inside a crystal is far too small to see with ordinary light.
-But there is a way to learn about it without taking a picture of each atom.
+The recordings pose the question; they don't prove the answer about real ice. X-ray measurements
+established the repeating arrangement of oxygen atoms inside ordinary ice. We'll explore that
+structure with a drawing, not a photograph of atoms. Our way in is one water molecule.
 
 ### Visual and sources
 
@@ -32,43 +33,9 @@ But there is a way to learn about it without taking a picture of each atom.
   Persistent labels identify independent runs. No schematic silently called a recording.
 - `docs/education/chapters/03-why-six-sides.html#what-it-does-not-say`
 - `docs/education/chapters/02-four-hundred-years-of-looking.html#bentley`
-
-
-
-
-
-## E02-04 — Read the spacing without seeing the atoms
-
-### Narration
-
-Start with these two waves. A crest is the high part; a trough is the low part. The bottom
-line adds them together. Crests arriving together make a bigger wave. Now shift one: its high
-parts meet the other's low parts, and the two cancel in this simple example. The distance
-from one crest to the next is called the wavelength.
-
-X-rays are waves too. Inside a crystal, the same arrangement repeats. These parallel lines
-mark repeating planes—not solid mirrors. X-rays scattered from different planes travel
-different distances. In some outgoing directions their crests arrive together, making a
-strong signal. A detector can measure those directions. That pattern is called diffraction.
-
-Let's change the gap between the planes, keeping the wavelength the same. Bring the planes
-closer, but hold the beam angle where it was. The deeper ray now has less extra distance to
-travel. Will the old direction still bring these crests together? Not for the one-wavelength
-match we're following. Increase the angle from the planes and that match returns. A smaller
-gap has shifted the direction of the strong signal.
-
-That's the useful trick: an invisible gap changes a signal we can measure outside the crystal.
-Scientists compare many such signals with possible arrangements, not just this one pair of
-planes. X-ray measurements established where the oxygen atoms sit in ordinary ice. Let's
-look at that structure now. The drawings are our explanation of it, not experimental photographs.
-
-### Visual and sources
-
-- Wave sums establish reinforcement/cancellation and a crest-to-crest wavelength bracket.
-  Fixed wavelength; reduce plane gap while retaining the original angle, compare extra-path
-  length to wavelength, pause the prediction, then increase the angle to restore the match.
-  Label spacing and angle in words, retaining the old-spacing reference. No fabricated
-  diffraction photograph or claim that a single pair of planes determines the structure.
+- At the evidence bridge, retire the model comparison and explicitly introduce the structural
+  drawing. One selected blue oxygen and its two white hydrogens carry into E02-05; no fake
+  atomistic zoom inside a mesoscopic growth recording and no inference from six spots alone.
 - `docs/education/chapters/02-four-hundred-years-of-looking.html#x-rays`
 - `docs/education/chapters/02-four-hundred-years-of-looking.html#anim-diffract`
 - [Barnes, 1929, The crystal structure of ice](https://doi.org/10.1098/rspa.1929.0195)
@@ -93,10 +60,11 @@ their positions and a little four-cornered cage appears. That shape is a tetrahe
 helps us see the approximately tetrahedral arrangement found in ice; it isn't the
 shape of one water molecule. Four neighbours alone wouldn't tell us where to put them.
 
-Follow those connections beyond one molecule. They lead into rings and then into a much
-larger network. We'll keep blue for oxygen and white for hydrogen. This is a simplified
-structural model, with one allowed arrangement of the hydrogens. It shows the connections,
-not molecules moving into place during freezing.
+Keep this molecule as our landmark. Its neighbours connect to more water molecules.
+Follow the gold path from our molecule, around six oxygens, and back to where we started.
+That is one ring in the larger structure. We'll keep blue for oxygen and white for hydrogen.
+This simplified model shows one allowed arrangement of the hydrogens, not molecules moving
+into place during freezing.
 
 ### Visual and sources
 
@@ -104,6 +72,9 @@ not molecules moving into place during freezing.
   two outward connections then two incoming connections before drawing the tetrahedron. Maintain
   two-out/two-in orientation on the ideal Ih graph; no decorative H placement. Distinguish
   the isolated-molecule angle from idealized network geometry.
+- The selected oxygen is ring vertex 1. Reveal its connected ring along the gold path, then
+  retain the exact ring IDs, centre, scale and top view into E02-06. The tetrahedron retires
+  before ring inspection; no disconnected replacement diagram at this handoff.
 - `docs/education/chapters/03-why-six-sides.html#the-bent-molecule`
 - [NIST experimental water geometry](https://cccbdb.nist.gov/exp2x.asp?casno=7732185&charge=0)
 
@@ -141,9 +112,10 @@ connections.
 
 ### Narration
 
-The connections continue above and below the sheet. More neighbours come into view, joined
-to the same network. Our gold ring is still there. We're revealing a structure that already
-exists—not watching entire sheets land as the crystal grows.
+Keep our gold ring in view. Its sheet has a teal outline. Now reveal a connected sheet above
+it, outlined in pink. Look at the links between the two sheets. Then reveal the sheet below,
+outlined in orange. The colours only help us tell the sheets apart: all are made of water,
+joined into one crystal. We're revealing a structure, not watching whole sheets land as it grows.
 
 Turn the whole patch now. Looking along the c-axis brings back the hexagons. From the side,
 we see how the sheets connect at different heights. This is the ordinary hexagonal structure
@@ -161,8 +133,11 @@ Now we know what repeats inside it. How does that help us describe the surfaces 
 
 ### Visual and sources
 
-- Keep exact sheet IDs/camera at entry; reveal neighbouring connected sheets above/below,
-  then orbit the whole network. Spotlight one molecule's neighbours before restoring the
+- Keep exact sheet IDs/camera at entry; outline the selected puckered sheet, reveal the upper
+  sheet and intersheet bonds before the lower sheet. Teal/pink/orange envelopes identify groups;
+  oxygen stays blue, hydrogen white, and the selected ring gold. Keep actual atomic positions,
+  no exploded spacing. Direct labels and outlines make colour redundant, not the sole identifier.
+  Then orbit the whole network. Spotlight one molecule's neighbours before restoring the
   larger pattern. Keep the view as Ih; alternate stacking is substantive optional reading.
 - `docs/education/chapters/03-why-six-sides.html#two-ways-to-stack`
 - [Komatsu et al., 2020, Ice Ic without stacking disorder](https://www.nature.com/articles/s41467-020-14346-5)
@@ -290,19 +265,29 @@ Sources: `docs/education/chapters/03-why-six-sides.html#the-bent-molecule`;
 
 ### How a measured direction reveals a hidden gap
 
-The ray diagram is a cut through parallel repeating planes in a crystal. Atoms scatter the
+The main story uses the measured structure; this optional explanation follows how measurements
+can reveal it. A wave has high parts, called crests, and low parts, called troughs. In a simple
+sum of two equal waves, crests arriving together reinforce; a crest meeting a trough cancels.
+The distance between successive crests is the wavelength. X-rays are waves too: scattering
+from a repeating arrangement can reinforce some outgoing directions and weaken others.
+A detector measures that diffraction pattern. It is not laser ranging or a photograph of atoms.
+
+Imagine a ray diagram cut through parallel repeating planes in a crystal. Atoms scatter the
 X-rays; the lines do not represent solid mirrors. Call the perpendicular gap between planes d,
 the wavelength λ, and the angle from the plane θ. The extra distance travelled by the deeper
 ray is 2d sin θ. When it is a whole number of wavelengths, the scattered waves reinforce.
-For the first-order match shown here, 2d sin θ = λ. Keep λ fixed: reducing d requires a
+For the first-order match considered here, 2d sin θ = λ. Keep λ fixed: reducing d requires a
 larger θ for the same match. Merely reducing the gap at the original angle loses that match.
 
-The animation separates those actions: smaller gap first, then a larger angle that restores the match. Its initial
-and final matched states have the same wavelength. The bright direction is a measurable
+Separate the two changes: bring the planes closer while keeping the old angle, losing the
+one-wavelength match. Then increase the angle until the match returns. Both matched states
+have the same wavelength. The bright direction is a measurable
 consequence of spacing, not a picture of individual atoms. Real structure determination uses
 many reflections, their positions and intensities; one plane pair is not enough to identify
 an entire crystal structure. Barnes's 1929 measurements established the oxygen arrangement
-of ordinary ice. The explanatory diagram here is not a reproduction of those measurements.
+of ordinary ice. This simplified account is not a reproduction of those measurements, nor does
+it determine the particular allowed hydrogen arrangement used in our structural drawing. The
+generic repeating planes are not automatically the puckered molecular sheets shown in the film.
 
 Sources: `docs/education/chapters/02-four-hundred-years-of-looking.html#x-rays`;
 [Barnes, The crystal structure of ice](https://doi.org/10.1098/rspa.1929.0195).
@@ -384,7 +369,7 @@ Sources: `docs/education/chapters/02-four-hundred-years-of-looking.html#noticing
 | Ch2 `#noticing` | Expanded source reader; early-record chronology is not needed to resolve E02. |
 | Ch2 `#better-eyes`, `#bentley` | Maker revision: observer history moved to linked reader; opening retains selected-example disclosure; population diversity and uniqueness revisited in E07. |
 | Ch2 `#kepler` | Maker revision: packing analogy moved to linked reader; not needed for the present investigation. |
-| Ch2 `#x-rays`, `#anim-diffract` | E02-04 interference and structural inference; quantitative reciprocal-lattice derivation deferred with reason: not necessary for the present inference, and the schematic is not a calibrated apparatus. |
+| Ch2 `#x-rays`, `#anim-diffract` | Brief measurement provenance in E02-01; full wave/interference, controlled spacing example and structural-inference limits in the substantive reader. The compulsory detour was not used by the molecular story. Reciprocal-lattice derivation remains beyond this explanatory scope. |
 | Ch2 `#nakaya` | Controlled habit comparisons in E06; apparatus/measurement in E08. Not silently recast as an X-ray result. |
 | Ch3 `#the-map` | Brief ordinary-Ih context here; detailed phase-map discussion stays in linked reader with the science-review warnings about universal/pressure wording. E01 already taught deposition. |
 | Ch3 `#the-bent-molecule` | E02-05, including molecular/network distinction and ideal ice rules. Full hydrogen-disorder combinatorics deferred beyond this explanatory scope. |
@@ -409,10 +394,9 @@ key while a recording is displayed; the prediction question and its hold note st
 | Scene | Prerequisite / question and takeaway | Input → action → result; misconception | Understanding check / depth / continuity |
 | --- | --- | --- | --- |
 | 01 | E01 demonstrated deposition; why recurring six? | Three actual recordings grow in fixed frames, then turn. Independent models, not one specimen or matched sizes. | Identify what repeats despite different proportions. Retain all six source-bound assets across opening/ending. |
-| 04 | No prior wave knowledge: demonstrate crest/trough sum first. How measure invisible spacing? | Fixed wavelength; decrease gap at old angle, show path mismatch, hold “Will the old direction…”; “Not for…” releases larger angle and recovered match. | Explain what changed outside when an inside gap changed. Bragg equation/multiple-reflection limits in reader. Still/description must not reveal answer before release. |
-| 05 | One labelled H₂O; how connect four neighbours? | Distinguish internal solid links from weaker intermolecular dashed links, reveal four neighbours, turn and add tetrahedral guide. No hydrogen handed away. | Explain molecule versus neighbour arrangement without naming angles. Angles/ice-rule detail in reader. Same colours carry to sheet. |
+| 05 | One labelled H₂O; how connect four neighbours? | Distinguish internal solid links from weaker intermolecular dashed links, reveal four neighbours, turn and add tetrahedral guide. No hydrogen handed away. Then follow a gold path through the selected oxygen into a ring. | Explain molecule versus neighbour arrangement without naming angles. Angles/ice-rule detail in reader. Same oxygen (ring vertex 1), colours and final pose carry to 06. |
 | 06 | Connections demonstrated in 05; is apparent hexagonal sheet flat? | Same gold numbered ring expands to sheet, tilts to reveal heights, pulls back and rotates, holds pose. Camera movement is not molecular growth. | Predict whether a side view preserves apparent flatness. c-axis earned with arrow; Still oblique view, shared IDs and out-of-sheet links persist. |
-| 07 | Out-of-sheet links in 06; what lies beyond? | Same pose, connected neighbours reveal above/below, whole network rotates; local neighbourhood spotlight expands to whole pattern. | Distinguish four nearby connections from long-range repetition. Registry/cubic correction in actual reader, not unexplained cards. |
+| 07 | Out-of-sheet links in 06; what lies beyond? | Same pose: identify teal selected sheet, pink sheet above, intersheet links, then orange below. Only then rotate the combined network; local spotlight expands to whole pattern. | Colours are sheet-group aids, not chemistry; actual coordinates and connecting bonds stay fixed. Direct labels/edges retain meaning in Still and on narrow screens. Registry/cubic correction remains in reader. |
 | 08 | c-axis in 06, network in 07; which way does adding ice change shape? | Selected ends/side walls before additions, old-solid reference retained; holds before “It gets thicker”/“Wider”. New case shows faster side advance arrows, holds “broader or longer?”, releases common-prism side growth at “Broader”. | Predict broader versus longer without term prompt. Face names follow action; 30° comparison in reader. Still holds current conceptual beat, no early result. |
 | 09 | Repetition in 07 and layer directions in 08; how small becomes large? | Select two corresponding sites, bracket repeat; retain surfaces through layer additions; explicit broken-scale real-specimen example. | Explain repeat length versus molecule size, and why five million is a length ratio. Exact constants/calculation in reader; never assign model physical scale. |
 | 10 | Structure/face directions demonstrated; what is still unanswered? | Same opening models, then three further recordings; move focus to journey through air versus joining surface. | Explain why common structure doesn't determine rates or complete shape. Preserve model disclosure and motivate E03 without unexplained equilibrium-energy jargon. |
