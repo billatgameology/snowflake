@@ -622,12 +622,12 @@ local review gate (a query key that mounts the held episode on non-public builds
 not generic. Releasing is then one flag plus the allowlist growth, a fresh public build and the
 smoke.
 
-**Generalize before Episode 3.** The current wiring is honestly pairwise: the home's playback
-ownership is typed for two episodes and pauses "the other" by name, the language-switch restore
-collects exactly two handles, and the import, pacing, cue and test scripts are per-episode files
-with hard-coded section counts. None of that is a flag away. Budget an explicit generalization pass
-— a keyed map over the catalog, and per-episode parameters instead of per-episode scripts — before
-the third episode, and do it as its own change so the diff that adds an episode stays readable.
+**Episode 3 completed the generalization pass.** Playback handles and ownership now follow catalog
+keys rather than a pairwise “the other episode” rule, and the import, narration, rehearsal, pacing and
+audit paths share per-episode configuration while retaining the older Episode 2 command entry points
+for compatibility. A future episode extends that catalog and shared configuration; it must not add a
+new pairwise handle or copy an episode-specific pipeline. Keep one row and one lazy chunk per episode,
+and update the runbook whenever the shared surface changes.
 
 The website runbook `docs/adding-an-episode.md` holds the file-by-file steps, the exact commands and
 the known traps. Keep that runbook current when the wiring changes; this section states the rules

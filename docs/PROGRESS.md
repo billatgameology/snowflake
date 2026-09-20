@@ -6,26 +6,36 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
-## Episode 3 English clarity revision planned before implementation — 2026-09-20
+## Episode 3 English clarity source frozen; English implementation active — 2026-09-20
 
-The maker's first review of held Episode 3 reopens its English cut. Scene 4's laboratory-droplet view
-is unclear and should read top-down; its final moat/halo paragraph combines too much technical wording
-and representation change. Scene 5 shows the whole system before its parts have meaning and leaves
-spoken depletion, movement and growth visually static. The scene 5→6 reset is abrupt. Scene 8 is good
-and stays unchanged. Scene 9 needs a quick visible recap of the causal chain and a clearer close. The
+The maker's first review of held Episode 3 reopened its English cut. The bounded revision is now frozen
+at [the English authority](video/science-series-e03-script.md), raw SHA-256
+`7339922862b7e1f5e6c9c9cbc516b3fb6a383f57e9004a99f44162d453df5303`. It revises only E03-03/04/05/06/09;
+E03-01/02/07 and the maker-approved E03-08 remain paragraph-for-paragraph identical to the prior imported
+English. The nine scenes retain paragraph shape `3/3/3/3/4/3/3/3/3`. Scene 4 now reads as a top-down
+observation before a separately introduced calculation; scene 5 teaches delivery and net addition one
+case at a time before comparison; scene 6 carries the same supply and object through the shape change;
+scene 9 visibly replays the causal spine before returning to one flat face. The
 [active series plan](plans/explore-journey-science-series.md#episode-3-english-clarity-revision--2026-09-20-planned-before-implementation)
-records the bounded scene treatment and the [design guide](video/science-series-design-guide.md) now
-requires one kind of novelty per beat, sequential build before overview, visible action for narrated
-verbs, a carried transition invariant, observation-first evidence staging and a sequential visual recap.
+records the treatment and the [design guide](video/science-series-design-guide.md) records the reusable
+one-novelty, sequential-build, narrated-action, transition-invariant, observation-first and causal-recap
+rules.
 
-Next: revise English E03-03/04/05/06/09 and their exact reveal phrases while preserving E03-01/02/07
-and the maker-approved E03-08; source-check the changed words and depictions; implement and rehearse the
-English cut; then obtain maker English acceptance. The maker explicitly directs English first: do not
-synthesize Mandarin or finalize revised Mandarin semantic alignment until that acceptance. Retain the
-existing Juniper/Yun masters and receipts, but do not play stale Mandarin against changed English
-meaning or reveals. Episode 3 remains held. No script, product, synthesis, release or deployment change
-exists at this planning checkpoint; human listening, physical-phone review and audience understanding
-remain open.
+A shared-context Codex child authored a first revision from the director treatment; the coordinating
+shared-context Codex agent—not claiming human directing or teaching credentials—then read the complete
+revised narration against the local Chapter 4/5 source passages and current visual implications. The
+bounded check confirms all eight unique local source targets and anchors exist, all 32 revised cue
+phrases occur exactly once in their designated paragraph and globally, and the four protected scenes
+match the current imported English. It did not hear a performance, exercise the timed visuals, conduct
+a physical-phone check or test an uncoached viewer. Those remain real limits, not acceptance.
+
+Next: import the frozen English and exact cues, finish the revised visual staging, and make the already
+authorized one-pass Juniper refresh only for E03-03/04/05/06/09 while reusing the four unchanged takes;
+then rehearse the complete English cut at normal speed and obtain maker English acceptance. The maker
+explicitly directs English first: do not synthesize Mandarin, revise its source, or finalize revised
+Mandarin semantic alignment until that acceptance. Retain the existing Juniper/Yun masters and receipts,
+but keep stale Mandarin unavailable beside changed English meaning or reveals. Episode 3 remains held;
+human listening, physical-phone review, audience understanding, release and deployment remain open.
 
 ## Episode 3 held production complete; maker review remains — 2026-09-19
 
@@ -67,8 +77,9 @@ what each holds, the required sibling layout with the authority directory named 
 fresh-machine setup, what is deliberately outside Git — the ignored `out/` tree the served models
 are hashed against and the ElevenLabs key — and the branch truth that the current work sits on
 unpushed local branches); **the delivery surface an episode plugs into** (three scenes, one catalog
-row and one chunk per episode, the four places a held episode is held, and the pairwise wiring to
-generalize before Episode 3); **device and platform rules every episode inherits** (touch panning,
+row and one chunk per episode, the four places a held episode is held, and the catalog/config
+generalization requirement later completed by Episode 3); **device and platform rules every episode
+inherits** (touch panning,
 the two snowfall renderers with iOS always on WebGL2, the guided-scroll envelope, the touch render
 budget, 360 px composition, the diagnostics overlay, and that emulation is not a phone); production
 invariants in the narration contract; loading, site-integration and device items in the completion
@@ -82,6 +93,11 @@ parity, prediction holds as inserted silence with per-episode durations, loudnes
 the measured Mandarin gap, and a **Releasing an episode** section (public-facing wording, the
 deployed-artifact review, holding as a first-class state). The file-by-file commands live in the
 website's new `docs/adding-an-episode.md` (website `b1a7986`); guide at `d96c9ad`/`4aae4a6`.
+Episode 3 subsequently completed the formerly outstanding generalization: playback ownership now
+uses catalog-keyed handles and the import/narration/rehearsal/pacing/audit pipeline uses shared
+per-episode configuration with older Episode 2 entry points retained for compatibility. Future
+episodes extend that catalog and configuration and keep the runbook current; they do not restore
+pairwise handles or copy another episode-specific pipeline.
 Facts were gathered by a four-reader read-only fan-out over both repositories and verified in the
 files; no audience or listening claim follows from any of it.
 

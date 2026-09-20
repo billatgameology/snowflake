@@ -1247,6 +1247,29 @@ English has maker acceptance, and the accepted meaning is ready to begin the sep
 Mandarin production, physical-phone review, audience understanding, release, deployment, Episode 4,
 new solver work and a new MP4 are not completion claims of this English-first stage.
 
+### English authority freeze — 2026-09-20
+
+The revised English source is frozen at `docs/video/science-series-e03-script.md`, raw SHA-256
+`7339922862b7e1f5e6c9c9cbc516b3fb6a383f57e9004a99f44162d453df5303`. It retains all nine scene IDs and
+paragraph shape `3/3/3/3/4/3/3/3/3`; E03-01/02/07/08 compare paragraph-for-paragraph equal to the prior
+website import. The changed source supplies 32 exact revised cue phrases; each resolves once in its
+named paragraph and once across the complete narration. All eight unique local Chapter 4/5 source
+paths and anchors cited by the script exist.
+
+Authorship/review provenance: one shared-context Codex child drafted the changed English and shot rows
+from the agreed director treatment. The coordinating shared-context Codex agent, also without human
+directing or teaching credentials, then read the complete revised narration, compared the protected
+scenes to the prior import, checked the changed claims and depictions against the cited local source
+passages, simplified remaining production-brief language, and validated the final shape and cue anchors.
+It did not listen to generated speech, inspect timed implementation, run an audience test or establish
+maker acceptance. The source is ready for the authorized English implementation and one-pass Juniper
+refresh of E03-03/04/05/06/09 only; it is not authorization to change or synthesize Mandarin.
+
+Implementation now consumes this exact hash. Do not edit the raw English while narration is in flight;
+any later wording change is a new source revision with a new hash and explicit take disposition. Keep
+the earlier Juniper/Yun revisions as history, reuse the unchanged English takes, make no automatic paid
+retry, and keep stale Mandarin unavailable until the maker accepts the complete revised English cut.
+
 ## Tried and rejected
 
 - **Mute audio while waiting for slow visual loading.** Playback still consumes the file and
