@@ -1,0 +1,771 @@
+{
+  "episode": 4,
+  "description": "Reviewed same-meaning, in-order bilingual phrase pairs. Every production visual reveal starts a pair; both prediction holds end at the translated answer onset. Provider alignment is not independent listening.",
+  "source": {
+    "path": "docs/video/science-series-e04-script.md",
+    "sha256": "7855f8384ad7f241b4a5020c47b753e03b72bb18a2d5a44360acd6497b82a49f"
+  },
+  "sourceEnglishSha256": "517f03cf8022701f59c61429ce9356c969523e4b3d59a6ae6313aa27ca23fa08",
+  "sections": [
+    {
+      "id": "E04-01",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "How can a growing ice face stay flat?",
+              "zh": "生长中的冰晶面，怎样保持平整？"
+            },
+            {
+              "en": "Last time, we followed water through the air",
+              "zh": "上一集，我们跟着水穿过空气"
+            },
+            {
+              "en": "The water arrived from a jumble of directions.",
+              "zh": "水从杂乱的方向来到这里。"
+            },
+            {
+              "en": "The surface kept advancing",
+              "zh": "表面不断向前推进"
+            },
+            {
+              "en": "This time, let's look at how new ice is added.",
+              "zh": "这一次，我们来看看新的冰是怎样加上去的。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Here is a blocky crystal",
+              "zh": "这里是一颗块状晶体"
+            },
+            {
+              "en": "It is a model example, not a measured snow crystal.",
+              "zh": "它是一个模型示例，不是经过测量的雪晶。"
+            },
+            {
+              "en": "Choose one of its flat side faces.",
+              "zh": "选中它一个平坦的侧面。"
+            },
+            {
+              "en": "From this distance it looks smooth.",
+              "zh": "从这个距离看，它很光滑。"
+            },
+            {
+              "en": "We will use a close-up drawing",
+              "zh": "我们会用一幅放大示意图"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Keep that selected face in mind",
+              "zh": "记住选中的这个晶面"
+            },
+            {
+              "en": "turn to look along its surface.",
+              "zh": "转过视角，沿着它的表面看。"
+            },
+            {
+              "en": "There is already solid ice below, and air above.",
+              "zh": "下方已经是固态的冰，上方是空气。"
+            },
+            {
+              "en": "Hold the old ice in place.",
+              "zh": "让原有的冰留在原位。"
+            },
+            {
+              "en": "Where can the next bit of ice become part of it?",
+              "zh": "接下来的一点冰，可以在哪里成为它的一部分？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E04-02",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Look along the surface in our drawing.",
+              "zh": "沿着图中的表面看。"
+            },
+            {
+              "en": "It has a flat stretch",
+              "zh": "先是一段平面"
+            },
+            {
+              "en": "Each flat stretch belongs to a molecular layer.",
+              "zh": "每段平面都属于一个分子层。"
+            },
+            {
+              "en": "It is called a terrace.",
+              "zh": "它叫作台面。"
+            },
+            {
+              "en": "The ledge where a layer ends is a step.",
+              "zh": "一层结束处的边沿，就是台阶。"
+            },
+            {
+              "en": "We have made its height enormous",
+              "zh": "我们把它的高度大幅夸大"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "An arriving molecule can linger on a terrace and leave again.",
+              "zh": "一个到来的分子，可以在台面上停留，然后再次离开。"
+            },
+            {
+              "en": "Beside a step",
+              "zh": "在台阶旁边"
+            },
+            {
+              "en": "making incorporation into the ice easier.",
+              "zh": "因此更容易并入冰中。"
+            },
+            {
+              "en": "These are different opportunities",
+              "zh": "这些位置提供的机会不同"
+            },
+            {
+              "en": "Real surfaces keep exchanging molecules with the air",
+              "zh": "真实表面一直在与空气交换分子"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Now watch the ledge move sideways",
+              "zh": "现在看这道边沿怎样向侧面移动"
+            },
+            {
+              "en": "The old ice stays where it was.",
+              "zh": "原有的冰仍留在原处。"
+            },
+            {
+              "en": "Behind the moving ledge",
+              "zh": "在移动的边沿后方"
+            },
+            {
+              "en": "Repeated steps can therefore move a face outward",
+              "zh": "因此，一道又一道台阶可以让晶面向外推进"
+            },
+            {
+              "en": "From far away",
+              "zh": "从远处看"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E04-03",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "That difference between surfaces changes the shape of the whole crystal.",
+              "zh": "表面之间的这种差别，会改变整颗晶体的形状。"
+            },
+            {
+              "en": "To make the geometry easy to follow",
+              "zh": "为了看清几何关系"
+            },
+            {
+              "en": "It is a teaching shape, not a growth simulation.",
+              "zh": "这是教学图形，不是生长模拟。"
+            },
+            {
+              "en": "Keep the starting material marked",
+              "zh": "标出起始物质"
+            },
+            {
+              "en": "a slow outward speed",
+              "zh": "较慢的速度向外推进"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Both kinds add material.",
+              "zh": "两种表面都在增加物质。"
+            },
+            {
+              "en": "For this comparison",
+              "zh": "在这组比较中"
+            },
+            {
+              "en": "their chosen speeds stay fixed.",
+              "zh": "选定的速度保持不变。"
+            },
+            {
+              "en": "Look at a short, fast-moving surface",
+              "zh": "看这段短而移动较快的表面"
+            },
+            {
+              "en": "As every boundary moves outward",
+              "zh": "当所有边界都向外推进时"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "The slower faces remain.",
+              "zh": "较慢的晶面留了下来。"
+            },
+            {
+              "en": "The faster surface advances",
+              "zh": "较快的表面继续推进"
+            },
+            {
+              "en": "Its added ice has not vanished",
+              "zh": "它增加的冰并没有消失"
+            },
+            {
+              "en": "Slow does not mean stopped.",
+              "zh": "慢，并不等于停止。"
+            },
+            {
+              "en": "In ice, the favored directions come from its own lattice",
+              "zh": "在冰中，优先保留下来的方向源于它自身的晶格"
+            },
+            {
+              "en": "A growing crystal's shape",
+              "zh": "不能仅仅用"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E04-04",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Return to one terrace on our ice face.",
+              "zh": "回到冰晶面上的一个台面。"
+            },
+            {
+              "en": "An existing step gives new material an edge to join.",
+              "zh": "已有的台阶，为新物质提供了一道可以加入的边缘。"
+            },
+            {
+              "en": "But suppose this patch has no step nearby.",
+              "zh": "但假设这片区域附近没有台阶"
+            },
+            {
+              "en": "How does the next layer get started?",
+              "zh": "下一层该怎样开始？"
+            },
+            {
+              "en": "A few loosely attached molecules can meet",
+              "zh": "几个松散附着的分子可能相遇"
+            },
+            {
+              "en": "a tiny island of new ice",
+              "zh": "新冰的小岛"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Most very small islands break apart again.",
+              "zh": "大多数很小的岛，会再次散开。"
+            },
+            {
+              "en": "Making an island also makes a new edge",
+              "zh": "形成一个岛，也就造出了一圈新边缘"
+            },
+            {
+              "en": "For a small island",
+              "zh": "对于一个小岛"
+            },
+            {
+              "en": "Under the same growing conditions",
+              "zh": "在相同的生长条件下"
+            },
+            {
+              "en": "a sufficiently large island",
+              "zh": "一个足够大的岛"
+            },
+            {
+              "en": "Its edge can then spread",
+              "zh": "它的边缘可以在台面上扩展"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "The start of a new stable island",
+              "zh": "一个新的稳定小岛开始形成"
+            },
+            {
+              "en": "is called terrace nucleation.",
+              "zh": "这叫作台面成核。"
+            },
+            {
+              "en": "More spare vapor at the surface",
+              "zh": "表面附近有更多可用的多余水汽"
+            },
+            {
+              "en": "so new layers begin more readily.",
+              "zh": "因此新层也更容易开始。"
+            },
+            {
+              "en": "We are following one island to see the process",
+              "zh": "我们跟着一个小岛看清过程"
+            },
+            {
+              "en": "This is also not the only source of steps",
+              "zh": "这也不是台阶的唯一来源"
+            },
+            {
+              "en": "The important point is",
+              "zh": "要点是"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E04-05",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Zoom back out to our blocky hexagonal crystal",
+              "zh": "把视野拉回我们的块状六角晶体"
+            },
+            {
+              "en": "Hold the temperature and the vapor supply farther away steady.",
+              "zh": "让温度和远处的水汽供给保持稳定。"
+            },
+            {
+              "en": "Growing ice depletes the air beside it.",
+              "zh": "正在生长的冰，会耗减旁边空气里的水汽。"
+            },
+            {
+              "en": "In this example",
+              "zh": "在这个例子中"
+            },
+            {
+              "en": "the projecting corners have slightly more spare vapor",
+              "zh": "突出角部附近可用的多余水汽"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Compare those locations before adding any new mechanism.",
+              "zh": "先比较这些位置，再加入新的机制。"
+            },
+            {
+              "en": "More vapor is available near a corner",
+              "zh": "角部附近可用的水汽较多"
+            },
+            {
+              "en": "less is available near the middle.",
+              "zh": "中部附近则较少。"
+            },
+            {
+              "en": "If the surface responded equally everywhere",
+              "zh": "如果表面各处的响应相同"
+            },
+            {
+              "en": "The middle would be left behind",
+              "zh": "中部会落在后面"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "So why does the difference not keep getting larger?",
+              "zh": "那么，为什么差异没有一直扩大？"
+            },
+            {
+              "en": "The surface response does not have to stay equal.",
+              "zh": "表面各处的响应，并不一定始终相同。"
+            },
+            {
+              "en": "The steps we just met can change it.",
+              "zh": "刚才认识的台阶，就能改变它。"
+            },
+            {
+              "en": "Keep this particular supply pattern in view",
+              "zh": "请记住眼前这一种供给分布"
+            },
+            {
+              "en": "it is a blocky-crystal example",
+              "zh": "它是块状晶体的例子"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E04-06",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Stay with that same face",
+              "zh": "继续看同一个晶面"
+            },
+            {
+              "en": "In the mechanism described by snow crystal physicist Kenneth Libbrecht",
+              "zh": "在雪晶物理学家肯尼思·利布雷希特描述的机制中"
+            },
+            {
+              "en": "new layers tend to start near the corners",
+              "zh": "新层往往在角部附近开始形成"
+            },
+            {
+              "en": "Follow one of their step edges",
+              "zh": "跟着其中一道台阶边缘"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Near the corner",
+              "zh": "在角部附近"
+            },
+            {
+              "en": "Farther inward",
+              "zh": "再向内一些"
+            },
+            {
+              "en": "Now add successive steps.",
+              "zh": "现在接连加入几道台阶。"
+            },
+            {
+              "en": "They start quickly",
+              "zh": "它们出发时较快"
+            },
+            {
+              "en": "so the step edges become more closely spaced there.",
+              "zh": "因此台阶边缘在那里排得更密。"
+            },
+            {
+              "en": "The middle gains more step edge in the same amount of surface.",
+              "zh": "同样大小的表面区域里，中部拥有了更多台阶边缘。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Those moving lines mark the edges of growing layers.",
+              "zh": "这些移动的线，标记的是正在生长的层的边缘。"
+            },
+            {
+              "en": "They are not pieces of old ice sliding along the face",
+              "zh": "它们不是沿着晶面滑动的旧冰"
+            },
+            {
+              "en": "and they are not a stream of water molecules",
+              "zh": "也不是从角部一路流到中心的水分子"
+            },
+            {
+              "en": "New material joins locally as each step advances.",
+              "zh": "每道台阶推进时，新的物质都在当地加入。"
+            },
+            {
+              "en": "The changing spacing gives the middle more opportunities",
+              "zh": "间距的变化，让中部有更多机会"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E04-07",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "We now have two parts of the same face to compare.",
+              "zh": "现在，我们可以比较同一个晶面的两个位置。"
+            },
+            {
+              "en": "The corner has more spare vapor",
+              "zh": "角部旁边的多余水汽较多"
+            },
+            {
+              "en": "The middle has less.",
+              "zh": "中部较少。"
+            },
+            {
+              "en": "Keep the temperature fixed",
+              "zh": "温度保持不变"
+            },
+            {
+              "en": "they became more closely spaced toward the middle.",
+              "zh": "它们越靠近中部，间距就越小。"
+            },
+            {
+              "en": "What could help the middle keep up?",
+              "zh": "什么能帮助中部跟上？"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "More closely spaced steps give the middle more places to add ice.",
+              "zh": "排得更密的台阶，给了中部更多增加新冰的位置。"
+            },
+            {
+              "en": "Each patch's advance depends",
+              "zh": "每片区域推进得多快"
+            },
+            {
+              "en": "In this steady-growth picture",
+              "zh": "在这幅稳定生长的图景里"
+            },
+            {
+              "en": "At the corners the pairing goes the other way",
+              "zh": "角部的搭配则相反"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Now follow the whole face as it advances",
+              "zh": "现在，参照原来的轮廓，跟着整个晶面向前推进"
+            },
+            {
+              "en": "The two effects can balance",
+              "zh": "这两种效应可以相互平衡"
+            },
+            {
+              "en": "It has not become perfectly flat at the molecular scale.",
+              "zh": "在分子尺度上，它并没有变得绝对平坦。"
+            },
+            {
+              "en": "It keeps a very shallow inward dish",
+              "zh": "它仍保留着极浅的内凹"
+            },
+            {
+              "en": "Seen at the scale of the crystal",
+              "zh": "放回整颗晶体的尺度"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E04-08",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "The balance can correct a small change.",
+              "zh": "这种平衡可以纠正小的变化。"
+            },
+            {
+              "en": "First imagine the face is a little too flat",
+              "zh": "先想象一下：对眼前的条件来说，晶面稍微太平了"
+            },
+            {
+              "en": "The corners get ahead",
+              "zh": "角部会领先"
+            },
+            {
+              "en": "As steps crowd toward the middle",
+              "zh": "台阶朝中部挤密时"
+            },
+            {
+              "en": "Now imagine the face is too deeply dished.",
+              "zh": "现在再想象，晶面凹得太深了。"
+            },
+            {
+              "en": "The middle can advance faster and catch up",
+              "zh": "中部可以推进得更快，追上来"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "That is a negative feedback",
+              "zh": "这就是负反馈"
+            },
+            {
+              "en": "Nothing measures the face with a ruler.",
+              "zh": "没有什么东西在拿尺子测量晶面。"
+            },
+            {
+              "en": "Local supply and local surface response produce the correction.",
+              "zh": "局部供给和局部表面响应，共同产生这种调整。"
+            },
+            {
+              "en": "The stable shape depends on the crystal's size",
+              "zh": "稳定的形状取决于晶体的大小"
+            },
+            {
+              "en": "it is not one universal curve.",
+              "zh": "并不存在一条通用曲线。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "And the correction has a limit.",
+              "zh": "而这种调整也有它的限度。"
+            },
+            {
+              "en": "A surface cannot keep increasing its effective growth response without bound.",
+              "zh": "表面不能无限增强它的有效生长响应。"
+            },
+            {
+              "en": "If the middle can no longer increase its response enough",
+              "zh": "如果中部再也无法把响应提高到足以跟上角部"
+            },
+            {
+              "en": "Faster growth or a larger crystal can make branching more likely",
+              "zh": "生长更快，或者晶体更大，都可能让分枝更容易发生"
+            },
+            {
+              "en": "but there is no single size or vapor level",
+              "zh": "但并不存在一个统一的尺寸或水汽水平"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E04-09",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Let's bring the story back to one face.",
+              "zh": "把故事带回一个晶面。"
+            },
+            {
+              "en": "A step gives arriving water more places to join.",
+              "zh": "台阶给到来的水提供了更多加入的位置。"
+            },
+            {
+              "en": "As the step spreads",
+              "zh": "随着台阶扩展"
+            },
+            {
+              "en": "Across the whole crystal",
+              "zh": "放眼整颗晶体"
+            },
+            {
+              "en": "Starting and moving new steps keeps those faces growing.",
+              "zh": "新台阶的形成和移动，让这些晶面持续生长。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "On our blocky crystal",
+              "zh": "在我们的块状晶体上"
+            },
+            {
+              "en": "Steps move inward and crowd toward the middle",
+              "zh": "台阶向内移动，在中部逐渐变密"
+            },
+            {
+              "en": "where more attachment opportunities can compensate for less supply.",
+              "zh": "更多的附着机会，可以补偿较少的供给。"
+            },
+            {
+              "en": "A tiny inward curve helps the face advance nearly evenly.",
+              "zh": "一点向内的弯曲，帮助晶面近乎均匀地向前推进。"
+            },
+            {
+              "en": "That is how a growing face can look flat",
+              "zh": "因此，生长中的晶面可以看起来平坦"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "But what happens once that correction is no longer enough?",
+              "zh": "但如果这种调整不再够用，会发生什么？"
+            },
+            {
+              "en": "Keep one corner in view.",
+              "zh": "把一个角部留在视野中。"
+            },
+            {
+              "en": "If it begins to get ahead",
+              "zh": "如果它开始领先"
+            },
+            {
+              "en": "In the next episode",
+              "zh": "下一集"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "predictions": [
+    {
+      "id": "E04-03",
+      "paragraph": 2,
+      "answerEn": "The slower faces remain.",
+      "seconds": 3,
+      "answerZh": "较慢的晶面留了下来。"
+    },
+    {
+      "id": "E04-07",
+      "paragraph": 1,
+      "answerEn": "More closely spaced steps give the middle more places to add ice.",
+      "seconds": 3,
+      "answerZh": "排得更密的台阶，给了中部更多增加新冰的位置。"
+    }
+  ]
+}
