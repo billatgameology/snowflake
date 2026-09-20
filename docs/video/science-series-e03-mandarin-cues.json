@@ -1,226 +1,859 @@
 {
   "episode": 3,
+  "sourceEnglishSha256": "dec17a8a2abfeb1d23a7c329ac91f54dfdbfbfd8b65ede6d590feac1291285bb",
+  "sourceChinese": {
+    "path": "src/series/episode-three.zh-CN.json",
+    "sha256": "8a7e34cc588ece72e14fee04de3d7f77ed6db05f2fdb95f60f4c15ba862e69a3"
+  },
+  "description": "Current accepted English cut: bilingual semantic phrase anchors, including every authored visual reveal and both three-second predictions. Unchanged E03-02/07/08 Mandarin takes remain eligible for byte-identical reuse.",
   "sections": [
     {
       "id": "E03-01",
       "paragraphs": [
-        {"index": 0, "pairs": [
-          {"en": "Here is the stellar dendrite we left at the end of the last episode.", "zh": "这是上一集结尾留下的星形枝晶。"},
-          {"en": "It is one computer-grown recording from our library", "zh": "它是我们素材库里一个由计算机生成的生长录像"},
-          {"en": "Last time we looked inside the solid.", "zh": "上一次，我们观察了固体内部。"},
-          {"en": "look at the air around it.", "zh": "把目光移到它周围的空气中。"}
-        ]},
-        {"index": 1, "pairs": [
-          {"en": "Imagine marking one water molecule in that air.", "zh": "想象一下，我们给空气里的一个水分子做上标记。"},
-          {"en": "It does not see the nearest branch and steer toward it.", "zh": "它看不见最近的枝杈，也不会朝那里转向。"},
-          {"en": "Nitrogen and oxygen molecules keep knocking it onto a new path.", "zh": "氮分子和氧分子不断撞上它，让它换一条路径。"},
-          {"en": "the real collisions happen on a scale far too small and fast", "zh": "真实碰撞的尺度太小、速度太快"}
-        ]},
-        {"index": 2, "pairs": [
-          {"en": "The molecule has two different waits ahead.", "zh": "这个分子要经历两种不同的等待。"},
-          {"en": "It must first reach the ice through the air.", "zh": "首先，它必须穿过空气到达冰面。"},
-          {"en": "Then it has to become part of the ice.", "zh": "然后，它还要成为冰的一部分。"},
-          {"en": "why can even a willing surface grow slowly?", "zh": "即使表面很愿意接纳，为什么它仍可能长得很慢？"}
-        ]}
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "How does water vapor reach a growing snow crystal?",
+              "zh": "水蒸气怎样到达正在生长的雪晶？"
+            },
+            {
+              "en": "In this episode, we'll follow that journey—and discover what can hold growth back.",
+              "zh": "这一集，我们会跟着它走一趟，看看什么会拖慢生长。"
+            },
+            {
+              "en": "Here is the stellar dendrite we left at the end of the last episode.",
+              "zh": "这是上一集结尾留下的星形枝晶。"
+            },
+            {
+              "en": "It is one computer-grown recording from our library",
+              "zh": "它是我们素材库里一个由计算机生成的生长录像"
+            },
+            {
+              "en": "Last time we looked inside the solid.",
+              "zh": "上一次，我们观察了固体内部。"
+            },
+            {
+              "en": "look at the air around it.",
+              "zh": "把目光移到它周围的空气中。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Imagine marking one water molecule in that air.",
+              "zh": "想象一下，我们给空气里的一个水分子做上标记。"
+            },
+            {
+              "en": "It does not see the nearest branch and steer toward it.",
+              "zh": "它看不见最近的枝杈，也不会朝那里转向。"
+            },
+            {
+              "en": "Nitrogen and oxygen molecules keep knocking it onto a new path.",
+              "zh": "氮分子和氧分子不断撞上它，让它换一条路径。"
+            },
+            {
+              "en": "the real collisions happen on a scale far too small and fast",
+              "zh": "真实碰撞的尺度太小、速度太快"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "The molecule has two different waits ahead.",
+              "zh": "这个分子要经历两种不同的等待。"
+            },
+            {
+              "en": "It must first reach the ice through the air.",
+              "zh": "首先，它必须穿过空气到达冰面。"
+            },
+            {
+              "en": "Then it has to become part of the ice.",
+              "zh": "然后，它还要成为冰的一部分。"
+            },
+            {
+              "en": "why can even a willing surface grow slowly?",
+              "zh": "即使表面很愿意接纳，为什么它仍可能长得很慢？"
+            }
+          ]
+        }
       ]
     },
     {
       "id": "E03-02",
       "paragraphs": [
-        {"index": 0, "pairs": [
-          {"en": "Keep just our marked molecule and the schematic crystal.", "zh": "只留下做过标记的分子和示意晶体。"},
-          {"en": "One collision sends the molecule left", "zh": "一次碰撞把分子推向左边"},
-          {"en": "No single step knows where the crystal is.", "zh": "任何一步都不知道晶体在哪里。"},
-          {"en": "even in air that looks perfectly still.", "zh": "即使空气看上去完全静止"}
-        ]},
-        {"index": 1, "pairs": [
-          {"en": "Now release many markers.", "zh": "现在放出许多标记。"},
-          {"en": "Molecules wander both toward and away from the ice.", "zh": "分子既会朝冰面游走，也会远离冰面。"},
-          {"en": "more random paths begin on the crowded side.", "zh": "就会有更多随机路径从拥挤的一侧出发。"},
-          {"en": "there is a net delivery from richer air toward the depleted region.", "zh": "就会出现从水汽较多处到耗减区的净输送。"}
-        ]},
-        {"index": 2, "pairs": [
-          {"en": "That statistical spreading is diffusion.", "zh": "这种由随机运动形成的整体迁移，叫作扩散。"},
-          {"en": "The direction belongs to the crowd, not to an individual molecule.", "zh": "方向属于整个分子群体，不属于某一个分子。"},
-          {"en": "without suction, attraction or a wind aimed at it.", "zh": "不需要吸力、吸引力，也不需要一阵对准晶体的风"},
-          {"en": "the second emerges from many examples of the first.", "zh": "后者由许多个前者共同涌现出来。"}
-        ]}
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Keep just our marked molecule and the schematic crystal.",
+              "zh": "只留下做过标记的分子和示意晶体。"
+            },
+            {
+              "en": "One collision sends the molecule left",
+              "zh": "一次碰撞把分子推向左边"
+            },
+            {
+              "en": "No single step knows where the crystal is.",
+              "zh": "任何一步都不知道晶体在哪里。"
+            },
+            {
+              "en": "even in air that looks perfectly still.",
+              "zh": "即使空气看上去完全静止"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Now release many markers.",
+              "zh": "现在放出许多标记。"
+            },
+            {
+              "en": "Molecules wander both toward and away from the ice.",
+              "zh": "分子既会朝冰面游走，也会远离冰面。"
+            },
+            {
+              "en": "more random paths begin on the crowded side.",
+              "zh": "就会有更多随机路径从拥挤的一侧出发。"
+            },
+            {
+              "en": "there is a net delivery from richer air toward the depleted region.",
+              "zh": "就会出现从水汽较多处到耗减区的净输送。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "That statistical spreading is diffusion.",
+              "zh": "这种由随机运动形成的整体迁移，叫作扩散。"
+            },
+            {
+              "en": "The direction belongs to the crowd, not to an individual molecule.",
+              "zh": "方向属于整个分子群体，不属于某一个分子。"
+            },
+            {
+              "en": "without suction, attraction or a wind aimed at it.",
+              "zh": "不需要吸力、吸引力，也不需要一阵对准晶体的风"
+            },
+            {
+              "en": "the second emerges from many examples of the first.",
+              "zh": "后者由许多个前者共同涌现出来。"
+            }
+          ]
+        }
       ]
     },
     {
       "id": "E03-03",
       "paragraphs": [
-        {"index": 0, "pairs": [
-          {"en": "Why should the air beside the crystal be depleted?", "zh": "为什么晶体旁边的空气会被耗减？"},
-          {"en": "While the crystal is growing, its surface removes water vapor from the gas", "zh": "晶体生长时，表面会从气体中带走水汽"},
-          {"en": "Diffusion replaces some of them, but not instantly.", "zh": "扩散会补回其中一些，却不是瞬间完成的。"},
-          {"en": "can stay lower than the supply farther away.", "zh": "可以一直低于远处的供给量。"}
-        ]},
-        {"index": 1, "pairs": [
-          {"en": "Map that supply with color.", "zh": "用颜色把这种供给量画出来。"},
-          {"en": "Lighter means more spare vapor for growth", "zh": "颜色越浅，表示可用于生长的多余水汽越多"},
-          {"en": "The dark region around the crystal is a depleted halo.", "zh": "晶体周围的深色区域就是耗减晕。"},
-          {"en": "It is not a shadow, a force field or a hard shell.", "zh": "它不是阴影、力场或坚硬的外壳"}
-        ]},
-        {"index": 2, "pairs": [
-          {"en": "Pause the individual particles and keep the map.", "zh": "暂停单个粒子的动画，只保留这张图。"},
-          {"en": "a persistent change in supply with distance", "zh": "一种随距离持续变化的供给分布"},
-          {"en": "Uptake at the surface is balanced by net diffusion", "zh": "表面对水汽的净吸收，与周围空气中的净扩散彼此平衡"},
-          {"en": "Molecules still travel both ways.", "zh": "分子仍然双向运动。"},
-          {"en": "The map shows their average consequence", "zh": "这张图显示的是它们的平均后果"}
-        ]}
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Keep watching the same crystal.",
+              "zh": "继续看这同一颗晶体。"
+            },
+            {
+              "en": "more water vapor becomes ice than returns to the air.",
+              "zh": "变成冰的水蒸气比回到空气中的更多。"
+            },
+            {
+              "en": "The solid edge creeps outward",
+              "zh": "固体边缘慢慢向外推进"
+            },
+            {
+              "en": "the nearby dots thin out",
+              "zh": "附近的小点也越来越稀"
+            },
+            {
+              "en": "Water from farther away wanders back in",
+              "zh": "远处的水分子会游走过来补充"
+            },
+            {
+              "en": "less spare vapor than the air farther away",
+              "zh": "多余水汽比远处更少"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "A crowd of moving dots helps with the journey",
+              "zh": "许多移动的小点能帮助我们跟随分子的旅程"
+            },
+            {
+              "en": "Let the dots fade and look straight down at the same crystal.",
+              "zh": "让小点淡出，从正上方看同一颗晶体。"
+            },
+            {
+              "en": "color the surrounding air by how much spare vapor it holds",
+              "zh": "按多余水汽的多少，给周围空气涂上颜色"
+            },
+            {
+              "en": "Lighter means more; darker means less.",
+              "zh": "颜色越浅，表示越多；越深，表示越少。"
+            },
+            {
+              "en": "The dark area near the ice is its depleted halo",
+              "zh": "冰面附近的深色区域就是耗减晕"
+            },
+            {
+              "en": "not a shadow or a hard shell.",
+              "zh": "不是阴影，也不是坚硬的外壳。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "After a short settling time",
+              "zh": "经过短暂的调整"
+            },
+            {
+              "en": "The supply changes as you move away from the surface.",
+              "zh": "供给量会随着离表面的距离而变化。"
+            },
+            {
+              "en": "That change with distance is a gradient.",
+              "zh": "这种随距离而变化的关系，叫作梯度。"
+            },
+            {
+              "en": "Net diffusion carries vapor inward through it",
+              "zh": "净扩散让水汽沿着这个梯度向内输送"
+            },
+            {
+              "en": "Individual molecules still travel both ways.",
+              "zh": "单个分子仍然双向运动。"
+            },
+            {
+              "en": "not the route of any one.",
+              "zh": "不是某一个分子的路线。"
+            }
+          ]
+        }
       ]
     },
     {
       "id": "E03-04",
       "paragraphs": [
-        {"index": 0, "pairs": [
-          {"en": "Water vapor is invisible", "zh": "水蒸气看不见"},
-          {"en": "Our next two panels are drawn reconstructions too.", "zh": "接下来的两幅图也都是画出来的重建。"},
-          {"en": "The source pairs a calculated depleted field with a laboratory observation", "zh": "来源把计算得到的耗减场和一次实验室观察并列起来"},
-          {"en": "tiny liquid droplets condensed on the support farther from a growing ice crystal", "zh": "微小液滴凝结在离生长冰晶较远的支撑面上"},
-          {"en": "a clear moat remained near the crystal", "zh": "晶体附近留着一圈清晰的空白区"}
-        ]},
-        {"index": 1, "pairs": [
-          {"en": "The edge of that moat marks a threshold.", "zh": "这圈空白区的边缘标出一个阈值。"},
-          {"en": "the local vapor density was lower.", "zh": "内侧的局部水汽密度较低。"},
-          {"en": "do not photograph the whole vapor field", "zh": "并没有拍下完整的水汽场"},
-          {"en": "It reveals one contour of the hidden field indirectly.", "zh": "它只是间接显出了隐藏场中的一条等值线。"}
-        ]},
-        {"index": 2, "pairs": [
-          {"en": "In the source, the observed moat and the calculated halo", "zh": "在来源中，观察到的空白区和计算得到的耗减晕"},
-          {"en": "The moat is a measured visible consequence; the field is a computation.", "zh": "空白区是测量得到的可见后果，场则是计算结果。"},
-          {"en": "The observation indirectly tests one contour of the delivery picture", "zh": "这个观察间接检验了输送图景中的一条等值线"},
-          {"en": "We will keep every identity on screen", "zh": "我们会把每一种身份一直标在画面上"}
-        ]}
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "How could anyone check a halo made of invisible vapor?",
+              "zh": "看不见的水蒸气形成了一个晕，我们怎么检验它？"
+            },
+            {
+              "en": "Look down through a microscope at a laboratory crystal.",
+              "zh": "透过显微镜，从上方观察一颗实验室里的晶体。"
+            },
+            {
+              "en": "The faceted plate hangs just above the glass.",
+              "zh": "这片有平整晶面的冰板悬在玻璃上方。"
+            },
+            {
+              "en": "tiny round liquid droplets",
+              "zh": "细小、圆圆的液滴"
+            },
+            {
+              "en": "A clear band surrounds the ice",
+              "zh": "冰的周围有一圈清晰的空白带"
+            },
+            {
+              "en": "with no droplets in it.",
+              "zh": "里面没有液滴。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Follow the edge of that clear band.",
+              "zh": "沿着这圈空白带的边缘看。"
+            },
+            {
+              "en": "Outside it, conditions allowed liquid droplets to condense.",
+              "zh": "边缘外侧的条件允许液滴凝结。"
+            },
+            {
+              "en": "Inside, the vapor density was lower.",
+              "zh": "内侧的水汽密度更低。"
+            },
+            {
+              "en": "the edge marks where droplet formation turned on.",
+              "zh": "这条边缘标出了液滴开始形成的位置。"
+            },
+            {
+              "en": "not a photograph of the whole vapor field.",
+              "zh": "却不是整个水汽场的照片。"
+            },
+            {
+              "en": "And it does not show droplets forming near the ice and later evaporating.",
+              "zh": "它也没有显示液滴先在冰面附近形成、后来又蒸发。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Here is a calculation of the water vapor around a crystal.",
+              "zh": "这是一幅晶体周围水蒸气分布的计算图。"
+            },
+            {
+              "en": "Its colors show less nearby and more farther away.",
+              "zh": "颜色表示附近的水汽较少，远处较多。"
+            },
+            {
+              "en": "The clear band and the calculated low-supply region both bend around the ice.",
+              "zh": "空白带和计算得到的低供给区都沿着冰的外形弯曲。"
+            },
+            {
+              "en": "They come from different crystals",
+              "zh": "它们来自不同的晶体"
+            },
+            {
+              "en": "growing ice changes the air around it.",
+              "zh": "生长中的冰会改变周围的空气。"
+            }
+          ]
+        }
       ]
     },
     {
       "id": "E03-05",
       "paragraphs": [
-        {"index": 0, "pairs": [
-          {"en": "To separate the two waits, reset to an ideal ice sphere", "zh": "为了把两段等待分开，我们重置画面"},
-          {"en": "whose far-away vapor supply stays fixed.", "zh": "远处的水汽供给保持不变。"},
-          {"en": "The sphere has two doors in series", "zh": "冰球前面有两扇串联的门"},
-          {"en": "First, make incorporation easy", "zh": "首先，让加入过程变得容易"}
-        ]},
-        {"index": 1, "pairs": [
-          {"en": "Keep delivery through the air constrained.", "zh": "让空气中的输送保持受限。"},
-          {"en": "replacements still have to diffuse across the depleted halo.", "zh": "补充分子仍然必须扩散穿过耗减晕。"},
-          {"en": "Which step limits the combined rate?", "zh": "哪一步限制了总速率？"},
-          {"en": "The air-delivery step limits the growth.", "zh": "空气输送这一步限制了生长。"}
-        ]},
-        {"index": 2, "pairs": [
-          {"en": "Now change only the surface", "zh": "现在只改变表面"},
-          {"en": "while leaving the same sphere, air and far-away supply in place.", "zh": "冰球、空气和远处供给都保持不变。"},
-          {"en": "the local supply stays closer to the far-away value", "zh": "局部供给会更接近远处的数值"},
-          {"en": "Now the surface step limits.", "zh": "现在，限制步骤变成了表面。"}
-        ]},
-        {"index": 3, "pairs": [
-          {"en": "One caveat: real deposition also releases latent heat that must escape.", "zh": "还有一个限定：真实的凝华也会释放必须散走的潜热。"},
-          {"en": "That adds a third resistance.", "zh": "这增加了第三种阻力。"},
-          {"en": "We set it aside here", "zh": "我们在这里把它放在一边"},
-          {"en": "not because the heat transport is absent.", "zh": "而不是因为热输运不存在。"}
-        ]}
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Let's make the shape simple: a ball of ice.",
+              "zh": "先把形状简化成一个冰球。"
+            },
+            {
+              "en": "This is a teaching example",
+              "zh": "这是教学用的例子"
+            },
+            {
+              "en": "Keep the temperature and the water supply farther away the same.",
+              "zh": "温度和远处的水汽供给都保持不变。"
+            },
+            {
+              "en": "Water first has to reach the ice.",
+              "zh": "水得先到达冰面。"
+            },
+            {
+              "en": "Then it has to become part of it.",
+              "zh": "然后，还得成为冰的一部分。"
+            },
+            {
+              "en": "Which one can hold growth back?",
+              "zh": "哪一步会拖慢生长呢？"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "First make it easy for water reaching the ice to become part of it.",
+              "zh": "先让到达冰面的水很容易成为冰的一部分。"
+            },
+            {
+              "en": "Replacements still have to wander through the air.",
+              "zh": "补充的水分子仍然得穿过空气，慢慢游走过来。"
+            },
+            {
+              "en": "In this first case, which step holds everything up?",
+              "zh": "在这个例子里，哪一步拖慢了整个过程？"
+            },
+            {
+              "en": "The air-delivery step limits the growth.",
+              "zh": "空气输送这一步限制了生长。"
+            },
+            {
+              "en": "Now the nearby supply thins",
+              "zh": "现在，附近的供给变稀了"
+            },
+            {
+              "en": "a thin rim advances beyond the starting outline",
+              "zh": "一圈薄薄的新冰向起始轮廓之外推进"
+            },
+            {
+              "en": "A willing surface can use vapor faster than diffusion replaces it",
+              "zh": "愿意接纳的表面消耗水汽的速度，可以快过扩散补充的速度"
+            },
+            {
+              "en": "growth goes only as fast as new vapor arrives.",
+              "zh": "新水汽到达得多快，生长就只能有多快。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Start again from the same outline.",
+              "zh": "从同一个起始轮廓重新开始。"
+            },
+            {
+              "en": "This time make it harder for delivered water to become ice.",
+              "zh": "这一次，让送到表面的水更难变成冰。"
+            },
+            {
+              "en": "Over the same interval",
+              "zh": "在相同的时间里"
+            },
+            {
+              "en": "the air near the surface stays closer to the far-away supply",
+              "zh": "表面附近的供给仍然更接近远处的水平"
+            },
+            {
+              "en": "the added rim is smaller",
+              "zh": "新增加的冰层更薄"
+            },
+            {
+              "en": "This time the surface is the slower step.",
+              "zh": "这一次，表面是较慢的那一步。"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "pairs": [
+            {
+              "en": "Together these two cases show the contrast.",
+              "zh": "把这两种情况放在一起，就能看出区别。"
+            },
+            {
+              "en": "The easy surface leaves less vapor nearby and grows more",
+              "zh": "容易接纳的表面让附近留下的水汽更少，却长得更多"
+            },
+            {
+              "en": "the reluctant surface leaves more vapor nearby but grows less.",
+              "zh": "不容易接纳的表面让附近留下的水汽更多，却长得更少。"
+            },
+            {
+              "en": "When water becomes ice, it also releases heat",
+              "zh": "水变成冰时还会释放热量"
+            },
+            {
+              "en": "that heat has to escape.",
+              "zh": "这些热量也必须散走。"
+            },
+            {
+              "en": "in the source's usual cases, slow vapor delivery matters more",
+              "zh": "在来源讨论的常见情形中，缓慢的水汽输送影响更大"
+            },
+            {
+              "en": "not because heat is absent.",
+              "zh": "而不是因为没有热。"
+            },
+            {
+              "en": "But real crystals are not usually round.",
+              "zh": "不过，真实晶体通常不是圆的。"
+            },
+            {
+              "en": "What changes when we give this one corners?",
+              "zh": "如果给这个冰球加上棱角，会有什么变化？"
+            }
+          ]
+        }
       ]
     },
     {
       "id": "E03-06",
       "paragraphs": [
-        {"index": 0, "pairs": [
-          {"en": "Leave the sphere and return to our schematic hexagonal crystal.", "zh": "离开球体，回到我们的六边形示意晶体。"},
-          {"en": "the field is no longer spherical.", "zh": "这个场不再是球形。"},
-          {"en": "A projecting corner reaches farther into less-depleted air.", "zh": "向外突出的角伸进耗减较少的空气中"},
-          {"en": "The middle of a flat face sits farther back", "zh": "平坦晶面中央离外部供给更远"}
-        ]},
-        {"index": 1, "pairs": [
-          {"en": "Look at the contour spacing.", "zh": "看等值线之间的间距。"},
-          {"en": "the field changes steeply over a short distance", "zh": "表示场在很短距离内变化得越陡"},
-          {"en": "A dark color tells us how much spare vapor is at one place", "zh": "深色告诉我们某处有多少多余水汽"},
-          {"en": "they are not the same reading.", "zh": "却不是同一种读数。"}
-        ]},
-        {"index": 2, "pairs": [
-          {"en": "This geometry can favor corners over face centers.", "zh": "这种几何关系会偏爱晶角而不是晶面中央。"},
-          {"en": "related exposure can favor protruding regions and starve sheltered ones.", "zh": "类似的暴露差异会偏爱突出的区域，让受遮蔽的区域缺少供给。"},
-          {"en": "It is not a complete explanation of branching.", "zh": "但它不是枝化的完整解释。"},
-          {"en": "The surface response can vary by face, temperature and local structure", "zh": "表面响应会随着晶面、温度和局部结构而变化"},
-          {"en": "coupled to the delivery field.", "zh": "与输送场相互耦合。"}
-        ]}
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Keep the same ice ball and the same supply of water in the air.",
+              "zh": "仍然用同一个冰球，空气里的水汽供给也保持不变。"
+            },
+            {
+              "en": "give the ball six corners",
+              "zh": "给冰球加上六个角"
+            },
+            {
+              "en": "Look first at one projecting corner.",
+              "zh": "先看一个向外突出的角。"
+            },
+            {
+              "en": "It reaches farther toward less-depleted air.",
+              "zh": "它伸得更远，接近耗减较少的空气。"
+            },
+            {
+              "en": "Then look at the middle of one flat face.",
+              "zh": "再看一个平坦晶面的中央。"
+            },
+            {
+              "en": "It sits farther back inside the field shaped by the whole crystal.",
+              "zh": "它缩在更靠里的位置，周围的场由整颗晶体共同塑造。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Now add a few lines to map the surrounding supply.",
+              "zh": "现在加几条线，画出周围的供给分布。"
+            },
+            {
+              "en": "Every point on one line marks the same amount of spare vapor",
+              "zh": "同一条线上，每一点的多余水汽量都相同"
+            },
+            {
+              "en": "the amount changes by the same step from one line to the next.",
+              "zh": "相邻两条线之间，水汽量的差值都相同。"
+            },
+            {
+              "en": "Scientists call each line a contour.",
+              "zh": "科学家把这样的线叫作等值线。"
+            },
+            {
+              "en": "Near the corner, the contours crowd into a shorter distance",
+              "zh": "靠近晶角时，等值线挤在较短的距离内"
+            },
+            {
+              "en": "near the face center, they spread farther apart.",
+              "zh": "靠近晶面中央时，它们隔得更远。"
+            },
+            {
+              "en": "Close contours mean the supply changes more over the same distance",
+              "zh": "等值线越密，表示相同距离内供给量变化越大"
+            },
+            {
+              "en": "a steeper gradient.",
+              "zh": "也就是梯度更陡。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Now watch delivery along those two routes.",
+              "zh": "现在看看沿这两条路径的输送。"
+            },
+            {
+              "en": "More water is delivered to the corner than to the face center",
+              "zh": "送到晶角的水比送到晶面中央的更多"
+            },
+            {
+              "en": "The color and lines show how much spare vapor is present",
+              "zh": "颜色和线条表示有多少多余水汽"
+            },
+            {
+              "en": "the moving markers show its net flow.",
+              "zh": "移动的标记表示水汽的净流动。"
+            },
+            {
+              "en": "Those readings are related, but they are not the same.",
+              "zh": "这两种读数互相关联，但并不相同。"
+            },
+            {
+              "en": "This geometry can favor exposed corners and protruding regions over sheltered ones.",
+              "zh": "这种几何关系可以让暴露的晶角和突出区域，比受遮蔽的地方得到更多供给。"
+            },
+            {
+              "en": "It is not by itself an explanation of branching",
+              "zh": "仅靠它还不能解释枝化"
+            },
+            {
+              "en": "the surface response and local conditions still matter too.",
+              "zh": "表面的响应和局部条件也同样重要。"
+            }
+          ]
+        }
       ]
     },
     {
       "id": "E03-07",
       "paragraphs": [
-        {"index": 0, "pairs": [
-          {"en": "So far the far-away air has carried extra vapor.", "zh": "到目前为止，远处空气都带着多余水汽。"},
-          {"en": "Make it slightly too dry for ice instead.", "zh": "现在把它变得比冰的平衡条件稍微干一点。"},
-          {"en": "the net diffusive traffic points outward.", "zh": "净扩散流转而向外。"},
-          {"en": "That direct change from ice to water vapor is sublimation.", "zh": "冰直接变成水蒸气的过程叫作升华。"}
-        ]},
-        {"index": 1, "pairs": [
-          {"en": "But the shape history does not simply run backward.", "zh": "但形状的历史不会简单地倒放。"},
-          {"en": "The physicist Jon Nelson tested that idea", "zh": "物理学家 Jon Nelson 让单颗冰晶"},
-          {"en": "under controlled conditions.", "zh": "在受控条件下先长大、再升华"},
-          {"en": "a useful comparison of addition and loss", "zh": "有用地比较增加和损失"}
-        ]},
-        {"index": 2, "pairs": [
-          {"en": "During sublimation, the crystals rounded", "zh": "升华过程中，晶体逐渐变圆"},
-          {"en": "followed a diffusion-limited calculation.", "zh": "符合扩散受限的计算。"},
-          {"en": "retained the aspect ratio reached at the end of growth", "zh": "保留了生长结束时的长宽比例"},
-          {"en": "A literal rewind would retrace the earlier growing outlines", "zh": "真正倒放影像会沿着先前生长的轮廓原路返回"},
-          {"en": "Same transport equation, different surface process.", "zh": "输运方程相同，表面过程不同。"}
-        ]}
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "So far the far-away air has carried extra vapor.",
+              "zh": "到目前为止，远处空气都带着多余水汽。"
+            },
+            {
+              "en": "Make it slightly too dry for ice instead.",
+              "zh": "现在把它变得比冰的平衡条件稍微干一点。"
+            },
+            {
+              "en": "the net diffusive traffic points outward.",
+              "zh": "净扩散流转而向外。"
+            },
+            {
+              "en": "That direct change from ice to water vapor is sublimation.",
+              "zh": "冰直接变成水蒸气的过程叫作升华。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "But the shape history does not simply run backward.",
+              "zh": "但形状的历史不会简单地倒放。"
+            },
+            {
+              "en": "The physicist Jon Nelson tested that idea",
+              "zh": "物理学家 Jon Nelson 让单颗冰晶"
+            },
+            {
+              "en": "under controlled conditions.",
+              "zh": "在受控条件下先长大、再升华"
+            },
+            {
+              "en": "a useful comparison of addition and loss",
+              "zh": "有用地比较增加和损失"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "During sublimation, the crystals rounded",
+              "zh": "升华过程中，晶体逐渐变圆"
+            },
+            {
+              "en": "followed a diffusion-limited calculation.",
+              "zh": "符合扩散受限的计算。"
+            },
+            {
+              "en": "retained the aspect ratio reached at the end of growth",
+              "zh": "保留了生长结束时的长宽比例"
+            },
+            {
+              "en": "A literal rewind would retrace the earlier growing outlines",
+              "zh": "真正倒放影像会沿着先前生长的轮廓原路返回"
+            },
+            {
+              "en": "Same transport equation, different surface process.",
+              "zh": "输运方程相同，表面过程不同。"
+            }
+          ]
+        }
       ]
     },
     {
       "id": "E03-08",
       "paragraphs": [
-        {"index": 0, "pairs": [
-          {"en": "Still air was our clean starting case.", "zh": "相对静止的空气是我们干净的起点。"},
-          {"en": "A falling crystal also moves relative to the surrounding air.", "zh": "一颗下落的晶体也会相对周围空气运动。"},
-          {"en": "This refresh of the supply is called ventilation", "zh": "供给被这样刷新，叫作通风效应"},
-          {"en": "not the ice lattice.", "zh": "不是冰晶格。"}
-        ]},
-        {"index": 1, "pairs": [
-          {"en": "Compare the same schematic crystal in the same far-away conditions", "zh": "比较同一个示意晶体，它们远处的条件也相同"},
-          {"en": "still relative air on the left", "zh": "左边的相对空气静止"},
-          {"en": "Which side should show the steeper near-surface gradient", "zh": "哪一边应该拥有更陡的近表面梯度"},
-          {"en": "Hold the surface response fixed before you choose.", "zh": "在选择之前，先把表面响应固定不变。"},
-          {"en": "The moving-air case is fed faster.", "zh": "有相对气流的那一边，水汽补给更快。"},
-          {"en": "not a universal percentage or a new rule for crystal habit.", "zh": "不是普适百分比，也不是决定晶形的另一条新规则。"},
-          {"en": "diffusion and surface kinetics still dominate.", "zh": "扩散和表面动力学仍占主导。"}
-        ]},
-        {"index": 2, "pairs": [
-          {"en": "Free-fall cloud-tunnel experiments show why we should not erase the effect.", "zh": "自由落体云室实验说明了为什么我们不能删掉这种效应。"},
-          {"en": "nominally water-saturated cloud air.", "zh": "名义上达到水饱和的云空气中"},
-          {"en": "Some branching plates showed ventilation effects", "zh": "一些枝化薄板显示了通风效应"},
-          {"en": "compact forms showed no enhancement", "zh": "紧凑形状没有增强"},
-          {"en": "needles gave no clear effect.", "zh": "针状晶体也没有明确效应。"},
-          {"en": "how much depends on size and shape.", "zh": "重要到什么程度取决于尺寸和形状。"}
-        ]}
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Still air was our clean starting case.",
+              "zh": "相对静止的空气是我们干净的起点。"
+            },
+            {
+              "en": "A falling crystal also moves relative to the surrounding air.",
+              "zh": "一颗下落的晶体也会相对周围空气运动。"
+            },
+            {
+              "en": "This refresh of the supply is called ventilation",
+              "zh": "供给被这样刷新，叫作通风效应"
+            },
+            {
+              "en": "not the ice lattice.",
+              "zh": "不是冰晶格。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Compare the same schematic crystal in the same far-away conditions",
+              "zh": "比较同一个示意晶体，它们远处的条件也相同"
+            },
+            {
+              "en": "still relative air on the left",
+              "zh": "左边的相对空气静止"
+            },
+            {
+              "en": "Which side should show the steeper near-surface gradient",
+              "zh": "哪一边应该拥有更陡的近表面梯度"
+            },
+            {
+              "en": "Hold the surface response fixed before you choose.",
+              "zh": "在选择之前，先把表面响应固定不变。"
+            },
+            {
+              "en": "The moving-air case is fed faster.",
+              "zh": "有相对气流的那一边，水汽补给更快。"
+            },
+            {
+              "en": "not a universal percentage or a new rule for crystal habit.",
+              "zh": "不是普适百分比，也不是决定晶形的另一条新规则。"
+            },
+            {
+              "en": "diffusion and surface kinetics still dominate.",
+              "zh": "扩散和表面动力学仍占主导。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Free-fall cloud-tunnel experiments show why we should not erase the effect.",
+              "zh": "自由落体云室实验说明了为什么我们不能删掉这种效应。"
+            },
+            {
+              "en": "nominally water-saturated cloud air.",
+              "zh": "名义上达到水饱和的云空气中"
+            },
+            {
+              "en": "Some branching plates showed ventilation effects",
+              "zh": "一些枝化薄板显示了通风效应"
+            },
+            {
+              "en": "compact forms showed no enhancement",
+              "zh": "紧凑形状没有增强"
+            },
+            {
+              "en": "needles gave no clear effect.",
+              "zh": "针状晶体也没有明确效应。"
+            },
+            {
+              "en": "how much depends on size and shape.",
+              "zh": "重要到什么程度取决于尺寸和形状。"
+            }
+          ]
+        }
       ]
     },
     {
       "id": "E03-09",
       "paragraphs": [
-        {"index": 0, "pairs": [
-          {"en": "We can answer our molecule's first question now.", "zh": "现在，我们能回答这个分子的第一个问题了。"},
-          {"en": "collisions make individual paths random", "zh": "碰撞让每一条路径保持随机"},
-          {"en": "relative airflow can refresh it.", "zh": "相对气流则可以刷新供给。"},
-          {"en": "The air is part of the growth problem", "zh": "它就是生长难题的一部分。"}
-        ]},
-        {"index": 1, "pairs": [
-          {"en": "Now zoom from the same crystal to one flat face.", "zh": "现在从同一颗晶体拉近到一个平坦晶面。"},
-          {"en": "arrival alone does not say how rapidly the boundary advances.", "zh": "却不能仅凭“到达”告诉我们边界前进得多快。"},
-          {"en": "how readily those encounters become net growth.", "zh": "这些相遇有多容易转化为净生长。"},
-          {"en": "not a camera count of simple one-collision sticking events.", "zh": "不是用摄像机数一数发生了多少次简单的单次碰撞后黏住。"}
-        ]},
-        {"index": 2, "pairs": [
-          {"en": "So the two doors stay coupled", "zh": "因此，两扇门始终耦合"},
-          {"en": "A shortage at either door slows the result.", "zh": "任何一扇门短缺，结果都会减慢。"},
-          {"en": "this face leaves us with a sharper question.", "zh": "这个晶面又留下了一个更尖锐的问题。"},
-          {"en": "How can a growing face stay flat?", "zh": "一个正在生长的晶面，怎么还能保持平坦？"}
-        ]}
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Let's replay the route in order.",
+              "zh": "让我们按顺序回顾这段旅程。"
+            },
+            {
+              "en": "One molecule zigzags randomly through still air.",
+              "zh": "一个分子在静止空气中随机地曲折游走。"
+            },
+            {
+              "en": "Add many two-way paths",
+              "zh": "把许多来回的路径加在一起"
+            },
+            {
+              "en": "their imbalance produces net delivery toward the ice.",
+              "zh": "两边的不平衡就产生了朝向冰的净输送。"
+            },
+            {
+              "en": "Let the crystal grow",
+              "zh": "让晶体生长"
+            },
+            {
+              "en": "the nearby supply thins and a gradient forms.",
+              "zh": "附近的供给就会变稀，形成梯度。"
+            },
+            {
+              "en": "Give the crystal corners",
+              "zh": "给晶体加上棱角"
+            },
+            {
+              "en": "delivery favors exposed places",
+              "zh": "暴露的地方就更容易得到供给"
+            },
+            {
+              "en": "move air past it and fresh supply reaches closer",
+              "zh": "让空气流过它，新鲜的供给就能来到更近的地方"
+            },
+            {
+              "en": "None of this steers one molecule.",
+              "zh": "这些过程都没有指挥某一个分子。"
+            },
+            {
+              "en": "It changes what the crowd does.",
+              "zh": "它们改变的是整个群体的表现。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Stay with that same crystal",
+              "zh": "仍然看着同一颗晶体"
+            },
+            {
+              "en": "zoom to one flat face",
+              "zh": "把镜头拉近到一个平坦晶面"
+            },
+            {
+              "en": "Water can reach this neighborhood without becoming part of the ice.",
+              "zh": "水可以到达这里，却不一定成为冰的一部分。"
+            },
+            {
+              "en": "Some arriving molecules join the solid, while others leave again.",
+              "zh": "一些到达的分子加入固体，另一些又会离开。"
+            },
+            {
+              "en": "What matters is the net result of many encounters",
+              "zh": "重要的是许多次相遇之后的净结果"
+            },
+            {
+              "en": "not the fate of one drawn dot.",
+              "zh": "不是画面上某一个小点的命运。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "That gives us the answer: growth has two waits.",
+              "zh": "这样，我们就有了答案：生长要经历两段等待。"
+            },
+            {
+              "en": "The air controls how much water reaches the face.",
+              "zh": "空气决定有多少水能到达晶面。"
+            },
+            {
+              "en": "The surface controls how much becomes net added ice.",
+              "zh": "表面决定最终净增加多少冰。"
+            },
+            {
+              "en": "Either one can slow growth.",
+              "zh": "任何一步都可能拖慢生长。"
+            },
+            {
+              "en": "molecules arrive from a jumble of directions",
+              "zh": "分子从杂乱的各个方向到来"
+            },
+            {
+              "en": "the face stays flat.",
+              "zh": "晶面却依然平坦。"
+            },
+            {
+              "en": "In the next episode, we will explore why a growing face stays flat.",
+              "zh": "下一集，我们就来看看，正在生长的晶面为什么能保持平坦。"
+            }
+          ]
+        }
       ]
     }
   ],
