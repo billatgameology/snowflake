@@ -8,6 +8,34 @@
 
 ## Goal
 
+### All four episodes and missing Mandarin — 2026-09-20
+
+The maker now directs “release all episodes” and “generate chinese for anything that's missing.”
+This supersedes the earlier E02/E03/E04 publication holds and E03 Mandarin-production deferral for
+the current English cuts. Reuse the existing sibling checkouts on this Mac: authority
+`/Users/billw/Code Files/snowflake` on `explore/film-part1-plan` (baseline `66cb81a`), website
+`/Users/billw/Code Files/snowcrystal_website` on `main` (baseline `23fa8e3`). The coordinator owns
+this release; subagents share these worktrees. No additional branch or worktree is needed.
+
+1. Check all four current Chinese editions. Update E03's authority translation and bilingual
+   cues against the accepted current English bytes, preserving paragraph/source parity and
+   prior immutable narration records. Independently review the changed translation's meaning.
+2. Generate only changed E03 Mandarin takes with the existing Yun voice and private local key;
+   reuse identical takes, retain requests/alignment/masters, and never retry an uncertain paid
+   request. Pace against the current English score and run integrity, PCM and semantic audits.
+3. Enable all four episodes and the verified E03 Chinese edition. Build both website modes,
+   run the focused product/release tests and desktop/mobile browser checks for routes,
+   selection, playback, language switching, transitions, asset exclusion and hosting headers.
+4. Commit and push the reviewed source, publish `dist-public` to Firebase `nivogenesis`, verify
+   the live site, tag the deployed website commit, and update the release receipts and this index.
+
+Done when `/episode-1` through `/episode-4` are live with working English/Chinese playback and
+the new E03 source/audio/cue identities and actual deployment are recorded. This is product
+publication, not a new solver/scientific gate; no solver suite, new voice, or NAS access is needed.
+Automated and agent review do not imply human listening or physical-device acceptance.
+
+The original release plan and completion history below remain historical records.
+
 Publish Nivogenesis to the public web with exactly the completed work: the opening (home) and
 Episode 1, in English and Mandarin, at clean root URLs. Every experiment, the earlier
 `/film/part-1` film, draft narration revisions, unreleased Episode 2 material and export output

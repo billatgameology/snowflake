@@ -6,6 +6,18 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
+## All four episodes release and missing Mandarin — in progress, 2026-09-20
+
+The maker now authorizes releasing all current episodes and generating any missing Chinese.
+The [release amendment](plans/explore-nivogenesis-public-release.md#all-four-episodes-and-missing-mandarin--2026-09-20)
+supersedes the publication holds and E03 Mandarin deferral recorded in the earlier entries below.
+Work reuses this Mac's `explore/film-part1-plan` authority checkout and sibling website `main`.
+E03's previous Chinese cut needs a current translation/cue refresh and new changed-section Yun
+takes; existing current editions are checked before regenerating anything. Firebase login and
+hosting deployment permission have been verified. **Next:** finish translation review and audio
+audits, build and smoke-test all four bilingual episodes, then commit/push, deploy and record the
+actual live receipts. No live deployment has occurred in this release task yet.
+
 ## Episode 1 English clarity polish ready for maker review — 2026-09-20
 
 The two approved design-guide review suggestions are implemented in source commit `a423dc5` and
