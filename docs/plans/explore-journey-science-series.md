@@ -1,9 +1,9 @@
 # Plan — Snow Crystal Journey: a question-led science series
 
 - **Phase:** Maker-directed Journey/media; no scientific phase or gate change
-- **Status:** E01 conversational revision produced with new narration; bounded content/visual/audio review complete; audience acceptance open; previous film preserved
+- **Status:** E03 authority script and bilingual production source authorized and in progress; E01/E02 retained; previous film preserved
 - **Started:** 2026-09-15
-- **Last touched:** 2026-09-17 by OpenAI Codex (authorized E02 Juniper narration and audio-owned timing)
+- **Last touched:** 2026-09-19 by OpenAI Codex (planned E03 delivery-through-air authority pass before implementation)
 - **Direction:** [JTS-M010/M011](../journey/TRANSCRIPT.md#jts-m010--the-format-works-the-content-needs-rethinking), plus [JTS-M012 visual-production direction](../journey/TRANSCRIPT.md#jts-m012--use-the-animation-library-and-rendering-experiments-freely)
 - **Supersedes:** the single-film editorial constraints in [the Part 1 plan](explore-film-part1-science-scroll-documentary.md), not its recorded implementation or verification results
 
@@ -1051,6 +1051,91 @@ the website record and PROGRESS). Preview redeployed; promotion is the maker's c
 The maker then asked for a bottom-right Skip during the opening that lands on the home scene (website
 `8ef55a9`; a skipped opening starts the snowfall full) and authorized publishing without a preview:
 live from `8ef55a9`, tag `nivogenesis-public-2026-09-19`, live smoke clean. This amendment is complete.
+
+## Episode 3 authority and production pass — 2026-09-19, planned before implementation
+
+The maker authorizes Episode 3 under the current design guide: write the authority script and
+Simplified Chinese source, generalize the website's pairwise episode machinery, build the episode,
+produce matching Juniper and Yun narration under the standing voice directions, inspect the actual
+performance and leave the episode held for review unless release is separately requested. This
+supersedes the earlier “do not start E03” boundary for this episode only. Preserve the live Episode 1,
+the complete held Episode 2, their retained recordings and the earlier film.
+
+The episode's question is **why can a surface that is ready to accept water still grow slowly?** Its
+plain-language answer is that growth has two coupled constraints: water must first be delivered
+through the surrounding air, then be incorporated by the ice surface. Either can be the narrower
+bottleneck. The nine-scene authority treatment will use stable IDs `E03-01` through `E03-09`:
+
+1. carry Episode 2's retained dendrite into one close air journey and pose the delivery question;
+2. show collision-by-collision random motion producing a net diffusive flow from richer air toward
+   a locally depleted region, without suction, steering or required wind;
+3. keep one schematic crystal while uptake establishes a persistent depleted halo, then distinguish
+   individual material paths from a field map;
+4. compare the hidden field with the laboratory droplet-fog moat as an indirect threshold
+   observation, without claiming that the photograph directly images vapour or that all nearby
+   droplets followed one history;
+5. reset explicitly to the source's ideal sphere, keep radius and far-away supply fixed, and develop
+   the quantitative delivery/incorporation comparison only after both physical “doors” mean
+   something; retain the derivation and non-spherical limits in the reader;
+6. return to a hexagonal silhouette and distinguish local amount from delivery rate: close contour
+   spacing means a steep gradient and strong diffusive flux, while diffusion alone does not explain
+   why a branch begins;
+7. reverse the sign into undersaturated air and use Nelson's controlled observations to show why
+   sublimation rounds a crystal rather than simply replaying faceted growth backward;
+8. compare still and relative moving air: ventilation can refresh part of the depleted region and
+   perturb growth, usually modestly but materially in some free-fall regimes; and
+9. resolve the coupled-air/surface question, hold the same face through a close-up, and ask the
+   Episode 4 question: how can a growing face remain flat?
+
+The hardest explanatory passage is scenes 2–5. Draft its words and pictures together before
+multiplying the treatment. Use two authored prediction holds: one in the ideal-sphere bottleneck
+comparison and one in the matched still-air/moving-air comparison. The delivered-language scores
+will own the actual hold durations. A brief local question may invite thought elsewhere, but must not
+be registered as a pause unless both language performances withhold the answer.
+
+### Authority and science steps
+
+1. Read Chapters 4 and 5 at the cited anchors, the current E02 closing, the source monograph records,
+   and the library manifests. Source-check both spoken claims and what the visual implies. Retain
+   qualifications on the ideal sphere, field-versus-observation distinction, sublimation geometry,
+   relative airflow and ventilation.
+2. Write `docs/video/science-series-e03-script.md` in the existing importable E02 shape: conversational
+   narration, per-scene visual/source notes, a substantive quantitative reader, explicit source
+   dispositions and the complete design-guide worksheet. No arbitrary duration follows from the
+   working 1,100–1,500-word spoken target.
+3. Write `docs/video/science-series-e03-zh-CN.json` with paragraph-identical section structure and
+   equally strong caveats. Do not weaken “ideal sphere,” “indirect observation,” “usually,” or the
+   model/diagram limits in translation.
+4. Obtain a bounded non-author review of load-bearing science and depictions before synthesis; apply
+   supported corrections to both languages. Run the cheapest prose/JSON/link checks that cover the
+   authority changes and record what was not checked.
+
+### Website, performance and review steps
+
+1. Generalize the pairwise episode ownership, loading, capture, import, pacing, cue and audit paths
+   into per-episode parameters before adding E03. Keep one catalog row and one lazy chunk per episode;
+   a public build must contain no held-E03 strings, code or narration.
+2. Build the visual score with the retained E02 dendrite only for the handoff, then release that
+   renderer. Carry one clearly introduced schematic crystal through the air/halo/observation scenes;
+   label the ideal-sphere reset; return to one hexagonal silhouette through delivery, sublimation,
+   ventilation and the final face close-up. Distinguish actual material dots, a field depiction, an
+   observation and any model result.
+3. Author phrase-resolved English cues and bilingual anchors for every paragraph. Generate immutable
+   Juniper and Yun revisions only after source review, preserve request/provenance/alignment, insert
+   the two language-specific prediction holds and run the integrity, pacing and semantic audits.
+4. Watch a complete temporary/final-voice performance at normal speed before treating the episode as
+   a production candidate. Inspect desktop and 360-pixel layouts, Still, reduced motion, reverse seek,
+   language switching, manual takeover, direct entry, queued start, exclusive playback, Menu focus,
+   natural end and current-build identity. Keep human listening and uncoached audience understanding
+   separate from technical readiness.
+
+Done for this request when the English and Chinese authority sources agree, their claims and visual
+implications have received bounded non-author source review, the nine-scene held episode is integrated
+with source-bound bilingual narration and phrase-owned timing, focused checks/builds and sampled plus
+complete-performance review are recorded, and previous content remains intact. Release, public deploy,
+a new MP4, solver changes, scientific gates and claims that the displayed field validates a model are
+out of scope. Commit this amendment and the matching live-state update before script or product edits;
+later implementation changes remain for the episode delivery commit.
 
 ## Tried and rejected
 

@@ -6,6 +6,23 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
+## Episode 3 delivery-through-air pass authorized and planned — 2026-09-19
+
+The maker requests Episode 3 under the refreshed design guide, including authority script and
+Simplified Chinese source, website integration, matching Juniper/Yun narration, actual performance
+review and the pre-E03 runtime generalization the guide requires. The committed
+[series-plan amendment](plans/explore-journey-science-series.md#episode-3-authority-and-production-pass--2026-09-19-planned-before-implementation)
+defines a nine-scene investigation (`E03-01` through `E03-09`) of random motion and net diffusion,
+the persistent depleted halo, indirect fog/moat observation, the source's ideal-sphere two-bottleneck
+comparison, geometry and flux, sublimation, ventilation and the Episode 4 flat-face question. It
+requires one persistent schematic subject, explicit observation/field/model identities, substantive
+reader depth, two authored bilingual prediction holds and a bounded non-author science/depiction
+review before synthesis. E01 stays live and E02 stays complete but held; E03 is held unless release is
+separately requested. Next: draft `video/science-series-e03-script.md` and
+`video/science-series-e03-zh-CN.json` from Chapters 4–5 and the current E02 handoff, then source-review
+them before narration. No E03 production, release or audience-understanding result exists at this
+planning checkpoint.
+
 ## Episode design guide refreshed for future episodes — 2026-09-19
 
 The [design guide](video/science-series-design-guide.md) is now usable cold, including on a machine
