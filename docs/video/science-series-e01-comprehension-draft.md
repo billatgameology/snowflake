@@ -176,7 +176,7 @@ Source: Ch1 `#the-relay`; Ch4 `#eating-the-cloud`, `#where-the-water-is`. Detail
 
 ### Narration
 
-How could we put a number on the water vapour around the ice? You'll often see scientists use the words “water-vapour pressure”. It sounds like a new idea, but it connects to the same moving molecules we've been watching.
+How could we put a number on the water vapour around the ice?
 
 Picture those molecules inside a box. They move around and bump into the walls. Each collision gives the wall a tiny push. Put all those pushes together and spread them over the wall's area: that's pressure.
 
@@ -184,7 +184,7 @@ But most of the molecules in air aren't water. Pick out just the water molecules
 
 Keep the box the same size and the temperature steady. Add more water molecules to the gas. Their contribution to the pressure goes up. As long as those conditions stay the same, more water-vapour pressure means more water vapour in that space. It's another way to describe how much gaseous water is there.
 
-Bring back our piece of ice. Remember the moment when just as much water joined as left? That was equilibrium. The water-vapour pressure at that balance is its equilibrium vapour pressure. For the ice surface we're using, you'll also hear that balance value called saturation vapour pressure.
+Bring back our piece of ice. Remember the moment when just as much water joined as left? That was equilibrium. The water-vapour pressure at that balance is its equilibrium vapour pressure.
 
 If there's more vapour than that, scientists say the air is supersaturated with respect to ice. Behind the long phrase is our simple picture: more water can join the ice than leave it. The air isn't full. And, as we saw with the liquid drop, a different surface can have a different balance point.
 
@@ -200,7 +200,7 @@ Source: NASA/AMS links above; Ch4 `#what-saturated-means`, `#the-gap`. Dilute/id
 
 ### Narration
 
-Take a sample of air at minus fifteen degrees Celsius. Start with just enough water vapour to balance ice. As much water joins the ice as leaves it. Mark that vapour amount: it is our starting point.
+Does colder air give a crystal more extra water to work with? Let's compare two samples, starting at minus fifteen degrees Celsius. Start with just enough water vapour to balance ice. As much water joins the ice as leaves it. Mark that vapour amount: it is our starting point.
 
 Now add vapour until there is enough to balance liquid water at the same temperature. We need more, just as we saw with our two neighbours. Mark the original amount first, then pick out what we added. That difference is the extra vapour above ice balance.
 
@@ -273,7 +273,7 @@ These are actual proposed reader passages, not placeholders for missing explanat
 
 ### The pressure numbers and humidity
 
-Want to put numbers on the two neighbours? At −15 °C, Libbrecht's Table 2.1 gives about 1.65 millibar over ice and 1.91 millibar over supercooled liquid water. A millibar is a unit of pressure. These numbers count only water vapour's contribution, not the pressure of all the air. The smaller value balances ice; the liquid needs the larger one. This is the book's comparison of bulk reference surfaces, not a prediction for every tiny, impure droplet.
+For the ice surface we're using, you'll also hear its equilibrium vapour pressure called saturation vapour pressure. Want to put numbers on the two neighbours? At −15 °C, Libbrecht's Table 2.1 gives about 1.65 millibar over ice and 1.91 millibar over supercooled liquid water. A millibar is a unit of pressure. These numbers count only water vapour's contribution, not the pressure of all the air. The smaller value balances ice; the liquid needs the larger one. This is the book's comparison of bulk reference surfaces, not a prediction for every tiny, impure droplet.
 
 So air at 1.91 millibar keeps the liquid steady, but has extra vapour compared with what balances ice. How much extra? Subtract: 1.91 − 1.65 = 0.26 millibar. To express that as a percentage, compare it with the ice's starting value: 0.26 ÷ 1.65 is approximately 0.158, or about sixteen percent. Don't divide by the final total instead. The source rounds its columns separately, so the last digits need not match when we recalculate from the printed numbers.
 
