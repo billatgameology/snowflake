@@ -34,6 +34,17 @@ the new E03 source/audio/cue identities and actual deployment are recorded. This
 publication, not a new solver/scientific gate; no solver suite, new voice, or NAS access is needed.
 Automated and agent review do not imply human listening or physical-device acceptance.
 
+Current checkpoint: authority `a7bd781` and website `4307d90` retain the reviewed current E03
+translation/cues and missing Chinese diagram labels. The first paid-generation invocation was
+rejected with HTTP 400 before audio returned; subsequent read-only API calls identify
+`api_key_id_used_as_api_key`. The private local credential needs its actual secret value. The
+website retains this failure separately from the intended production revision, with no secret
+in the diagnostic. Resume generation only after the credential is corrected. The website's
+preliminary all-episode build, three release tests and desktop/mobile emulator smoke pass while
+E03 still uses its explicit English fallback. Final audio audits, bilingual build/smoke and deploy
+remain outstanding. Authority Rule 7 scan reports only three existing `beta` mentions in
+`.agents/skills/firebase-hosting-basics/references/deploying.md`, outside this change.
+
 The original release plan and completion history below remain historical records.
 
 Publish Nivogenesis to the public web with exactly the completed work: the opening (home) and
