@@ -49,7 +49,7 @@ deploy or begin another episode.
 
 ## Execution
 
-- [ ] Author complete English/Chinese content, anchored source dispositions and visible explanations.
+- [x] Author complete English/Chinese content, anchored source dispositions and visible explanations.
 - [ ] Internally review load-bearing claims/depictions and complete stable temporary-voice rehearsals.
 - [ ] Repair specific findings; freeze reviewed scripts, semantic pairs and exact reveal phrases.
 - [ ] Generate approved-voice takes once, retaining request/alignment/originals; compose paced masters.
@@ -86,3 +86,16 @@ The existing Rule 7 scan has three installed-skill findings at
 `.agents/skills/firebase-hosting-basics/references/deploying.md:24,44,47`; no new batch findings are
 acceptable. Do not edit that unrelated installed skill. A source-only or image review is not a
 human listen, nor does maker silence imply audience acceptance.
+
+## Reviewed source checkpoint
+
+E07 has9scenes,27spokenparagraphs,1252Englishwords,6readers and107ordered bilingual pairs;
+E09 has9scenes,27spokenparagraphs,1323Englishwords,7readers and86pairs. Each episode has two
+three-second predictions. The [independent source review](../reviews/science-series-batch-two-source-review-2026-09-20.md)
+binds the current sources and records the primary-paper access limits. E07's two bare chapter1
+citations were converted to real anchors; canonical import, Chinese source lists and provenance
+were synchronized without changing any spoken paragraph. E09's percent denominator, forward-fit
+wording, coupled fitting caveat,2026title and Chinese prism terminology were corrected before
+voice production. The visual owners also repaired concrete intermediate-growth and hold-caption
+issues. Full immutable temporary-voice performances are in progress; no paid synthesis has started
+at this checkpoint. Final narration and player evidence will be recorded in the delivery section.

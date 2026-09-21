@@ -1,0 +1,219 @@
+{
+  "title": "晶体有记忆，但不完整",
+  "episode": 7,
+  "status": "本集由核对来源后的权威文稿导入。延伸阅读不配音；旁白与发布状态另行记录。",
+  "source": {
+    "path": "docs/video/science-series-e07-script.md",
+    "sha256": "702b24101fbf1cf5e7d6847794c3230908f304d349a318099d6097087537abd5"
+  },
+  "sections": [
+    {
+      "id": "E07-01",
+      "title": "有过去的形状",
+      "paragraphs": [
+        "看看这根小柱子，两端各有一片向外展开的冰板。它看起来像一个微小的线轴。这是素材库中由计算机生成的示例，不是天然样本。一颗晶体怎么会同时有细长的中间部分，又有宽而平的两端呢？恒定生长条件的形态图提供了起点，可是在晶体生长时，它周围的云会改变。",
+        "现在换成简化示意图，跟随一种可能的生长经历。先从一颗小棱柱开始，让它长成柱状。颜色较深的冰，表示原来已经存在的物质。当新冰加入时，在这个例子里，较早的物质仍然留在内部。",
+        "云会带着晶体经过温度和水分供给不断变化的环境。接下来形成的冰，生长方式可能和之前不同。这让晶体有了一种记忆。可是，从最终形状中，我们究竟能还原多少旅程呢？"
+      ],
+      "sources": [
+        "docs/education/chapters/08-a-snowflake-is-a-record.html#a-map-for-still-weather",
+        "docs/education/chapters/08-a-snowflake-is-a-record.html#reading-a-capped-column",
+        "https://arxiv.org/abs/1910.06389v2"
+      ]
+    },
+    {
+      "id": "E07-02",
+      "title": "改变之后，什么会留下？",
+      "paragraphs": [
+        "让这根柱子留在画面里。现在改变周围环境，让条件有利于板状生长。在那个常见的例子中，柱状部分先在零下五摄氏度附近生长，随后在更冷的空气中长出板状部分。这些温度描述的是一种合理路径，并不是每个样本内部都藏着一支温度计。",
+        "接下来的生长将从两端向侧面展开。在开始之前想一想，两端之间原有的柱子会怎样？它会变成一片平板，还是继续作为晶体的一部分留下？",
+        "原来的柱子留了下来。看，新冰从两端向外展开，而中间部分保留着原来的轮廓。我们通过增加物质，长成了带帽柱晶，并没有把旧柱子变成另一种东西。这个构造给出了可读的先后顺序：先有柱子，后有展开的端帽。但它仍然不能给出任一阶段的精确温度、湿度或时间。"
+      ],
+      "sources": [
+        "docs/education/chapters/08-a-snowflake-is-a-record.html#reading-a-capped-column",
+        "https://arxiv.org/abs/1910.06389v2"
+      ]
+    },
+    {
+      "id": "E07-03",
+      "title": "共同空气中的六条枝臂",
+      "paragraphs": [
+        "现在看另一颗晶体：一颗有六条枝臂的星状晶体。六条枝臂一起移动，彼此之间只有很短的距离。当整颗晶体周围的空气改变时，各条枝臂可以在几乎同一时刻经历几乎相同的变化。",
+        "先看一次共同的变化，再沿着一条枝臂观察新生长的部分。新的部分变宽了。再看看其他枝臂：每条上都可能出现相似的变化。并不是一条枝臂把图样发给其他枝臂照着复制。冰的结构提供相互对应的方向，共同的环境则提供相近的生长条件。",
+        "这样就能形成复杂的图案，同时保有整体上的六重相似性。这并不要求各条枝臂彼此完全隔离。它们从周围空气中获取水，也会影响这份共同的供给。共同条件解释的是整体相似，并不保证完全复制。"
+      ],
+      "sources": [
+        "docs/education/chapters/08-a-snowflake-is-a-record.html#why-the-six-arms-match",
+        "https://arxiv.org/abs/1910.06389v2"
+      ]
+    },
+    {
+      "id": "E07-04",
+      "title": "比轮廓再看近一些",
+      "paragraphs": [
+        "保留同一颗星状晶体，仔细看看相邻的两条枝臂。它们较大的变化彼此相似。可是，这根小侧枝在一条枝臂上更长，另一根小枝在旁边的枝臂上却没有。甚至同一条枝臂的两侧，也不一定相同。",
+        "局部的微小扰动，可以被我们之前观察过的分枝反馈放大。空气不必处处完全一样，附近的晶体也可能消耗某一侧的供给。因此，共同的旅程和不同的细节，可以同时存在。",
+        "实验室可以有意地让晶体周围的条件发生较大而突然的改变。这些共同的变化，可以产生匹配得尤其好的特征。当外部变化没有那么强烈时，较小的差异可能更加突出。相似与不相似，都是我们需要解释的现象。"
+      ],
+      "sources": [
+        "docs/education/chapters/08-a-snowflake-is-a-record.html#where-the-symmetry-runs-out",
+        "https://arxiv.org/abs/1910.06389v2"
+      ]
+    },
+    {
+      "id": "E07-05",
+      "title": "距离不是时钟",
+      "paragraphs": [
+        "假设我们沿着一条枝臂，从中心走向尖端。在这个简单的向外生长故事中，我们先遇到较早的生长，再遇到较晚的生长。但相等的距离，不一定代表相等的时间。",
+        "这里有一个指定的例子，包含两个同样长的时间段。第一个时间段里，尖端只前进一小段距离。第二个时间段里，它前进得更远。因为生长速度不同，同样长的时间形成了不同的长度。如果不知道这些速度，完成的枝臂就无法告诉我们，每一部分用了多久。",
+        "而且，并不是每个可见标记都代表一次独立的天气变化。有些表面棱脊可以在稳定生长过程中形成。后来的升华、融化、碰撞或冻结水滴，也可能改变这份记录。记忆这个有用的概念，既需要生长机制，也需要明确它的限度。"
+      ],
+      "sources": [
+        "docs/education/chapters/08-a-snowflake-is-a-record.html#what-the-record-does-not-say",
+        "docs/education/chapters/08-a-snowflake-is-a-record.html#the-writing-on-the-surface",
+        "docs/education/chapters/01-not-a-frozen-raindrop.html#two-words",
+        "https://arxiv.org/abs/1910.06389v2"
+      ]
+    },
+    {
+      "id": "E07-06",
+      "title": "控制量不变，也会出现变化",
+      "paragraphs": [
+        "一个已发表的计算机模型，给出了更鲜明的提醒。这里画的是那个已报告结果的示意图，不是真实晶体的记录。模型让水汽扩散，并按照与方向有关的规则增加冰。这些可调规则，并不是对分子表面的直接测量。",
+        "保持模型的外部控制量不变。一片冰板先长了一段时间，随后它的边缘形成上下两层，继续向外展开，中间留有空隙。旧的中心仍然存在，而新的生长采用了不同形态。如果只看到最终形状中的这个变化，能证明外部控制量发生过改变吗？",
+        "不能：在这次模型运行中，它们保持不变。变化是在模型晶体发展过程中出现的。这并不能证明，某个天然样本就是由同一种机制形成的。但它确实说明了，为什么一道看似很有说服力的分界，本身并不能证明发生过一次天气事件。"
+      ],
+      "sources": [
+        "docs/education/chapters/08-a-snowflake-is-a-record.html#the-record-can-lie",
+        "https://arxiv.org/abs/1910.06389v2",
+        "https://www.math.ucdavis.edu/static/research/infovault/gravner/Phy_Rev_E-79-2009.pdf"
+      ]
+    },
+    {
+      "id": "E07-07",
+      "title": "相同，究竟是什么意思？",
+      "paragraphs": [
+        "那么，没有两片相同雪花的说法呢？先决定，我们要看得多仔细。两片简单的六角冰板，在光学显微镜下可以看起来相同。而复杂的分枝晶体，有多得多的可见细节可能彼此不同。",
+        "现在考虑两颗在实验室里并排生长的独立晶体。让两者经历同一套明显的环境变化。实验确实用这种方式长出了非常相似的形状。不过仔细看，差异仍然存在。共享同一套变化，并不会让每个局部细节都完全一致。",
+        "两颗复杂的天然晶体，在所有细节上都吻合，是极不可能的。这是关于复杂性的有用说法，而不是禁止简单晶体相似的一条规则。而看起来相同，与每个分子、同位素和缺陷都处在完全相同的位置，是不同的问题。照片无法检验那种更严格的相同。"
+      ],
+      "sources": [
+        "docs/education/chapters/08-a-snowflake-is-a-record.html#no-two-alike-precisely",
+        "https://arxiv.org/abs/1910.06389v2"
+      ]
+    },
+    {
+      "id": "E07-08",
+      "title": "特写照片之外的晶体",
+      "paragraphs": [
+        "还有一个陷阱，来自我们选择展示哪些晶体。满是漂亮六臂星状晶体的画廊，是经过挑选的，并不是云中所有降落物的抽样。天然的雪还包括简单形态、不均匀的晶体、团簇，以及覆着冻结水滴的冰。",
+        "这里是一个包含多个晶体取向的团簇。它不必呈现整齐的六臂轮廓。这里是一片轮廓呈三角形的冰板。它仍然可以是一颗普通六方冰的单晶。这些不寻常的轮廓怎样形成，是留给后续解释的一项检验。",
+        "你收集到的组合，取决于云、采样的位置，以及哪些晶体在途中保留下来。我们这里的例子也经过挑选，并不是实测的总体统计。好的解释，既要面对漂亮上镜的晶体，也要面对普通和不规则的晶体。"
+      ],
+      "sources": [
+        "docs/education/chapters/08-a-snowflake-is-a-record.html#where-the-symmetry-runs-out",
+        "docs/education/chapters/09-the-menagerie.html#names",
+        "docs/education/chapters/09-the-menagerie.html#what-falls",
+        "docs/education/chapters/09-the-menagerie.html#twins",
+        "https://arxiv.org/abs/1910.06389v2",
+        "https://arxiv.org/abs/2106.09809"
+      ]
+    },
+    {
+      "id": "E07-09",
+      "title": "从合理故事走向检验",
+      "paragraphs": [
+        "现在，我们可以更谨慎地读懂形状。保留下来的柱子和后来展开的端帽，提示了生长的先后顺序。多条枝臂上的相似图案，可以反映共同条件。不相同的细节提醒我们，相同的大体经历并不一定产生完全相同的复制品。",
+        "可是，最终形状不会自带时钟，也不会提供一套唯一的天气读数。某些变化可以来自生长中的晶体本身，后来的事件也可能消除或覆盖早期特征。晶体是需要解释的证据，不是一份完整的文字日志。",
+        "要继续深入，就需要一边观察生长，一边记录条件。新增了多少冰，又花了多长时间？面对这么小的东西，怎样测量才不会改变它的生长方式？这就把我们从解读完成的晶体，带到了测量正在生长的晶体。"
+      ],
+      "sources": [
+        "docs/education/chapters/08-a-snowflake-is-a-record.html#what-the-record-does-not-say",
+        "https://arxiv.org/abs/1910.06389v2"
+      ]
+    }
+  ],
+  "reader": [
+    {
+      "title": "读懂带帽柱晶，而不凭空造出温度计",
+      "paragraphs": [
+        "带帽柱晶具有柱状的中间部分，以及从两端展开的板状生长。Libbrecht 的图 1.4 描述了一种常见解释：最初在 −5 °C 附近形成柱状部分，随后移入更冷的环境，出现板状生长。本集明确构造了这条路径，保留原有柱子，并在其两端之外增加端帽。这是定性的生长构造，不是数值模拟或实测轨迹。",
+        "这个构造不意味着可以精确反推未知样本的经历。经验晶习图取决于供给、气压、晶种、制备方式、尺寸和观察方法。即使先后顺序合理，也不能给出精确温度、时刻、垂直距离或穿过云的唯一路径。晶体还可能因升华或融化而失去物质，收集水滴，加入聚集体，或者断裂。保留核心的例子有意排除了这些后续变化，并没有断言旧冰总会保留下来。"
+      ],
+      "sources": [
+        "docs/education/chapters/08-a-snowflake-is-a-record.html#reading-a-capped-column",
+        "docs/education/chapters/08-a-snowflake-is-a-record.html#what-the-record-does-not-say",
+        "docs/education/chapters/01-not-a-frozen-raindrop.html#two-words",
+        "https://arxiv.org/abs/1910.06389v2"
+      ]
+    },
+    {
+      "title": "共同条件、耦合供给与不完美的对称",
+      "paragraphs": [
+        "小型星状晶体的六条主枝臂位于相邻空气中，并沿着晶体学上相对应的方向伸展。因此，影响整颗晶体的变化，可以在多条枝臂上产生相近特征。这不表示每条枝臂接收到完全相同的局部水汽浓度，也不表示输送计算中各条枝臂相互独立：每条枝臂都从共同的周围水汽场中消耗水汽。局部梯度、邻近的冰、不均匀的生长或微小扰动，都可能让枝臂出现差异。",
+        "Libbrecht 将星状枝晶的整体相似，与精细侧枝之间较弱的对应关系作了对照（印刷页 83–84）。较大的外加变化，也可以刺激出匹配程度更高的侧枝。共享变化安排的实验室双晶体，在其制备与生长条件下展示了相当强的可重复性；仍然存在的差异，使我们不能声称完全复制。本集用解释性示意图分开共同输入和局部差异，并没有测量任一种效应的概率或大小。"
+      ],
+      "sources": [
+        "docs/education/chapters/08-a-snowflake-is-a-record.html#why-the-six-arms-match",
+        "docs/education/chapters/08-a-snowflake-is-a-record.html#where-the-symmetry-runs-out",
+        "https://arxiv.org/abs/1910.06389v2"
+      ]
+    },
+    {
+      "title": "为什么长度不能直接给出生长时长",
+      "paragraphs": [
+        "对于沿明确方向前进的某个尖端，前进距离等于生长速度在该时间段上的积分。若速度恒定，简单关系就是：距离 = 速度 × 经过的时间。若速度改变，相同距离就可能对应不同时间。动画中的两个等长时间条是人为设定的教学时间段，不是实测秒数，也不是从照片中提取的等长部分。",
+        "即使要确定哪个特征先形成，也需要生长模型以及相关几何形态的视角。冰不只会加在枝尖上，也会加在宽阔晶面上；一道表面棱脊，并不自动等于某一时间层的边界。本集从中心走向尖端的解读，适用于简化的向外生长枝臂，不能扩展为任意晶体内部每一点的普遍年龄地图。"
+      ],
+      "sources": [
+        "docs/education/chapters/08-a-snowflake-is-a-record.html#what-the-record-does-not-say",
+        "docs/education/chapters/08-a-snowflake-is-a-record.html#the-writing-on-the-surface",
+        "https://arxiv.org/abs/1910.06389v2"
+      ]
+    },
+    {
+      "title": "棱脊、肋纹，以及模型中的反例",
+      "paragraphs": [
+        "径向棱脊与环状肋纹，不一定记录同一种过程。教育章节描述了在稳定板状生长中形成的径向表面棱脊，也描述了供给变化如何帮助形成横向特征。只观察到一条线，无法选定它的原因。照片也可能无法确定标记是在外侧晶面上，还是夹在两片板之间。",
+        "Gravner 和 Griffeath 已发表的三维元胞模型，采用水汽扩散以及可调、与方向有关的介观附着规则。在已报告的固定参数运行中，冰板可以形成夹层结构：上下两层薄板向外展开，中间留有空隙和纹理。如果只有最终形状，这种延迟出现的结构变化，可能被误认成外部变化。本集画出了报告中的这种可能性；它并不回放已发表的运行，不验证模型，也不声称所选参数就是实测温度或湿度。",
+        "该模型还报告过对晶种的敏感性、带针形态，以及没有水滴过程却看似雾凇的外观。这些结果提醒我们，在模型内部也要谨慎解释；它们并没有证明天然雾凇来自水汽生长，也没有证明所有带帽柱晶都在固定条件下形成。模型中的带帽柱晶示例明确改变了参数。要判断某个天然样本由哪种机制形成，仍然需要受控观察。"
+      ],
+      "sources": [
+        "docs/education/chapters/08-a-snowflake-is-a-record.html#the-writing-on-the-surface",
+        "docs/education/chapters/08-a-snowflake-is-a-record.html#the-record-can-lie",
+        "https://www.math.ucdavis.edu/static/research/infovault/gravner/Phy_Rev_E-79-2009.pdf"
+      ]
+    },
+    {
+      "title": "没有两片相同雪花的实用版本",
+      "paragraphs": [
+        "是否相同，取决于观察方式。在光学显微镜的分辨率下，简单六角冰板可以具有基本相同的可见轮廓。复杂天然晶体有更多可能不同的特征，因此细节完全吻合极不可能。这两种说法，都不是对有史以来所有晶体的普查。实验室中并排生长、经历强烈共同变化的晶体，可以非常相似，同时仍保有差异。",
+        "逐个分子完全一致，是另一个问题，其中包括普通照片看不到的同位素位置与缺陷。Libbrecht 用书籍排列的类比，说明复杂程度增加时，可能排列数如何迅速增长。它不是雪花的精确统计模型：特征之间有关联，并不是可以任意洗牌的物件；阶乘既不能直接给出精确特征数，也不能给出精确匹配概率。因此，旁白保留了定性的复杂性论证，没有把这个类比说成实测概率。"
+      ],
+      "sources": [
+        "docs/education/chapters/08-a-snowflake-is-a-record.html#no-two-alike-precisely",
+        "https://arxiv.org/abs/1910.06389v2"
+      ]
+    },
+    {
+      "title": "晶体群体不只是特写照片集",
+      "paragraphs": [
+        "雪晶是连成一体的晶体，而日常所说的雪花，也可以是多颗晶体聚成的团簇。淞附作用会增加冻结的云滴；淞附足够广泛时，可以形成圆粒状的霰。分类必须说明纳入了哪些物体，以及怎样收集它们。摄影者、采样者和仪器各有不同的选择效应；经过挑选的画廊，无法确定某种晶习在云中的频率。",
+        "第 9 章保留了更完整的形态列表、群体研究、淞附时间尺度与冷云统计。这些计数属于明确的条件与采集方法，不是雪的普遍比例。一个粒子中存在多个取向，可以形成子弹花状或其他非六重外形。晶体孪晶需要取向之间有特定关系；任意团簇并不自动就是孪晶。详细孪晶角度和少见的锥面仍是有用的分类深度，但不是理解本集生长历史论证的前提。",
+        "三角形冰板也提醒我们，不能混淆可见轮廓与分子物质。本集识别这种已观察到的类别，但不推导它的机制，也不把三条可见边等同于新晶格。第 11 集会用不寻常形态检验解释；在那之前，第 8 集先建立怎样实际测量生长。"
+      ],
+      "sources": [
+        "docs/education/chapters/09-the-menagerie.html#names",
+        "docs/education/chapters/09-the-menagerie.html#no-clean-boxes",
+        "docs/education/chapters/09-the-menagerie.html#what-falls",
+        "docs/education/chapters/09-the-menagerie.html#graupel-clock",
+        "docs/education/chapters/09-the-menagerie.html#cold-cloud-census",
+        "docs/education/chapters/09-the-menagerie.html#twins",
+        "docs/education/chapters/09-the-menagerie.html#pyramidal",
+        "docs/education/chapters/09-the-menagerie.html#one-rule",
+        "https://arxiv.org/abs/1910.06389v2"
+      ]
+    }
+  ],
+  "sourceEnglishSha256": "ca6761b3393c2256e8b7c9b9f38cba1c917281b3be7ee295ff54f189acc19040"
+}

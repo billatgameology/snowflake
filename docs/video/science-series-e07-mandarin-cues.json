@@ -1,0 +1,635 @@
+{
+  "episode": 7,
+  "description": "Complete ordered same-meaning sentence pairs. Each visual reveal starts an exact pair; prediction answers start at translated answer onsets. Provider alignment is not human listening.",
+  "source": {
+    "path": "docs/video/science-series-e07-script.md",
+    "sha256": "702b24101fbf1cf5e7d6847794c3230908f304d349a318099d6097087537abd5"
+  },
+  "sourceEnglishSha256": "ca6761b3393c2256e8b7c9b9f38cba1c917281b3be7ee295ff54f189acc19040",
+  "sections": [
+    {
+      "id": "E07-01",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Look at this little column with a plate spreading from each end.",
+              "zh": "看看这根小柱子，两端各有一片向外展开的冰板。"
+            },
+            {
+              "en": "It looks like a tiny cotton reel.",
+              "zh": "它看起来像一个微小的线轴。"
+            },
+            {
+              "en": "This is a computer-grown example from our library, not a natural specimen.",
+              "zh": "这是素材库中由计算机生成的示例，不是天然样本。"
+            },
+            {
+              "en": "How did one crystal end up with both a long middle and wide, flat ends?",
+              "zh": "一颗晶体怎么会同时有细长的中间部分，又有宽而平的两端呢？"
+            },
+            {
+              "en": "A map of constant growing conditions gives us a starting point, but a cloud can change around a growing crystal.",
+              "zh": "恒定生长条件的形态图提供了起点，可是在晶体生长时，它周围的云会改变。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Now switch to a simplified drawing and follow one possible growth story.",
+              "zh": "现在换成简化示意图，跟随一种可能的生长经历。"
+            },
+            {
+              "en": "Start with a small prism, then let it grow into a column.",
+              "zh": "先从一颗小棱柱开始，让它长成柱状。"
+            },
+            {
+              "en": "The darker ice marks material already there.",
+              "zh": "颜色较深的冰，表示原来已经存在的物质。"
+            },
+            {
+              "en": "As new ice joins, that older material stays inside our example.",
+              "zh": "当新冰加入时，在这个例子里，较早的物质仍然留在内部。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "A cloud carries a crystal through changing temperature and water supply.",
+              "zh": "云会带着晶体经过温度和水分供给不断变化的环境。"
+            },
+            {
+              "en": "The next ice can grow differently from the ice that came before it.",
+              "zh": "接下来形成的冰，生长方式可能和之前不同。"
+            },
+            {
+              "en": "That gives a crystal a kind of memory.",
+              "zh": "这让晶体有了一种记忆。"
+            },
+            {
+              "en": "But how much of the journey can we really recover from the finished shape?",
+              "zh": "可是，从最终形状中，我们究竟能还原多少旅程呢？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E07-02",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Keep that column in view.",
+              "zh": "让这根柱子留在画面里。"
+            },
+            {
+              "en": "Now change its surroundings to conditions that favour plate growth.",
+              "zh": "现在改变周围环境，让条件有利于板状生长。"
+            },
+            {
+              "en": "In the familiar example, column growth came first near five degrees below freezing, followed by plate growth in colder air.",
+              "zh": "在那个常见的例子中，柱状部分先在零下五摄氏度附近生长，随后在更冷的空气中长出板状部分。"
+            },
+            {
+              "en": "Those temperatures describe a plausible route, not a thermometer hidden in every specimen.",
+              "zh": "这些温度描述的是一种合理路径，并不是每个样本内部都藏着一支温度计。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "New growth now spreads sideways from the two ends.",
+              "zh": "接下来的生长将从两端向侧面展开。"
+            },
+            {
+              "en": "Before it starts, what should happen to the column already between them?",
+              "zh": "在开始之前想一想，两端之间原有的柱子会怎样？"
+            },
+            {
+              "en": "Does it turn into a flat plate, or stay as part of the crystal?",
+              "zh": "它会变成一片平板，还是继续作为晶体的一部分留下？"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "The old column stays.",
+              "zh": "原来的柱子留了下来。"
+            },
+            {
+              "en": "Watch new ice spread beyond its ends, while the middle keeps its original outline.",
+              "zh": "看，新冰从两端向外展开，而中间部分保留着原来的轮廓。"
+            },
+            {
+              "en": "We have built a capped column by adding material, without changing the old column into something else.",
+              "zh": "我们通过增加物质，长成了带帽柱晶，并没有把旧柱子变成另一种东西。"
+            },
+            {
+              "en": "This construction gives a readable order: column first, spreading caps later.",
+              "zh": "这个构造给出了可读的先后顺序：先有柱子，后有展开的端帽。"
+            },
+            {
+              "en": "It still doesn't supply an exact temperature, humidity or timestamp for either stage.",
+              "zh": "但它仍然不能给出任一阶段的精确温度、湿度或时间。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E07-03",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Now consider a different crystal: a six-armed star.",
+              "zh": "现在看另一颗晶体：一颗有六条枝臂的星状晶体。"
+            },
+            {
+              "en": "All six arms travel together, separated by only a small distance.",
+              "zh": "六条枝臂一起移动，彼此之间只有很短的距离。"
+            },
+            {
+              "en": "When the surrounding air changes across the whole crystal, the arms can experience nearly the same change at nearly the same time.",
+              "zh": "当整颗晶体周围的空气改变时，各条枝臂可以在几乎同一时刻经历几乎相同的变化。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Watch one shared change, then follow the fresh growth on one arm.",
+              "zh": "先看一次共同的变化，再沿着一条枝臂观察新生长的部分。"
+            },
+            {
+              "en": "The new part broadens.",
+              "zh": "新的部分变宽了。"
+            },
+            {
+              "en": "Now look around the other arms: a similar change can appear on each.",
+              "zh": "再看看其他枝臂：每条上都可能出现相似的变化。"
+            },
+            {
+              "en": "One arm hasn't sent the others a drawing to copy.",
+              "zh": "并不是一条枝臂把图样发给其他枝臂照着复制。"
+            },
+            {
+              "en": "The ice structure gives related directions, and their shared surroundings give related growing conditions.",
+              "zh": "冰的结构提供相互对应的方向，共同的环境则提供相近的生长条件。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "This is a way to make a complicated pattern with an overall sixfold resemblance.",
+              "zh": "这样就能形成复杂的图案，同时保有整体上的六重相似性。"
+            },
+            {
+              "en": "It doesn't require the arms to be isolated from one another.",
+              "zh": "这并不要求各条枝臂彼此完全隔离。"
+            },
+            {
+              "en": "They draw water from the surrounding air and can affect that shared supply.",
+              "zh": "它们从周围空气中获取水，也会影响这份共同的供给。"
+            },
+            {
+              "en": "Shared conditions explain a family resemblance, not a guarantee of perfect copies.",
+              "zh": "共同条件解释的是整体相似，并不保证完全复制。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E07-04",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Keep the same star and look closer at two neighbouring arms.",
+              "zh": "保留同一颗星状晶体，仔细看看相邻的两条枝臂。"
+            },
+            {
+              "en": "Their broad changes resemble one another.",
+              "zh": "它们较大的变化彼此相似。"
+            },
+            {
+              "en": "But this little sidebranch is longer on one arm, and that small branch is missing from the other.",
+              "zh": "可是，这根小侧枝在一条枝臂上更长，另一根小枝在旁边的枝臂上却没有。"
+            },
+            {
+              "en": "Even the two sides of one arm needn't match.",
+              "zh": "甚至同一条枝臂的两侧，也不一定相同。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "A small local disturbance can be amplified by the branching feedback we followed earlier.",
+              "zh": "局部的微小扰动，可以被我们之前观察过的分枝反馈放大。"
+            },
+            {
+              "en": "The air needn't be perfectly uniform, and a nearby crystal can draw down the supply on one side.",
+              "zh": "空气不必处处完全一样，附近的晶体也可能消耗某一侧的供给。"
+            },
+            {
+              "en": "So a shared journey can coexist with different details.",
+              "zh": "因此，共同的旅程和不同的细节，可以同时存在。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "A laboratory can deliberately make large, abrupt changes around a crystal.",
+              "zh": "实验室可以有意地让晶体周围的条件发生较大而突然的改变。"
+            },
+            {
+              "en": "Those common changes can produce particularly well-matched features.",
+              "zh": "这些共同的变化，可以产生匹配得尤其好的特征。"
+            },
+            {
+              "en": "Under less strongly imposed changes, smaller differences can stand out more.",
+              "zh": "当外部变化没有那么强烈时，较小的差异可能更加突出。"
+            },
+            {
+              "en": "The resemblance and the mismatch are both part of what we need to explain.",
+              "zh": "相似与不相似，都是我们需要解释的现象。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E07-05",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Suppose we follow one arm from the centre towards its tip.",
+              "zh": "假设我们沿着一条枝臂，从中心走向尖端。"
+            },
+            {
+              "en": "In this simple outward-growth story, we meet earlier growth before later growth.",
+              "zh": "在这个简单的向外生长故事中，我们先遇到较早的生长，再遇到较晚的生长。"
+            },
+            {
+              "en": "But equal distances don't have to represent equal amounts of time.",
+              "zh": "但相等的距离，不一定代表相等的时间。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Here's a chosen example with two equal time intervals.",
+              "zh": "这里有一个指定的例子，包含两个同样长的时间段。"
+            },
+            {
+              "en": "In the first interval the tip advances a short distance.",
+              "zh": "第一个时间段里，尖端只前进一小段距离。"
+            },
+            {
+              "en": "In the second it advances farther.",
+              "zh": "第二个时间段里，它前进得更远。"
+            },
+            {
+              "en": "The same time has made different lengths because the growth rates were different.",
+              "zh": "因为生长速度不同，同样长的时间形成了不同的长度。"
+            },
+            {
+              "en": "Without those rates, the finished arm doesn't tell us how long either part took.",
+              "zh": "如果不知道这些速度，完成的枝臂就无法告诉我们，每一部分用了多久。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Nor is every visible mark a separate weather event.",
+              "zh": "而且，并不是每个可见标记都代表一次独立的天气变化。"
+            },
+            {
+              "en": "Some surface ridges can develop during steady growth.",
+              "zh": "有些表面棱脊可以在稳定生长过程中形成。"
+            },
+            {
+              "en": "Later sublimation, melting, collisions or frozen droplets can also alter the record.",
+              "zh": "后来的升华、融化、碰撞或冻结水滴，也可能改变这份记录。"
+            },
+            {
+              "en": "The useful idea of memory needs both a growth mechanism and a limit.",
+              "zh": "记忆这个有用的概念，既需要生长机制，也需要明确它的限度。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E07-06",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "There is a sharper warning from a published computer model.",
+              "zh": "一个已发表的计算机模型，给出了更鲜明的提醒。"
+            },
+            {
+              "en": "This is a drawing of that reported result, not a recording of a real crystal.",
+              "zh": "这里画的是那个已报告结果的示意图，不是真实晶体的记录。"
+            },
+            {
+              "en": "The model lets vapour spread and adds ice using direction-dependent rules.",
+              "zh": "模型让水汽扩散，并按照与方向有关的规则增加冰。"
+            },
+            {
+              "en": "Its adjustable rules are not a direct measurement of the molecular surface.",
+              "zh": "这些可调规则，并不是对分子表面的直接测量。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Keep the model's outside controls fixed.",
+              "zh": "保持模型的外部控制量不变。"
+            },
+            {
+              "en": "A plate grows for a while, then its rim develops into two spreading layers with an open space between them.",
+              "zh": "一片冰板先长了一段时间，随后它的边缘形成上下两层，继续向外展开，中间留有空隙。"
+            },
+            {
+              "en": "The old centre remains while the new growth takes a different form.",
+              "zh": "旧的中心仍然存在，而新的生长采用了不同形态。"
+            },
+            {
+              "en": "If you only saw the final change in shape, would that prove the outside controls had changed?",
+              "zh": "如果只看到最终形状中的这个变化，能证明外部控制量发生过改变吗？"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "No: they stayed fixed in this model run.",
+              "zh": "不能：在这次模型运行中，它们保持不变。"
+            },
+            {
+              "en": "The change arose as the model crystal developed.",
+              "zh": "变化是在模型晶体发展过程中出现的。"
+            },
+            {
+              "en": "That doesn't prove the same mechanism made a particular natural specimen.",
+              "zh": "这并不能证明，某个天然样本就是由同一种机制形成的。"
+            },
+            {
+              "en": "It does show why a convincing-looking boundary is not, by itself, proof of a weather event.",
+              "zh": "但它确实说明了，为什么一道看似很有说服力的分界，本身并不能证明发生过一次天气事件。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E07-07",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "So what about the saying that no two snowflakes are alike?",
+              "zh": "那么，没有两片相同雪花的说法呢？"
+            },
+            {
+              "en": "First decide how closely we are looking.",
+              "zh": "先决定，我们要看得多仔细。"
+            },
+            {
+              "en": "Two simple hexagonal plates can look alike under an optical microscope.",
+              "zh": "两片简单的六角冰板，在光学显微镜下可以看起来相同。"
+            },
+            {
+              "en": "A complicated branching crystal has many more visible details that could differ.",
+              "zh": "而复杂的分枝晶体，有多得多的可见细节可能彼此不同。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Now consider two separate laboratory crystals growing side by side.",
+              "zh": "现在考虑两颗在实验室里并排生长的独立晶体。"
+            },
+            {
+              "en": "Give both a common schedule of strong changes in their surroundings.",
+              "zh": "让两者经历同一套明显的环境变化。"
+            },
+            {
+              "en": "Experiments have produced remarkably similar shapes that way.",
+              "zh": "实验确实用这种方式长出了非常相似的形状。"
+            },
+            {
+              "en": "Look closely, though, and differences remain.",
+              "zh": "不过仔细看，差异仍然存在。"
+            },
+            {
+              "en": "Sharing the schedule doesn't make every local detail identical.",
+              "zh": "共享同一套变化，并不会让每个局部细节都完全一致。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Matching all the details of two elaborate natural crystals would be extraordinarily unlikely.",
+              "zh": "两颗复杂的天然晶体，在所有细节上都吻合，是极不可能的。"
+            },
+            {
+              "en": "That is a useful statement about complexity, rather than a rule forbidding simple lookalikes.",
+              "zh": "这是关于复杂性的有用说法，而不是禁止简单晶体相似的一条规则。"
+            },
+            {
+              "en": "And looking alike is different from having every molecule, isotope and defect in an identical position.",
+              "zh": "而看起来相同，与每个分子、同位素和缺陷都处在完全相同的位置，是不同的问题。"
+            },
+            {
+              "en": "A photograph cannot check that stronger kind of sameness.",
+              "zh": "照片无法检验那种更严格的相同。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E07-08",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "One more trap comes from which crystals we choose to show.",
+              "zh": "还有一个陷阱，来自我们选择展示哪些晶体。"
+            },
+            {
+              "en": "A gallery of beautiful six-armed stars is a selection, not a sample of everything falling from a cloud.",
+              "zh": "满是漂亮六臂星状晶体的画廊，是经过挑选的，并不是云中所有降落物的抽样。"
+            },
+            {
+              "en": "Natural snow also includes simple forms, uneven crystals, clusters and ice coated with frozen droplets.",
+              "zh": "天然的雪还包括简单形态、不均匀的晶体、团簇，以及覆着冻结水滴的冰。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Here is a cluster with several crystal orientations.",
+              "zh": "这里是一个包含多个晶体取向的团簇。"
+            },
+            {
+              "en": "It needn't present one tidy six-armed outline.",
+              "zh": "它不必呈现整齐的六臂轮廓。"
+            },
+            {
+              "en": "Here is a plate with a triangular outline.",
+              "zh": "这里是一片轮廓呈三角形的冰板。"
+            },
+            {
+              "en": "It can still be a single crystal of ordinary hexagonal ice.",
+              "zh": "它仍然可以是一颗普通六方冰的单晶。"
+            },
+            {
+              "en": "How such unusual outlines develop is a test for later explanations.",
+              "zh": "这些不寻常的轮廓怎样形成，是留给后续解释的一项检验。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "The mix you collect depends on the cloud, where you sample it, and what survives the journey.",
+              "zh": "你收集到的组合，取决于云、采样的位置，以及哪些晶体在途中保留下来。"
+            },
+            {
+              "en": "Our examples are a selection too, not a measured census.",
+              "zh": "我们这里的例子也经过挑选，并不是实测的总体统计。"
+            },
+            {
+              "en": "A good explanation has to face the ordinary and awkward crystals as well as the photogenic ones.",
+              "zh": "好的解释，既要面对漂亮上镜的晶体，也要面对普通和不规则的晶体。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E07-09",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "We can now read a shape more carefully.",
+              "zh": "现在，我们可以更谨慎地读懂形状。"
+            },
+            {
+              "en": "A retained column and later spreading caps suggest an order of growth.",
+              "zh": "保留下来的柱子和后来展开的端帽，提示了生长的先后顺序。"
+            },
+            {
+              "en": "Related patterns on several arms can reflect shared conditions.",
+              "zh": "多条枝臂上的相似图案，可以反映共同条件。"
+            },
+            {
+              "en": "Unequal details remind us that the same broad history needn't make exact copies.",
+              "zh": "不相同的细节提醒我们，相同的大体经历并不一定产生完全相同的复制品。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "But a final shape doesn't provide its own clock, or one unique set of weather readings.",
+              "zh": "可是，最终形状不会自带时钟，也不会提供一套唯一的天气读数。"
+            },
+            {
+              "en": "Some changes can come from the growing crystal itself, and later events can remove or cover earlier features.",
+              "zh": "某些变化可以来自生长中的晶体本身，后来的事件也可能消除或覆盖早期特征。"
+            },
+            {
+              "en": "The crystal is evidence to interpret, not a complete written log.",
+              "zh": "晶体是需要解释的证据，不是一份完整的文字日志。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "To go further, we need to watch growth while keeping track of the conditions.",
+              "zh": "要继续深入，就需要一边观察生长，一边记录条件。"
+            },
+            {
+              "en": "How much new ice appeared, and how long did it take?",
+              "zh": "新增了多少冰，又花了多长时间？"
+            },
+            {
+              "en": "How do we measure something so small without changing the way it grows?",
+              "zh": "面对这么小的东西，怎样测量才不会改变它的生长方式？"
+            },
+            {
+              "en": "That takes us from reading a finished crystal to measuring one as it grows.",
+              "zh": "这就把我们从解读完成的晶体，带到了测量正在生长的晶体。"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "predictions": [
+    {
+      "id": "E07-02",
+      "paragraph": 2,
+      "answerEn": "The old column stays.",
+      "answerZh": "原来的柱子留了下来。",
+      "seconds": 3
+    },
+    {
+      "id": "E07-06",
+      "paragraph": 2,
+      "answerEn": "No: they stayed fixed in this model run.",
+      "answerZh": "不能：在这次模型运行中，它们保持不变。",
+      "seconds": 3
+    }
+  ]
+}

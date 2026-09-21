@@ -1,0 +1,551 @@
+{
+  "episode": 9,
+  "description": "Ordered exact sentence pairs bind every visual reveal to the same meaning in English and Mandarin. Numbers from fitted relations remain explicitly calculated.",
+  "source": {
+    "path": "docs/video/science-series-e09-script.md",
+    "sha256": "847860e5b924bed087de9f90cd1d4aedbcf26d74e77ce022d51d71561bd4097d"
+  },
+  "sections": [
+    {
+      "id": "E09-01",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "We can now measure how quickly ice grows.",
+              "zh": "现在，我们已经能测量冰长得多快。"
+            },
+            {
+              "en": "But a slow face leaves us with two suspects: water might be slow to reach it, or the surface might be slow to build that water into ice.",
+              "zh": "不过，一个长得慢的晶面，让我们想到两种可能：水分来得慢，或者表面把水分排进冰里的过程慢。"
+            },
+            {
+              "en": "How can an experiment separate them?",
+              "zh": "实验怎样把它们分开呢？"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Let us follow a specific example reported by Kenneth Libbrecht: a side face of a small ice prism, at minus fifteen degrees Celsius, in air at twenty millibars.",
+              "zh": "我们来看肯尼思·利布雷希特报告的一个具体例子：一颗小型六棱柱冰晶的侧面，温度是零下十五摄氏度，空气压力是二十毫巴。"
+            },
+            {
+              "en": "That pressure is about one fiftieth of ordinary atmospheric pressure.",
+              "zh": "这个压力大约是普通大气压的五十分之一。"
+            },
+            {
+              "en": "The experiment records how far the face moves in a known time, while the water supply is varied.",
+              "zh": "实验改变水汽供应，同时记录晶面在已知时间内向外移动了多远。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Distance and time give the observed growth speed.",
+              "zh": "距离和时间，给出了观测到的生长速度。"
+            },
+            {
+              "en": "The chamber settings help describe the surroundings, but do not directly measure the spare vapour beside the face.",
+              "zh": "腔室的设置有助于描述周围条件，却不是对晶面旁多余水汽的直接测量。"
+            },
+            {
+              "en": "That missing link matters because growing ice draws water out of its own neighbourhood.",
+              "zh": "这一环很重要，因为正在生长的冰，会从自己周围吸走水分。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E09-02",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "First account for the journey through the gas.",
+              "zh": "先把水分穿过气体的路程考虑进去。"
+            },
+            {
+              "en": "A transport calculation estimates how much the growing crystal lowers the vapour level near its surface.",
+              "zh": "输运计算估计，正在生长的冰晶，会把表面附近的水汽水平拉低多少。"
+            },
+            {
+              "en": "The surface surplus is what remains above the ice balance level there.",
+              "zh": "表面处的过剩水汽，就是那里高于冰的平衡水平的那一部分。"
+            },
+            {
+              "en": "Low pressure makes this transport resistance smaller, which helps expose the surface response; it does not make every correction vanish.",
+              "zh": "低压会减小这种输运阻力，让表面响应更容易显现；但并不意味着所有修正都消失了。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Next calculate a reference speed for that same local surplus and temperature, assuming the surface incorporates water as readily as the kinetic description allows.",
+              "zh": "接着，用相同的局部水汽过剩和温度，计算一个参考速度，假定表面能以这套动力学描述所允许的最快程度把水分纳入冰中。"
+            },
+            {
+              "en": "Compare the observed speed with that reference.",
+              "zh": "把观测速度和这个参考速度比较。"
+            },
+            {
+              "en": "Their ratio is an effective surface response, called the attachment coefficient.",
+              "zh": "两者的比值，是一种有效的表面响应，称为附着系数。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "A small ratio means slow incorporation relative to this reference, after delivery has been considered.",
+              "zh": "比值小，表示在考虑水分输送之后，纳入冰中的过程仍比这个参考慢。"
+            },
+            {
+              "en": "It is inferred from growth and a physical model, not measured by counting which individual collisions succeed.",
+              "zh": "它是从生长和物理模型推断出来的，不是逐个数出哪些碰撞成功。"
+            },
+            {
+              "en": "An error in the local vapour estimate changes the inferred response, even when the growth speed was measured perfectly.",
+              "zh": "即使生长速度测得完全准确，局部水汽估计的误差，也会改变推断出的响应。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E09-03",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Now magnify a flat patch of that face.",
+              "zh": "现在，放大这个晶面上的一块平坦区域。"
+            },
+            {
+              "en": "Remember the small islands from our episode about flat faces: many disappear before a lasting new layer gets started.",
+              "zh": "还记得讲平整晶面时的小岛吗？在持久的新层形成之前，许多小岛就消失了。"
+            },
+            {
+              "en": "A clean facet with no continuing source of steps can spend much of its time waiting for that event.",
+              "zh": "一个没有持续台阶来源的完整晶面，可能把许多时间花在等待这个事件上。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Now consider a different surface with a screw dislocation, a defect in the crystal that supplies a step winding around its centre.",
+              "zh": "现在，来看另一种表面，其中有一条螺位错，也就是晶体中的一种缺陷，它提供了一条绕着中心盘旋的台阶。"
+            },
+            {
+              "en": "As the step advances, the winding edge remains available.",
+              "zh": "台阶向前推进时，这条盘绕的边缘仍然存在。"
+            },
+            {
+              "en": "At a low vapour surplus, which surface could keep growing without first starting a new island?",
+              "zh": "当水汽过剩很低时，哪一种表面可以不用先形成新岛，就继续生长？"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "The surface with the continuing step.",
+              "zh": "有持续台阶的那一种表面。"
+            },
+            {
+              "en": "Water can join the existing edge as it moves across the face.",
+              "zh": "水分可以加入已有的边缘，让它沿着晶面推进。"
+            },
+            {
+              "en": "This is a different route through the surface bottleneck, so a formula for a facet waiting for new islands need not describe it.",
+              "zh": "这是通过表面瓶颈的另一条途径，所以，描述等待新岛的晶面的公式，不一定适用于它。"
+            },
+            {
+              "en": "Not every crystal has this defect, and a growth curve alone does not show us one.",
+              "zh": "并不是每颗晶体都有这种缺陷，而且一条生长曲线本身，也不能让我们看见它。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E09-04",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Return to a broad facet whose growth is consistent with starting new layers.",
+              "zh": "回到生长符合新层形成机制的宽阔晶面。"
+            },
+            {
+              "en": "One part of its fitted response describes how difficult it is to start those layers.",
+              "zh": "拟合响应中的一部分，描述形成这些新层有多困难。"
+            },
+            {
+              "en": "A larger nucleation barrier suppresses growth more strongly at the same local vapour surplus.",
+              "zh": "在相同的局部水汽过剩下，较大的成核势垒，会更强地抑制生长。"
+            },
+            {
+              "en": "It is a steep change in likelihood, not a switch that forbids all growth below one exact humidity.",
+              "zh": "这表示发生机会急剧变化，而不是在某个精确湿度以下，完全禁止生长的开关。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "There is a second job: setting the overall scale of the response.",
+              "zh": "还有第二个作用：设定响应的整体尺度。"
+            },
+            {
+              "en": "Even when making new layers becomes easy, incorporation may remain slower than the ideal reference.",
+              "zh": "即使新层已经容易形成，把水分纳入冰中的过程，仍可能比理想参考慢。"
+            },
+            {
+              "en": "The factor that scales the curve is called the prefactor.",
+              "zh": "用来调整这条曲线尺度的因子，叫作前因子。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "The experimenter varies the supply, compares the resulting growth speeds, and fits these two parts together.",
+              "zh": "实验者改变供应，比较得到的生长速度，再把这两个部分一起拟合。"
+            },
+            {
+              "en": "The observed motion, the transport correction and the fitted parameters are different steps in the argument.",
+              "zh": "观测到的运动、输运修正，以及拟合参数，是推理中的不同步骤。"
+            },
+            {
+              "en": "Let us see what one published fit predicts.",
+              "zh": "先看看一个已发表的拟合，会给出什么预测。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E09-05",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "For that prism face at minus fifteen degrees, the published fit uses a barrier of three percent and a prefactor of one.",
+              "zh": "对于零下十五摄氏度的那个柱面，已发表的拟合采用百分之三的势垒和一的前因子。"
+            },
+            {
+              "en": "The numbers we are about to show are calculations from that fit, not new measurements.",
+              "zh": "接下来显示的数字，是用这个拟合计算的，不是新的测量。"
+            },
+            {
+              "en": "Choose a local vapour surplus of one percent.",
+              "zh": "先选百分之一的局部水汽过剩。"
+            },
+            {
+              "en": "That means one extra part for every hundred parts at the ice balance level.",
+              "zh": "这表示，相对于冰平衡水平的每一百份水汽，又多出了一份。"
+            },
+            {
+              "en": "The fit gives a response of about five hundredths of the ideal reference, so the surface is still a strong restraint.",
+              "zh": "这个拟合给出的响应，大约是理想参考的百分之五，所以表面仍然是很强的限制。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Now double the local surplus to two percent, keeping the temperature and fitted surface parameters unchanged.",
+              "zh": "现在，把局部水汽过剩加倍到百分之二，同时保持温度和拟合的表面参数不变。"
+            },
+            {
+              "en": "Would the calculated growth speed merely double?",
+              "zh": "计算出的生长速度，会只是加倍吗？"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "It rises by more than twice.",
+              "zh": "它会增加到原来的两倍以上。"
+            },
+            {
+              "en": "The response itself increases to about twenty-two hundredths, because forming new layers is easier.",
+              "zh": "响应本身会增加到大约百分之二十二，因为形成新层更容易了。"
+            },
+            {
+              "en": "Combine that larger response with twice the local surplus, and the calculated speed is about nine times the first speed.",
+              "zh": "把更大的响应与加倍的局部水汽过剩合在一起，计算速度大约是第一次的九倍。"
+            },
+            {
+              "en": "That is one consequence of this fitted relation under these chosen conditions, not a universal ninefold rule for snow crystals.",
+              "zh": "这是这个拟合关系在所选条件下的一个结果，不是雪晶普遍遵循的九倍定律。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E09-06",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Repeat this work for different temperatures and for the top and side faces, and you obtain a map of fitted responses.",
+              "zh": "在不同温度下，对顶面和侧面重复这些工作，就得到了一幅拟合响应的图谱。"
+            },
+            {
+              "en": "Much of the broad-facet evidence comes from small crystals at low pressure, where transport is easier to control.",
+              "zh": "宽晶面的许多证据，来自低压下的小晶体，在这种条件下，输运更容易控制。"
+            },
+            {
+              "en": "A smooth curve through those estimates is a useful summary, but it cannot remove their uncertainties or extend their tested conditions by itself.",
+              "zh": "穿过这些估计值的光滑曲线，是有用的概括，但它不能消除不确定性，也不能自行扩大已经检验过的条件范围。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Near the melting point, fitted side-face prefactors can lie well below one.",
+              "zh": "接近熔点时，侧面的拟合前因子可能明显小于一。"
+            },
+            {
+              "en": "One possible influence is surface premelting: the outermost region becomes less ordered while the bulk remains ice.",
+              "zh": "一种可能的影响是表面预融：最外层区域变得更无序，而内部仍然是冰。"
+            },
+            {
+              "en": "Changes in molecular motion there could affect incorporation, but this does not establish one complete microscopic explanation.",
+              "zh": "那里的分子运动变化，可能影响水分纳入晶格的过程，但这并没有确立一套完整的微观解释。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Air and trace impurities can also change surface behaviour in some experiments.",
+              "zh": "在一些实验中，空气和微量杂质也会改变表面行为。"
+            },
+            {
+              "en": "Separating those effects from transport, heating and surface structure requires additional comparisons.",
+              "zh": "要把这些影响与输运、升温和表面结构区分开来，还需要额外的比较。"
+            },
+            {
+              "en": "A fitted coefficient needs its temperature, pressure, geometry and preparation history attached.",
+              "zh": "一个拟合系数，需要附带它的温度、压力、几何形状和制备历史。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E09-07",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Remember the Penn State experiment that weighs an ice particle while it floats.",
+              "zh": "还记得宾夕法尼亚州立大学那个实验吗？它一边让冰粒悬浮，一边称量它。"
+            },
+            {
+              "en": "Its colder experiments, between about minus thirty and minus forty-four degrees Celsius, follow mass rather than the speed of an individual face.",
+              "zh": "它在大约零下三十到零下四十四摄氏度的较冷实验中，追踪的是质量，而不是单个晶面的速度。"
+            },
+            {
+              "en": "The recorded mass history can be compared with a growth model that includes delivery and surface response.",
+              "zh": "记录下来的质量历史，可以与包含输送和表面响应的生长模型比较。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "In a study of seventeen particles frozen without an added ice-forming speck, seven records were not described by the authors’ constant-mechanism fits.",
+              "zh": "在一项研究中，十七颗粒子没有加入成冰微粒就被冻结，其中七条记录，无法由作者的固定机制拟合来描述。"
+            },
+            {
+              "en": "They explored a changing response instead.",
+              "zh": "于是，作者转而研究随时间变化的响应。"
+            },
+            {
+              "en": "One illustrative transition fit reduced the effective coefficient from about twenty-five thousandths to about sixteen ten-thousandths during growth.",
+              "zh": "一个用于说明转变的拟合，把生长过程中的有效系数，从大约千分之二十五降到了大约万分之十六。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Those are model-inferred values, not a surface meter reading.",
+              "zh": "这些是模型推断的数值，不是表面仪表的读数。"
+            },
+            {
+              "en": "The mass instrument did not see the particle become faceted, or establish its shape or number of crystal grains.",
+              "zh": "质量测量仪器没有看见粒子变出晶面，也没有确定它的形状或晶粒数量。"
+            },
+            {
+              "en": "The result gives us a serious reason to test changing surface behaviour, while leaving the exact microscopic history unresolved.",
+              "zh": "这个结果给了我们充分理由，去检验表面行为是否随成长变化，同时保留了对具体微观历史的疑问。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E09-08",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "The same research programme also compared droplets frozen with an added ice-forming material.",
+              "zh": "同一个研究项目，还比较了加入成冰物质后冻结的液滴。"
+            },
+            {
+              "en": "Their inferred response varied with vapour supply differently from the particles frozen without it.",
+              "zh": "它们推断出的响应，随水汽供应变化的方式，与没有加入这种物质的粒子不同。"
+            },
+            {
+              "en": "The authors considered inherited defects and continuing step sources as possible reasons.",
+              "zh": "作者把继承下来的缺陷和持续的台阶来源，作为可能的原因来考虑。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "This comparison does not prove that every particle was one perfect crystal with one spiral step.",
+              "zh": "这种比较并不能证明，每颗粒子都是只有一条螺旋台阶的完整单晶。"
+            },
+            {
+              "en": "Later analysis of a newer, colder dataset from this apparatus suggests that some frozen droplets may contain several crystal grains.",
+              "zh": "后来对这种装置中一组更新、更冷的数据所做的分析表明，一些冻结液滴可能含有多个晶粒。"
+            },
+            {
+              "en": "And reanalysing an earlier mass record does not make it a second independent experiment.",
+              "zh": "而且，重新分析较早的质量记录，并不会让它变成第二个独立实验。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "A later study by Harrington and Pokrifka, published in twenty twenty-six, examines where steps originate when explaining solid and hollow crystal growth.",
+              "zh": "哈林顿和波克里夫卡在二〇二六年发表的一项后续研究，在解释实心和空心晶体生长时，考察了台阶从哪里产生。"
+            },
+            {
+              "en": "It is another model-and-observation comparison, not a new movie of the levitated particles changing their surfaces.",
+              "zh": "这是另一项模型与观测的比较，不是一段新影片，拍到了悬浮粒子的表面怎样改变。"
+            },
+            {
+              "en": "The useful lesson is to keep the birth history and the source of steps with the measurement, instead of treating surface response as one permanent number for all ice.",
+              "zh": "有用的教训是：把形成历史和台阶来源与测量放在一起，而不是把表面响应当成所有冰都永久共有的一个数。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E09-09",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Follow the chain once more: observe growth, account for delivery, infer a surface response, then test the model against more than one condition.",
+              "zh": "再沿着这条链走一遍：观察生长，考虑输送，推断表面响应，再用不止一种条件来检验模型。"
+            },
+            {
+              "en": "For a broad, well-prepared facet, this gives a powerful way to connect visible motion with layer formation.",
+              "zh": "对于制备良好的宽阔晶面，这提供了一种有力的方法，把看得见的运动与新层形成联系起来。"
+            },
+            {
+              "en": "But there is a revealing mismatch when we carry broad-facet behaviour into other settings.",
+              "zh": "不过，当我们把宽晶面的行为带到其他环境时，会遇到一个很有启发的差别。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Near minus five degrees Celsius, low-pressure measurements report simple prisms that are often plate-like.",
+              "zh": "在零下五摄氏度附近，低压测量报告的简单六棱柱形冰晶，常常呈片状。"
+            },
+            {
+              "en": "In ordinary air near that temperature, slender columns and hollow columns can grow.",
+              "zh": "而在接近这个温度的普通空气中，却可以长出细长的柱晶和空心柱晶。"
+            },
+            {
+              "en": "These are different conditions and geometries, so the contrast alone does not identify its cause.",
+              "zh": "两者的条件和几何形状不同，所以，这个对比本身还不能确定原因。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Now look at the rim of a hollow column: its growing flat strip can be extremely narrow.",
+              "zh": "现在看看空心柱晶的边缘：那里正在生长的平坦条带，可能非常窄。"
+            },
+            {
+              "en": "Does that strip have the same surface response as the broad face used to build our fitted map?",
+              "zh": "这条窄带的表面响应，会与用来建立拟合图谱的宽晶面相同吗？"
+            },
+            {
+              "en": "That is the next experiment to ask of the edge.",
+              "zh": "这就是下一步要向边缘提出的实验问题。"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "predictions": [
+    {
+      "id": "E09-03",
+      "paragraph": 2,
+      "answerEn": "The surface with the continuing step.",
+      "answerZh": "有持续台阶的那一种表面。",
+      "seconds": 3
+    },
+    {
+      "id": "E09-05",
+      "paragraph": 2,
+      "answerEn": "It rises by more than twice.",
+      "answerZh": "它会增加到原来的两倍以上。",
+      "seconds": 3
+    }
+  ],
+  "sourceEnglishSha256": "eeeb4484c1e344e90aef551606852f63692995b67f9e391156ab363f314cf105"
+}
