@@ -18,8 +18,8 @@ was reported to have said.
 Maker-selected delivery: **visual fixes and revised script first**. Accordingly, only the
 circular scene-4 magnifier and wavy scene-6 liquid surface change in the live episode. The
 [complete revised script](../video/science-series-e01-comprehension-draft.md) is a separate
-approval artifact, not imported, retimed or narrated. The [series guide](../video/science-series-design-guide.md#general-adult-comprehension-requirement)
-now states the general-adult comprehension requirement and future-review questions.
+approval artifact, not imported, retimed or narrated. The [guide at that revision](../video/science-series-design-history-2026-09-21.md#general-adult-comprehension-requirement)
+records the general-adult comprehension requirement and future-review questions.
 
 ## Scope and provenance
 

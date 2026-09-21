@@ -147,8 +147,8 @@ the two history detours moved out of playback. Its imported hash, copied from we
 The maker asked for actual library recordings in the three-across shot, useful explanation
 instead of unnecessary history, spoken meanings for necessary symbols, an explained
 tetrahedron, the education H₂O honeycomb idea, a whole-network zoom/orbit, and continuity into
-layer positions. The reusable [design guide](../video/science-series-design-guide.md#episode-2-feedback-meaning-library-use-and-continuity)
-now records these as comprehension requirements, not newly inferred praise.
+layer positions. The preserved [design-feedback record](../video/science-series-design-history-2026-09-21.md#episode-2-feedback-meaning-library-use-and-continuity)
+records these requests and their original interpretation, not newly inferred praise.
 
 - Opening: actual hexagonal-plate, solid-column and stellar-dendrite recordings, growing in
   fixed independent frames. Ending: hollow-column, capped-column and sectored-plate recordings;

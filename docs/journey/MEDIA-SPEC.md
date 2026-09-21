@@ -110,8 +110,8 @@ payoff; a longer series is not permission for repetitive setup or deferred expla
 units remain internal drafts until release identities are explicitly assigned. Existing pilot
 scores and exports retain their exact earlier identities.
 
-For this science series, the [maker-feedback and episode design guide](../video/science-series-design-guide.md)
-turns the pilot/E01 critique into reusable scene requirements and review practice. Author the
+For this science series, the [educational website design guide](../video/science-series-design-guide.md)
+provides reusable explanation, visual-design and review principles. Author the
 spoken cue, subject/focus, visible action, stable comparison and transition together in the
 existing shot table. Review first at intended playback speed; an event visible only while
 scrubbing is not yet a clear narrated demonstration. Preserve scoped praise separately from

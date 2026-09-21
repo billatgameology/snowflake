@@ -6,6 +6,24 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
+## Portable educational design guide — complete, 2026-09-21
+
+The [design guide](video/science-series-design-guide.md) is now a standalone educational-website
+standard: no named scenes/episodes, subject-specific treatments, voice settings, repository setup or
+production history. It retains the transferable explanation, visual, timing, interaction and review
+lessons, a practical teaching-beat worksheet, and a maintenance rule for generalizing future feedback.
+The exact former guide body is preserved in [design history](video/science-series-design-history-2026-09-21.md);
+its project instructions are historical. Project operations stay in the website runbooks. Current
+narration scope remains English only; this edit changes no episode, recording or preview.
+
+A shared-context non-author GPT-6 Codex agent read the complete old and rewritten documents and
+found no omitted core lesson or remaining project-specific requirement. This was a documentation
+review, not a viewing, listening or learner test. `git diff --check` passes in both repositories;
+a bounded Python check verifies the preserved body, standalone guide and incoming section links.
+`npm run lint:rule7` still reports only the same three pre-existing installed-skill findings.
+Next: use this guide for the next authorized educational task; add generalized lessons to the relevant
+principle and keep exact feedback/repairs in project records. No new production work is assigned.
+
 ## Episodes 5–9 editorial repairs complete — 2026-09-21
 
 The maker found E05/E06 improvable and E08/E09 poor, praised the column-to-plate sequence, and
@@ -164,7 +182,7 @@ counts or reader depth. The maker also asks for Episode 2 to be enabled locally,
 the public build.
 
 The [active series plan](plans/explore-journey-science-series.md#maker-english-follow-up--2026-09-20-planned-before-implementation)
-pre-registers that scope, and the [design guide](video/science-series-design-guide.md) records the maker's
+pre-registers that scope, and the [design history](video/science-series-design-history-2026-09-21.md) records the maker's
 positive E03-04/E03-05 evidence plus the remaining transport-visibility rule. Root approved the exact
 opening promise and next-episode invitation. The revised English authority is now frozen at
 `docs/video/science-series-e03-script.md`, raw SHA-256
@@ -282,7 +300,7 @@ human viewing, uncoached audience understanding or maker approval. Episode 3 rem
 
 ## Episode design guide refreshed for future episodes — 2026-09-19
 
-The [design guide](video/science-series-design-guide.md) is now usable cold, including on a machine
+The [guide at that revision](video/science-series-design-history-2026-09-21.md) became usable cold, including on a machine
 that has just cloned the repositories. Added: **where the work lives** (the two repositories and
 what each holds, the required sibling layout with the authority directory named `snowflake`, the
 fresh-machine setup, what is deliberately outside Git — the ignored `out/` tree the served models
@@ -620,7 +638,7 @@ detail.
 - **E01 narration-tone direction adopted (2026-09-17).** The maker approved the teenager-friendly
   two-neighbours sample. The [approval draft](video/science-series-e01-comprehension-draft.md)
   now uses that conversational, concrete voice throughout, with the fixed-condition qualifiers
-  and separate quantitative reader retained. The [guide](video/science-series-design-guide.md#narrators-voice--maker-approved-direction-2026-09-17)
+  and separate quantitative reader retained. The [guide](video/science-series-design-history-2026-09-21.md#narrators-voice--maker-approved-direction-2026-09-17)
   records the voice for future writing. This was initially tone-only approval; the later
   production request and completed checkpoint above supersede its no-import/no-audio boundary.
 
@@ -658,7 +676,7 @@ detail.
   comprehension/pace review; final narration/alignment and physical-phone checks remain pending.
 
 - **Science-series maker critique is now reusable design guidance (2026-09-16).** The
-  [guide](video/science-series-design-guide.md) records the maker's feedback across the pilot,
+  [preserved guide revision](video/science-series-design-history-2026-09-21.md) records the maker's feedback across the pilot,
   home and E01, actual praise versus unaccepted repairs, and concrete future-episode design/
   review requirements. The active plan's shot-table/done criteria, media specification and
   E01 guide link it. Next: use it while reviewing the latest E01 passages and drafting later
@@ -1458,8 +1476,8 @@ authorization and actual alignment. Do not automatically generate speech or star
 
 ### Science series — apply the maker's design guide to E01 review and later episodes
 
-Start with the [guide's creation workflow](video/science-series-design-guide.md#start-here-when-creating-an-episode),
-then use its scene worksheet in the next authorized episode's existing script/shot table.
+Start with the [guide's creation workflow](video/science-series-design-guide.md#how-to-apply-this-guide),
+then use its teaching-beat worksheet in the next authorized episode's existing script/shot table.
 Read the [active plan](plans/explore-journey-science-series.md) for source dispositions and
 library/rendering discovery. Prototype the hardest explanatory passage, earn prerequisites
 before reuse, and review the actual performance rather than only its words or stills.

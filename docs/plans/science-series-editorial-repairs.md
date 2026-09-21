@@ -91,3 +91,21 @@ The corrected immutable preview is `http://127.0.0.1:5199`. The design guide was
 these repairs exposed a missing concrete rule. Detailed issue dispositions and review limits are in
 sibling website `docs/series-editorial-repairs-2026-09-21.md`. E07–E09 Mandarin production is deferred
 under the maker’s explicit direction, with stale audio held; this is not unfinished authorized work.
+
+## Design-guide portability follow-up — 2026-09-21
+
+The maker clarified that the design guide must contain general-purpose lessons usable on another
+educational website, with no scene-specific information. The existing guide was rewritten as a
+standalone standard; its old body remains unchanged under
+`docs/video/science-series-design-history-2026-09-21.md`, prominently marked historical.
+Incoming principle links now target the new sections; historical feedback links target the snapshot.
+Project setup, voice choices, approvals and release history are not portable design requirements.
+
+The rewrite preserves the learned teaching mechanisms and adds an explicit maintenance process:
+identify the transferable failure, improve an existing rule when it already covers it, and only add
+missing general guidance. Exact feedback, implementation and acceptance stay in project records.
+A shared-context non-author GPT-6 Codex reviewer compared the complete original and rewritten guide
+and found no missing core lesson or remaining project-specific direction. Verification is limited
+to document comparison, link/anchor checks, preserved-body identity, `git diff --check` and
+`npm run lint:rule7` (the unchanged three installed-skill findings). No playback, content, audio,
+scientific implementation or deployment changed during this follow-up.

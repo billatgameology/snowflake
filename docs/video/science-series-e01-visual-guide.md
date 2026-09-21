@@ -5,9 +5,9 @@ Maker-directed revision, 2026-09-16. This guide records what is already produced
 It guides a presentation-only rewrite, not new narration, quantitative science or model output.
 The source-bound [script](science-series-e01-script.md) and recorded speech remain unchanged.
 
-For future episodes, start with the [maker-feedback and series design guide](science-series-design-guide.md).
-It preserves the actual critique/praise, distinguishes requested or implemented fixes from maker
-acceptance, and supplies reusable requirements and the review worksheet. This file remains E01's
+For future episodes, start with the [educational website design guide](science-series-design-guide.md).
+It supplies reusable principles and a review worksheet. The [design history](science-series-design-history-2026-09-21.md)
+preserves the actual critique/praise and distinguishes implemented fixes from maker acceptance. This file remains E01's
 shot-specific history and example; its baseline table is not a claim that all five scenes were
 approved. In particular, scene 5's praised surface mechanics and its later-revised entrance have
 different acceptance histories.
@@ -59,7 +59,7 @@ different acceptance histories.
 
 ## Completion and checks
 
-Apply the series guide's [normal-speed, first-viewer review](science-series-design-guide.md#how-a-future-reviewer-should-critique-a-scene)
+Apply the series guide's [normal-speed, first-viewer review](science-series-design-guide.md#review-the-experience)
 before diagnosing by scrubbing. Report the exact narrated cue and observed image, not just whether
 the scene animates. Preserve praise by named feature; later implementations await their own response.
 

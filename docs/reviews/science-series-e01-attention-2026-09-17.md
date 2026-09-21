@@ -7,8 +7,9 @@ declutter pass after a scene-7 screenshot and praised revised scene 9's sequenti
 Website implementation: `explore/film-part1@4d7cc52` in the retained
 `/Users/clipper/github/snowcrystal_website-film-part1` checkout, from baseline `0e480a5`.
 The [committed plan amendment](../plans/explore-journey-science-series.md#english-e01-attention-pass--2026-09-17-planned-before-implementation)
-preceded implementation. The [canonical guide](../video/science-series-design-guide.md)
-now records the critique, its bounded praise and the reusable attention/disclosure requirements.
+preceded implementation. The [preserved design history](../video/science-series-design-history-2026-09-21.md#follow-up-attention-clutter-and-the-praised-scene-9-build-up)
+records the critique and its bounded praise; the reusable attention/disclosure principles remain
+in the [design guide](../video/science-series-design-guide.md).
 
 Root OpenAI Codex agent owns implementation, browser inspection and this record. Three
 shared-context read-only agents reviewed story/design, runtime and scientific representation;

@@ -132,9 +132,10 @@ proportionate fact check before being imported into a production score.
 
 ### Visual rework
 
-The [maker-feedback and episode design guide](../video/science-series-design-guide.md) is the
-reusable design/review standard for this series. Read it before drafting or reviewing the next
-episode; the [E01 guide](../video/science-series-e01-visual-guide.md) is its worked local history.
+The [educational website design guide](../video/science-series-design-guide.md) is the
+reusable design/review standard. Read it before drafting or reviewing the next episode. Exact
+feedback and former project notes are retained in the [design history](../video/science-series-design-history-2026-09-21.md);
+the [E01 guide](../video/science-series-e01-visual-guide.md) holds its worked local history.
 The maker's scoped praise does not approve all E01 scenes or any later episode by inheritance.
 
 **Visuals are a primary attraction and a core storytelling tool, not a finishing layer.** Under
@@ -168,7 +169,7 @@ independent solver runs or a new playback-quality verdict.
 
 Keep a lightweight shot table with each episode's script: story purpose, source asset ID/path,
 selected growth interval, treatment/camera, and whether it is reused, adapted or newly created.
-Use the design guide's [scene worksheet](../video/science-series-design-guide.md#small-scene-design-worksheet)
+Use the design guide's [teaching-beat worksheet](../video/science-series-design-guide.md#teaching-beat-worksheet)
 inside that same table: spoken cue, identifiable subject/focus/scale, before → action → after,
 stable comparison, transition continuity, expected takeaway and likely misconception. Supply
 the narrow/Still treatment and note actual review/acceptance separately. This is not an extra
@@ -233,7 +234,7 @@ is a pre-narration production candidate when:
   worked example or experimental comparison, with the relevant limits;
 - its shot table shows deliberate library reuse and treatment selection, with new visual work
   identified where useful; representative moving sequences have been visually inspected;
-- its load-bearing visual beats satisfy the [design requirements](../video/science-series-design-guide.md#requirements-for-subsequent-episodes):
+- its load-bearing visual beats satisfy the [design requirements](../video/science-series-design-guide.md#explanation-and-visual-design):
   the subject/focus is identifiable, the narrated change is perceptible at intended speed without
   scrubbing, the comparison explains its meaning, and transitions retain object/scale/state;
 - source/claim review covers the actual revised words and visuals, not the old script's verdict;
@@ -243,7 +244,7 @@ is a pre-narration production candidate when:
 - product-sized checks cover changes actually made, with actual output identities and explicit
   untested boundaries recorded.
 
-Use the guide's [review method](../video/science-series-design-guide.md#how-a-future-reviewer-should-critique-a-scene)
+Use the guide's [review method](../video/science-series-design-guide.md#review-the-experience)
 to report exact cue → observed image → comprehension problem → repair. Source correctness,
 playback readability, technical checks and maker acceptance remain distinct findings. Record
 scoped praise alongside unresolved concerns; silence and test passes do not constitute approval.
@@ -494,7 +495,7 @@ outside this authorized silent-draft delivery.
 
 The maker asks to preserve how they critique scenes, understand what changed before their praise,
 and use those lessons in subsequent episodes. This is a direct analysis/documentation task, not
-another website build. [The reusable guide](../video/science-series-design-guide.md) records
+another website build. [The preserved guide revision](../video/science-series-design-history-2026-09-21.md) records
 selected verbatim feedback, scene-by-scene response/status, bounded interpretation of the praised
 home/opening/surface treatments, practical requirements, one lightweight shot worksheet and the
 reviewer's viewing method. It retains the pilot's depth-versus-pace lesson and library freedom.

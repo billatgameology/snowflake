@@ -68,7 +68,8 @@ All paths in this section are relative to `/Users/clipper/github/snowflake`.
 | Work | Files |
 | --- | --- |
 | Current state and overall series scope | `docs/PROGRESS.md`; `docs/plans/explore-journey-science-series.md` |
-| How the maker critiques scenes, what was actually praised, requirements and review method | `docs/video/science-series-design-guide.md`; `docs/video/science-series-e01-visual-guide.md` |
+| Reusable educational design and review principles | `docs/video/science-series-design-guide.md` |
+| Historical maker critiques and scoped praise | `docs/video/science-series-design-history-2026-09-21.md`; `docs/video/science-series-e01-visual-guide.md` |
 | **Current E01 spoken source** and scene directions | `docs/video/science-series-e01-comprehension-draft.md` |
 | E02 spoken source/visual plan, retained but unreleased | `docs/video/science-series-e02-script.md`; `docs/plans/science-series-episode-2.md` |
 | Translation and semantic-switching contract | `docs/plans/science-series-bilingual.md` |
