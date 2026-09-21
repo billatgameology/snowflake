@@ -6,6 +6,19 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
+## Second series batch — E07 and E09 in full production, 2026-09-20
+
+The maker requests both episodes fully built while away and explicitly waives maker draft review.
+The [second-batch plan](plans/science-series-batch-two.md) authorizes autonomous bilingual production,
+internal source/rehearsal repairs, approved Juniper/Yun narration and site integration. Two owners
+handle E07/E09; root owns shared wiring, speech, verification and commits. A source agent checks
+E09’s independent levitation lineage and updated 2026 paper. Existing task branches are reused;
+no later episode or deployment is included. The prior complete preview remains on port 5199.
+
+**Next:** execute the plan through complete E07/E09 delivery without waiting for the maker. Preserve
+viewing order and wire E06→E07→E08→E09; E10 remains unbuilt. Final automated checks will be reported
+separately from unperformed human listening and audience acceptance.
+
 ## First parallel series batch fully built — E05, E06, E08, 2026-09-20
 
 The maker’s “build them fully” instruction is implemented for the first batch only. E05, E06 and
