@@ -8,6 +8,12 @@ isolated worktrees per Rule 16.
 
 ## First parallel series batch — E05, E06, E08, 2026-09-20
 
+**Full-production amendment:** the maker now asks to “build them fully.” Root and the three episode
+owners are completing the same batch as integrated English/Chinese episodes, including approved
+Juniper/Yun production narration, precise spoken cues, final visuals and player integration.
+The batch plan records the expanded ownership and completion checks; its initial draft-only
+milestone is no longer the stopping point. No later batch or deployment is included.
+
 The maker asked root to coordinate and launch the first batch only. The
 [batch plan](plans/science-series-batch-one.md) defines episode ownership, the reviewed
 content boundaries and the first complete-script/visual-prototype milestone. E05, E06 and

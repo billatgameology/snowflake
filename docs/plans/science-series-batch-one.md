@@ -1,12 +1,49 @@
 # Plan — first parallel science-series batch (E05, E06, E08)
 
-- **Status:** first editorial/prototype milestone complete; final production pending
+- **Status:** full production authorized and in progress; first draft milestone complete
 - **Started:** 2026-09-20
 - **Coordinator:** root Codex agent; three episode owners share the existing sibling checkouts
 - **Authority checkout:** `/Users/billw/Code Files/snowflake`, existing `explore/film-part1-plan` branch
 - **Website checkout:** `/Users/billw/Code Files/snowcrystal_website`, `codex/series-first-batch` branch
 
 ## Goal
+
+### Full-production amendment — 2026-09-20
+
+The maker now directs: **“build them fully.”** Complete E05, E06 and E08 as integrated bilingual
+episodes, using approved Juniper English and Yun Mandarin performances, final spoken cues, polished
+episode-specific visuals and the existing site/player contracts. This supersedes the initial
+draft-only stopping point and authorizes the necessary production narration. No other episode is
+assigned. Public deployment remains separate from building the complete episodes.
+
+Continue in the existing two task branches/checkouts. The same three episode owners take their
+episodes through full temporary-voice rehearsal, final visual/phrase design, English/Chinese content,
+semantic pairs, episode-specific components/tests and fixes. They own their episode-specific files;
+the coordinator owns shared pipeline configuration, catalog/routes/home, shared dictionaries,
+production invocation, cross-episode review and commits. Owners stage dictionary additions in
+episode-specific files for the coordinator to merge. No concurrent editing of shared files.
+
+Before production speech, execute and review each complete 1× temporary-voice performance on a
+stable local build, apply concrete findings and freeze the reviewed source/cues. Then generate each
+approved-voice take once under an immutable revision, retain provider alignment and original takes,
+pace both languages and audit source identity, audio integrity, prediction holds and semantic timing.
+Final visuals use actual spoken phrases; normalized paragraph fractions are not final cue timing.
+
+Completion includes normal site entry, reader/source access, playback ownership and Continue
+behaviour, English/Chinese switching, desktop/narrow/Still interactions, focused checks and both
+builds. E06 still leads to the unbuilt E07; E08 remains directly selectable and leads to E09 when
+that episode is built. Do not silently change viewing order to connect E06 directly to E08.
+Use presentation-sized checks, not solver suites. Record technical verification separately from
+human listening, physical-device and audience-comprehension acceptance. Continue until the three
+episodes are fully built or a concrete external blocker prevents the remaining work.
+
+Production steps:
+
+- [ ] Complete stable temporary-voice rehearsals and repair their findings.
+- [ ] Freeze reviewed English/Chinese words, visual cues and semantic pairs.
+- [ ] Produce and audit Juniper/Yun performances, preserving every take.
+- [ ] Integrate production visuals/player, all three catalog entries and bilingual UI.
+- [ ] Verify final builds, narration, art, responsive interactions and handoffs; record final state.
 
 Execute the maker's request to coordinate and launch the first batch only: Episodes 5, 6 and 8. Keep the viewing order unchanged. Turn the reviewed boundaries into complete English scripts, substantive readers and runnable visual prototypes so the difficult explanations and episode handoffs can be reviewed before multiplying final production. The current E01–E04 bilingual release remains the production baseline.
 
