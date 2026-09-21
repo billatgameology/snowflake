@@ -39,10 +39,20 @@ The initial browser prototype is an explicitly provisional local review surface 
 ## Steps
 
 - [x] Inspect existing branches/worktrees and preserve current episode release.
-- [ ] Dispatch E05, E06 and E08 owners with source/design boundaries.
+- [x] Dispatch E05, E06 and E08 owners with source/design boundaries.
 - [ ] Review draft scripts, source dispositions and adjacent-story contracts.
 - [ ] Integrate and inspect prototypes and rehearsal timing.
 - [ ] Repair concrete issues and record the review milestone and next action.
+
+## Working checkpoint
+
+All three owners are active. Their first complete English drafts each have nine scenes;
+the coordinator has read all main narration and reader passages. The first source review
+preserves the distinction between liquid saturation and ice-relative excess in E06, and
+between levitated mass observations and unobserved shape/grain structure in E08. Import
+compatibility repairs (the E06 title and full source-anchor paths) are with the episode owners.
+The website's local `series-batch-preview.html` host, draft importer and free local rehearsal
+tooling are implemented; episode diagrams and browser checks remain in progress.
 
 ## Out of scope for this first milestone
 
