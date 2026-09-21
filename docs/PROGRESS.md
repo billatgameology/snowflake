@@ -6,6 +6,19 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
+## First parallel series batch — E05, E06, E08, 2026-09-20
+
+The maker asked root to coordinate and launch the first batch only. The
+[batch plan](plans/science-series-batch-one.md) defines episode ownership, the reviewed
+content boundaries and the first complete-script/visual-prototype milestone. E05, E06 and
+E08 are the only new episode assignments; viewing order is unchanged. Root owns shared
+integration in sibling website branch `codex/series-first-batch`; authority work continues
+on `explore/film-part1-plan`. Current E01–E04 release records below remain valid.
+
+Next for this workstream: dispatch the three episode owners, review their complete English
+scripts/readers and source dispositions, then inspect the local prototype explanations before
+final production. This is a launch record, not a claim that new episodes are complete.
+
 ## All four bilingual episodes live — 2026-09-20
 
 The maker-authorized [release amendment](plans/explore-nivogenesis-public-release.md#all-four-episodes-and-missing-mandarin--2026-09-20)
