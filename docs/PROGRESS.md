@@ -6,24 +6,32 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
-## All four episodes release and missing Mandarin — in progress, 2026-09-20
+## All four bilingual episodes live — 2026-09-20
 
-The maker now authorizes releasing all current episodes and generating any missing Chinese.
-The [release amendment](plans/explore-nivogenesis-public-release.md#all-four-episodes-and-missing-mandarin--2026-09-20)
-supersedes the publication holds and E03 Mandarin deferral recorded in the earlier entries below.
-Work reuses this Mac's `explore/film-part1-plan` authority checkout and sibling website `main`.
-E03's current Chinese translation, bilingual cues and missing diagram labels are committed at
-`a7bd781`, mirrored in website `4307d90`. The independent text review is retained in website
-`docs/series-narration/2026-09-20-e03-mandarin-current-cues/translation-review.md`; the dry run
-plans new E03-01/03/04/05/06/09 takes and reuses E03-02/07/08. Existing E01/E02/E04 Chinese
-editions are complete. Firebase login and hosting deployment permission have been verified.
-The initial key-ID rejection is retained separately; the maker replaced the credential and
-generation completed with six new Yun takes and three exact reuses. The new E03 Mandarin score
-is enabled and passes source/PCM/semantic audits. Production identities and measured results are in
-website `docs/series-narration/2026-09-20-e03-mandarin-current/production-verification.json`.
-Both builds pass. **Next:** finish final bilingual browser checks, commit/push and deploy all four
-episodes; replace the website public-release receipts with the actual deployed commit and live
-results. No live deployment has occurred in this release task yet.
+The maker-authorized [release amendment](plans/explore-nivogenesis-public-release.md#all-four-episodes-and-missing-mandarin--2026-09-20)
+is complete and supersedes the earlier publication holds and E03 Mandarin deferral below.
+All four episodes are live at [nivogenesis.web.app](https://nivogenesis.web.app) from website
+`e842558` on `main`, tag `nivogenesis-public-2026-09-20`, both pushed. Firebase version
+`52309ccb51f5e995` contains only `dist-public`: 47 files, 139,988,561 bytes and all eight active
+English/Chinese narration masters. This Mac retains the source and audio locally for travel.
+
+Current E03 Chinese source/cues and diagram labels are mirrored at authority `a7bd781` and website
+`4307d90`. After the maker corrected the private credential, production completed with six new
+Yun takes and three exact reuses; no English master changed. Website `7c86bcf` retains the new
+recordings and their `docs/series-narration/2026-09-20-e03-mandarin-current/production-verification.json`:
+source/PCM/semantic audits pass (166 phrase pairs, 54 reveals, two prediction holds).
+
+Both builds and 178 tests pass. Local and live browser smokes each pass 76 observations; focused
+E03 desktop/phone checks cover all nine scenes in both languages and both playback endings.
+The live index/JS/CSS hashes and all eight audio byte ranges match the build. Website
+`docs/public-release-verification.json` indexes the deployment and browser receipts. Local-only
+test limitations (legacy Firebase range handling and the Mac's headless audio output) and the
+Chromium test-stream workaround are documented there; no human listening or physical-phone
+acceptance is claimed. Existing E01/E02/E04 Chinese editions were complete and retained.
+
+**Next:** continue development in this Mac's `explore/film-part1-plan` authority checkout and sibling
+website `main`. This release and its missing-Chinese production are complete; future changes use
+the release runbook in the website repository.
 
 ## Episode 1 English clarity polish ready for maker review — 2026-09-20
 

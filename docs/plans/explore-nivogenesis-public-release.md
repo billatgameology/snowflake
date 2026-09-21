@@ -34,18 +34,26 @@ the new E03 source/audio/cue identities and actual deployment are recorded. This
 publication, not a new solver/scientific gate; no solver suite, new voice, or NAS access is needed.
 Automated and agent review do not imply human listening or physical-device acceptance.
 
-Current checkpoint: authority `a7bd781` and website `4307d90` retain the reviewed current E03
-translation/cues and missing Chinese diagram labels. The first paid-generation invocation was
-rejected with HTTP 400 before audio returned; subsequent read-only API calls identify
-`api_key_id_used_as_api_key`. The private local credential needs its actual secret value. The
-website retains this failure separately from the intended production revision, with no secret
-in the diagnostic. The maker corrected the credential and directed retry; all nine source-bound
-takes are now composed in `2026-09-20-e03-mandarin-current` (six new, three reused). The website
-production-verification record in that revision binds the passing audio/PCM/semantic audits;
-English audio and its original cue provenance stay unchanged. The current source enables all
-four episodes and E03 Mandarin. Both builds pass; final bilingual browser checks and live deploy
-are in progress. Authority Rule 7 scan reports three pre-existing identifier violations in
-`.agents/skills/firebase-hosting-basics/references/deploying.md`, outside this change.
+Completed: reviewed current E03 Chinese source/cues and missing diagram labels are retained at
+authority `a7bd781` and website `4307d90`. The first rejected key-ID request is archived separately;
+after the maker supplied the actual private secret and directed retry, six new Yun takes and three
+exact reuses completed revision `2026-09-20-e03-mandarin-current`. Website `7c86bcf` records the
+audio, source hashes and passing integrity/PCM/semantic audits; English masters stay unchanged.
+
+All four bilingual episodes are live from website `e842558` on `main`, tag
+`nivogenesis-public-2026-09-20` (both pushed), Firebase version `52309ccb51f5e995`, at
+[nivogenesis.web.app](https://nivogenesis.web.app). The public-only build has 47 files and
+139,988,561 bytes. Both builds and 178 tests pass; local and live smokes each have 76 passing
+observations. Focused E03 desktop/phone checks pass all nine scenes in each language, reverse
+seeking and both playback endings. All shipped JS/CSS and index hashes, plus byte ranges from
+all eight active MP3s, match the build. The website's `docs/public-release-verification.json`
+indexes the exact deployment, inventory, browser and narration receipts. Local hosting range
+and Mac headless-audio limitations are documented with their test-only workaround; these checks
+do not imply human listening or physical-device acceptance. Source/audio are retained on this Mac.
+
+No work remains in this release amendment. Authority Rule 7 scan reports three pre-existing
+identifier violations in `.agents/skills/firebase-hosting-basics/references/deploying.md`, outside
+this change; no solver work or scientific acceptance claim is involved.
 
 The original release plan and completion history below remain historical records.
 
