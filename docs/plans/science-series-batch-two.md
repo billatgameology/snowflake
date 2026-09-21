@@ -1,6 +1,6 @@
 # Plan — second science-series batch (E07 and E09)
 
-- **Status:** active — full production authorized, no maker draft-review stop
+- **Status:** complete — both episodes fully built and verified, no maker draft-review stop
 - **Started:** 2026-09-20
 - **Authority:** existing `/Users/billw/Code Files/snowflake`, `explore/film-part1-plan`
 - **Website:** existing sibling `snowcrystal_website`, `codex/series-first-batch`
@@ -50,13 +50,13 @@ deploy or begin another episode.
 ## Execution
 
 - [x] Author complete English/Chinese content, anchored source dispositions and visible explanations.
-- [ ] Internally review load-bearing claims/depictions and complete stable temporary-voice rehearsals.
-- [ ] Repair specific findings; freeze reviewed scripts, semantic pairs and exact reveal phrases.
-- [ ] Generate approved-voice takes once, retaining request/alignment/originals; compose paced masters.
-- [ ] Audit source/signal/sample integrity, measured prediction holds and bilingual semantic timing.
-- [ ] Integrate E07/E09 cards, routes, bilingual UI and sequential Continue handoffs.
-- [ ] Verify final desktop/narrow/Still player and art, full playback, builds and public allowlist.
-- [ ] Commit final state and leave the complete local preview available without waiting for review.
+- [x] Internally review load-bearing claims/depictions and complete stable temporary-voice rehearsals.
+- [x] Repair specific findings; freeze reviewed scripts, semantic pairs and exact reveal phrases.
+- [x] Generate approved-voice takes once, retaining request/alignment/originals; compose paced masters.
+- [x] Audit source/signal/sample integrity, measured prediction holds and bilingual semantic timing.
+- [x] Integrate E07/E09 cards, routes, bilingual UI and sequential Continue handoffs.
+- [x] Verify final desktop/narrow/Still player and art, full playback, builds and public allowlist.
+- [x] Commit final state and leave the complete local preview available without waiting for review.
 
 Build production visuals directly with injectable provisional scores, avoiding a separate prototype
 implementation unless it resolves a specific hard explanation. Use local macOS speech for rehearsal.
@@ -89,13 +89,35 @@ human listen, nor does maker silence imply audience acceptance.
 
 ## Reviewed source checkpoint
 
-E07 has9scenes,27spokenparagraphs,1252Englishwords,6readers and107ordered bilingual pairs;
-E09 has9scenes,27spokenparagraphs,1323Englishwords,7readers and86pairs. Each episode has two
+E07 has 9 scenes, 27 spoken paragraphs, 1,252 English words, 6 readers and 107 ordered bilingual pairs;
+E09 has 9 scenes, 27 spoken paragraphs, 1,323 English words, 7 readers and 86 pairs. Each episode has two
 three-second predictions. The [independent source review](../reviews/science-series-batch-two-source-review-2026-09-20.md)
-binds the current sources and records the primary-paper access limits. E07's two bare chapter1
+binds the current sources and records the primary-paper access limits. E07's two bare chapter 1
 citations were converted to real anchors; canonical import, Chinese source lists and provenance
 were synchronized without changing any spoken paragraph. E09's percent denominator, forward-fit
-wording, coupled fitting caveat,2026title and Chinese prism terminology were corrected before
+wording, coupled fitting caveat, 2026 title and Chinese prism terminology were corrected before
 voice production. The visual owners also repaired concrete intermediate-growth and hold-caption
 issues. Full immutable temporary-voice performances are in progress; no paid synthesis has started
 at this checkpoint. Final narration and player evidence will be recorded in the delivery section.
+
+## Delivery
+
+Both episodes are fully implemented in website checkpoint `012f822`, with source checkpoint
+`5ddcad3`. All 36 paid takes completed once with no uncertain retries. English durations are
+503.634 seconds (E07) and 546.731 seconds (E09); Mandarin durations are 691.716 and 718.698 seconds.
+All source/signal/sample-composition/semantic audits pass. Both builds, 39 coordinator-focused
+tests, five E07 delivered-score tests, three public-release tests, desktop/phone bilingual checks,
+six delayed-load card/Continue cases and 141 combined release-smoke observations pass.
+
+Complete native 1× playback of each final English and Mandarin master passed against a frozen
+compiled build. Episode owners inspected every sampled capture (E07: 51 EN + 57 ZH; E09: 54 EN + 61 ZH).
+The receipts preserve whether completion used the native ended flag or the transport's exact
+score-end pause. No human listening or audience acceptance is implied. Final prose/receipt
+commits close this plan; website `docs/series-batch-two-verification.json` binds the artifact hashes,
+input/build witnesses, source/master identities and detailed check results.
+
+Port 5199 now serves `export/series-batch-two-production-site-v1`, including E01–E09. Port 5207 was
+the identical verification preview; both new routes and partial MP3 responses on 5199 were checked
+against the compiled bytes. No deployment or E10/E11 production occurred. The branches/worktrees
+remain the two original task checkouts. The authority Rule 7 scan retains only its three unrelated
+installed-skill findings, with no new batch finding.

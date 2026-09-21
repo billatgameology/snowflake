@@ -101,13 +101,13 @@ measured quantity. Local anchors:
 [inference](../education/chapters/11-the-stickiness-of-ice.html#where-the-numbers-come-from).
 
 The source-bound example is monograph Fig. 4.4, printed p. 144: a prism face at −15 °C in
-20 mbar background air, with the printed fit `alpha = exp(−3% / sigma_surface)` (implicit unit
+20 mbar background air, with the printed Hertz–Knudsen attachment-response fit `alphaHK = exp(−3% / sigma_surface)` (implicit unit
 prefactor). Provenance is also retained in `docs/libbrecht-parameters.md` and the chapter's
 figure caption. For the episode's **chosen local** inputs:
 
 ```text
-sigma_surface = 1%: alpha = exp(−3)   = 0.0497870683679
-sigma_surface = 2%: alpha = exp(−1.5) = 0.223130160148
+sigma_surface = 1%: alphaHK = exp(−3)   = 0.0497870683679
+sigma_surface = 2%: alphaHK = exp(−1.5) = 0.223130160148
 fixed-temperature speed ratio = (0.02 × exp(−1.5)) / (0.01 × exp(−3))
                               = 2 × exp(1.5) = 8.96337814068
 ```
@@ -228,3 +228,58 @@ The sample also makes fixed model controls and model-vs-natural limits visible, 
 bars with unequal advances, and draws no arm-to-arm message lines. This addendum does not claim
 full rehearsal, actual final-player timing, a complete Chinese visual review or human listening.
 The coordinator retains responsibility for integrated production verification.
+
+## Subsequent bounded E09 visual-science check and repair verification
+
+The same reviewer inspected `src/series/episodeNineDrawing.ts` and selected owner-generated
+images for the source-sensitive inference chain, published-fit calculation, mass-history example
+and cross-condition comparison. The initial sample comprised ten phone English/Chinese poses
+from `export/episode-nine-art-v4` and six phone hold/intermediate poses from
+`export/episode-nine-cue-art-v2`. It was not a complete art or rehearsal review. In that sample,
+the diagram distinguishes observed speed, calculated reference and inferred response; the
+one-percent/two-percent comparison is labelled a fit calculation; the mass curve is labelled
+schematic; fitted endpoints and unobserved shape/grains remain explicit; and the ending does
+not isolate one cause from unlike pressure/geometry conditions. The sampled prediction holds
+withhold the numerical answer and new growth, including the scene-5 Still hold.
+
+Two geometry findings were repaired by the owner without narration or cue changes:
+
+1. `prism()` previously extended the support as the crystal advanced. The support endpoint now
+   depends only on the stage and original geometry, not growth. The shared helper covers scenes
+   1 and 5; the scene-5 intermediate images retain one fixed baseline as new ice advances.
+2. The scene-3 advancing step previously appeared detached from the spiral during early growth.
+   Its new connecting line begins on the spiral at its two-pi point and remains visibly joined
+   as the front advances. This is a teaching geometry repair, not a measurement or microscopic
+   simulation validation.
+
+The reviewer re-read both code changes and independently inspected these six repaired images:
+
+- `export/episode-nine-cue-art-v3/phone-E09-03-advance-0.2.png`
+- `export/episode-nine-cue-art-v3/phone-E09-03-advance-1.5.png`
+- `export/episode-nine-cue-art-v3/phone-E09-03-advance-3.8.png`
+- `export/episode-nine-cue-art-v3/phone-E09-05-growth-0.2.png`
+- `export/episode-nine-cue-art-v3/phone-E09-05-growth-1.5.png`
+- `export/episode-nine-cue-art-v3/phone-E09-05-growth-3.8.png`
+
+That owner-generated `review.json` records 372 captures, zero errors and a provisional score
+duration of 535.3332879818593 seconds. Those are receipt contents, not a claim that this reviewer
+generated or inspected every capture, ran the whole performance or checked final paid-speech
+timing. The six named poses and the code resolve both reported geometry findings.
+
+The owner also requested a narrow check of the closing rim inset. The initial arrow connected a
+horizontal top rim to a vertical strip, suggesting an unexplained rotation. The owner changed
+the inset to match the selected rim's horizontal orientation. The reviewer inspected the updated
+code and `export/episode-nine-art-v5/phone-09-09-next.png` and
+`export/episode-nine-art-v5/phone-zh-09-09-next.png`: orientation and labels are clear, and the
+question about surface response remains unresolved. No added mechanism claim or narration
+change was needed.
+
+Final inspected code SHA-256:
+
+- `episodeNineDrawing.ts`: `4e23f8358391b49ab54f1351c646372b40794025acc5b559d3429c3cbf59ef3e`
+- `episodeNineCueClock.ts`: `c130cc9c05e6d1b5c47f5452f270a14f42ec096d4bbf8bf91259373cb8c2dd31`
+
+No residual issue was found in this bounded repair verification. The four authority text hashes
+listed above still match the files. The reviewer edited only this review record, not production
+code or assets. Final player integration, complete rehearsal review, audio/listening and audience
+understanding remain outside this addendum's evidence.

@@ -1,7 +1,7 @@
 # E09 full production review — 2026-09-20
 
-Status: source and bilingual authoring complete; production visuals undergoing final internal
-checks. The maker requested E07/E09 fully built without draft review and is stepping away. No
+Status: complete. Bilingual authoring, approved narration, production visuals, desktop/phone
+checks and uninterrupted final EN/ZH playback with sequential sampled visual review have passed. The maker requested E07/E09 fully built without draft review and is stepping away. No
 maker review gate is imposed. Root coordinates complete temporary-voice rehearsal, final paid
 narration and release integration. No publication or later episode is authorized by this work.
 
@@ -74,11 +74,12 @@ Focused source/translation/reveal, calculated ratio/anchored geometry and dictio
 (4 tests before delivered speech exists). Final-word-clock/prediction tests are deliberately
 pending the actual final score, not passed using a provisional pointer. Focused source lint passes.
 
-## Remaining coordinator gates and honest scope
+## Coordinator verification and honest scope
 
-Complete uninterrupted temporary-voice rehearsal, exact Juniper/Yun generation, retained source
-and signal/pacing/semantic audits, final normal-speed playback, shared integration/builds and
-actual desktop/phone player checks are coordinator-owned and must be recorded before completion.
+The coordinator owns the complete temporary-voice rehearsal, exact Juniper/Yun generation,
+retained source and signal/pacing/semantic audits, final normal-speed playback and shared
+integration/builds. The final batch plan and receipts record these results; the owner-specific
+playback and desktop/phone results are recorded below.
 Static pose audits and sampled author inspection do not establish fluent listening, audience
 comprehension, physical-device compatibility or quantitative scientific validation. No such
 acceptance is claimed, and the maker’s waiver is not relabelled as that acceptance.
@@ -103,3 +104,78 @@ step advance too implicit. The production drawing now moves a front across the t
 new material behind it and retaining the continuing source. Transient islands visibly diminish
 during the waiting explanation. These are schematic mechanisms, not imaged defects or measured
 island sizes. The current drawing was then frozen for root’s complete native 1× rehearsal.
+
+## Complete temporary performance and bounded repairs
+
+The root’s immutable E09 temporary performance completed at 535.333288 seconds through the
+natural audio end. `export/series-batch-two-rehearsal-e09-v1/review.json` records 50 captures,
+no reported errors, native 1× playback and unchanged input/build identities. The episode owner
+inspected all 50 sequential sampled images. This is complete automated playback with sequential
+sampled visual review, not a human listen or uninterrupted human viewing claim.
+
+A separate source-sensitive visual reviewer inspected scenes 2/5/7/9 and selected phone EN/ZH
+poses plus the actual prediction/intermediate states. It confirmed the source/inference labels,
+chosen-fit values, mass-vs-fitted-endpoint distinction and withheld answers. It found two drawing
+repairs: the support baseline extended with growth, and the advancing step initially had a gap
+from the spiral. After the immutable performance ended, the owner made the support endpoint
+independent of growth and connected the step front to the spiral’s actual 2π point. Two additional
+bounded text repairs used the existing neutral heading during the scale→prefactor transition and
+corrected an inactive Mandarin-pending episode-number string. No spoken source or cue changed.
+
+`export/episode-nine-cue-art-v3/review.json` rechecks the actual intermediate and hold poses after
+these repairs: 372 captures, 12 real prediction poses, zero errors. Full production playback with
+the final voices remains the final integrated timing check. The owner verification index in the
+website is `docs/series-batch-two/e09-owner-verification.json`; it keeps exact receipt hashes and
+states final narration/player checks separately from these preproduction results.
+
+The independent reviewer verified the repaired support and step source using six actual-time
+intermediate images. An additional ending-orientation check changed the rim inset from vertical
+to horizontal, matching the selected top rim rather than implying an unexplained rotation.
+Both final English and Chinese phone images were inspected. The final settled-pose audit is
+`export/episode-nine-art-v5/compositions.json`: 570 poses, minimum 15 CSS pixels, no bounds,
+text overlap or browser-error findings. The four pre-narration owner checks remain green.
+The source and cue packet are unchanged, and the coordinator has started final Juniper/Yun speech.
+
+
+## Delivered voices and focused final player check
+
+Final approved narration has been delivered: Juniper English 546.730703 seconds and Yun Mandarin
+718.697687 seconds. Exact voice IDs, score/master paths and score hashes are retained in
+`docs/series-batch-two/e09-owner-verification.json` in the website. The final English word-clock
+intermediate check is `export/episode-nine-final-cue-art-v1/review.json`: 372 captures including
+12 prediction holds, with no errors. The owner inspected the final hold, connected-step,
+fixed-support and completed-growth states. Actual Mandarin cue alignment is coordinator audited.
+
+The immutable public build at `export/series-batch-two-production-site-v1` passed the focused
+check in `export/series-batch-two-live-e09-v1/live-check.json`, with zero problems or browser
+errors. Desktop 1280×800 and emulated phone 360×780 each passed all nine English and Chinese
+scene samples, native audio progress, takeover/resume, menu focus/dismissal, Still, semantic
+language switching, reverse seeking and both decoded end boundaries. The owner inspected all
+48 screenshots: 36 scene samples and 12 full player/menu/end images. Final rim orientation,
+fixed support, response/inference labels and bilingual layout remain clear. This check uses
+short per-scene samples and seeks; uninterrupted final-master playback is recorded separately.
+
+
+## Complete final production playback and owner completion
+
+Both final masters reached their native `ended` event at normal 1× speed in the immutable public
+build, with no synthetic audio output and no reported problems or browser errors:
+
+- `export/series-batch-two-final-e09-en-v1/review.json`: 546.730703 seconds, 542 native samples
+  and 54 sequential captures.
+- `export/series-batch-two-final-e09-zh-v1/review.json`: 718.697687 seconds, 712 native samples
+  and 61 sequential captures.
+
+The owner inspected all 115 sequential sampled images, through both natural ends. The final
+pressure/geometry comparison stays qualified, and the narrow-rim inset preserves the selected
+horizontal rim while leaving the E10 question unresolved. Source/inference labels, fitted
+response calculations, separate research lineages, bilingual text and repaired intermediate
+geometry remain intact. No further production change was required. The production source and
+cue packet remained frozen throughout these final performances. Exact final receipt hashes
+and scope are retained in `docs/series-batch-two/e09-owner-verification.json` in the website.
+
+The final public build includes TypeScript checking through `build:public`; the coordinator's
+focused run also passed all five owner content/cue tests. These results complete the episode
+ownership task. This is automated complete playback plus sequential sampled visual review; it
+does not claim human listening, uninterrupted human viewing, audience comprehension, testing
+on a physical phone, or deployment.
