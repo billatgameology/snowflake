@@ -310,8 +310,8 @@ perturbation then has a reinforcing delivery advantage. Applying that statement 
 on real ice would omit stabilizing physics. Surface energy affects the equilibrium vapor condition
 near a sharply curved interface; attachment kinetics and facet regulation also change how a
 perturbation develops. The outcome depends on scale and conditions. The term Mullins–Sekerka
-instability names the broader diffusion-driven instability; the simpler phrase branching
-instability is enough for the narrated story.
+instability names the broader diffusion-driven instability; branching is one visible
+consequence of that instability.
 
 The companion surface model writes local normal speed as `v_n = alphaHK × v_kin × sigma_surf`.
 `alphaHK` is the effective Hertz–Knudsen attachment coefficient, not a count of accepted cartoon
@@ -327,7 +327,7 @@ Sources: `docs/education/chapters/06-the-runaway-bump.html#the-runaway-bump` and
 
 ### Why the transition can be abrupt without a universal trigger
 
-E04 established the source's qualitative regulation mechanism: steps become more closely spaced
+Episode 4 established the source's qualitative regulation mechanism: steps become more closely spaced
 near the face center, compensating for its lower local vapor supply. In that formulation, the
 center cannot increase its effective response without limit. Once the correction is insufficient,
 the remaining geometric difference can feed further differential growth, so a small change in
@@ -337,8 +337,8 @@ sprouting corner branches as the applied supersaturation was increased.
 This is not a transferable onset value. Size, surface response, external supply and the resulting
 local field are coupled; the source explicitly calls calculation of exact onset nontrivial. The
 rod-in-honey analogy in Chapter 6 illustrates loss of stability, but its mechanical tipping
-threshold is not a snow-crystal threshold. We keep that analogy out of the narration to avoid
-introducing another physical system before the actual feedback is understood.
+threshold is not a snow-crystal threshold. In the growing crystal, the reinforcing change
+is between geometry, water delivery and the addition of ice.
 
 Sources: `docs/education/chapters/06-the-runaway-bump.html#why-the-switch-is-sudden`;
 [Libbrecht, *Snow Crystals*, figure 3.5 and printed pp. 80–83](https://arxiv.org/abs/1910.06389v2).
@@ -359,13 +359,13 @@ low-resolution tip images are consistent with weak dependence of radius on super
 is weaker than an independently resolved measurement of an unchanging one-micrometer tip. The
 2002 primary paper develops the attachment-controlled interpretation and gives its approximations;
 the monograph's printed p. 106 stresses that poorly known attachment kinetics leave the theory
-under-constrained. This episode therefore does not use a drawn circle as a measurement or claim
-that humidity can never change a real tip.
+under-constrained. A drawn circle is not a measurement, and weak dependence under those
+conditions does not imply that humidity can never change a real tip.
 
 Pressure, temperature, crystal form and nearby boundaries matter. The monograph describes finer
 structures at higher pressure and a predicted inverse pressure dependence of the selected radius,
 while noting that a direct test of that prediction had not been made to the author's knowledge
-at the time of writing. We do not promote that prediction to a current established measurement.
+at the time of writing. That prediction remains distinct from an established measurement.
 A characteristic dendrite radius is also not a universal minimum size for every edge, step or
 surface feature on ice.
 

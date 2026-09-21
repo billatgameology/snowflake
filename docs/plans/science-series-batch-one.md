@@ -45,6 +45,31 @@ Production steps:
 - [ ] Integrate production visuals/player, all three catalog entries and bilingual UI.
 - [ ] Verify final builds, narration, art, responsive interactions and handoffs; record final state.
 
+### Frozen content and preproduction review — 2026-09-20
+
+Coordinator independently reviewed the complete English and Mandarin narration/readers and checked
+source hashes, authority/site mirrors, all 382 ordered bilingual semantic pairs, phrase-start
+reveals and the five exact bilingual prediction answers. E05 cue provenance was refreshed after
+its reader-only cleanup before any synthesis. Frozen authority script hashes:
+
+- E05: `94f79cee932ac0c723ad877253d2deba3fdf1d89a66b82798c4f63ce8ca0e1db`.
+- E06: `5a3933832b9c4ada7d18daac1223b2dfca64c39025515a77b64c0dee2f0602ac`.
+- E08: `1146c7d3963a33f0821091191bcf280050b2a296e7cedf2f490ba7559c960f7b`.
+
+Each authority Chinese/cue JSON names its source and exact imported English bytes. Cue mirrors
+are retained in the website's `docs/series-narration/eNN-mandarin-cues.json`. Unchanged spoken
+content preserves the earlier source review; reader edits removed editorial bookkeeping.
+
+All three initial temporary-voice performances reached natural end without seeking, clock reversal,
+rate change, browser errors or build mutation on one stable standalone build: E05 582.373 s / 55
+sampled images; E06 521.082 s / 49; E08 559.283 s / 56. Generated replay artifacts are temporary
+cache at website `export/series-batch-full-rehearsal/`; the retained website batch report records
+results and input digests. Episode owners inspect all sampled images in order; coordinator samples
+the difficult causal sequences. This is automated real-time playback plus image inspection, not
+human listening or audience acceptance. E06 additionally requires a scoped normal-speed rehearsal
+of its expanded plate/column recording opening before its paid speech. Its remaining narration is
+unchanged. No paid attempt may be automatically retried.
+
 Execute the maker's request to coordinate and launch the first batch only: Episodes 5, 6 and 8. Keep the viewing order unchanged. Turn the reviewed boundaries into complete English scripts, substantive readers and runnable visual prototypes so the difficult explanations and episode handoffs can be reviewed before multiplying final production. The current E01–E04 bilingual release remains the production baseline.
 
 This follows the website's `docs/series-content-readiness-review-2026-09-20.md` and the authority design guide. The maker's latest instruction authorizes this batch; earlier episode-specific “do not start” limits do not bar this work. All-four-released current state supersedes historical E02/E03 holds. No later batch is launched.

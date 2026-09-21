@@ -1,0 +1,709 @@
+{
+  "episode": 8,
+  "description": "Exact sentence and clause pairs retain meaning and supply semantic onsets for the shared E08 visual score. Each visual reveal starts a unique pair; prediction silence precedes the named answer in both languages.",
+  "source": {
+    "path": "docs/video/science-series-e08-script.md",
+    "sha256": "1146c7d3963a33f0821091191bcf280050b2a296e7cedf2f490ba7559c960f7b"
+  },
+  "sourceEnglishSha256": "d9ec19900cb5f9b3baa9f6e892aff633e403f33a2a4da494909709b5ceb62029",
+  "sections": [
+    {
+      "id": "E08-01",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "A crystal can suggest where it has been.",
+              "zh": "一颗晶体的样子，能给我们一些关于它经历的线索。"
+            },
+            {
+              "en": "But its finished shape cannot tell us every temperature, every change in water supply, or how fast each face grew.",
+              "zh": "但最终的形状，无法告诉我们它遇过的每一个温度、水汽供应的每一次变化，或者每个晶面长得多快。"
+            },
+            {
+              "en": "To find out what changes growth, we need to watch it happen while keeping track of the surroundings.",
+              "zh": "要找出什么改变了生长，我们得一边看着它长大，一边记录周围的条件。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Imagine following one small crystal on a transparent support.",
+              "zh": "想象一下，我们一直观察透明支撑面上的一颗小冰晶。"
+            },
+            {
+              "en": "We keep its temperature steady, control the supply of water vapour, and record it as it grows.",
+              "zh": "我们保持它的温度稳定，控制水汽供应，并记录它的生长。"
+            },
+            {
+              "en": "This is real ice gaining water from vapour, just as a snow crystal does.",
+              "zh": "这是真正的冰，正像雪晶一样，从水汽中获得水。"
+            },
+            {
+              "en": "Growing it indoors gives us a chance to ask a more controlled question.",
+              "zh": "在室内培养它，让我们有机会提出一个条件更可控的问题。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "But the support, the walls and even a sensor can change the experiment.",
+              "zh": "不过，支撑面、腔室的壁，甚至传感器，都可能改变实验。"
+            },
+            {
+              "en": "Before we trust a growth rate, we have to ask two things: what did the instrument actually observe, and what did the instrument itself change?",
+              "zh": "在相信一个生长速率之前，我们得问两件事：仪器实际观察到了什么，以及仪器本身改变了什么？"
+            },
+            {
+              "en": "Let's begin with the water supply.",
+              "zh": "先从水汽供应开始。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E08-02",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Here is a frost-covered ceiling above our crystal.",
+              "zh": "这是我们这颗冰晶上方结满霜的顶面。"
+            },
+            {
+              "en": "We can hold the frost at one temperature and the support below at another.",
+              "zh": "我们可以让霜保持一个温度，让下方的支撑面保持另一个温度。"
+            },
+            {
+              "en": "The frost exchanges water with the nearby air.",
+              "zh": "霜和附近的空气交换水分。"
+            },
+            {
+              "en": "Its temperature sets the amount of vapour in balance with that ice.",
+              "zh": "霜的温度决定了与这些冰平衡的水汽含量。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Now make the frost a little warmer while holding the support steady.",
+              "zh": "现在，让霜稍微暖一点，同时保持支撑面的温度不变。"
+            },
+            {
+              "en": "The warmer frost supplies vapour at a level above the balance level for ice on the colder support.",
+              "zh": "较暖的霜所提供的水汽水平，高于较冷支撑面上的冰所对应的平衡水平。"
+            },
+            {
+              "en": "That difference gives our test crystal a supply for growth.",
+              "zh": "这个差别为测试冰晶提供了生长所需的水汽。"
+            },
+            {
+              "en": "We have changed the source, while keeping the test temperature fixed.",
+              "zh": "我们改变了水汽源，同时保持测试温度不变。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "The two temperature readings help us calculate the surrounding supply in this chamber.",
+              "zh": "这两个温度读数，可以帮助我们计算腔室里的周围水汽供应。"
+            },
+            {
+              "en": "They are not a humidity measurement at the crystal's surface.",
+              "zh": "它们不是在冰晶表面测得的湿度。"
+            },
+            {
+              "en": "That calculation depends on the chamber's geometry and on what else is taking water from the air.",
+              "zh": "这个计算取决于腔室的几何形状，也取决于还有什么在从空气中获取水分。"
+            },
+            {
+              "en": "A floor that looks almost empty can be enough to upset it.",
+              "zh": "一个看上去几乎空着的底面，就可能让这个计算出偏差。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E08-03",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Keep those two temperature settings unchanged.",
+              "zh": "保持这两个温度设置不变。"
+            },
+            {
+              "en": "First, consider our test crystal by itself.",
+              "zh": "先看测试冰晶独自存在的情况。"
+            },
+            {
+              "en": "Water diffuses from the source, through the air, to the growing ice.",
+              "zh": "水从源头出发，经过空气扩散，到达正在生长的冰。"
+            },
+            {
+              "en": "We mark the starting outline so we can see the material added during an interval.",
+              "zh": "我们标出起始轮廓，看看一段时间内新增了多少冰。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Now replay that comparison from the same starting outline, with extra ice specks on the floor.",
+              "zh": "现在从同一个起始轮廓重做比较，但在底面上添一些小冰粒。"
+            },
+            {
+              "en": "They occupy very little space, but they also grow.",
+              "zh": "它们只占很小的地方，可它们也在生长。"
+            },
+            {
+              "en": "Our test crystal is sharing the supply with all of them.",
+              "zh": "我们的测试冰晶，正和它们共同使用这份水汽供应。"
+            },
+            {
+              "en": "With the controls unchanged, would it receive the same supply as before?",
+              "zh": "控制设置没变，它得到的供应还会和之前一样吗？"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "No.",
+              "zh": "不一样。"
+            },
+            {
+              "en": "In this chamber comparison, the neighbours draw down the vapour near the floor, leaving less for the test crystal.",
+              "zh": "在这个腔室比较中，邻近的冰消耗了底面附近的水汽，留给测试冰晶的就少了。"
+            },
+            {
+              "en": "It grows less over the matched interval even though the temperature readings have not changed.",
+              "zh": "在同样长的时间内，它长得更少，尽管温度读数并没有改变。"
+            },
+            {
+              "en": "If we ignored the neighbours, we could blame the slower growth on the surface when the hidden change was in its surroundings.",
+              "zh": "如果忽略了邻近的冰，我们可能会把生长变慢归因于表面，而真正隐藏的变化是在周围环境里。"
+            },
+            {
+              "en": "The small amount of visible ice can be a poor guide to how much it affects the experiment.",
+              "zh": "肉眼看到的冰量很少，并不代表它对实验的影响也很小。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E08-04",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "So the experimenter isolates one test crystal and brings the frost source closer.",
+              "zh": "所以，实验者挑出一颗孤立的测试冰晶，并把霜源移近。"
+            },
+            {
+              "en": "Removing other ice reduces competition.",
+              "zh": "去掉其他冰，可以减少竞争。"
+            },
+            {
+              "en": "Shortening the gap reduces the large-scale supply difference across the chamber.",
+              "zh": "缩短间距，可以减小整个腔室尺度上的水汽供应差异。"
+            },
+            {
+              "en": "Neither change makes every uncertainty disappear, and a short gap alone does not fix a floor crowded with ice.",
+              "zh": "但这两种改变都不能让所有不确定性消失，而且仅仅缩短间距，也解决不了底面上冰太多的问题。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Next comes a check on the zero point.",
+              "zh": "接下来，要检查零点。"
+            },
+            {
+              "en": "Adjust the source until the test crystal is between growing and shrinking.",
+              "zh": "调节水汽源，让测试冰晶处在生长与缩小之间。"
+            },
+            {
+              "en": "Watch its boundary against the old outline.",
+              "zh": "对照原来的轮廓，观察它的边界。"
+            },
+            {
+              "en": "This helps locate the balance setting for that run.",
+              "zh": "这有助于找到本次实验的平衡设置。"
+            },
+            {
+              "en": "It has an uncertainty; a dial marked zero is not enough.",
+              "zh": "这个设置有不确定性；旋钮上标着零，并不够。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "There is a separate check using liquid droplets, with the test crystals removed.",
+              "zh": "还有一项独立检查，要先移走测试冰晶，换用液滴。"
+            },
+            {
+              "en": "Adjust the source until the droplets stay the same size.",
+              "zh": "调节水汽源，直到液滴的大小保持不变。"
+            },
+            {
+              "en": "Their balance condition is independently known, so it tests the chamber calculation.",
+              "zh": "液滴的平衡条件可以独立确定，所以这能检验腔室的计算。"
+            },
+            {
+              "en": "Remember our first episode: a liquid drop and ice do not balance against the same vapour level.",
+              "zh": "还记得第一集吗：液滴和冰，对应的平衡水汽水平并不一样。"
+            },
+            {
+              "en": "These two checks use different references.",
+              "zh": "这两项检查使用不同的参照。"
+            },
+            {
+              "en": "Now we have a better-controlled setting.",
+              "zh": "现在，实验条件控制得更好了。"
+            },
+            {
+              "en": "How do we measure a change too small to read easily from the outline?",
+              "zh": "如果变化小到难以从轮廓上看清，我们该怎么测量呢？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E08-05",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Return to our ice crystal on its transparent support.",
+              "zh": "回到透明支撑面上的这颗冰晶。"
+            },
+            {
+              "en": "Look at it from the side.",
+              "zh": "我们从侧面看。"
+            },
+            {
+              "en": "A weak laser shines onto the top.",
+              "zh": "一束很弱的激光照向它的顶面。"
+            },
+            {
+              "en": "Some light reflects from that upper surface.",
+              "zh": "一部分光从上表面反射回来。"
+            },
+            {
+              "en": "Some travels through the ice and reflects from the lower boundary where the ice meets the support.",
+              "zh": "另一部分光穿过冰，在冰与支撑面接触的下边界反射。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "The second reflection has made an extra round trip through the ice.",
+              "zh": "第二束反射光，在冰里多走了一个来回。"
+            },
+            {
+              "en": "The two returning light waves combine.",
+              "zh": "返回的两束光波叠加起来。"
+            },
+            {
+              "en": "Depending on that extra journey, they can strengthen or weaken each other.",
+              "zh": "多走的这一段路不同，两束光就可能相互增强，也可能相互减弱。"
+            },
+            {
+              "en": "The camera sees a brighter or dimmer spot.",
+              "zh": "相机看到的，是一个变亮或变暗的光点。"
+            },
+            {
+              "en": "That combining of waves is called interference.",
+              "zh": "光波的这种叠加，叫作干涉。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Now let the upper surface move outward as ice is added.",
+              "zh": "现在，让冰不断增加，上表面向外移动。"
+            },
+            {
+              "en": "The lower boundary stays put, so the extra journey changes.",
+              "zh": "下边界保持不动，所以多走的那段路发生了变化。"
+            },
+            {
+              "en": "The spot passes from dim to bright and back to dim.",
+              "zh": "光点从暗变亮，再变暗。"
+            },
+            {
+              "en": "One brightness alone does not tell us how thick the crystal is.",
+              "zh": "单看一次亮度，并不能知道冰晶有多厚。"
+            },
+            {
+              "en": "The sequence of changes is what makes this a ruler.",
+              "zh": "正是这一连串变化，让它成了一把尺子。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E08-06",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Keep watching that spot.",
+              "zh": "继续看着这个光点。"
+            },
+            {
+              "en": "For a known wavelength and this simple optical geometry, each complete brightness cycle corresponds to the same increase in thickness.",
+              "zh": "对于已知的波长和这里简单的光路，每一个完整的明暗周期，都对应相同的厚度增量。"
+            },
+            {
+              "en": "How much depends on the light and on how it travels through ice.",
+              "zh": "这个增量有多大，取决于所用的光，以及光在冰中怎样传播。"
+            },
+            {
+              "en": "We can count complete cycles without knowing the crystal's starting thickness.",
+              "zh": "即使不知道冰晶的起始厚度，我们也能数出完整的周期。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Now add the clock.",
+              "zh": "现在加上时钟。"
+            },
+            {
+              "en": "Mark a beginning and an end,",
+              "zh": "标出开始和结束，"
+            },
+            {
+              "en": "count the cycles between them,",
+              "zh": "数出这段时间里的周期，"
+            },
+            {
+              "en": "and convert them to an added thickness.",
+              "zh": "再把它们换算成新增厚度。"
+            },
+            {
+              "en": "Divide that change by the elapsed time, and we have an average growth speed.",
+              "zh": "用这个变化量除以经过的时间，就得到了平均生长速度。"
+            },
+            {
+              "en": "The light signal became a distance; the distance and clock became a rate.",
+              "zh": "光信号变成了距离；距离和时钟又给出了速率。"
+            },
+            {
+              "en": "More growth in the same interval would give more complete cycles.",
+              "zh": "如果同一段时间内长得更多，完整的周期也就更多。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "A second view can track the side faces directly against a calibrated length scale.",
+              "zh": "另一个观察方向，可以对照校准过的长度尺，直接跟踪侧面的位置。"
+            },
+            {
+              "en": "That tells us about widening while the light tells us about thickening.",
+              "zh": "它告诉我们冰晶怎样变宽，而光告诉我们冰晶怎样变厚。"
+            },
+            {
+              "en": "But this laser method does not give the absolute starting thickness, and complicated reflections can make its cycles hard to read.",
+              "zh": "但这种激光方法无法给出绝对的起始厚度，复杂的反射也可能让周期难以辨认。"
+            },
+            {
+              "en": "Another optical method, using white light, can provide absolute thickness for suitable thin crystals.",
+              "zh": "另一种使用白光的光学方法，可以测出合适薄冰晶的绝对厚度。"
+            },
+            {
+              "en": "Different rulers suit different specimens.",
+              "zh": "不同的尺子，适合不同的样品。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E08-07",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Our transparent support makes these reflections possible, but it also touches the ice.",
+              "zh": "透明支撑面让这些反射成为可能，但它也与冰接触。"
+            },
+            {
+              "en": "That contact can affect growth, and the support carries heat away.",
+              "zh": "接触可能影响生长，而且支撑面会带走热量。"
+            },
+            {
+              "en": "A coating chosen to reduce one kind of interference can change heat transfer too.",
+              "zh": "为了减少一种干扰而选用的涂层，也可能改变传热。"
+            },
+            {
+              "en": "A precise signal does not remove those physical effects.",
+              "zh": "信号测得精确，并不能消除这些物理影响。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "The small chamber can also operate at low air pressure, which reduces the resistance to vapour transport.",
+              "zh": "这个小腔室还可以在低气压下运行，从而减小水汽输运的阻力。"
+            },
+            {
+              "en": "That is useful when investigating the surface, but it is a different setting from ordinary air.",
+              "zh": "这对研究表面很有帮助，但它和普通空气中的条件不同。"
+            },
+            {
+              "en": "Crystal size, pressure and geometry belong with the result, not just the equipment list.",
+              "zh": "冰晶大小、气压和几何形状，都应该与结果一起报告，而不只是列在设备清单里。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "For large, branching crystals, researchers use other arrangements.",
+              "zh": "对于较大的分枝冰晶，研究者会用其他布置。"
+            },
+            {
+              "en": "A thin plate can grow out from a little pedestal, clear of the window beneath it,",
+              "zh": "一片薄冰可以从小基座上向外生长，与下方的窗口分开；"
+            },
+            {
+              "en": "or a crystal can grow from an ice needle.",
+              "zh": "冰晶也可以从一根冰针上生长出来。"
+            },
+            {
+              "en": "These make different shapes accessible, with different limits.",
+              "zh": "这些布置能让我们研究不同的形状，也各有局限。"
+            },
+            {
+              "en": "Could we go further and measure growth with no supporting surface touching the particle at all?",
+              "zh": "能不能再进一步，在没有任何支撑面接触冰粒的情况下测量生长呢？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E08-08",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "A different research group at Penn State uses an electric field to hold a charged ice particle in the air.",
+              "zh": "宾夕法尼亚州立大学的另一个研究团队，用电场把一颗带电冰粒悬在空气中。"
+            },
+            {
+              "en": "Gravity pulls down.",
+              "zh": "重力把它往下拉。"
+            },
+            {
+              "en": "The electrical force balances that pull, while other electrodes keep the particle from drifting sideways.",
+              "zh": "电力平衡了这股拉力，其他电极则限制冰粒向侧面漂移。"
+            },
+            {
+              "en": "There is no slide touching it.",
+              "zh": "没有载玻片接触它。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "As the particle gains water, its weight increases.",
+              "zh": "随着冰粒获得更多水，它的重量增加。"
+            },
+            {
+              "en": "To hold it at the same position, the instrument adjusts the voltage.",
+              "zh": "为了把它保持在同一个位置，仪器会调节电压。"
+            },
+            {
+              "en": "With the charge unchanged and the electrical geometry fixed, the required voltage changes in proportion to mass.",
+              "zh": "当电荷不变、电场的几何布置固定时，所需的电压与质量成正比地变化。"
+            },
+            {
+              "en": "The recorded voltage is therefore a way to follow how the mass changes.",
+              "zh": "因此，记录下来的电压，可以用来跟踪质量的变化。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Compare the voltage with its starting value and you get a mass ratio: how many times the starting mass the particle has now.",
+              "zh": "把电压和它的起始值相比，就得到了质量比：冰粒现在的质量，是起始质量的多少倍。"
+            },
+            {
+              "en": "Combine that record with an initial mass and a clock, and you can calculate mass gained per unit time.",
+              "zh": "把这份记录与初始质量和时钟结合起来，就能算出单位时间增加的质量。"
+            },
+            {
+              "en": "This measurement follows the whole particle.",
+              "zh": "这项测量跟踪的是整个冰粒。"
+            },
+            {
+              "en": "It does not directly tell us which face advanced or what shape the particle became.",
+              "zh": "它不能直接告诉我们哪个晶面前进了，或者冰粒变成了什么形状。"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "pairs": [
+            {
+              "en": "That difference matters.",
+              "zh": "这个区别很重要。"
+            },
+            {
+              "en": "The optical experiment watches dimensions;",
+              "zh": "光学实验观察尺寸；"
+            },
+            {
+              "en": "this experiment follows mass without a support touching the ice.",
+              "zh": "这个实验则在没有支撑面接触冰的情况下跟踪质量。"
+            },
+            {
+              "en": "They have different strengths and different uncertainties.",
+              "zh": "它们的优势不同，不确定性也不同。"
+            },
+            {
+              "en": "The second method is an independent route into the problem, not a promise that either apparatus is free of disturbance.",
+              "zh": "第二种方法，为研究这个问题提供了一条独立途径，但并不保证任何一套装置都完全没有扰动。"
+            },
+            {
+              "en": "We can now ask more of a proposed explanation than whether it resembles a photograph.",
+              "zh": "现在，检验一种解释时，我们可以问得更深入，而不只是看它像不像一张照片。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E08-09",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Follow our first chain once more.",
+              "zh": "再顺着第一条测量链走一遍。"
+            },
+            {
+              "en": "Two controlled temperatures, a checked chamber and an isolated crystal give us an estimate of its surroundings.",
+              "zh": "两个受控温度、经过检查的腔室和一颗孤立冰晶，让我们能够估计它周围的环境。"
+            },
+            {
+              "en": "A changing optical signal gives a thickness change.",
+              "zh": "变化的光信号，给出了厚度变化。"
+            },
+            {
+              "en": "With elapsed time, that becomes a growth rate.",
+              "zh": "加上经过的时间，就得到了生长速率。"
+            },
+            {
+              "en": "Each link has a reason behind it and a limit to check.",
+              "zh": "每一环都有依据，也有需要检查的局限。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Then the other chain: a particle held in place, a changing voltage, a mass record and its change over time.",
+              "zh": "再看另一条链：固定在原处的冰粒、变化的电压、质量记录，以及质量随时间的变化。"
+            },
+            {
+              "en": "We gain independence from the supporting slide, but we do not gain a picture of every face.",
+              "zh": "我们摆脱了载玻片的支撑，却没有因此得到每个晶面的图像。"
+            },
+            {
+              "en": "Measuring something well includes being clear about what was not measured.",
+              "zh": "把一件事测量好，也包括说清楚哪些东西没有测到。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Now we know how fast ice is being added under specified conditions.",
+              "zh": "现在，我们知道了在指定条件下，冰增加得有多快。"
+            },
+            {
+              "en": "But remember the two waits we met in the air:",
+              "zh": "但还记得空气中那两道等待吗："
+            },
+            {
+              "en": "water has to reach the surface,",
+              "zh": "水要先到达表面，"
+            },
+            {
+              "en": "and the surface has to incorporate it.",
+              "zh": "表面还要把它纳入冰中。"
+            },
+            {
+              "en": "A growth rate mixes those effects together.",
+              "zh": "一个生长速率，把这两种影响混在了一起。"
+            },
+            {
+              "en": "In the next episode, how can we use a measured rate to find out what the surface itself is doing?",
+              "zh": "下一集，我们怎样利用测得的速率，找出表面本身在做什么呢？"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "predictions": [
+    {
+      "id": "E08-03",
+      "paragraph": 2,
+      "answerEn": "No.",
+      "answerZh": "不一样。",
+      "seconds": 3
+    }
+  ]
+}

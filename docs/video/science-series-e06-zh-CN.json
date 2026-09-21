@@ -1,0 +1,242 @@
+{
+  "title": "同一种物质，许多种形状",
+  "episode": 6,
+  "status": "本集由核对来源后的权威文稿导入。延伸阅读不配音；旁白与发布状态另行记录。",
+  "source": {
+    "path": "docs/video/science-series-e06-script.md",
+    "sha256": "5a3933832b9c4ada7d18daac1223b2dfca64c39025515a77b64c0dee2f0602ac"
+  },
+  "sections": [
+    {
+      "id": "E06-01",
+      "title": "一种形状里的两个问题",
+      "paragraphs": [
+        "分枝可以解释，晶体为什么会变得更复杂。可是，为什么一颗晶体几乎是平的，另一颗却像铅笔一样细长？这里是素材库中两个由计算机生成的示例。先看看这片薄板。它的宽度远大于厚度。现在看看另一根长柱。它突出的是长度。它们是模型记录，不是天然样本。相同的普通冰结构，外部比例却可以很不一样。",
+        "现在换成简化的形状示意图：先是一片宽板，再是一根细柱。接着，让板状晶体长出分枝。它的轮廓变得热闹多了，但仍然可以很薄。是扁还是长，以及分枝有多复杂，是两件不同的事。",
+        "我们把这种整体外形比例称为晶习。来跟着那些改变比例的晶面看看。然后再看，实验者改变真实冰晶周围的空气时，会发生什么。"
+      ],
+      "sources": [
+        "docs/education/chapters/07-plates-columns-plates-columns.html#habit",
+        "docs/education/chapters/07-plates-columns-plates-columns.html#not-diffusion",
+        "docs/education/chapters/09-the-menagerie.html#names",
+        "https://arxiv.org/abs/1910.06389v2"
+      ]
+    },
+    {
+      "id": "E06-02",
+      "title": "哪个晶面让冰板变宽？",
+      "paragraphs": [
+        "先拿这颗小小的块状棱柱来看。两端的平面是它的基面。围在侧面的六堵墙，是它的柱面。这些方向，就是我们观察冰的内部时遇到过的方向。当新冰在周围长出来时，让原来的小晶体一直留在图中。",
+        "在这个教学示例里，让侧壁向外推进得比两端更快。侧壁并不是从冰里面穿过去。是新的物质加在它们前方。在开始之前，先想一想：哪个尺寸会增加得更多，是宽度，还是两端之间的长度？",
+        "宽度增加得更多。看，侧面远离原来的核心，而两端只推进了一点。相对于厚度，晶体变得更宽了。所以，一个面积很大的晶面，也可以是推进很慢的晶面：周围的边缘向外生长，让它的面积增大。"
+      ],
+      "sources": [
+        "docs/education/chapters/07-plates-columns-plates-columns.html#the-rule",
+        "docs/education/chapters/07-plates-columns-plates-columns.html#habit",
+        "https://arxiv.org/abs/1910.06389v2"
+      ]
+    },
+    {
+      "id": "E06-03",
+      "title": "改变推进，就改变比例",
+      "paragraphs": [
+        "重新从一颗完全相同的小核心开始。这次，让两端比侧壁推进得更快。这里没有模拟温度；我们只是指定晶面的移动，看看每种移动会带来什么。",
+        "新的冰加在两端外面，两端之间的距离比宽度增加得多。结果是一根柱子。把两个完成的示例放在一起：侧面推进较快，形成宽的外形；两端推进较快，形成长的外形。",
+        "这说明，不同生长方向怎样改变晶体的比例。它还没有告诉我们，为什么各个晶面的生长速度不同。水仍然需要穿过空气到达这里，再成为表面的一部分。分枝反馈有助于解释复杂轮廓；但仅靠它，还不能解释整颗晶体为什么能一直保持极薄。"
+      ],
+      "sources": [
+        "docs/education/chapters/07-plates-columns-plates-columns.html#the-rule",
+        "docs/education/chapters/07-plates-columns-plates-columns.html#not-diffusion",
+        "https://arxiv.org/abs/1910.06389v2"
+      ]
+    },
+    {
+      "id": "E06-04",
+      "title": "让实验来决定形状",
+      "paragraphs": [
+        "怎样才能知道，真实的冰会怎么做？分别培养晶体，同时控制它们周围的条件。中谷宇吉郎在冷冻实验室里造雪，让这种方法广为人知。后来的实验室采用了其他方法，其中一种云风洞，用向上的气流托住一颗晶体。",
+        "在那项风洞研究中，空气保持在接近与液态水平衡的状态，就像有水滴的云。在零下五摄氏度附近，出现了细长的形态。另一次实验在零下十五摄氏度附近，生长向平面展开，形成了分枝。实验改变了温度，同时保持同一类云环境设置。",
+        "最后这个条件很重要。与液态水平衡，并不表示在每个温度下，超过冰平衡值的富余水汽都一样。所以，这些是在一条明确实验路径上的观察，并不能证明温度单独起作用。它们给了我们一组有用的对照：在不同的受控条件下，真实的冰可以偏向不同的生长方向。"
+      ],
+      "sources": [
+        "docs/education/chapters/02-four-hundred-years-of-looking.html#nakaya",
+        "docs/education/chapters/07-plates-columns-plates-columns.html#alternation",
+        "docs/education/chapters/07-plates-columns-plates-columns.html#second-opinions",
+        "https://www.jstage.jst.go.jp/article/jmsj1965/69/1/69_1_15/_article",
+        "https://doi.org/10.2151/jmsj1965.69.2_251"
+      ]
+    },
+    {
+      "id": "E06-05",
+      "title": "固定温度，增加富余水汽",
+      "paragraphs": [
+        "现在把温度固定在零下十五摄氏度附近，改变水的供给。还记得冰的平衡吗？水既会加入，也会离开。空气中的水汽只要比这个平衡值多一点，就能支持生长。富余水汽更多，供给就更强。以冰的平衡值为参照，这份富余就叫过饱和度。",
+        "先看供给较少的情况。板状晶体可以长出简单的轮廓。再看同一温度下供给较多的情况。一个突出的角可以先长出去，更容易获得水汽，于是又长得更靠前。分枝可能变得更明显。实验系列显示过这样的发展趋势，不过具体结果也取决于晶体本身和生长了多久。",
+        "等两种情况各自生长之后，再来比较：简单的板，和长出分枝的板。两者整体上都是扁平的。我们改变了复杂程度，却没有把晶体变成柱子。更多供给并不会指定一种放之四海皆准的形状，更冷也不自动等于更多分枝。温度和供给都会影响这两个方面；这些对照帮助我们把它们分清楚。"
+      ],
+      "sources": [
+        "docs/education/chapters/07-plates-columns-plates-columns.html#second-axis",
+        "docs/education/chapters/07-plates-columns-plates-columns.html#not-diffusion",
+        "https://arxiv.org/abs/1910.06389v2",
+        "https://arxiv.org/abs/2306.13087"
+      ]
+    },
+    {
+      "id": "E06-06",
+      "title": "空腔是长出来的，不是挖出来的",
+      "paragraphs": [
+        "细长晶体还有另一种变复杂的方式。看看这根实心柱的一端。假设边缘比中间推进得更快。把原来的冰标出来，留在原位。如果这种差别持续下去，会发生什么？",
+        "边缘围着一块空隙向外延伸。中间也可能在生长，但落在边缘后面。端部出现了空腔，却没有人把旧冰挖走。只看一张成品照片，很容易忽略这个区别：深深的开口，可以是不均匀增加物质的结果。",
+        "在有利于柱状生长的区域，随着供给增加，会出现空心柱。更容易获得水汽，可以强化生长边缘的领先，就像强化分枝一样。但光看这个轮廓，还不能确定极窄边缘表面上发生了什么。后面我们还会回到这个问题。现在，除了整体比例，空腔也是值得记录的一种特征。"
+      ],
+      "sources": [
+        "docs/education/chapters/07-plates-columns-plates-columns.html#hollow",
+        "docs/education/chapters/09-the-menagerie.html#names",
+        "https://arxiv.org/abs/1910.06389v2"
+      ]
+    },
+    {
+      "id": "E06-07",
+      "title": "把对照逐步放进图里",
+      "paragraphs": [
+        "我们可以把这样的对照收集在一张图上。不过，一开始就要把实验条件放在旁边：空气压力，起始晶种的种类，它是怎样培养的，以及观察时的尺寸或生长时间。这些条件都很重要。就连传统图中的低温一端，也已经被后来的实验修订。",
+        "横向表示温度。往上表示超过冰平衡值的富余水汽更多。先把简单的板放进它大致所属的区域，再把分枝形态放在上方。在我们考察过的另一个温度附近，加入细长形态。现在，这张图归纳了我们已经见过的关系。",
+        "这就是雪晶形态图，也常叫作中谷图。它整理出一种很醒目的规律：在熟悉的生长条件下，有些温度区域有利于板状，有些有利于柱状，而增加供给往往会带来分枝或空腔。这些区域只是大致范围；两项控制量也不是各管一件事的独立开关。"
+      ],
+      "sources": [
+        "docs/education/chapters/07-plates-columns-plates-columns.html#the-map",
+        "docs/education/chapters/07-plates-columns-plates-columns.html#second-axis",
+        "docs/education/chapters/07-plates-columns-plates-columns.html#second-opinions",
+        "docs/education/chapters/07-plates-columns-plates-columns.html#cold-end-rewritten",
+        "https://arxiv.org/abs/1910.06389v2",
+        "https://arxiv.org/abs/2306.13087",
+        "https://ams.confex.com/ams/pdfpapers/42237.pdf"
+      ]
+    },
+    {
+      "id": "E06-08",
+      "title": "两个坐标轴没有画出的条件",
+      "paragraphs": [
+        "试着倒过来用这张图。如果递给你一片小冰板，你能读出一个精确的温度吗？不能。不同条件可以产生相似形态，而相似的已报告温度和湿度，也可能产生不同形态。",
+        "一家实验室比较了由冻结水滴起始的冰，和由预先制备的霜晶种长出的冰。它们生长出来的形状不同。研究者还发现，在相似的已报告温度和湿度下，既有紧凑的板，也有短柱。晶体怎样开始，会在后来的生长中留下影响。",
+        "压力会改变水穿过空气的输送。尺寸和时间会改变生长已经进行到哪一步。而更冷的云条件实验，还发现了许多由多个晶体取向组成的形态，远不止熟悉示意图里那些规整的单个棱柱。把条件一起保留，这张图就很有用；把它当成保证准确的天气报告，就会产生误导。"
+      ],
+      "sources": [
+        "docs/education/chapters/07-plates-columns-plates-columns.html#seed-history",
+        "docs/education/chapters/07-plates-columns-plates-columns.html#cold-end-rewritten",
+        "docs/education/chapters/07-plates-columns-plates-columns.html#second-opinions",
+        "https://doi.org/10.1256/qj.02.04",
+        "https://ams.confex.com/ams/pdfpapers/42237.pdf"
+      ]
+    },
+    {
+      "id": "E06-09",
+      "title": "一个点，讲不完一段旅程",
+      "paragraphs": [
+        "现在，我们可以把三种观察分开。侧面向外推进，端面向外推进，都会改变晶体的比例。分枝和空腔，改变了生长在各处的分布。受控实验则展示，这些行为怎样随周围条件而变化。",
+        "这些已经足够画出一张有用的图。但它还没有完整解释，为什么表面行为会随温度改变。要检验解释，最终还需要测量生长中的晶面，并让模型经受与测量的对照。",
+        "不过，在那之前，云又带来了一个问题。下落的晶体，不必始终停在图上的同一个点。周围条件可以变化，原来的冰却仍留在内部。如果晶体一开始按一种方式生长，后来又遇到有利于另一种方式的条件，会怎样？下一集，我们将跟着晶体经历变化的生长历史，再问一问：它最后的形状，到底能告诉我们多少往事？"
+      ],
+      "sources": [
+        "docs/education/chapters/07-plates-columns-plates-columns.html#mystery",
+        "docs/education/chapters/07-plates-columns-plates-columns.html#seed-history"
+      ]
+    }
+  ],
+  "reader": [
+    {
+      "title": "比例、晶面速度与照片的局限",
+      "paragraphs": [
+        "对于简单的六角棱柱，可以把两端之间的尺寸记为 c，把横向尺寸记为 a。比值 c/a 描述它相对扁平还是细长。这里使用完整尺寸；如果一位作者始终用半长度，所得比值仍然相同。不过，必须核对横向尺寸的方向：对角之间与对边之间的宽度，相差一个几何因子。复杂、空心、带分枝或含多个取向的晶体，需要不止一个数字来描述。",
+        "动画指定晶面的运动，并不预测运动。对于示意棱柱，横向尺寸增加得快，而 c 增加得慢，c/a 就会减小。把相对推进速度反过来，比值就会增大。两段动画都不从起始核心中移走冰。一个宽大的基面，沿垂直于自己的方向可以推进很慢，同时由于柱面向外移动，面积不断增大。必须把表面积与晶面法向速度分开。",
+        "真实的水汽生长把几何形状、局部供给与有效表面响应耦合在一起。在这一情境下，Libbrecht 关于极端晶习的论述指出，要维持极薄的板或细长的柱，需要基面与柱面响应之间有很大的差别。但这并不让长宽比成为表面响应的直接数值测量：一张最终照片，既没有给出完整的随时间生长过程，也没有给出局部水汽场。后面，我们会考察生长速率怎样测量、能揭示什么表面响应，再问晶面变窄时，这种响应是否会改变。"
+      ],
+      "sources": [
+        "docs/education/chapters/07-plates-columns-plates-columns.html#habit",
+        "docs/education/chapters/07-plates-columns-plates-columns.html#the-rule",
+        "docs/education/chapters/07-plates-columns-plates-columns.html#not-diffusion",
+        "https://arxiv.org/abs/1910.06389v2"
+      ]
+    },
+    {
+      "title": "纵向坐标究竟测量什么",
+      "paragraphs": [
+        "在指定温度下，把与冰平衡的水汽浓度记为 c_sat，把离生长晶体足够远处的浓度记为 c_inf。相对于冰的过饱和度是 sigma_inf = (c_inf − c_sat) / c_sat。它没有量纲，乘以 100 就得到百分数。例如，取两个等体积参照：实际水汽为 110 个任意单位，冰平衡值为 100，那么多出的 10 个单位就对应 10% 过饱和度。这些数字只是教学算例，不是云的测量。",
+        "沿该坐标轴向上，表示在指定温度下，相对富余份额更大。参照值本身会随温度改变，所以两个温度下相同的百分数，不一定代表相同的绝对水量。表面附近的水汽也不必等于远处：前面研究空气输送时展示的耗减仍然存在。不能把图上的远处供给，直接代入表面生长定律，仿佛两个位置可以互换。",
+        "液态水饱和使用的是另一个参照。在较暖的云风洞对照所采用的零下温度中，与液滴平衡的水汽高于冰的平衡值，但相对于冰的富余份额会随温度改变。因此，接近液态水饱和的一组实验，会在以冰为参照的形态图上走出一条随温度变化的路径。有液滴持续存在时，凝结和蒸发可以把水汽缓冲在液态水平衡值附近；但这不是所有天然云都绝对不能越过的湿度上限，尤其不适用于缺少长寿命液滴的更冷环境。"
+      ],
+      "sources": [
+        "docs/education/chapters/07-plates-columns-plates-columns.html#second-axis",
+        "https://www.jstage.jst.go.jp/article/jmsj1965/69/1/69_1_15/_article"
+      ]
+    },
+    {
+      "title": "受控温度对照，实际控制了什么",
+      "paragraphs": [
+        "云风洞实验把筛选出的单颗冰晶托在上升气流中，使它能在相当于自由下落的条件下生长。发表的研究覆盖零下 3 至零下 23 摄氏度，持续时间最长 30 分钟。详细照片系列包括零下 5.3 摄氏度附近的柱状、空心与针状发展，以及零下 14.4 摄氏度附近的平面分枝形态。这些是在规定实验流程下培养的不同样本，不是一颗晶体随着温度旋钮移动而变形。",
+        "论文报告的云环境是名义上的液态水饱和，气压约为 1010 毫巴。因此，不同温度之间并没有保持相对于冰的过饱和度不变。晶种制备、选取的单晶样本、生长时长和相对气流，也都属于实验条件。论文中不同时间的图像，可能对应分别培养到那些时长的不同晶体。制作动画时，不能悄悄把这种取样变成对同一颗样本的连续观测。",
+        "这项实验支持其流程下较暖区域中优势形态的交替，但不授权我们画出普遍适用的温度边界。它最冷处的柱状分类与后来的低温研究存在冲突，本集不把它当作通用区域。官方勘误修正了图 3 续图的照片方向与出版月份信息；检查来源照片时，应采用修正后的方向。"
+      ],
+      "sources": [
+        "docs/education/chapters/07-plates-columns-plates-columns.html#alternation",
+        "docs/education/chapters/07-plates-columns-plates-columns.html#second-opinions",
+        "https://www.jstage.jst.go.jp/article/jmsj1965/69/1/69_1_15/_article",
+        "https://doi.org/10.2151/jmsj1965.69.2_251"
+      ]
+    },
+    {
+      "title": "照片矩阵不是数量普查",
+      "paragraphs": [
+        "后来的形态调查，把实验室中的单次观察按温度与远处供给排列起来。Libbrecht 的 2023 年调查包含 206 次观察，晶体长在沿 c 轴延伸的冰针顶端，每个面板都注明尺寸和经过的时间。通常报告的温度不确定度为 ±0.2 摄氏度；远处过饱和度估计在标示值的 0.8 至 1.2 倍之间。这个水汽估计来自装置模型，不是放在每个生长晶面旁的一支微型直接探针。",
+        "冰针尖提供可重复的起始几何形状和一个暴露的基面端部，但也会影响周围的水汽场。所选照片偏向清楚、孤立的例子，不代表无偏云样本中各种形态出现的频率。不同面板的时间与尺寸不同，二维图像还可能隐藏厚度或空腔。比较两张图时，应保留它们各自的标注，不能假定每格都是条件配对的曝光。本集的定性图没有对这个矩阵作数值化提取，也没有把图标变成新的观测。"
+      ],
+      "sources": [
+        "docs/education/chapters/07-plates-columns-plates-columns.html#the-map",
+        "docs/education/chapters/07-plates-columns-plates-columns.html#second-axis",
+        "https://arxiv.org/abs/2306.13087",
+        "https://arxiv.org/abs/2109.00098"
+      ]
+    },
+    {
+      "title": "为什么晶种历史和低温区域需要单独说明",
+      "paragraphs": [
+        "Bacon、Baker 和 Swanson 比较了由冻结水滴长成的小型悬浮冰粒，与由预制霜晶种长成的冰粒。紧凑的水滴起始形态，更集中在各方向尺寸相近的范围；预制晶种的形态则跨越较厚的板和短柱。研究者还报告，在相似的温度和湿度下会同时出现板与柱。这反驳了“仅凭两个环境数字就能唯一确定每一种形状”的想法。",
+        "两组历史并非只差一个抽象标签：冻结、升华、等待，以及之后累计的生长量都不同。湿度是从颗粒生长中推断的，论文正文与图中给出的过饱和度范围也并非完全一致。因此，本集只提出形态并不唯一的定性结论，不虚构一对严格匹配的样本，也不把提出的缺陷机制提升为直接观察。测量仪器、表面台阶的来源，以及推断出的响应，都需要各自的实验检验。",
+        "Bailey 和 Hallett 在注明气压与起始成核方法的条件下，研究了冷得多的生长。按他们的实验条件，在大约零下 20 至零下 40 摄氏度之间，以板状、而且常含多个取向的形态为主；更冷时柱状生长才占主导。他们把与经典低温柱状图之间的一部分差异，归因于起始方法与分类。这修订了旧图的适用性，而不是在零下 40 摄氏度设立一条新的通用边界。实验群体还包含许多多晶体，因此，单个完美六角棱柱的示意图不能代表其数量普查。"
+      ],
+      "sources": [
+        "docs/education/chapters/07-plates-columns-plates-columns.html#seed-history",
+        "docs/education/chapters/07-plates-columns-plates-columns.html#cold-end-rewritten",
+        "https://doi.org/10.1256/qj.02.04",
+        "https://ams.confex.com/ams/pdfpapers/42237.pdf"
+      ]
+    },
+    {
+      "title": "空腔、窄边缘，以及仍未测清的问题",
+      "paragraphs": [
+        "空心端部不一定来自内部冰的融化或升华。如果边缘和中心都在积冰，但边缘向外推进得更多，生长边界就会围出一个凹部。起始端面下方的旧固体仍完好无损。在适当的生长几何条件下，扩散可以让突出位置更有利，强化边缘的优势。这才是它与分枝的联系，并不意味着每个空腔都已被定量预测。",
+        "深空腔把狭窄边缘带入问题。台阶怎样在这样窄的表面上出现和移动，有效响应与宽晶面怎样不同，缺陷和历史又起什么作用，都需要测量与相互竞争的模型。这些问题仍是后续调查的一部分。这里的剖面按选定的位移构造，只说明增加物质怎样形成空腔，不给出生长速率、边缘厚度或起始阈值。"
+      ],
+      "sources": [
+        "docs/education/chapters/07-plates-columns-plates-columns.html#hollow",
+        "docs/education/chapters/09-the-menagerie.html#names",
+        "https://arxiv.org/abs/1910.06389v2"
+      ]
+    },
+    {
+      "title": "完整解释之前，描述也有价值",
+      "paragraphs": [
+        "形态图整理重复观察，让我们比较实验流程、发现分歧，并向模型提出问题。它本身既不能解释基面与柱面的相对行为为什么随温度变化，也不能唯一还原晶体的旅程。它还不能替代云中实际落下的聚合、凇附、受损或含多个取向颗粒的群体描述。",
+        "在较暖范围中，从有利于板状，到有利于柱状，再回到有利于板状，是一个有用的常见规律。但把它当成锐利而穷尽所有情况的温度分区，就丢掉了供给、流程与历史的影响。把每次增加供给都当成必然产生分枝，也丢掉了尺寸、温度与表面依赖性。接下来，我们跟随同一颗晶体经历条件变化。后面再用生长测量，对照不同的物理解释。"
+      ],
+      "sources": [
+        "docs/education/chapters/07-plates-columns-plates-columns.html#mystery",
+        "docs/education/chapters/07-plates-columns-plates-columns.html#second-opinions",
+        "docs/education/chapters/09-the-menagerie.html#what-falls",
+        "docs/education/chapters/09-the-menagerie.html#no-clean-boxes"
+      ]
+    }
+  ],
+  "language": "zh-CN",
+  "sourceEnglishSha256": "018423d843b9c126af157f34c8c92f6eb9d12678426ab306e2a6ad9290846a46"
+}

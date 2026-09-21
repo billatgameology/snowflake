@@ -1,0 +1,711 @@
+{
+  "episode": 6,
+  "description": "Reviewed ordered same-meaning sentence and visual-beat pairs. Every production reveal starts an exact pair; both prediction answers begin at the translated answer onset. Provider alignment is not human listening.",
+  "source": {
+    "path": "docs/video/science-series-e06-script.md",
+    "sha256": "5a3933832b9c4ada7d18daac1223b2dfca64c39025515a77b64c0dee2f0602ac"
+  },
+  "sourceEnglishSha256": "018423d843b9c126af157f34c8c92f6eb9d12678426ab306e2a6ad9290846a46",
+  "sections": [
+    {
+      "id": "E06-01",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "A branch can explain why a crystal becomes more elaborate.",
+              "zh": "分枝可以解释，晶体为什么会变得更复杂。"
+            },
+            {
+              "en": "But why is one crystal almost flat, while another grows long like a pencil?",
+              "zh": "可是，为什么一颗晶体几乎是平的，另一颗却像铅笔一样细长？"
+            },
+            {
+              "en": "Here are two computer-grown examples from our library.",
+              "zh": "这里是素材库中两个由计算机生成的示例。"
+            },
+            {
+              "en": "First, look at this thin plate.",
+              "zh": "先看看这片薄板。"
+            },
+            {
+              "en": "Its width is much greater than its thickness.",
+              "zh": "它的宽度远大于厚度。"
+            },
+            {
+              "en": "Now look at a separate long column.",
+              "zh": "现在看看另一根长柱。"
+            },
+            {
+              "en": "Its length stands out instead.",
+              "zh": "它突出的是长度。"
+            },
+            {
+              "en": "These are model recordings, not natural specimens.",
+              "zh": "它们是模型记录，不是天然样本。"
+            },
+            {
+              "en": "The same ordinary ice structure can have very different outside proportions.",
+              "zh": "相同的普通冰结构，外部比例却可以很不一样。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Now switch to simplified shape drawings:",
+              "zh": "现在换成简化的形状示意图："
+            },
+            {
+              "en": "a broad plate,",
+              "zh": "先是一片宽板，"
+            },
+            {
+              "en": "then a slender column.",
+              "zh": "再是一根细柱。"
+            },
+            {
+              "en": "Now give the plate branches.",
+              "zh": "接着，让板状晶体长出分枝。"
+            },
+            {
+              "en": "Its outline becomes much busier, but it can still be thin.",
+              "zh": "它的轮廓变得热闹多了，但仍然可以很薄。"
+            },
+            {
+              "en": "How flat or long it is, and how much it branches, are two different things to notice.",
+              "zh": "是扁还是长，以及分枝有多复杂，是两件不同的事。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "We call those overall proportions the crystal's habit.",
+              "zh": "我们把这种整体外形比例称为晶习。"
+            },
+            {
+              "en": "Let's follow the faces that change those proportions.",
+              "zh": "来跟着那些改变比例的晶面看看。"
+            },
+            {
+              "en": "Then we'll see what happens when experimenters change the air in which real crystals grow.",
+              "zh": "然后再看，实验者改变真实冰晶周围的空气时，会发生什么。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E06-02",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Take this small, blocky prism.",
+              "zh": "先拿这颗小小的块状棱柱来看。"
+            },
+            {
+              "en": "The flat ends are its basal faces.",
+              "zh": "两端的平面是它的基面。"
+            },
+            {
+              "en": "The six walls around the sides are its prism faces.",
+              "zh": "围在侧面的六堵墙，是它的柱面。"
+            },
+            {
+              "en": "Those are the directions we met when we looked inside ice.",
+              "zh": "这些方向，就是我们观察冰的内部时遇到过的方向。"
+            },
+            {
+              "en": "Keep the original little crystal visible while new ice grows around it.",
+              "zh": "当新冰在周围长出来时，让原来的小晶体一直留在图中。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "In this teaching example, let the side walls advance outward faster than the ends.",
+              "zh": "在这个教学示例里，让侧壁向外推进得比两端更快。"
+            },
+            {
+              "en": "The walls don't travel through the ice.",
+              "zh": "侧壁并不是从冰里面穿过去。"
+            },
+            {
+              "en": "New material is being added in front of them.",
+              "zh": "是新的物质加在它们前方。"
+            },
+            {
+              "en": "Before we let that happen, which dimension will gain more: the width, or the length between the ends?",
+              "zh": "在开始之前，先想一想：哪个尺寸会增加得更多，是宽度，还是两端之间的长度？"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "The width gains more.",
+              "zh": "宽度增加得更多。"
+            },
+            {
+              "en": "Watch the sides move away from the old core while the ends advance only a little.",
+              "zh": "看，侧面远离原来的核心，而两端只推进了一点。"
+            },
+            {
+              "en": "The crystal becomes broader compared with its thickness.",
+              "zh": "相对于厚度，晶体变得更宽了。"
+            },
+            {
+              "en": "A broad face can therefore be a slowly advancing face: its area grows because the surrounding edge moves outward.",
+              "zh": "所以，一个面积很大的晶面，也可以是推进很慢的晶面：周围的边缘向外生长，让它的面积增大。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E06-03",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Start again from an identical little core.",
+              "zh": "重新从一颗完全相同的小核心开始。"
+            },
+            {
+              "en": "This time the ends advance faster than the side walls.",
+              "zh": "这次，让两端比侧壁推进得更快。"
+            },
+            {
+              "en": "The temperature isn't being simulated here; we're choosing the face movements so we can see what each movement does.",
+              "zh": "这里没有模拟温度；我们只是指定晶面的移动，看看每种移动会带来什么。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Now new ice builds beyond the ends, and the distance between them grows much more than the width.",
+              "zh": "新的冰加在两端外面，两端之间的距离比宽度增加得多。"
+            },
+            {
+              "en": "The result is a column.",
+              "zh": "结果是一根柱子。"
+            },
+            {
+              "en": "Put the two completed examples together: faster side advance made the broad shape; faster end advance made the long shape.",
+              "zh": "把两个完成的示例放在一起：侧面推进较快，形成宽的外形；两端推进较快，形成长的外形。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "That tells us how different growth directions change the proportions.",
+              "zh": "这说明，不同生长方向怎样改变晶体的比例。"
+            },
+            {
+              "en": "It doesn't yet tell us why the faces grow at different rates.",
+              "zh": "它还没有告诉我们，为什么各个晶面的生长速度不同。"
+            },
+            {
+              "en": "Water still has to arrive through the air and become part of a surface.",
+              "zh": "水仍然需要穿过空气到达这里，再成为表面的一部分。"
+            },
+            {
+              "en": "A branching feedback helps explain intricate outlines; it isn't, by itself, an explanation for keeping an entire crystal extremely thin.",
+              "zh": "分枝反馈有助于解释复杂轮廓；但仅靠它，还不能解释整颗晶体为什么能一直保持极薄。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E06-04",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "How can we find out what real ice does?",
+              "zh": "怎样才能知道，真实的冰会怎么做？"
+            },
+            {
+              "en": "Grow separate crystals while controlling their surroundings.",
+              "zh": "分别培养晶体，同时控制它们周围的条件。"
+            },
+            {
+              "en": "Nakaya made that approach famous by growing snow in a refrigerated chamber.",
+              "zh": "中谷宇吉郎在冷冻实验室里造雪，让这种方法广为人知。"
+            },
+            {
+              "en": "Later laboratories used other methods, including a cloud tunnel that kept a crystal suspended in an upward flow of air.",
+              "zh": "后来的实验室采用了其他方法，其中一种云风洞，用向上的气流托住一颗晶体。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "In that tunnel study, the air was kept near balance with liquid water, as in a cloud containing droplets.",
+              "zh": "在那项风洞研究中，空气保持在接近与液态水平衡的状态，就像有水滴的云。"
+            },
+            {
+              "en": "Near five degrees below freezing, long forms developed.",
+              "zh": "在零下五摄氏度附近，出现了细长的形态。"
+            },
+            {
+              "en": "In a separate run near fifteen below, growth spread into flat, branched forms.",
+              "zh": "另一次实验在零下十五摄氏度附近，生长向平面展开，形成了分枝。"
+            },
+            {
+              "en": "The experiments changed temperature while keeping the same kind of cloud setting.",
+              "zh": "实验改变了温度，同时保持同一类云环境设置。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "That last condition matters.",
+              "zh": "最后这个条件很重要。"
+            },
+            {
+              "en": "Balance with liquid water doesn't mean the same spare vapour above the ice balance at every temperature.",
+              "zh": "与液态水平衡，并不表示在每个温度下，超过冰平衡值的富余水汽都一样。"
+            },
+            {
+              "en": "So these are observations along a stated experimental path, not proof that temperature acts alone.",
+              "zh": "所以，这些是在一条明确实验路径上的观察，并不能证明温度单独起作用。"
+            },
+            {
+              "en": "They give us a useful contrast: real ice can favour different growth directions under different controlled conditions.",
+              "zh": "它们给了我们一组有用的对照：在不同的受控条件下，真实的冰可以偏向不同的生长方向。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E06-05",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Now keep the temperature fixed, near fifteen below, and change the water supply.",
+              "zh": "现在把温度固定在零下十五摄氏度附近，改变水的供给。"
+            },
+            {
+              "en": "Remember the ice balance: water can leave as well as join.",
+              "zh": "还记得冰的平衡吗？水既会加入，也会离开。"
+            },
+            {
+              "en": "Air with a little extra vapour above that balance can support growth.",
+              "zh": "空气中的水汽只要比这个平衡值多一点，就能支持生长。"
+            },
+            {
+              "en": "Air with more extra vapour gives a stronger supply.",
+              "zh": "富余水汽更多，供给就更强。"
+            },
+            {
+              "en": "That extra, measured relative to the ice balance, is called supersaturation.",
+              "zh": "以冰的平衡值为参照，这份富余就叫过饱和度。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "First consider the lower-supply case.",
+              "zh": "先看供给较少的情况。"
+            },
+            {
+              "en": "A plate can grow with a simple outline.",
+              "zh": "板状晶体可以长出简单的轮廓。"
+            },
+            {
+              "en": "Now consider a higher-supply case at the same temperature.",
+              "zh": "再看同一温度下供给较多的情况。"
+            },
+            {
+              "en": "A projecting corner can get ahead, gain better access to vapour, and grow farther ahead.",
+              "zh": "一个突出的角可以先长出去，更容易获得水汽，于是又长得更靠前。"
+            },
+            {
+              "en": "Branching can become more pronounced.",
+              "zh": "分枝可能变得更明显。"
+            },
+            {
+              "en": "Laboratory series show this progression, though the exact outcome also depends on the crystal and how long it grows.",
+              "zh": "实验系列显示过这样的发展趋势，不过具体结果也取决于晶体本身和生长了多久。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Compare the two after each has grown: simple plate, branching plate.",
+              "zh": "等两种情况各自生长之后，再来比较：简单的板，和长出分枝的板。"
+            },
+            {
+              "en": "Both are broadly flat.",
+              "zh": "两者整体上都是扁平的。"
+            },
+            {
+              "en": "We've changed elaboration without making the crystal a column.",
+              "zh": "我们改变了复杂程度，却没有把晶体变成柱子。"
+            },
+            {
+              "en": "More supply doesn't assign one universal shape, and colder doesn't automatically mean more branches.",
+              "zh": "更多供给并不会指定一种放之四海皆准的形状，更冷也不自动等于更多分枝。"
+            },
+            {
+              "en": "Temperature and supply influence both parts of the story; these comparisons help us tell the parts apart.",
+              "zh": "温度和供给都会影响这两个方面；这些对照帮助我们把它们分清楚。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E06-06",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "A long crystal has another way to become more elaborate.",
+              "zh": "细长晶体还有另一种变复杂的方式。"
+            },
+            {
+              "en": "Look at one end of this solid column.",
+              "zh": "看看这根实心柱的一端。"
+            },
+            {
+              "en": "Suppose the rim advances faster than the middle.",
+              "zh": "假设边缘比中间推进得更快。"
+            },
+            {
+              "en": "Keep the old ice marked.",
+              "zh": "把原来的冰标出来，留在原位。"
+            },
+            {
+              "en": "What happens if that difference continues?",
+              "zh": "如果这种差别持续下去，会发生什么？"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "The rim extends around an open space.",
+              "zh": "边缘围着一块空隙向外延伸。"
+            },
+            {
+              "en": "The middle also may grow, but it falls behind the rim.",
+              "zh": "中间也可能在生长，但落在边缘后面。"
+            },
+            {
+              "en": "A hollow develops at the end without anyone digging out the old ice.",
+              "zh": "端部出现了空腔，却没有人把旧冰挖走。"
+            },
+            {
+              "en": "That distinction is easy to miss in a finished photograph: a deep opening can be the result of unequal addition.",
+              "zh": "只看一张成品照片，很容易忽略这个区别：深深的开口，可以是不均匀增加物质的结果。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Hollow columns occur in the column-growing region as the supply increases.",
+              "zh": "在有利于柱状生长的区域，随着供给增加，会出现空心柱。"
+            },
+            {
+              "en": "Access to vapour can reinforce the growing rim's lead, much as it reinforces a branch.",
+              "zh": "更容易获得水汽，可以强化生长边缘的领先，就像强化分枝一样。"
+            },
+            {
+              "en": "But this outline alone doesn't settle what happens on the rim's very narrow surface.",
+              "zh": "但光看这个轮廓，还不能确定极窄边缘表面上发生了什么。"
+            },
+            {
+              "en": "We'll return to that question later.",
+              "zh": "后面我们还会回到这个问题。"
+            },
+            {
+              "en": "For now, a hollow is another feature to record alongside the crystal's overall proportions.",
+              "zh": "现在，除了整体比例，空腔也是值得记录的一种特征。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E06-07",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "We can collect comparisons like these on a map.",
+              "zh": "我们可以把这样的对照收集在一张图上。"
+            },
+            {
+              "en": "But put the experiment's conditions beside it from the start:",
+              "zh": "不过，一开始就要把实验条件放在旁边："
+            },
+            {
+              "en": "air pressure,",
+              "zh": "空气压力，"
+            },
+            {
+              "en": "the kind of seed,",
+              "zh": "起始晶种的种类，"
+            },
+            {
+              "en": "how it was grown,",
+              "zh": "它是怎样培养的，"
+            },
+            {
+              "en": "and the size or age at which we looked.",
+              "zh": "以及观察时的尺寸或生长时间。"
+            },
+            {
+              "en": "Those conditions matter.",
+              "zh": "这些条件都很重要。"
+            },
+            {
+              "en": "Even the traditional cold end of this map has been revised by later experiments.",
+              "zh": "就连传统图中的低温一端，也已经被后来的实验修订。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Across the page goes temperature.",
+              "zh": "横向表示温度。"
+            },
+            {
+              "en": "Up the page goes more spare vapour above the ice balance.",
+              "zh": "往上表示超过冰平衡值的富余水汽更多。"
+            },
+            {
+              "en": "Put the simple plate in its broad neighbourhood first,",
+              "zh": "先把简单的板放进它大致所属的区域，"
+            },
+            {
+              "en": "then the branching forms above it.",
+              "zh": "再把分枝形态放在上方。"
+            },
+            {
+              "en": "Add the long forms around the other temperature we explored.",
+              "zh": "在我们考察过的另一个温度附近，加入细长形态。"
+            },
+            {
+              "en": "Now the map summarizes relationships we have already seen.",
+              "zh": "现在，这张图归纳了我们已经见过的关系。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "This is the snow-crystal morphology diagram, often called the Nakaya diagram.",
+              "zh": "这就是雪晶形态图，也常叫作中谷图。"
+            },
+            {
+              "en": "It helps us organize a striking pattern: familiar growth conditions favour plates in some temperature regions and columns in others, while increasing supply often brings branching or hollows.",
+              "zh": "它整理出一种很醒目的规律：在熟悉的生长条件下，有些温度区域有利于板状，有些有利于柱状，而增加供给往往会带来分枝或空腔。"
+            },
+            {
+              "en": "The regions are approximate, and the two controls are not separate switches with one job each.",
+              "zh": "这些区域只是大致范围；两项控制量也不是各管一件事的独立开关。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E06-08",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Try using the map backwards.",
+              "zh": "试着倒过来用这张图。"
+            },
+            {
+              "en": "If I hand you a small plate, can you read off one exact temperature?",
+              "zh": "如果递给你一片小冰板，你能读出一个精确的温度吗？"
+            },
+            {
+              "en": "No.",
+              "zh": "不能。"
+            },
+            {
+              "en": "Different conditions can produce similar forms, and similar reported temperature and humidity can produce different forms.",
+              "zh": "不同条件可以产生相似形态，而相似的已报告温度和湿度，也可能产生不同形态。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "One laboratory compared ice that began as frozen droplets",
+              "zh": "一家实验室比较了由冻结水滴起始的冰，"
+            },
+            {
+              "en": "with ice grown from prepared frost seeds.",
+              "zh": "和由预先制备的霜晶种长出的冰。"
+            },
+            {
+              "en": "Their growing shapes differed.",
+              "zh": "它们生长出来的形状不同。"
+            },
+            {
+              "en": "They also found compact plates and short columns under similar reported temperature and humidity.",
+              "zh": "研究者还发现，在相似的已报告温度和湿度下，既有紧凑的板，也有短柱。"
+            },
+            {
+              "en": "How a crystal starts can leave a mark on what follows.",
+              "zh": "晶体怎样开始，会在后来的生长中留下影响。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Pressure changes delivery through the air.",
+              "zh": "压力会改变水穿过空气的输送。"
+            },
+            {
+              "en": "Size and time change how far growth has developed.",
+              "zh": "尺寸和时间会改变生长已经进行到哪一步。"
+            },
+            {
+              "en": "And colder-cloud experiments found many forms made from several crystal orientations, beyond the tidy single prisms of the familiar drawing.",
+              "zh": "而更冷的云条件实验，还发现了许多由多个晶体取向组成的形态，远不止熟悉示意图里那些规整的单个棱柱。"
+            },
+            {
+              "en": "The map stays useful when we keep its conditions attached; it becomes misleading when we turn it into a guaranteed weather report.",
+              "zh": "把条件一起保留，这张图就很有用；把它当成保证准确的天气报告，就会产生误导。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E06-09",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "We can now separate three observations.",
+              "zh": "现在，我们可以把三种观察分开。"
+            },
+            {
+              "en": "Sideways advance",
+              "zh": "侧面向外推进，"
+            },
+            {
+              "en": "and end advance change a crystal's proportions.",
+              "zh": "端面向外推进，都会改变晶体的比例。"
+            },
+            {
+              "en": "Branching and hollowing change how its growth is distributed.",
+              "zh": "分枝和空腔，改变了生长在各处的分布。"
+            },
+            {
+              "en": "Controlled experiments show how these behaviours vary with the surroundings.",
+              "zh": "受控实验则展示，这些行为怎样随周围条件而变化。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "That's enough to make a useful map.",
+              "zh": "这些已经足够画出一张有用的图。"
+            },
+            {
+              "en": "It isn't yet a complete explanation of why the surface changes its behaviour with temperature.",
+              "zh": "但它还没有完整解释，为什么表面行为会随温度改变。"
+            },
+            {
+              "en": "To test that, we'll eventually need measurements of growing faces and a model that survives comparison with them.",
+              "zh": "要检验解释，最终还需要测量生长中的晶面，并让模型经受与测量的对照。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "But first, a cloud gives us another problem.",
+              "zh": "不过，在那之前，云又带来了一个问题。"
+            },
+            {
+              "en": "A falling crystal needn't stay at one point on the map.",
+              "zh": "下落的晶体，不必始终停在图上的同一个点。"
+            },
+            {
+              "en": "Its surroundings can change while the old ice stays inside.",
+              "zh": "周围条件可以变化，原来的冰却仍留在内部。"
+            },
+            {
+              "en": "What happens when a crystal starts growing one way, then meets conditions that favour another?",
+              "zh": "如果晶体一开始按一种方式生长，后来又遇到有利于另一种方式的条件，会怎样？"
+            },
+            {
+              "en": "In the next episode, we'll follow a crystal through a changing history—and ask how much of that history its final shape can really tell us.",
+              "zh": "下一集，我们将跟着晶体经历变化的生长历史，再问一问：它最后的形状，到底能告诉我们多少往事？"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "predictions": [
+    {
+      "id": "E06-02",
+      "paragraph": 2,
+      "answerEn": "The width gains more.",
+      "answerZh": "宽度增加得更多。",
+      "seconds": 3
+    },
+    {
+      "id": "E06-06",
+      "paragraph": 1,
+      "answerEn": "The rim extends around an open space.",
+      "answerZh": "边缘围着一块空隙向外延伸。",
+      "seconds": 3
+    }
+  ]
+}

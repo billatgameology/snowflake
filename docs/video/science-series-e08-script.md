@@ -1,7 +1,7 @@
 # E08 — How to measure a growing crystal
 
-English editorial draft and substantive reader, 2026-09-20. First parallel batch, initial
-script/prototype milestone only. The incoming E07 contract is that a finished shape admits
+English production source and substantive reader, 2026-09-20. First parallel batch, authorized
+for full bilingual production after rehearsal and source review. The incoming E07 contract is that a finished shape admits
 plausible histories without uniquely measuring its past. The outgoing E09 contract is a growth
 rate with stated observation, calibration and apparatus limits, ready for an inference about
 delivery and effective surface response. E08 does not fit an attachment coefficient or barrier.
@@ -324,8 +324,7 @@ down near that surface.
 The monograph first states this estimate **in the absence of the test crystal**. A sufficiently
 small isolated crystal approximately experiences it as a surrounding or far-field boundary
 condition. A large crystal, additional ice, imperfect boundary temperatures and the full chamber
-geometry require transport consideration. E08-02 therefore deliberately avoids the chapter's
-stronger suggestion that two thermometers directly determine what the growing surface feels.
+geometry require transport consideration. Two thermometers therefore establish a reference for the chamber; they do not directly measure the vapour at the growing surface.
 
 Sources: `docs/education/chapters/10-how-we-know.html#two-thermometers`;
 [Libbrecht, *Snow Crystals*, equation 6.1, printed p. 222](https://arxiv.org/abs/1910.06389).
@@ -342,8 +341,7 @@ for any arrangement, and `sigma_bottom` is not every crystal's local surface val
 For the source's chosen diffusion-limited example, `epsilon = 1`, `f_cover = 0.01`,
 `L = 1 cm` and **radius** `R = 10 micrometres`. The denominator is 21, so the calculated
 ratio is about 0.048, conventionally summarized as one twentieth. Those are example operands,
-not directly observed before/after rates, and the factor does not transfer to the prototype's
-drawn specks. Reducing only `L` to 1 mm gives a ratio of one third under the same approximation;
+not directly observed before/after rates, and the factor does not transfer to the schematic specks shown here. Reducing only `L` to 1 mm gives a ratio of one third under the same approximation;
 the short gap is helpful but is not a complete remedy for a populated floor. The source's
 precision apparatus combines a small gap with selecting one isolated test crystal.
 
@@ -364,7 +362,7 @@ The droplet check is a separate experiment with the test ice removed. When liqui
 are neither growing nor shrinking, their vapour balance is compared with the independently
 known liquid/ice equilibrium relation. It checks the chamber calculation at that condition;
 it does not directly measure the local vapour concentration beside a different growing crystal.
-E08's crystal-balance and droplet-balance checks must not be animated at one identical setting.
+The crystal-balance and droplet-balance checks use different settings.
 
 Sources: `docs/education/chapters/10-how-we-know.html#two-thermometers` and
 `docs/education/chapters/10-how-we-know.html#empty-substrate`;
@@ -390,7 +388,7 @@ reading. The monograph describes direct laser interferometry as useful for suita
 crystals but less precise than its white-light method. In white-light interferometry, fringe
 spacing across a calibrated spectrum carries absolute thickness information. Its quoted
 nanometres-per-second performance concerns speed sensitivity in ideal cases, not a universal
-nanometre thickness accuracy. E08 does not mislabel a white-light measurement as laser data.
+nanometre thickness accuracy. The two optical methods supply different information.
 
 In the supported geometry with the lower interface fixed, the upper interface's displacement
 is the thickness increase. For freely growing opposite faces, the total thickness change is
@@ -407,8 +405,7 @@ Substrate contact can affect terrace formation and thermal transport. Hydrophobi
 reduce unwanted contact effects while making heat removal worse. Reducing gas pressure weakens
 particle-diffusion resistance but does not remove the latent heat released when vapour becomes
 ice. The 2019 apparatus analysis uses a simplified geometric model that is more suitable for
-nearly isometric prisms than very thin plates or long columns. E09 must carry these conditions
-when it turns a measured rate into fitted surface parameters.
+nearly isometric prisms than very thin plates or long columns. Those conditions matter when a measured rate is used to infer a surface response.
 
 For larger specimens, plate-on-pedestal growth gives an accessible thin crystal above a window,
 while an ice needle offers a small support for growth away from a broad substrate. A pedestal
@@ -434,17 +431,10 @@ must be controlled. The archive records voltage, position, elapsed time and norm
 
 The initial liquid-droplet size supplies a separate initial-mass estimate; combining it with
 the normalized record gives mass growth. This does not measure facet-specific speeds, grain
-structure or the growing particle's actual outline. The local source index records that later
-work in this apparatus lineage qualifies the frozen-droplet products as likely polycrystalline.
-The schematic particle therefore deliberately has no asserted crystal habit.
+structure or the growing particle's actual outline. Later work using this apparatus qualifies the frozen-droplet products as likely polycrystalline: one particle may contain several differently oriented grains. A mass trace alone cannot settle that question or establish a crystal habit.
 
 The 2016 experiment and the 2020 reanalysis of its heterogeneous traces are not independent
-replications. Later analysis corrected conditions and some initial sizes. E08 uses the apparatus
-principle and its directly recorded mass-ratio observable, not the superseded fitted coefficient
-range or historical conditions assigned to individual archived runs. E09 owns the kinetic
-interpretation and changing-response evidence; E11 owns the competing theoretical accounts and
-the subsequently published 2026 comparison. No part of this episode treats a dataset as proof
-of one narrow-facet mechanism.
+replications. Later analysis corrected conditions and some initial sizes. The instrument's directly recorded voltage and inferred mass ratio must be distinguished from fitted surface coefficients and the conditions assigned to individual runs. Interpreting the changing growth response requires further analysis and comparison between explanations. A mass-growth dataset by itself does not prove one particular mechanism on a narrow crystal face.
 
 Sources: `docs/education/chapters/11-the-stickiness-of-ice.html#the-coefficient-that-moves`;
 [Harrison et al., 2016](https://doi.org/10.1175/JAS-D-15-0234.1);
@@ -501,5 +491,7 @@ three-across panels. Root owns player/rehearsal controls and verifies the integr
 | E08-08 | Weight/force introduced locally; entirely new charged particle. | Balance forces; mass grows; voltage adjusts at fixed position/charge → mass ratio and timed change. | Shape is not observed; outline symbol cannot certify a pristine single crystal. No paired experimental rates from unlike methods. | One levitation diagram then evidence chain; short assumptions beside active arrows. |
 | E08-09 | Both evidence chains and E03's two waits. | Replay optical chain, then mass chain, then air delivery and incorporation. | One chain at a time, no finished answer at entrance. Ends at surface question without E09 result. | Vertical chain at phone width; Still keeps current chain segment and no future answer. |
 
-The complete spoken rehearsal, non-author source review, desktop/narrow browser inspection,
-human listening, final voice timing and audience comprehension remain unclaimed at this draft.
+The initial prototype is retained as a rehearsal artifact. Production reveals use unique spoken
+phrases resolved against the English word clock and paired Mandarin anchors, replacing its
+paragraph-fraction timing. The production review records actual rehearsal, source and browser
+coverage separately from human listening and audience comprehension.

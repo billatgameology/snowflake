@@ -1,0 +1,727 @@
+{
+  "episode": 5,
+  "description": "Ordered same-meaning sentence anchors. Every production reveal begins one pair. Source review and semantic checks do not establish listening acceptance.",
+  "source": {
+    "path": "docs/video/science-series-e05-script.md",
+    "sha256": "94f79cee932ac0c723ad877253d2deba3fdf1d89a66b82798c4f63ce8ca0e1db"
+  },
+  "sourceEnglishSha256": "72809d38bcf83e5cfcaa5a8ddcd0397b85e349228569da31e66841c18119d226",
+  "sections": [
+    {
+      "id": "E05-01",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "We left this corner just beginning to get ahead.",
+              "zh": "上一集结束时，这个角部刚刚开始领先。"
+            },
+            {
+              "en": "The flat-face correction was no longer keeping up.",
+              "zh": "让晶面保持平整的调节，已经跟不上了。"
+            },
+            {
+              "en": "Before we follow that corner outward, let's make the difference easier to see.",
+              "zh": "在跟着角部向外生长之前，先把这个差别放大来看。"
+            },
+            {
+              "en": "Here is an enlarged drawing of a growing surface with a small raised patch.",
+              "zh": "这里是一幅生长表面的放大示意图，上面有一块小小的凸起。"
+            },
+            {
+              "en": "The marked ice is already there; new ice will be added around it.",
+              "zh": "标出的冰已经在那里；新的冰会加在它周围。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "First, consider growth where the surface can still correct this difference.",
+              "zh": "先看表面仍能修正这种差别的情况。"
+            },
+            {
+              "en": "The neighboring regions have enough opportunity to catch up.",
+              "zh": "邻近区域还有足够的机会赶上。"
+            },
+            {
+              "en": "Hold the temperature and the supply farther away steady.",
+              "zh": "让温度和远处的供给保持稳定。"
+            },
+            {
+              "en": "As more ice joins, will the raised patch become more prominent, or less?",
+              "zh": "随着更多冰加入，这块凸起会变得更明显，还是不那么明显？"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Less prominent.",
+              "zh": "会变得不那么明显。"
+            },
+            {
+              "en": "The surrounding surface gains enough ice to reduce the difference in height.",
+              "zh": "周围表面增加了足够多的冰，让高度差缩小了。"
+            },
+            {
+              "en": "The original raised patch hasn't been shaved off or melted away.",
+              "zh": "原先的凸起并没有被削去，也没有融掉。"
+            },
+            {
+              "en": "It is now inside the larger crystal.",
+              "zh": "它现在留在更大晶体的内部。"
+            },
+            {
+              "en": "A little unevenness does not automatically become a branch.",
+              "zh": "一点不平整，并不自动意味着会长出枝臂。"
+            },
+            {
+              "en": "What matters is whether the growth around it reduces that difference or increases it.",
+              "zh": "关键在于，周围的生长是在缩小这个差别，还是扩大它。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E05-02",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Now start again with the same raised patch, the same temperature and the same supply farther away.",
+              "zh": "现在回到相同的小凸起，让温度和远处的供给也保持相同。"
+            },
+            {
+              "en": "This time, consider a surface whose correction is too weak to keep that patch in check.",
+              "zh": "这一次，表面的修正能力不足以控制这块凸起。"
+            },
+            {
+              "en": "Growing ice depletes the vapor beside it.",
+              "zh": "生长中的冰，会耗减旁边的水汽。"
+            },
+            {
+              "en": "The projection has better access to replacement water diffusing in from the surrounding air.",
+              "zh": "凸出的部分更容易获得从周围空气扩散补充过来的水。"
+            },
+            {
+              "en": "What happens if that advantage lets it add ice faster than its neighbors?",
+              "zh": "如果这个优势让它比邻近区域更快地增加冰，会发生什么？"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "The projection grows farther out.",
+              "zh": "凸起会向外长得更远。"
+            },
+            {
+              "en": "That changes the shape of the growing boundary, which can give it an even greater share of the arriving water.",
+              "zh": "这改变了生长边界的形状，又可能让它分到更多到来的水。"
+            },
+            {
+              "en": "It gains more ice, reaches farther again, and the difference grows.",
+              "zh": "它增加更多冰，再向外伸一些，于是差别继续扩大。"
+            },
+            {
+              "en": "Follow the loop twice: shape changes delivery; delivery changes growth; growth changes shape.",
+              "zh": "跟着这个循环走两遍：形状改变供给，供给改变生长，生长又改变形状。"
+            },
+            {
+              "en": "The supply farther away has stayed steady throughout.",
+              "zh": "在整个过程中，远处的供给一直没有变。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "That is positive feedback: a change reinforces itself.",
+              "zh": "这就是正反馈：一个变化会强化它自己。"
+            },
+            {
+              "en": "Here it produces the branching instability.",
+              "zh": "在这里，它造成了分枝不稳定性。"
+            },
+            {
+              "en": "Compare our two cases now.",
+              "zh": "现在比较这两种情况。"
+            },
+            {
+              "en": "Both added ice, but one reduced the unevenness and the other amplified it.",
+              "zh": "两者都增加了冰，但一种减小了不平整，另一种放大了它。"
+            },
+            {
+              "en": "On a real crystal, the competition depends on its size, growth conditions and surface response.",
+              "zh": "在真实晶体上，这种竞争取决于尺寸、生长条件和表面响应。"
+            },
+            {
+              "en": "A branch can emerge quite suddenly; there isn't one humidity or crystal size that triggers every snow crystal.",
+              "zh": "枝臂可能相当突然地出现；但并不存在一种湿度或一种晶体尺寸，能让所有雪晶都在那一刻分枝。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E05-03",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Return to the whole hexagonal crystal.",
+              "zh": "回到整颗六角晶体。"
+            },
+            {
+              "en": "We followed one corner, but this simple plate has six.",
+              "zh": "我们跟踪了一个角部，但这片简单的板状晶体一共有六个角。"
+            },
+            {
+              "en": "In an evenly supplied setting, each corner begins in a similar position.",
+              "zh": "在供给均匀的环境里，各个角部的起始处境相近。"
+            },
+            {
+              "en": "Each can gain the same sort of advantage.",
+              "zh": "它们都可能获得同样的优势。"
+            },
+            {
+              "en": "Let them grow, and the familiar six-arm arrangement starts to appear.",
+              "zh": "让它们继续生长，熟悉的六条枝臂排列就开始出现了。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "The branching feedback didn't invent the number six.",
+              "zh": "分枝反馈并没有创造出六这个数字。"
+            },
+            {
+              "en": "The crystal already had a sixfold structure, and its flat faces gave it six projecting corners.",
+              "zh": "晶体原本就有六重结构，平坦的晶面让它形成了六个突出的角部。"
+            },
+            {
+              "en": "The branches inherit that arrangement.",
+              "zh": "枝臂继承了这种排列。"
+            },
+            {
+              "en": "This is a common route to a stellar snow crystal, not a requirement that every piece of growing ice produce six identical arms at exactly the same moment.",
+              "zh": "这是形成星状雪晶的一条常见途径，并不是说每块正在生长的冰，都必须在完全相同的时刻长出六条一模一样的枝臂。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "We can now explain how the broad arrangement begins.",
+              "zh": "现在，我们能解释整体排列怎样开始了。"
+            },
+            {
+              "en": "But look at the end of one arm.",
+              "zh": "但看看其中一条枝臂的末端。"
+            },
+            {
+              "en": "If projections keep gaining an advantage, why doesn't its point simply grow sharper and sharper, or keep splitting into more points?",
+              "zh": "如果突出的部分会不断获得优势，为什么尖端不会一直变尖，或者不断分裂成更多尖端？"
+            },
+            {
+              "en": "Let's follow that one tip before adding the rest of the decoration.",
+              "zh": "在加入其余装饰之前，先跟着这一个尖端看一看。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E05-04",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Here is a drawing of a single branch growing into open space, under steady conditions.",
+              "zh": "这里画的是一条枝臂，在稳定条件下向开阔空间生长。"
+            },
+            {
+              "en": "The tip moves forward while the old ice stays put.",
+              "zh": "尖端向前推进，原有的冰却留在原位。"
+            },
+            {
+              "en": "In laboratory examples called free dendrites, the region near the tip can keep roughly the same rounded shape as it advances.",
+              "zh": "在实验室里，一类叫作自由枝晶的例子中，尖端附近可以在向前生长时，大致保持相同的圆润形状。"
+            },
+            {
+              "en": "Free means it is growing clear of nearby walls and competing crystals.",
+              "zh": "自由，是说它在远离附近容器壁和竞争晶体的空间里生长。"
+            },
+            {
+              "en": "Dendrite means a tree-like crystal.",
+              "zh": "枝晶，就是树枝状的晶体。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Keep the first outline as a reference.",
+              "zh": "保留最初的轮廓作为参照。"
+            },
+            {
+              "en": "Now compare it with the new tip.",
+              "zh": "现在把它和新的尖端比较。"
+            },
+            {
+              "en": "The branch is longer, but the small rounded end looks much the same.",
+              "zh": "枝臂变长了，但小小的圆润末端看起来差不多。"
+            },
+            {
+              "en": "A camera traveling alongside the tip would make that end look almost stationary.",
+              "zh": "如果相机跟着尖端一起前进，这个末端就会显得几乎不动。"
+            },
+            {
+              "en": "The pattern persists because fresh ice is being added; a rigid needle isn't sliding through the air.",
+              "zh": "图样之所以能够保持，是因为新的冰不断加入；并不是一根坚硬的针在空气里滑动。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "This behavior needs more than the runaway loop.",
+              "zh": "要出现这种行为，光有不断放大的循环还不够。"
+            },
+            {
+              "en": "At very small scales, surface energy makes sharply curved features harder to maintain.",
+              "zh": "在很小的尺度上，表面能让曲率很大的尖锐形状更难维持。"
+            },
+            {
+              "en": "The rate at which water joins the surface matters too.",
+              "zh": "水加入表面的速率也很重要。"
+            },
+            {
+              "en": "For snow dendrites growing from vapor, that surface response is especially important in selecting the tip's scale and speed.",
+              "zh": "对于从水汽中生长的雪枝晶，表面响应在决定尖端尺度和速度时，尤其重要。"
+            },
+            {
+              "en": "Diffusion alone leaves several possible tips; it doesn't choose the one we observe.",
+              "zh": "单靠扩散，会留下多种可能的尖端；它并不能选出我们实际观察到的那一种。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E05-05",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "The surface response also depends on direction within the crystal.",
+              "zh": "表面响应还取决于晶体内部的方向。"
+            },
+            {
+              "en": "We met that difference when some faces grew slowly and remained flat.",
+              "zh": "前面我们已经见过这种差别：某些晶面长得慢，因而保持平坦。"
+            },
+            {
+              "en": "At a branch tip, a preference for certain directions can help one advancing point persist.",
+              "zh": "在枝臂尖端，对某些方向的偏好，可以帮助一个向前生长的尖端保持稳定。"
+            },
+            {
+              "en": "In a flat stellar dendrite, the favored branch directions carry the sixfold arrangement of the ice.",
+              "zh": "在平坦的星状枝晶中，优先的枝臂方向延续了冰的六重排列。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "To see why that matters, consider a model comparison.",
+              "zh": "要看清这为什么重要，来比较两种模型情况。"
+            },
+            {
+              "en": "First, a tip with a strong directional preference advances along one direction.",
+              "zh": "先看一个有明显方向偏好的尖端，它沿一个方向推进。"
+            },
+            {
+              "en": "Now consider a growth rule with no preferred direction.",
+              "zh": "再看一种没有优先方向的生长规则。"
+            },
+            {
+              "en": "The branching feedback still acts, but a protrusion on the tip can compete with the tip itself.",
+              "zh": "分枝反馈仍然存在，但尖端上的一个凸起，可能与原来的尖端竞争。"
+            },
+            {
+              "en": "In simulations of this kind, repeated tip splitting produces tangled, seaweed-like patterns.",
+              "zh": "在这类模拟中，尖端反复分裂，形成杂乱、像海藻一样的图样。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "The point is that branching and directional order are different parts of the explanation.",
+              "zh": "要点是，分枝和方向上的有序，是解释中的两个不同部分。"
+            },
+            {
+              "en": "Removing the preference doesn't remove the instability.",
+              "zh": "去掉方向偏好，并不会去掉不稳定性。"
+            },
+            {
+              "en": "It removes an influence that helps organize its results.",
+              "zh": "它去掉的是一种帮助组织生长结果的影响。"
+            },
+            {
+              "en": "Our drawings illustrate that comparison; they haven't calculated it.",
+              "zh": "我们的图画是在说明这组比较，并没有对它进行计算。"
+            },
+            {
+              "en": "Real snow-crystal tips can split too, so directional preference is not a promise that splitting can never happen.",
+              "zh": "真实雪晶的尖端也可能分裂，所以有方向偏好，并不保证分裂永远不会发生。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E05-06",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Return to our single advancing arm.",
+              "zh": "回到这条正在向前生长的枝臂。"
+            },
+            {
+              "en": "A little farther behind the tip, its sides are growing surfaces too.",
+              "zh": "在尖端后方稍远处，两侧也都是生长中的表面。"
+            },
+            {
+              "en": "Small unevenness there can be amplified by the same feedback.",
+              "zh": "那里微小的不平整，也可能被同样的反馈放大。"
+            },
+            {
+              "en": "Follow one raised patch as it extends into a sidebranch.",
+              "zh": "跟着一块小凸起，看它怎样伸展成侧枝。"
+            },
+            {
+              "en": "Then follow another nearby.",
+              "zh": "再看附近另一块。"
+            },
+            {
+              "en": "They don't need separate dust particles to start them; a small fluctuation in growth can be enough.",
+              "zh": "它们不需要各自有一颗尘埃来启动；生长中的小波动就可能足够了。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "These neighbors share a vapor supply.",
+              "zh": "这些相邻侧枝共享水汽供给。"
+            },
+            {
+              "en": "Suppose one gains a small lead.",
+              "zh": "假设其中一条取得了一点领先。"
+            },
+            {
+              "en": "As it projects farther, it can receive water from a wider region while its shorter neighbors remain more sheltered.",
+              "zh": "当它伸得更远时，就可能从更宽的区域获得水，而较短的邻居仍处在比较受遮蔽的位置。"
+            },
+            {
+              "en": "The lead can grow larger.",
+              "zh": "这种领先可能继续扩大。"
+            },
+            {
+              "en": "Watch the short neighbor: it still adds ice, but the longer one pulls ahead.",
+              "zh": "看那条较短的侧枝：它仍在增加冰，但较长的那条越长越靠前。"
+            },
+            {
+              "en": "Competition for delivery helps leave large branches beside stunted ones.",
+              "zh": "输送中的竞争，有助于形成大枝旁边夹着短小侧枝的形态。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "The two sides of an arm needn't begin with matching bumps.",
+              "zh": "一条枝臂的两侧，不一定从相互对应的凸起开始。"
+            },
+            {
+              "en": "Growth can amplify different small fluctuations on each side.",
+              "zh": "生长可以放大两侧不同的微小波动。"
+            },
+            {
+              "en": "There can be a characteristic spacing without every gap being equal.",
+              "zh": "分枝之间可以有一个典型间距，而不必每道间隔都相等。"
+            },
+            {
+              "en": "That gives a fernlike arm its mixture of regular directions and uneven decoration.",
+              "zh": "于是，蕨叶状枝臂同时有了规则的方向和不均匀的细节。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E05-07",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Look at the two sides of that arm.",
+              "zh": "看看这条枝臂的两侧。"
+            },
+            {
+              "en": "From a distance, they make a balanced-looking pattern.",
+              "zh": "从远处看，它们构成的图样似乎很均衡。"
+            },
+            {
+              "en": "Compare one pair of sidebranches closely, then the next.",
+              "zh": "仔细比较一对侧枝，再比较下一对。"
+            },
+            {
+              "en": "Their directions are similar, but their positions and lengths don't line up exactly.",
+              "zh": "方向相近，但位置和长度并不能完全对齐。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "Now fold a tracing of the lower side over the upper side.",
+              "zh": "现在，把下侧的描图翻到上侧，叠起来看。"
+            },
+            {
+              "en": "Some branches nearly meet; others miss.",
+              "zh": "有些侧枝几乎重合，有些却错开了。"
+            },
+            {
+              "en": "This is a drawn example, but the same kind of mismatch is visible in photographs of fernlike snow crystals.",
+              "zh": "这是一个绘制的例子，但蕨叶状雪晶的照片里，也能看到类似的不对称。"
+            },
+            {
+              "en": "Sixfold organization does not require every tiny branch to have five perfect copies.",
+              "zh": "六重组织，并不要求每根小侧枝都有五个完美副本。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "Shared conditions can still make the arms resemble one another.",
+              "zh": "共同的环境条件，仍能让各条枝臂彼此相似。"
+            },
+            {
+              "en": "Similarity and small differences can coexist.",
+              "zh": "整体相似和细小差异可以同时存在。"
+            },
+            {
+              "en": "Later we'll follow a crystal through changing surroundings to see how that shared history leaves marks.",
+              "zh": "后面，我们会跟着晶体穿过不断变化的环境，看共同经历怎样留下痕迹。"
+            },
+            {
+              "en": "For now, we have the ingredients for branches upon branches.",
+              "zh": "眼下，我们已经有了让枝上生枝的机制。"
+            },
+            {
+              "en": "Does that make the crystal a fractal?",
+              "zh": "这是不是就让晶体成了分形？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E05-08",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "On a sufficiently large fernlike crystal, a sidebranch can carry smaller sidebranches of its own.",
+              "zh": "在足够大的蕨叶状晶体上，一条侧枝也能长出自己的更小侧枝。"
+            },
+            {
+              "en": "The pattern partly repeats at smaller scales.",
+              "zh": "图样在较小尺度上部分重复。"
+            },
+            {
+              "en": "That resemblance is why snow crystals are often compared with fractals.",
+              "zh": "因为有这种相似，人们常把雪晶与分形相比。"
+            },
+            {
+              "en": "Keep those few levels in view while we try a different kind of construction.",
+              "zh": "先记住这几个层次，再来看另一种构造。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "This is the mathematical Koch snowflake.",
+              "zh": "这是数学中的科赫雪花。"
+            },
+            {
+              "en": "Replace the middle of each straight segment with a small triangular bump,",
+              "zh": "把每条直线段中间的部分，替换成一个小三角凸起，"
+            },
+            {
+              "en": "then apply the same instruction again.",
+              "zh": "再把同一条指令应用一次。"
+            },
+            {
+              "en": "In the ideal mathematical object, you can repeat forever.",
+              "zh": "在理想的数学对象中，你可以永远重复下去。"
+            },
+            {
+              "en": "The rule tells us exactly where every new corner belongs.",
+              "zh": "规则精确规定了每一个新角的位置。"
+            },
+            {
+              "en": "It is a construction rule, not a story of water diffusing through air.",
+              "zh": "它是一条构造规则，并不是水穿过空气扩散的过程。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "A physical crystal has a finite size and finite growth features.",
+              "zh": "真实晶体的尺寸有限，生长特征也有有限的尺度。"
+            },
+            {
+              "en": "Its branches don't repeat the same shape down through endlessly smaller scales.",
+              "zh": "它的枝条不会一层又一层，把同样的形状重复到无穷小。"
+            },
+            {
+              "en": "Calling it roughly fractal describes a resemblance; it doesn't explain the vapor supply, surface response or preferred directions.",
+              "zh": "说它大致像分形，是在描述一种相似；这并不能解释水汽供给、表面响应或优先方向。"
+            },
+            {
+              "en": "Those are the processes that make the branching pattern grow.",
+              "zh": "真正让分枝图样生长出来的，是这些物理过程。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E05-09",
+      "paragraphs": [
+        {
+          "index": 0,
+          "pairs": [
+            {
+              "en": "Return to the corner where we began.",
+              "zh": "回到我们最开始的那个角部。"
+            },
+            {
+              "en": "A small lead changed access to water.",
+              "zh": "一点领先，改变了它获得水的条件。"
+            },
+            {
+              "en": "The added ice enlarged that lead, and the feedback could turn a corner into a branch.",
+              "zh": "新增的冰扩大了领先，反馈就可能把一个角部变成枝臂。"
+            },
+            {
+              "en": "Surface physics opposed and directed that process.",
+              "zh": "表面物理一面抑制，一面引导这个过程。"
+            },
+            {
+              "en": "Along the arm, the same feedback could amplify new differences into sidebranches.",
+              "zh": "沿着枝臂，同样的反馈又可能把新的差别放大成侧枝。"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "pairs": [
+            {
+              "en": "That explains the growing decoration.",
+              "zh": "这解释了那些不断长出的装饰。"
+            },
+            {
+              "en": "But a plain plate",
+              "zh": "但一片简单的板晶"
+            },
+            {
+              "en": "and a branched star are both flat.",
+              "zh": "和一颗分枝的星晶，都是平的。"
+            },
+            {
+              "en": "A long column asks a different question: why did growth extend so much farther along the crystal's length than across it?",
+              "zh": "长柱状晶体带来了另一个问题：为什么沿晶体长度方向的生长，会比横向生长远得多？"
+            },
+            {
+              "en": "The amount of branching and the overall proportions are two things to notice, even though the same growing crystal connects them.",
+              "zh": "分枝的多少和整体的长宽厚比例，是两个值得分别观察的特征，尽管同一颗生长中的晶体把它们联系在一起。"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "pairs": [
+            {
+              "en": "So let's bring those shapes into controlled surroundings.",
+              "zh": "那么，把这些形状放进受控环境吧。"
+            },
+            {
+              "en": "If we change the temperature while keeping the vapor supply specified, which forms grow?",
+              "zh": "如果改变温度，同时把水汽供给设定清楚，会长出哪些形态？"
+            },
+            {
+              "en": "And if we then change the vapor supply at one temperature, what changes?",
+              "zh": "再在同一个温度下改变水汽供给，又会改变什么？"
+            },
+            {
+              "en": "In the next episode, we'll build a map from those comparisons.",
+              "zh": "下一集，我们将从这些比较出发，构建一张地图。"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "predictions": [
+    {
+      "id": "E05-01",
+      "paragraph": 2,
+      "answerEn": "Less prominent.",
+      "answerZh": "会变得不那么明显。",
+      "seconds": 3
+    },
+    {
+      "id": "E05-02",
+      "paragraph": 1,
+      "answerEn": "The projection grows farther out.",
+      "answerZh": "凸起会向外长得更远。",
+      "seconds": 3
+    }
+  ]
+}
