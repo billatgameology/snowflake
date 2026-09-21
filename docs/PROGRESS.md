@@ -6,7 +6,21 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
-## Science series E01–E09 fully built locally — 2026-09-20
+## Episodes 5–9 editorial repairs active — 2026-09-21
+
+The maker found E05/E06 improvable and E08/E09 poor, praised the column-to-plate sequence, asked
+for E07 to be rechecked too, and now authorizes all identified corrections followed by another review.
+Website `docs/series-editorial-recheck-2026-09-21.md` records the concrete defects and the earlier
+review gap. Completed production below is technical history, not editorial acceptance. Follow the
+[repair plan](plans/science-series-editorial-repairs.md): E08/E09 core explanations, E07 continuity
+and mechanisms, and bounded E05/E06 fixes, with bilingual source/audio kept coherent. Reuse the
+current two task checkouts. No new episode or deployment is authorized.
+
+**Next:** implement all recorded findings, review revised source/visuals, refresh affected approved
+Juniper/Yun takes, then review the resulting performances and leave the corrected preview available.
+Coordinator owns shared integration and paid voice calls; owners edit disjoint episode files.
+
+## Science series E01–E09 built locally — production history, 2026-09-20
 
 The maker's second-batch request is complete: E07 and E09 have full English/Chinese stories and
 readers, approved Juniper/Yun recordings, measured phrase cues, production visuals and ordinary
