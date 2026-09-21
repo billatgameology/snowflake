@@ -1,9 +1,11 @@
 # Plan — repair Episodes 5–9 and review the revised performances
 
-2026-09-21. Status: active. Maker: “make all corrections that you have identified and review again after.”
+2026-09-21. Status: complete within the maker’s English-only production scope. Maker: “make all corrections that you have identified and review again after.”
 Scope is every finding in sibling website `docs/series-editorial-recheck-2026-09-21.md`, including
 wording, animation, continuity, bilingual parity and affected narration. No draft-review stop,
 new episode or deployment. Preserve the praised column-to-plate sequence and its E06/E07 handoff.
+
+**Maker update, same session:** after the narration account reached its quota, the maker added credits and directed “only doing english for now.” Finish the revised English takes and performance. Do not generate further Mandarin takes. E05/E06 Mandarin refreshes had already completed before this direction; preserve them. Keep E07–E09 translated draft sources, but hold their stale Mandarin players behind the existing English fallback until a later authorized Mandarin pass. The maker also requests a design-guide update for lessons not already covered.
 
 Reuse the single existing task checkout per repository: authority `explore/film-part1-plan`
 (baseline `e7e2aca`) and website `codex/series-first-batch` (`3e9a594`). Worktree/branch inventories
@@ -26,29 +28,33 @@ scene identities when possible. Review actual causal action, not just timed capt
 
 ## Steps and done conditions
 
-- [ ] E05: trace the feedback twice; demonstrate tip-limiting effects; show the competing protrusion
+- [x] E05: trace the feedback twice; demonstrate tip-limiting effects; show the competing protrusion
   before splitting; keep finite physical branching visible through the mathematical comparison.
-- [ ] E06: retain experimental context through separately grown comparisons; show supply arriving
+- [x] E06: retain experimental context through separately grown comparisons; show supply arriving
   and adding ice; replace condition-only lists with concrete visual examples. Preserve the praised close.
-- [ ] E07: show a common changed input; retain the exact star and show local competition; animate
+- [x] E07: show a common changed input; retain the exact star and show local competition; animate
   equal clocks; establish the fixed-controls plate/layered-rim counterexample; clarify triangular
   outline versus internal structure and multi-orientation objects.
-- [ ] E08: visible supply/competition, performed calibration, connected interference/detector/ruler,
+- [x] E08: visible supply/competition, performed calibration, connected interference/detector/ruler,
   continuous retained layers, visible floating mass/balance change, simpler apparatus wording,
   and a replayed measurement recap leading to the delivery/surface ambiguity.
-- [ ] E09: retained-face calculated comparison, established step-source mechanism, physical meaning
+- [x] E09: retained-face calculated comparison, established step-source mechanism, physical meaning
   before fitted curves, visible changed supply, observed/predicted mass mismatch, concrete preparation
   contrast, simplified chronology and sequential recap into a linked narrow-rim close-up.
-- [ ] Review revised source and visual implications before synthesis; complete provisional
+- [x] Review revised source and visual implications before synthesis; complete provisional
   performance review where narration changes. Record actual visual coverage honestly.
-- [ ] Refresh only changed Juniper/Yun takes using immutable new revisions and exact verified reuse;
-  rebuild phrase clocks/captions and audit source integrity, pacing and bilingual semantics.
-- [ ] Review revised performances after implementation, including every identified issue and its
+- [x] Refresh only authorized changed takes using immutable new revisions and exact verified reuse;
+  rebuild phrase clocks/captions and audit source integrity and pacing. E05/E06 Mandarin completed
+  before the English-only direction and passed bilingual semantic checks. E07–E09 final production
+  is English only; revised Mandarin drafts remain held behind the English fallback.
+- [x] Review revised performances after implementation, including every identified issue and its
   transitions. Use non-author reviewers for the repaired teaching chains. Record first missing
   explanation and repair it rather than treating successful playback as editorial approval.
-- [ ] Build both modes, run focused episode/localization/audio/release checks, inspect desktop and
+- [x] Build both modes, run focused episode/localization/audio/release checks, inspect desktop and
   narrow compositions/Still/reverse seek/language switches, verify final production masters in browser.
-- [ ] Update the existing local preview with the corrected complete batch; commit repairs and an
+- [x] Add missing lessons to the existing design-guide rules: accumulated visual history, performed
+  measurement chains, visible elapsed time, shared-drawing regressions and current-state readiness.
+- [x] Update the existing local preview with the corrected complete batch; commit repairs and an
   issue-by-issue disposition with precise review coverage and remaining limits.
 
 Technical checks and editorial judgments remain separate. Normal-speed native playback alone does
@@ -69,3 +75,19 @@ replacement is ready. Firebase's emulator ignores audio ranges; use Vite for med
 for route/header checks when needed. Exact score-end transport pause may precede native ended.
 Never automatically retry uncertain paid synthesis or print credentials. Rule 7 baseline has three
 unrelated installed-skill findings; do not edit that skill. Original narration and receipts stay retained.
+
+## Completion — 2026-09-21
+
+All five issue groups are repaired and re-reviewed. Five full native English runs reached their
+score ends without problems. Every retained chronological capture was inspected across owners and
+non-authors; E09 also received separate ending frames. These are sampled visual reviews, not human
+listening or an uncoached audience test. Final desktop/phone controls pass for all five; E06’s apparent
+loading failure was traced to a stale-ready test race and the corrected test passes on unchanged
+product code. The 64 focused tests plus the readiness regression, audio audits, both builds and
+141-observation cross-episode/hosting smoke pass. Existing Rule 7 findings remain limited to three
+unrelated installed-skill occurrences.
+
+The corrected immutable preview is `http://127.0.0.1:5199`. The design guide was amended only where
+these repairs exposed a missing concrete rule. Detailed issue dispositions and review limits are in
+sibling website `docs/series-editorial-repairs-2026-09-21.md`. E07–E09 Mandarin production is deferred
+under the maker’s explicit direction, with stale audio held; this is not unfinished authorized work.

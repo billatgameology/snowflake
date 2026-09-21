@@ -4,7 +4,7 @@
   "status": "本集由核对来源后的权威文稿导入。延伸阅读不配音；旁白与发布状态另行记录。",
   "source": {
     "path": "docs/video/science-series-e05-script.md",
-    "sha256": "94f79cee932ac0c723ad877253d2deba3fdf1d89a66b82798c4f63ce8ca0e1db"
+    "sha256": "735acec3b4f8904a89525746941543fd529b8bbc202870572366c020205a2555"
   },
   "sections": [
     {
@@ -199,5 +199,5 @@
     }
   ],
   "language": "zh-CN",
-  "sourceEnglishSha256": "72809d38bcf83e5cfcaa5a8ddcd0397b85e349228569da31e66841c18119d226"
+  "sourceEnglishSha256": "00c84e7483201f184a76da343de3c4db4441daab9b805061d12459ebc1e697e0"
 }

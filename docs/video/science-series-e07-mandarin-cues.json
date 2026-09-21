@@ -3,9 +3,9 @@
   "description": "Complete ordered same-meaning sentence pairs. Each visual reveal starts an exact pair; prediction answers start at translated answer onsets. Provider alignment is not human listening.",
   "source": {
     "path": "docs/video/science-series-e07-script.md",
-    "sha256": "702b24101fbf1cf5e7d6847794c3230908f304d349a318099d6097087537abd5"
+    "sha256": "c8beb7fec2eb4f2c523db5ca6a9fe284042184b02b56567dde030f7eb349ede5"
   },
-  "sourceEnglishSha256": "ca6761b3393c2256e8b7c9b9f38cba1c917281b3be7ee295ff54f189acc19040",
+  "sourceEnglishSha256": "41b120cdb431e26f8d19515e3f02411a69822e09ab3bbad2704e57e538284700",
   "sections": [
     {
       "id": "E07-01",
@@ -155,15 +155,15 @@
           "pairs": [
             {
               "en": "Now consider a different crystal: a six-armed star.",
-              "zh": "现在看另一颗晶体：一颗有六条枝臂的星状晶体。"
+              "zh": "现在看另一颗晶体：一颗六臂星晶。"
             },
             {
               "en": "All six arms travel together, separated by only a small distance.",
-              "zh": "六条枝臂一起移动，彼此之间只有很短的距离。"
+              "zh": "六条枝臂一起移动，彼此只隔着很小的距离。"
             },
             {
-              "en": "When the surrounding air changes across the whole crystal, the arms can experience nearly the same change at nearly the same time.",
-              "zh": "当整颗晶体周围的空气改变时，各条枝臂可以在几乎同一时刻经历几乎相同的变化。"
+              "en": "The shaded region is the air around the whole crystal.",
+              "zh": "阴影区域表示包围整颗晶体的空气。"
             }
           ]
         },
@@ -171,24 +171,24 @@
           "index": 1,
           "pairs": [
             {
-              "en": "Watch one shared change, then follow the fresh growth on one arm.",
-              "zh": "先看一次共同的变化，再沿着一条枝臂观察新生长的部分。"
+              "en": "In this teaching example, that whole region becomes colder.",
+              "zh": "在这个教学例子里，整片空气变冷了。"
             },
             {
-              "en": "The new part broadens.",
-              "zh": "新的部分变宽了。"
+              "en": "Follow the fresh ice on the highlighted arm.",
+              "zh": "请看高亮枝臂上新加入的冰。"
             },
             {
-              "en": "Now look around the other arms: a similar change can appear on each.",
-              "zh": "再看看其他枝臂：每条上都可能出现相似的变化。"
+              "en": "Here the new tip grows broader, while the earlier branches stay in place.",
+              "zh": "在这里，新的尖端长得更宽，较早的分枝仍留在原处。"
             },
             {
-              "en": "One arm hasn't sent the others a drawing to copy.",
-              "zh": "并不是一条枝臂把图样发给其他枝臂照着复制。"
+              "en": "Now return to all six arms: each has experienced the same cooling, and each can develop a similar new feature.",
+              "zh": "现在回到六条枝臂：每条都经历了同样的降温，都可能长出相似的新特征。"
             },
             {
-              "en": "The ice structure gives related directions, and their shared surroundings give related growing conditions.",
-              "zh": "冰的结构提供相互对应的方向，共同的环境则提供相近的生长条件。"
+              "en": "This chosen response illustrates a shared change; it is not a rule that colder air always makes wider tips.",
+              "zh": "我们选用这个生长反应来说明共同的变化，并不是说空气越冷，尖端就一定越宽。"
             }
           ]
         },
@@ -196,16 +196,16 @@
           "index": 2,
           "pairs": [
             {
-              "en": "This is a way to make a complicated pattern with an overall sixfold resemblance.",
-              "zh": "这样就能形成复杂的图案，同时保有整体上的六重相似性。"
+              "en": "One arm hasn't sent the others a drawing to copy.",
+              "zh": "并不是一条枝臂把图样发给其他枝臂照着复制。"
             },
             {
-              "en": "It doesn't require the arms to be isolated from one another.",
-              "zh": "这并不要求各条枝臂彼此完全隔离。"
+              "en": "The ice structure gives related directions, and nearby air gives related growing conditions.",
+              "zh": "冰的结构提供相互对应的方向，邻近的空气则提供相近的生长条件。"
             },
             {
-              "en": "They draw water from the surrounding air and can affect that shared supply.",
-              "zh": "它们从周围空气中获取水，也会影响这份共同的供给。"
+              "en": "The arms also draw water from a shared supply, so they are not isolated from one another.",
+              "zh": "枝臂还从共同的供给中获取水，因此彼此并不孤立。"
             },
             {
               "en": "Shared conditions explain a family resemblance, not a guarantee of perfect copies.",
@@ -222,16 +222,16 @@
           "index": 0,
           "pairs": [
             {
-              "en": "Keep the same star and look closer at two neighbouring arms.",
-              "zh": "保留同一颗星状晶体，仔细看看相邻的两条枝臂。"
+              "en": "Keep that same star, including its newly widened tips.",
+              "zh": "保留同一颗星晶，也保留它刚刚变宽的尖端。"
             },
             {
-              "en": "Their broad changes resemble one another.",
-              "zh": "它们较大的变化彼此相似。"
+              "en": "The two highlighted arms are enlarged here, with their original directions marked on the star.",
+              "zh": "这里放大了高亮的两条枝臂，并在星晶上标出了它们原来的方向。"
             },
             {
-              "en": "But this little sidebranch is longer on one arm, and that small branch is missing from the other.",
-              "zh": "可是，这根小侧枝在一条枝臂上更长，另一根小枝在旁边的枝臂上却没有。"
+              "en": "Their broad tips resemble one another, but one little sidebranch is longer and another is missing from its neighbour.",
+              "zh": "它们宽阔的尖端彼此相似，但一根小侧枝更长，另一根小枝在旁边的枝臂上却没有。"
             },
             {
               "en": "Even the two sides of one arm needn't match.",
@@ -243,16 +243,20 @@
           "index": 1,
           "pairs": [
             {
-              "en": "A small local disturbance can be amplified by the branching feedback we followed earlier.",
-              "zh": "局部的微小扰动，可以被我们之前观察过的分枝反馈放大。"
+              "en": "Now place a neighbouring crystal near one side.",
+              "zh": "现在，在一侧附近放入另一颗晶体。"
             },
             {
-              "en": "The air needn't be perfectly uniform, and a nearby crystal can draw down the supply on one side.",
-              "zh": "空气不必处处完全一样，附近的晶体也可能消耗某一侧的供给。"
+              "en": "Follow the water arriving through that region: some joins the neighbour instead.",
+              "zh": "跟着经过这片区域的水看一看：一部分水加入了旁边的晶体。"
             },
             {
-              "en": "So a shared journey can coexist with different details.",
-              "zh": "因此，共同的旅程和不同的细节，可以同时存在。"
+              "en": "In this schematic comparison, less reaches the nearby arm, and its new growth falls behind.",
+              "zh": "在这个示意比较中，附近的枝臂得到的水更少，新的生长便落后了。"
+            },
+            {
+              "en": "Local differences can be amplified by branching, even during a shared journey.",
+              "zh": "即使共同经历同一段旅程，局部差异仍可能被分枝过程放大。"
             }
           ]
         },
@@ -260,20 +264,24 @@
           "index": 2,
           "pairs": [
             {
-              "en": "A laboratory can deliberately make large, abrupt changes around a crystal.",
-              "zh": "实验室可以有意地让晶体周围的条件发生较大而突然的改变。"
+              "en": "Return attention to the whole star and impose another abrupt change in its surroundings.",
+              "zh": "把注意力放回整颗星晶，再让周围环境发生一次突然的改变。"
             },
             {
-              "en": "Those common changes can produce particularly well-matched features.",
-              "zh": "这些共同的变化，可以产生匹配得尤其好的特征。"
+              "en": "The new bands appear across the arms together, while the small differences remain underneath.",
+              "zh": "新的宽带一起出现在各条枝臂上，而原有的小差异仍留在下面。"
             },
             {
-              "en": "Under less strongly imposed changes, smaller differences can stand out more.",
-              "zh": "当外部变化没有那么强烈时，较小的差异可能更加突出。"
+              "en": "Strong changes imposed in a laboratory can produce particularly well-matched features.",
+              "zh": "实验室施加的明显变化，可以产生匹配得尤其好的特征。"
             },
             {
-              "en": "The resemblance and the mismatch are both part of what we need to explain.",
-              "zh": "相似与不相似，都是我们需要解释的现象。"
+              "en": "Under weaker common changes, local differences can stand out more.",
+              "zh": "当共同的变化较弱时，局部差异可能更加突出。"
+            },
+            {
+              "en": "Both the resemblance and the mismatch belong in our explanation.",
+              "zh": "相似与不相似，都需要我们解释。"
             }
           ]
         }
@@ -303,24 +311,24 @@
           "index": 1,
           "pairs": [
             {
-              "en": "Here's a chosen example with two equal time intervals.",
-              "zh": "这里有一个指定的例子，包含两个同样长的时间段。"
+              "en": "Rewind this chosen example and watch two equal time intervals.",
+              "zh": "把这个例子倒回去，观察两个同样长的时间段。"
             },
             {
-              "en": "In the first interval the tip advances a short distance.",
-              "zh": "第一个时间段里，尖端只前进一小段距离。"
+              "en": "During the first full sweep of the clock, the tip advances only a short distance.",
+              "zh": "在时钟第一次完整转过一圈时，尖端只前进一小段距离。"
             },
             {
-              "en": "In the second it advances farther.",
-              "zh": "第二个时间段里，它前进得更远。"
+              "en": "During the second, equally long sweep, the tip grows farther along the same arm.",
+              "zh": "在第二次同样长的一圈里，尖端沿着同一条枝臂长得更远。"
             },
             {
-              "en": "The same time has made different lengths because the growth rates were different.",
-              "zh": "因为生长速度不同，同样长的时间形成了不同的长度。"
+              "en": "The two clocks cover the same time, but the marked lengths are different.",
+              "zh": "两个时钟走过同样长的时间，标出的长度却不同。"
             },
             {
-              "en": "Without those rates, the finished arm doesn't tell us how long either part took.",
-              "zh": "如果不知道这些速度，完成的枝臂就无法告诉我们，每一部分用了多久。"
+              "en": "Now take the clocks away: those distances alone cannot recover the missing times without knowing the growth rates.",
+              "zh": "现在拿走时钟：如果不知道生长速度，只凭这些距离，就无法还原缺失的时间。"
             }
           ]
         },
@@ -336,12 +344,20 @@
               "zh": "有些表面棱脊可以在稳定生长过程中形成。"
             },
             {
-              "en": "Later sublimation, melting, collisions or frozen droplets can also alter the record.",
-              "zh": "后来的升华、融化、碰撞或冻结水滴，也可能改变这份记录。"
+              "en": "Now let a small piece break from the tip in a collision.",
+              "zh": "现在，让尖端的一小块冰在碰撞中折断。"
             },
             {
-              "en": "The useful idea of memory needs both a growth mechanism and a limit.",
-              "zh": "记忆这个有用的概念，既需要生长机制，也需要明确它的限度。"
+              "en": "The broken piece carries away part of that record.",
+              "zh": "折断的小块带走了部分记录。"
+            },
+            {
+              "en": "Sublimation, melting, or frozen droplets can erase or cover features too.",
+              "zh": "升华、融化或冻结水滴，也能消除或覆盖特征。"
+            },
+            {
+              "en": "A useful reading needs a growth mechanism and an account of what happened afterwards.",
+              "zh": "要作出有用的解读，既需要生长机制，也需要考虑之后发生的事情。"
             }
           ]
         }
@@ -354,20 +370,16 @@
           "index": 0,
           "pairs": [
             {
-              "en": "There is a sharper warning from a published computer model.",
-              "zh": "一个已发表的计算机模型，给出了更鲜明的提醒。"
+              "en": "This drawing follows a result from a published computer model.",
+              "zh": "这幅示意图依据一个已发表计算机模型的结果绘制。"
             },
             {
-              "en": "This is a drawing of that reported result, not a recording of a real crystal.",
-              "zh": "这里画的是那个已报告结果的示意图，不是真实晶体的记录。"
+              "en": "Start with a thin plate, seen at a slant so we can see its top and edge.",
+              "zh": "先看一片薄冰板：斜着看，就能同时看到顶面和边缘。"
             },
             {
-              "en": "The model lets vapour spread and adds ice using direction-dependent rules.",
-              "zh": "模型让水汽扩散，并按照与方向有关的规则增加冰。"
-            },
-            {
-              "en": "Its adjustable rules are not a direct measurement of the molecular surface.",
-              "zh": "这些可调规则，并不是对分子表面的直接测量。"
+              "en": "These are the model's outside controls; keep them fixed throughout the growth we are about to watch.",
+              "zh": "这些是模型的外部控制量；在接下来观察的整个生长过程中，让它们保持不变。"
             }
           ]
         },
@@ -375,16 +387,20 @@
           "index": 1,
           "pairs": [
             {
-              "en": "Keep the model's outside controls fixed.",
-              "zh": "保持模型的外部控制量不变。"
+              "en": "First the plate spreads out, leaving the original centre inside it.",
+              "zh": "冰板先向外展开，最初的中心仍留在内部。"
             },
             {
-              "en": "A plate grows for a while, then its rim develops into two spreading layers with an open space between them.",
-              "zh": "一片冰板先长了一段时间，随后它的边缘形成上下两层，继续向外展开，中间留有空隙。"
+              "en": "Now look at a cut through its middle from the side; the shaded strip is solid ice.",
+              "zh": "现在从侧面看穿过中间的截面；带阴影的条带是实心冰。"
             },
             {
-              "en": "The old centre remains while the new growth takes a different form.",
-              "zh": "旧的中心仍然存在，而新的生长采用了不同形态。"
+              "en": "Later, new growth at the rim spreads into two layers with an open space between them.",
+              "zh": "随后，边缘的新生长向外展开成上下两层，中间留有空隙。"
+            },
+            {
+              "en": "The old centre remains solid: we have added new sheets outside it, not dug a gap through it.",
+              "zh": "旧的中心仍是实心的：我们在外面增加了新的薄层，并没有挖穿旧冰。"
             },
             {
               "en": "If you only saw the final change in shape, would that prove the outside controls had changed?",
@@ -404,8 +420,12 @@
               "zh": "变化是在模型晶体发展过程中出现的。"
             },
             {
-              "en": "That doesn't prove the same mechanism made a particular natural specimen.",
-              "zh": "这并不能证明，某个天然样本就是由同一种机制形成的。"
+              "en": "Its adjustable growth rules are not a direct measurement of a real ice surface.",
+              "zh": "模型中可调的生长规则，并不是对真实冰表面的直接测量。"
+            },
+            {
+              "en": "So this doesn't identify the mechanism in a particular natural specimen.",
+              "zh": "所以，它并不能确定某个天然样本的形成机制。"
             },
             {
               "en": "It does show why a convincing-looking boundary is not, by itself, proof of a weather event.",
@@ -511,24 +531,28 @@
           "index": 1,
           "pairs": [
             {
-              "en": "Here is a cluster with several crystal orientations.",
-              "zh": "这里是一个包含多个晶体取向的团簇。"
+              "en": "Follow the three coloured parts of this cluster.",
+              "zh": "请跟着这个团簇中三种颜色的部分看。"
             },
             {
-              "en": "It needn't present one tidy six-armed outline.",
-              "zh": "它不必呈现整齐的六臂轮廓。"
+              "en": "Each has its own crystal orientation, so the whole particle need not have one tidy six-armed outline.",
+              "zh": "每一部分都有自己的晶体取向，所以整个粒子不一定有整齐的六臂轮廓。"
             },
             {
-              "en": "Here is a plate with a triangular outline.",
-              "zh": "这里是一片轮廓呈三角形的冰板。"
+              "en": "Now compare a single plate whose outside edge is triangular.",
+              "zh": "现在，对比一片外缘呈三角形的单独冰板。"
             },
             {
-              "en": "It can still be a single crystal of ordinary hexagonal ice.",
-              "zh": "它仍然可以是一颗普通六方冰的单晶。"
+              "en": "Enlarge a small patch inside it: the hexagonal arrangement of ordinary ice can continue in one orientation throughout the plate.",
+              "zh": "把内部的一小块放大：普通冰的六方排列，可以在整片冰板中保持同一个取向。"
             },
             {
-              "en": "How such unusual outlines develop is a test for later explanations.",
-              "zh": "这些不寻常的轮廓怎样形成，是留给后续解释的一项检验。"
+              "en": "The three-sided outline and the crystal arrangement inside are different things.",
+              "zh": "三边的外轮廓，与内部的晶体排列，是不同的事情。"
+            },
+            {
+              "en": "How that unusual outline develops is a test for later explanations.",
+              "zh": "这个不寻常的轮廓怎样形成，是留给后续解释的一项检验。"
             }
           ]
         },

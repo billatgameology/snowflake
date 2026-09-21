@@ -6,19 +6,18 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
-## Episodes 5–9 editorial repairs active — 2026-09-21
+## Episodes 5–9 editorial repairs complete — 2026-09-21
 
-The maker found E05/E06 improvable and E08/E09 poor, praised the column-to-plate sequence, asked
-for E07 to be rechecked too, and now authorizes all identified corrections followed by another review.
-Website `docs/series-editorial-recheck-2026-09-21.md` records the concrete defects and the earlier
-review gap. Completed production below is technical history, not editorial acceptance. Follow the
-[repair plan](plans/science-series-editorial-repairs.md): E08/E09 core explanations, E07 continuity
-and mechanisms, and bounded E05/E06 fixes, with bilingual source/audio kept coherent. Reuse the
-current two task checkouts. No new episode or deployment is authorized.
+The maker found E05/E06 improvable and E08/E09 poor, praised the column-to-plate sequence, and
+requested corrections and another review across E05–E09. The completed
+[repair plan](plans/science-series-editorial-repairs.md) covers rebuilt E08/E09 explanations, stronger
+E07 continuity and mechanisms, and targeted E05/E06 demonstrations. The original website diagnostic
+`docs/series-editorial-recheck-2026-09-21.md` remains retained. Earlier production receipts below
+are technical history, not editorial acceptance.
 
-**Next:** implement all recorded findings, review revised source/visuals, refresh affected approved
-Juniper/Yun takes, then review the resulting performances and leave the corrected preview available.
-Coordinator owns shared integration and paid voice calls; owners edit disjoint episode files.
+**Current:** all five corrections, final English narration and second source/visual reviews are complete. All five native English playthroughs ended without problems; owners and non-authors inspected every retained chronological capture, with separate ending/intermediate checks. The design guide now makes missing measurement, accumulated-history, clock, shared-helper and post-seek readiness lessons explicit. The maker's **English only** direction is enforced: E07–E09 Mandarin remains a translated draft with stale audio held by the existing English fallback. E05/E06 Mandarin finished before that instruction and is preserved.
+
+**Verification:** source/audio audits, 64 focused tests plus a browser readiness regression, both builds, all five desktop/phone player checks and a 141-observation cross-episode/hosting smoke pass. E06’s apparent phone model-loading failure was a stale-ready test race; the corrected test passes on unchanged product code. The corrected immutable preview is `http://127.0.0.1:5199`, build `export/series-editorial-repairs-site-v2` in the website checkout. The website’s `docs/series-editorial-repairs-2026-09-21.md` records every disposition, exact review scope and retained evidence. No human listening, physical-phone or uncoached audience acceptance is claimed. No new episode or deployment was performed.
 
 ## Science series E01–E09 built locally — production history, 2026-09-20
 

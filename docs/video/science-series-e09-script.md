@@ -1,6 +1,6 @@
 # E09 — How do we measure the surface response?
 
-Production source for the second batch, authorized 2026-09-20 with no maker draft-review gate.
+Production source revised 2026-09-21 under the authorized Episodes 5–9 editorial repair. The original second batch was authorized 2026-09-20; this revision has no maker draft-review gate.
 Question: how can measured growth reveal what the surface does? Takeaway: separate observation,
 transport calculation and fitted response; keep the conditions, step sources and history with it.
 Prerequisites: E03 delivery/surface distinction, E04 terraces/new islands, E05 transport feedback,
@@ -42,26 +42,15 @@ live local-humidity meter.
 
 ### Narration
 
-First account for the journey through the gas. A transport calculation estimates how much the
-growing crystal lowers the vapour level near its surface. The surface surplus is what remains above
-the ice balance level there. Low pressure makes this transport resistance smaller, which helps
-expose the surface response; it does not make every correction vanish.
+Keep that right-hand face and the line where it started. Water travels in from the surrounding gas, and growing ice leaves less vapour close to the face. A transport calculation estimates the extra vapour that remains above the ice balance level there. Low pressure makes this delivery problem smaller, but does not remove it.
 
-Next calculate a reference speed for that same local surplus and temperature, assuming the surface
-incorporates water as readily as the kinetic description allows. Compare the observed speed with
-that reference. Their ratio is an effective surface response, called the attachment coefficient.
+Now make a calculated copy beside the experiment. Give it the same temperature, the same estimated local vapour surplus, and the same elapsed time. In this calculation, set the surface response to one: the reference case with no reduction from that factor. Its face advances farther than the measured face in our teaching comparison.
 
-A small ratio means slow incorporation relative to this reference, after delivery has been
-considered. It is inferred from growth and a physical model, not measured by counting which
-individual collisions succeed. An error in the local vapour estimate changes the inferred response,
-even when the growth speed was measured perfectly.
+Divide the measured advance by the calculated reference advance over that same interval. That fraction is the inferred surface response, called the attachment coefficient. We inferred it from motion and a model; we did not count successful molecular collisions. Change the local vapour estimate and the reference changes, so the inferred fraction changes too.
 
 ### Visual and sources
 
-Keep the same prism; show surrounding and near-face vapour as different qualitative regions. Build
-observed speed and calculated reference sequentially, then the ratio. No molecule selection
-counter. Retain measured / calculated / inferred labels on their quantities. Diagram conveys a
-chain of inference, not a solved field or new experiment.
+Retain the scene-1 prism orientation, old face and fixed support. Show vapour travelling from the right to the right-hand growing face, with a qualitative near-face depletion region. Move the measured specimen up slightly only to make space for a dashed, explicitly calculated copy below. Both keep the same old-face coordinate, elapsed interval and local-condition marker. Advance the calculated reference farther, then compare the two physical distances before naming the inferred fraction. Illustrative geometry has no measured numerical scale. End by shifting the calculated reference only when the local estimate changes; the measured displacement stays fixed.
 
 `docs/education/chapters/11-the-stickiness-of-ice.html#sticking`; `docs/education/chapters/11-the-stickiness-of-ice.html#where-the-numbers-come-from`; [Primary source](https://arxiv.org/abs/1910.06389)
 
@@ -69,26 +58,15 @@ chain of inference, not a solved field or new experiment.
 
 ### Narration
 
-Now magnify a flat patch of that face. Remember the small islands from our episode about flat
-faces: many disappear before a lasting new layer gets started. A clean facet with no continuing
-source of steps can spend much of its time waiting for that event.
+Select a patch on that face and tip it towards us. A small new island appears, then disappears before it can spread into a lasting layer. Without an existing step, this patch must wait for a new island that survives.
 
-Now consider a different surface with a screw dislocation, a defect in the crystal that supplies a
-step winding around its centre. As the step advances, the winding edge remains available. At a low
-vapour surplus, which surface could keep growing without first starting a new island?
+Now look at a separate patch with a ledge already winding around a fixed point. The ledge is the edge between two layer heights, not a line painted on flat ice. At the same low vapour surplus, which patch could keep adding ice without first starting a new island?
 
-The surface with the continuing step. Water can join the existing edge as it moves across the face.
-This is a different route through the surface bottleneck, so a formula for a facet waiting for new
-islands need not describe it. Not every crystal has this defect, and a growth curve alone does not
-show us one.
+The surface with the continuing step. Follow the edge as it winds outwards: new layer area stays behind it, while an edge remains connected to the source. A screw dislocation, a defect through the crystal, can supply this kind of continuing step. That is a possible growth route, not a defect we have seen inside every crystal whose growth curve looks similar.
 
 ### Visual and sources
 
-Explicit zoom from prism side to a terrace. Establish transient schematic islands, then introduce a
-separate defect-bearing comparison surface. Keep both results withheld through the question; show a
-continuous curved step already present, but no advancing edge until answer. After answer advance
-the step while retaining its central source. This is a mechanistic schematic, not a micrograph; no
-atomically resolved defect is claimed.
+Link a selected patch on the parent right-hand face to a tilted terrace with visible depth. Show a temporary island appearing and disappearing. Introduce a separate comparison terrace containing a persistent winding ledge attached to a fixed source, with upper and lower layer heights visible. Hold the step motion until the answer. Advance the spiral edge and retain new layer area behind it; never draw an unattached spiral symbol. Name screw dislocation after the visible event. This is an explanatory surface schematic, not a claimed image of either experimental specimen.
 
 `docs/education/chapters/11-the-stickiness-of-ice.html#starting-a-layer`; [Primary source](https://arxiv.org/abs/1910.06389)
 
@@ -96,25 +74,15 @@ atomically resolved defect is claimed.
 
 ### Narration
 
-Return to a broad facet whose growth is consistent with starting new layers. One part of its fitted
-response describes how difficult it is to start those layers. A larger nucleation barrier
-suppresses growth more strongly at the same local vapour surplus. It is a steep change in
-likelihood, not a switch that forbids all growth below one exact humidity.
+Return to patches that have to start new layers. Keep the local water supply the same in this schematic comparison. On one patch, a surviving island spreads; on the other, more attempts disappear and less ice is added in the same time. The nucleation barrier describes this difficulty in getting a new layer started.
 
-There is a second job: setting the overall scale of the response. Even when making new layers
-becomes easy, incorporation may remain slower than the ideal reference. The factor that scales the
-curve is called the prefactor.
+Now put that comparison on a graph: local extra vapour along the bottom, inferred response up the side. With a larger barrier, the model gives a smaller response at the same supply. As the extra vapour shrinks towards the ice balance level, the response falls smoothly rather than switching off at one sharp threshold.
 
-The experimenter varies the supply, compares the resulting growth speeds, and fits these two parts
-together. The observed motion, the transport correction and the fitted parameters are different
-steps in the argument. Let us see what one published fit predicts.
+There is also an overall scale: even where starting layers becomes easier, the response may stay below the reference value of one. Watch the whole curve move down while its barrier stays the same. The factor setting that scale is the prefactor. Researchers fit the growth observations with these parts together, after accounting for delivery; they do not read either part directly from a surface meter.
 
 ### Visual and sources
 
-Show two explicitly model curves in sequence. For barrier, hold prefactor fixed and compare
-response at fixed local surplus; introduce smooth suppression without a hard threshold line. For
-prefactor, retain one barrier shape and scale the curve downward. Axis quantities are named before
-curves appear. Keep model-curve labels; no fabricated measured points or symbol dump.
+Start with two tilted physical patches under the same local supply and synchronized clocks. One surviving island spreads; more failed starts leave the second patch with less added area. Name the layer-starting barrier only after this. Keep small physical references while the graph appears; transfer the easy/hard comparison to two explicitly model curves. Hold local supply fixed for the vertical response comparison. After explaining an overall scale, move the whole response curve downward without changing its barrier. No invented measured point set and no absolute threshold.
 
 `docs/education/chapters/11-the-stickiness-of-ice.html#the-barrier`; `docs/education/chapters/11-the-stickiness-of-ice.html#where-the-numbers-come-from`; [Primary source](https://arxiv.org/abs/1910.06389)
 
@@ -122,28 +90,15 @@ curves appear. Keep model-curve labels; no fabricated measured points or symbol 
 
 ### Narration
 
-For that prism face at minus fifteen degrees, the published fit uses a barrier of three percent and
-a prefactor of one. The numbers we are about to show are calculations from that fit, not new
-measurements. Choose a local vapour surplus of one percent. That means one extra part for every
-hundred parts at the ice balance level. The fit gives a response of about five hundredths of the
-ideal reference, so the surface is still a strong restraint.
+Let us use the published fit for that prism face at minus fifteen degrees. Its barrier is three percent and its prefactor is one; what follows is a calculation, not a new measurement. Begin with a local vapour surplus of one percent. The pale group represents a hundred parts at ice balance; the extra bright part makes the one percent. The calculated response is about five hundredths, so the face advances only a short distance during our chosen interval.
 
-Now double the local surplus to two percent, keeping the temperature and fitted surface parameters
-unchanged. Would the calculated growth speed merely double?
+Start the next calculation from the same original face. Add a second extra part: the local surplus is now two percent, with the temperature and fitted surface parameters unchanged. Would the calculated growth speed merely double?
 
-It rises by more than twice. The response itself increases to about twenty-two hundredths, because
-forming new layers is easier. Combine that larger response with twice the local surplus, and the
-calculated speed is about nine times the first speed. That is one consequence of this fitted
-relation under these chosen conditions, not a universal ninefold rule for snow crystals.
+It rises by more than twice. The response itself rises to about twenty-two hundredths, because starting layers becomes easier. Run the same clock again: twice the local surplus and a larger response together give about nine times the advance. This is one chosen comparison from one fitted relation, not a ninefold rule for all snow crystals.
 
 ### Visual and sources
 
-Hardest demonstration. Source-fit calculation -15 °C / prism / A=1 / barrier 3% stays visible.
-Complete first case at 1% local surplus, then reset to the same starting face explicitly. Change
-only local input to 2%, pose question and hold answer quantities and motion. On release first
-reveal response .05→.22, then about9× speed through matched time, fixed old face and fixed rear
-edge. No empirical dots; exact operands and unrounded ratio are in reader. Small-screen version
-uses sequential large objects rather than tiny side-by-side cards.
+Keep the published-fit conditions and explicit calculated-example status. Show a compact qualitative group representing 100 parts at ice balance plus one separate bright extra part. During the next calculation retain the same group and add a second extra part. This is local water vapour relative to the ice balance level, not total air or a chamber dial. Preserve old ice, first-run distance mark and matched clock. Reset the current face explicitly before the second case; withhold its response and advance through the prediction. Then calculate the exact 8.963 ratio and run the same clock interval. Source-fit operands remain in the reader.
 
 `docs/education/chapters/11-the-stickiness-of-ice.html#the-barrier`; [Primary source](https://arxiv.org/abs/1910.06389)
 
@@ -179,28 +134,15 @@ a liquid droplet or melting entire crystal.
 
 ### Narration
 
-Remember the Penn State experiment that weighs an ice particle while it floats. Its colder
-experiments, between about minus thirty and minus forty-four degrees Celsius, follow mass rather
-than the speed of an individual face. The recorded mass history can be compared with a growth model
-that includes delivery and surface response.
+Return to the Penn State experiment that weighs ice while it floats. These experiments are colder, between about minus thirty and minus forty-four degrees Celsius, and follow mass rather than one face. First keep the observed mass history in view; our sketch shows the logic, not the study’s measured points.
 
-In a study of seventeen particles frozen without an added ice-forming speck, seven records were not
-described by the authors’ constant-mechanism fits. They explored a changing response instead. One
-illustrative transition fit reduced the effective coefficient from about twenty-five thousandths to
-about sixteen ten-thousandths during growth.
+Next add a prediction that keeps the same growth mechanism throughout. Seven of seventeen particles frozen without an added ice-forming speck could not be described that way: the model missed the change in their growth. The authors tried a response that declined during growth; that alternative followed the records more closely.
 
-Those are model-inferred values, not a surface meter reading. The mass instrument did not see the
-particle become faceted, or establish its shape or number of crystal grains. The result gives us a
-serious reason to test changing surface behaviour, while leaving the exact microscopic history
-unresolved.
+That improved fit is evidence for a changing response within their model, not a direct measurement of the change. The instrument did not show the particle’s shape, its grains, or a particular face turning smooth. Keep the measured mass history and the proposed surface history separate.
 
 ### Visual and sources
 
-Introduce a symbolic levitated particle with fixed unknown shape; never morph sphere into faceted
-prism. Build schematic mass history labelled mass record schematic, then separately show model-fit
-coefficient endpoints 0.025→0.0016 under explicit fitted transition heading. No digitized curve
-values are claimed. Keep -30 to-44 °C scope and morphology not observed locally when discussing the
-interpretation.
+Retain a small symbolic held particle and label the whole comparison schematic. Draw the observed-mass-history teaching line first. Add a dashed fixed-mechanism prediction that curves away from it, then a separately coloured declining-response alternative following it. Keep the original observation visible through both comparisons and highlight the mismatch, never replace it with coefficient-number cards. These curves convey inference logic and are not digitized study data. The mass instrument never resolves morphology: maintain an unknown-shape symbol and attach the limitation to that apparatus.
 
 `docs/education/chapters/11-the-stickiness-of-ice.html#the-coefficient-that-moves`; [Primary source](https://doi.org/10.1175/JAS-D-19-0303.1); [Primary source](https://doi.org/10.1175/JAS-D-23-0131.1)
 
@@ -208,27 +150,15 @@ interpretation.
 
 ### Narration
 
-The same research programme also compared droplets frozen with an added ice-forming material. Their
-inferred response varied with vapour supply differently from the particles frozen without it. The
-authors considered inherited defects and continuing step sources as possible reasons.
+How the droplets froze also mattered in that research programme. Keep two preparation histories in view: droplets frozen without an added ice-forming material, and droplets frozen with one. Across the tested chamber supplies, the responses inferred for the first group tended to rise as extra vapour increased. For the group frozen with added material, the inferred trend went the other way.
 
-This comparison does not prove that every particle was one perfect crystal with one spiral step.
-Later analysis of a newer, colder dataset from this apparatus suggests that some frozen droplets
-may contain several crystal grains. And reanalysing an earlier mass record does not make it a
-second independent experiment.
+These arrows describe inferred response, not raw growth speed, and compare different trials rather than turning one particle’s humidity dial. Remember the ledge that could keep growing when starting a new layer was difficult. The authors considered inherited defects and continuing step sources as possible reasons for the contrast.
 
-A later study by Harrington and Pokrifka, published in twenty twenty-six, examines where steps
-originate when explaining solid and hollow crystal growth. It is another model-and-observation
-comparison, not a new movie of the levitated particles changing their surfaces. The useful lesson
-is to keep the birth history and the source of steps with the measurement, instead of treating
-surface response as one permanent number for all ice.
+The mass records did not reveal those defects or prove that every particle was a single crystal. Later analysis of newer, colder experiments suggests that some frozen droplets can contain several crystal grains. So keep the preparation history with the fitted response, and leave the unseen structure as a question.
 
 ### Visual and sources
 
-Two birth-protocol symbols, then their explicitly inferred response relation; do not draw a filmed
-internal grain map. Unknown-grain icon is a question-mark bracket only. Source-programme timeline
-distinguishes 2016/2020 shared mass-record lineage, 2024 morphology analysis and separate 2026
-theory/observation work. No invented new dataset or microscope imagery.
+Retain both preparation histories as labelled droplet-to-ice paths. Introduce qualitative inferred-response-versus-chamber-supply trend plots beside those histories: without added material trends upward; with material trends downward. Explicitly label across separate trials, schematic trends, inferred response, and chamber supply. Do not animate a single particle receiving a changed setting or equate lower response with lower raw growth speed. Revisit a small step-source inset only as a possible mechanism. Internal grain or defect structure remains unseen. Detailed publication chronology is retained in readers 6 and 7.
 
 `docs/education/chapters/11-the-stickiness-of-ice.html#the-coefficient-that-moves`; [Primary source](https://doi.org/10.1175/JAS-D-19-0303.1); [Primary source](https://doi.org/10.1175/JAS-D-23-0131.1); [Primary source](https://doi.org/10.1175/JAS-D-26-0016.1)
 
@@ -236,26 +166,15 @@ theory/observation work. No invented new dataset or microscope imagery.
 
 ### Narration
 
-Follow the chain once more: observe growth, account for delivery, infer a surface response, then
-test the model against more than one condition. For a broad, well-prepared facet, this gives a
-powerful way to connect visible motion with layer formation. But there is a revealing mismatch when
-we carry broad-facet behaviour into other settings.
+Follow our original face once more: measure how far it advances in a known time. Account for the journey through the gas, then calculate the reference advance at that estimated local supply. Compare the two advances to infer the surface response. Now ask whether the same description works in another setting.
 
-Near minus five degrees Celsius, low-pressure measurements report simple prisms that are often
-plate-like. In ordinary air near that temperature, slender columns and hollow columns can grow.
-These are different conditions and geometries, so the contrast alone does not identify its cause.
+Near minus five degrees Celsius, low-pressure measurements report simple prisms that are often plate-like. In ordinary air near that temperature, slender columns and hollow columns can grow. Pressure and geometry both differ, so this contrast alone cannot tell us the cause.
 
-Now look at the rim of a hollow column: its growing flat strip can be extremely narrow. Does that
-strip have the same surface response as the broad face used to build our fitted map? That is the
-next experiment to ask of the edge.
+Keep that hollow column and select the flat strip around its opening. The linked close-up shows how narrow that growing strip can be. Does it have the same surface response as the broad face we measured? That is the next experiment to ask of the edge.
 
 ### Visual and sources
 
-Re-enact observed face advance → calculated local supply → inferred response as sequential motifs.
-Then change example explicitly to -5 °C: low-pressure simple plate, followed by ordinary-air
-column, then comparison. Retain pressure and geometry difference. Zoom a hollow rim only on the
-named phrase. Do not solve E10 or imply curve crossings predict an entire habit; no animation of
-width itself changing kinetics yet.
+Sequentially replay the original measured right-hand face and clock, then incoming delivery and its calculated reference copy, then the ratio. Change examples explicitly to the minus-five-degree comparison, retaining the two separate specimens. When hollow-column rim is named, keep the same parent column and highlight the horizontal end rim. Link that selected strip to a magnified narrow strip; show upper/lower boundaries and retain parent context. Do not imply a causal width effect is already established.
 
 `docs/education/chapters/11-the-stickiness-of-ice.html#where-the-numbers-come-from`; `docs/education/chapters/12-why-the-shape-flips.html#narrow-facets`; [Primary source](https://arxiv.org/abs/1912.03230); [Primary source](https://arxiv.org/abs/1910.06389)
 
@@ -347,8 +266,7 @@ A slightly tilted, or vicinal, surface provides another source of existing steps
 a staircase rather than one uninterrupted plane. The competition is between reaching a step by
 surface diffusion and leaving the surface again. Step spacing compared with the typical distance
 travelled before desorption can therefore change incorporation. Step-edge barriers and asymmetric
-access from different terraces complicate the simple sketch. The episode keeps these molecular
-pathways in the reader because its main new task is the inference from a growth observation.
+access from different terraces complicate the simple sketch. The tilted-surface pathway stays in the reader. The continuing screw-dislocation step is demonstrated in the main story before its name is introduced.
 
 Sources: `docs/education/chapters/11-the-stickiness-of-ice.html#starting-a-layer`; [Primary source](https://arxiv.org/abs/1910.06389)
 
@@ -391,6 +309,8 @@ particles, but strengthens the caution against animating these records as a prov
 faceting movie. The Penn State analysis uses a Nelson–Baker composite growth description; its
 characteristic supersaturation is not automatically the same parameter as the nucleation barrier in
 the exponential broad-facet relation.
+
+In the 2020 analysis, the inferred response for heterogeneously frozen droplets decreased across increasing chamber ice supersaturation, while coefficients inferred for homogeneously frozen droplets increased (accepted manuscript pp. 21 and 24; Figure 8b). These are trends across distinct runs, with differing conditions and uncertainties, not one particle subjected to a humidity sweep. The chamber value is not the local surface surplus in the broad-facet fit. A decreasing inferred coefficient also does not mean the raw mass-growth rate decreases; the normalized heterogeneous growth rates rose with chamber supply (p. 24, Figure 14). The episode draws only qualitative trend directions, not source data or fitted slope values.
 
 The 2016 heterogeneous records and their 2020 reanalysis belong to one observational lineage.
 Revised chamber calibration and interpretation do not produce independent replication. The 2020

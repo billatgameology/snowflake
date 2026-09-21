@@ -1,6 +1,6 @@
 # E07 — A crystal remembers—but not perfectly
 
-English production authority, 2026-09-20. The maker authorized the complete E07/E09 batch and explicitly waived a draft or maker-review gate. Technical, source and performance checks remain required; their scope is recorded in the episode review.
+English production authority, revised 2026-09-21 after the maker’s editorial recheck. The maker authorized the complete E07/E09 batch and explicitly waived a draft or maker-review gate. Technical, source and performance checks remain required; their scope is recorded in the episode review.
 
 **Question:** What can a finished crystal tell us about how it grew?
 
@@ -46,15 +46,15 @@ Sources: `docs/education/chapters/08-a-snowflake-is-a-record.html#reading-a-capp
 
 ### Narration
 
-Now consider a different crystal: a six-armed star. All six arms travel together, separated by only a small distance. When the surrounding air changes across the whole crystal, the arms can experience nearly the same change at nearly the same time.
+Now consider a different crystal: a six-armed star. All six arms travel together, separated by only a small distance. The shaded region is the air around the whole crystal.
 
-Watch one shared change, then follow the fresh growth on one arm. The new part broadens. Now look around the other arms: a similar change can appear on each. One arm hasn't sent the others a drawing to copy. The ice structure gives related directions, and their shared surroundings give related growing conditions.
+In this teaching example, that whole region becomes colder. Follow the fresh ice on the highlighted arm. Here the new tip grows broader, while the earlier branches stay in place. Now return to all six arms: each has experienced the same cooling, and each can develop a similar new feature. This chosen response illustrates a shared change; it is not a rule that colder air always makes wider tips.
 
-This is a way to make a complicated pattern with an overall sixfold resemblance. It doesn't require the arms to be isolated from one another. They draw water from the surrounding air and can affect that shared supply. Shared conditions explain a family resemblance, not a guarantee of perfect copies.
+One arm hasn't sent the others a drawing to copy. The ice structure gives related directions, and nearby air gives related growing conditions. The arms also draw water from a shared supply, so they are not isolated from one another. Shared conditions explain a family resemblance, not a guarantee of perfect copies.
 
 ### Visual and sources
 
-New six-arm diagram introduced explicitly. One broad input band spans whole subject; select one arm before one new broad tip grows, then others. No signals/arrows between arms. Preserve unequal small sidebranch details. Mention shared vapour coupling without simulating an unsupported field. Sources: Libbrecht figure 1.10, pp. 21–22; p. 358.
+One retained air region contains one star. A visibly moving thermometer column establishes whole-region cooling, with no numeric temperature or universal habit rule. Vapour traces remain in that same region. Select one arm; add a broad new tip beyond its retained earlier endpoint, then return to all six. The same arm geometry, unequal details and broad tips persist into scene 4. This is a chosen qualitative response, not simulated temperature-dependent growth. Sources: Libbrecht figure 1.10, pp. 21–22; p. 358.
 
 Sources: `docs/education/chapters/08-a-snowflake-is-a-record.html#why-the-six-arms-match`, [Primary source](https://arxiv.org/abs/1910.06389v2).
 
@@ -62,15 +62,15 @@ Sources: `docs/education/chapters/08-a-snowflake-is-a-record.html#why-the-six-ar
 
 ### Narration
 
-Keep the same star and look closer at two neighbouring arms. Their broad changes resemble one another. But this little sidebranch is longer on one arm, and that small branch is missing from the other. Even the two sides of one arm needn't match.
+Keep that same star, including its newly widened tips. The two highlighted arms are enlarged here, with their original directions marked on the star. Their broad tips resemble one another, but one little sidebranch is longer and another is missing from its neighbour. Even the two sides of one arm needn't match.
 
-A small local disturbance can be amplified by the branching feedback we followed earlier. The air needn't be perfectly uniform, and a nearby crystal can draw down the supply on one side. So a shared journey can coexist with different details.
+Now place a neighbouring crystal near one side. Follow the water arriving through that region: some joins the neighbour instead. In this schematic comparison, less reaches the nearby arm, and its new growth falls behind. Local differences can be amplified by branching, even during a shared journey.
 
-A laboratory can deliberately make large, abrupt changes around a crystal. Those common changes can produce particularly well-matched features. Under less strongly imposed changes, smaller differences can stand out more. The resemblance and the mismatch are both part of what we need to explain.
+Return attention to the whole star and impose another abrupt change in its surroundings. The new bands appear across the arms together, while the small differences remain underneath. Strong changes imposed in a laboratory can produce particularly well-matched features. Under weaker common changes, local differences can stand out more. Both the resemblance and the mismatch belong in our explanation.
 
 ### Visual and sources
 
-Retain same star; select two adjacent arm sectors with leaders to side-by-side magnified copies, preserving their actual chosen unequal branch pattern. Show one localized disturbance and growth, not a new global condition change. Finish with separate common input pulses and matched major bands. Sources: Libbrecht pp. 83–84, 358. Schematic, no counted probability.
+Retain the exact six-arm diagram and broad tips from scene 3. Highlight adjacent arms 0 and 5, then shrink the parent continuously to a context position and link them to rotated enlarged copies with exactly matching branch lengths and missing branch. Introduce a separate neighbouring ice surface near arm 5; animate incoming water taking both paths and less addition on that arm. Retain old branches throughout. A separate whole-region temperature step then adds major bands together across the parent and enlarged arms, rather than merely changing a banner. All delivery and growth quantities are chosen schematic comparisons. Sources: Libbrecht pp. 83–84, 358.
 
 Sources: `docs/education/chapters/08-a-snowflake-is-a-record.html#where-the-symmetry-runs-out`, [Primary source](https://arxiv.org/abs/1910.06389v2).
 
@@ -80,13 +80,13 @@ Sources: `docs/education/chapters/08-a-snowflake-is-a-record.html#where-the-symm
 
 Suppose we follow one arm from the centre towards its tip. In this simple outward-growth story, we meet earlier growth before later growth. But equal distances don't have to represent equal amounts of time.
 
-Here's a chosen example with two equal time intervals. In the first interval the tip advances a short distance. In the second it advances farther. The same time has made different lengths because the growth rates were different. Without those rates, the finished arm doesn't tell us how long either part took.
+Rewind this chosen example and watch two equal time intervals. During the first full sweep of the clock, the tip advances only a short distance. During the second, equally long sweep, the tip grows farther along the same arm. The two clocks cover the same time, but the marked lengths are different. Now take the clocks away: those distances alone cannot recover the missing times without knowing the growth rates.
 
-Nor is every visible mark a separate weather event. Some surface ridges can develop during steady growth. Later sublimation, melting, collisions or frozen droplets can also alter the record. The useful idea of memory needs both a growth mechanism and a limit.
+Nor is every visible mark a separate weather event. Some surface ridges can develop during steady growth. Now let a small piece break from the tip in a collision. The broken piece carries away part of that record. Sublimation, melting, or frozen droplets can erase or cover features too. A useful reading needs a growth mechanism and an account of what happened afterwards.
 
 ### Visual and sources
 
-Single arm stays horizontally aligned. Sequential invented equal-duration bars first earn time; tip adds a short segment then a longer segment against fixed origin, labels earlier/later, same-duration braces. Do not label positions as dates. End by drawing a steady-growth radial ridge, followed separately by a damaged tip cue. Source clock inference explicitly geometric, not a reported measured run; alteration scope from Ch1 and Ch8.
+A horizontal arm retains fixed starting, first-end and final-end marks. Two adjacent clock sweeps each have the same five-second demonstration duration; the first accompanies a short advance and the second a longer advance. Fade only the clocks at the missing-times sentence; retain all distance marks. Show one passing ice piece strike the tip; a fragment visibly detaches and moves away while a dashed before-outline remains. This is an invented geometric demonstration, not measured seconds, collision mechanics or a reported run. Ridge and later alteration qualifications follow the existing Ch1 and Ch8 sources.
 
 Sources: `docs/education/chapters/08-a-snowflake-is-a-record.html#what-the-record-does-not-say`, `docs/education/chapters/08-a-snowflake-is-a-record.html#the-writing-on-the-surface`, [Primary source](https://arxiv.org/abs/1910.06389v2), `docs/education/chapters/01-not-a-frozen-raindrop.html#two-words`.
 
@@ -94,15 +94,15 @@ Sources: `docs/education/chapters/08-a-snowflake-is-a-record.html#what-the-recor
 
 ### Narration
 
-There is a sharper warning from a published computer model. This is a drawing of that reported result, not a recording of a real crystal. The model lets vapour spread and adds ice using direction-dependent rules. Its adjustable rules are not a direct measurement of the molecular surface.
+This drawing follows a result from a published computer model. Start with a thin plate, seen at a slant so we can see its top and edge. These are the model's outside controls; keep them fixed throughout the growth we are about to watch.
 
-Keep the model's outside controls fixed. A plate grows for a while, then its rim develops into two spreading layers with an open space between them. The old centre remains while the new growth takes a different form. If you only saw the final change in shape, would that prove the outside controls had changed?
+First the plate spreads out, leaving the original centre inside it. Now look at a cut through its middle from the side; the shaded strip is solid ice. Later, new growth at the rim spreads into two layers with an open space between them. The old centre remains solid: we have added new sheets outside it, not dug a gap through it. If you only saw the final change in shape, would that prove the outside controls had changed?
 
-No: they stayed fixed in this model run. The change arose as the model crystal developed. That doesn't prove the same mechanism made a particular natural specimen. It does show why a convincing-looking boundary is not, by itself, proof of a weather event.
+No: they stayed fixed in this model run. The change arose as the model crystal developed. Its adjustable growth rules are not a direct measurement of a real ice surface. So this doesn't identify the mechanism in a particular natural specimen. It does show why a convincing-looking boundary is not, by itself, proof of a weather event.
 
 ### Visual and sources
 
-Explicit reported-model teaching schematic, not simulation output or natural observation. Fixed-control card remains visible before and after change. Longitudinal plate cutaway grows upper/lower rim sheets only beyond the fixed solid core; never excavate old plate. Prediction at paragraph 2 keeps result shown but withholds interpretation. Answer retains controls unchanged and highlights new geometry. Source: Gravner and Griffeath 2009 sections 7, 9 and conclusion item (d); model result limits foregrounded.
+A labelled qualitative drawing of the published model result. Begin with a recognisable oblique thin hexagonal plate and establish top/edge, beside two stationary model-control sliders. Grow its perimeter before marking a cut through its centre; retain the oblique plate as a linked reference above an enlarged side cutaway. Preserve the original centre and all pre-transition ice, then add upper and lower rim sheets outward from the grown plate edge at fixed vertical anchors. The new external gap is never excavated from old material. Controls never move. Question holds the completed geometry; answer and model-versus-natural-specimen limit arrive after the three-second hold. Source: Gravner and Griffeath 2009 sections 7, 9 and conclusion item (d).
 
 Sources: `docs/education/chapters/08-a-snowflake-is-a-record.html#the-record-can-lie`, [Primary source](https://arxiv.org/abs/1910.06389v2), [Primary source](https://www.math.ucdavis.edu/static/research/infovault/gravner/Phy_Rev_E-79-2009.pdf).
 
@@ -128,13 +128,13 @@ Sources: `docs/education/chapters/08-a-snowflake-is-a-record.html#no-two-alike-p
 
 One more trap comes from which crystals we choose to show. A gallery of beautiful six-armed stars is a selection, not a sample of everything falling from a cloud. Natural snow also includes simple forms, uneven crystals, clusters and ice coated with frozen droplets.
 
-Here is a cluster with several crystal orientations. It needn't present one tidy six-armed outline. Here is a plate with a triangular outline. It can still be a single crystal of ordinary hexagonal ice. How such unusual outlines develop is a test for later explanations.
+Follow the three coloured parts of this cluster. Each has its own crystal orientation, so the whole particle need not have one tidy six-armed outline. Now compare a single plate whose outside edge is triangular. Enlarge a small patch inside it: the hexagonal arrangement of ordinary ice can continue in one orientation throughout the plate. The three-sided outline and the crystal arrangement inside are different things. How that unusual outline develops is a test for later explanations.
 
 The mix you collect depends on the cloud, where you sample it, and what survives the journey. Our examples are a selection too, not a measured census. A good explanation has to face the ordinary and awkward crystals as well as the photogenic ones.
 
 ### Visual and sources
 
-Start selected portrait frame around star, expand to a labelled illustrative selection (not counts). Sequential single specimens: plain plate, asymmetric star, cluster, frozen-droplet coated particle. Focus multiple orientations then triangle; no triangle mechanism here. Keep population proportions unquantified. Sources Ch9 names, what-falls, twins; triangular examples recognized without endorsing a mechanism.
+Begin with a selected portrait and expand to an illustrative range without population counts. Grow or separate attention across three individually coloured, differently oriented prismatic parts attached in one cluster; each retains a local axis marker. For the single triangular plate retain a thin extruded plate, select an interior patch and link to a schematic top-view hexagonal arrangement whose orientation is constant. Repeated ring cells illustrate arrangement only, not a molecular count, full three-dimensional lattice or a triangle mechanism. Trace the triangular outer perimeter separately from the inner pattern; never imply threefold molecular structure. Sources: Ch9 and the cited triangular-plate observations.
 
 Sources: `docs/education/chapters/08-a-snowflake-is-a-record.html#where-the-symmetry-runs-out`, [Primary source](https://arxiv.org/abs/1910.06389v2), `docs/education/chapters/09-the-menagerie.html#names`, `docs/education/chapters/09-the-menagerie.html#what-falls`, `docs/education/chapters/09-the-menagerie.html#twins`, [Primary source](https://arxiv.org/abs/2106.09809).
 

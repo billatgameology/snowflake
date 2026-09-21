@@ -69,6 +69,8 @@ snow crystal.
 
 ### Visual and sources
 
+During the spoken loop recap, focus shape, net delivery and added growth in phrase order; add two small increments without resetting the old-ice reference.
+
 - Reset explicitly to the same initial profile after closing the first case. Set `surface correction
   insufficient` before the question. Preserve the old solid and fixed outer-supply line.
 - Show qualitative depletion by a smooth air tint and schematic delivery paths; do not plot invented
@@ -142,8 +144,9 @@ observe.
 - Align the earlier tip outline with the later one only after the lab-frame displacement is visible.
   Label the small comparison `tips aligned`; never translate the real old solid in the lab view.
   A moving-camera view is a production option, not necessary in this prototype.
-- Paragraph 3 first marks a tiny curvature comparison as schematic, then highlights the interface
-  where attachment operates. No numerical radius, tip-speed curve or universal balance is drawn.
+- Paragraph 3 keeps the selected tip above a linked enlargement. Compare sharply and gently curved
+  schematic tips, then show water joining and a new boundary added outside the old one. No numerical
+  radius, calculated tip selection, measured growth rate or universal balance is drawn.
 - `docs/education/chapters/06-the-runaway-bump.html#the-tip-that-never-changes`
 - [Libbrecht, *Snow Crystals*, printed pp. 84–85 and 102–106](https://arxiv.org/abs/1910.06389v2)
 - [Libbrecht, Crosby & Swanson 2002, sections 1–2](https://www.snowcrystals.com/electric/1-s2.0-S0022024801020899-main.pdf)
@@ -168,6 +171,8 @@ results. Our drawings illustrate that comparison; they haven't calculated it. Re
 tips can split too, so directional preference is not a promise that splitting can never happen.
 
 ### Visual and sources
+
+Show the competing protrusion during that exact phrase, before repeated tip splitting is named. Grow unequal forks with unequal subsequent splits, not a symmetric binary tree.
 
 - Same selected tip. First introduce a single guide in its growth direction, then extend one point.
   `directional surface rule` is the local condition, not an external force arrow.
@@ -253,6 +258,8 @@ it doesn't explain the vapor supply, surface response or preferred directions. T
 processes that make the branching pattern grow.
 
 ### Visual and sources
+
+Keep the physical branch and its small tertiary branch visible throughout the mathematical construction. The same nested branch remains in the final finite-versus-repeated comparison.
 
 - First zoom into a selected sidebranch of the existing arm, preserving the parent as a reference.
   Show a finite second/third branching level; never imply infinite zoom or exact self-similarity.

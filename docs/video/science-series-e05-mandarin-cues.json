@@ -3,9 +3,9 @@
   "description": "Ordered same-meaning sentence anchors. Every production reveal begins one pair. Source review and semantic checks do not establish listening acceptance.",
   "source": {
     "path": "docs/video/science-series-e05-script.md",
-    "sha256": "94f79cee932ac0c723ad877253d2deba3fdf1d89a66b82798c4f63ce8ca0e1db"
+    "sha256": "735acec3b4f8904a89525746941543fd529b8bbc202870572366c020205a2555"
   },
-  "sourceEnglishSha256": "72809d38bcf83e5cfcaa5a8ddcd0397b85e349228569da31e66841c18119d226",
+  "sourceEnglishSha256": "00c84e7483201f184a76da343de3c4db4441daab9b805061d12459ebc1e697e0",
   "sections": [
     {
       "id": "E05-01",
@@ -131,8 +131,16 @@
               "zh": "它增加更多冰，再向外伸一些，于是差别继续扩大。"
             },
             {
-              "en": "Follow the loop twice: shape changes delivery; delivery changes growth; growth changes shape.",
-              "zh": "跟着这个循环走两遍：形状改变供给，供给改变生长，生长又改变形状。"
+              "en": "Follow the loop twice: shape changes delivery;",
+              "zh": "跟着这个循环走两遍：形状改变供给，"
+            },
+            {
+              "en": "delivery changes growth;",
+              "zh": "供给改变生长，"
+            },
+            {
+              "en": "growth changes shape.",
+              "zh": "生长又改变形状。"
             },
             {
               "en": "The supply farther away has stayed steady throughout.",

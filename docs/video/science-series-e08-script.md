@@ -1,7 +1,8 @@
 # E08 — How to measure a growing crystal
 
-English production source and substantive reader, 2026-09-20. First parallel batch, authorized
-for full bilingual production after rehearsal and source review. The incoming E07 contract is that a finished shape admits
+English production source and substantive reader, revised 2026-09-21 after the maker’s editorial
+critique. Rebuilt causal demonstrations are under renewed performance review; earlier production
+checks are not editorial acceptance. The incoming E07 contract is that a finished shape admits
 plausible histories without uniquely measuring its past. The outgoing E09 contract is a growth
 rate with stated observation, calibration and apparatus limits, ready for an inference about
 delivery and effective surface response. E08 does not fit an attachment coefficient or barrier.
@@ -109,20 +110,11 @@ can be a poor guide to how much it affects the experiment.
 
 ### Narration
 
-So the experimenter isolates one test crystal and brings the frost source closer. Removing
-other ice reduces competition. Shortening the gap reduces the large-scale supply difference
-across the chamber. Neither change makes every uncertainty disappear, and a short gap alone
-does not fix a floor crowded with ice.
+So the experimenter isolates one test crystal and brings the frost source closer. Removing other ice reduces competition. Shortening the gap reduces the large-scale supply difference across the chamber. Neither change makes every uncertainty disappear, and a short gap alone does not fix a floor crowded with ice.
 
-Next comes a check on the zero point. Adjust the source until the test crystal is between
-growing and shrinking. Watch its boundary against the old outline. This helps locate the
-balance setting for that run. It has an uncertainty; a dial marked zero is not enough.
+Next comes a check on the zero point. Here the test crystal is slowly shrinking; keep its starting outline in view. Raise the source setting a little, then watch the boundary again. Now it stays in place, although water continues to enter and leave the ice. Finding this boundary between growth and loss helps locate the ice-balance setting for the run. The setting still has an uncertainty; a dial marked zero is not enough.
 
-There is a separate check using liquid droplets, with the test crystals removed. Adjust the
-source until the droplets stay the same size. Their balance condition is independently known,
-so it tests the chamber calculation. Remember our first episode: a liquid drop and ice do not
-balance against the same vapour level. These two checks use different references. Now we have
-a better-controlled setting. How do we measure a change too small to read easily from the outline?
+Keep that ice-balance setting as a reference. Then begin a separate check with liquid droplets and no test ice. Watch a droplet shrink at first. Adjust the source again until the droplet boundary holds steady. That liquid-balance condition is independently known, so it checks the chamber calculation. Liquid and ice need different vapour levels to balance; we have not found the same zero twice. With the supply better checked, how can we measure a very small thickness change?
 
 ### Visual and sources
 
@@ -143,27 +135,23 @@ a better-controlled setting. How do we measure a change too small to read easily
 
 ### Narration
 
-Return to our ice crystal on its transparent support. Look at it from the side. A weak laser
-shines onto the top. Some light reflects from that upper surface. Some travels through the
-ice and reflects from the lower boundary where the ice meets the support.
+Return to our supported ice and look at it from the side. Keep the lower boundary fixed against the transparent support. Follow a weak laser beam down to the upper surface. One part reflects there. Another part travels through the ice, reflects at the lower boundary, and returns through the ice again.
 
-The second reflection has made an extra round trip through the ice. The two returning light
-waves combine. Depending on that extra journey, they can strengthen or weaken each other.
-The camera sees a brighter or dimmer spot. That combining of waves is called interference.
+Bring both returns into the same spot at the camera. The second has travelled an extra round trip through the ice. This enlarged wave drawing shows what happens when the returns combine. Crests lining up reinforce each other; the combined wave is stronger. Crests meeting troughs weaken each other instead. The camera measures that combined brightness. This is interference.
 
-Now let the upper surface move outward as ice is added. The lower boundary stays put, so the
-extra journey changes. The spot passes from dim to bright and back to dim. One brightness alone
-does not tell us how thick the crystal is. The sequence of changes is what makes this a ruler.
+Now watch actual addition in our teaching drawing: new ice builds above the old top line. The bottom stays fixed, so the extra light journey gets longer. As thickness increases, the combined spot goes from dim to bright and back to dim. That is one complete cycle. The added ice stays. A single brightness would not tell us the starting thickness; the changing signal is our ruler.
 
 ### Visual and sources
 
 - Introduce a side-on cross-section with selected upper/lower reflecting interfaces, old ice
   and fixed support. Mark the angle/height as schematic. Trace the first optical route before
   introducing the second; offset their drawn tracks slightly for legibility, not physical scale.
-- Introduce the detector only after both returns exist. Show two simple wave traces and their
-  combined amplitude in a separate explanatory inset; a wave is not a water molecule trajectory.
-- Grow new ice above the initial top line with a stationary base. The optical spot follows the
-  relative phase; it does not pulse as an unrelated decorative animation. No cycle count yet.
+- Follow the two return paths into one shared camera spot. The enlarged explanatory inset overlays
+  both waves and draws their sum; first reinforce, then cancel. Clearly distinguish that
+  wave-addition comparison from the subsequent physical thickness change. A wave is not a molecule path.
+- Grow one retained thickness band above the initial top line with a stationary base. The optical
+  spot follows the relative phase and completes dim–bright–dim. Preserve that exact added band
+  at scene 6 entry, before adding any more. The schematic thickness bands are not molecular layers.
 - `docs/education/chapters/10-how-we-know.html#counting-fringes`
 - [Libbrecht, *Snow Crystals*, printed pp. 228–230 and 259; figures 6.14–6.15, 7.10](https://arxiv.org/abs/1910.06389)
 
@@ -171,30 +159,21 @@ does not tell us how thick the crystal is. The sequence of changes is what makes
 
 ### Narration
 
-Keep watching that spot. For a known wavelength and this simple optical geometry, each complete
-brightness cycle corresponds to the same increase in thickness. How much depends on the
-light and on how it travels through ice. We can count complete cycles without knowing the
-crystal's starting thickness.
+Keep that same crystal, its added ice and the same camera spot. Watch two more complete brightness cycles as the top moves outward. Each cycle adds the same thickness in this simple geometry, for a known wavelength and optical properties. The equal bands mark thickness increments, not molecular layers. We can count these changes without knowing how thick the original ice was.
 
-Now add the clock. Mark a beginning and an end, count the cycles between them, and convert them
-to an added thickness. Divide that change by the elapsed time, and we have an average growth
-speed. The light signal became a distance; the distance and clock became a rate. More growth
-in the same interval would give more complete cycles.
+Now start a clock beside the same growing crystal. During this marked interval, watch the clock sweep while two more cycles add two more equal bands. Stop the clock and keep the beginning and ending lines. Convert the counted cycles to a thickness change, then divide by the elapsed time. That gives an average thickening speed over this interval. The light measured a change; the clock made it a rate.
 
-A second view can track the side faces directly against a calibrated length scale. That tells
-us about widening while the light tells us about thickening. But this laser method does not
-give the absolute starting thickness, and complicated reflections can make its cycles hard to
-read. Another optical method, using white light, can provide absolute thickness for suitable
-thin crystals. Different rulers suit different specimens.
+A separate calibrated view can follow the two side faces as they move apart. That measures widening; our light signal measures thickening. The laser cycles do not give the unknown starting thickness, and complicated reflections can spoil the reading. Other optical methods can measure absolute thickness for suitable specimens. The reader explains the differences.
 
 ### Visual and sources
 
 - Keep the same cross-section, old top line and detector. Introduce the time trace only after
   an observed cycle; label it `illustrative signal`. First bracket one full dim–bright–dim cycle,
   then reveal an equal-thickness increment, then introduce elapsed time.
-- Show a schematic equal-interval comparison only after the conversion is established. No
-  fabricated seconds, micrometres or data points. Reader arithmetic is a named optical
-  calculation, not an experiment. Partial cycles must not increment a completed-cycle counter.
+- Keep every earlier band. First add two equal increments with two complete cycles. Then start
+  a visibly sweeping clock for a new interval as two further cycles add two further bands.
+  Retain the interval’s beginning and ending boundary lines. No fabricated seconds, micrometres
+  or data points. Partial cycles must not increment a completed-cycle counter.
 - In paragraph 3 identify a pair of opposing side faces and their separation. State in the
   reader that separation change is not automatically one face's normal speed. Do not draw
   actual experimental scatter or imply the source's white-light plot used this laser signal.
@@ -205,30 +184,20 @@ thin crystals. Different rulers suit different specimens.
 
 ### Narration
 
-Our transparent support makes these reflections possible, but it also touches the ice. That
-contact can affect growth, and the support carries heat away. A coating chosen to reduce one
-kind of interference can change heat transfer too. A precise signal does not remove those
-physical effects.
+Look beneath the same crystal: its lower surface touches the support. When vapour becomes ice, heat is released. Some heat can leave through that contact. The contact can also affect how the ice grows. A precise optical signal does not remove those effects.
 
-The small chamber can also operate at low air pressure, which reduces the resistance to vapour
-transport. That is useful when investigating the surface, but it is a different setting from
-ordinary air. Crystal size, pressure and geometry belong with the result, not just the equipment
-list.
+Here is a separate arrangement for a larger plate. A small ice pedestal raises it above the window. Watch new ice spread outward while the window stays below, clear of the growing rim. The pedestal still touches the crystal. This changes the contact; it does not abolish it.
 
-For large, branching crystals, researchers use other arrangements. A thin plate can grow out
-from a little pedestal, clear of the window beneath it, or a crystal can grow from an ice needle.
-These make different shapes accessible, with different limits. Could we go further and measure
-growth with no supporting surface touching the particle at all?
+Different supports and air pressures give access to different questions, and the result must say which conditions were used. The reader keeps those apparatus details. But can we follow growth with no supporting surface touching the ice at all?
 
 ### Visual and sources
 
 - Keep the optical specimen while highlighting the contact area and a separately labeled heat
   path. Do not animate coating as a universal improvement or heating as necessarily dominant.
-- Introduce reduced air pressure as a separate apparatus condition. No implication that it
-  removes surface diffusion, latent heat or all gas transport.
-- Sequential schematic pedestal then needle. These are different specimens/apparatus choices;
-  do not morph the original optical specimen into a millimetre star or present them as observed
-  recordings. End on the no-contact question before revealing levitation hardware.
+- Keep one concrete contact/heat example, then explicitly introduce a separate pedestal
+  specimen and show outward rim growth above the untouched window. The pedestal still contacts
+  the crystal. Pressure, coatings, needle supports and detailed geometry limits remain in the reader;
+  do not stack them as new stage diagrams. End on the no-contact question before levitation hardware.
 - `docs/education/chapters/10-how-we-know.html#empty-substrate`
 - `docs/education/chapters/10-how-we-know.html#holding-still`
 - `docs/education/chapters/10-how-we-know.html#cannot-reach`
@@ -239,25 +208,13 @@ growth with no supporting surface touching the particle at all?
 
 ### Narration
 
-A different research group at Penn State uses an electric field to hold a charged ice particle
-in the air. Gravity pulls down. The electrical force balances that pull, while other electrodes
-keep the particle from drifting sideways. There is no slide touching it.
+A different research group at Penn State holds a charged ice particle in an electric field. Gravity pulls down. An upward electrical force balances the weight; other electrodes prevent sideways drift. Mark its position. No slide touches it.
 
-As the particle gains water, its weight increases. To hold it at the same position, the instrument
-adjusts the voltage. With the charge unchanged and the electrical geometry fixed, the required
-voltage changes in proportion to mass. The recorded voltage is therefore a way to follow how
-the mass changes.
+Keep the electrode arrangement and the particle position unchanged, with the same electrical charge. Now water joins the particle. Our added colour stands for extra mass, not an observed shape. As the weight grows, the instrument raises the balancing voltage to keep the particle at that marked position. Under those conditions, the required voltage increases in proportion to mass.
 
-Compare the voltage with its starting value and you get a mass ratio: how many times the
-starting mass the particle has now. Combine that record with an initial mass and a clock, and
-you can calculate mass gained per unit time. This measurement follows the whole particle.
-It does not directly tell us which face advanced or what shape the particle became.
+Keep the starting voltage beside the new reading. Dividing the new reading by the starting one gives the mass ratio: how many times the starting mass we now have. We also need to know how much ice we started with, from a separate estimate, and how much time passed. Then we can calculate mass gained per unit time.
 
-That difference matters. The optical experiment watches dimensions; this experiment follows
-mass without a support touching the ice. They have different strengths and different uncertainties.
-The second method is an independent route into the problem, not a promise that either apparatus
-is free of disturbance. We can now ask more of a proposed explanation than whether it resembles
-a photograph.
+This measures the whole particle. It does not show which face advanced or how its shape changed. The optical experiment followed a dimension; this one follows mass without a touching slide. These are different specimens and measurements, with different uncertainties. Neither instrument is free of disturbance.
 
 ### Visual and sources
 
@@ -284,25 +241,18 @@ a photograph.
 
 ### Narration
 
-Follow our first chain once more. Two controlled temperatures, a checked chamber and an isolated
-crystal give us an estimate of its surroundings. A changing optical signal gives a thickness
-change. With elapsed time, that becomes a growth rate. Each link has a reason behind it and a
-limit to check.
+Return to the supported crystal and replay the measurement. The checked source and support settings establish a controlled supply around it. Light returns from the two boundaries to one camera spot as new ice is added. Each complete brightness cycle marks another thickness increment. Over the marked time interval, that added thickness gives an average growth speed.
 
-Then the other chain: a particle held in place, a changing voltage, a mass record and its change
-over time. We gain independence from the supporting slide, but we do not gain a picture of
-every face. Measuring something well includes being clear about what was not measured.
+Now recall the separate floating particle. It stays in place while added mass needs a larger balancing voltage. With the stated electrical conditions, an initial mass and a clock, that record gives mass gained over time. It still gives no picture of individual growing faces.
 
-Now we know how fast ice is being added under specified conditions. But remember the two waits
-we met in the air: water has to reach the surface, and the surface has to incorporate it. A
-growth rate mixes those effects together. In the next episode, how can we use a measured rate
-to find out what the surface itself is doing?
+Take one face of the supported crystal again. Water must first travel through the air to reach it. Then the surface must incorporate water into new ice. The same measured advance can reflect limits in either step. The rate alone does not separate them. Next, we will use a measured growth rate to investigate the response of the surface itself.
 
 ### Visual and sources
 
-- Replay, do not display a finished flowchart at entry. Retain one object per chain: calibrated
-  chamber → optical observation → thickness change → interval rate. Then explicitly change to
-  the levitated particle → voltage → mass ratio → mass-growth rate.
+- Replay the actual apparatus and objects, never a row of summary boxes: source/support,
+  same supported optical specimen, joined return paths and detector, added thickness bands
+  and an advancing clock. Then explicitly change to the floating particle with visible material
+  arrival and retained initial/current voltage readings. Return to the optical specimen for the close.
 - End on one face with air beside it. Reveal delivery through air, then net incorporation
   against a fixed before-line. No coefficient curve, fitted value or literal collision odds.
 - `docs/education/chapters/10-how-we-know.html#go-and-look`

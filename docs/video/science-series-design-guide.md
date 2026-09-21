@@ -338,6 +338,23 @@ not a public release or deployment instruction: preserve the public-build hold a
 the maker separately authorizes publication. Episode 3's English-first boundary remains in force; this
 follow-up does not authorize Mandarin text, alignment or audio work.
 
+### Follow-up: Episodes 5–9 need performed explanations — 2026-09-21
+
+The maker found Episodes 5/6 acceptable but improvable, Episodes 8/9 poor, and asked for Episode 7
+to be rechecked too. They called out animation, explanation and wording, and praised the
+column-to-plate sequence described as Episode 6's ending (the E06/E07 handoff). Preserve that
+specific feature; the praise is not acceptance of the rest of either episode.
+
+Most diagnosed failures were already prohibited below: invisible narrated actions, unexplained
+comparisons, lost object identity and static recaps. The repair is to apply those rules during
+production, not add an animation quota. The bounded additions below make measurement chains,
+accumulated visual history and shared-drawing regressions more explicit. The repair record lives
+in the website's `docs/series-editorial-repairs-2026-09-21.md`; its stated review coverage governs.
+
+The maker subsequently directed English-only narration production for this repair. Revised Chinese
+copy can remain a draft, but old Chinese audio must not drive a newly rewritten English visual
+sequence. Use the existing English fallback until the Mandarin performance is updated.
+
 ## Nivogenesis collection and optional sound — 2026-09-17 (the sound was later removed)
 
 **Superseded in part.** The maker removed the opening soundscape on 2026-09-18 ("remove play with
@@ -542,6 +559,9 @@ after its components have meaning.
    is not growth; a sliding block is not added material. State what is held fixed and changed.
    Anchor old material and the rear edge while the growing face advances. Do not compress the
    gas coordinates simply because less drawing space remains; clip at the new solid boundary.
+   When equal elapsed time is evidence, run both visible clocks through the same interval while
+   the compared growth occurs. An equal-time label beside two completed results does not show that
+   comparison. Keep the starting marks and the results after the clock stops.
 6. **Motion that explains the mechanism.** Animate the causal journey and its outcome, not
    ambient busyness. When narration distinguishes reciprocal traffic from net change, show
    both. A route reaches its actual surface; a boundary's label, traffic and movement agree.
@@ -553,6 +573,9 @@ after its components have meaning.
    close a comparison back to one subject and carry one invariant—centre, scale, outer condition,
    selected face or highlighted mechanism—across the cut. Then change only the intended variable.
    Preserve irreversible story changes; do not refill a depleted donor or unfreeze a seed accidentally.
+   Carry accumulated new layers, branch details, measured distances and cycle counts across scene
+   boundaries too. A new section is not a new specimen or a reset to zero. Identify a rewind or a
+   separate run explicitly, and retain the first result when the second needs comparison.
 8. **Meaning before arithmetic.** Before a chart/table/equation, establish the physical
    question and what the compared quantities do. Attach units and reference conditions to
    objects. Show the denominator and absolute amount when a percentage can mislead. Keep
@@ -565,6 +588,12 @@ after its components have meaning.
    Highlight the reference first, then the extra; preserve equal volumes and constant dot units
    when comparing amounts. Rounded populations must not imply an exact decimal percentage.
    Clearly label invented counters as a teaching example, separate from scientific quantities.
+   For an instrument, perform the whole chain: controlled specimen → physical change →
+   signal at an identified detector or readout → measured interval → inferred quantity. Calibration means
+   adjusting a setting and observing the boundary settle, not displaying a zero badge. Show
+   interfering returns at the same detector before interpreting brightness cycles. For a fitted
+   explanation, retain the observation while a prediction misses it, then show what the revised
+   fit improves; never invent measured points to make the story convenient.
 9. **Enough imagery for the ideas, not an animation quota.** A multi-concept passage needs
    corresponding visible stages, comparisons or discoveries. One image may evolve; a chart
    may be useful; neither is forbidden. Reject a static diagram that stops explaining while
@@ -891,7 +920,10 @@ word/image contradiction needs repair before calling that scene ready. Taste sug
 remain suggestions. No averaged score may hide a comprehension failure. Tests/build completion
 is reported separately from visual judgment; visual judgment separately from maker acceptance.
 
-After a fix, replay the affected passage with its incoming/outgoing transition. Preserve any
+After a fix, replay the affected passage with its incoming/outgoing transition. If a drawing helper
+changed, inspect every scene using it, including recaps whose words did not change. Text-bound checks
+miss shapes covering labels, growth escaping the frame and collisions between complete specimens;
+inspect intermediate poses as well as endpoints, especially on narrow screens. Preserve any
 praised component outside the defect. Stop once the bounded issue is resolved; do not start a
 review-of-review programme or await final narration before useful drafting can continue.
 
@@ -926,6 +958,8 @@ marks final-audio checks pending rather than inventing speech or claiming a comp
   reduced motion, loading/buffering/error behavior, natural end and exclusive playback across
   home/episodes. Describe which wheel, keyboard, touch and device paths were exercised;
   a phone-sized viewport is not a physical-phone test. Preserve earlier content.
+  After a seek or scene selection, verify the requested playback position and the current visual
+  instance have settled before capturing its loading/readiness state.
   Secondary menus must not move reader geometry or restart playback. Test Escape, backwards
   Tab from the first control, outside dismissal, chapter selection and focus return without
   scrolling; closing a paused menu does not silently resume narration.
@@ -1075,3 +1109,5 @@ plus the maker's scoped English-first production order. The shared-context OpenA
 above checked authority and implementation source plus retained frames; it did not claim human
 credentials, fresh full playback, listening acceptance or audience understanding. No script, visual or
 audio change follows merely from documenting that direction.
+
+The 2026-09-21 amendment was written by the GPT-6 Codex coordinator from the maker’s E05–E09 feedback and repairs, with shared-context non-author source and sampled visual checks by the episode agents. It strengthens existing requirements; it does not certify human listening or audience comprehension.

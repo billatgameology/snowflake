@@ -3,9 +3,9 @@
   "description": "Reviewed ordered same-meaning sentence and visual-beat pairs. Every production reveal starts an exact pair; both prediction answers begin at the translated answer onset. Provider alignment is not human listening.",
   "source": {
     "path": "docs/video/science-series-e06-script.md",
-    "sha256": "5a3933832b9c4ada7d18daac1223b2dfca64c39025515a77b64c0dee2f0602ac"
+    "sha256": "c9fad82527976931a0a4ceaef437fa490d04c69be2a148775fefbc754f0194f0"
   },
-  "sourceEnglishSha256": "018423d843b9c126af157f34c8c92f6eb9d12678426ab306e2a6ad9290846a46",
+  "sourceEnglishSha256": "557b1b4057aa1b266feb67e9a5f06a0e40e25a2a8a2b115a501af56c96184a25",
   "sections": [
     {
       "id": "E06-01",
@@ -284,8 +284,8 @@
               "zh": "最后这个条件很重要。"
             },
             {
-              "en": "Balance with liquid water doesn't mean the same spare vapour above the ice balance at every temperature.",
-              "zh": "与液态水平衡，并不表示在每个温度下，超过冰平衡值的富余水汽都一样。"
+              "en": "Both runs used the liquid-water balance as a reference. But the extra water vapour above the ice balance was different at the two temperatures.",
+              "zh": "两次实验都以液态水的平衡值为参照。但在这两个温度下，超过冰平衡值的额外水汽并不一样。"
             },
             {
               "en": "So these are observations along a stated experimental path, not proof that temperature acts alone.",
@@ -507,7 +507,7 @@
               "zh": "横向表示温度。"
             },
             {
-              "en": "Up the page goes more spare vapour above the ice balance.",
+              "en": "Up the page goes more extra water vapour above the ice balance.",
               "zh": "往上表示超过冰平衡值的富余水汽更多。"
             },
             {
