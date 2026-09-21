@@ -6,6 +6,17 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
+## Remaining series episodes — active, 2026-09-21
+
+The maker authorized all remaining episodes with two review-and-update rounds. The
+[final-batch plan](plans/science-series-final-batch.md) covers E10/E11, completing the current
+chapters 1–13 map. Production remains English only. Reuse the existing task checkouts; preserve
+E01–E09 and the current 5199 preview while the new batch is built. Two episode owners author
+separately; the coordinator owns shared integration and paid narration; a non-author reviews
+source coverage and important explanations. Next: prepare sources and production drafts, complete
+Round 1 review/repairs before recording, then Round 2 on delivered performances. No deployment or
+later maker-journey chapters are included; no maker-review pause is required.
+
 ## Portable educational design guide — complete, 2026-09-21
 
 The [design guide](video/science-series-design-guide.md) is now a standalone educational-website
