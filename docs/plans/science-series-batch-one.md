@@ -1,6 +1,6 @@
 # Plan — first parallel science-series batch (E05, E06, E08)
 
-- **Status:** full production authorized and in progress; first draft milestone complete
+- **Status:** complete — first batch fully built and technically verified; available for maker review
 - **Started:** 2026-09-20
 - **Coordinator:** root Codex agent; three episode owners share the existing sibling checkouts
 - **Authority checkout:** `/Users/billw/Code Files/snowflake`, existing `explore/film-part1-plan` branch
@@ -39,11 +39,11 @@ episodes are fully built or a concrete external blocker prevents the remaining w
 
 Production steps:
 
-- [ ] Complete stable temporary-voice rehearsals and repair their findings.
-- [ ] Freeze reviewed English/Chinese words, visual cues and semantic pairs.
-- [ ] Produce and audit Juniper/Yun performances, preserving every take.
-- [ ] Integrate production visuals/player, all three catalog entries and bilingual UI.
-- [ ] Verify final builds, narration, art, responsive interactions and handoffs; record final state.
+- [x] Complete stable temporary-voice rehearsals and repair their findings.
+- [x] Freeze reviewed English/Chinese words, visual cues and semantic pairs.
+- [x] Produce and audit Juniper/Yun performances, preserving every take.
+- [x] Integrate production visuals/player, all three catalog entries and bilingual UI.
+- [x] Verify final builds, narration, art, responsive interactions and handoffs; record final state.
 
 ### Frozen content and preproduction review — 2026-09-20
 
@@ -68,13 +68,57 @@ results and input digests. Episode owners inspect all sampled images in order; c
 the difficult causal sequences. This is automated real-time playback plus image inspection, not
 human listening or audience acceptance. E06 additionally requires a scoped normal-speed rehearsal
 of its expanded plate/column recording opening before its paid speech. Its remaining narration is
-unchanged. No paid attempt may be automatically retried.
+unchanged. No paid attempt may be automatically retried. E06's revised opening subsequently passed
+60.213 seconds of uninterrupted 1× playback with the actual production renderer and injected
+provisional cue clock: both recordings loaded, only one mounted at a time, and no seeking,
+overflow, errors or input changes. All 16 sampled images were inspected. Two preceding local
+attempts were interrupted by shared development-server hot reloads; the accepted pass used an
+isolated no-HMR server. A cue ending inside the hyphenated “history—and” token was shortened to
+its unique exact-word prefix without changing narration, semantic pair or reveal onset.
+
+### Production implementation and final review — 2026-09-20
+
+Website implementation checkpoint `30944bb` and final repairs `373daff` contain all three full bilingual episodes and retained
+media. Fifty-four first-attempt Juniper/Yun takes were generated, with no automatic retry. Raw
+requests, alignments, takes and masters remain beside the six paced production masters. Source,
+signal, decoded-sample composition, prediction silence and semantic timing audits pass for all
+382 bilingual pairs, 234 reveals and five bilingual holds. Frozen scripts are unchanged.
+
+Normal catalog entries/routes, Sources/readers, language switching and exclusive playback are
+integrated. Continue follows E04→E05→E06 and stops at the unbuilt E07; E08 remains independently
+selectable. Shared Chinese UI/diagram entries are merged, including the authority diagram mirror.
+Final integration repaired E08’s desktop chrome inset and E06’s closing-map annotation position.
+Neither repair changes narration, cues or scientific meaning.
+
+Both builds and focused checks pass. All three owners inspected every sampled image in their
+normal-speed production replay (E05 53 images, E06 55, E08 54). E05/E06 reached native media end;
+E08 reached the exact 561.563311-second endpoint before the shared transport’s pause preempted
+Chrome’s ended flag. The earlier harness failure is preserved with a terminal analysis rather
+than rewritten. A single earlier blank E06 recap capture was not reproduced in a scoped final-build
+continuous playback from 490.014 seconds to 544.920 seconds, with 23 inspected captures and no seek
+after playback began. The cause of that earlier witness remains unresolved. Final E06 map images
+in both languages and desktop/phone layouts show the annotation clear of the axis.
+
+Desktop/phone-sized live checks cover all nine scenes in each language, language position,
+seek/reverse seek, Still, menus, manual takeover/resume and both endings. Delayed lazy handoffs
+preserve one audio owner. The final full-player smoke passes 116 observations; retained verification closure is complete. The local Firebase emulator’s missing Range support caused seeking restrictions
+and six pending audio streams to block document navigation. Identical navigation passed in 41 ms
+on the range-capable preview; no app repair was needed. Final browser and hosting-header assertions
+therefore use their appropriate local servers and retain both addresses in the receipt.
+
+The full report is website `docs/science-series-batch-one.md`; machine-readable checks and input
+digests are `docs/series-batch-one-verification.json` and `docs/series-batch-one-qa/`. Generated
+screenshots and provisional audio under website `export/` are reproducible QA cache. This is
+technical playback and sampled-image verification, not human listening, physical-phone or
+uncoached audience acceptance. No public deployment or later episode was started.
+
+### Initial draft scope (superseded stopping point)
 
 Execute the maker's request to coordinate and launch the first batch only: Episodes 5, 6 and 8. Keep the viewing order unchanged. Turn the reviewed boundaries into complete English scripts, substantive readers and runnable visual prototypes so the difficult explanations and episode handoffs can be reviewed before multiplying final production. The current E01–E04 bilingual release remains the production baseline.
 
 This follows the website's `docs/series-content-readiness-review-2026-09-20.md` and the authority design guide. The maker's latest instruction authorizes this batch; earlier episode-specific “do not start” limits do not bar this work. All-four-released current state supersedes historical E02/E03 holds. No later batch is launched.
 
-## Approach and ownership
+## Initial draft approach and ownership
 
 | Owner | Episode and editorial boundary | Files owned |
 | --- | --- | --- |
@@ -106,7 +150,7 @@ The initial browser prototype is an explicitly provisional local review surface 
 - [x] Integrate and inspect prototypes and rehearsal timing.
 - [x] Repair concrete issues and record the review milestone and next action.
 
-## Working checkpoint
+## Historical draft checkpoint
 
 All three owners finished their assignments. Each complete English draft has nine scenes;
 E05/E06/E08 have five/seven/seven substantive reader entries. The coordinator read all main

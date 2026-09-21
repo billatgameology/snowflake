@@ -116,3 +116,124 @@ whole-host play/pause/seek/Still and source-reader behavior, then review the com
 performance. Human listening, audience prediction/rephrasing, final voice timing, Mandarin semantic
 review and public release remain unperformed by this owner. No claim of production readiness follows
 from this draft review.
+
+## Full-production amendment · 2026-09-20
+
+Author/reviewer: E05 owner, GPT-6 family Codex agent, shared task context. The coordinator provided a
+separate source/meaning review, including the complete Mandarin narration and reader. This section
+supersedes the earlier draft-only delivery boundary; it does not claim maker or audience acceptance.
+
+The coordinator accepted the English and Chinese meaning, requesting only that optional-reader
+editorial commentary become direct explanation. That repair changed no spoken paragraph. The current
+authority script hash is `94f79cee932ac0c723ad877253d2deba3fdf1d89a66b82798c4f63ce8ca0e1db`;
+website English-content bytes hash to
+`72809d38bcf83e5cfcaa5a8ddcd0397b85e349228569da31e66841c18119d226`. The Chinese copy and bilingual
+cue packet both bind those identities. The coordinator's independent preflight caught an initially
+omitted cue-provenance refresh after the reader edit; only those provenance fields were corrected.
+The 27 spoken paragraphs, 130 bilingual pairs and two exact prediction answers remained unchanged.
+
+### Complete temporary rehearsal and sampled inspection
+
+The coordinator's retained `export/series-batch-full-rehearsal/e05-v1/review.json` records an
+uninterrupted local Samantha rehearsal at 1×, natural end at 582.3733786848076 seconds, 55 captures,
+verified audio hash and no browser errors. It used a compiled draft snapshot on port 5189 and
+provisional paragraph-based visual timing. Its source identity precedes the optional-reader-only
+cleanup; the spoken text is the same. The owner sequentially inspected all 55 captured images,
+including incoming and outgoing states of all nine scenes. This is automated real-time playback
+plus sampled-image review: it is not a claim of uninterrupted human viewing, listening,
+pronunciation acceptance or first-time audience understanding.
+
+No new source/causal blocker was found. Original ice remained fixed during correction and growth;
+the tip tracing moved separately from the crystal; the unequal branch positions survived folding;
+the mathematical construction remained a separate comparison; plate versus column remained a
+different question from branch complexity. The prototype's fraction-based staging was visibly
+coarse around direction comparisons and the closing recap. Production now binds every new reveal
+to a unique exact spoken phrase instead. No change to the frozen narration was needed.
+
+### Production treatment and focused verification
+
+The website implementation is `EpisodeFive.tsx`, `EpisodeFiveVisual.tsx`, `episodeFiveDrawing.ts`,
+`episodeFiveCues.ts` and `episode-five-cues.json`. The standard E04 player contract was retained:
+shared playback ownership and Still, user takeover, reversible reading, queued start, language
+position, menu/focus behavior and answer-withheld paragraphs. E05 uses zero WebGL contexts: all
+illustrations are expressly qualitative teaching geometry, with provenance in Sources. The drawing
+contains no prototype imports or within-paragraph fraction clock. The 45 reveal cues resolve
+against the delivered English word clock; Mandarin reaches the same reveals through semantic
+anchors. Still exposes only phrases already reached, retaining old outlines/tracings as references.
+The actual delivered audio clock and device interaction checks remain the coordinator's final gate.
+
+The first two scenes retain the same raised profile, fixed old-material marker, fixed external
+boundary and scale. A source-correct qualitative depletion darkening begins at its phrase. Growth
+is visibly added above the old boundary. The later comparison preserves both outcomes. Separate
+phrases introduce the two directional cases; each sidebranch growth stage; the fold; both Koch
+iterations; and each shape in the habit comparison. Production stages clear the fixed top/bottom
+controls. Generic draft labels were removed. A selected corner links the opening to its enlargement.
+
+`scripts/episode-five-art-check.mjs` captures scene entry and each reveal in chronological order,
+54 poses per viewport/language. Current isolated art evidence is
+`export/episode-five-production-art-v3`: 730×800 desktop and 360×351 phone stage, each in English and
+Chinese, 216 frames total. The owner inspected all nine desktop outcomes and focused English and
+Chinese narrow compositions for correction, feedback, persistent tip, sidebranches, fractal
+comparison and the ending. This is sampled composition QA rather than full final-performance
+review. Phone emulation does not establish physical iOS behavior. The initial type-size instrument
+mistook the font weight for its size; the v3 harness explicitly parses the `px` size. Earlier v1/v2
+frames remain useful images, but their reported minimum-size metric is invalid.
+
+A source-only structural check passed all 130 unique, ordered, non-overlapping bilingual pairs and
+complete coverage of all 27 paragraphs in both languages. Every reveal starts a semantic pair.
+Both full readers have matching section and paragraph counts. The Chinese source mirrors the
+website byte-for-byte. Sixteen UI and fifty diagram dictionary entries were staged separately,
+then the coordinator merged them while preserving existing series terminology. The E05 additions
+record was reconciled to those existing values. The own-file whitespace check passed.
+
+`scripts/episode-five.test.mjs` provides production source/audio binding, cue-provenance binding,
+all 45 before/after reveal gates in motion and Still, both three-second prediction holds, complete
+semantic text coverage, and explicit dictionary checks. It must be run after the coordinator
+creates the delivered narration scores; no rehearsal scores have been placed in production source.
+
+### Remaining acceptance boundaries
+
+Ready for final delivered-audio integration review, conditional on production cue/timing tests and
+the coordinator's build, public hold, loading/transition and live interaction gates. Human listening,
+physical-phone behavior and uncoached audience explanation remain not checked by this owner. No
+speech generation, deployment, shared-infrastructure edits or commits were performed by the owner.
+
+### Delivered English cue check
+
+After the coordinator produced the 586.483-second English score, the owner ran
+`node --test scripts/episode-five.test.mjs`: all five tests passed. This includes every measured
+reveal onset, both prediction holds, exact source bindings, full bilingual semantic text coverage
+and merged dictionary entries. The staged Chinese card title was aligned to the frozen Chinese
+content title at the coordinator's request; existing series translations for the episode number
+and “old ice” were retained.
+
+`export/episode-five-production-measured-v1/review.json` binds the production score hash and records
+eight 360×351 held/answer poses from the actual `branchingCue` implementation, in motion and Still.
+The owner inspected both held states and their five-seconds-after-release action states: no added
+ice or answer appeared during either hold; correction then added ice around the old bump, while
+reinforcement enlarged the projection. This is a measured-clock pose inspection, not continuous
+final-audio playback or listening. The separate coordinator-run full-production rehearsal and
+bilingual audio audits remain the final performance/integration evidence.
+
+The reusable `scripts/series-production-rehearsal.mjs` was created at the coordinator's explicit
+request for the first batch. It observes native production audio through natural end at 1×,
+records every-second media/scene state and native events, captures paragraph/15-second stage images,
+and compares served HTML/assets/master bytes with the named stable compiled build and frozen
+inputs. It makes no mid-run playback interaction and no media/clock replacement. Output is
+create-only. Syntax and whitespace checks passed; the coordinator owns its production executions.
+
+
+### Coordinator production closure — 2026-09-20
+
+The coordinator completed both approved voices, bilingual pacing and source/signal/sample/semantic
+audits. The ordinary released-route player is integrated on website `codex/series-first-batch`,
+implementation `30944bb` with final layout/harness repairs at `373daff`; no deployment occurred.
+The owner’s final desktop/phone-sized actual-player review passed all nine scenes in both languages,
+menu/Still/seek/takeover/language controls and endings. The owner inspected every one of the 53
+sampled images from full uninterrupted English production playback. Native media reached the 586.483265-second ending.
+
+Reviewers were Codex GPT-6 agents sharing task context, with the coordinator’s source/code review
+and the recorded cross-owner visual review. These are executed technical checks and sampled-image
+inspection, not human listening, a physical-phone test or audience-comprehension acceptance.
+The durable website index `docs/series-batch-one-verification.json` links the raw receipts and
+review limits under `docs/series-batch-one-qa/`. Screenshots remain reproducible local QA cache.

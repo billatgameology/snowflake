@@ -6,34 +6,40 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
-## First parallel series batch — E05, E06, E08, 2026-09-20
+## First parallel series batch fully built — E05, E06, E08, 2026-09-20
 
-**Full-production amendment:** the maker now asks to “build them fully.” Root and the three episode
-owners are completing the same batch as integrated English/Chinese episodes, including approved
-Juniper/Yun production narration, precise spoken cues, final visuals and player integration.
-The batch plan records the expanded ownership and completion checks; its initial draft-only
-milestone is no longer the stopping point. No later batch or deployment is included.
+The maker’s “build them fully” instruction is implemented for the first batch only. E05, E06 and
+E08 now have complete English/Chinese scripts and readers, Juniper/Yun production recordings,
+exact spoken cues, finished episode-specific visuals and normal catalog/player integration.
+Website branch `codex/series-first-batch` retains implementation checkpoint `30944bb` and final repairs `373daff`; authority
+freeze `af5b441` binds the reviewed source and bilingual packets on `explore/film-part1-plan`.
+The [batch plan](plans/science-series-batch-one.md) records production and verification scope.
 
-The maker asked root to coordinate and launch the first batch only. The
-[batch plan](plans/science-series-batch-one.md) defines episode ownership, the reviewed
-content boundaries and the first complete-script/visual-prototype milestone. E05, E06 and
-E08 are the only new episode assignments; viewing order is unchanged. Root owns shared
-integration in sibling website branch `codex/series-first-batch`; authority work continues
-on `explore/film-part1-plan`. Current E01–E04 release records below remain valid.
+The three episodes contain 27 scenes, 19 optional reader entries, 382 bilingual phrase pairs,
+234 visual reveals and five prediction holds in each language. All 54 original takes and their
+provider alignment are retained. Narration integrity, sample-preserving pacing and bilingual
+semantic timing audits pass. English runtimes are 9:46, 9:05 and 9:22; Mandarin runtimes are
+13:09, 12:14 and 12:45. E06’s opening identifies its two reused model recordings; later drawings
+remain explanatory geometry. E06 still leads toward E07; E08 is directly selectable. E07 is
+unbuilt and disabled, so production batching has not changed viewing order.
 
-The first editorial/prototype milestone is complete: three nine-scene English drafts, 19
-substantive reader entries, source dispositions and runnable studies for all 27 scenes. Root
-read every narration/reader passage and verified the local source anchors. All three owner
-reviews are recorded in `docs/reviews/science-series-eNN-draft-review-2026-09-20.md` for
-NN = 05, 06, 08. Website `docs/science-series-batch-one.md` and
-`docs/series-batch-one-verification.json` record integration checks and their limits. The local
-preview is `http://127.0.0.1:5185/series-batch-preview.html?episode=5`.
+Both website builds and focused phrase, language, reader, release and handoff checks pass.
+Desktop/phone-sized English/Chinese checks pass for all three players. Owners inspected all
+sampled images from complete normal-speed English playback; E08 reached exact score end and
+was paused by the transport before the native ended flag, retained explicitly in the receipt.
+E06’s closing transition received a separate continuous final-build recheck after a label repair.
+The authority scan has the same three unrelated installed-skill findings and no new batch finding.
+No human listening, physical-device testing or audience-comprehension acceptance is claimed.
 
-Next for this workstream: review the complete temporary-voice performances, then refine scripts,
-actual production assets and spoken cues within this batch. Drafts have only sampled visual/control
-checks; full uninterrupted viewing, human listening and audience comprehension remain unverified.
-Final narration, Mandarin, later batches and deployment have not started. The three unrelated
-Rule 7 installed-skill findings remain recorded; no new batch-prose finding was introduced.
+**Preview:** `http://127.0.0.1:5199/episode-5`, `/episode-6`, `/episode-8` on the stable compiled
+local preview. Website `docs/science-series-batch-one.md` and
+`docs/series-batch-one-verification.json` index the deliverables, retained checks and review limits.
+The final combined release smoke passes 116 observations. Firebase’s local emulator ignores audio
+ranges and can exhaust browser connections; browser interactions use the range-capable preview,
+with Firebase route/cache assertions checked separately. The player was not changed for this issue.
+
+**Next:** maker playback/listening review through the normal preview. The first batch is the only assigned batch. Public deployment and later episodes remain
+separate requests; the existing E01–E04 live release below is unchanged.
 
 ## All four bilingual episodes live — 2026-09-20
 
