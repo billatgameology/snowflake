@@ -1,6 +1,6 @@
 # Plan — first parallel science-series batch (E05, E06, E08)
 
-- **Status:** authorized; first editorial/prototype milestone starting
+- **Status:** first editorial/prototype milestone complete; final production pending
 - **Started:** 2026-09-20
 - **Coordinator:** root Codex agent; three episode owners share the existing sibling checkouts
 - **Authority checkout:** `/Users/billw/Code Files/snowflake`, existing `explore/film-part1-plan` branch
@@ -33,26 +33,35 @@ The initial browser prototype is an explicitly provisional local review surface 
 - A non-author reviews their load-bearing claims and handoffs; actual findings are repaired or explicitly retained as limits.
 - Runnable prototypes demonstrate each episode's hardest explanation and represent the remaining scenes honestly as drafts.
 - Root checks desktop and narrow compositions, play/seek/Still behaviour, and what the prototype actually covers. A complete playback is distinguished from sampled captures, human listening and audience understanding.
-- Authority prose passes the Rule 7 scan; website TypeScript/build and focused checks cover modified boundaries. No solver suite or scientific gate is launched for this presentation scope.
+- Authority prose has no new Rule 7 findings, with the unrelated baseline failure recorded; website TypeScript/build and focused checks cover modified boundaries. No solver suite or scientific gate is launched for this presentation scope.
 - Current plan/progress records name completed artifacts, checks and the next production action. Draft readiness is not final narration or publication readiness.
 
 ## Steps
 
 - [x] Inspect existing branches/worktrees and preserve current episode release.
 - [x] Dispatch E05, E06 and E08 owners with source/design boundaries.
-- [ ] Review draft scripts, source dispositions and adjacent-story contracts.
-- [ ] Integrate and inspect prototypes and rehearsal timing.
-- [ ] Repair concrete issues and record the review milestone and next action.
+- [x] Review draft scripts, source dispositions and adjacent-story contracts.
+- [x] Integrate and inspect prototypes and rehearsal timing.
+- [x] Repair concrete issues and record the review milestone and next action.
 
 ## Working checkpoint
 
-All three owners are active. Their first complete English drafts each have nine scenes;
-the coordinator has read all main narration and reader passages. The first source review
+All three owners finished their assignments. Each complete English draft has nine scenes;
+E05/E06/E08 have five/seven/seven substantive reader entries. The coordinator read all main
+narration and readers, verified imported anchors and repaired integration issues. The review
 preserves the distinction between liquid saturation and ice-relative excess in E06, and
-between levitated mass observations and unobserved shape/grain structure in E08. Import
-compatibility repairs (the E06 title and full source-anchor paths) are with the episode owners.
-The website's local `series-batch-preview.html` host, draft importer and free local rehearsal
-tooling are implemented; episode diagrams and browser checks remain in progress.
+between levitated mass observations and unobserved shape/grain structure in E08.
+
+The website's `series-batch-preview.html` host presents all 27 scene studies with temporary
+local narration, measured paragraph timing, five prediction pauses, sources and readers.
+Website `docs/science-series-batch-one.md` and `docs/series-batch-one-verification.json` record
+the integrated checks, repairs and limits. Episode author self-reviews live in this checkout's
+`docs/reviews/science-series-e05-draft-review-2026-09-20.md`, and the corresponding e06/e08 files.
+
+**Next:** review the complete temporary-voice performances before final production, starting
+with the compensation/amplification, hollow-growth and apparatus/signal passages. Integrated
+checks are sampled; full uninterrupted viewing, human listening and audience understanding
+remain unverified. No later episode, paid narration or public release was started.
 
 ## Out of scope for this first milestone
 

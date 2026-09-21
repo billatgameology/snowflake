@@ -15,9 +15,19 @@ E08 are the only new episode assignments; viewing order is unchanged. Root owns 
 integration in sibling website branch `codex/series-first-batch`; authority work continues
 on `explore/film-part1-plan`. Current E01–E04 release records below remain valid.
 
-Next for this workstream: dispatch the three episode owners, review their complete English
-scripts/readers and source dispositions, then inspect the local prototype explanations before
-final production. This is a launch record, not a claim that new episodes are complete.
+The first editorial/prototype milestone is complete: three nine-scene English drafts, 19
+substantive reader entries, source dispositions and runnable studies for all 27 scenes. Root
+read every narration/reader passage and verified the local source anchors. All three owner
+reviews are recorded in `docs/reviews/science-series-eNN-draft-review-2026-09-20.md` for
+NN = 05, 06, 08. Website `docs/science-series-batch-one.md` and
+`docs/series-batch-one-verification.json` record integration checks and their limits. The local
+preview is `http://127.0.0.1:5185/series-batch-preview.html?episode=5`.
+
+Next for this workstream: review the complete temporary-voice performances, then refine scripts,
+actual production assets and spoken cues within this batch. Drafts have only sampled visual/control
+checks; full uninterrupted viewing, human listening and audience comprehension remain unverified.
+Final narration, Mandarin, later batches and deployment have not started. The three unrelated
+Rule 7 installed-skill findings remain recorded; no new batch-prose finding was introduced.
 
 ## All four bilingual episodes live — 2026-09-20
 
