@@ -6,16 +6,30 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
-## Remaining series episodes — active, 2026-09-21
+## Remaining series episodes — complete, 2026-09-21
 
-The maker authorized all remaining episodes with two review-and-update rounds. The
-[final-batch plan](plans/science-series-final-batch.md) covers E10/E11, completing the current
-chapters 1–13 map. Production remains English only. Reuse the existing task checkouts; preserve
-E01–E09 and the current 5199 preview while the new batch is built. Two episode owners author
-separately; the coordinator owns shared integration and paid narration; a non-author reviews
-source coverage and important explanations. Next: prepare sources and production drafts, complete
-Round 1 review/repairs before recording, then Round 2 on delivered performances. No deployment or
-later maker-journey chapters are included; no maker-review pause is required.
+E10 and E11 now finish the chapters 1–13 viewing order, with full English narration, measured visual
+cues, optional readers and normal routes/cards/Continue links. The maker's two review-and-update
+rounds are complete in the [final-batch plan](plans/science-series-final-batch.md) and independent
+[source/visual review](reviews/science-series-final-batch-source-review-2026-09-21.md). Two separate
+authors built the episodes; both cross-reviewed and a third agent checked sources and explanations.
+All identified source, causal-animation, timing, layout and phone-control findings were repaired
+and independently rechecked. The portable guide gains only general source-currency, evidence-order,
+clause-timing and visible-screen control lessons.
+
+Both English masters pass source/signal and exact-PCM audits. Both full native delivered-media
+performances reached actual ended events, and every chronological captured stage was inspected.
+Final visual/responsive repairs were checked on fresh native passages and desktop/phone/Still poses;
+full-run v1 and affected-context v2 evidence are distinguished. All98 focused tests, TypeScript,
+both builds, final desktop/phone player checks, delayed card/Continue cases and165-observation
+hosting/series smoke pass. Rule7 has only the same three pre-existing installed-skill findings.
+
+Website commit `2e79e9b` contains the complete implementation and
+`docs/series-final-batch-review-2026-09-21.md` with retained receipts. Local preview
+`http://127.0.0.1:5199` now serves verified `export/series-final-batch-round2-site-v2` from the website
+checkout. E01–E09 are preserved. No Mandarin generation or public deployment was performed; no
+human listening, physical-phone or uncoached learner acceptance is claimed. Next: the completed
+series is ready to watch locally; later maker-journey chapters remain outside this completed request.
 
 ## Portable educational design guide — complete, 2026-09-21
 

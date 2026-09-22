@@ -1,6 +1,6 @@
 # Plan — complete the remaining science-series episodes
 
-- **Status:** active — source preparation and parallel episode production
+- **Status:** complete — both review/update rounds and final verification passed
 - **Started:** 2026-09-21
 - **Authorization:** the maker requests all remaining episodes, following the reusable design guide,
   with two review-and-update rounds before completion. Earlier English-only direction remains active.
@@ -55,25 +55,25 @@ preview until the complete final batch has passed its checks.
 
 ## Build and two review/update rounds
 
-- [ ] Read chapters 12/13, prerequisite handoffs and prior coverage; check primary sources for
+- [x] Read chapters 12/13, prerequisite handoffs and prior coverage; check primary sources for
   load-bearing details and currency where appropriate. Record explicit limitations.
-- [ ] Author complete English scripts/readers and production visuals with injected provisional cues.
-- [ ] **Round 1 — explain and revise:** non-author source review plus complete intended-speed local
+- [x] Author complete English scripts/readers and production visuals with injected provisional cues.
+- [x] **Round 1 — explain and revise:** non-author source review plus complete intended-speed local
   voice rehearsals; inspect chronological captures and key intermediate motion at desktop/narrow
   sizes. Record cue, encountered image/wording, likely wrong inference and useful repair. Apply all
   substantive findings, then replay affected contexts. This round precedes paid voice production.
-- [ ] Freeze reviewed spoken sources and exact cue phrases; generate only authorized English takes
+- [x] Freeze reviewed spoken sources and exact cue phrases; generate only authorized English takes
   once, with pinned Juniper settings and immutable request/alignment/media records. Pace through
   the existing exact-PCM/LAME pipeline and independently audit final masters.
-- [ ] Integrate both routes/cards/Continue paths and explicit language availability; preserve all
+- [x] Integrate both routes/cards/Continue paths and explicit language availability; preserve all
   earlier episodes, release semantics and exclusive playback.
-- [ ] **Round 2 — delivered performance and revise:** non-author review against the final English
+- [x] **Round 2 — delivered performance and revise:** non-author review against the final English
   media clock, full native playthroughs and chronological visual inspection plus intermediate poses,
   narrow layouts, prediction holds, transitions and final ending. Apply findings, refresh only
   changed authorized takes if necessary, and recheck the resulting passages and shared regressions.
-- [ ] Verify focused episode/config/narration/localization/release checks, TypeScript, both builds,
+- [x] Verify focused episode/config/narration/localization/release checks, TypeScript, both builds,
   desktop/phone player controls, delayed card/Continue starts and cross-episode hosting smoke.
-- [ ] Record both review rounds with findings, actual fixes and verification scope; add only genuinely
+- [x] Record both review rounds with findings, actual fixes and verification scope; add only genuinely
   missing general lessons to the portable guide. Commit final artifacts and replace the local 5199
   preview with the fully verified final series. No deployment.
 
@@ -104,3 +104,30 @@ installed-skill findings; do not modify that installed skill.
 Prior batches passed technical checks while missing explanatory action. This batch requires two
 explicit editorial repair rounds and performed comparison/measurement chains. More checklists,
 a blanket animation quota, a polished final screenshot or a source citation are not substitutes.
+
+## Completed result
+
+Both episodes are fully built in English and available through normal routes/cards and E09→E10→E11.
+The two editorial rounds are closed in the independent
+[source/visual review](../reviews/science-series-final-batch-source-review-2026-09-21.md), E10
+[production review](../reviews/science-series-e10-production-review-2026-09-21.md), E11
+[nonauthor review](../reviews/science-series-e11-round2-nonauthor-review-2026-09-21.md), and website
+`docs/series-final-batch-review-2026-09-21.md`.
+
+Round1 corrected source currency, inference chains, physical continuity, comparisons and causal
+action. Round2 corrected clause-gated outcome order (including Static), obscured predictions,
+selection spacing and a mobile closing-heading overflow. The guide receives only generalized
+source/evidence ordering, clause timing and visible-screen interaction lessons.
+
+Both final English masters pass source/signal and exact-PCM audits. Complete native1× final-media
+runs reached actual ended events; all chronological captures were independently inspected. The
+last visual/responsive corrections received fresh native passage and desktop/phone/Still rechecks
+on frozen v2. The full-run receipts bind v1; final v2 rechecks bind its corrected passages, not a
+second full uninterrupted run. Spoken text, audio, scores and prediction holds are unchanged.
+
+All98 focused tests, TypeScript, both builds, both final desktop/phone player checks, delayed
+card/Continue cases and the165-observation final hosting/series smoke pass. Rule7 retains only its
+three pre-existing installed-skill findings. Final local preview5199 serves
+`export/series-final-batch-round2-site-v2`, with route/master bytes independently verified. No
+deployment, Mandarin generation, physical-phone test, human listening or uncoached learner
+acceptance is claimed. Final artifacts and records are committed in the two task checkouts.

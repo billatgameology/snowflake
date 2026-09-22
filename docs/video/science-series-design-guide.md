@@ -59,6 +59,11 @@ substantive reader when they interrupt the central question. That reader must co
 explanation and precise sources, not just a bibliography. Track omitted material as taught here,
 provided elsewhere or deliberately deferred with a reason.
 
+**Check what a source can establish now.** A source may be accurate for its publication date while
+its claims of absence, novelty or current limitations have become outdated. Verify those claims
+against newer primary work. Keep historical assessments dated, distinguish an abstract from a full
+text review, and confirm that each cited identifier resolves to the intended work.
+
 **Make every detour earn its return.** Ask what the preceding demonstration allows the learner to
 understand next. A correct and interesting method can still distract if its result is never used.
 Move that depth to optional reading when appropriate. A transition sentence cannot repair two
@@ -174,6 +179,11 @@ accounts for. Distinguish the measured data, assumptions and fitted quantities. 
 measurements for a convenient story. A better fit can support a comparison without proving a unique
 mechanism or a wider claim than the evidence allows.
 
+When teaching prediction, preserve the order of knowledge: establish inputs and fit parameters from
+the permitted evidence, commit to a prediction, then reveal the observations reserved for the test.
+Covering later observations on screen can make this separation visible. Reusing those observations
+to adjust the model changes the status of the comparison; it no longer tests that original prediction.
+
 ### Close the argument
 
 Revisit the causal steps in a short visible sequence, carrying the learner through what changed
@@ -220,7 +230,9 @@ still fail if the action occurs before the learner knows where to look.
   provisional until it is aligned with the delivered performance.
 - Use measured phrase timing for important reveals. Missing or ambiguous cue matches should be
   resolved explicitly, not silently guessed. Label interpolated timing as such; paragraph endpoints
-  do not establish word-level precision.
+  do not establish word-level precision. When one sentence presents several distinct outcomes,
+  give each visible state its own spoken-clause cue; equal slices of one animation do not establish
+  when those outcomes are named. Static presentation must preserve the same information order.
 - Pace difficult passages locally. Allow time to identify the subject, see the action and inspect
   the result. A speaking-rate number can flag a concern but cannot certify clarity. Rehearse after
   timing edits; do not apply one successful pause length or tempo everywhere.
@@ -285,6 +297,9 @@ they start.
 
 **Verify on the supported devices.** Check narrow layouts, touch scrolling, control sizes, safe-area
 clearance, memory pressure and media-start restrictions. Choose explicit targets for the project.
+Check controls against the actual visible screen, including after touch scrolling. Long text can
+make a browser widen its layout beyond that screen; agreement between page and layout widths alone
+does not prove the controls remain visible or reachable.
 An emulated phone viewport checks composition and some interactions; it does not prove behavior on
 a physical device or another browser engine.
 
