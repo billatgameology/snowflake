@@ -6,6 +6,21 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
+## Closing Episode 12 and finale repairs — in progress, 2026-09-29
+
+After a verified audit found that E11 does not close the chapter 1–13 science, the maker asked for
+a closing episode that revisits every episode and opens what comes next, plus all the audit's
+fixes, while holding off on redoing audio. The [plan](plans/science-series-closing-episode.md)
+records the scope. Done so far: E12 script (`docs/video/science-series-e12-script.md`, 12 scenes,
+about 14 minutes), staged E10/E11 revisions (`…-e10-script-pending.md`, `…-e11-script-pending.md`;
+the recorded scripts are byte-identical), the Ch14 crossing contradiction fix, and a non-author
+[Round 1 review](reviews/science-series-closing-episode-round1-2026-09-29.md) with all findings
+dispositioned. Website tooling now refuses paid narration for E10–E12 (`narrationHeld`), imports
+pending revisions outside `src/`, and proves the recorded E10/E11 drawings unchanged by snapshot.
+In flight: website E12 stage and E10/E11 pending visuals, local-voice rehearsals and Round 2.
+Nothing is recorded, deployed or committed as released. Next: finish Round 2, rerun
+`npm run education:verify` on an idle machine, record, commit.
+
 ## Remaining series episodes — complete, 2026-09-21
 
 E10 and E11 now finish the chapters 1–13 viewing order, with full English narration, measured visual

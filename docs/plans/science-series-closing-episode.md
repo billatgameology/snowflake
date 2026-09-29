@@ -130,12 +130,15 @@ ledger and the what's-next constraints. Load-bearing corrections they establishe
 
 ## Steps
 
-- [ ] Commit this plan (authority) before implementation.
-- [ ] Author E12 script; author E10/E11 pending scripts; draft the Ch14 fix.
-- [ ] Round 1: non-author adversarial source review of all three scripts (Rule 13) plus an
-  explanation/arc review; apply every substantive finding; record the review.
-- [ ] Website tooling: config (E12, `narrationHeld`), import `--pending`, rehearsal `--content` /
-  `--cues`, preproduction redirect; draw-call snapshot baseline committed from unmodified code first.
+- [x] Commit this plan (authority) before implementation (`9b52994`).
+- [x] Author E12 script; author E10/E11 pending scripts; draft the Ch14 fix.
+- [x] Round 1: non-author adversarial source review of all three scripts (Rule 13) plus an
+  explanation/arc review; apply every substantive finding; record the review
+  ([review](../reviews/science-series-closing-episode-round1-2026-09-29.md)). E12 then tightened
+  from 2,375 to 2,048 spoken words (about 14 minutes) with every recap and hold kept.
+- [x] Website tooling: config (E12, `narrationHeld`), import `--pending`, rehearsal `--content` /
+  `--cues`, preproduction redirect; draw-call snapshot baseline written from unmodified code
+  (`2e79e9b`) with a passing negative control (one-character colour change alters the hash).
 - [ ] Website E12: content import, cues, drawing (continuing crystal + callbacks), stage,
   rehearsal entry, held card/route/public rules, tests.
 - [ ] Website E10/E11: pending imports, pending-only visuals, footers, tests.
@@ -162,6 +165,12 @@ ledger and the what's-next constraints. Load-bearing corrections they establishe
 - Book chapters other than the single Ch14 contradiction.
 
 ## Tried and rejected
+
+- **Ch14 first fix “Somebody tried, with … M1”.** Accurate about M1 but contradicted the
+  chapter's own headline arm (broad-facet curves with dips off); replaced after Round 1.
+- **Education verifier under load.** A full `npm run education:verify` run on 2026-09-29 passed
+  its ten pre-browser checks, then timed out loading the offline profile page while two rehearsal
+  workflows held the load average near 160. Rerun when the machine is idle before claiming a pass.
 
 - **Revising E10/E11 authority scripts in place.** Tests bind content, narration and authority
   bytes by SHA-256, `narratedBeats` throws on paragraph-count changes and missing cue phrases throw;
