@@ -68,6 +68,35 @@ campaign, scientific claim upgrade, historical fixture repair or remote branch d
 
 ## Tried and rejected
 
+### Exact local closure disposition (reviewed before removal)
+
+The maker's worktree-closure request covers these three extra checkouts, not the primary checkout:
+
+- `G:/Code Files/snowflake-education-phase10`: head `564a95a` is pushed and an ancestor of the
+  integration. Move its entire ignored `out/` into the primary checkout at
+  `out/retained-worktrees-2026-10-01/education-out/` before removal. Its generated outputs are also
+  in the verified closeout collection. Remaining ignored `node_modules/` and `app/dist/` are
+  regenerable scratch. No ordinary untracked changes or running jobs were found.
+- `G:/Code Files/snowflake-phase10-evidence`: head `f4e8962` is pushed and an ancestor of the
+  integration. Move its entire `out/` to `out/retained-worktrees-2026-10-01/evidence-out/`, including
+  the personal offline build and prior source restores. The selected historical outputs are also
+  on NAS. The 140 ignored research files match NAS and retained primary copies by exact bytes;
+  removing these duplicates does not remove the last workstation copy. Dependencies, app build,
+  and the two empty `.tmp-c0v-*-generator/` directories are scratch.
+- `G:/Code Files/snowflake-science-exploration`: close only after the integration checks end,
+  all ready commits are pushed to main, and its entire `out/` is moved into primary
+  `out/retained-worktrees-2026-10-01/science-out/`. This keeps original scientific output, private
+  offline build, test logs, packing attempts and restore staging locally as well as preserving
+  the useful completed run/output snapshots on NAS. Dependencies and app build are scratch.
+
+Use resolved literal paths, absent destinations and `git worktree remove --force` only after
+these dispositions are satisfied. Delete only the now-merged local education/evidence/science
+branch refs. The retired checkpoint stays unmerged; its existing remote ref and the restored Git
+bundle preserve it. Keep all remote refs, the three stashes, primary `.claude/` settings and all
+other primary output. This is consolidation of checkout copies, not broad data pruning.
+
+## Tried and rejected
+
 - Blanket worktree/branch deletion: education and offline-build commits were local-only, and
   ignored historical outputs still needed preservation.
 - Merging the retired `checkpoint/phase10-s6-pre-freeze-do-not-merge-20260822`: its incomplete
