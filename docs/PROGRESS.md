@@ -930,10 +930,11 @@ are retained at `out/retained-worktrees-2026-10-01/{education-out,evidence-out,s
 the integration logs are now beneath the retained science-out tree. The standard closeout restore
 verification passed from primary. The retired checkpoint was never merged. After maker-authorized
 cleanup, the four merged education/evidence/science remote branches are deleted; their commits
-remain in main. Only main, the other computer's website/film branch, and the retired checkpoint
-remain on origin. The checkpoint's exact head is recoverable from the verified closeout Git bundle;
-its remote ref is retained pending an explicit deletion request. The three stashes and primary
-private settings remain. One Windows-locked empty
+remain in main. The maker subsequently authorized deleting the retired checkpoint remote branch;
+its exact head remains recoverable from the verified closeout Git bundle, without merging it.
+`plan/phase10-options` is already absent locally and remotely; its planning commit is in main.
+Only main and the other computer's untouched website/film branch remain on origin. The three
+stashes and primary private settings remain. One Windows-locked empty
 directory at `G:/Code Files/snowflake-phase10-evidence` remains unregistered and can be removed
 after closing its owning application or restarting; it holds no data.
 Next: stay paused and use pushed main as the common baseline for the other machines' reconciliation.

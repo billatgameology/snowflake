@@ -164,8 +164,11 @@ The checkpoint safety question was checked against the already restored closeout
 `b5956524c9110b67b3f36a1d4cd9407d471b0aae` under the retired checkpoint name, and `git cat-file -t`
 in the restored `repository.git` resolves that head as a commit. The bundle's SHA-256 matches the
 tracked verification record's `a1e208af77ecc4f1a145eadc96d56f7456d35850605ada3adf5b65e05972939e`.
-It is recoverable without merging; its local branch/worktree is already closed. Its remote ref
-remains until the maker explicitly requests its deletion. The other computer's branch is untouched.
+It is recoverable without merging; its local branch/worktree is already closed. The maker then
+explicitly authorized deletion, and the remote checkpoint ref was deleted with an exact-head
+lease. `plan/phase10-options` is absent from local and remote branch listings, so no deletion was
+needed; its planning commit `bc75831` is an ancestor of main. Final `git ls-remote --heads origin`
+lists only main and the other computer's untouched `explore/film-part1-plan`. Backups are retained.
 
 Next: remain paused. Use pushed main as the common grounding point; reconcile the other machines'
 active branches there when ready. A later experiment wave should start in fresh task worktrees,
