@@ -640,14 +640,13 @@ and the eight prior width-comparison rows. Every member matched a fresh restore 
 SHA-256; raw-inventory.json records the exact paths. No original local output was deleted.
 Older adaptive collections outside this bundle are not declared backed up or disposable.
 
-**Push pending explicit approval:** the closure is committed locally, but the approval system
-blocked publication because origin (`billatgameology/snowflake`) is public and the pending science
-history includes raw generated simulation records and logs. The destination was confirmed as
-the authenticated maker's existing repository. Ask the maker to approve that public payload;
-only then run `git push origin HEAD:refs/heads/explore/post-phase10-discovery` from the science
-worktree. Do not infer success or bypass the rejection. No remote update occurred.
+**Published (2026-10-01):** the maker explicitly approved public publication of the pending
+science history, including generated simulation records and logs. The non-force command
+`git push origin HEAD:refs/heads/explore/post-phase10-discovery` succeeded, advancing the
+existing branch on `billatgameology/snowflake` from 0e55b7b to closure commit 5834e2b.
+The approval blocker is resolved; the scientific work remains paused.
 
-**After push, next action:** open the completed report and the closing section of
+**Next action:** open the completed report and the closing section of
 `docs/plans/post-phase10-adaptive-discovery.md`, then reconcile the three machines' intended
 branches, local-only changes and remaining output ownership into one shared baseline.
 Start with `git worktree list --porcelain` and `git branch -vv`; do not merge historical/retired
