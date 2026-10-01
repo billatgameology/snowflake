@@ -1,0 +1,71 @@
+{
+  "format": "named-crystal-hard-form-probe-review-v1",
+  "reviewedAt": "2026-08-29",
+  "sourceManifest": "docs/named-snow-crystal-hard-form-probes.json",
+  "sourceReport": {
+    "path": "out/named-crystal-catalog/hard-form-probes-v1/report.json",
+    "byteLength": 47848,
+    "sha256": "21475d310edcc231fe1f5429d42684ac0bbb92f047c060acf7249570aa281ddf"
+  },
+  "contactSheet": {
+    "path": "out/named-crystal-catalog/hard-form-probes-v1/contact-sheet.png",
+    "byteLength": 8533252,
+    "sha256": "433c74c3984f904d2aa415cfd47e6caa8567f5a6b93fd7cd3afd13591e6ef6a9",
+    "views": ["face-0-degrees", "oblique-55-degrees", "axial-85-degrees"]
+  },
+  "executionSummary": {
+    "requestedProcessConcurrency": 24,
+    "actualWorkerCount": 24,
+    "completed": 24,
+    "failed": 0,
+    "startedAt": "2026-08-30T04:11:48.801Z",
+    "finishedAt": "2026-08-30T04:18:42.638Z",
+    "minimumWebBytes": 34549,
+    "maximumWebBytes": 507663,
+    "totalWebBytes": 2895660,
+    "webPayloadLimitBytes": 20000000
+  },
+  "statusDefinitions": {
+    "advance-candidate": "At least three registered variants retain the defining named feature strongly enough to justify larger production candidates; no catalog slot is filled.",
+    "compose-required": "The direct fixed-lattice variants did not preserve the defining multi-component feature, but an explicit visual composition can represent it without a new physics solver.",
+    "early-stop-required": "The custom initial condition contains the requested feature but the registered growth duration erases it; search the bounded useful-growth interval before declaring the route unsupported."
+  },
+  "counts": {
+    "advanceCandidateFamilies": 1,
+    "composeRequiredFamilies": 2,
+    "earlyStopRequiredFamilies": 3,
+    "formalCatalogSlotsFilled": 0
+  },
+  "families": [
+    {
+      "typeId": "scrolls-on-plates",
+      "status": "early-stop-required",
+      "rationale": "All four raised-lip seeds produced a plate plus strongly elongated axial growth; the hooked wall is overwhelmed and the final form is not a readable scroll on a plate. Search the early interval with one fixed raised-lip seed."
+    },
+    {
+      "typeId": "triangular-forms",
+      "status": "early-stop-required",
+      "rationale": "All four variants retain threefold internal ridges, but their external outline has already returned to a six-sided plate. The named reference calls for a truncated-triangle outline or three-cornered star, so search an earlier stop."
+    },
+    {
+      "typeId": "cups",
+      "status": "early-stop-required",
+      "rationale": "All four wall heights elongated into nearly full-length hollow columns; the one-ended open cup seed is no longer the dominant final feature. Search the early interval with one fixed wall height."
+    },
+    {
+      "typeId": "multiply-capped-columns",
+      "status": "compose-required",
+      "rationale": "All four six-stage schedules produced a long column with end structure but no multiple separated external cap levels. Represent multiple caps by an explicit scene of accepted plate and column components rather than adding new surface physics."
+    },
+    {
+      "typeId": "needle-clusters",
+      "status": "compose-required",
+      "rationale": "Larger radial separation makes six lobes visible end-on, but the parallel tips remain one fused axial envelope in oblique and side views. A spatial cluster requires explicit instances of accepted needle components in distinct orientations."
+    },
+    {
+      "typeId": "hollow-plates",
+      "status": "advance-candidate",
+      "rationale": "All four cavity radii preserve a centered through-cavity in a thin plate-like form, providing four clearly related size variants for larger production candidates."
+    }
+  ]
+}

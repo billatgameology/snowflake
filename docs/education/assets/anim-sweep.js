@@ -11,9 +11,9 @@
      CAK      the corrected historical re-sweep. Headline 3/90.
               Class totals 6 plate, 168 neutral, 30 column, 0 invalid.
               Transcribed from research/phase6-sweep-report.md. It is a preserved,
-              independently re-derived measured-only record, not replacement-gate
-              evidence. R15 is planned but unfrozen, unimplemented and unexecuted;
-              its charter obligations remain open.
+              independently re-derived measured-only record. Phase 6 later closed
+              on an accepted negative finding; that closure does not upgrade CAK
+              to validation evidence.
      CAK_A1   the first run, headline 5/90, INVALIDATED by ADR 0031.
               Transcribed from research/phase6-sweep-report.md at its superseded
               revision, commit 6995868 — it is NOT in the file at HEAD. Its

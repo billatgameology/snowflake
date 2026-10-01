@@ -1,6 +1,15 @@
 // Gut-check spike index page renderer: fetches the generated index.json from whichever of
 // the two known locations answers with JSON (see INDEX_URLS) and renders section galleries.
 
+import {
+  animationQueueIdFromName,
+  DEFAULT_ANIMATION_QUEUE_SETTINGS,
+  parseAnimationQueueManifest,
+  stringifyAnimationQueueManifest,
+  type AnimationQueueItem,
+  type AnimationQueueManifest,
+} from "./gutcheck-animation-queue.ts";
+
 interface IndexItem {
   label: string;
   href: string;
@@ -13,6 +22,7 @@ interface CompareRow {
   comparisons: IndexItem[];
   viewers: IndexItem[];
   animation?: IndexItem;
+  queue?: Omit<AnimationQueueItem, "label">;
 }
 interface IndexSection {
   title: string;
@@ -32,6 +42,8 @@ interface IndexData {
 // this list used to end in the author's absolute macOS path, which no other checkout could
 // load (2026-08-06 machine transfer).
 const INDEX_URLS = ["./data/index.json", "/gutcheck-index.json"];
+const QUEUE_ENDPOINT = "/gutcheck-animation-selection.json";
+const QUEUE_STORAGE_KEY = "vcc.gutcheck.animationQueue.v1";
 
 interface Lightbox {
   open: (index: number) => void;
@@ -169,6 +181,12 @@ function thumbnail(
   cap.className = "cap";
   cap.textContent = item.label;
   a.appendChild(cap);
+  if (item.note !== undefined) {
+    const note = document.createElement("div");
+    note.className = "cap-note";
+    note.textContent = item.note;
+    a.appendChild(note);
+  }
   const position = shots.length;
   shots.push({ src: item.image, label: item.label });
   a.addEventListener("click", (event) => {
@@ -196,11 +214,13 @@ function renderRows(
   rows: CompareRow[],
   shots: Array<{ src: string; label: string }>,
   lightbox: Lightbox,
+  selected: Set<string>,
+  selectionChanged: (id: string, checked: boolean) => void,
 ): HTMLDivElement {
   const table = document.createElement("div");
   table.className = "rows";
 
-  for (const heading of ["Comparison — ours vs target", "Interactive", "Animation"]) {
+  for (const heading of ["Preview / comparison", "Interactive", "Animation"]) {
     const head = document.createElement("div");
     head.className = "rows-head";
     head.textContent = heading;
@@ -214,6 +234,21 @@ function renderRows(
     name.className = "crystal";
     name.textContent = row.label;
     first.appendChild(name);
+    if (row.queue !== undefined) {
+      const selector = document.createElement("label");
+      selector.className = "queue-select";
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = selected.has(row.queue.id);
+      checkbox.dataset["queueId"] = row.queue.id;
+      checkbox.addEventListener("change", () => selectionChanged(row.queue!.id, checkbox.checked));
+      const text = document.createElement("span");
+      text.textContent = "Select for animation";
+      selector.append(checkbox, text);
+      first.appendChild(selector);
+      first.classList.toggle("is-selected", checkbox.checked);
+      checkbox.addEventListener("change", () => first.classList.toggle("is-selected", checkbox.checked));
+    }
     const strip = document.createElement("div");
     strip.className = "strip";
     for (const comparison of row.comparisons) {
@@ -269,6 +304,170 @@ async function main(): Promise<void> {
   const data = (await response.json()) as IndexData;
   mainEl.innerHTML = "<h1>GG gut check — output index</h1>";
 
+  const candidates = new Map<string, AnimationQueueItem>();
+  for (const section of data.sections) {
+    for (const row of section.rows ?? []) {
+      if (row.queue === undefined) continue;
+      candidates.set(row.queue.id, { ...row.queue, label: row.label });
+    }
+  }
+  let queueName = "Snowflake animation selection";
+  const selected = new Set<string>();
+  const localQueue = localStorage.getItem(QUEUE_STORAGE_KEY);
+  const applyManifest = (manifest: AnimationQueueManifest): void => {
+    for (const item of manifest.items) {
+      const candidate = candidates.get(item.id);
+      if (
+        candidate === undefined ||
+        candidate.id !== item.id ||
+        candidate.label !== item.label ||
+        candidate.mesh !== item.mesh ||
+        candidate.render !== item.render ||
+        candidate.spec !== item.spec
+      ) {
+        throw new Error(`queue item ${item.id} is not an exact candidate in this index`);
+      }
+    }
+    queueName = manifest.queueId.replaceAll("-", " ");
+    selected.clear();
+    manifest.items.forEach((item) => selected.add(item.id));
+  };
+  if (localQueue !== null) {
+    try {
+      applyManifest(parseAnimationQueueManifest(JSON.parse(localQueue) as unknown));
+    } catch {
+      localStorage.removeItem(QUEUE_STORAGE_KEY);
+    }
+  } else {
+    try {
+      const saved = await fetch(QUEUE_ENDPOINT, { headers: { accept: "application/json" } });
+      if (saved.ok && (saved.headers.get("content-type") ?? "").includes("json")) {
+        applyManifest(parseAnimationQueueManifest(await saved.json()));
+      }
+    } catch {
+      /* Static hosts have no persistence endpoint; import/export remains available. */
+    }
+  }
+
+  const selectionPanel = document.createElement("section");
+  selectionPanel.className = "queue-panel";
+  const title = document.createElement("strong");
+  title.textContent = "Animation queue";
+  const nameInput = document.createElement("input");
+  nameInput.type = "text";
+  nameInput.value = queueName;
+  nameInput.maxLength = 80;
+  nameInput.setAttribute("aria-label", "animation queue name");
+  const count = document.createElement("span");
+  count.className = "queue-count";
+  const status = document.createElement("span");
+  status.className = "queue-status";
+
+  const manifest = (): AnimationQueueManifest => ({
+    format: "gutcheck-animation-queue-v1",
+    queueId: animationQueueIdFromName(nameInput.value),
+    createdAt: new Date().toISOString(),
+    sourceIndexGenerated: data.generated,
+    settings: DEFAULT_ANIMATION_QUEUE_SETTINGS,
+    items: [...selected]
+      .sort()
+      .map((id) => candidates.get(id))
+      .filter((item): item is AnimationQueueItem => item !== undefined),
+  });
+  let saveTimer: number | undefined;
+  const persist = (): void => {
+    const value = manifest();
+    const source = stringifyAnimationQueueManifest(value);
+    localStorage.setItem(QUEUE_STORAGE_KEY, source);
+    count.textContent = `${value.items.length} selected`;
+    status.textContent = "saved in this browser";
+    window.clearTimeout(saveTimer);
+    saveTimer = window.setTimeout(() => {
+      void fetch(QUEUE_ENDPOINT, {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: source,
+      }).then((saved) => {
+        if (saved.ok) status.textContent = "saved to out/ and this browser";
+      }).catch(() => {
+        /* Static host: browser persistence and export are the supported paths. */
+      });
+    }, 150);
+  };
+  const syncCheckboxes = (): void => {
+    for (const checkbox of document.querySelectorAll<HTMLInputElement>("input[data-queue-id]")) {
+      const id = checkbox.dataset["queueId"];
+      checkbox.checked = id !== undefined && selected.has(id);
+      checkbox.closest(".cell-compare")?.classList.toggle("is-selected", checkbox.checked);
+    }
+  };
+  const selectionChanged = (id: string, checked: boolean): void => {
+    if (checked) selected.add(id);
+    else selected.delete(id);
+    persist();
+  };
+  nameInput.addEventListener("input", persist);
+
+  const button = (label: string): HTMLButtonElement => {
+    const result = document.createElement("button");
+    result.type = "button";
+    result.textContent = label;
+    return result;
+  };
+  const exportButton = button("Export queue JSON");
+  exportButton.addEventListener("click", () => {
+    const value = manifest();
+    const url = URL.createObjectURL(
+      new Blob([stringifyAnimationQueueManifest(value)], { type: "application/json" }),
+    );
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = `${value.queueId}.json`;
+    anchor.click();
+    URL.revokeObjectURL(url);
+  });
+  const importInput = document.createElement("input");
+  importInput.type = "file";
+  importInput.accept = "application/json,.json";
+  importInput.hidden = true;
+  const importButton = button("Import queue JSON");
+  importButton.addEventListener("click", () => importInput.click());
+  importInput.addEventListener("change", () => {
+    const file = importInput.files?.[0];
+    if (file === undefined) return;
+    void file.text().then((source) => {
+      applyManifest(parseAnimationQueueManifest(JSON.parse(source) as unknown));
+      nameInput.value = queueName;
+      syncCheckboxes();
+      persist();
+      status.textContent = `imported ${file.name}`;
+      importInput.value = "";
+    }).catch((error: unknown) => {
+      status.textContent = `import refused: ${error instanceof Error ? error.message : String(error)}`;
+    });
+  });
+  const clearButton = button("Clear selection");
+  clearButton.addEventListener("click", () => {
+    selected.clear();
+    syncCheckboxes();
+    persist();
+  });
+  const formatNote = document.createElement("span");
+  formatNote.className = "queue-format";
+  formatNote.textContent = "web mesh: v2q + gzip (measured hero: 18.3 MB)";
+  selectionPanel.append(
+    title,
+    nameInput,
+    count,
+    exportButton,
+    importButton,
+    importInput,
+    clearButton,
+    status,
+    formatNote,
+  );
+  mainEl.appendChild(selectionPanel);
+
   // Every gallery image on the page, in document order — the lightbox pages through this
   // one list rather than per section, so arrow keys run the whole set end to end.
   const shots: Array<{ src: string; label: string }> = [];
@@ -285,7 +484,7 @@ async function main(): Promise<void> {
       mainEl.appendChild(p);
     }
     if (section.rows !== undefined && section.rows.length > 0) {
-      mainEl.appendChild(renderRows(section.rows, shots, lightbox));
+      mainEl.appendChild(renderRows(section.rows, shots, lightbox, selected, selectionChanged));
       continue;
     }
     const hasImages = section.items.some((item) => item.image !== undefined);
@@ -316,6 +515,7 @@ async function main(): Promise<void> {
     `generated ${data.generated} from ${data.root} — refresh with ` +
     "node scripts/gutcheck-build-index.ts";
   mainEl.appendChild(meta);
+  persist();
 }
 
 void main();

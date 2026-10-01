@@ -261,14 +261,14 @@ function staticChecks() {
   if (!partOneOnly) {
     requireCheck(
       phase6TrackedAuthority.violations.length === 0,
-      "current Phase 6 authority is independently derived from the tracked manifest, artifact bytes, point rows, reports, and state documents",
+      "final Phase 6 closure is independently derived from the tracked manifest, artifact bytes, point rows, reports, and state documents",
       JSON.stringify(phase6TrackedAuthority.violations),
     );
   }
 
   requireCheck(
-    ALL_PAGE_PATHS.length === 33 && PAGE_PATHS.length === (partOneOnly ? 17 : 33) && EXPECTED_ROOTS > 0,
-    `manifest pins the complete 33-page course and the ${partOneOnly ? "17-page Part One" : "full"} visual-root inventory`,
+  ALL_PAGE_PATHS.length === 37 && PAGE_PATHS.length === (partOneOnly ? 17 : 37) && EXPECTED_ROOTS > 0,
+  `manifest pins the complete 37-page course and the ${partOneOnly ? "17-page Part One" : "full"} visual-root inventory`,
     `allPages=${ALL_PAGE_PATHS.length}, selectedPages=${PAGE_PATHS.length}, roots=${EXPECTED_ROOTS}`,
   );
 
@@ -3597,7 +3597,7 @@ async function verifyPartTwoModels(browser, root) {
     const statusProblems = phase6StatusViolations(status, phase6TrackedAuthority);
     requireCheck(
       statusProblems.length === 0,
-      "Phase 6 status control preserves both measured-only historical arms and keeps replacement-gate obligations open",
+      "Phase 6 status control preserves both measured-only historical arms and shows the final complete-negative closure",
       JSON.stringify(statusProblems),
     );
 
@@ -4660,30 +4660,34 @@ async function negativeControls(
           },
         },
         {
-          name: "Phase 6 HANDOFF R15 status erased",
-          mutate: (inputs) => {
-            inputs.handoff = inputs.handoff.replace(
-              /R15 has no production\s+caller or complete artifact\/gate/i,
-              "R15 is complete",
-            );
-            return /R15 is complete/.test(inputs.handoff);
-          },
-        },
-        {
-          name: "Phase 6 PROGRESS causal limit erased",
+          name: "Phase 6 PROGRESS final status erased",
           mutate: (inputs) => {
             inputs.progress = inputs.progress.replace(
-              /cannot establish physical SDAK causality or necessity/i,
-              "establishes physical SDAK causality",
+              /Phase 6 is COMPLETE \(2026-08-20\)/i,
+              "Phase 6 is ACTIVE",
             );
-            return /establishes physical SDAK causality/.test(inputs.progress);
+            return /Phase 6 is ACTIVE/.test(inputs.progress);
           },
         },
         {
-          name: "Phase 6 source-lock status falsified",
+          name: "Phase 6 PROGRESS closure count falsified",
           mutate: (inputs) => {
-            inputs.handoff = inputs.handoff.replaceAll("passEligible=false", "passEligible=true");
-            return /passEligible=true/.test(inputs.handoff);
+            inputs.progress = inputs.progress.replace(
+              /13\/13 criteria/gi,
+              "12/13 criteria",
+            );
+            return /12\/13 criteria/.test(inputs.progress);
+          },
+        },
+        {
+          name: "Phase 6 numerical report verdict falsified",
+          expectedDetection: "numerical report verdict",
+          mutate: (inputs) => {
+            const path = "phase6-wp2-ladder/report.json";
+            const report = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));
+            report.overallVerdict = "pass";
+            replacePhase6EvidenceJson(inputs, path, report);
+            return report.overallVerdict === "pass";
           },
         },
         {
@@ -4954,7 +4958,7 @@ async function negativeControls(
         },
         {
           name: "Phase 6 CAK exact-threshold witness omitted from the closed fragility census",
-          expectedDetection: "Phase 6 current tracked-evidence record",
+          expectedDetection: "Phase 6 tracked authority",
           mutate: (inputs) => {
             const path = "phase6-sweep/points.json";
             const points = JSON.parse(Buffer.from(inputs.files[path]).toString("utf8"));

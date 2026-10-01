@@ -45,6 +45,10 @@ const width = Number(arg("width", "1280"));
 const height = Number(arg("height", "720"));
 const port = Number(arg("port", "8144"));
 const mp4Path = arg("mp4", null);
+const videoBitrate = arg("video-bitrate", null);
+if (videoBitrate !== null && !/^\d+(?:\.\d+)?[kKmM]$/.test(videoBitrate)) {
+  throw new Error(`--video-bitrate must look like 10M or 8000k, got ${videoBitrate}`);
+}
 // Default to the deterministic path; see the header note on the D3D11 hash mismatch.
 const gl = arg("gl", "swiftshader");
 if (gl !== "d3d11" && gl !== "swiftshader") {
@@ -153,7 +157,11 @@ try {
     const encode = spawnSync(
       "ffmpeg",
       ["-y", "-loglevel", "error", "-framerate", String(fps), "-i", join(outDir, "frame-%05d.png"),
-        "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "18", resolve(mp4Path)],
+        "-c:v", "libx264", "-pix_fmt", "yuv420p",
+        ...(videoBitrate === null
+          ? ["-crf", "18"]
+          : ["-b:v", videoBitrate, "-maxrate", videoBitrate, "-bufsize", videoBitrate]),
+        resolve(mp4Path)],
       { stdio: "inherit" },
     );
     if (encode.status !== 0) throw new Error("ffmpeg encode failed");

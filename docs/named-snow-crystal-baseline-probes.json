@@ -1,0 +1,260 @@
+{
+  "format": "named-crystal-baseline-probes-v1",
+  "catalog": "docs/named-snow-crystal-catalog.json",
+  "seedProfileVersion": 1,
+  "webPayloadLimitBytes": 20000000,
+  "execution": {
+    "processConcurrency": 24,
+    "hostProcessor": "Intel Core Ultra 9 285K",
+    "physicalCores": 24,
+    "logicalProcessors": 24,
+    "rngSeed": 1,
+    "noiseEpsilon": 0,
+    "domain": "hexPrism",
+    "spacing": 0.6,
+    "sigma": 0.45,
+    "normalDelta": 3
+  },
+  "jobs": [
+    {
+      "typeId": "simple-prisms",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig11-record.json",
+      "seedProfile": "simplePrism",
+      "dims": [144, 144, 96],
+      "tickCap": 2500,
+      "scheduleProfile": "source",
+      "reviewViews": ["face", "oblique", "axial"],
+      "intent": "Compact early-stop prism from a radius-2, three-layer seed."
+    },
+    {
+      "typeId": "solid-columns",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig31-record.json",
+      "seedProfile": "solidColumn",
+      "dims": [96, 96, 192],
+      "tickCap": 6000,
+      "scheduleProfile": "source",
+      "reviewViews": ["oblique", "axial"],
+      "intent": "Canonical solid-column parameters from an elongated connected seed."
+    },
+    {
+      "typeId": "sheaths",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig30-record.json",
+      "seedProfile": "sheath",
+      "dims": [96, 96, 192],
+      "tickCap": 6000,
+      "scheduleProfile": "source",
+      "reviewViews": ["oblique", "axial"],
+      "intent": "Thin hollow-wall seed under the existing hollow-column family."
+    },
+    {
+      "typeId": "scrolls-on-plates",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig11-record.json",
+      "seedProfile": "scrollPlate",
+      "dims": [192, 192, 64],
+      "tickCap": 6000,
+      "scheduleProfile": "source",
+      "reviewViews": ["face", "oblique"],
+      "intent": "Bounded representational probe using a connected hooked plate seed."
+    },
+    {
+      "typeId": "triangular-forms",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig11-record.json",
+      "seedProfile": "triangle",
+      "dims": [192, 192, 64],
+      "tickCap": 6000,
+      "scheduleProfile": "source",
+      "reviewViews": ["face"],
+      "intent": "Intentional asymmetric triangular initial condition; no D6h claim."
+    },
+    {
+      "typeId": "hexagonal-plates",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig11-record.json",
+      "seedProfile": "legacy",
+      "dims": [192, 192, 96],
+      "tickCap": 2500,
+      "scheduleProfile": "source",
+      "reviewViews": ["face", "oblique"],
+      "intent": "Clean compact plate anchor using the existing canonical seed."
+    },
+    {
+      "typeId": "hollow-columns",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig30-record.json",
+      "seedProfile": "legacy",
+      "dims": [96, 96, 192],
+      "tickCap": 6000,
+      "scheduleProfile": "source",
+      "reviewViews": ["oblique", "axial"],
+      "intent": "Scale-down replay of the current hollow-column anchor."
+    },
+    {
+      "typeId": "cups",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig30-record.json",
+      "seedProfile": "cup",
+      "dims": [128, 128, 192],
+      "tickCap": 6000,
+      "scheduleProfile": "source",
+      "reviewViews": ["oblique", "axial"],
+      "intent": "Bounded recessed cup seed under hollow-column parameters."
+    },
+    {
+      "typeId": "columns-on-plates",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig39-record.json",
+      "seedProfile": "legacy",
+      "dims": [192, 192, 96],
+      "tickCap": 6000,
+      "scheduleProfile": "source",
+      "reviewViews": ["oblique", "axial"],
+      "intent": "Scale-down replay of the current columns-on-plates candidate."
+    },
+    {
+      "typeId": "stellar-plates",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig32-record.json",
+      "seedProfile": "legacy",
+      "dims": [192, 192, 64],
+      "tickCap": 6000,
+      "scheduleProfile": "twoStage2500",
+      "reviewViews": ["face", "oblique"],
+      "intent": "Shortened plate-core to branching schedule for a stellar plate."
+    },
+    {
+      "typeId": "capped-columns",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig37-record.json",
+      "seedProfile": "legacy",
+      "dims": [144, 144, 192],
+      "tickCap": 6000,
+      "scheduleProfile": "twoStage2500",
+      "reviewViews": ["oblique", "axial"],
+      "intent": "Shortened established column-to-plate schedule."
+    },
+    {
+      "typeId": "split-plates-and-stars",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig6-record.json",
+      "seedProfile": "splitPlate",
+      "dims": [192, 192, 80],
+      "tickCap": 6000,
+      "scheduleProfile": "source",
+      "reviewViews": ["face", "oblique"],
+      "intent": "Connected two-lobe asymmetric seed for a split plate/star probe."
+    },
+    {
+      "typeId": "sectored-plates",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig9v2-record.json",
+      "seedProfile": "legacy",
+      "dims": [192, 192, 64],
+      "tickCap": 6000,
+      "scheduleProfile": "source",
+      "reviewViews": ["face", "oblique"],
+      "intent": "Scale-down replay of the current sectored-plate anchor."
+    },
+    {
+      "typeId": "isolated-bullets",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig31-record.json",
+      "seedProfile": "bullet",
+      "dims": [96, 96, 192],
+      "tickCap": 5000,
+      "scheduleProfile": "source",
+      "reviewViews": ["oblique", "axial"],
+      "intent": "Short tapered connected seed under solid-column parameters."
+    },
+    {
+      "typeId": "multiply-capped-columns",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig37-record.json",
+      "seedProfile": "legacy",
+      "dims": [144, 144, 192],
+      "tickCap": 6000,
+      "scheduleProfile": "multiplyCapped",
+      "reviewViews": ["oblique", "axial"],
+      "intent": "Column/plate/column/plate schedule using the established two environments."
+    },
+    {
+      "typeId": "skeletal-forms",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig19-record.json",
+      "seedProfile": "legacy",
+      "dims": [192, 192, 64],
+      "tickCap": 6000,
+      "scheduleProfile": "source",
+      "reviewViews": ["face", "oblique"],
+      "intent": "Bounded scale-down of the blocky skeletal family."
+    },
+    {
+      "typeId": "simple-stars",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig16-record.json",
+      "seedProfile": "legacy",
+      "dims": [192, 192, 64],
+      "tickCap": 6000,
+      "scheduleProfile": "source",
+      "reviewViews": ["face"],
+      "intent": "Scale-down replay of the current simple-star anchor."
+    },
+    {
+      "typeId": "simple-needles",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig29-record.json",
+      "seedProfile": "legacy",
+      "dims": [96, 96, 192],
+      "tickCap": 6000,
+      "scheduleProfile": "source",
+      "reviewViews": ["oblique", "axial"],
+      "intent": "Scale-down replay of the current simple-needle anchor."
+    },
+    {
+      "typeId": "capped-bullets",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig37-record.json",
+      "seedProfile": "bullet",
+      "dims": [144, 144, 192],
+      "tickCap": 6000,
+      "scheduleProfile": "twoStage2500",
+      "reviewViews": ["oblique", "axial"],
+      "intent": "Bullet seed with the established shortened column-to-plate schedule."
+    },
+    {
+      "typeId": "stellar-dendrites",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig7-record.json",
+      "seedProfile": "legacy",
+      "dims": [192, 192, 64],
+      "tickCap": 6000,
+      "scheduleProfile": "source",
+      "reviewViews": ["face"],
+      "intent": "Scale-down replay of the current stellar-dendrite anchor."
+    },
+    {
+      "typeId": "needle-clusters",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig29-record.json",
+      "seedProfile": "needleCluster",
+      "dims": [128, 128, 192],
+      "tickCap": 6000,
+      "scheduleProfile": "source",
+      "reviewViews": ["oblique", "axial"],
+      "intent": "Connected multi-tip seed under the existing needle family."
+    },
+    {
+      "typeId": "double-plates",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig6-record.json",
+      "seedProfile": "legacy",
+      "dims": [192, 192, 96],
+      "tickCap": 6000,
+      "scheduleProfile": "source",
+      "reviewViews": ["oblique", "axial"],
+      "intent": "Scale-down replay of the current double-plate scientific anchor."
+    },
+    {
+      "typeId": "fernlike-stellar-dendrites",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig13-record.json",
+      "seedProfile": "legacy",
+      "dims": [192, 192, 64],
+      "tickCap": 6000,
+      "scheduleProfile": "source",
+      "reviewViews": ["face"],
+      "intent": "Scale-down replay of the current fernlike anchor."
+    },
+    {
+      "typeId": "hollow-plates",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig11-record.json",
+      "seedProfile": "hollowPlate",
+      "dims": [192, 192, 64],
+      "tickCap": 6000,
+      "scheduleProfile": "source",
+      "reviewViews": ["face", "oblique"],
+      "intent": "Bounded annular-seed probe for stable plate hollowing."
+    }
+  ]
+}

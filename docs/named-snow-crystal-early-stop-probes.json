@@ -1,0 +1,44 @@
+{
+  "format": "named-crystal-early-stop-probes-v1",
+  "sourceHardFormManifest": "docs/named-snow-crystal-hard-form-probes.json",
+  "sourceReview": "docs/named-snow-crystal-hard-form-probe-review.json",
+  "webPayloadLimitBytes": 20000000,
+  "execution": {
+    "processConcurrency": 24,
+    "hostProcessor": "Intel Core Ultra 9 285K",
+    "physicalCores": 24,
+    "logicalProcessors": 24,
+    "rngSeed": 1,
+    "noiseEpsilon": 0,
+    "domain": "hexPrism",
+    "spacing": 0.6,
+    "sigma": 0.45,
+    "normalDelta": 3
+  },
+  "families": [
+    {
+      "typeId": "scrolls-on-plates",
+      "sourceDriverName": "scroll-lip-height",
+      "sourceDriverValue": 3,
+      "tickValues": [100, 200, 300, 400, 600, 800, 1000, 1200],
+      "reviewViews": ["face", "oblique", "axial"],
+      "intent": "Find the latest meaningful-growth stop that retains a raised hooked rim on a plate."
+    },
+    {
+      "typeId": "triangular-forms",
+      "sourceDriverName": "triangle-side-length",
+      "sourceDriverValue": 8,
+      "tickValues": [100, 200, 300, 400, 600, 800, 1000, 1200],
+      "reviewViews": ["face", "oblique"],
+      "intent": "Find the latest meaningful-growth stop that retains a truncated-triangle external outline."
+    },
+    {
+      "typeId": "cups",
+      "sourceDriverName": "cup-wall-height",
+      "sourceDriverValue": 4,
+      "tickValues": [100, 200, 300, 400, 600, 800, 1000, 1200],
+      "reviewViews": ["oblique", "axial"],
+      "intent": "Find the latest meaningful-growth stop that retains one open cup end without becoming a full hollow column."
+    }
+  ]
+}

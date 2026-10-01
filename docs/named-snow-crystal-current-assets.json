@@ -1,0 +1,1011 @@
+{
+  "format": "named-snow-crystal-current-assets-v1",
+  "classificationRevision": "manual-contact-sheet-and-oblique-2026-08-29-v1",
+  "source": {
+    "queueFile": "queue-plus-needles.json",
+    "queueBytes": 19421,
+    "queueSha256": "a6ebdb9d1fa331a4e9075991b64fa4dab23bb3e64071c2c2b0ddf6cca5ef92ce",
+    "websiteIndexFile": "index.json",
+    "websiteIndexBytes": 20739,
+    "websiteIndexSha256": "fe3dbe31b9a34b5c5a1b8de13ab09dec26786cca9c2bbb0d4d3c4888a3cabb97"
+  },
+  "summary": {
+    "assetCount": 52,
+    "websiteEntryCount": 51,
+    "totalWebBytes": 196599652,
+    "maximumWebBytes": 10003779,
+    "webPayloadLimitBytes": 20000000,
+    "strongMatches": 45,
+    "nearMatches": 7
+  },
+  "assets": [
+    {
+      "id": "bentley785",
+      "label": "Bentley 785 attempt — extended plate core, then branching (Fig. 32 schedule, longer stage 1)",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/bentley785-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/bentley785-render.png",
+      "webAsset": "bentley785-growth-v1.bin",
+      "webBytes": 3165403,
+      "webSha256": "40c5d14ecc491ff950b92d1fb97af276885078765810f28d4f0ddaf4d2868f10",
+      "websiteIncluded": true,
+      "scientificRecord": "bentley785-record.json",
+      "scientificRecordBytes": 2605,
+      "scientificRecordSha256": "50fee273320b2b623588ef2cb639c4b452e3bcaebd5d169b2bb3eda1701daf02",
+      "classification": {
+        "typeId": "stellar-dendrites",
+        "match": "near",
+        "visualBasis": "face",
+        "rationale": "Plate core with six strongly branched arms; more dendritic than a broad stellar plate."
+      }
+    },
+    {
+      "id": "bentley872",
+      "label": "Bentley 872 attempt — branch first, then terminal plates (Fig. 32 schedule inverted)",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/bentley872-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/bentley872-render.png",
+      "webAsset": "bentley872-growth-v1.bin",
+      "webBytes": 3536659,
+      "webSha256": "d8e8a6974349b93633afe093e2fe64527cd7e4781529f2266b4b9a0d509c2f89",
+      "websiteIncluded": true,
+      "scientificRecord": "bentley872-record.json",
+      "scientificRecordBytes": 2589,
+      "scientificRecordSha256": "a9b7d916f69fee827b05387875cbd25bd78f05fa148c987e7a0ed1fbf8802af0",
+      "classification": {
+        "typeId": "stellar-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Six broad terminal-plate arms with elaborate symmetric face markings."
+      }
+    },
+    {
+      "id": "bentley872-v2",
+      "label": "bentley872-v2 — 872 terminal-plate search",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/bentley872-v2-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/bentley872-v2-render.png",
+      "webAsset": "bentley872-v2-growth-v1.bin",
+      "webBytes": 5417676,
+      "webSha256": "2310afe4536411999cd4a06e8e5ca19b448065e59de4131de31c61c776ca02e5",
+      "websiteIncluded": true,
+      "scientificRecord": "bentley872-v2-record.json",
+      "scientificRecordBytes": 2508,
+      "scientificRecordSha256": "1cb740cbe571046a27a8da277ce23a713dd2fab0ced3a0b84f7bf8b0e7f52e56",
+      "classification": {
+        "typeId": "stellar-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Broad six-armed plate form retained by the terminal-plate search."
+      }
+    },
+    {
+      "id": "bentley872-v3",
+      "label": "bentley872-v3 — 872 terminal-plate search",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/bentley872-v3-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/bentley872-v3-render.png",
+      "webAsset": "bentley872-v3-growth-v1.bin",
+      "webBytes": 4916791,
+      "webSha256": "c3dee24dcaf824cc6123b4f634e24bfd38fb2d37ebdd70b9c5dfb490d137c1a2",
+      "websiteIncluded": true,
+      "scientificRecord": "bentley872-v3-record.json",
+      "scientificRecordBytes": 2492,
+      "scientificRecordSha256": "2a7fcb0e1b89c919488ec1ba12bcf0993c4217a4f192cfbd6e911bb2be8f3435",
+      "classification": {
+        "typeId": "stellar-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Six broad faceted petal-like arms and a plate-dominant silhouette."
+      }
+    },
+    {
+      "id": "bentley872-v5",
+      "label": "bentley872-v5 — 872 terminal-plate search",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/bentley872-v5-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/bentley872-v5-render.png",
+      "webAsset": "bentley872-v5-growth-v1.bin",
+      "webBytes": 4536524,
+      "webSha256": "43368b42c42534fea80fbba246439f0a9847b853ec64eb554e3db9b125efcd0f",
+      "websiteIncluded": true,
+      "scientificRecord": "bentley872-v5-record.json",
+      "scientificRecordBytes": 2506,
+      "scientificRecordSha256": "7ce19f5daa55a7e83dad84e98ad38545919daf8ec47fa72e3a3f0857d148ca17",
+      "classification": {
+        "typeId": "stellar-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Broad plate-like arms with dense but bounded internal markings."
+      }
+    },
+    {
+      "id": "bentley872-v6",
+      "label": "bentley872-v6 — 872 terminal-plate search",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/bentley872-v6-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/bentley872-v6-render.png",
+      "webAsset": "bentley872-v6-growth-v1.bin",
+      "webBytes": 5417676,
+      "webSha256": "345f1f1bd2c4ac4ebb3e72c0f082efb93bd5c8cede768d2870317c8382e41a2b",
+      "websiteIncluded": true,
+      "scientificRecord": "bentley872-v6-record.json",
+      "scientificRecordBytes": 2508,
+      "scientificRecordSha256": "a4cb4841b592841032dd772d3854836ac619ed883e81bcaf23937d0b229170d6",
+      "classification": {
+        "typeId": "stellar-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Broad six-armed plate form with symmetric terminal structure."
+      }
+    },
+    {
+      "id": "fig11",
+      "label": "Fig. 11",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig11-record.json",
+      "preview": "/gutcheck-figure-previews/fig11.png",
+      "webAsset": "fig11-growth-v1.bin",
+      "webBytes": 2809819,
+      "webSha256": "3736e0e1b7d1565f96354de385cf6424272ed9eb5dd50533d4669963c706810e",
+      "websiteIncluded": true,
+      "scientificRecord": "fig11-record.json",
+      "scientificRecordBytes": 1897,
+      "scientificRecordSha256": "a4d77e186c22464de1bdef4be1522dbfbec455c11e582defd5501d9d51851b56",
+      "classification": {
+        "typeId": "simple-prisms",
+        "match": "strong",
+        "visualBasis": "face-and-oblique",
+        "rationale": "Compact thick hexagonal prism with decorated facets but no branching instability."
+      }
+    },
+    {
+      "id": "fig13",
+      "label": "Fig. 13",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig13-record.json",
+      "preview": "/gutcheck-figure-previews/fig13.png",
+      "webAsset": "fig13-growth-v1.bin",
+      "webBytes": 8183109,
+      "webSha256": "9972b675afcf59864e46f75d9dbc6231531258f0de9f66dbe4a52dbbe6fedd38",
+      "websiteIncluded": true,
+      "scientificRecord": "fig13-record.json",
+      "scientificRecordBytes": 1907,
+      "scientificRecordSha256": "8ea7580054114311181106378427f99cf2d9ada46795097c7d28cde72688f3a3",
+      "classification": {
+        "typeId": "fernlike-stellar-dendrites",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Dense closely spaced sidebranches give all six arms a fernlike outline."
+      }
+    },
+    {
+      "id": "fig15",
+      "label": "Fig. 15",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig15-record.json",
+      "preview": "/gutcheck-figure-previews/fig15.png",
+      "webAsset": "fig15-growth-v1.bin",
+      "webBytes": 6856896,
+      "webSha256": "16f6cbd882ab8d67901f1c29d067334dc323b3a7622db3d3959d9b93f440d263",
+      "websiteIncluded": true,
+      "scientificRecord": "fig15-record.json",
+      "scientificRecordBytes": 1906,
+      "scientificRecordSha256": "2572854036249f9cff33e4425c4090dcecbfa2690a1d41bcb3406994f2520711",
+      "classification": {
+        "typeId": "stellar-dendrites",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Six tree-like arms with clear but comparatively sparse sidebranches."
+      }
+    },
+    {
+      "id": "fig16",
+      "label": "Fig. 16",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig16-record.json",
+      "preview": "/gutcheck-figure-previews/fig16.png",
+      "webAsset": "fig16-growth-v1.bin",
+      "webBytes": 6646078,
+      "webSha256": "c06976954743e8ac683925cd512f2e1e532a0f81a7f10a3ffdf38738df8aeeea",
+      "websiteIncluded": true,
+      "scientificRecord": "fig16-record.json",
+      "scientificRecordBytes": 1905,
+      "scientificRecordSha256": "89c3342501d575806d0dba2a63c81d09cf4dd66a2fd1f47f74ca6a1509eb9f82",
+      "classification": {
+        "typeId": "simple-stars",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Six slender essentially sidebranch-free arms."
+      }
+    },
+    {
+      "id": "fig17",
+      "label": "Fig. 17",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig17-record.json",
+      "preview": "/gutcheck-figure-previews/fig17.png",
+      "webAsset": "fig17-growth-v1.bin",
+      "webBytes": 7034525,
+      "webSha256": "b89eb94bf49ea050551544ce84d8b6c90fa61f0792a6e16166f90532f4d84770",
+      "websiteIncluded": true,
+      "scientificRecord": "fig17-record.json",
+      "scientificRecordBytes": 1968,
+      "scientificRecordSha256": "7da9230ad40a8c697cca07b48b1124f191bad1995ae59aedfade0c959ede58a7",
+      "classification": {
+        "typeId": "simple-stars",
+        "match": "near",
+        "visualBasis": "face",
+        "rationale": "Sidebranch-free star skeleton, but the blocky sandwich tips make it less canonical."
+      }
+    },
+    {
+      "id": "fig19",
+      "label": "Fig. 19",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig19-record.json",
+      "preview": "/gutcheck-figure-previews/fig19.png",
+      "webAsset": "fig19-growth-v1.bin",
+      "webBytes": 5865806,
+      "webSha256": "7897449092a80754bfc29268480977098a16ceeb6ac68966b91a6d9c78e6aebe",
+      "websiteIncluded": true,
+      "scientificRecord": "fig19-record.json",
+      "scientificRecordBytes": 1989,
+      "scientificRecordSha256": "8c7477272fa2305548f47d95ec135f1619267c9965535913a856bb8bd9b60ee2",
+      "classification": {
+        "typeId": "skeletal-forms",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Thick faceted arms expose a pronounced internal skeleton and blocky edge-led growth."
+      }
+    },
+    {
+      "id": "fig29",
+      "label": "Fig. 29",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig29-record.json",
+      "preview": "/gutcheck-figure-previews/fig29.png",
+      "webAsset": "fig29-growth-v1.bin",
+      "webBytes": 1763943,
+      "webSha256": "6b3e8716031216e750bc62f61a716fb958fa1acf54d4cc881e56fa705ebc3473",
+      "websiteIncluded": true,
+      "scientificRecord": "fig29-record.json",
+      "scientificRecordBytes": 1892,
+      "scientificRecordSha256": "e4380e9bf04a7ec0bd985924653e00fb51173e82c00b3ad18bab8f58cf57b871",
+      "classification": {
+        "typeId": "simple-needles",
+        "match": "strong",
+        "visualBasis": "face-and-oblique",
+        "rationale": "Extremely elongated slender hexagonal needle."
+      }
+    },
+    {
+      "id": "fig30",
+      "label": "Fig. 30",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig30-record.json",
+      "preview": "/gutcheck-figure-previews/fig30.png",
+      "webAsset": "fig30-growth-v1.bin",
+      "webBytes": 2635627,
+      "webSha256": "274ed4de0f459ce048bfe3fb481c2029fe0b05602fadaa43b89bdbc907dda8f9",
+      "websiteIncluded": true,
+      "scientificRecord": "fig30-record.json",
+      "scientificRecordBytes": 1895,
+      "scientificRecordSha256": "3cc9bad2c25f1f27c2a850e3bbd58e99ab1b1c4d7b6bb0915b0e3724779541e5",
+      "classification": {
+        "typeId": "hollow-columns",
+        "match": "strong",
+        "visualBasis": "face-and-oblique",
+        "rationale": "Elongated hexagonal column with symmetric hollows at both basal ends."
+      }
+    },
+    {
+      "id": "fig31",
+      "label": "Fig. 31",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig31-record.json",
+      "preview": "/gutcheck-figure-previews/fig31.png",
+      "webAsset": "fig31-growth-v1.bin",
+      "webBytes": 1974276,
+      "webSha256": "99dd042b87f22ff13bd9286568f0e1a8ea131a9dd6a097de390187f3200ee5fd",
+      "websiteIncluded": true,
+      "scientificRecord": "fig31-record.json",
+      "scientificRecordBytes": 1897,
+      "scientificRecordSha256": "74fccce5a87c08a73dd5b07a22ca173bc944ea5c42922e19ffa07a3c8305fd8d",
+      "classification": {
+        "typeId": "skeletal-forms",
+        "match": "strong",
+        "visualBasis": "face-and-oblique",
+        "rationale": "Stubby prism with recessed skeletal markings on basal and prism facets."
+      }
+    },
+    {
+      "id": "fig32",
+      "label": "Fig. 32",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig32-record.json",
+      "preview": "/gutcheck-figure-previews/fig32.png",
+      "webAsset": "fig32-growth-v1.bin",
+      "webBytes": 4583828,
+      "webSha256": "c489dd7b44f3062ec39553f6fd6114f2eee02025124ef71dc75de4b42565a8d9",
+      "websiteIncluded": true,
+      "scientificRecord": "fig32-record.json",
+      "scientificRecordBytes": 2543,
+      "scientificRecordSha256": "f2a094a60e219472117f26c23553a6bf70081602cfac68216daecdefc41c33ce",
+      "classification": {
+        "typeId": "fernlike-stellar-dendrites",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Plate core with six densely sidebranched fernlike extensions."
+      }
+    },
+    {
+      "id": "fig37",
+      "label": "Fig. 37",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig37-record.json",
+      "preview": "/gutcheck-figure-previews/fig37.png",
+      "webAsset": "fig37-growth-v1.bin",
+      "webBytes": 9761022,
+      "webSha256": "8f536cbe57dfca493889540f4521fdceb7a30737107a0b3bb8ecb0ecc488fe82",
+      "websiteIncluded": true,
+      "scientificRecord": "fig37-record.json",
+      "scientificRecordBytes": 2405,
+      "scientificRecordSha256": "fb6f27fd3b3ecda5b6ac18204137d635d2971f8ca09359170f41aca769918c4b",
+      "classification": {
+        "typeId": "capped-columns",
+        "match": "strong",
+        "visualBasis": "face-and-oblique",
+        "rationale": "Central column with a broad simple plate cap at each end."
+      }
+    },
+    {
+      "id": "fig38",
+      "label": "Fig. 38",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig38-record.json",
+      "preview": "/gutcheck-figure-previews/fig38.png",
+      "webAsset": "fig38-growth-v1.bin",
+      "webBytes": 10003779,
+      "webSha256": "9979cfad47938b081f78806c36e40e6fcb59ace7ee4beb1497872eb0909d91cb",
+      "websiteIncluded": true,
+      "scientificRecord": "fig38-record.json",
+      "scientificRecordBytes": 2420,
+      "scientificRecordSha256": "e069376c901a48538c0cabf1d1f54f8977e318fbb822205a53f8794fb5e0a34c",
+      "classification": {
+        "typeId": "capped-columns",
+        "match": "strong",
+        "visualBasis": "face-and-oblique",
+        "rationale": "Central column with a broad sectored plate cap at each end."
+      }
+    },
+    {
+      "id": "fig39",
+      "label": "Fig. 39",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig39-record.json",
+      "preview": "/gutcheck-figure-previews/fig39.png",
+      "webAsset": "fig39-growth-v1.bin",
+      "webBytes": 2411266,
+      "webSha256": "f58e1c59bf0375abee436a8eaab789d463edf0e08011a9861888ff6f4bdd2e45",
+      "websiteIncluded": true,
+      "scientificRecord": "fig39-record.json",
+      "scientificRecordBytes": 1907,
+      "scientificRecordSha256": "f55732027f2b72872be1ef900852eaa962b2f4da286802389ab5bf7fa9f1637a",
+      "classification": {
+        "typeId": "columns-on-plates",
+        "match": "strong",
+        "visualBasis": "face-and-oblique",
+        "rationale": "Planar stellar base carrying multiple true needles rising out of the plane."
+      }
+    },
+    {
+      "id": "fig40",
+      "label": "Fig. 40 (star with needles, §XIII eccentric)",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig40-record.json",
+      "preview": "/gutcheck-figure-previews/fig40.png",
+      "webAsset": "fig40-growth-v1.bin",
+      "webBytes": 293388,
+      "webSha256": "d714dc56e9123ca4bfc0091c7a612b6da998a7578eac95d85ae7a170abd936de",
+      "websiteIncluded": true,
+      "scientificRecord": "fig40-record.json",
+      "scientificRecordBytes": 2008,
+      "scientificRecordSha256": "65b25ef34cf45049bb6619036c7e017515f8cd7ddef1d612dae0881f21ef7cb6",
+      "classification": {
+        "typeId": "columns-on-plates",
+        "match": "strong",
+        "visualBasis": "face-and-oblique",
+        "rationale": "Narrow stellar base bristling with vertical needle/column growth."
+      }
+    },
+    {
+      "id": "fig42v2",
+      "label": "Fig. 42-v2",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig42v2-record.json",
+      "preview": "/gutcheck-figure-previews/fig42v2.png",
+      "webAsset": "fig42v2-growth-v1.bin",
+      "webBytes": 703414,
+      "webSha256": "e6752e6091a9162d24830d6a4771aa346ff1167ff4a9fc218ddbcd02da80f4b0",
+      "websiteIncluded": true,
+      "scientificRecord": "fig42v2-record.json",
+      "scientificRecordBytes": 2014,
+      "scientificRecordSha256": "5619fc1c03c1e774e6a5e3567b517df0af4750f8a0078b1f1348c022f7376f77",
+      "classification": {
+        "typeId": "scrolls-on-plates",
+        "match": "near",
+        "visualBasis": "face",
+        "rationale": "Out-of-plane plate wings suggest a route to scrolls, but the blades are not yet curled."
+      }
+    },
+    {
+      "id": "fig44",
+      "label": "Fig. 44",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig44-record.json",
+      "preview": "/gutcheck-figure-previews/fig44.png",
+      "webAsset": "fig44-growth-v1.bin",
+      "webBytes": 3697504,
+      "webSha256": "0145597510234dae129c2b204a4f7fa56409451200ff57d94ba680803085587f",
+      "websiteIncluded": true,
+      "scientificRecord": "fig44-record.json",
+      "scientificRecordBytes": 2012,
+      "scientificRecordSha256": "899921a242a3cf37d19c3174a0569043e18b717a283c556bf19c4d39639f6892",
+      "classification": {
+        "typeId": "stellar-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Six broad exploded plate tips with elaborate internal markings."
+      }
+    },
+    {
+      "id": "fig45",
+      "label": "Fig. 45",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig45-record.json",
+      "preview": "/gutcheck-figure-previews/fig45.png",
+      "webAsset": "fig45-growth-v1.bin",
+      "webBytes": 4251770,
+      "webSha256": "8a5549e36efb34a8ffc959fc71d24f0bb14ad1a27a6b82ffd734af5400011f2f",
+      "websiteIncluded": true,
+      "scientificRecord": "fig45-record.json",
+      "scientificRecordBytes": 1902,
+      "scientificRecordSha256": "b67f2cfb222cc8e3d3448df827c29ba7549dec5c2d7810c0cd75a98ed9415cfd",
+      "classification": {
+        "typeId": "stellar-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Six broad rounded hexagonal plate tips form a clear stellar plate."
+      }
+    },
+    {
+      "id": "fig46",
+      "label": "Fig. 46",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig46-record.json",
+      "preview": "/gutcheck-figure-previews/fig46.png",
+      "webAsset": "fig46-growth-v1.bin",
+      "webBytes": 3374156,
+      "webSha256": "12207187ef4467c3d7f7531306d6a774e009072dce37e1a4520abac37987bd3b",
+      "websiteIncluded": true,
+      "scientificRecord": "fig46-record.json",
+      "scientificRecordBytes": 1905,
+      "scientificRecordSha256": "d451f098a6e7a8ceb650f2995156bd29fcd02f611292ca06804d9995e5eda108",
+      "classification": {
+        "typeId": "stellar-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Broad lace-like terminal plates dominate the six-armed silhouette."
+      }
+    },
+    {
+      "id": "fig47",
+      "label": "Fig. 47",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig47-record.json",
+      "preview": "/gutcheck-figure-previews/fig47.png",
+      "webAsset": "fig47-growth-v1.bin",
+      "webBytes": 5061351,
+      "webSha256": "4f2a08b52dcbbda74784c8106b7ccd6ab281f6a09d597bd995fc43e716f671f2",
+      "websiteIncluded": true,
+      "scientificRecord": "fig47-record.json",
+      "scientificRecordBytes": 1898,
+      "scientificRecordSha256": "90a7172031e83ffa50b84aa06f38e800440663e7b4ef319eb9f2b4cb6306248b",
+      "classification": {
+        "typeId": "stellar-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Six widened intricately patterned plate tips remain plate-dominant."
+      }
+    },
+    {
+      "id": "fig6",
+      "label": "Fig. 6",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig6-record.json",
+      "preview": "/gutcheck-figure-previews/fig6.png",
+      "webAsset": "fig6-growth-v1.bin",
+      "webBytes": 5876281,
+      "webSha256": "43203f1c368af3f42c94853aa64f1def2a0d87eba45873fd2ac5d8b17e00cef4",
+      "websiteIncluded": false,
+      "scientificRecord": "fig6-record.json",
+      "scientificRecordBytes": 1892,
+      "scientificRecordSha256": "50ff213244fce021430621dd793efedb0f75a3032295584617e2671ddffc5283",
+      "classification": {
+        "typeId": "double-plates",
+        "match": "strong",
+        "visualBasis": "face-and-oblique",
+        "rationale": "Oblique and edge views show two close parallel plates with a short central connection."
+      }
+    },
+    {
+      "id": "fig7",
+      "label": "Fig. 7",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig7-record.json",
+      "preview": "/gutcheck-figure-previews/fig7.png",
+      "webAsset": "fig7-growth-v1.bin",
+      "webBytes": 4098502,
+      "webSha256": "01e0a728f0a9b97f12757c3ba04f797bdc8a4dfca12172647cf8e583cf810386",
+      "websiteIncluded": true,
+      "scientificRecord": "fig7-record.json",
+      "scientificRecordBytes": 1887,
+      "scientificRecordSha256": "84e9535b5f3a95ef5483c9d57387f7fe721a96a2b22e7c55e207a5e180c318b1",
+      "classification": {
+        "typeId": "stellar-dendrites",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Six main arms carry dense sidebranches with well-defined ridges."
+      }
+    },
+    {
+      "id": "fig9v2",
+      "label": "Fig. 9-v2",
+      "sourceRecord": "evidence/gutcheck-gg-realism/fig-records/fig9v2-record.json",
+      "preview": "/gutcheck-figure-previews/fig9v2.png",
+      "webAsset": "fig9v2-growth-v1.bin",
+      "webBytes": 2905041,
+      "webSha256": "581d76427e8052f03f5bfe08b097ad2695930e9c8a7372285257231654978377",
+      "websiteIncluded": true,
+      "scientificRecord": "fig9v2-record.json",
+      "scientificRecordBytes": 1895,
+      "scientificRecordSha256": "28a77422d15e0f2b9e98f2ac043bfe82e3bc826e4c522e230012ce9428690b83",
+      "classification": {
+        "typeId": "sectored-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Six broad plate sectors are separated by prominent straight ridges."
+      }
+    },
+    {
+      "id": "staged-branch1-to-plate3-at12000",
+      "label": "staged: branch 1 until 12000, then plate 3  [schedule never fired — single stage]",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/staged-branch1-to-plate3-at12000-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/staged-branch1-to-plate3-at12000-render.png",
+      "webAsset": "staged-branch1-to-plate3-at12000-growth-v1.bin",
+      "webBytes": 1770896,
+      "webSha256": "bd26b4d7575cd54721c4f0832bb4da9f325095d64efe93b159930d401dfbf496",
+      "websiteIncluded": true,
+      "scientificRecord": "staged-branch1-to-plate3-at12000-record.json",
+      "scientificRecordBytes": 2482,
+      "scientificRecordSha256": "75bbf0b79e9f30b546cb267263e13fd23bde5ae5e91e98e915bdaa479c6979ce",
+      "classification": {
+        "typeId": "stellar-dendrites",
+        "match": "near",
+        "visualBasis": "face",
+        "rationale": "Unfired branch stage produced a highly branched star, but not a controlled three-member family."
+      }
+    },
+    {
+      "id": "staged-branch1-to-plate3-at3000",
+      "label": "staged: branch 1 until 3000, then plate 3",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/staged-branch1-to-plate3-at3000-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/staged-branch1-to-plate3-at3000-render.png",
+      "webAsset": "staged-branch1-to-plate3-at3000-growth-v1.bin",
+      "webBytes": 6534043,
+      "webSha256": "33697232ce277d496524ef2573589845bee6249c1d20e4859a02fb12b2f9cc09",
+      "websiteIncluded": true,
+      "scientificRecord": "staged-branch1-to-plate3-at3000-record.json",
+      "scientificRecordBytes": 2521,
+      "scientificRecordSha256": "d20380bc754c8eaf333bcdb26c810fffaa7953adc341d3aa0eae71f55c83b9b2",
+      "classification": {
+        "typeId": "stellar-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Early transition broadened all six arms into terminal plate structures."
+      }
+    },
+    {
+      "id": "staged-branch1-to-plate3-at6000",
+      "label": "staged: branch 1 until 6000, then plate 3",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/staged-branch1-to-plate3-at6000-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/staged-branch1-to-plate3-at6000-render.png",
+      "webAsset": "staged-branch1-to-plate3-at6000-growth-v1.bin",
+      "webBytes": 3948603,
+      "webSha256": "a486001e7e0ea3bf82183526af1e2e99b23f56cd52ca274538335cd178e05e6f",
+      "websiteIncluded": true,
+      "scientificRecord": "staged-branch1-to-plate3-at6000-record.json",
+      "scientificRecordBytes": 2522,
+      "scientificRecordSha256": "a52008bbc03217209cedc70d011252668a605fd6f36395885719b7d0772af2af",
+      "classification": {
+        "typeId": "stellar-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Intermediate transition retained six broad plate-dominant arms."
+      }
+    },
+    {
+      "id": "staged-branch1p15-to-plate2p25-at3000",
+      "label": "staged: branch 1.15 until 3000, then plate 2.25",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/staged-branch1p15-to-plate2p25-at3000-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/staged-branch1p15-to-plate2p25-at3000-render.png",
+      "webAsset": "staged-branch1p15-to-plate2p25-at3000-growth-v1.bin",
+      "webBytes": 5052242,
+      "webSha256": "e2455bbd19e5512bb92ff10e3e208227f4e531eaaf3e1bc6a66a008fd44b66e3",
+      "websiteIncluded": true,
+      "scientificRecord": "staged-branch1p15-to-plate2p25-at3000-record.json",
+      "scientificRecordBytes": 2557,
+      "scientificRecordSha256": "1d149100e604dab4d226bec1ef4e7d0418bfc6940130f1324a6a81e19dfc7031",
+      "classification": {
+        "typeId": "stellar-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Broad symmetric arms with terminal plate growth dominate over sidebranching."
+      }
+    },
+    {
+      "id": "staged-branch1p3-to-plate2p6-at3000",
+      "label": "staged: branch 1.3 until 3000, then plate 2.6",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/staged-branch1p3-to-plate2p6-at3000-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/staged-branch1p3-to-plate2p6-at3000-render.png",
+      "webAsset": "staged-branch1p3-to-plate2p6-at3000-growth-v1.bin",
+      "webBytes": 4616685,
+      "webSha256": "8444d7aee27d00fb849838d10d97a605445f56470941675fad6deb7de6252a7e",
+      "websiteIncluded": true,
+      "scientificRecord": "staged-branch1p3-to-plate2p6-at3000-record.json",
+      "scientificRecordBytes": 2544,
+      "scientificRecordSha256": "27ce68df5fa228e61c71a1740021d3da7fdb12e3c74f44d8e2a717512308756b",
+      "classification": {
+        "typeId": "stellar-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Six broad faceted terminal structures produce a stellar plate silhouette."
+      }
+    },
+    {
+      "id": "staged-plate2p25-to-branch1p15-at12000",
+      "label": "staged: plate 2.25 until 12000, then branch 1.15",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/staged-plate2p25-to-branch1p15-at12000-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/staged-plate2p25-to-branch1p15-at12000-render.png",
+      "webAsset": "staged-plate2p25-to-branch1p15-at12000-growth-v1.bin",
+      "webBytes": 3161625,
+      "webSha256": "9767dc60f7d16aaba50e33ce28872fca4b6f216978b1730f78de3223ce6e0ca2",
+      "websiteIncluded": true,
+      "scientificRecord": "staged-plate2p25-to-branch1p15-at12000-record.json",
+      "scientificRecordBytes": 2569,
+      "scientificRecordSha256": "5d960580d584052665596eb8b0935f1d2d77c17017807a3f224d4cf217000508",
+      "classification": {
+        "typeId": "stellar-dendrites",
+        "match": "near",
+        "visualBasis": "face",
+        "rationale": "Late branching leaves a spiky branched stellar form with residual plate structure."
+      }
+    },
+    {
+      "id": "staged-plate2p25-to-branch1p15-at3000",
+      "label": "staged: plate 2.25 until 3000, then branch 1.15",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/staged-plate2p25-to-branch1p15-at3000-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/staged-plate2p25-to-branch1p15-at3000-render.png",
+      "webAsset": "staged-plate2p25-to-branch1p15-at3000-growth-v1.bin",
+      "webBytes": 3169928,
+      "webSha256": "58d4592ed25482722d7a63703711118fe65bb897eaa06055160463bdd0f026d4",
+      "websiteIncluded": true,
+      "scientificRecord": "staged-plate2p25-to-branch1p15-at3000-record.json",
+      "scientificRecordBytes": 2563,
+      "scientificRecordSha256": "e6b5d515d292226d2bd32a02ff6fc9f3fd81be2abe60cc465dc5a87920007a28",
+      "classification": {
+        "typeId": "stellar-dendrites",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Early branching produces six separated tree-like arms."
+      }
+    },
+    {
+      "id": "staged-plate2p25-to-branch1p15-at8000",
+      "label": "staged: plate 2.25 until 8000, then branch 1.15",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/staged-plate2p25-to-branch1p15-at8000-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/staged-plate2p25-to-branch1p15-at8000-render.png",
+      "webAsset": "staged-plate2p25-to-branch1p15-at8000-growth-v1.bin",
+      "webBytes": 3367424,
+      "webSha256": "e4992584b15fa8f39a9d0120c88b2078cc5e100b5ae3635fa310623c40484d92",
+      "websiteIncluded": true,
+      "scientificRecord": "staged-plate2p25-to-branch1p15-at8000-record.json",
+      "scientificRecordBytes": 2563,
+      "scientificRecordSha256": "2f22c18237a286ba90949bfdcaa2120aa5cc602506c83144845335c4ff77fc0e",
+      "classification": {
+        "typeId": "stellar-dendrites",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Six branched arms remain separated despite elaborate central plate history."
+      }
+    },
+    {
+      "id": "staged-plate2p6-to-branch1p3-at3000",
+      "label": "staged: plate 2.6 until 3000, then branch 1.3",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/staged-plate2p6-to-branch1p3-at3000-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/staged-plate2p6-to-branch1p3-at3000-render.png",
+      "webAsset": "staged-plate2p6-to-branch1p3-at3000-growth-v1.bin",
+      "webBytes": 3616881,
+      "webSha256": "b99bfbcde88d9a5db0b926789d28ddfbcabb9e799e6689bd981a4a89fce8af30",
+      "websiteIncluded": true,
+      "scientificRecord": "staged-plate2p6-to-branch1p3-at3000-record.json",
+      "scientificRecordBytes": 2549,
+      "scientificRecordSha256": "c8df98fa13e1d6e981f135780a569dcf6d9b0c15c6c8991d47c7093c41b70529",
+      "classification": {
+        "typeId": "stellar-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Broad wedge-like faceted arms retain a plate-dominant outline."
+      }
+    },
+    {
+      "id": "staged-plate2p6-to-branch1p3-at4000",
+      "label": "staged: plate 2.6 until 4000, then branch 1.3",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/staged-plate2p6-to-branch1p3-at4000-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/staged-plate2p6-to-branch1p3-at4000-render.png",
+      "webAsset": "staged-plate2p6-to-branch1p3-at4000-growth-v1.bin",
+      "webBytes": 4364401,
+      "webSha256": "dfdb158ae78b7942daa64cdb25bcdb0d798aff27647b0068fa7ad7f9e62ebb6c",
+      "websiteIncluded": true,
+      "scientificRecord": "staged-plate2p6-to-branch1p3-at4000-record.json",
+      "scientificRecordBytes": 2549,
+      "scientificRecordSha256": "a2f41ecc1b019df5c7646deff63c64a333c3b42c5d6d3e38bab4308e301f8471",
+      "classification": {
+        "typeId": "stellar-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Broad plate-like arms with modest terminal branching."
+      }
+    },
+    {
+      "id": "staged-plate3-to-branch1-at12000",
+      "label": "staged: plate 3 until 12000, then branch 1",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/staged-plate3-to-branch1-at12000-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/staged-plate3-to-branch1-at12000-render.png",
+      "webAsset": "staged-plate3-to-branch1-at12000-growth-v1.bin",
+      "webBytes": 2504980,
+      "webSha256": "00e737dc378d6d4e11d7b5d409d2bb3345826cdc97e44fd976fdec698493f9c4",
+      "websiteIncluded": true,
+      "scientificRecord": "staged-plate3-to-branch1-at12000-record.json",
+      "scientificRecordBytes": 2526,
+      "scientificRecordSha256": "fa3417cfa50b9ad4f6c164f1111bda99da0226522a7b6f4799ab135814ebaeae",
+      "classification": {
+        "typeId": "stellar-dendrites",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Six separated arms show repeated tree-like terminal growth."
+      }
+    },
+    {
+      "id": "staged-plate3-to-branch1-at3000",
+      "label": "staged: plate 3 until 3000, then branch 1",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/staged-plate3-to-branch1-at3000-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/staged-plate3-to-branch1-at3000-render.png",
+      "webAsset": "staged-plate3-to-branch1-at3000-growth-v1.bin",
+      "webBytes": 2545979,
+      "webSha256": "686c1e11e70054c63a547d316fb1821db4753634a5201c16e237c5315b383277",
+      "websiteIncluded": true,
+      "scientificRecord": "staged-plate3-to-branch1-at3000-record.json",
+      "scientificRecordBytes": 2520,
+      "scientificRecordSha256": "5c3ab7d32bf778f73a1665d782f1da2aeaf28bb7d40f5c6e10ff5e74b2968238",
+      "classification": {
+        "typeId": "stellar-dendrites",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Early branch stage produces six strong dendritic arms."
+      }
+    },
+    {
+      "id": "staged-plate3-to-branch1-at6000",
+      "label": "staged: plate 3 until 6000, then branch 1",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/staged-plate3-to-branch1-at6000-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/staged-plate3-to-branch1-at6000-render.png",
+      "webAsset": "staged-plate3-to-branch1-at6000-growth-v1.bin",
+      "webBytes": 2573771,
+      "webSha256": "6b0b8a4f16f202236ddc6a4a06f145dae65d25a31eadcad0ab450d050735bef6",
+      "websiteIncluded": true,
+      "scientificRecord": "staged-plate3-to-branch1-at6000-record.json",
+      "scientificRecordBytes": 2520,
+      "scientificRecordSha256": "e21c232598121083f12088b45dd88f0b6c6801eb0e72e597f999316c7a3cd989",
+      "classification": {
+        "typeId": "stellar-dendrites",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Intermediate transition yields six separated branched arms."
+      }
+    },
+    {
+      "id": "sweep-t1-r0p1",
+      "label": "single stage: thresh 1, rho 0.1",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/sweep-t1-r0p1-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/sweep-t1-r0p1-render.png",
+      "webAsset": "sweep-t1-r0p1-growth-v1.bin",
+      "webBytes": 1234534,
+      "webSha256": "5a57fe15026efbb572c558e43f23ce6773cd975a57175a1d0af7b4ad71a22f2c",
+      "websiteIncluded": true,
+      "scientificRecord": "sweep-t1-r0p1-record.json",
+      "scientificRecordBytes": 2053,
+      "scientificRecordSha256": "7cc4b61ebb1c2bc259a68efbc1570402f89381e3794026b1ad612af197c4a9b5",
+      "classification": {
+        "typeId": "simple-stars",
+        "match": "near",
+        "visualBasis": "face",
+        "rationale": "Open six-arm star is close to the type, but faint lateral growth is visible."
+      }
+    },
+    {
+      "id": "sweep-t1-sharp",
+      "label": "single stage: thresh 1, sharpened tips",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/sweep-t1-sharp-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/sweep-t1-sharp-render.png",
+      "webAsset": "sweep-t1-sharp-growth-v1.bin",
+      "webBytes": 1770622,
+      "webSha256": "8615928490192af7442b27bb7c2a6731c501a148774e0f95b1ef8c1d8fa15073",
+      "websiteIncluded": true,
+      "scientificRecord": "sweep-t1-sharp-record.json",
+      "scientificRecordBytes": 2112,
+      "scientificRecordSha256": "904d65e0312df4a1468b420817479b1ec836d9d7d715beafb36db0c13ced314e",
+      "classification": {
+        "typeId": "stellar-dendrites",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Tree-like arms and sidebranches under the sharpened-tip recipe."
+      }
+    },
+    {
+      "id": "sweep-t1p15-sharp",
+      "label": "single stage: thresh 1.15, sharpened tips",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/sweep-t1p15-sharp-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/sweep-t1p15-sharp-render.png",
+      "webAsset": "sweep-t1p15-sharp-growth-v1.bin",
+      "webBytes": 2569889,
+      "webSha256": "599da66e74bd465ca96c531ee0d2caebc459563b68fe70832417bbddcb58f332",
+      "websiteIncluded": true,
+      "scientificRecord": "sweep-t1p15-sharp-record.json",
+      "scientificRecordBytes": 2135,
+      "scientificRecordSha256": "0865b132cc4f18120257546b8766eb8d0b0008db570185d5a5e3dc2257ca3eb9",
+      "classification": {
+        "typeId": "stellar-dendrites",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Same sharpened-tip family with a modest qualified-threshold increase."
+      }
+    },
+    {
+      "id": "sweep-t1p3-sharp",
+      "label": "single stage: thresh 1.3, sharpened tips",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/sweep-t1p3-sharp-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/sweep-t1p3-sharp-render.png",
+      "webAsset": "sweep-t1p3-sharp-growth-v1.bin",
+      "webBytes": 3848124,
+      "webSha256": "cff9aef1241e7b231b72366eb87bb09ff443c1614d4ed99cebcf59b45247a32f",
+      "websiteIncluded": true,
+      "scientificRecord": "sweep-t1p3-sharp-record.json",
+      "scientificRecordBytes": 2129,
+      "scientificRecordSha256": "446784b73992ea5718ae3d78d5a1a438ccff0a448fb28cfca6acb71b74d6e354",
+      "classification": {
+        "typeId": "stellar-dendrites",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Same sharpened-tip family retains branched stellar morphology."
+      }
+    },
+    {
+      "id": "sweep-t1p75-k0p1-m0p001",
+      "label": "single stage: thresh 1.75, kappa 0.1, mu 0.001",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/sweep-t1p75-k0p1-m0p001-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/sweep-t1p75-k0p1-m0p001-render.png",
+      "webAsset": "sweep-t1p75-k0p1-m0p001-growth-v1.bin",
+      "webBytes": 3666005,
+      "webSha256": "d83e02920c9b14a7df901c8d3bbe1f08e30b5ceb733f4cbd719bd642dee4fe97",
+      "websiteIncluded": true,
+      "scientificRecord": "sweep-t1p75-k0p1-m0p001-record.json",
+      "scientificRecordBytes": 2105,
+      "scientificRecordSha256": "9e3394defcb237183f6dbc69a0de687558e53f0ecd55c978a3f57477c6e4d513",
+      "classification": {
+        "typeId": "stellar-dendrites",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Six tree-like arms with visible secondary branching."
+      }
+    },
+    {
+      "id": "sweep-t1p75-k0p1-m0p006",
+      "label": "single stage: thresh 1.75, kappa 0.1, mu 0.006",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/sweep-t1p75-k0p1-m0p006-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/sweep-t1p75-k0p1-m0p006-render.png",
+      "webAsset": "sweep-t1p75-k0p1-m0p006-growth-v1.bin",
+      "webBytes": 1611303,
+      "webSha256": "bb26d3bab2fdf4d66bafc666ef9d88b5d9a9f792941045dc78bd0964050b0e33",
+      "websiteIncluded": true,
+      "scientificRecord": "sweep-t1p75-k0p1-m0p006-record.json",
+      "scientificRecordBytes": 2107,
+      "scientificRecordSha256": "3f3b42fed69ba802cdec3b98f6698f02532c88c26eba440681cfdd30b05c16de",
+      "classification": {
+        "typeId": "stellar-plates",
+        "match": "near",
+        "visualBasis": "face",
+        "rationale": "Broad near-hexagonal plate outline with deep arm notches."
+      }
+    },
+    {
+      "id": "sweep-t2-r0p08",
+      "label": "single stage: thresh 2, rho 0.08",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/sweep-t2-r0p08-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/sweep-t2-r0p08-render.png",
+      "webAsset": "sweep-t2-r0p08-growth-v1.bin",
+      "webBytes": 1156247,
+      "webSha256": "97fea6cf5bee73e32d402fd2baed6223e3b3120379225460b366fa5ed71e00e4",
+      "websiteIncluded": true,
+      "scientificRecord": "sweep-t2-r0p08-record.json",
+      "scientificRecordBytes": 2053,
+      "scientificRecordSha256": "231f53689471f8f29a8755ba4e7f6cf274d3b11537239620ebd636e8b53e44ee",
+      "classification": {
+        "typeId": "hexagonal-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Thin broad hexagonal plate with shallow edge notches."
+      }
+    },
+    {
+      "id": "sweep-t2-r0p12",
+      "label": "single stage: thresh 2, rho 0.12",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/sweep-t2-r0p12-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/sweep-t2-r0p12-render.png",
+      "webAsset": "sweep-t2-r0p12-growth-v1.bin",
+      "webBytes": 3405063,
+      "webSha256": "e4ab1fba4abf2e7d233db0dc573e106162aeabc4bb71176b5f62c0a0b94abe52",
+      "websiteIncluded": true,
+      "scientificRecord": "sweep-t2-r0p12-record.json",
+      "scientificRecordBytes": 2054,
+      "scientificRecordSha256": "360834a832081ed63906da69d41235be1f1e1b88b053b82395d2ef9fedfa52e6",
+      "classification": {
+        "typeId": "stellar-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Broad six-armed plate form with complex symmetric face structure."
+      }
+    },
+    {
+      "id": "sweep-t2p5-k0p001-m0p006",
+      "label": "single stage: thresh 2.5, kappa 0.001, mu 0.006",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/sweep-t2p5-k0p001-m0p006-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/sweep-t2p5-k0p001-m0p006-render.png",
+      "webAsset": "sweep-t2p5-k0p001-m0p006-growth-v1.bin",
+      "webBytes": 771155,
+      "webSha256": "ee2812cb9f024e6e087659cb0270a30c4fc2a412f67574526515f062e4c5848b",
+      "websiteIncluded": true,
+      "scientificRecord": "sweep-t2p5-k0p001-m0p006-record.json",
+      "scientificRecordBytes": 2105,
+      "scientificRecordSha256": "1acd4d46b6045ea4efa30d46932ea6a6c7feb80c6ac996d84c35e88d82b7a01b",
+      "classification": {
+        "typeId": "hexagonal-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Thin simple hexagonal plate with little branching."
+      }
+    },
+    {
+      "id": "sweep-t2p5-r0p08",
+      "label": "single stage: thresh 2.5, rho 0.08",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/sweep-t2p5-r0p08-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/sweep-t2p5-r0p08-render.png",
+      "webAsset": "sweep-t2p5-r0p08-growth-v1.bin",
+      "webBytes": 754708,
+      "webSha256": "a81ff2e2a2566149760f4228c46d0e7300bfb7742d96d1e86c2c9c328ebff075",
+      "websiteIncluded": true,
+      "scientificRecord": "sweep-t2p5-r0p08-record.json",
+      "scientificRecordBytes": 2063,
+      "scientificRecordSha256": "a461127858a042f4da4717b8249421d71b81715b2bf736ba1fcf572605f6464b",
+      "classification": {
+        "typeId": "hexagonal-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Thin compact hexagonal plate with concentric facet markings."
+      }
+    },
+    {
+      "id": "sweep-t3-r0p08",
+      "label": "single stage: thresh 3, rho 0.08",
+      "sourceRecord": "evidence/gutcheck-gg-realism/gen-records/sweep-t3-r0p08-record.json",
+      "preview": "/nas/collections/gutcheck-generated-public/2026-08-15/payload/gen/renders/sweep-t3-r0p08-render.png",
+      "webAsset": "sweep-t3-r0p08-growth-v1.bin",
+      "webBytes": 802434,
+      "webSha256": "fb2b7610153d5635c6c99e9f3ff8aa5e8c20b623fe764da95ebbe9288ed65379",
+      "websiteIncluded": true,
+      "scientificRecord": "sweep-t3-r0p08-record.json",
+      "scientificRecordBytes": 2049,
+      "scientificRecordSha256": "d22186a14a12d4e91ad5fef8463cd10ba32cbb3195b6cffee1f75cbcdbb94095",
+      "classification": {
+        "typeId": "hexagonal-plates",
+        "match": "strong",
+        "visualBasis": "face",
+        "rationale": "Thin compact hexagonal plate in the same one-parameter family as sweep-t2p5-r0p08."
+      }
+    }
+  ]
+}

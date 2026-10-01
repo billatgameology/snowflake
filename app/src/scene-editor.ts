@@ -18,17 +18,18 @@
 
 import * as THREE from "three";
 
-export interface CameraKey {
-  t: number;
-  tilt: number;
-  yaw: number;
-  zoom: number;
-  ease?: "linear" | "inOutCubic";
-}
-export interface FrameKey {
-  t: number;
-  frame: number;
-}
+import {
+  sampleSceneCamera,
+  sampleSceneFrame,
+  sceneCameraPoseFromPosition,
+  sceneEaseFraction,
+  type SceneCameraKey,
+  type SceneCameraPose,
+  type SceneFrameKey,
+} from "./gutcheck-scene-motion.ts";
+
+export type CameraKey = { -readonly [Key in keyof SceneCameraKey]: SceneCameraKey[Key] };
+export type FrameKey = { -readonly [Key in keyof SceneFrameKey]: SceneFrameKey[Key] };
 export interface CrystalKey {
   t: number;
   roll: number;
@@ -85,16 +86,11 @@ export function poseFromCamera(camera: THREE.OrthographicCamera): {
   zoom: number;
 } {
   const p = camera.position;
-  const d = p.length() || 1;
-  const tilt = (Math.acos(THREE.MathUtils.clamp(p.z / d, -1, 1)) * 180) / Math.PI;
-  // At tilt 0 the camera sits on +Z and yaw is degenerate; keep the previous value's sign
-  // stable by reporting 0 rather than a value derived from float noise.
-  const horizontal = Math.hypot(p.x, p.y);
-  const yaw = horizontal < 1e-6 ? 0 : (Math.atan2(-p.x, p.y) * 180) / Math.PI;
+  const pose = sceneCameraPoseFromPosition({ x: p.x, y: p.y, z: p.z }, camera.zoom);
   return {
-    tilt: round(tilt),
-    yaw: round(yaw),
-    zoom: round(camera.zoom),
+    tilt: round(pose.tilt),
+    yaw: round(pose.yaw),
+    zoom: round(pose.zoom),
   };
 }
 
@@ -568,7 +564,7 @@ export function createSceneEditor(host: SceneEditorHost): HTMLElement {
       if (target !== host.currentFrame()) void host.showFrame(target);
     }
     if (draft.camera.length > 0) {
-      const cam = sampleCamera(draft.camera, t);
+      const cam = sampleSceneCamera(draft.camera, t);
       applyPose(host.camera, cam);
     }
     if (crystal.length > 0) host.group.rotation.z = sampleRoll(crystal, t);
@@ -645,41 +641,10 @@ export function createSceneEditor(host: SceneEditorHost): HTMLElement {
   return panel;
 }
 
-// ── Interpolation, matching the player in spike-gg-realism.ts ────────────────────────
+// ── Interpolation, shared with the player in gutcheck-scene-motion.ts ────────────────
 
-const easeInOutCubic = (t: number): number =>
-  t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-
-export function frameAtTime(track: FrameKey[], t: number): number {
-  if (track.length === 0) return 0;
-  if (t <= track[0]!.t) return track[0]!.frame;
-  for (let i = 1; i < track.length; i++) {
-    const a = track[i - 1]!;
-    const b = track[i]!;
-    if (t <= b.t) {
-      const k = b.t === a.t ? 1 : (t - a.t) / (b.t - a.t);
-      return Math.round(a.frame + (b.frame - a.frame) * k);
-    }
-  }
-  return track[track.length - 1]!.frame;
-}
-
-function sampleCamera(track: CameraKey[], t: number): { tilt: number; yaw: number; zoom: number } {
-  if (t <= track[0]!.t) return track[0]!;
-  for (let i = 1; i < track.length; i++) {
-    const a = track[i - 1]!;
-    const b = track[i]!;
-    if (t <= b.t) {
-      const raw = b.t === a.t ? 1 : (t - a.t) / (b.t - a.t);
-      const k = (b.ease ?? "inOutCubic") === "linear" ? raw : easeInOutCubic(raw);
-      return {
-        tilt: a.tilt + (b.tilt - a.tilt) * k,
-        yaw: a.yaw + (b.yaw - a.yaw) * k,
-        zoom: a.zoom + (b.zoom - a.zoom) * k,
-      };
-    }
-  }
-  return track[track.length - 1]!;
+export function frameAtTime(track: readonly FrameKey[], t: number): number {
+  return sampleSceneFrame(track, t);
 }
 
 function sampleRoll(track: CrystalKey[], t: number): number {
@@ -689,7 +654,7 @@ function sampleRoll(track: CrystalKey[], t: number): number {
     const b = track[i]!;
     if (t <= b.t) {
       const raw = b.t === a.t ? 1 : (t - a.t) / (b.t - a.t);
-      const k = (b.ease ?? "inOutCubic") === "linear" ? raw : easeInOutCubic(raw);
+      const k = sceneEaseFraction(raw, b.ease ?? "inOutCubic");
       return a.roll + (b.roll - a.roll) * k;
     }
   }
@@ -699,7 +664,7 @@ function sampleRoll(track: CrystalKey[], t: number): number {
 /** Place the camera exactly as the scene player does, so preview matches capture. */
 export function applyPose(
   camera: THREE.OrthographicCamera,
-  pose: { tilt: number; yaw: number; zoom: number },
+  pose: SceneCameraPose,
 ): void {
   const dist = camera.position.length() || 1;
   const tiltRad = (pose.tilt * Math.PI) / 180;

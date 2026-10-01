@@ -46,6 +46,51 @@ export const NAS_SHARE_MARKER = Object.freeze({
   projectId: NAS_SHARE_PROJECT_ID,
 } as const);
 
+// Compatibility exports for the historical compact-growth comparison builder. New callers use
+// NAS_CANDIDATE_MOUNTS and detectNasMount directly.
+export const VCC_NAS_MARKER_TEXT = `${JSON.stringify(NAS_SHARE_MARKER)}\n`;
+export const vccNasCandidateMounts = (
+  platform: NodeJS.Platform = process.platform,
+): readonly string[] => {
+  if (platform === "win32") return [NAS_CANDIDATE_MOUNTS[0] as string];
+  if (platform === "darwin") return [NAS_CANDIDATE_MOUNTS[1] as string];
+  return [];
+};
+
+const LEGACY_GUTCHECK_MARKER = "out/gutcheck-gg-realism/large";
+
+const legacyGutcheckAttached = (mount: string): boolean => {
+  try {
+    const realMount = realpathSync.native(resolve(mount));
+    const realMarker = realpathSync.native(resolve(mount, LEGACY_GUTCHECK_MARKER));
+    return pathIsWithinRoot(realMount, realMarker) && statSync(realMarker).isDirectory();
+  } catch {
+    return false;
+  }
+};
+
+/** Read-only compatibility for the frozen pre-governance comparison builder. */
+export const detectLegacyGutcheckNasMount = (
+  environment: Readonly<Record<string, string | undefined>> = process.env,
+  candidates: readonly string[] = vccNasCandidateMounts(),
+): string | null => {
+  const raw = environment.GUTCHECK_NAS_ROOT;
+  if (raw !== undefined && raw !== "") {
+    if (!isAbsolute(raw)) {
+      throw new Error(`GUTCHECK_NAS_ROOT=${raw} must be an absolute path on ${process.platform}`);
+    }
+    const mount = raw.replace(/\\/gu, "/").replace(/\/*$/u, "/");
+    if (!legacyGutcheckAttached(mount)) {
+      throw new Error(
+        `GUTCHECK_NAS_ROOT=${raw} does not contain ${LEGACY_GUTCHECK_MARKER} — ` +
+          "wrong mount (or share detached); refusing to use a silently partial legacy index",
+      );
+    }
+    return mount;
+  }
+  return candidates.find(legacyGutcheckAttached) ?? null;
+};
+
 /** Native containment with a root-safe separator boundary and Windows case folding. */
 export const pathIsWithinRoot = (
   root: string,
@@ -385,4 +430,52 @@ export const detectNasMount = (
     if (inspected.kind === "ok") return inspected.mount;
   }
   return null;
+};
+
+/**
+ * Historical compact-comparison compatibility: require the canonical share identity and the
+ * exact marker bytes that its frozen builder registered. New collection callers use
+ * detectNasMount(), whose schema check intentionally accepts canonical JSON key ordering changes.
+ */
+export const detectGovernedVccNasMount = (): string | null => {
+  const configured = process.env.GUTCHECK_NAS_ROOT ?? process.env.VCC_NAS_ROOT;
+  if (configured !== undefined && configured !== "" && !isAbsolute(configured)) {
+    throw new Error(`GUTCHECK_NAS_ROOT=${configured} must be an absolute path on ${process.platform}`);
+  }
+  const mount = detectNasMount(process.env, vccNasCandidateMounts());
+  if (mount === null) return null;
+  const markerPath = resolve(mount, NAS_SHARE_MARKER_PATH);
+  let descriptor: number | undefined;
+  try {
+    const markerItem = lstatSync(markerPath);
+    const expected = Buffer.from(VCC_NAS_MARKER_TEXT, "utf8");
+    if (markerItem.isSymbolicLink() || !markerItem.isFile() || markerItem.size !== expected.byteLength) {
+      throw new Error("marker shape does not match");
+    }
+    descriptor = openSync(
+      markerPath,
+      constants.O_RDONLY | (typeof constants.O_NOFOLLOW === "number" ? constants.O_NOFOLLOW : 0),
+    );
+    const opened = fstatSync(descriptor);
+    const contents = readMarkerBytes(descriptor);
+    const finalOpened = fstatSync(descriptor);
+    if (
+      !opened.isFile() ||
+      opened.dev !== markerItem.dev ||
+      opened.ino !== markerItem.ino ||
+      statIdentity(opened) !== statIdentity(finalOpened) ||
+      !contents.equals(expected)
+    ) {
+      throw new Error("marker bytes or identity do not match");
+    }
+    return mount;
+  } catch {
+    const reportedRoot = configured ?? mount;
+    throw new Error(
+      `GUTCHECK_NAS_ROOT=${reportedRoot} does not carry the exact VCC NAS marker — ` +
+        "wrong mount (or share detached); refusing to trust an inferred collection root",
+    );
+  } finally {
+    if (descriptor !== undefined) closeSync(descriptor);
+  }
 };

@@ -1,0 +1,107 @@
+{
+  "format": "named-crystal-direct-production-2-v1",
+  "catalog": "docs/named-snow-crystal-catalog.json",
+  "sources": {
+    "baselineManifest": "docs/named-snow-crystal-baseline-probes.json",
+    "baselineReview": "docs/named-snow-crystal-baseline-probe-review.json",
+    "currentAudit": "docs/named-snow-crystal-current-assets.json"
+  },
+  "webPayloadLimitBytes": 20000000,
+  "scientificFrameTarget": 120,
+  "scientificFrameCountMinimum": 100,
+  "scientificFrameCountMaximum": 122,
+  "execution": {
+    "processConcurrency": 24,
+    "hostProcessor": "Intel Core Ultra 9 285K",
+    "physicalCores": 24,
+    "logicalProcessors": 24,
+    "rngSeed": 1,
+    "noiseEpsilon": 0,
+    "domain": "hexPrism",
+    "spacing": 0.6,
+    "sigma": 0.45,
+    "normalDelta": 3
+  },
+  "families": [
+    {
+      "typeId": "simple-prisms",
+      "sourceKind": "current-audit",
+      "sourceId": "fig11",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig11-record.json",
+      "sourceSpecSha256": "2b0190f5256c11d7a964ab5016734826548de905d3e941a0eb52da58cf88e033",
+      "dims": [400, 400, 160],
+      "tickCap": 1706,
+      "reviewViews": ["face", "oblique", "axial"]
+    },
+    {
+      "typeId": "hexagonal-plates",
+      "sourceKind": "current-audit",
+      "sourceId": "sweep-t2p5-r0p08",
+      "templateRecord": "evidence/gutcheck-gg-realism/gen-records/sweep-t2p5-r0p08-record.json",
+      "sourceSpecSha256": "0535b0f3bd75767c06b7bb0e2e9bb2d0c2599cf182a413e1c3e297b2c812c28b",
+      "dims": [192, 192, 64],
+      "tickCap": 6000,
+      "reviewViews": ["face", "oblique"]
+    },
+    {
+      "typeId": "hollow-columns",
+      "sourceKind": "baseline",
+      "sourceId": "hollow-columns",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig30-record.json",
+      "sourceSpecSha256": "39dd18c4efc12a290164849220b30f97f1b3f87d84cc727938841a9962236253",
+      "dims": [96, 96, 192],
+      "tickCap": 6000,
+      "reviewViews": ["oblique", "axial"]
+    },
+    {
+      "typeId": "stellar-plates",
+      "sourceKind": "baseline",
+      "sourceId": "stellar-plates",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig32-record.json",
+      "sourceSpecSha256": "9a377c887af3c8427a1bec50df3d0f13c6fec425992fe36c5c9b8e0bc3ff9f6f",
+      "dims": [256, 256, 80],
+      "tickCap": 6000,
+      "reviewViews": ["face", "oblique"]
+    },
+    {
+      "typeId": "capped-columns",
+      "sourceKind": "baseline",
+      "sourceId": "capped-columns",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig37-record.json",
+      "sourceSpecSha256": "8e27a2e0c72495dea277de8d71729d51d044f307d59eaf1b8bb893dba5bf5f11",
+      "dims": [144, 144, 192],
+      "tickCap": 6000,
+      "reviewViews": ["oblique", "axial"]
+    },
+    {
+      "typeId": "sectored-plates",
+      "sourceKind": "baseline",
+      "sourceId": "sectored-plates",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig9v2-record.json",
+      "sourceSpecSha256": "b64a13a1d35749d346e259a0bb649043b4a1777fc9489a8c8e58a123ca003b58",
+      "dims": [192, 192, 64],
+      "tickCap": 6000,
+      "reviewViews": ["face", "oblique"]
+    },
+    {
+      "typeId": "simple-needles",
+      "sourceKind": "baseline",
+      "sourceId": "simple-needles",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig29-record.json",
+      "sourceSpecSha256": "5073c63f66f4b2a4bc1eded67df2a2d67ae3a63079a7b94d4395e2d15ed9dc47",
+      "dims": [96, 96, 192],
+      "tickCap": 6000,
+      "reviewViews": ["oblique", "axial"]
+    },
+    {
+      "typeId": "fernlike-stellar-dendrites",
+      "sourceKind": "baseline",
+      "sourceId": "fernlike-stellar-dendrites",
+      "templateRecord": "evidence/gutcheck-gg-realism/fig-records/fig13-record.json",
+      "sourceSpecSha256": "19d3389659a228fef59cf9740c4d659109fcf0edf4e317aaebaa6268aebfeb85",
+      "dims": [256, 256, 80],
+      "tickCap": 6000,
+      "reviewViews": ["face", "oblique"]
+    }
+  ]
+}

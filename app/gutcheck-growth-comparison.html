@@ -1,0 +1,28 @@
+<!doctype html>
+<!-- Measured comparison of the legacy mesh-frame workflow and compact growth replay.
+     The page loads a strict gutcheck-growth-comparison-v1 record through ?record=. -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta
+      name="description"
+      content="A measured comparison of per-frame snow-crystal meshes and a compact interactive growth replay."
+    />
+    <title>One crystal, two timelines</title>
+    <script type="module" src="/src/gutcheck-growth-comparison.ts"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#comparison-main">Skip to the comparison</a>
+    <main id="comparison-main" tabindex="-1">
+      <div class="loading-shell" role="status" aria-live="polite">
+        <span class="loading-mark" aria-hidden="true">✳</span>
+        <span>Loading the verified Run B comparison…</span>
+      </div>
+    </main>
+    <noscript>
+      <p class="fatal-card">This interactive comparison requires JavaScript.</p>
+    </noscript>
+  </body>
+</html>

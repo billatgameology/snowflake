@@ -1,0 +1,65 @@
+{
+  "format": "named-crystal-final-compose-decisions-v1",
+  "reviewedAt": "2026-08-31T12:31:40.8201784-07:00",
+  "composeReport": {
+    "path": "out/named-crystal-catalog/final-compose-v1/report.json",
+    "byteLength": 45797,
+    "sha256": "d20832db1c7af49aaaae8e132b536e0298b8a992a11d9c5a25a1dc62a6513467"
+  },
+  "browserReview": {
+    "path": "out/named-crystal-catalog/final-compose-v1/browser-review.json",
+    "byteLength": 137828,
+    "sha256": "42b25f9177cdadd5ea7aa9931c3b2f74db0459c6bba9d0de1dd3422260d9d311"
+  },
+  "contactSheet": {
+    "path": "out/named-crystal-catalog/final-compose-v1/contact-sheet.png",
+    "byteLength": 5243676,
+    "sha256": "0e2ea39dccb3fbf2b2c5bed4ef81ecf000670c1afbb80e999b76fe1397f47e59"
+  },
+  "families": [
+    {
+      "typeId": "12-branched-stars",
+      "rationale": "Face views show two independently recorded six-arm stars at 28, 30 and 32 degree relative rotations, producing twelve distinguishable branches; start, middle and final captures show continuous component growth with clear viewport margins."
+    },
+    {
+      "typeId": "bullet-rosettes",
+      "rationale": "Oblique and axial views show six tapered bullet components radiating from one center; the 48, 52 and 56 degree polar tilts give a controlled trio while retaining separated radial axes."
+    },
+    {
+      "typeId": "radiating-plates",
+      "rationale": "Six plate components form a radial three-dimensional plate cluster in every slot, and the 36, 40 and 44 degree polar tilts visibly vary the fan without changing the accepted component source."
+    },
+    {
+      "typeId": "radiating-dendrites",
+      "rationale": "Six branched dendritic components remain recognizable in the three review views and form a radial spatial cluster; 44, 48 and 52 degree polar tilts provide the registered small variation."
+    },
+    {
+      "typeId": "multiply-capped-columns",
+      "rationale": "Oblique and axial views show three capped-column growth records arranged along one long axis, with repeated caps visible and ample vertical clearance; spacing values 0.9, 1.0 and 1.1 distinguish the trio."
+    },
+    {
+      "typeId": "twin-columns",
+      "rationale": "Two separate solid-column components are visible in oblique and axial review, and the 8, 10 and 12 degree opening angles produce a controlled twin-column variation without overlap or clipping."
+    },
+    {
+      "typeId": "irregulars",
+      "rationale": "Six reproducible components with explicit unequal positions, orientations and scales form a visibly irregular three-dimensional aggregate; scale spreads 0.08, 0.10 and 0.12 change only the registered driver."
+    },
+    {
+      "typeId": "needle-clusters",
+      "rationale": "The corrected polar-axis transforms produce six distinct slender needle directions around a common center in oblique review; 40, 44 and 48 degree tilts preserve the cluster while varying its opening."
+    },
+    {
+      "typeId": "arrowhead-twins",
+      "rationale": "Two branched components meet as a symmetric wing-like arrowhead pair, with face and oblique views confirming the twin construction; 54, 58 and 62 degree openings provide the registered trio."
+    },
+    {
+      "typeId": "crossed-needles",
+      "rationale": "Face review clearly shows two long needle components crossing on distinct axes rather than overlapping; the measured 86, 90 and 94 degree recipes visibly bracket a right-angle cross."
+    },
+    {
+      "typeId": "crossed-plates",
+      "rationale": "Oblique and axial views separate two intersecting plate components, while 56, 60 and 64 degree crossing angles form a controlled three-scene range with complete growth progression and clearance."
+    }
+  ]
+}

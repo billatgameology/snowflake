@@ -18,6 +18,7 @@
 //     "ggThreshTable": {"01":2.5,"10":2,"11":2,"20":2,"21":1,"30":1,"31":1},
 //     "kappa": {"default":0.1,"overrides":{}}, "mu": {"default":0.001,"overrides":{}} }
 
+import { createHash } from "node:crypto";
 import { closeSync, mkdirSync, openSync, readFileSync, renameSync, writeFileSync, writeSync } from "node:fs";
 import { dirname, join } from "node:path";
 import {
@@ -29,7 +30,12 @@ import {
   type GGParams,
   type GGTimelineEnvironment,
 } from "@vcc/core";
-import { GGSolver, FAR_FIELD_STOP_FRACTION } from "@vcc/solver-cpu";
+import {
+  GGPlusSolver,
+  GGSolver,
+  FAR_FIELD_STOP_FRACTION,
+  type GGSeedGeometryV1,
+} from "@vcc/solver-cpu";
 import { buildGutcheckRunIdentity } from "./gutcheck-evidence-lib.ts";
 import { extractMesh } from "./gutcheck-mesh-lib.ts";
 
@@ -52,6 +58,8 @@ interface StageSpec {
 
 interface FigureSpec {
   readonly label: string;
+  /** Optional deterministic GG+ seed; omitted specs retain the canonical legacy seed path. */
+  readonly seedGeometry?: GGSeedGeometryV1;
   readonly rho?: number;
   readonly phi?: number;
   readonly ggThreshTable?: Record<string, number>;
@@ -64,6 +72,46 @@ interface FigureSpec {
    * single-vector fields are ignored.
    */
   readonly stages?: readonly StageSpec[];
+}
+
+interface SeedMetadata {
+  readonly geometry: GGSeedGeometryV1;
+  readonly siteCount: number;
+  readonly sitesSha256: string;
+  readonly radiusBound: number;
+  readonly thicknessSpan: number;
+}
+
+function seedMetadata(
+  solver: GGSolver,
+  geometry: GGSeedGeometryV1,
+): SeedMetadata {
+  const sites: number[] = [];
+  for (let site = 0; site < solver.a.length; site++) {
+    if (solver.a[site] === 1) sites.push(site);
+  }
+  let radiusBound = 0;
+  let kMin = Infinity;
+  let kMax = -Infinity;
+  const [ic, jc] = solver.center;
+  const { nx, ny } = solver.dims;
+  for (const site of sites) {
+    const i = site % nx;
+    const j = Math.floor(site / nx) % ny;
+    const k = Math.floor(site / (nx * ny));
+    const di = i - ic;
+    const dj = j - jc;
+    radiusBound = Math.max(radiusBound, Math.max(Math.abs(di), Math.abs(dj), Math.abs(di + dj)));
+    kMin = Math.min(kMin, k);
+    kMax = Math.max(kMax, k);
+  }
+  return {
+    geometry,
+    siteCount: sites.length,
+    sitesSha256: createHash("sha256").update(JSON.stringify(sites)).digest("hex"),
+    radiusBound,
+    thicknessSpan: sites.length === 0 ? 0 : kMax - kMin + 1,
+  };
 }
 
 function slotRecord(spec: SlotSpec, name: string): Record<string, number> {
@@ -132,6 +180,110 @@ function writeLarge(path: string, bytes: Uint8Array): void {
   }
 }
 
+// --growth-out limits, mirrored from the website's strict decoder (growthAsset.ts): a file
+// that violates them would be produced successfully here and then refused by the one consumer
+// that matters, so refuse it at the writer instead.
+const GROWTH_MAX_EVENTS = 8 * 1024 * 1024;
+const GROWTH_MAX_HEADER_BYTES = 1024 * 1024;
+
+/**
+ * Attachment-event sink for --growth-out. Seeds are tick-0 events; every step() appends the
+ * solver's lastAttached at that tick, so events are chronological with seeds first — the
+ * order the reference run-B asset uses. Interleaved (flat index, tick) pairs in a doubling
+ * Uint32Array; flat index = k*nx*ny + j*nx + i (i fastest), the solver's own layout.
+ */
+class GrowthEvents {
+  private pairs = new Uint32Array(1 << 16);
+  private count = 0;
+  seedCount = 0;
+  private iMin: number;
+  private iMax = 0;
+  private jMin: number;
+  private jMax = 0;
+  private kMin: number;
+  private kMax = 0;
+
+  private readonly dims: Dims;
+
+  constructor(dims: Dims) {
+    this.dims = dims;
+    this.iMin = dims.nx - 1;
+    this.jMin = dims.ny - 1;
+    this.kMin = dims.nz - 1;
+  }
+
+  private push(index: number, tick: number): void {
+    if (this.count === GROWTH_MAX_EVENTS) {
+      throw new Error(`--growth-out refuses more than ${GROWTH_MAX_EVENTS} events (decoder cap)`);
+    }
+    if (this.count * 2 === this.pairs.length) {
+      const grown = new Uint32Array(this.pairs.length * 2);
+      grown.set(this.pairs);
+      this.pairs = grown;
+    }
+    this.pairs[this.count * 2] = index;
+    this.pairs[this.count * 2 + 1] = tick;
+    this.count++;
+    const { nx, ny } = this.dims;
+    const i = index % nx;
+    const j = Math.floor(index / nx) % ny;
+    const k = Math.floor(index / (nx * ny));
+    if (i < this.iMin) this.iMin = i;
+    if (i > this.iMax) this.iMax = i;
+    if (j < this.jMin) this.jMin = j;
+    if (j > this.jMax) this.jMax = j;
+    if (k < this.kMin) this.kMin = k;
+    if (k > this.kMax) this.kMax = k;
+  }
+
+  recordSeeds(a: Uint8Array): void {
+    for (let index = 0; index < a.length; index++) {
+      if (a[index] === 1) this.push(index, 0);
+    }
+    this.seedCount = this.count;
+  }
+
+  recordStep(attached: readonly number[], tick: number): void {
+    for (const index of attached) this.push(index, tick);
+  }
+
+  get eventCount(): number {
+    return this.count;
+  }
+
+  crop(padding: number): Record<string, number> {
+    const { nx, ny, nz } = this.dims;
+    return {
+      iMin: Math.max(0, this.iMin - padding),
+      iMax: Math.min(nx - 1, this.iMax + padding),
+      jMin: Math.max(0, this.jMin - padding),
+      jMax: Math.min(ny - 1, this.jMax + padding),
+      kMin: Math.max(0, this.kMin - padding),
+      kMax: Math.min(nz - 1, this.kMax + padding),
+      padding,
+    };
+  }
+
+  /** u32 header length, UTF-8 JSON header, then eventCount x (u32 index, u32 tick), all LE. */
+  encode(header: Record<string, unknown>): Uint8Array {
+    const headerBytes = new TextEncoder().encode(JSON.stringify(header));
+    if (headerBytes.byteLength === 0 || headerBytes.byteLength > GROWTH_MAX_HEADER_BYTES) {
+      throw new Error(`--growth-out header is ${headerBytes.byteLength} bytes, outside the decoder's range`);
+    }
+    const out = new Uint8Array(4 + headerBytes.byteLength + this.count * 8);
+    const view = new DataView(out.buffer);
+    view.setUint32(0, headerBytes.byteLength, true);
+    out.set(headerBytes, 4);
+    let offset = 4 + headerBytes.byteLength;
+    for (let event = 0; event < this.count; event++) {
+      view.setUint32(offset, this.pairs[event * 2]!, true);
+      view.setUint32(offset + 4, this.pairs[event * 2 + 1]!, true);
+      offset += 8;
+    }
+    return out;
+  }
+}
+
 function environmentFromParams(params: GGParams): GGTimelineEnvironment {
   return {
     rho: params.rho,
@@ -175,6 +327,19 @@ interface Cli {
   /** When set, also dump a timeline of meshes here (gutcheck-anim-v1) for the viewer. */
   framesDir: string;
   framesEvery: number;
+  /**
+   * When set, also write the attachment-event history here (gutcheck-growth-v1): for every
+   * site that ever froze, the tick it froze on. This is the website's replay input — one
+   * u32 header-length prefix, a strict JSON header, then eventCount x (u32 flat index,
+   * u32 attach tick) little-endian, flat index = k*nx*ny + j*nx + i. ~8 bytes per attached
+   * site, so a whole growth history ships in single-digit MB where the mesh timeline of the
+   * same run is GB.
+   */
+  growthOut: string;
+  growthPadding: number;
+  /** Pinned endpoint from the original run's record; warn-only (arm64/x64 ULP divergence). */
+  expectTick: number | null;
+  expectAttached: number | null;
   outMesh: string;
   outState: string;
   seedThickness: number;
@@ -195,6 +360,10 @@ function parseCli(argv: string[]): Cli {
     noise: 0,
     framesDir: "",
     framesEvery: 100,
+    growthOut: "",
+    growthPadding: 2,
+    expectTick: null,
+    expectAttached: null,
     outMesh: "",
     outState: "",
     seedThickness: 1,
@@ -244,6 +413,18 @@ function parseCli(argv: string[]): Cli {
       case "--frames-every":
         cli.framesEvery = Number(next());
         break;
+      case "--growth-out":
+        cli.growthOut = next();
+        break;
+      case "--growth-padding":
+        cli.growthPadding = Number(next());
+        break;
+      case "--expect-tick":
+        cli.expectTick = Number(next());
+        break;
+      case "--expect-attached":
+        cli.expectAttached = Number(next());
+        break;
       case "--out-mesh":
         cli.outMesh = next();
         break;
@@ -282,6 +463,9 @@ function main(): void {
   const cli = parseCli(process.argv.slice(2));
   const t0 = Date.now();
   const spec = JSON.parse(readFileSync(cli.specFile, "utf8")) as FigureSpec;
+  if (spec.seedGeometry !== undefined && cli.seedThickness !== 1) {
+    throw new Error("a spec seedGeometry cannot be combined with non-default --seed-thickness");
+  }
   const runIdentity = buildGutcheckRunIdentity({
     spec,
     dims: cli.dims,
@@ -314,19 +498,43 @@ function main(): void {
   });
   const params = stageParams[0]!;
 
-  const solver = new GGSolver({
-    dims: cli.dims,
-    params,
-    rngSeed: cli.seed,
-    noiseEpsilon: cli.noise,
-    domain: cli.domain,
-    seedThickness: cli.seedThickness,
-  });
+  const solver = spec.seedGeometry === undefined
+    ? new GGSolver({
+        dims: cli.dims,
+        params,
+        rngSeed: cli.seed,
+        noiseEpsilon: cli.noise,
+        domain: cli.domain,
+        seedThickness: cli.seedThickness,
+      })
+    : new GGPlusSolver({
+        dims: cli.dims,
+        params,
+        rngSeed: cli.seed,
+        noiseEpsilon: cli.noise,
+        domain: cli.domain,
+        seedGeometry: spec.seedGeometry,
+      });
+  const effectiveSeedGeometry: GGSeedGeometryV1 = spec.seedGeometry ?? {
+    version: 1,
+    kind: "hexPrism",
+    radius: 2,
+    thickness: cli.seedThickness,
+  };
+  const seed = seedMetadata(solver, effectiveSeedGeometry);
   console.log(
     `grow-params label="${spec.label}" stages=${stages.length} rho1=${stages[0]!.rho} ` +
       `phi1=${stages[0]!.phi} dims=${cli.dims.nx},${cli.dims.ny},${cli.dims.nz} ` +
       `domain=${cli.domain} ticks<=${cli.ticks} seed=${cli.seed} noise=${cli.noise}`,
   );
+
+  // Optional attachment-event history (--growth-out). The seed is the t=0 attached field;
+  // everything after comes from lastAttached, captured immediately after each step() below.
+  const growth = cli.growthOut !== "" ? new GrowthEvents(cli.dims) : null;
+  if (growth !== null) {
+    growth.recordSeeds(solver.state().a);
+    console.log(`growth events: ${growth.seedCount} seed site(s)`);
+  }
 
   // Optional growth timeline. Emitting frames from HERE rather than from
   // gutcheck-animate-grow.ts is deliberate: that script only knows the four built-in presets,
@@ -363,6 +571,9 @@ function main(): void {
             seed: cli.seed,
             noise: cli.noise,
             seedThickness: cli.seedThickness,
+            seedGeometry: seed.geometry,
+            seedSiteCount: seed.siteCount,
+            seedSitesSha256: seed.sitesSha256,
             runIdentity,
             extraction: {
               spacing: cli.spacing,
@@ -416,6 +627,8 @@ function main(): void {
   for (let t = 1; t <= cli.ticks; t++) {
     solver.step();
     tick = t;
+    // Before any break: attachments from a stopping step still belong to the history.
+    if (growth !== null) growth.recordStep(solver.lastAttached, t);
     const boundaryTick = stages[stageIndex]!.untilTick;
     if (boundaryTick !== null && t >= boundaryTick && stageIndex + 1 < stages.length) {
       stageIndex++;
@@ -495,6 +708,104 @@ function main(): void {
   });
   mkdirSync(dirname(cli.outMesh), { recursive: true });
   writeLarge(cli.outMesh, mesh.bytes);
+
+  // Growth asset before the record: the record is the completion marker, so its presence
+  // must imply every product it names already exists (same crash-ordering rule as the
+  // anim manifest's complete flag).
+  let growthSummary: Record<string, unknown> | null = null;
+  if (growth !== null) {
+    if (growth.eventCount !== solver.attachedCount) {
+      throw new Error(
+        `growth events (${growth.eventCount}) disagree with attachedCount ` +
+          `(${solver.attachedCount}); the history is not a faithful replay — refusing to write`,
+      );
+    }
+    if (cli.expectTick !== null && cli.expectTick !== tick) {
+      console.warn(`WARNING: endpoint tick ${tick} differs from expected ${cli.expectTick}`);
+    }
+    if (cli.expectAttached !== null && cli.expectAttached !== solver.attachedCount) {
+      console.warn(
+        `WARNING: endpoint attachedCount ${solver.attachedCount} differs from expected ${cli.expectAttached}`,
+      );
+    }
+    const header = {
+      format: "gutcheck-growth-v1",
+      eventCount: growth.eventCount,
+      attachedCount: solver.attachedCount,
+      seedCount: growth.seedCount,
+      finalTick: tick,
+      terminationReason: stopReason,
+      crop: growth.crop(cli.growthPadding),
+      config: {
+        preset: spec.label,
+        dims: cli.dims,
+        domain: cli.domain,
+        tickCap: cli.ticks,
+        rngSeed: cli.seed,
+        noiseEpsilon: cli.noise,
+        // Keep numeric bounds for the existing website decoder, and carry the exact
+        // versioned geometry plus a digest of its canonical flat-index set for GG+.
+        seedRadius: seed.radiusBound,
+        seedThickness: seed.thicknessSpan,
+        seedGeometry: seed.geometry,
+        seedSiteCount: seed.siteCount,
+        seedSitesSha256: seed.sitesSha256,
+        center: [...state.center],
+        farField: state.farField,
+        params: {
+          rho: params.rho,
+          phi: params.phi,
+          kappa: [null, ...sevenTuple(params.kappa)],
+          mu: [null, ...sevenTuple(params.mu)],
+          ggThreshBeta: [null, ...sevenTuple(params.ggThreshBeta)],
+        },
+      },
+      lattice: {
+        embedding: "x=i+j/2;y=sqrt(3)*j/2;z=k",
+        indexOrder: "i-fastest-j-next-k-slowest",
+      },
+      spec,
+      stageTransitions: transitions,
+      unfiredTransitions: unfired,
+      runIdentity,
+      source: {
+        label: `${spec.label} — G-G attachment events`,
+        command: {
+          argv: process.argv.slice(2),
+          cwd: process.cwd(),
+          script: process.argv[1] ?? "",
+          executable: process.execPath,
+        },
+        runtime: {
+          platform: process.platform,
+          architecture: process.arch,
+          node: process.version,
+          endianness: "LE",
+        },
+        endpoint: {
+          ...(cli.expectTick !== null ? { expectedTick: cli.expectTick } : {}),
+          ...(cli.expectAttached !== null ? { expectedAttachedCount: cli.expectAttached } : {}),
+          measuredTick: tick,
+          measuredAttachedCount: solver.attachedCount,
+        },
+      },
+    };
+    const bytes = growth.encode(header);
+    mkdirSync(dirname(cli.growthOut), { recursive: true });
+    writeLarge(cli.growthOut, bytes);
+    growthSummary = {
+      path: cli.growthOut,
+      format: "gutcheck-growth-v1",
+      eventCount: growth.eventCount,
+      seedCount: growth.seedCount,
+      bytes: bytes.byteLength,
+    };
+    console.log(
+      `wrote growth events ${cli.growthOut}: ${growth.eventCount} event(s), ` +
+        `${(bytes.byteLength / 1e6).toFixed(1)} MB`,
+    );
+  }
+
   mkdirSync(dirname(cli.record), { recursive: true });
   const record = {
     label: spec.label,
@@ -506,7 +817,10 @@ function main(): void {
     domain: cli.domain,
     seed: cli.seed,
     noise: cli.noise,
-    seedThickness: cli.seedThickness,
+    seedThickness: seed.thicknessSpan,
+    seedGeometry: seed.geometry,
+    seedSiteCount: seed.siteCount,
+    seedSitesSha256: seed.sitesSha256,
     tickCap: cli.ticks,
     runIdentity,
     stopReason,
@@ -526,6 +840,7 @@ function main(): void {
         normalDelta: cli.normalDelta,
       },
     },
+    ...(growthSummary !== null ? { growth: growthSummary } : {}),
     elapsedSeconds: Math.round((Date.now() - t0) / 1000),
     evidenceStatus: "unvalidated eyeball exploration; no gate semantics",
   };

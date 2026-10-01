@@ -1,5 +1,6 @@
 import {
   appendFileSync,
+  existsSync,
   fstatSync,
   mkdirSync,
   mkdtempSync,
@@ -18,6 +19,8 @@ import { createServer as createViteServer, isFileServingAllowed, resolveConfig a
 import viteConfig, {
   assertLoopbackViteHost,
   assertCanonicalViteRoots,
+  createGutcheckAnimationSelectionHandler,
+  createGutcheckFigurePreviewHandler,
   createGutcheckIndexHandler,
   createNasRequestHandler,
   createViteLocalFileBoundary,
@@ -78,7 +81,11 @@ const withServer = async <T>(
 const fetchFixture = async (
   port: number,
   path: string,
-  options: { readonly method?: string; readonly headers?: Readonly<Record<string, string>> } = {},
+  options: {
+    readonly method?: string;
+    readonly headers?: Readonly<Record<string, string>>;
+    readonly body?: string | Buffer;
+  } = {},
 ): Promise<HttpResult> => new Promise<HttpResult>((resolvePromise, rejectPromise) => {
   const request = httpRequest(
     {
@@ -100,7 +107,7 @@ const fetchFixture = async (
     },
   );
   request.once("error", rejectPromise);
-  request.end();
+  request.end(options.body);
 });
 
 afterEach(() => {
@@ -154,6 +161,34 @@ const safeGutcheckIndex = (): Record<string, unknown> => ({
               href: `/spike-gg-realism.html?look=glass&interactive=1&mesh=/nas/${SERVED_FILE}`,
             },
           ],
+          queue: {
+            id: "fixture",
+            mesh: `/nas/${SERVED_PREFIX}/fixture-mesh.bin`,
+            render: `/nas/${SERVED_PREFIX}/fixture.png`,
+            spec: "evidence/gutcheck-gg-realism/specs/fixture.json",
+          },
+        },
+        {
+          label: "Fig. 10",
+          comparisons: [
+            {
+              label: "Fig. 10 regenerated preview",
+              href: "/gutcheck-figure-previews/fig10.png",
+              image: "/gutcheck-figure-previews/fig10.png",
+            },
+          ],
+          viewers: [
+            {
+              label: "viewer",
+              href: `/spike-gg-realism.html?look=glass&interactive=1&mesh=/nas/${SERVED_PREFIX}/fig10-mesh.bin`,
+            },
+          ],
+          queue: {
+            id: "fig10",
+            mesh: `/nas/${SERVED_PREFIX}/fig10-mesh.bin`,
+            render: "/gutcheck-figure-previews/fig10.png",
+            spec: "evidence/gutcheck-gg-realism/fig-records/fig10-record.json",
+          },
         },
       ],
     },
@@ -215,6 +250,131 @@ describe("Vite gutcheck index boundary", () => {
       expect(result.headers["cache-control"]).toBe("no-store");
       expect(result.body.toString("utf8")).not.toContain("/private/checkout");
       expect(result.body.toString("utf8")).not.toBe(source);
+    });
+  });
+});
+
+const queueFixture = (queueId = "fixture-selection"): Record<string, unknown> => ({
+  format: "gutcheck-animation-queue-v1",
+  queueId,
+  createdAt: "2026-08-23T12:00:00.000Z",
+  sourceIndexGenerated: "2026-08-15T12:00:00.000Z",
+  settings: {
+    pipeline: "web-turntable-v1",
+    look: "glass",
+    width: 1080,
+    height: 1080,
+    fps: 30,
+    durationSeconds: 12,
+    meshFormat: "gutcheck-mesh-v2q",
+    transportEncoding: "gzip",
+  },
+  items: [
+    {
+      id: "fixture",
+      label: "generated mesh",
+      mesh: `/nas/${SERVED_PREFIX}/fixture-mesh.bin`,
+      render: `/nas/${SERVED_PREFIX}/fixture.png`,
+      spec: "evidence/gutcheck-gg-realism/specs/fixture.json",
+    },
+  ],
+});
+
+describe("Vite gutcheck animation selection boundary", () => {
+  it("round-trips an exact current candidate and atomically replaces it", async () => {
+    const root = temporaryRoot("animation-selection");
+    const indexPath = join(root, "index.json");
+    const selectionPath = join(root, "nested", "selection.json");
+    writeFileSync(indexPath, JSON.stringify(safeGutcheckIndex()));
+    const handler = createGutcheckAnimationSelectionHandler(
+      selectionPath,
+      indexPath,
+      NAS_ASSET_CATALOG,
+    );
+    await withServer(handler, async (port) => {
+      expect((await fetchFixture(port, "/selection")).status).toBe(404);
+
+      expect((await fetchFixture(port, "/selection", {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(queueFixture()),
+      })).status).toBe(204);
+      const loaded = await fetchFixture(port, "/selection");
+      expect(loaded.status).toBe(200);
+      expect(JSON.parse(loaded.body.toString("utf8"))).toEqual(queueFixture());
+
+      const replacement = queueFixture("replacement-selection");
+      expect((await fetchFixture(port, "/selection", {
+        method: "PUT",
+        headers: { "content-type": "application/json; charset=utf-8" },
+        body: JSON.stringify(replacement),
+      })).status).toBe(204);
+      expect(JSON.parse(readFileSync(selectionPath, "utf8"))).toEqual(replacement);
+
+      const figureSelection = queueFixture("figure-selection");
+      figureSelection.items = [
+        {
+          id: "fig10",
+          label: "Fig. 10",
+          mesh: `/nas/${SERVED_PREFIX}/fig10-mesh.bin`,
+          render: "/gutcheck-figure-previews/fig10.png",
+          spec: "evidence/gutcheck-gg-realism/fig-records/fig10-record.json",
+        },
+      ];
+      expect((await fetchFixture(port, "/selection", {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(figureSelection),
+      })).status).toBe(204);
+      expect(JSON.parse(readFileSync(selectionPath, "utf8"))).toEqual(figureSelection);
+    });
+  });
+
+  it("refuses wrong methods, media types, and non-candidate identities", async () => {
+    const root = temporaryRoot("animation-selection-refusal");
+    const indexPath = join(root, "index.json");
+    const selectionPath = join(root, "selection.json");
+    writeFileSync(indexPath, JSON.stringify(safeGutcheckIndex()));
+    const handler = createGutcheckAnimationSelectionHandler(
+      selectionPath,
+      indexPath,
+      NAS_ASSET_CATALOG,
+    );
+    await withServer(handler, async (port) => {
+      expect((await fetchFixture(port, "/selection", { method: "POST" })).status).toBe(405);
+      expect((await fetchFixture(port, "/selection", {
+        method: "PUT",
+        headers: { "content-type": "text/plain" },
+        body: "{}",
+      })).status).toBe(415);
+
+      const forged = queueFixture();
+      (forged.items as Array<Record<string, unknown>>)[0]!.label = "different row";
+      expect((await fetchFixture(port, "/selection", {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(forged),
+      })).status).toBe(400);
+      expect(existsSync(selectionPath)).toBe(false);
+    });
+  });
+});
+
+describe("Vite regenerated figure preview boundary", () => {
+  it("serves only exact generated figure PNG names from its bounded local directory", async () => {
+    const root = temporaryRoot("figure-previews");
+    writeFileSync(join(root, "fig10.png"), "PNG-FIXTURE");
+    writeFileSync(join(root, "secret.png"), "SECRET");
+    const handler = createGutcheckFigurePreviewHandler(root);
+    await withServer(handler, async (port) => {
+      const served = await fetchFixture(port, "/fig10.png");
+      expect(served.status).toBe(200);
+      expect(served.headers["content-type"]).toBe("image/png");
+      expect(served.body.toString("utf8")).toBe("PNG-FIXTURE");
+      expect((await fetchFixture(port, "/fig10.png", { method: "HEAD" })).body.byteLength).toBe(0);
+      expect((await fetchFixture(port, "/secret.png")).status).toBe(403);
+      expect((await fetchFixture(port, "/../secret.png")).status).toBe(403);
+      expect((await fetchFixture(port, "/fig10.png", { method: "POST" })).status).toBe(405);
     });
   });
 });
@@ -471,6 +631,64 @@ describe("Vite loopback and /@fs boundary", () => {
     const coreUrl = `/@fs/${coreModule.replaceAll("\\", "/")}`;
     expect(isFileServingAllowed(resolved, coreUrl)).toBe(true);
   });
+
+  it.skipIf(process.platform === "win32")(
+    "judges the single-slash /@fs form Vite emits on POSIX by the same policy as the fixtures",
+    async () => {
+      // Vite joins "/@fs/" onto the absolute module id, so a POSIX request arrives as
+      // /@fs/Users/... with one slash. The fixtures elsewhere in this file build /@fs//Users/...,
+      // which Vite tolerates but never emits; the guard accepted only that form, so on macOS
+      // every hoisted node_modules module (Vite's own client env.mjs first) was refused while
+      // the suite stayed green. Both forms must reach the same allow/deny decision.
+      const emitted = (absolute: string): string => `/@fs${absolute}`;
+      const viteClientEnv = join(REPOSITORY_ROOT, "node_modules", "vite", "dist", "client", "env.mjs");
+      const coreSource = join(REPOSITORY_ROOT, "core", "src", "index.ts");
+      const deniedTargets = [
+        join(REPOSITORY_ROOT, "out", "private.bin"),
+        join(REPOSITORY_ROOT, "research", "private.bin"),
+        join(REPOSITORY_ROOT, "..", "outside.bin"),
+        join(REPOSITORY_ROOT, ".git", "HEAD"),
+      ];
+
+      const boundary = createViteLocalFileBoundary();
+      await withServer(
+        (request, response) => boundary(request, response, () => {
+          response.statusCode = 204;
+          response.end();
+        }),
+        async (port) => {
+          const allowed = await Promise.all(
+            [viteClientEnv, coreSource].map((target) => fetchFixture(port, emitted(target))),
+          );
+          expect(allowed.map((result) => result.status)).toEqual([204, 204]);
+          const denied = await Promise.all(deniedTargets.map((target) => fetchFixture(port, emitted(target))));
+          expect(denied.map((result) => result.status)).toEqual([403, 403, 403, 403]);
+        },
+      );
+
+      // The live instance pins the exact request the browser makes for Vite's client helper.
+      const vite = await createViteServer({
+        root: join(REPOSITORY_ROOT, "app"),
+        configFile: join(REPOSITORY_ROOT, "app", "vite.config.ts"),
+        logLevel: "silent",
+        server: { host: "127.0.0.1", port: 0, strictPort: false },
+      });
+      await vite.listen();
+      try {
+        const address = vite.httpServer?.address();
+        if (address === null || address === undefined || typeof address === "string") {
+          throw new Error("live Vite fixture has no TCP address");
+        }
+        const env = await fetchFixture(address.port, emitted(viteClientEnv));
+        expect(env.status).toBe(200);
+        expect(env.headers["content-type"]).toContain("javascript");
+        const out = await fetchFixture(address.port, emitted(deniedTargets[0] as string));
+        expect(out.status).toBe(403);
+      } finally {
+        await vite.close();
+      }
+    },
+  );
 
   it.skipIf(process.platform === "win32")(
     "denies persistent symlinks to research and outside bytes before Vite serves them",

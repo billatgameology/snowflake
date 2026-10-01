@@ -1,0 +1,65 @@
+{
+  "format": "named-crystal-early-stop-probe-review-v1",
+  "reviewedAt": "2026-08-29",
+  "sourceManifest": "docs/named-snow-crystal-early-stop-probes.json",
+  "sourceReport": {
+    "path": "out/named-crystal-catalog/early-stop-probes-v1/report.json",
+    "byteLength": 50418,
+    "sha256": "4b09087bbcf515f527bc8fa5e281b51f5be9661a86d53be61e564f41f7a74db3"
+  },
+  "contactSheet": {
+    "path": "out/named-crystal-catalog/early-stop-probes-v1/contact-sheet.png",
+    "byteLength": 7904899,
+    "sha256": "328ee608462a770e19efedabcf6cb784e05888664f32c517306a17af757279b5",
+    "views": ["face-0-degrees", "oblique-55-degrees", "axial-85-degrees"]
+  },
+  "executionSummary": {
+    "requestedProcessConcurrency": 24,
+    "actualWorkerCount": 24,
+    "completed": 24,
+    "failed": 0,
+    "startedAt": "2026-08-30T04:28:57.5Z",
+    "finishedAt": "2026-08-30T04:29:39.85Z",
+    "minimumWebBytes": 4105,
+    "maximumWebBytes": 53312,
+    "totalWebBytes": 375230,
+    "webPayloadLimitBytes": 20000000
+  },
+  "counts": {
+    "advanceCandidateFamilies": 3,
+    "selectedProductionCandidates": 9,
+    "formalCatalogSlotsFilled": 0
+  },
+  "families": [
+    {
+      "typeId": "scrolls-on-plates",
+      "status": "advance-candidate",
+      "rationale": "The 100-, 300-, and 400-tick views retain one raised inward-curled lip on a plate while recording substantial attachment beyond the 48-site seed; later stops return toward sixfold overgrowth.",
+      "selected": [
+        { "jobId": "scrolls-on-plates-stop-100", "stopTick": 100, "newAttachedSites": 74, "webBytes": 4793, "specSha256": "8645ea739f4129698a7af8573762055351fd7bc1f534e083dec062e24c477ed6" },
+        { "jobId": "scrolls-on-plates-stop-300", "stopTick": 300, "newAttachedSites": 558, "webBytes": 8665, "specSha256": "0696b2b9818652cde6d69ae6c2d1ff87b93b7df81ece8fede92c9b99283edce4" },
+        { "jobId": "scrolls-on-plates-stop-400", "stopTick": 400, "newAttachedSites": 957, "webBytes": 11860, "specSha256": "83d0f73fde64e10cdfa978004c17ed59a943c83149577527c06a67538f361f0c" }
+      ]
+    },
+    {
+      "typeId": "triangular-forms",
+      "status": "advance-candidate",
+      "rationale": "The 200-, 400-, and 600-tick views retain a truncated-triangle external outline while recording attachment beyond the 36-site seed; the outline becomes six-sided at later stops.",
+      "selected": [
+        { "jobId": "triangular-forms-stop-200", "stopTick": 200, "newAttachedSites": 66, "webBytes": 4420, "specSha256": "76d703dc25b3ba7ab89652637120b794df6eb826986cb4be47dfe1a19d260982" },
+        { "jobId": "triangular-forms-stop-400", "stopTick": 400, "newAttachedSites": 372, "webBytes": 6868, "specSha256": "31f8fc9758ac3e5e785ca1bd290a76861d7734ae27227a7af69b6d77d23a9295" },
+        { "jobId": "triangular-forms-stop-600", "stopTick": 600, "newAttachedSites": 660, "webBytes": 9172, "specSha256": "d251752840aaafd26e31d593802f9facdb547e5da7739b4c6df31622ac5dbe69" }
+      ]
+    },
+    {
+      "typeId": "cups",
+      "status": "advance-candidate",
+      "rationale": "The 100-, 200-, and 400-tick views retain a short one-ended open cup rather than a full hollow column while recording attachment beyond the 109-site seed; later stops elongate into the rejected columnar form.",
+      "selected": [
+        { "jobId": "cups-stop-100", "stopTick": 100, "newAttachedSites": 66, "webBytes": 6294, "specSha256": "66f62f924adf162385d3be3c456443e859a171c12be1e1532929481ed86e05bf" },
+        { "jobId": "cups-stop-200", "stopTick": 200, "newAttachedSites": 144, "webBytes": 6918, "specSha256": "97f453eade9fb377f7c1645b7d5c2ea2398e17238df0bf1908c3775204bae51b" },
+        { "jobId": "cups-stop-400", "stopTick": 400, "newAttachedSites": 642, "webBytes": 10902, "specSha256": "e7264da0d7b2a64e0030c658a8dc62139e311c83a8a00307d02b347ec7e432e5" }
+      ]
+    }
+  ]
+}

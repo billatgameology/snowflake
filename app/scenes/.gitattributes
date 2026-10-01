@@ -1,0 +1,3 @@
+# The compact Run B presentation hashes the exact committed scene bytes at module load. Preserve
+# LF bytes on the Windows execution host so an unchanged Git blob cannot fail its source binding.
+growth-B-intro.json -text
