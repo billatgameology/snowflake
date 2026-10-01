@@ -151,6 +151,22 @@ ref only while it exactly matches its existing remote ref; never merge it or del
   another Windows process. No process was killed to remove it. It can be removed non-recursively
   after that application closes or Windows restarts; no data recovery depends on this empty folder.
 
+### Subsequent remote branch cleanup — 2026-10-01
+
+At the maker's request, deleted only `explore/post-phase10-discovery`, `docs/education-phase10`,
+`docs/education-ch30-33-demos`, and `phase10/evidence-verification` on origin after fetching and
+confirming each exact head is an ancestor of origin/main. The atomic deletion used exact-head
+leases; `git ls-remote --heads origin` then showed only main, `explore/film-part1-plan`, and the
+retired checkpoint. No commits were merged or source/output files removed in this cleanup.
+
+The checkpoint safety question was checked against the already restored closeout backup:
+`git bundle list-heads out/restores/local-worktree-closeout-2026-10-01/repository.bundle` includes
+`b5956524c9110b67b3f36a1d4cd9407d471b0aae` under the retired checkpoint name, and `git cat-file -t`
+in the restored `repository.git` resolves that head as a commit. The bundle's SHA-256 matches the
+tracked verification record's `a1e208af77ecc4f1a145eadc96d56f7456d35850605ada3adf5b65e05972939e`.
+It is recoverable without merging; its local branch/worktree is already closed. Its remote ref
+remains until the maker explicitly requests its deletion. The other computer's branch is untouched.
+
 Next: remain paused. Use pushed main as the common grounding point; reconcile the other machines'
 active branches there when ready. A later experiment wave should start in fresh task worktrees,
 partition independent cases across the two PCs, retain the 28-worker cap here, and demonstrate

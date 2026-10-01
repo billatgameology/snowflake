@@ -928,8 +928,12 @@ Public education verification and the app build passed. This is not a green full
 Only `G:/Code Files/snowflake` on local `main` remains registered. All three original output trees
 are retained at `out/retained-worktrees-2026-10-01/{education-out,evidence-out,science-out}/`;
 the integration logs are now beneath the retained science-out tree. The standard closeout restore
-verification passed from primary. The retired checkpoint was never merged; its remote ref, all
-other remote refs, the three stashes and primary private settings remain. One Windows-locked empty
+verification passed from primary. The retired checkpoint was never merged. After maker-authorized
+cleanup, the four merged education/evidence/science remote branches are deleted; their commits
+remain in main. Only main, the other computer's website/film branch, and the retired checkpoint
+remain on origin. The checkpoint's exact head is recoverable from the verified closeout Git bundle;
+its remote ref is retained pending an explicit deletion request. The three stashes and primary
+private settings remain. One Windows-locked empty
 directory at `G:/Code Files/snowflake-phase10-evidence` remains unregistered and can be removed
 after closing its owning application or restarting; it holds no data.
 Next: stay paused and use pushed main as the common baseline for the other machines' reconciliation.
