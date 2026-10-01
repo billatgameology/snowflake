@@ -11,6 +11,90 @@
   "controlRoot": "_control",
   "collections": [
     {
+      "assetId": "local-worktree-closeout",
+      "version": "2026-10-01",
+      "state": "active",
+      "ownerWorkstream": "local-consolidation",
+      "locator": "collections/local-worktree-closeout/2026-10-01/payload",
+      "historicalRepoPath": null,
+      "legacyAliases": [],
+      "storageClass": "generated-cache",
+      "aggregate": {
+        "files": 15,
+        "bytes": 151154825
+      },
+      "ownerManifest": {
+        "storage": "tracked",
+        "path": "docs/nas-assets/manifests/local-worktree-closeout/2026-10-01.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 3699,
+        "sha256": "0c49819b74251a25a35c5e5f53db16b83b505a0a0614dcbcd921ef968d39fbf1",
+        "selector": {
+          "kind": "path-prefixes",
+          "include": [
+            "collections/local-worktree-closeout/2026-10-01/payload"
+          ],
+          "exclude": []
+        }
+      },
+      "rights": {
+        "kind": "project-owned",
+        "redistribution": "allowed"
+      },
+      "privacy": "private",
+      "serve": {
+        "policy": "deny",
+        "prefixes": []
+      },
+      "retention": {
+        "policy": "maker-approved-delete-only",
+        "garbageCollection": {
+          "policy": "plan-only",
+          "graceDays": null,
+          "approver": "maker"
+        }
+      },
+      "mutability": "immutable",
+      "externalEvidenceAuthority": null,
+      "provenance": {
+        "record": "docs/plans/local-consolidation-2026-10-01.md",
+        "producerCommit": "b837a346d15f22bb4a22911e0b165283873f6302",
+        "command": "node out/local-consolidation-2026-10-01/backup/run.mjs publish"
+      },
+      "reproducibility": {
+        "kind": "exact-recipe",
+        "record": "docs/plans/local-consolidation-2026-10-01.md"
+      },
+      "restore": {
+        "status": "tested",
+        "command": "npm run assets:restore -- --collection local-worktree-closeout@2026-10-01 --to out/restores/local-worktree-closeout-2026-10-01",
+        "verifyCommand": "npm run assets:verify-restored -- --collection local-worktree-closeout@2026-10-01 --from out/restores/local-worktree-closeout-2026-10-01",
+        "record": "docs/plans/local-consolidation-2026-10-01.md"
+      },
+      "verification": {
+        "status": "full-hash",
+        "at": "2026-10-01",
+        "host": "BLD",
+        "receipt": "_control/receipts/publication/local-worktree-closeout/2026-10-01/local-closeout-20261001-publish.json",
+        "limits": [
+          "Final NAS payload and fresh restored archives match. Extracted members and all three historical stash commits were recovered.",
+          "Windows SMB durability is verification-based. Local source copies remain; this generated-cache registration does not replace tracked evidence.",
+          "Backup excludes regenerable dependencies, synthetic test fixtures and private offline builds. Private research bytes remain in their existing non-served collection and primary checkout.",
+          "Details and receipt hashes: docs/nas-assets/manifests/local-worktree-closeout/2026-10-01-verification.json."
+        ]
+      },
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
+      "backup": {
+        "status": "not-required",
+        "independentDomains": [],
+        "receipts": []
+      },
+      "supersedes": [],
+      "unresolved": []
+    },
+    {
       "assetId": "post-phase10-science-output",
       "version": "2026-10-01",
       "state": "active",

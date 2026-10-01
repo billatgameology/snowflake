@@ -586,8 +586,11 @@ function verifyOfflineMediaBytes() {
     fail("offline real-growth source marker", "marker missing from authored chapter 04");
     return;
   }
-  const source = resolve(dirname(publicPage), marker[1]);
-  const copied = join(OFFLINE_ROOT, "media", basename(source));
+  const localSource = resolve(dirname(publicPage), marker[1]);
+  const researchPath = relative(join(REPO, "research"), localSource).split(sep).join("/");
+  const nasSource = loadNasResearchMedia(REPO)?.resolve(researchPath);
+  const source = nasSource?.path ?? localSource;
+  const copied = join(OFFLINE_ROOT, "media", basename(localSource));
   const sourceHash = existsSync(source) ? sha256(source) : "";
   const copiedHash = existsSync(copied) ? sha256(copied) : "";
   requireCheck(

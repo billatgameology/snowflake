@@ -184,6 +184,8 @@ describe("tracked NAS asset catalogue", () => {
       "windows-out-gate-artifacts@2026-08-20": ["active", 28, 137079788],
       "gutcheck-growth-scientific@2026-08-26": ["active", 6_308, 84_247_312_054],
       "render-worktrees-closeout@2026-09-04": ["active", 18_932, 130_479_382_836],
+      "post-phase10-science-output@2026-10-01": ["active", 15, 304_047_835],
+      "local-worktree-closeout@2026-10-01": ["active", 15, 151_154_825],
     } as const;
 
     expect(Object.fromEntries(CATALOG.collections.map((collection) => [

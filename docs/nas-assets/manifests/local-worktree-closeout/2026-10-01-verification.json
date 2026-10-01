@@ -1,0 +1,130 @@
+{
+  "verification": {
+    "at": "2026-10-01T16:28:26.508Z",
+    "identity": "local-worktree-closeout@2026-10-01",
+    "prepared": {
+      "at": "2026-10-01T16:25:45.959Z",
+      "rawFiles": 510,
+      "rawBytes": 98740002,
+      "packed": {
+        "fileCount": 15,
+        "totalBytes": 151154825,
+        "treeSha256": "517e56391a09041b61a1bcacc6990af1ae3e67d69380c4957325a3cb35d7f52d"
+      },
+      "files": [
+        {
+          "path": "backup-invocation.mjs",
+          "byteLength": 7496,
+          "sha256": "e63c5beba9cfc1712f6b7b5c67afa1c52cf6c627169b34b8d0ea4613e29daa21"
+        },
+        {
+          "path": "education-output.tar.gz",
+          "byteLength": 58690572,
+          "sha256": "2272277b6286958bc43889659b1522ffcc104ce949f5c39e9eba30068a4348af"
+        },
+        {
+          "path": "evidence-education-verify.tar.gz",
+          "byteLength": 1061,
+          "sha256": "81e209f453b553b159d3720dfee3287d57da48160e773ac9524d43f0b2be6a9f"
+        },
+        {
+          "path": "evidence-phase10-c0v-reference-v1.tar.gz",
+          "byteLength": 100651,
+          "sha256": "e34e5abb9bdcd621f879f5cf6a68e9d658741446c02b86a83931fbd228298b5a"
+        },
+        {
+          "path": "evidence-phase10-execution-v1.tar.gz",
+          "byteLength": 10175157,
+          "sha256": "526a363954b19d2b95d6ca1f5ebe12232883fa9c5d1ce2c35132cece56ac4bc7"
+        },
+        {
+          "path": "evidence-phase10-execution-v2.tar.gz",
+          "byteLength": 214961,
+          "sha256": "73260d23836866bd5c47ca871e60ab3e6f12938eaf722ca70dc5b7f4370b5e25"
+        },
+        {
+          "path": "evidence-phase10-obligation-preflight-v1-candidate.tar.gz",
+          "byteLength": 4162,
+          "sha256": "101e82628208185c70848fb144a083368cb1346179ce7d999a598f60b6616135"
+        },
+        {
+          "path": "evidence-phase10-observation-bridges-v1-b-acquisition-candidate.tar.gz",
+          "byteLength": 3456,
+          "sha256": "eab1c991e087870b3fc94b99f2929058c5b471c92cb7d57b7f1e41bae567431c"
+        },
+        {
+          "path": "evidence-phase10-scope-intake-v1-a-i-candidate.tar.gz",
+          "byteLength": 14350,
+          "sha256": "13a22d7670a841a79bab881dedf3f15c9695e83b5015cd4053fef672f6f6ca83"
+        },
+        {
+          "path": "evidence-phase10-scope-intake-v1-candidate.tar.gz",
+          "byteLength": 33703,
+          "sha256": "c97bc8a19353229bc31df04b7d7ee4023da043761fb1a67acd0fc853aee3387f"
+        },
+        {
+          "path": "members.json",
+          "byteLength": 118030,
+          "sha256": "9eff08fd50f4d67b7b84619749d0814fd78d2f2b933c161ae743e16bffaf2e7a"
+        },
+        {
+          "path": "primary-gutcheck-animation-queue.tar.gz",
+          "byteLength": 1894,
+          "sha256": "17075e11e280d6b8593c3bb8569ce233a7cd1aca10c8aa5467dba26ac198ae2f"
+        },
+        {
+          "path": "primary-gutcheck-figure-previews.tar.gz",
+          "byteLength": 9432007,
+          "sha256": "f547b3dd7ae4df08629b96b3b34e96344cc9eb505a704bba8c06f961260da8d1"
+        },
+        {
+          "path": "primary-gutcheck-gg-realism.tar.gz",
+          "byteLength": 7269,
+          "sha256": "bc1abbd2d3e20bf7bc33e56c687f63b2737ab63fe5a3a01ba35bd083cd1b3194"
+        },
+        {
+          "path": "repository.bundle",
+          "byteLength": 72350056,
+          "sha256": "a1e208af77ecc4f1a145eadc96d56f7456d35850605ada3adf5b65e05972939e"
+        }
+      ]
+    },
+    "publicationReceipt": {
+      "path": "_control/receipts/publication/local-worktree-closeout/2026-10-01/local-closeout-20261001-publish.json",
+      "sha256": "ee3c933a6281aed7818043532bdc4924e5e1ba114620c79552229def42da1084"
+    },
+    "restoreReceipt": {
+      "path": "_control/receipts/restore/local-worktree-closeout/2026-10-01/local-closeout-20261001-restore.json",
+      "sha256": "05445057475e5a11a4963f0bee9f44ce0de50655b60989857c81b368c4707bda"
+    },
+    "allExtractedMembersMatch": true,
+    "allStashCommitsRestored": true,
+    "sourcesDeleted": false
+  },
+  "privateSourceDuplicates": {
+    "at": "2026-10-01T16:26:29.512Z",
+    "collection": "research-private-freeze@2026-08-11",
+    "files": 140,
+    "bytes": 99302123,
+    "subtrees": [
+      {
+        "fileCount": 123,
+        "totalBytes": 16454675,
+        "treeSha256": "765edb6e084cc32f5b346a89d607912352762599b24892801f4423b4129e110b"
+      },
+      {
+        "fileCount": 16,
+        "totalBytes": 42076065,
+        "treeSha256": "d16262c4f52386788b6b9831e8b3626226656d72dea433dabedce871358bd88c"
+      },
+      {
+        "fileCount": 1,
+        "totalBytes": 40771383,
+        "treeSha256": "34e69cf6350b22918cbb6abb6e6decb86af1a47a57a83c7e568f054b4bb80959"
+      }
+    ],
+    "nasAndPrimaryMatch": true,
+    "sourceDeleted": false,
+    "scope": "The evidence-worktree ignored research subtrees; no other private collection is re-certified."
+  }
+}

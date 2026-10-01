@@ -1,0 +1,83 @@
+{
+  "format": "snowflake-nas-ledger-v1",
+  "collection": "local-worktree-closeout@2026-10-01",
+  "locator": "collections/local-worktree-closeout/2026-10-01/payload",
+  "treeSha256": "517e56391a09041b61a1bcacc6990af1ae3e67d69380c4957325a3cb35d7f52d",
+  "files": [
+    {
+      "path": "collections/local-worktree-closeout/2026-10-01/payload/backup-invocation.mjs",
+      "bytes": 7496,
+      "sha256": "e63c5beba9cfc1712f6b7b5c67afa1c52cf6c627169b34b8d0ea4613e29daa21"
+    },
+    {
+      "path": "collections/local-worktree-closeout/2026-10-01/payload/education-output.tar.gz",
+      "bytes": 58690572,
+      "sha256": "2272277b6286958bc43889659b1522ffcc104ce949f5c39e9eba30068a4348af"
+    },
+    {
+      "path": "collections/local-worktree-closeout/2026-10-01/payload/evidence-education-verify.tar.gz",
+      "bytes": 1061,
+      "sha256": "81e209f453b553b159d3720dfee3287d57da48160e773ac9524d43f0b2be6a9f"
+    },
+    {
+      "path": "collections/local-worktree-closeout/2026-10-01/payload/evidence-phase10-c0v-reference-v1.tar.gz",
+      "bytes": 100651,
+      "sha256": "e34e5abb9bdcd621f879f5cf6a68e9d658741446c02b86a83931fbd228298b5a"
+    },
+    {
+      "path": "collections/local-worktree-closeout/2026-10-01/payload/evidence-phase10-execution-v1.tar.gz",
+      "bytes": 10175157,
+      "sha256": "526a363954b19d2b95d6ca1f5ebe12232883fa9c5d1ce2c35132cece56ac4bc7"
+    },
+    {
+      "path": "collections/local-worktree-closeout/2026-10-01/payload/evidence-phase10-execution-v2.tar.gz",
+      "bytes": 214961,
+      "sha256": "73260d23836866bd5c47ca871e60ab3e6f12938eaf722ca70dc5b7f4370b5e25"
+    },
+    {
+      "path": "collections/local-worktree-closeout/2026-10-01/payload/evidence-phase10-obligation-preflight-v1-candidate.tar.gz",
+      "bytes": 4162,
+      "sha256": "101e82628208185c70848fb144a083368cb1346179ce7d999a598f60b6616135"
+    },
+    {
+      "path": "collections/local-worktree-closeout/2026-10-01/payload/evidence-phase10-observation-bridges-v1-b-acquisition-candidate.tar.gz",
+      "bytes": 3456,
+      "sha256": "eab1c991e087870b3fc94b99f2929058c5b471c92cb7d57b7f1e41bae567431c"
+    },
+    {
+      "path": "collections/local-worktree-closeout/2026-10-01/payload/evidence-phase10-scope-intake-v1-a-i-candidate.tar.gz",
+      "bytes": 14350,
+      "sha256": "13a22d7670a841a79bab881dedf3f15c9695e83b5015cd4053fef672f6f6ca83"
+    },
+    {
+      "path": "collections/local-worktree-closeout/2026-10-01/payload/evidence-phase10-scope-intake-v1-candidate.tar.gz",
+      "bytes": 33703,
+      "sha256": "c97bc8a19353229bc31df04b7d7ee4023da043761fb1a67acd0fc853aee3387f"
+    },
+    {
+      "path": "collections/local-worktree-closeout/2026-10-01/payload/members.json",
+      "bytes": 118030,
+      "sha256": "9eff08fd50f4d67b7b84619749d0814fd78d2f2b933c161ae743e16bffaf2e7a"
+    },
+    {
+      "path": "collections/local-worktree-closeout/2026-10-01/payload/primary-gutcheck-animation-queue.tar.gz",
+      "bytes": 1894,
+      "sha256": "17075e11e280d6b8593c3bb8569ce233a7cd1aca10c8aa5467dba26ac198ae2f"
+    },
+    {
+      "path": "collections/local-worktree-closeout/2026-10-01/payload/primary-gutcheck-figure-previews.tar.gz",
+      "bytes": 9432007,
+      "sha256": "f547b3dd7ae4df08629b96b3b34e96344cc9eb505a704bba8c06f961260da8d1"
+    },
+    {
+      "path": "collections/local-worktree-closeout/2026-10-01/payload/primary-gutcheck-gg-realism.tar.gz",
+      "bytes": 7269,
+      "sha256": "bc1abbd2d3e20bf7bc33e56c687f63b2737ab63fe5a3a01ba35bd083cd1b3194"
+    },
+    {
+      "path": "collections/local-worktree-closeout/2026-10-01/payload/repository.bundle",
+      "bytes": 72350056,
+      "sha256": "a1e208af77ecc4f1a145eadc96d56f7456d35850605ada3adf5b65e05972939e"
+    }
+  ]
+}
