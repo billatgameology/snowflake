@@ -1,0 +1,107 @@
+{
+  "verification": {
+    "at": "2026-10-01T15:50:29.749Z",
+    "host": "BLD",
+    "identity": "post-phase10-science-output@2026-10-01",
+    "rawFiles": 10447,
+    "rawBytes": 1889781104,
+    "packed": {
+      "fileCount": 15,
+      "totalBytes": 304047835,
+      "treeSha256": "7b512af0ca229cc6ea5ef21594d1a8dfb773be217b346fed5777865698c6802f"
+    },
+    "publicationReceipt": {
+      "path": "_control/receipts/publication/post-phase10-science-output/2026-10-01/science-output-20261001-publish.json",
+      "sha256": "ba92b1de9e4fab878d4bc6cca254347c4a0dd33e9c8b997a2d67709d37bd8202"
+    },
+    "restoreReceipt": {
+      "path": "_control/receipts/restore/post-phase10-science-output/2026-10-01/science-output-20261001-restore.json",
+      "sha256": "458f57cc0df89304f6628aad0f4da811f16a4678051df1f1c581ea8a9a95eb4c"
+    },
+    "extractedAllMembersMatch": true,
+    "sourcesDeleted": false,
+    "limits": [
+      "Windows SMB durability is verification-based.",
+      "NAS plus retained original workstation copy; no off-site recovery claim.",
+      "This backup does not replace tracked scientific evidence or grant local deletion permission."
+    ]
+  },
+  "prepared": {
+    "at": "2026-10-01T15:48:47.157Z",
+    "host": "BLD",
+    "rawFiles": 10447,
+    "rawBytes": 1889781104,
+    "packed": {
+      "fileCount": 15,
+      "totalBytes": 304047835,
+      "treeSha256": "7b512af0ca229cc6ea5ef21594d1a8dfb773be217b346fed5777865698c6802f"
+    },
+    "packingNote": "Windows tar twice skipped a different adaptive source file as self-archive. Failed packs retained outside payload; only adaptive pack recreated with Python standard-library tarfile. Every final archive passed exact member-list comparison before upload."
+  },
+  "publication": {
+    "format": "snowflake-nas-publication-receipt-v1",
+    "transactionId": "science-output-20261001-publish",
+    "identity": "post-phase10-science-output@2026-10-01",
+    "locator": "collections/post-phase10-science-output/2026-10-01/payload",
+    "source": {
+      "fileCount": 15,
+      "totalBytes": 304047835,
+      "treeSha256": "7b512af0ca229cc6ea5ef21594d1a8dfb773be217b346fed5777865698c6802f"
+    },
+    "staged": {
+      "fileCount": 15,
+      "totalBytes": 304047835,
+      "treeSha256": "7b512af0ca229cc6ea5ef21594d1a8dfb773be217b346fed5777865698c6802f"
+    },
+    "final": {
+      "fileCount": 15,
+      "totalBytes": 304047835,
+      "treeSha256": "7b512af0ca229cc6ea5ef21594d1a8dfb773be217b346fed5777865698c6802f"
+    },
+    "verifiedAt": "2026-10-01T15:49:12.240Z",
+    "limits": [
+      "This receipt contains aggregate digests only; private filenames and host paths are intentionally omitted.",
+      "Tracked catalogue registration and a committed Git binding are outside this fixture transaction core."
+    ]
+  },
+  "restore": {
+    "format": "snowflake-nas-restore-receipt-v1",
+    "transactionId": "science-output-20261001-restore",
+    "identity": "post-phase10-science-output@2026-10-01",
+    "locator": "collections/post-phase10-science-output/2026-10-01/payload",
+    "publicationTransactionId": "science-output-20261001-publish",
+    "publicationReceiptPath": "_control/receipts/publication/post-phase10-science-output/2026-10-01/science-output-20261001-publish.json",
+    "publicationReceiptSha256": "ba92b1de9e4fab878d4bc6cca254347c4a0dd33e9c8b997a2d67709d37bd8202",
+    "restored": {
+      "fileCount": 15,
+      "totalBytes": 304047835,
+      "treeSha256": "7b512af0ca229cc6ea5ef21594d1a8dfb773be217b346fed5777865698c6802f"
+    },
+    "verifiedAt": "2026-10-01T15:49:40.417Z",
+    "limits": [
+      "The receipt binds exact restored bytes but omits the host destination and all private filenames.",
+      "Claim-specific verifier adapters and tracked catalogue registration are outside this fixture core."
+    ]
+  },
+  "independentChecks": [
+    {
+      "command": "npm.cmd run assets:verify -- --collection post-phase10-science-output@2026-10-01 --full",
+      "exitCode": 0,
+      "ok": true,
+      "manifest": "verified",
+      "aggregate": "verified",
+      "payload": "verified-full",
+      "files": 15,
+      "bytes": 304047835
+    },
+    {
+      "command": "npm.cmd run assets:verify-restored -- --collection post-phase10-science-output@2026-10-01 --from out/restores/post-phase10-science-output-2026-10-01",
+      "exitCode": 0,
+      "ok": true,
+      "fileCount": 15,
+      "totalBytes": 304047835,
+      "treeSha256": "7b512af0ca229cc6ea5ef21594d1a8dfb773be217b346fed5777865698c6802f",
+      "pruneAuthorized": false
+    }
+  ]
+}

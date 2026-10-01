@@ -103,6 +103,19 @@ and the catalogue, owner manifest and receipt summary are committed. This is an 
 unchanged backup machinery; verification is these actual copy/restore checks plus catalogue
 parsing and Rule 7, not another scientific full-suite run. No pruning is part of this task.
 
+**Completed:** the standard
+[owner manifest](../nas-assets/manifests/post-phase10-science-output/2026-10-01.json) and
+[verification/receipt record](../nas-assets/manifests/post-phase10-science-output/2026-10-01-verification.json)
+bind 10447 original files / 1889781104 bytes, packed as 15 payload files / 304047835 bytes.
+Both exact independent commands above exited zero. The transaction restore and all extracted
+member comparisons also passed. Final locator:
+`collections/post-phase10-science-output/2026-10-01/payload/`.
+The original files and all local staging remain. No simulation, solver change, deletion, or
+scientific full-suite rerun occurred. Windows tar twice skipped a different adaptive input as
+a self-archive; both failed packs are retained outside the uploaded payload. Only that archive
+was recreated with Python's standard `tarfile` library, and all final archive member lists
+were compared with the source inventories before upload. The restore verified their contents.
+
 Spend the available 32-logical-processor host budget on a broad but finite search for new model
 behavior, then use the observed structure to choose a small mechanistic follow-up. Phase 7 is not
 part of this workstream.

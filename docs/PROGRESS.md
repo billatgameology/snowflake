@@ -638,7 +638,15 @@ report; these are model-development results, with no physical-validation claim.
 Three tracked run archives preserve 487 files / 324451935 source bytes, including these campaigns
 and the eight prior width-comparison rows. Every member matched a fresh restore by length and
 SHA-256; raw-inventory.json records the exact paths. No original local output was deleted.
-Older adaptive collections outside this bundle are not declared backed up or disposable.
+The remaining science-output backup is now complete on NAS as
+`post-phase10-science-output@2026-10-01`. The
+[backup verification](nas-assets/manifests/post-phase10-science-output/2026-10-01-verification.json)
+records all 10447 original files / 1889781104 bytes across the selected science folders,
+packed into 15 payload files / 304047835 bytes. Final NAS hashes, a fresh packed restore and
+every extracted member matched; catalogue-based `assets:verify --full` and
+`assets:verify-restored` also passed. Restore commands and the exact included/excluded scope are
+in the active plan's NAS backup section. Local originals, failed packing attempts and restore
+staging remain; no worktree removal or local pruning has been authorized or performed.
 
 **Published (2026-10-01):** the maker explicitly approved public publication of the pending
 science history, including generated simulation records and logs. The non-force command

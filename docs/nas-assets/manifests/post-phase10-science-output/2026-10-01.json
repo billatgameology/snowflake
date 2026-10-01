@@ -1,0 +1,83 @@
+{
+  "format": "snowflake-nas-ledger-v1",
+  "collection": "post-phase10-science-output@2026-10-01",
+  "locator": "collections/post-phase10-science-output/2026-10-01/payload",
+  "treeSha256": "7b512af0ca229cc6ea5ef21594d1a8dfb773be217b346fed5777865698c6802f",
+  "files": [
+    {
+      "path": "collections/post-phase10-science-output/2026-10-01/payload/backup-invocation.mjs",
+      "bytes": 6156,
+      "sha256": "c76e82c21b0c4a9c3e60f120b24f34e150420635f021e257ef52b5bca1644eb6"
+    },
+    {
+      "path": "collections/post-phase10-science-output/2026-10-01/payload/members.json",
+      "bytes": 2375564,
+      "sha256": "b88b23d803c4ea4fcfe0b6684b3ddfd88194140210efbba86fec8dfdacd9a1db"
+    },
+    {
+      "path": "collections/post-phase10-science-output/2026-10-01/payload/post-phase10-adaptive.tar.gz",
+      "bytes": 55607748,
+      "sha256": "220ab809f3c0ac97447876f63bb05d239a4c9a484fbeb4373273243d8db7a3ce"
+    },
+    {
+      "path": "collections/post-phase10-science-output/2026-10-01/payload/post-phase10-basal-history.tar.gz",
+      "bytes": 18632605,
+      "sha256": "62ae0d7eda7d82f68a0fdb754612ce777d652942f9eb64800cefee195c4a24eb"
+    },
+    {
+      "path": "collections/post-phase10-science-output/2026-10-01/payload/post-phase10-cavity.tar.gz",
+      "bytes": 20324407,
+      "sha256": "8c4202931d89b2fbc968c92bbd481a830121cf13a2c50c3492e202ba2d40c6b6"
+    },
+    {
+      "path": "collections/post-phase10-science-output/2026-10-01/payload/post-phase10-confirmation.tar.gz",
+      "bytes": 22264439,
+      "sha256": "ffc2696849fc57e77e17890695feacf5b29f2b4f07bff387d230424dba531ca4"
+    },
+    {
+      "path": "collections/post-phase10-science-output/2026-10-01/payload/post-phase10-discovery.tar.gz",
+      "bytes": 3862986,
+      "sha256": "4c567b846e595d679be842fbfe9f587ef82d18061590d1cad48fcde897703d3d"
+    },
+    {
+      "path": "collections/post-phase10-science-output/2026-10-01/payload/post-phase10-facet-factorial.tar.gz",
+      "bytes": 4111142,
+      "sha256": "5089c08e6a2fce6a671efdbe9843ca807215b4285e467b8b72d6edecf259522d"
+    },
+    {
+      "path": "collections/post-phase10-science-output/2026-10-01/payload/post-phase10-followup.tar.gz",
+      "bytes": 60156443,
+      "sha256": "1e90a9b1c5ff9dbf2f302fb1fbdf8ab6c99dc8443df1b6ccf6fd6d79abe2fdc2"
+    },
+    {
+      "path": "collections/post-phase10-science-output/2026-10-01/payload/post-phase10-holefill.tar.gz",
+      "bytes": 4124011,
+      "sha256": "fd2fdffbc3795323f61d3dae9bdcd9b4489f66ad0598179c765cb3114ae73e33"
+    },
+    {
+      "path": "collections/post-phase10-science-output/2026-10-01/payload/post-phase10-local-basal.tar.gz",
+      "bytes": 3443863,
+      "sha256": "ea91f5ac50d189d7130976fd9b35bf462752445828a67faef7cc57e891d3031f"
+    },
+    {
+      "path": "collections/post-phase10-science-output/2026-10-01/payload/post-phase10-long.tar.gz",
+      "bytes": 107710798,
+      "sha256": "1e98cdecc636142819d361583573a0b88b09cc0eda8ca0387ca8857440cd932b"
+    },
+    {
+      "path": "collections/post-phase10-science-output/2026-10-01/payload/post-phase10-mechanism-long.tar.gz",
+      "bytes": 30722,
+      "sha256": "6a473856f17eeec8a0f8e02d02a13e76151d37178de65c9c89a0077ceea004be"
+    },
+    {
+      "path": "collections/post-phase10-science-output/2026-10-01/payload/post-phase10-prism-holefill.tar.gz",
+      "bytes": 1373939,
+      "sha256": "7012bbe9b385cc189be9b87c057d8af2f2d40219bc1f9a1bd6ac47b328339413"
+    },
+    {
+      "path": "collections/post-phase10-science-output/2026-10-01/payload/post-phase10-wave-closure-2026-10-01.tar.gz",
+      "bytes": 23012,
+      "sha256": "e07faffd5455816c005ef7a32d381dc64209497fbf8f16fdace51b4baa210fec"
+    }
+  ]
+}
