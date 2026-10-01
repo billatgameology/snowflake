@@ -1,2 +1,5 @@
 # Phase 10 import resolution binds this workspace manifest on every checkout.
 package.json -text
+
+# The compiled motion contract hashes this scene's exact Git bytes.
+scenes/growth-B-intro.json -text

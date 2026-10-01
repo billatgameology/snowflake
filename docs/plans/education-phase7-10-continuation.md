@@ -1,7 +1,7 @@
 # Plan — education continuation through Phase 10
 
 - **Phase:** Cross-phase education reconciliation — Phases 6–10
-- **Status:** implementation complete and review-corrected (2026-09-03); exact repository-suite closure pending
+- **Status:** implemented and review-corrected; merged in the 2026-10-01 local consolidation, with shared repository test debt recorded there
 - **Started:** 2026-09-02
 - **Last touched:** 2026-09-03 by Claude (independent review pass and corrections)
 - **Branch/worktree:** `docs/education-phase10` at
@@ -60,9 +60,11 @@ stale active-phase wording.
 - [x] Extend the site manifest and reconcile the Phase 6/new-chapter verifier semantics.
 - [x] Run public and offline education verification, inspect representative desktop/mobile visual
   captures, and repair content or layout defects.
-- [ ] Run Rule 7, `git diff --check`, and exact `npm test`; record the verified result here and in
-  `docs/PROGRESS.md`. Rule 7 and `git diff --check` passed again on 2026-09-03 after the review
-  corrections; exact `npm test` still awaits an idle host.
+- [x] Run Rule 7, `git diff --check`, and exact `npm test`; record the result. The 2026-10-01
+  [consolidation record](local-consolidation-2026-10-01.md) now contains the completed exact
+  integration run, its non-green legacy failure set, and passing focused education/merge checks.
+  There is no remaining idle-host wait, and this does not claim that every original full-suite
+  done criterion is green or authorize repairing unrelated historical fixtures from this plan.
 - [x] Perform one bounded skeptical content pass over the final learner-facing claims, apply any
   warranted corrections, and mark this plan complete.
 - [x] Run an independent six-agent review (four fact-checks against the Phase 6–10 records, one

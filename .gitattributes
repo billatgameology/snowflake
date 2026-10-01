@@ -20,7 +20,6 @@ evidence/** -text
 # The manifests are the checking mechanism for the above, so they get the same treatment.
 evidence/MANIFEST.json -text
 evidence/OUT-TREES-MANIFEST.json -text
-docs/nas-assets/manifests/post-phase10-science-output/** -text
 
 # This archive deliberately preserves a mixed-CRLF/LF historical buffer byte-for-byte. Without an
 # exact-path override, this Windows host's core.autocrlf=true clean filter changes it while adding

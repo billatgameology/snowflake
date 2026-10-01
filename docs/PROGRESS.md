@@ -568,8 +568,8 @@ detail.
   (2026-09-04T00:24:43Z). The Pages deploy workflow retired on 2026-08-16 is restored by maker
   direction (`.github/workflows/pages.yml`: `main`-only trigger, 37-page pin, manifest-pinned public
   artifact, no research media), so pushes to `main` touching `docs/education/**` republish
-  https://billatgameology.github.io/snowflake/. Exact `npm test` closure for the education plan is
-  still pending an idle host; see the [education plan](plans/education-phase7-10-continuation.md).
+  https://billatgameology.github.io/snowflake/. The 2026-10-01 integration suite has now run;
+  its non-green shared test debt is recorded in the [consolidation plan](plans/local-consolidation-2026-10-01.md).
   Full freeze history: [the history file](progress-history-phases-6-8-9.md).
 - **Chapters 30–33 now carry worked examples and recomputing demos (2026-09-15).** The maker asked on
   2026-09-09 why Chapters 30–33 look light on examples beside Chapters 1–5. A two-pass multi-agent
@@ -920,9 +920,12 @@ The other computer's website/film branch and the retired S6 checkpoint are exclu
 The new `local-worktree-closeout@2026-10-01` NAS snapshot has passed publication and fresh restore,
 including the Git bundle's three retained stash commits; its exact scope and hashes are in the
 [verification record](nas-assets/manifests/local-worktree-closeout/2026-10-01-verification.json).
-The earlier science snapshot remains intact. The exact integration suite is running at
-`out/local-consolidation-2026-10-01/npm-test-installed.log`; compare its failures with the named
-science baseline before pushing and fast-forwarding primary main. No experiment is running.
+The earlier science snapshot remains intact. The exact integration suite has finished;
+its observed 2,795 passed / 70 failed / 76 skipped tests and two suite-load failures are classified
+in the verification record, with the subsequent 43-test focused correction run passing.
+Public education verification and the app build passed. This is not a green full-suite claim.
+Next: push and fast-forward primary main, then perform the exact remaining closure below.
+No experiment is running.
 Close extra worktrees only after transferring any remaining useful local-only output to the
 primary checkout and checking the restored NAS copy from that checkout. Keep private media private.
 

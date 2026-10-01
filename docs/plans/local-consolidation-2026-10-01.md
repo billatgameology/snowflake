@@ -1,6 +1,7 @@
 # Local consolidation — 2026-10-01
 
-Status: in progress. Maker requests saving, pushing, merging ready work and NAS backup before
+Status: checks complete; primary fast-forward and final science-checkout closure pending. Maker
+requests saving, pushing, merging ready work and NAS backup before
 closing the extra worktrees on this PC. The website/film branch on the other computer is excluded.
 
 ## Scope and approach
@@ -28,7 +29,7 @@ Ready local work is reachable from pushed main; useful local-only outputs have v
 the surviving worktrees/branches and any explicit blockers are recorded in PROGRESS. No new science
 campaign, scientific claim upgrade, historical fixture repair or remote branch deletion is included.
 
-## Integration and preservation record (in progress)
+## Integration and preservation record
 
 - Current main merged at `e34fb48`, reviewed education demos at `62b4017`, and the offline NAS
   builder at `b837a34`. The education page/asset bytes match their reviewed branch exactly.
@@ -39,7 +40,7 @@ campaign, scientific claim upgrade, historical fixture repair or remote branch d
   runner/test/progress-index.test.ts`, 2026-10-01).
 - The first exact `npm test` stopped at typecheck because this worktree lacked the merged
   `mediabunny` dependency. `npm install --ignore-scripts --no-audit --no-fund` installed the
-  lockfile's packages without changing it. The installed-dependency exact suite is in progress;
+  lockfile's packages without changing it. The installed-dependency exact suite has finished;
   logs are `out/local-consolidation-2026-10-01/npm-test{,-installed}.log`.
 - Public education verification and the NAS-backed offline build passed. The complete offline
   check exposed one real integration seam: its separate movie oracle still required a local
@@ -65,8 +66,6 @@ campaign, scientific claim upgrade, historical fixture repair or remote branch d
   with `git clone --bare`; the three saved stash commit IDs remain available by `git cat-file`.
   Restricted offline builds/restored source caches remain local or reproducible from the existing
   private collection. Dependencies, empty generator directories and synthetic tests are scratch.
-
-## Tried and rejected
 
 ### Exact local closure disposition (reviewed before removal)
 
@@ -94,6 +93,38 @@ these dispositions are satisfied. Delete only the now-merged local education/evi
 branch refs. The retired checkpoint stays unmerged; its existing remote ref and the restored Git
 bundle preserve it. Keep all remote refs, the three stashes, primary `.claude/` settings and all
 other primary output. This is consolidation of checkout copies, not broad data pruning.
+
+## Final integration checks and remaining closure
+
+The exact full-suite log and failure-name comparison are bound in
+`docs/nas-assets/manifests/local-worktree-closeout/2026-10-01-verification.json`:
+196 passed / 26 failed files; 2,795 passed / 70 failed / 76 skipped tests, plus two suite-load
+failures; exit 1 after 1,338.38 seconds. Rule 7 and both typechecks passed. This is not suite green.
+All 18 prior science test failures and its suite-load failure recur by identical name. The added
+35 catalog failures belong to the already documented main test debt. Sixteen other test failures
+come from unchanged main code's Windows path/case, symlink-privilege and retired directory-fsync
+assumptions. No historical numerical result or frozen artifact was changed to silence them.
+
+Two additional byte seams were corrected: the compiled Run B scene now retains its original
+pinned LF bytes on Windows, and the redundant root NAS-manifest attribute was removed because
+main's nested manifest rule already keeps those JSON bytes exact. This also restores the original
+Phase 8 root-attribute fingerprint. The final focused motion/Phase-8/catalog/progress run passes
+43 tests in four files. The app builds with the corrected scene (`app-build-final.log`). The full
+suite was not repeated after these bounded corrections.
+
+Public education verification passes all 191 checks for 37 pages / 205 visual roots. The offline
+run passed 194 of 195 checks, including all browser profiles, source-map checks and negative
+controls; its one local-only movie-lookup failure was corrected and the unchanged registered-hash
+oracle rerun directly with exit 0. The exact reports, commands and hashes are in the same tracked
+verification record. This does not pretend that the pre-fix offline command exited zero.
+
+The education and evidence worktrees are unregistered, their merged local refs removed, and their
+entire output trees retained in primary as specified above. Git's Windows removal left residual
+tracked/dependency files, which were removed only from the reviewed exact directories. The evidence
+checkout's now-empty root is held open by another process; leave it rather than killing that process.
+After fast-forwarding primary, run the catalogued closeout restore verification there, push main,
+move the final science output, and unregister that checkout. Remove the local retired checkpoint
+ref only while it exactly matches its existing remote ref; never merge it or delete that remote.
 
 ## Tried and rejected
 

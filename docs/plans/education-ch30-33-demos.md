@@ -2,7 +2,7 @@
 
 - **Phase:** Cross-phase education reconciliation — Phases 6–10 (continuation of
   [education-phase7-10-continuation.md](education-phase7-10-continuation.md))
-- **Status:** in progress
+- **Status:** implemented and merged in the 2026-10-01 local consolidation; final checks and shared test-debt limits are recorded in [that plan](local-consolidation-2026-10-01.md)
 - **Started:** 2026-09-14
 - **Last touched:** 2026-09-14 by Claude (Opus 5)
 - **Branch/worktree:** `docs/education-ch30-33-demos` off `docs/education-phase10`, in the existing
