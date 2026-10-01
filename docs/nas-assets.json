@@ -11,6 +11,76 @@
   "controlRoot": "_control",
   "collections": [
     {
+      "assetId": "post-phase10-science-output",
+      "version": "2026-10-01",
+      "state": "provisional",
+      "ownerWorkstream": "post-phase10-adaptive-discovery",
+      "locator": "collections/post-phase10-science-output/2026-10-01/payload",
+      "historicalRepoPath": "out",
+      "legacyAliases": [],
+      "storageClass": "generated-cache",
+      "aggregate": {
+        "files": 0,
+        "bytes": 0
+      },
+      "ownerManifest": null,
+      "rights": {
+        "kind": "project-owned",
+        "redistribution": "allowed"
+      },
+      "privacy": "public",
+      "serve": {
+        "policy": "deny",
+        "prefixes": []
+      },
+      "retention": {
+        "policy": "maker-approved-delete-only",
+        "garbageCollection": {
+          "policy": "plan-only",
+          "graceDays": null,
+          "approver": "maker"
+        }
+      },
+      "mutability": "immutable",
+      "externalEvidenceAuthority": null,
+      "provenance": {
+        "record": "docs/plans/post-phase10-adaptive-discovery.md",
+        "producerCommit": "964ee036777525e428ac3257f88553d0b47554c9",
+        "command": "node out/nas-backup-post-phase10-2026-10-01/run.mjs publish"
+      },
+      "reproducibility": {
+        "kind": "exact-recipe",
+        "record": "docs/plans/post-phase10-adaptive-discovery.md"
+      },
+      "restore": {
+        "status": "documented",
+        "command": "npm run assets:restore -- --collection post-phase10-science-output@2026-10-01 --to out/restores/post-phase10-science-output-2026-10-01",
+        "verifyCommand": "npm run assets:verify-restored -- --collection post-phase10-science-output@2026-10-01 --from out/restores/post-phase10-science-output-2026-10-01",
+        "record": "docs/plans/post-phase10-adaptive-discovery.md"
+      },
+      "verification": {
+        "status": "unavailable",
+        "at": null,
+        "host": null,
+        "receipt": null,
+        "limits": [
+          "Backup of generated runs and provenance; does not externalize or replace Git claim evidence. No deletion is authorized."
+        ]
+      },
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
+      "backup": {
+        "status": "not-required",
+        "independentDomains": [],
+        "receipts": []
+      },
+      "supersedes": [],
+      "unresolved": [
+        "Publish, verify and fresh-restore this immutable snapshot before activation."
+      ]
+    },
+    {
       "assetId": "gutcheck-generated-public",
       "version": "2026-08-15",
       "state": "active",

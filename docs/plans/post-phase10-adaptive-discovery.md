@@ -62,6 +62,47 @@ linked log. No historical recovery or source-identity fixture repairs were attem
 
 ## Goal
 
+### NAS backup requested — 2026-10-01
+
+Deliver one verified, restorable snapshot of the completed science worktree's generated output;
+do not delete local data, remove the worktree, merge branches, or launch experiments. This is
+operational backup, not a change to any scientific claim or an external-evidence exception.
+The tracked completed-wave evidence stays authoritative and byte-unchanged.
+
+Collection: `post-phase10-science-output@2026-10-01`, immutable, project-owned generated cache,
+non-served, maker-approved-delete-only. Recovery uses the producer/runtime/spec/command records
+retained with each run and in this plan; incidental timestamps are historical provenance, not
+promised reproducible simulation quantities. Local originals remain an independent copy.
+
+Scope is exactly these `out/` directories: `post-phase10-adaptive`, `post-phase10-basal-history`,
+`post-phase10-cavity`, `post-phase10-confirmation`, `post-phase10-discovery`,
+`post-phase10-facet-factorial`, `post-phase10-followup`, `post-phase10-holefill`,
+`post-phase10-local-basal`, `post-phase10-long`, `post-phase10-mechanism-long`,
+`post-phase10-prism-holefill`, and `post-phase10-wave-closure-2026-10-01`.
+Dependencies, synthetic test scratch, other worktrees, and `out/restores` are excluded.
+
+Use a bounded local invocation at `out/nas-backup-post-phase10-2026-10-01/run.mjs` to inventory
+the selected regular files, pack each directory with `tar -czf`, and retain the member inventory
+and invocation in the payload. Run its `prepare`, `publish`, and `restore` modes separately.
+Publication and restoration call the existing `publishCollectionFixture` and
+`restoreCollectionFixture` transaction routines without changing them. Resolve the marked share
+through `detectNasMount`; do not hardcode a mount. Bind packed file hashes in the standard owner
+manifest and preserve publication/restore receipts. Restore packed bytes into a fresh directory,
+extract each reviewed archive to a fresh member directory, then compare every extracted member
+with the source inventory by path, byte length and SHA-256. Windows SMB durability remains
+verification-based. A interrupted copy is not completion and must not replace an existing final.
+
+Exact independent checks after registration:
+`npm run assets:verify -- --collection post-phase10-science-output@2026-10-01 --full` and
+`npm run assets:verify-restored -- --collection post-phase10-science-output@2026-10-01 --from out/restores/post-phase10-science-output-2026-10-01`.
+For recovery, use the catalogue's `assets:restore` command, verify the packed tree, then extract
+the contained `.tar.gz` files with `tar -xzf <archive> -C <fresh-directory>`; the archives retain
+their original `out/<campaign>/...` paths. The payload member inventory verifies extraction.
+Done when final NAS hashes, fresh restored packed hashes, and extracted member hashes agree,
+and the catalogue, owner manifest and receipt summary are committed. This is an invocation of
+unchanged backup machinery; verification is these actual copy/restore checks plus catalogue
+parsing and Rule 7, not another scientific full-suite run. No pruning is part of this task.
+
 Spend the available 32-logical-processor host budget on a broad but finite search for new model
 behavior, then use the observed structure to choose a small mechanistic follow-up. Phase 7 is not
 part of this workstream.
