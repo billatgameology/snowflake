@@ -51,7 +51,7 @@
         simulator would take weeks. Is there a smaller calculation that could already show it does not help?
       </p>
       <div class="chapter-header__meta">
-        <span>~15 min read</span><span>5 interactives</span><span>0 three-dimensional solver runs</span>
+        <span>~19 min read</span><span>6 interactives</span><span>3 equations</span><span>0 three-dimensional solver runs</span>
       </div>
     </header>
 
@@ -143,17 +143,31 @@
       together; and never touch the two reference solvers while doing so.
     </p>
 
-    <figure class="anim" id="c32-funnel" data-order="cheap-before-expensive">
+    <p>
+      The difference between a cheap test and a cheap <em>discriminator</em> is easiest to feel by
+      trying to tell them apart. Five candidates for the rule Chapter 32 is about are below. Only one
+      of them is the test the project registered.
+    </p>
+
+    <figure class="anim is-wide" id="c32-discriminator" data-order="cheap-before-expensive" data-registered="leave-one-history-out">
       <div class="anim__head">
-        <p class="anim__title">Move a proposal through the funnel</p>
-        <p class="anim__sub">Choose how the first cheap test comes out, and see what it permits.</p>
+        <p class="anim__title">Which test discriminates?</p>
+        <p class="anim__sub">Mark the tests where failing would genuinely contradict the proposal. Then see which one the project registered, in its own words, before running anything.</p>
       </div>
-      <div class="anim__body"><div class="c32-stage" aria-live="polite"></div></div>
+      <div class="anim__body"><div class="p2-stage" aria-live="polite"></div></div>
       <div class="anim__controls"></div>
       <figcaption class="anim__foot"><span class="built-from">
-        Conceptual workflow built from the Phase 9 charter rule: compatibility first, then the
-        cheapest honest discriminator. Passing permits more work; it does not make the model
-        physically correct.
+        Original interactive. The registered discriminator is quoted verbatim from
+        <code>evidence/phase9-knowledge-baseline-v1/hypotheses.jsonl</code>, record
+        <code>P9H-LAMB-BULK</code>, field <code>cheapestDiscriminator</code>. The habit refusal is
+        a different bundle&rsquo;s: <code>ineligible-unobserved</code>, from
+        <code>evidence/phase9-dbt-six-history-development-v3/report.json</code>,
+        <code>result.refusals.facetHabitMorphology</code>. Four of the five candidates are this
+        course&rsquo;s own examples and are labelled so on the page &mdash; the project did not
+        consider and reject them. Chapter 17&rsquo;s &ldquo;could this ever be refuted?&rdquo; figure
+        teaches the same habit from the claim&rsquo;s side. It shows what makes a test discriminating;
+        it runs no test, scores no record, and passing the registered one would have permitted the
+        next registered step rather than promoting the rule.
       </span></figcaption>
     </figure>
 
@@ -170,11 +184,89 @@
       The test needed no lattice, no facets, no three-dimensional field. Take six of the Penn State
       levitation histories from Chapter 31: two crystals at &minus;33.8&nbsp;&deg;C in air 17&nbsp;%
       supersaturated over ice, four at &minus;35.7&nbsp;&deg;C at 28.6&nbsp;%, all starting between
-      about 8 and 10 micrometres in radius, each followed second by second from time zero until its
-      record ends, between 311 and 499 seconds later. Treat each crystal as a sphere. Add up its
-      predicted growth second by second (integrate it) under four different rules, and compare each
-      predicted mass curve with the measured one.
+      about 8 and 10 micrometres in radius, each scored second by second from time zero to at most
+      499 seconds &mdash; the project&rsquo;s strict reading of the 0 to 500 second domain the
+      rule&rsquo;s authors claimed. Four of the records end
+      naturally between 311 and 464 seconds; the two labelled 725 run on past 900 seconds, and those
+      later seconds were simply not scored. Treat each crystal as a sphere. Step its predicted growth
+      forward one second at a time (that is what <em>integrating</em> means here: the program takes
+      four trial slopes inside each second and blends them &mdash; a Runge&ndash;Kutta step &mdash;
+      on a one-second grid), and compare each predicted mass curve with the measured one.
     </p>
+
+    <p>
+      Here is the rule this chapter keeps calling <em>plain continuum theory</em>, written out. It
+      is one line, and almost everything else in this section is an argument about it.
+    </p>
+
+    <div class="equation">
+      <p class="equation__math">
+        d<em>m</em>/d<em>t</em> = 4&pi; <em>r</em> &sigma; <em>K</em>,
+        &nbsp;&nbsp;&nbsp;
+        <em>K</em> = 1 &divide; (<em>R</em><sub>vapour</sub> + <em>R</em><sub>heat</sub>)
+      </p>
+      <div class="equation__where">
+        <strong>where</strong>
+        <dl>
+          <dt>d<em>m</em>/d<em>t</em></dt><dd>how much mass the crystal gains this second, in kilograms per second</dd>
+          <dt><em>r</em></dt><dd>the radius of the sphere with the same volume as the crystal, in metres &mdash; this is the step where a real snow crystal is replaced by a ball</dd>
+          <dt>&sigma;</dt><dd>supersaturation: the surplus vapour the air carries over what ice can hold, from Chapter 4. Here 0.17 for the two crystals at &minus;33.8&nbsp;&deg;C and 0.286 for the four at &minus;35.7&nbsp;&deg;C</dd>
+          <dt><em>K</em></dt><dd>the transfer coefficient: how easily vapour is delivered, in kilograms per metre per second. It is one divided by the sum of two costs, exactly as two resistances add in series</dd>
+          <dt><em>R</em><sub>vapour</sub></dt><dd>the cost of diffusing vapour through the air to the surface</dd>
+          <dt><em>R</em><sub>heat</sub></dt><dd>the cost of carrying the heat released by freezing away again</dd>
+        </dl>
+      </div>
+      <p class="equation__cite">
+        Transcribed from <code>runner/src/phase9-dbt-model.ts</code>, the committed constants and
+        transfer functions of the Phase 9 D-BT test. Chapter 4 wrote the same two doors in different
+        letters (<em>X</em><sub>0</sub>/<em>R</em> and <code>alphaHK</code>) and set heat aside; this
+        rule keeps heat and has no surface term at all, which is another way of saying it assumes
+        every molecule that arrives sticks.
+      </p>
+    </div>
+
+    <p>
+      Put a real crystal into it. At &minus;33.8&nbsp;&deg;C and 97,055&nbsp;pascals the transfer
+      coefficient works out at
+      <strong>3.72&nbsp;&times;&nbsp;10<sup>&minus;9</sup></strong> kilograms per metre per second,
+      and the heat cost is only about 5&nbsp;% of the total: this is a diffusion-limited
+      calculation, and the heat door is nearly wide open. Crystal 725c starts at a radius of
+      8.9&nbsp;micrometres, which for a ball of ice weighs 2.69&nbsp;nanograms. The rule says it
+      starts collecting at 0.0708&nbsp;nanograms a second &mdash; 2.6&nbsp;% of itself per second.
+      Add that on (the careful step adds 0.0711&nbsp;ng over the whole second, because the rate is
+      already rising as the crystal grows), work out the new radius, ask again. That is the whole
+      calculation, repeated 499 times.
+    </p>
+
+    <p>
+      Because <em>K</em> hardly changes while the crystal grows, this particular rule also has an
+      exact answer, which is handy for checking the arithmetic: the <em>square</em> of the radius
+      grows in a straight line.
+    </p>
+
+    <div class="equation">
+      <p class="equation__math">
+        <em>r</em><sup>2</sup> = <em>r</em><sub>0</sub><sup>2</sup> + 2&sigma;<em>Kt</em>&nbsp;&divide;&nbsp;&rho;
+        &nbsp;&nbsp;&nbsp;so&nbsp;&nbsp;&nbsp;
+        <em>m</em>/<em>m</em><sub>0</sub> = (1 + 2&sigma;<em>Kt</em>&nbsp;&divide;&nbsp;&rho;<em>r</em><sub>0</sub><sup>2</sup>)<sup>3/2</sup>
+      </p>
+      <div class="equation__where">
+        <strong>where</strong>
+        <dl>
+          <dt><em>r</em><sub>0</sub></dt><dd>the radius at time zero</dd>
+          <dt>&rho;</dt><dd>the density of ice: 910 kilograms per cubic metre in this model</dd>
+          <dt><em>m</em>/<em>m</em><sub>0</sub></dt><dd>the <strong>mass ratio</strong>, the crystal&rsquo;s mass divided by its starting mass. This is what the test actually compares, so a value of 3 means the crystal has tripled.</dd>
+        </dl>
+      </div>
+      <p class="equation__cite">
+        The same committed constants, integrated. At the &minus;33.8&nbsp;&deg;C conditions the
+        square of the radius grows by 1.391&nbsp;square micrometres every second; at
+        &minus;35.7&nbsp;&deg;C, by 1.909. Both are this course&rsquo;s arithmetic on committed
+        constants, not a Phase 9 result. Chapter 31&rsquo;s &ldquo;mass like time to the power
+        1.5&rdquo; is this same formula at long times.
+      </p>
+    </div>
+
     <p>
       The four rules were plain continuum theory (diffusion of vapour plus conduction of heat, as
       in Chapter 4); a project hybrid that adds a surface-attachment term and a near-surface vapour
@@ -185,6 +277,52 @@
       hybrid scored almost the same as plain theory and does not enter the verdict; the record keeps
       it anyway, because a reported diagnostic and a verdict are different things.
     </p>
+
+    <figure class="anim is-wide" id="c32-sphere" data-histories="6" data-rule="dm-dt-4-pi-r-sigma-K" data-integrator="rk4-one-second">
+      <div class="anim__head">
+        <p class="anim__title">Grow a sphere by hand</p>
+        <p class="anim__sub">Pick a crystal, step it forward a second at a time, and drag the multiplier until the arrow is as short as you can make it. Guess before you reveal.</p>
+      </div>
+      <div class="anim__body"><div class="p2-stage" aria-live="polite"></div></div>
+      <div class="anim__controls"></div>
+      <figcaption class="anim__foot"><span class="built-from">
+        Original interactive. It re-implements the committed sphere-growth arithmetic of
+        <code>runner/src/phase9-dbt-model.ts</code> &mdash; the same constants, the same
+        two-resistance transfer coefficient, the same Lamb and hybrid forms, the same fourth-order
+        Runge&ndash;Kutta step on the integer-second grid &mdash; with the six recorded conditions and
+        pins from
+        <code>evidence/phase9-dbt-six-history-development-v3/launch-manifest.json</code>. The
+        measured mass curves are private and are <strong>never drawn</strong>. The single dashed line
+        marked &ldquo;where it really ended&rdquo; is <em>derived</em>: each rule&rsquo;s predicted
+        end minus its committed <em>end residual</em> &mdash; predicted minus measured at the last
+        scored second &mdash; from <code>scores.jsonl</code>. All four rules land on
+        the same value to about one part in a million, which is the check that this page does the
+        arithmetic the project did. &ldquo;Close the heat door&rdquo; is a <strong>course
+        ablation</strong> of the committed formula, not a Phase 9 run. The figure shows the shape of
+        the disagreement; it cannot recompute the score, explain why the crystals grew slowly, or
+        promote any rule.
+      </span></figcaption>
+    </figure>
+
+    <aside class="callout callout--myth">
+      <p class="callout__label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.3v.2"/>
+        </svg>
+        Careful
+      </p>
+      <p>
+        Leaving one crystal out and fitting on the other five is a real safeguard, and it is
+        <strong>not</strong> the held-out validation of Chapter 17. Every one of these six histories
+        is Phase 8 development evidence: the project had already seen them all when it designed this
+        test. Statisticians call what happened here <em>cross-fitting</em> &mdash; rotating which
+        part of your own data you grade against. The Phase 9 guide says so in as many words, and adds
+        a warning about its own file names: identifiers beginning with &ldquo;heldout&rdquo; mean only
+        an omitted fold and &ldquo;grant no held-out evidence status&rdquo;. Notice too that the
+        recorded fit does not close the arrow, and could not: it was chosen to fit five other
+        crystals over their whole curves, not this one at its last second.
+      </p>
+    </aside>
 
     <figure class="anim is-wide" id="c32-multipliers" data-folds="6" data-multiplier-min="0.469" data-multiplier-max="0.497">
       <div class="anim__head">
@@ -200,7 +338,10 @@
         one an interior solution (the fitted constant never ran into the edge of its allowed range).
         The unrescaled continuum overpredicted mass at every sampled second after time zero in every
         history, 2,544 of 2,550 samples; the other six are the time-zero anchors, whose error is zero
-        by construction.
+        by construction. It shows how tightly the six fitted constants cluster; it cannot say what
+        the factor of two <em>is</em>. The record lists candidates it could be absorbing &mdash; the
+        levitation electric field, the apparatus, the crystals&rsquo; shape &mdash; and tested none
+        of them.
       </span></figcaption>
     </figure>
 
@@ -226,7 +367,40 @@
       first, then average the six crystals with equal weight, so that a 500-sample history does not
       outvote a 312-sample one. Smaller is better; a perfect prediction scores zero. The square root
       of a score is the typical miss: about 9 starting masses for plain theory, about 21 for the
-      Lamb rule, under 1 for the baseline. Here is what came back for the family of six histories.
+      Lamb rule, under 1 for the baseline. Here is that sentence as arithmetic.
+    </p>
+
+    <div class="equation">
+      <p class="equation__math">
+        MSE<sub>crystal</sub> =
+        (1/<em>N</em>) &Sigma; (<em>p</em><sub>i</sub> &minus; <em>o</em><sub>i</sub>)<sup>2</sup>
+        &nbsp;&nbsp;&nbsp;
+        MSE<sub>family</sub> = (1/6) &Sigma; MSE<sub>crystal</sub>
+      </p>
+      <div class="equation__where">
+        <strong>where</strong>
+        <dl>
+          <dt><em>p</em><sub>i</sub></dt><dd>the mass ratio the rule predicts at the <em>i</em>-th sampled second</dd>
+          <dt><em>o</em><sub>i</sub></dt><dd>the mass ratio the laboratory measured at that same second</dd>
+          <dt><em>p</em><sub>i</sub> &minus; <em>o</em><sub>i</sub></dt><dd>the <strong>residual</strong>: predicted minus measured. Positive means the rule overshot. (This is not Chapter 22&rsquo;s residual, which measures how far a solver&rsquo;s inner loop is from settling.)</dd>
+          <dt><em>N</em></dt><dd>how many seconds that crystal was scored over: 500, 500, 450, 464, 324 and 312 for the six, 2,550 in all</dd>
+          <dt>&Sigma;</dt><dd>&ldquo;add up all of them&rdquo;</dd>
+        </dl>
+      </div>
+      <p class="equation__cite">
+        Squaring does two jobs at once: it makes a miss in either direction count the same, and it
+        makes one big miss cost more than several small ones. Averaging inside each crystal
+        <em>first</em> is the step that stops the longest history from owning the answer &mdash; the
+        same choice Chapter 31 showed you can make four different ways.
+      </p>
+    </div>
+
+    <p>
+      A worked miniature, with invented numbers: suppose a rule&rsquo;s residuals over five seconds
+      are 0, +0.5, &minus;0.5, +0.5 and +1. Square them (0, 0.25, 0.25, 0.25, 1), average
+      (0.35), and the typical miss is the square root, 0.59. Now replace that last +1 with +3 and the
+      score jumps to 1.95, nearly six times worse, for one bad second out of five. Here is what came
+      back for the real family of six histories.
     </p>
 
     <div class="table-wrap">
@@ -255,18 +429,24 @@
       answer. Pre-registration only binds when someone else can check the order.
     </p>
 
-    <figure class="anim is-wide" id="c32-baseline" data-continuum-mse="87.4527" data-proposal-mse="431.3416" data-baseline-mse="0.6578183" data-wins="0-of-6">
+    <figure class="anim is-wide" id="c32-contests" data-continuum-mse="87.45272" data-proposal-mse="431.3416" data-baseline-mse="0.6578183" data-wins="0-of-6">
       <div class="anim__head">
-        <p class="anim__title">Put the three errors on one ruler</p>
-        <p class="anim__sub">Switch between the full scale and a close view. The proposal runs off the close view entirely.</p>
+        <p class="anim__title">Build the score, then try to change the verdict</p>
+        <p class="anim__sub">Six crystals, six contests. Guess first, then move the winning threshold and the weighting and see whether you can rescue the proposal.</p>
       </div>
-      <div class="anim__body"><div class="c32-stage" aria-live="polite"></div></div>
+      <div class="anim__body"><div class="p2-stage" aria-live="polite"></div></div>
       <div class="anim__controls"></div>
       <figcaption class="anim__foot"><span class="built-from">
-        Recorded Phase 9 result: continuum 87.4527, Lamb proposal 431.3416, leave-one-history-out
-        rescale 0.6578183; proposal strict wins (cases where its error was strictly lower) 0 of 6
-        against a required 4. This is a development result specific to the registered mapping and
-        operands.
+        Original interactive. All 24 per-crystal errors are the
+        <code>central.&lt;rule&gt;.mse</code> values of
+        <code>evidence/phase9-dbt-six-history-development-v3/scores.jsonl</code>; the family numbers
+        are recomputed on this page from those six and the sample counts, and reproduce
+        <code>report.json</code>&rsquo;s <code>comparatorFamilyMse</code> to six significant digits.
+        The seventh can differ, because the per-crystal values are themselves committed pre-rounded
+        to seven. The threshold slider and the pooling toggle are what-ifs, not recorded runs: the
+        registered rule was four strict wins with ties counting as losses, and the recorded label is
+        <em>central-no-effect-or-failure</em>. This is a development result specific to the registered
+        mapping and operands; it does not referee the literature.
       </span></figcaption>
     </figure>
 
@@ -314,12 +494,15 @@
       <div class="anim__body"><div class="c32-stage" aria-live="polite"></div></div>
       <div class="anim__controls"></div>
       <figcaption class="anim__foot"><span class="built-from">
-        Recorded Phase 9 result
-        (<code>evidence/phase9-mf-mk2-planar-diagnostic-v1/mapping-decisions.jsonl</code>) on the
-        two matched prism series (&minus;7 and &minus;15&nbsp;&deg;C):
+        Recorded Phase 9 result on the two matched prism series (&minus;7 and &minus;15&nbsp;&deg;C):
         mean squared error in (µm/s)² for the inherited broad-facet law and the two-branch law at
-        each mapping, against a zero-growth control scoring 0.4508. The two-branch law meets the
-        registered effect at two of five mappings.
+        each mapping, from
+        <code>evidence/phase9-mf-mk2-planar-diagnostic-v1/mapping-decisions.jsonl</code>. The
+        zero-growth control of 0.4508 is not in that file: it is the equal-weight mean of the two
+        matched prism zero-growth rows in the same bundle&rsquo;s <code>series-scores.jsonl</code>
+        (0.361853 and 0.539723). <code>mapping-decisions.jsonl</code> carries a different control,
+        0.40288, over all six series. The two-branch law meets the registered effect at two of five
+        mappings.
       </span></figcaption>
     </figure>
 
@@ -346,9 +529,12 @@
         The family errors are the <code>comparatorFamilyMse</code> values in
         <code>evidence/phase9-dbt-six-history-development-v3/report.json</code>; the six multipliers
         and the residual sign counts are in that record&rsquo;s <code>scores.jsonl</code>. The ten
-        mapping errors and the zero-growth control are the matched-prism and six-series values in
-        <code>evidence/phase9-mf-mk2-planar-diagnostic-v1/mapping-decisions.jsonl</code>. To
-        reproduce &ldquo;five and a half times worse&rdquo;, divide 0.381919 by 0.069841. The two
+        mapping errors are the matched-prism values in
+        <code>evidence/phase9-mf-mk2-planar-diagnostic-v1/mapping-decisions.jsonl</code>; that file
+        also holds a six-series zero-growth control of 0.40288. The 0.4508 control used above is a
+        different number and comes from a different file: it is the equal-weight mean of the two
+        matched prism zero-growth rows in <code>series-scores.jsonl</code>, 0.361853 and 0.539723.
+        To reproduce &ldquo;five and a half times worse&rdquo;, divide 0.381919 by 0.069841. The two
         durations in this chapter come from commit timestamps in the repository history, not from
         any record.
       </p>
@@ -366,6 +552,25 @@
         through a modelling choice the source did not make stays a diagnostic. Whenever software
         transforms evidence, ask which of the two just happened.
       </p>
+    </aside>
+
+    <aside class="callout callout--method">
+      <p class="callout__label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+        </svg>
+        Who checked this chapter
+      </p>
+      <p>      The scores, multipliers and residuals on this page are the committed contents of
+      <code>evidence/phase9-dbt-six-history-development-v3/</code> and
+      <code>evidence/phase9-mf-mk2-planar-diagnostic-v1/</code>; the growth rule is
+      <code>runner/src/phase9-dbt-model.ts</code>, which the sphere demo re-implements rather than
+      quotes. Two independent re-implementations &mdash; one during the 2026-09-14 audit, one while
+      building this page &mdash; reproduce the committed end residuals for all six crystals to about
+      one part in a million, which is the check that the demo is doing the project&rsquo;s
+      arithmetic. The same audit found and this chapter has corrected two real errors: the scoring
+      domain stopped at 499 seconds rather than running to the end of every record, and the 0.4508
+      zero-growth control was cited to the wrong file.</p>
     </aside>
 
     <h2 id="ledger">Reading the ledger</h2>
@@ -402,9 +607,10 @@
       from adding attractive complexity whose advertised improvement had not survived its first fair
       test, and it recorded a factor-of-two gap between six levitated crystals and a sphere
       calculation that nobody has yet explained. But the record is also honest about what the phase
-      did not do, and the list is long. <strong>Only three of the fifteen ideas were ever set against
+      did not do, and the list is long. <strong>Only three of the fifteen ideas were ever put on trial against
       laboratory numbers</strong>: the inherited broad-facet law, the two-branch prism law and the
-      Lamb rule. The other twelve got no further than source intake, categorical constraints,
+      Lamb rule. (A fourth, coupled vapour-and-heat transport, did meet the six measured curves
+      &mdash; but as the <em>rival</em> the Lamb rule had to beat, not as a proposal under test.) The other twelve got no further than source intake, categorical constraints,
       manufactured arithmetic checks or an explicit refusal, and the record counts a refusal as a
       result, not as nothing. Ventilation, the width-dependent attachment that motivated the whole M1
       story, step-source location, pressure-dependent kinetics, the forcing-path and memory ideas:
@@ -509,18 +715,6 @@
     select(names[0]); return select;
   }
 
-  /* --- funnel --- */
-  (function(){
-    var root=document.getElementById("c32-funnel"); if(!root) return; var b=box(root);
-    function draw(name){
-      var pass=name==="Discriminator passes"; clear(b.stage); var f=el("div","c32-funnel");
-      var steps=[["1. State the proposal","What improvement is actually promised, in a quantity the library holds?"],["2. Match operands","Same observable, apparatus and history, or a declared gap."],["3. Run the cheapest honest discriminator",pass?"Pass: more work is permitted, nothing is proven.":"No-pass: stop before anything is built into the solver."],["4. Build, ablate, and re-test",pass?"Still future work; still no credit.":"Not entered."]];
-      steps.forEach(function(s,i){var d=el("div","c32-step"); d.style.width=(100-i*8)+"%"; if(!pass&&i===3)d.style.opacity=".4"; d.appendChild(el("strong",null,s[0])); d.appendChild(el("span",null,s[1])); f.appendChild(d);});
-      b.stage.appendChild(f);
-    }
-    modes(b.controls,["Discriminator fails","Discriminator passes"],draw);
-  })();
-
   /* --- multipliers --- */
   (function(){
     var root=document.getElementById("c32-multipliers"); if(!root) return; var b=box(root);
@@ -537,19 +731,6 @@
     modes(b.controls,["Against textbook rate","As a percentage"],draw);
   })();
 
-  /* --- three errors on one ruler --- */
-  (function(){
-    var root=document.getElementById("c32-baseline"); if(!root) return; var b=box(root);
-    var rows=[["plain continuum",87.4527,false],["Lamb proposal",431.3416,false],["rescaled baseline",0.6578183,true]];
-    function draw(mode){
-      clear(b.stage); var close=mode==="Close view"; var max=close?5:431.3416; var bars=el("div","c32-bars");
-      rows.forEach(function(x){var row=el("div","c32-row"); row.appendChild(el("strong",null,x[0])); var tr=el("div","c32-track"),fi=el("div","c32-fill"+(x[2]?" is-muted":"")); fi.style.width=Math.max(0.6,Math.min(100,x[1]/max*100))+"%"; tr.appendChild(fi); row.appendChild(tr); row.appendChild(el("span",null,x[1].toFixed(2))); bars.appendChild(row);});
-      bars.appendChild(el("p","c32-note",close?"Close view, 0 to 5: the baseline is visible at last; both theories run off the right-hand edge.":"Full scale, 0 to 431: the baseline is so small it almost disappears, and the proposal is worse than the plain theory it was meant to improve."));
-      b.stage.appendChild(bars);
-    }
-    modes(b.controls,["Full scale","Close view"],draw);
-  })();
-
   /* --- mapping: five q values --- */
   (function(){
     var root=document.getElementById("c32-mapping"); if(!root) return; var b=box(root);
@@ -562,7 +743,10 @@
       [["inherited law",mf,false],["two-branch law",mk,false],["zero-growth control",zero,true]].forEach(function(x){var row=el("div","c32-row"); row.appendChild(el("strong",null,x[0])); var tr=el("div","c32-track"),fi=el("div","c32-fill"+(x[2]?" is-muted":"")); fi.style.width=(x[1]/max*100)+"%"; tr.appendChild(fi); row.appendChild(tr); row.appendChild(el("span",null,x[1].toFixed(3))); bars.appendChild(row);});
       card.appendChild(bars);
       card.appendChild(el("div","c32-answer",bothWorse?"Both worse than predicting no growth":"Lower error: "+winner));
-      card.appendChild(el("p","c32-note",bothWorse?"When both laws lose to a flat line, the mapping is doing the damage, not the physics. The record says only that the unresolved mapping dominates the reading here.":"Mean squared error in (µm/s)², two matched prism series at −7 and −15 °C. Change the mapping and the winner can change; that is why this stayed a diagnostic."));
+      var margin=Math.abs(mk-mf)/Math.max(mk,mf)*100;
+      var beatsZero=Math.max(0,(zero-Math.min(mf,mk))/zero*100);
+      card.appendChild(el("p","c32-note",bothWorse?"When both laws lose to a flat line, the mapping is doing the damage, not the physics. The record says only that the unresolved mapping dominates the reading here.":"Margin between the two laws: "+margin.toFixed(1)+" %. The winner beats the zero-growth control by "+beatsZero.toFixed(1)+" %. A win where both contenders are nearly as bad as “nothing grows” is not a win about physics."));
+      card.appendChild(el("p","c32-note","Every number on this figure is a mean squared error in (µm/s)², the units of a face speed squared. They cannot be compared with the mass-ratio errors earlier in this chapter: 0.07 here and 87 there are measurements of different things."));
       b.stage.appendChild(card);
     }
     modes(b.controls,Object.keys(q),draw);
@@ -577,5 +761,498 @@
   })();
 })();
 </script>
+<script src="../assets/anim-part2-evidence.js"></script>
+<script>
+/* ===========================================================================
+   Chapter 32 — grow a sphere by hand.
+
+   This block re-implements the committed sphere-growth arithmetic of
+   runner/src/phase9-dbt-model.ts: the constants of PHASE9_DBT_CONSTANTS, the
+   saturation-pressure, diffusivity and conductivity forms, the two-resistance
+   transfer coefficient, the Lamb surrogate, the project hybrid, and a
+   fourth-order Runge-Kutta step on the integer-second grid. Conditions and pins
+   come from evidence/phase9-dbt-six-history-development-v3/launch-manifest.json;
+   end residuals and fitted multipliers from the same bundle's scores.jsonl.
+
+   The measured mass curves are private and are never drawn. The single observed
+   end point per history is DERIVED: predicted end minus the committed end
+   residual. All four comparators agree on it to about one part in a million,
+   which is the arithmetic check that this port reproduces the producer's.
+   ======================================================================== */
+(function(){
+  "use strict";
+  var root=document.getElementById("c32-sphere"); if(!root) return;
+  var stage=root.querySelector(".p2-stage"), controls=root.querySelector(".anim__controls");
+
+  var K={celsiusZeroK:273.15,standardPressurePa:101325,rhoIceKgM3:910,
+    gasConstantJMolK:8.3144521,waterMolarMassKgMol:18e-3,
+    waterVaporGasConstantJKgK:461.51,dryAirGasConstantJKgK:287.05,
+    dryAirSpecificHeatJKgK:1005,latentHeatSublimationJKg:2.837e6,
+    joulesPerCalorie:4.187,vaporDiffusivityReferenceM2S:2.11e-5,
+    vaporJumpDistanceM:1.3*8e-8,thermalJumpDistanceM:2.16e-7,
+    thermalAccommodationCoefficient:1,
+    lambExponent:1.3153063,lambMassScaleCoefficient:2.6606467,
+    lambDenominatorScale:1.1682062,lambAdditiveScaled:0.1123054};
+
+  function eIce(T){return Math.exp(9.550426-5723.265/T+3.53068*Math.log(T)-0.00728332*T);}
+  function diffusivity(T,P){return K.vaporDiffusivityReferenceM2S*Math.pow(T/K.celsiusZeroK,1.94)*(K.standardPressurePa/P);}
+  function kAir(T){return (5.69+0.017*(T-K.celsiusZeroK))*1e-3*K.joulesPerCalorie;}
+  function resistances(T,D,kc){
+    var Rv=(K.gasConstantJMolK*T)/(eIce(T)*D*K.waterMolarMassKgMol);
+    var Rt=(K.latentHeatSublimationJKg/(kc*T))*((K.latentHeatSublimationJKg*K.waterMolarMassKgMol)/(K.gasConstantJMolK*T)-1);
+    return {Rv:Rv,Rt:Rt,G:1/(Rv+Rt)};
+  }
+  function radiusUm(m){return Math.pow((3*m)/(4*Math.PI*K.rhoIceKgM3),1/3)*1e6;}
+  function sphereMass(rUm){return (4/3)*Math.PI*K.rhoIceKgM3*Math.pow(rUm*1e-6,3);}
+  function continuumG(c,noHeat){
+    var r=resistances(c.T,diffusivity(c.T,c.P),kAir(c.T));
+    /* "close the heat door" is a course ablation of the committed formula, not
+       a Phase 9 run: it drops R_heat and keeps everything else. */
+    return noHeat?1/r.Rv:r.G;
+  }
+  function lambG(m,Gc){
+    var sm=m*1e12, sc=Gc*1e9;
+    return 1e-9*(Math.pow(sc,K.lambExponent)/(1/K.lambDenominatorScale+K.lambMassScaleCoefficient/sm)+K.lambAdditiveScaled);
+  }
+  function hybridG(m,c){
+    var critical=9.6066e-5*Math.pow(Math.abs(c.T-273.15),1.9171);
+    var ratio=c.sigma/critical, coeff=ratio*Math.tanh(1/ratio);
+    if(coeff===0) return 0;
+    var rM=radiusUm(m)*1e-6, D=diffusivity(c.T,c.P);
+    var vSpeed=Math.sqrt((8*K.waterVaporGasConstantJKgK*c.T)/Math.PI);
+    var Dm=D/(rM/(rM+K.vaporJumpDistanceM)+(4*D)/(rM*coeff*vSpeed));
+    var kc=kAir(c.T), rhoAir=c.P/(K.dryAirGasConstantJKgK*c.T);
+    var aSpeed=Math.sqrt((8*K.dryAirGasConstantJKgK*c.T)/Math.PI);
+    var km=kc/(rM/(rM+K.thermalJumpDistanceM)+(4*kc)/(rM*K.thermalAccommodationCoefficient*K.dryAirSpecificHeatJKgK*rhoAir*aSpeed));
+    return resistances(c.T,Dm,km).G;
+  }
+  function deriv(m,c,rule,mult,noHeat){
+    var rM=radiusUm(m)*1e-6, Gc=continuumG(c,noHeat), G;
+    if(rule==="continuum") G=Gc;
+    else if(rule==="rescale") G=mult*Gc;
+    else if(rule==="lamb") G=lambG(m,Gc);
+    else G=hybridG(m,c);
+    return 4*Math.PI*rM*c.sigma*G;
+  }
+  function integrate(c,n,rule,mult,noHeat){
+    var m=sphereMass(c.r0), m0=m, out=[1], i,k1,k2,k3,k4;
+    for(i=1;i<n;i++){
+      k1=deriv(m,c,rule,mult,noHeat);
+      k2=deriv(m+k1/2,c,rule,mult,noHeat);
+      k3=deriv(m+k2/2,c,rule,mult,noHeat);
+      k4=deriv(m+k3,c,rule,mult,noHeat);
+      m+=(k1+2*k2+2*k3+k4)/6;
+      out.push(m/m0);
+    }
+    return out;
+  }
+
+  /* launch-manifest.json primaryRoster + scores.jsonl */
+  var HIST=[
+    {id:"725c",T:-33.8+273.15,P:97055,sigma:0.17,r0:8.9,n:500,fit:0.4968669,
+     res:{continuum:20.69128,lamb:48.7593,rescale:2.571958,hybrid:20.62479}},
+    {id:"725e",T:-33.8+273.15,P:97055,sigma:0.17,r0:9.86,n:500,fit:0.48439,
+     res:{continuum:14.2153,lamb:35.95415,rescale:0.4045103,hybrid:14.16756}},
+    {id:"805a",T:-35.7+273.15,P:97020,sigma:0.286,r0:10.3,n:450,fit:0.4694289,
+     res:{continuum:13.8619,lamb:36.85465,rescale:-2.999605,hybrid:13.81988}},
+    {id:"805b",T:-35.7+273.15,P:97020,sigma:0.286,r0:9.2,n:464,fit:0.4754805,
+     res:{continuum:22.70072,lamb:55.06136,rescale:-1.430732,hybrid:22.63814}},
+    {id:"805h",T:-35.7+273.15,P:97020,sigma:0.286,r0:8.2,n:324,fit:0.4850538,
+     res:{continuum:19.97093,lamb:42.37651,rescale:0.2585091,hybrid:19.90984}},
+    {id:"805l",T:-35.7+273.15,P:97020,sigma:0.286,r0:8.9,n:312,fit:0.4798705,
+     res:{continuum:14.14151,lamb:31.50002,rescale:-0.7601176,hybrid:14.09657}}
+  ];
+
+  var pick=HIST[0], mult=1.0, showLamb=false, showHybrid=false, noHeat=false;
+  var cursor=null, revealed=false;
+  var slider;
+
+  var endCache={}, closeCache={};
+  function derivedEnd(h){
+    /* predicted end minus the committed end residual — identical from all four
+       comparators, which is how this port is checked against the producer.
+       Cached: it does not depend on the multiplier, so a drag must not re-run it. */
+    if(endCache[h.id]===undefined){
+      endCache[h.id]=integrate(h,h.n,"continuum",1,false)[h.n-1]-h.res.continuum;
+    }
+    return endCache[h.id];
+  }
+
+  function draw(){
+    Part2.clear(stage);
+    var c=Viz.colors(), h=pick, n=h.n;
+    var obs=derivedEnd(h);
+
+    var series={};
+    series.continuum=integrate(h,n,"continuum",1,noHeat);
+    series.rescale=integrate(h,n,"rescale",mult,noHeat);
+    if(showLamb) series.lamb=integrate(h,n,"lamb",1,noHeat);
+    if(showHybrid) series.hybrid=integrate(h,n,"hybrid",1,noHeat);
+
+    var top=Math.max(series.continuum[n-1],series.rescale[n-1],obs,
+      showLamb?series.lamb[n-1]:0, showHybrid?series.hybrid[n-1]:0)*1.08;
+
+    var W=760,H=420,padL=72,padR=150,padT=20,padB=52;
+    var svg=Viz.createSvg(stage,W,H,{
+      label:"Predicted mass ratio against time for levitation history "+h.id
+        +(noHeat?", with the heat term ablated by this course":""),
+      desc:(noHeat
+        ?"Curves are integrated live from the committed constants with the heat resistance removed, which is this course's ablation and not a Phase 9 run"
+        :"Curves are integrated live from the committed constants")
+        +"; the arrows are the recorded end residuals."
+    });
+    var x=Viz.scaleLinear([0,n-1],[padL,W-padR]);
+    var y=Viz.scaleLinear([0,top],[H-padB,padT]);
+    Viz.axisBottom(svg,x,{y:H-padB,ticks:6,title:"seconds since the record started"});
+    Viz.axisLeft(svg,y,{x:padL,ticks:6,title:"mass ÷ starting mass",titleOffset:50,grid:true,gridTo:W-padR});
+
+    function curve(key,colour,label,dashed,labelDy){
+      var pts=series[key].map(function(v,i){return [i,v];});
+      /* end labels are staggered so overlapping curves (multiplier exactly 1)
+         do not print their names on top of each other */
+      Viz.series(svg,pts,x,y,{color:colour,label:label,dashed:dashed,labelDx:6,labelDy:labelDy,width:2});
+      /* the recorded end-residual arrow: from this curve's end down to the one
+         derived observed point */
+      var ex=x(n-1), ey=y(series[key][n-1]), oy=y(obs);
+      svg.appendChild(Viz.svgEl("line",{x1:ex,x2:ex,y1:ey,y2:oy,stroke:colour,
+        "stroke-width":1.5,"stroke-dasharray":"3 3"}));
+      svg.appendChild(Viz.svgEl("path",{d:"M"+(ex-4)+" "+(oy-6)+" L"+ex+" "+oy+" L"+(ex+4)+" "+(oy-6),
+        fill:"none",stroke:colour,"stroke-width":1.5}));
+    }
+    var same=Math.abs(mult-1)<5e-4;
+    var heatTag=noHeat?", HEAT DOOR CLOSED":"";
+    curve("continuum",c.series[0],(same?"plain theory (× 1.000)":"plain theory")+heatTag,true,4);
+    if(!same) curve("rescale",c.series[2],"your multiplier, × "+mult.toFixed(3),false,20);
+    if(showLamb) curve("lamb",c.series[1],"Lamb rule",false,-12);
+    if(showHybrid) curve("hybrid",c.muted,"project hybrid",false,36);
+
+    svg.appendChild(Viz.svgEl("line",{x1:padL,x2:W-padR,y1:y(obs),y2:y(obs),
+      stroke:c.critical,"stroke-width":1.5,"stroke-dasharray":"6 4"}));
+    var ot=Viz.svgEl("text",{class:"series-label",x:W-padR+6,y:y(obs)+4,fill:c.critical});
+    ot.textContent="where it really ended: "+obs.toFixed(1);
+    svg.appendChild(ot);
+
+    if(cursor!==null){
+      var ci=Math.min(cursor,n-1);
+      svg.appendChild(Viz.svgEl("line",{x1:x(ci),x2:x(ci),y1:padT,y2:H-padB,
+        stroke:c.ruleStrong,"stroke-width":1}));
+      svg.appendChild(Viz.svgEl("circle",{cx:x(ci),cy:y(series.rescale[ci]),r:5,fill:c.series[2]}));
+    }
+
+    /* readout */
+    var card=Part2.el("div","p2-card");
+    var ci2=cursor===null?0:Math.min(cursor,n-1);
+    var m0=sphereMass(h.r0), mNow=m0*series.rescale[ci2];
+    var dm=deriv(mNow,h,"rescale",mult,noHeat);
+    card.appendChild(Part2.el("span","p2-kicker",
+      cursor===null?"at time zero · press “step one second” to walk forward":"second "+ci2+" of "+(n-1)));
+    var dl=Part2.el("dl","p2-fields");
+    [["radius now",radiusUm(mNow).toFixed(2)+" µm"],
+     ["mass now",(mNow*1e12).toFixed(3)+" ng"],
+     ["arriving this second",(dm*1e12).toFixed(4)+" ng ("+((dm/mNow)*100).toFixed(2)+" % of itself)"],
+     ["mass ÷ starting mass",series.rescale[ci2].toFixed(3)]].forEach(function(f){
+      dl.appendChild(Part2.el("dt",null,f[0]));
+      dl.appendChild(Part2.el("dd",null,f[1]));
+    });
+    card.appendChild(dl);
+    stage.appendChild(card);
+
+    var note=Part2.el("div","p2-card"+(noHeat?" is-refused":""));
+    note.appendChild(Part2.el("span","p2-kicker",
+      noHeat?"COURSE ABLATION IN FORCE — not the committed formula":"the arrow you are trying to close"));
+    if(noHeat){
+      note.appendChild(Part2.el("p","p2-note",
+        "The plain-theory, multiplier and Lamb curves above are being drawn with the heat "
+        +"resistance removed; the project hybrid builds its own heat path and is left alone. That is this "
+        +"course's ablation of the committed rule, not a Phase 9 run: the project never scored a "
+        +"heat-free variant. Removing the heat door makes the prediction FASTER by about 7 %, which "
+        +"is the point — a door worth 5 % of the resistance cannot be the missing factor of two. "
+        +"Press “back to the recorded state” to restore the committed formula."));
+    }
+    note.appendChild(Part2.el("p","p2-note",
+      "Your multiplier ends at "+series.rescale[n-1].toFixed(3)+" starting masses. The crystal "
+      +"really ended at "+obs.toFixed(3)+". The gap is "+(series.rescale[n-1]-obs).toFixed(3)
+      +" — that gap is what the record calls the end residual: predicted minus measured."));
+    note.appendChild(Part2.el("p","p2-note",
+      "That end point is derived, not measured on this page: it is the predicted end minus the end "
+      +"residual the record stores. All four rules give the same number to about one part in a "
+      +"million, which is how you can tell this page is doing the same arithmetic the project did. "
+      +"The measured curve itself is private and is never drawn."));
+    if(revealed){
+      var closing=closingMultiplier(h,obs);
+      note.appendChild(Part2.el("p","p2-note",
+        "Recorded fit for "+h.id+": × "+h.fit.toFixed(7)+" (the slider below moves in steps of "
+        +"0.001, so it shows the nearest value it can reach; the curve uses the exact one). "
+        +"The multiplier that would actually close "
+        +"the arrow is × "+closing.toFixed(4)+". They are close but not equal, and the difference is "
+        +"the whole point of leave-one-out: that constant was fitted on the OTHER five crystals, over "
+        +"their whole curves, and never on this one's end point."));
+    }
+    stage.appendChild(note);
+  }
+
+  function closingMultiplier(h,obs){
+    var key=h.id+"|"+noHeat;
+    if(closeCache[key]!==undefined) return closeCache[key];
+    var lo=0,hi=2,i,mid;
+    for(i=0;i<40;i++){mid=(lo+hi)/2;
+      if(integrate(h,h.n,"rescale",mid,noHeat)[h.n-1]>obs) hi=mid; else lo=mid;}
+    closeCache[key]=(lo+hi)/2;
+    return closeCache[key];
+  }
+
+  var heatButton, lambButton, hybridButton;
+  function restore(){
+    mult=1; cursor=null; revealed=false;
+    showLamb=false; showHybrid=false; noHeat=false;
+    if(slider) slider.value=1;
+    [lambButton,hybridButton,heatButton].forEach(function(b){
+      if(b) b.setAttribute("aria-pressed","false");
+    });
+    draw();
+  }
+  Part2.tabs(controls,HIST.map(function(h){return h.id;}),function(id){
+    pick=HIST.filter(function(h){return h.id===id;})[0];
+    restore();
+  });
+  slider=Viz.slider(controls,{
+    label:"multiplier on plain theory", id:"c32-mult",
+    min:0,max:2,step:0.001,value:1,
+    format:function(v){return "× "+v.toFixed(3);},
+    onInput:function(v){mult=v;draw();}
+  });
+  Viz.button(controls,"Step one second",function(){
+    cursor=cursor===null?1:Math.min(cursor+1,pick.n-1); draw();
+  });
+  Viz.button(controls,"Run to the end",function(){cursor=pick.n-1;draw();});
+  lambButton=Viz.button(controls,"Lamb rule",function(b){
+    showLamb=!showLamb;b.setAttribute("aria-pressed",String(showLamb));draw();
+  },{pressed:false});
+  hybridButton=Viz.button(controls,"Project hybrid",function(b){
+    showHybrid=!showHybrid;b.setAttribute("aria-pressed",String(showHybrid));draw();
+  },{pressed:false});
+  heatButton=Viz.button(controls,"Close the heat door (course ablation)",function(b){
+    noHeat=!noHeat;b.setAttribute("aria-pressed",String(noHeat));draw();
+  },{pressed:false});
+  Viz.button(controls,"I have guessed; reveal the recorded fit",function(){
+    revealed=true;
+    /* the range input snaps to its 0.001 grid, so set it for display and then
+       restore the exact recorded multiplier for the curve */
+    slider.value=pick.fit;
+    mult=pick.fit;
+    draw();
+  });
+  Viz.button(controls,"Back to the recorded state",restore);
+  Viz.onThemeChange(draw);
+  draw();
+})();
+
+/* ===========================================================================
+   Chapter 32 — which test discriminates?
+   The registered discriminator is quoted verbatim from
+   evidence/phase9-knowledge-baseline-v1/hypotheses.jsonl, P9H-LAMB-BULK.
+   Candidates (a), (b), (c) and (e) are this course's own examples and say so.
+   ======================================================================== */
+(function(){
+  "use strict";
+  var root=document.getElementById("c32-discriminator"); if(!root) return;
+  var stage=root.querySelector(".p2-stage"), controls=root.querySelector(".anim__controls");
+
+  var TESTS=[
+    {name:"Does the formula give a positive number?",
+     invented:true,lamps:[false,false,true],
+     why:"Failing it would show the formula is broken, not that the idea is wrong — and every rival passes it too. A test both a true and a false rule pass tells you nothing."},
+    {name:"Does it fit the crystals it was trained on?",
+     invented:true,lamps:[false,false,true],
+     why:"A rule that had simply memorised its training set would sail through. Chapter 17's whole lesson: agreement with the data you were built from is not evidence."},
+    {name:"Does it beat plain continuum theory?",
+     invented:true,lamps:[true,true,true],
+     why:"This one does discriminate: the proposal literally claims to be “better represented … than by the continuum coefficient alone”, so losing to plain theory contradicts it. But plain theory has no fitted constant, which makes it the easier rival. The register chose a harder one."},
+    {name:"Does it beat one fitted constant, fitted on the other five crystals?",
+     registered:true,lamps:[true,true,true],
+     why:"The registered discriminator. The rival is the stupidest thing that could work — plain theory times one number — and it is fitted without ever seeing the crystal being graded. Losing to that is a real refutation of a rule whose whole selling point is knowing something plain theory does not."},
+    {name:"Does it predict the right shape?",
+     invented:true,lamps:[false,true,false],
+     why:"The operands do not match, so the question cannot be asked. The record refuses it by name: habit and morphology are “ineligible-unobserved”, because the levitation chamber weighed its crystals and never looked at them."}
+  ];
+  var LAMPS=["failing it would contradict the claim","a rival is present to lose to","the operands match"];
+
+  var marked={}, revealed=false;
+
+  function draw(){
+    Part2.clear(stage);
+    if(!revealed){
+      stage.appendChild(Part2.el("p","p2-note",
+        "Five candidate cheap tests for the Lamb rule. Mark the ones you think really discriminate "
+        +"— that is, the ones where failing would genuinely contradict the proposal — then reveal."));
+    }
+    TESTS.forEach(function(t,i){
+      var row=Part2.el("div","p2-check");
+      var head=Part2.el("div","p2-check__head");
+      head.appendChild(Part2.el("strong",null,t.name));
+      if(revealed){
+        var all=t.lamps.every(Boolean);
+        head.appendChild(Part2.lamp(all?"pass":"fail"));
+        if(marked[i]!==undefined||all){
+          head.appendChild(Part2.el("span","p2-note",
+            (!!marked[i]===all)?"you agreed":"you did not mark this one the same way"));
+        }
+      }
+      row.appendChild(head);
+      if(t.invented) row.appendChild(Part2.el("p","p2-check__plain","This course's own example, not a test the project ran."));
+      if(t.registered) row.appendChild(Part2.el("p","p2-check__plain","The test the project actually registered, before running anything."));
+      if(revealed){
+        var ck=Part2.el("div","p2-checklist");
+        t.lamps.forEach(function(ok,j){
+          var mark=Part2.el("span",ok?"is-ok":"is-no",ok?"✓":"✗");
+          ck.appendChild(mark);
+          ck.appendChild(Part2.el("span",null,LAMPS[j]));
+        });
+        row.appendChild(ck);
+        row.appendChild(Part2.el("p","p2-note",t.why));
+      } else {
+        var pick=Part2.el("div","p2-check__pick");
+        var b=Viz.button(pick,marked[i]?"marked as a real test":"mark as a real test",
+          function(){marked[i]=!marked[i];draw();},{pressed:!!marked[i]});
+        b.classList.add("p2-mini");
+        row.appendChild(pick);
+      }
+      stage.appendChild(row);
+    });
+    if(revealed){
+      var q=Part2.el("blockquote","callout");
+      var p=Part2.el("p",null,
+        "“… In each leave-one-history-out fold, estimate one global constant Gc rescale from the other "
+        +"five histories and evaluate it on the held-out history alongside continuum, Nelson-Baker "
+        +"and Lamb. Report hotter conditions and times after 500 s only as extrapolation; never pool "
+        +"points across histories.”");
+      q.appendChild(p);
+      q.appendChild(Part2.el("p","p2-note",
+        "evidence/phase9-knowledge-baseline-v1/hypotheses.jsonl, P9H-LAMB-BULK, "
+        +"cheapestDiscriminator — written before the run. Three of its phrases, in this chapter's "
+        +"words: a “fold” is one crystal left out; the “Gc rescale” is the single fitted multiplier "
+        +"this chapter calls the baseline; “Nelson-Baker” is the comparator this chapter calls the "
+        +"project hybrid. And one word needs care: “held-out” here means "
+        +"the fold that was left out of the fit, not Chapter 17's held-out validation. Every one of "
+        +"these six crystals is development evidence."));
+      stage.appendChild(q);
+      stage.appendChild(Part2.el("p","p2-note",
+        "And passing it would not have changed the solver. It would have permitted the next "
+        +"registered step — a promoted campaign with its own controls — and nothing more."));
+    }
+  }
+  var revealButton=Viz.button(controls,"Reveal which ones discriminate",function(b){
+    revealed=true;b.disabled=true;draw();
+  });
+  Viz.button(controls,"Start again",function(){
+    marked={};revealed=false;revealButton.disabled=false;draw();
+  });
+  draw();
+})();
+
+/* ===========================================================================
+   Chapter 32 — build the score, then try to change the verdict.
+   All 24 per-history values are scores.jsonl central.<comparator>.mse; the
+   family means are recomputed on the page from them and the sample counts, and
+   reproduce report.json result.comparatorFamilyMse to its committed 7 digits.
+   ======================================================================== */
+(function(){
+  "use strict";
+  var root=document.getElementById("c32-contests"); if(!root) return;
+  var stage=root.querySelector(".p2-stage"), controls=root.querySelector(".anim__controls");
+
+  var ROWS=[
+    {id:"725c",n:500,continuum:112.6729,lamb:560.4896,base:1.813391,hybrid:111.8892},
+    {id:"725e",n:500,continuum:54.56194,lamb:312.5816,base:0.08968615,hybrid:54.17054},
+    {id:"805a",n:450,continuum:54.73216,lamb:336.6506,base:1.627566,hybrid:54.38629},
+    {id:"805b",n:464,continuum:140.6284,lamb:731.2569,base:0.2598165,hybrid:139.8021},
+    {id:"805h",n:324,continuum:107.0114,lamb:413.0181,base:0.07984279,hybrid:106.3085},
+    {id:"805l",n:312,continuum:55.10954,lamb:234.0528,base:0.0766085,hybrid:54.73849}
+  ];
+  var required=4, pooled=false, guess=null, revealed=false;
+
+  function family(key){
+    if(!pooled) return ROWS.reduce(function(a,r){return a+r[key];},0)/ROWS.length;
+    var n=ROWS.reduce(function(a,r){return a+r.n;},0);
+    return ROWS.reduce(function(a,r){return a+r[key]*r.n;},0)/n;
+  }
+
+  function draw(){
+    Part2.clear(stage);
+    if(!revealed){
+      stage.appendChild(Part2.el("p","p2-note",
+        "Before the numbers: on how many of the six crystals do you think the Lamb rule beat the "
+        +"one-constant baseline outright?"));
+      var pickBox=Part2.el("div","p2-check__pick");
+      ["none","one to three","four to six"].forEach(function(g){
+        var b=Viz.button(pickBox,g,function(){guess=g;draw();},{pressed:guess===g});
+        b.classList.add("p2-mini");
+      });
+      stage.appendChild(pickBox);
+      return;
+    }
+
+    var wins=ROWS.filter(function(r){return r.lamb<r.base;}).length;
+    var guessed={"none":wins===0,"one to three":wins>=1&&wins<=3,"four to six":wins>=4};
+    var famL=family("lamb"), famB=family("base");
+    var survives=(famL<famB)&&(wins>=required);
+
+    var card=Part2.el("div","p2-card");
+    if(guess) card.appendChild(Part2.el("p","p2-note",
+      "You guessed “"+guess+"”. The answer is "+wins+" of 6, so you were "
+      +(guessed[guess]?"right":"wrong")+"."));
+    card.appendChild(Part2.el("span","p2-kicker",
+      "mean squared error per crystal, on a ruler where every step is ten times worse"));
+    var maxv=Math.max.apply(null,ROWS.map(function(r){return r.lamb;}));
+    Part2.barRows(card,ROWS.map(function(r){
+      return {label:r.id+" ("+r.n+" s)",value:Math.log10(r.lamb/0.05),
+        display:r.lamb.toFixed(1)+" vs "+r.base.toFixed(3),fail:r.lamb>r.base,
+        note:"Lamb "+r.lamb.toFixed(4)+" against the baseline's "+r.base.toFixed(6)
+          +" — the baseline wins by "+(r.lamb-r.base).toFixed(1)+"."};
+    }),{max:Math.log10(maxv/0.05)});
+    stage.appendChild(card);
+
+    var verdict=Part2.el("div","p2-verdict");
+    verdict.appendChild(Part2.el("span","p2-kicker","the registered rule, and what happens if you move it"));
+    verdict.appendChild(Part2.el("div","p2-verdict__num",
+      wins+" strict wins of 6 · needs "+required+" · "+(survives?"survives":"does not survive")));
+    verdict.appendChild(Part2.el("p","p2-note",
+      "Family error "+(pooled?"pooled over all 2,550 sampled seconds":"averaged with equal weight per crystal")
+      +": Lamb "+famL.toFixed(4)+" against the baseline's "+famB.toFixed(4)+"."
+      +(pooled?" Pooling lets the two 500-second histories carry more of the answer; the registered rule does not pool.":"")));
+    verdict.appendChild(Part2.el("p","p2-note",
+      "Drag the requirement all the way down to zero and the verdict still does not move, because "
+      +"the rule needs BOTH a lower family error and the wins — and the Lamb rule won nothing. The "
+      +"smallest margin among these six contests is 805l, where the baseline wins by 234; the "
+      +"smallest the record publishes anywhere is 140, on the same crystal with its starting radius "
+      +"at the top of its stated range."));
+    verdict.appendChild(Part2.el("p","p2-note",
+      "The threshold slider and the pooling toggle are what-ifs on this page. The registered rule "
+      +"was four strict wins with ties counting as losses, fixed before the run, and the recorded "
+      +"label is central-no-effect-or-failure."));
+    stage.appendChild(verdict);
+
+    var rep=Part2.el("div","p2-card");
+    rep.appendChild(Part2.el("span","p2-kicker","reported, not judged"));
+    rep.appendChild(Part2.el("p","p2-note",
+      "Plain continuum theory scores "+family("continuum").toFixed(4)+" and the project hybrid "
+      +family("hybrid").toFixed(4)+" on the same scale. Both are recorded and neither is part of the "
+      +"verdict; the contest was Lamb against the baseline. That the hybrid's extra surface term "
+      +"moves the score by under one percent is itself worth noticing."));
+    stage.appendChild(rep);
+  }
+
+  Viz.button(controls,"Reveal the six contests",function(b){revealed=true;b.disabled=true;draw();});
+  Viz.slider(controls,{label:"wins the rule must score",id:"c32-req",
+    min:0,max:6,step:1,value:4,
+    format:function(v){return v+" of 6";},
+    onInput:function(v){required=v;if(revealed)draw();}});
+  Part2.tabs(controls,["equal weight per crystal","pooled over all seconds"],function(n){
+    pooled=(n==="pooled over all seconds"); if(revealed)draw();
+  });
+  draw();
+})();
+</script>
+
 </body>
 </html>

@@ -571,6 +571,28 @@ detail.
   https://billatgameology.github.io/snowflake/. Exact `npm test` closure for the education plan is
   still pending an idle host; see the [education plan](plans/education-phase7-10-continuation.md).
   Full freeze history: [the history file](progress-history-phases-6-8-9.md).
+- **Chapters 30–33 now carry worked examples and recomputing demos (2026-09-15).** The maker asked on
+  2026-09-09 why Chapters 30–33 look light on examples beside Chapters 1–5. A two-pass multi-agent
+  audit measured it — all twenty "interactives" were tab strips, with no slider, no SVG, no canvas
+  and nothing recomputed from reader input, and zero equation blocks — and produced 77 ranked
+  proposals, published 2026-09-14. Its [continuation plan](plans/education-ch30-33-demos.md) is
+  implemented in branch `docs/education-ch30-33-demos` off `docs/education-phase10`: nine confirmed
+  errata corrected, the three misleading figures replaced or rebuilt (`c31-blender`'s literal
+  "73 / 100", `c31-matcher`'s uncommitted mirror-plane case, `c33-error-sources`'s mismatched bar
+  widths), five equation blocks with *where* lists added, the ch30 three-arm and ch33 knob tables
+  added, eight glossary headwords added, and twelve new interactives built on one shared component
+  module — among them a live Runge–Kutta integration of the committed sphere-growth rule against the
+  six recorded D-BT conditions, the thirteen gate6 and seven gate10 criteria as sabotage boards, and
+  all 64 C0 ladder comparisons as a dot strip with a what-if tolerance line. Two independent
+  multi-agent passes re-derived every load-bearing number from the committed records and
+  adversarially reviewed the result; every confirmed finding was fixed. Checks on the final bytes:
+  the public education verifier passes (37 pages, 205 visual roots, 191 checks, 222 profile loads,
+  149 negative controls, zero failures), the offline build exits 0, screenshots pass 16/16 profiles,
+  `npm run lint:rule7` is clean across 1,518 files, `node --check` passes on every changed script,
+  and `git diff --check` is clean. Exact `npm test` was **not** run: an unrelated 18-process
+  discovery campaign held the host, and this work touches only `docs/education/`, its plan and this
+  index. No evidence artifact, phase gate, solver or validation label changed; Phase 6 stays
+  measured-only, Phase 7 stays not started, and Phases 8–10 stay development or refusal.
 
 ## Phase gates
 

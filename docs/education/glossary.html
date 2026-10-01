@@ -1272,6 +1272,11 @@
               <td><a href="./chapters/25-testing-what-nobody-knows.html">25 &middot; Testing What Nobody Knows</a></td>
             </tr>
             <tr>
+              <td><strong>fail-closed</strong></td>
+              <td>The opposite arrangement, and the one this project builds for: when a program cannot confirm that a condition holds, it stops and publishes nothing rather than carrying on with a guess. Phase 10&rsquo;s execution harness fail-stopped ten times in one day; every stop was a defect in the harness, and every stop was also the design working as intended.</td>
+              <td><a href="./chapters/33-a-green-gate-that-says-no.html">33 &middot; A Green Gate That Says No</a></td>
+            </tr>
+            <tr>
               <td><strong>freeze list</strong>, <strong>freeze row</strong></td>
               <td>The list of everything that must be fixed before an experiment runs, one row per item; departing from a registered row does not produce a different result, it produces an invalid one.</td>
               <td><a href="./chapters/27-sealing-the-envelope.html">27 &middot; Sealing the Envelope</a></td>
@@ -1405,6 +1410,41 @@
               <td><strong>work package</strong> (WP)</td>
               <td>A named unit of work inside a phase, cited the way a section is. In the current Phase&nbsp;6 repair, the science-first replacement path requires R15 and the charter obligations; preserving or re-verifying the historical arms does not substitute for that work.</td>
               <td><a href="./chapters/18-never-physics-ahead-of-the-machinery.html">18 &middot; Never Physics Ahead of the Machinery</a></td>
+            </tr>
+            <tr>
+              <td><strong>governed process-hours</strong></td>
+              <td>The clock a package is actually budgeted on: the summed running time of the registered worker programs, metered in nanoseconds. Phase 10 allowed 24 of them for its numerical controls and spent 0.1479, almost all of it on the preflight checking its own obligations. Time spent on test suites, audits and human thought is real but is not this clock, which is why a phase can exhaust a day while its budget barely moves.</td>
+              <td><a href="./chapters/33-a-green-gate-that-says-no.html">33 &middot; A Green Gate That Says No</a></td>
+            </tr>
+            <tr>
+              <td><strong>leave-one-out</strong> (cross-fitting)</td>
+              <td>Fitting a number on every measurement <em>except</em> the one you are about to grade, so nothing is graded against a constant tuned to itself. Phase 9&rsquo;s baseline fitted one multiplier per crystal on the other five. It is a real safeguard and it is <em>not</em> held-out validation: every one of the six crystals is development evidence, so this is cross-fitting inside data the project had already seen.</td>
+              <td><a href="./chapters/32-the-cheapest-honest-test.html">32 &middot; The Cheapest Honest Test</a></td>
+            </tr>
+            <tr>
+              <td><strong>mean squared error</strong> (MSE)</td>
+              <td>A score for how far a prediction sits from a measurement: take the gap at each sampled moment, square it so misses in either direction count alike and one big miss costs more than several small ones, then average. Smaller is better and a perfect prediction scores zero. Its square root is the typical miss, in whatever units the quantity had.</td>
+              <td><a href="./chapters/32-the-cheapest-honest-test.html">32 &middot; The Cheapest Honest Test</a></td>
+            </tr>
+            <tr>
+              <td><strong>refusal class</strong></td>
+              <td>The named reason a comparison did not happen, kept instead of a vague failure. Phase 9 and 10 use several: <em>source-blocked</em> (a paper the project could not obtain), <em>protocol-ineligible</em> (an apparatus the solver does not represent), <em>non-identifiable</em> (a translation the source never supplied), <em>not executed</em> (the machinery never reached the science). Compressing them into one word destroys what the next investigator needs to know.</td>
+              <td><a href="./chapters/33-a-green-gate-that-says-no.html">33 &middot; A Green Gate That Says No</a></td>
+            </tr>
+            <tr>
+              <td><strong>source replay</strong></td>
+              <td>Running the model through a record&rsquo;s own temperature, pressure and forcing schedule and laying the output over the record&rsquo;s curve. Even a perfect overlay counts only as development evidence: the charter says so in as many words, &ldquo;even when a source replay agrees&rdquo;.</td>
+              <td><a href="./chapters/31-a-library-is-not-a-score.html">31 &middot; A Library Is Not a Score</a></td>
+            </tr>
+            <tr>
+              <td><strong>verification</strong> vs <strong>validation</strong></td>
+              <td>Two questions hiding in the word &ldquo;check&rdquo;. Verification asks whether the program computes what its own equations say, and you answer it by deriving the answer a second, independent way and comparing. Validation asks whether those are the right equations for snow, and only a measurement of nature can answer it. A solver can be perfectly verified and still wrong about snow. Phase 10&rsquo;s numerical controls were verification; its six bridges were validation, and every one stopped at the source end.</td>
+              <td><a href="./chapters/33-a-green-gate-that-says-no.html">33 &middot; A Green Gate That Says No</a></td>
+            </tr>
+            <tr>
+              <td><strong>zero-growth control</strong></td>
+              <td>The dumbest possible rival, scored alongside the real ones: predict that the crystal does not grow at all. If a proposed law cannot beat a flat line, the number it produced is telling you about the setup rather than about the physics. Phase 9&rsquo;s prism diagnostic scored both candidate laws against one, and at two of its five mappings both lost.</td>
+              <td><a href="./chapters/32-the-cheapest-honest-test.html">32 &middot; The Cheapest Honest Test</a></td>
             </tr>
           </tbody>
         </table>

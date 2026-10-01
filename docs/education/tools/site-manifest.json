@@ -242,31 +242,37 @@
     "c29-claim"
   ],
   "chapters/30-finished-failed-and-not-yet-built.html": [
-    "c30-two-results",
+    "c30-rungs",
+    "c30-gate-board",
     "c30-label-stack",
     "c30-profiles",
     "c30-debts"
   ],
   "chapters/31-a-library-is-not-a-score.html": [
+    "c31-pressure",
     "c31-matcher",
     "c31-witnesses",
     "c31-library",
-    "c31-blender",
-    "c31-provenance"
+    "c31-weights",
+    "c31-forcing",
+    "c31-provenance",
+    "c31-seal"
   ],
   "chapters/32-the-cheapest-honest-test.html": [
-    "c32-funnel",
+    "c32-discriminator",
+    "c32-sphere",
     "c32-multipliers",
-    "c32-baseline",
+    "c32-contests",
     "c32-mapping",
     "c32-ledger"
   ],
   "chapters/33-a-green-gate-that-says-no.html": [
-    "c33-two-gates",
+    "c33-gate-board",
+    "c33-three-questions",
     "c33-bridge",
-    "c33-error-sources",
-    "c33-ladder",
+    "c33-comparisons",
     "c33-recoveries",
-    "c33-outcomes"
+    "c33-clocks",
+    "c33-stamps"
   ]
 }

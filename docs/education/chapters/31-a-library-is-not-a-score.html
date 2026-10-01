@@ -53,7 +53,7 @@
         you not just put all their numbers in one spreadsheet and grade the model against the column?
       </p>
       <div class="chapter-header__meta">
-        <span>~16 min read</span><span>5 interactives</span><span>0 solver runs in this phase</span>
+        <span>~20 min read</span><span>8 interactives</span><span>1 equation</span><span>0 solver runs in this phase</span>
       </div>
     </header>
 
@@ -94,8 +94,8 @@
     </p>
     <p>
       Snow-crystal experiments differ in exactly this way. Some measure how fast a face advances.
-      Some sort the finished crystal into <em>plate</em> or <em>column</em>. Some follow one
-      crystal&rsquo;s mass second by second. The crystals hang in an electric field, or sit on a
+      Some sort the finished crystal into <em>plate</em> or <em>column</em>. Some weigh one
+      crystal about sixteen times a second for an hour. The crystals hang in an electric field, or sit on a
       sapphire window, or fall through a cloud tunnel, or drop through thin helium, or grow in air
       at a mere 40 pascals. The air pressure, the gas, the temperature control, the crystal size and even the
       definition of &ldquo;growth&rdquo; change from paper to paper.
@@ -123,7 +123,7 @@
         <caption>The main experiment families Phase 8 recorded, what they hold the crystal with, and what they write down. Rows marked &ldquo;8A book only&rdquo; sit in the 18-entry target book but are not among the 51 benchmark records.</caption>
         <thead><tr><th>Laboratory and paper</th><th>How the crystal is held</th><th>What is recorded</th><th>In the library</th></tr></thead>
         <tbody>
-          <tr><td>Penn State levitation chamber (Harrison 2016; Pokrifka 2020)</td><td>A frozen droplet floats in an electric field, touching nothing</td><td>The crystal&rsquo;s mass, second by second, for up to an hour, between &minus;31 and &minus;36&nbsp;&deg;C at about 97&nbsp;kPa</td><td class="num">16 mass histories, 252,040 rows</td></tr>
+          <tr><td>Penn State levitation chamber (Harrison 2016; Pokrifka 2020)</td><td>A frozen droplet floats in an electric field, touching nothing</td><td>The crystal&rsquo;s mass, about sixteen readings every second, for up to an hour, between &minus;31 and &minus;36&nbsp;&deg;C at about 97&nbsp;kPa</td><td class="num">16 mass histories, 252,040 rows</td></tr>
           <tr><td>Penn State thermal-gradient chamber (Harrington &amp; Pokrifka 2026 archive)</td><td>A crystal grows on a support at &minus;50&nbsp;&deg;C</td><td>Two dimension histories over hours; the forcing (how hard the environment pushes the crystal to grow, in practice the supersaturation the experimenter sets) is labelled &ldquo;48&nbsp;%&rdquo; and &ldquo;20&nbsp;%&rdquo; without saying 48&nbsp;% of what</td><td class="num">2 histories, 94 rows</td></tr>
           <tr><td>Libbrecht 2011, Caltech</td><td>Two crystals on a temperature-controlled sapphire window at &minus;15&nbsp;&deg;C, 1&nbsp;bar</td><td>Radius and thickness against time while the far-field supersaturation is stepped through a schedule</td><td class="num">207 digitized points</td></tr>
           <tr><td>Libbrecht 2016, Caltech</td><td>Two needle crystals at &minus;5&nbsp;&deg;C, 1&nbsp;bar</td><td>Height and tip radius against time; the height curves carry an arbitrary constant the paper subtracted (about 15 and 10 micrometres at time zero), which must not be read as a real starting height</td><td class="num">78 digitized points</td></tr>
@@ -144,6 +144,39 @@
       rate; at sea-level pressure the slow diffusion of vapour through air sets it. None of these is
       a worse experiment than the others. <strong>They are answers to different questions.</strong>
     </p>
+
+    <p>
+      That last pair of sentences is worth more than a hand-wave, because it decides which of these
+      experiments can test which part of the model. Chapter 4 put two doors in series between the
+      chamber and the crystal&rsquo;s surface: the <em>surface</em> door, how readily an arriving
+      molecule sticks, and the <em>diffusion</em> door, how easily vapour crosses the air to reach
+      it. The narrower door sets the pace. The surprise is that thinning the air makes the diffusion
+      door <em>wider</em>, not narrower: vapour crosses a thin gas more easily, so the
+      <strong>kinetic length</strong> &mdash; the distance scale at which attachment and diffusion
+      trade places, written <em>X</em><sub>0</sub> &mdash; grows as the pressure falls, by a factor
+      of about 2,500 between one atmosphere and 40 pascals.
+    </p>
+
+    <figure class="anim is-wide" id="c31-pressure" data-kinetic-length-um="0.145" data-reference-temp-c="-15">
+      <div class="anim__head">
+        <p class="anim__title">Two doors under pressure</p>
+        <p class="anim__sub">Drag the pressure down from one bar to 40 pascals and watch the bottleneck swap from the air to the surface.</p>
+      </div>
+      <div class="anim__body"><div class="p2-stage" aria-live="polite"></div></div>
+      <div class="anim__controls"></div>
+      <figcaption class="anim__foot"><span class="built-from">
+        Original interactive. It evaluates Chapter 4&rsquo;s ideal-sphere calibration case,
+        &sigma;<sub>surf</sub>/&sigma;<sub>infinity</sub> =
+        (<em>X</em><sub>0</sub>/<em>R</em>)&nbsp;&divide;&nbsp;(<code>alphaHK</code>&nbsp;+&nbsp;<em>X</em><sub>0</sub>/<em>R</em>),
+        with the monograph&rsquo;s kinetic length <em>X</em><sub>0</sub>&nbsp;=&nbsp;0.145&nbsp;µm in
+        air at &minus;15&nbsp;&deg;C and diffusivity proportional to 1/<em>P</em>
+        (<code>core/src/libbrecht.ts</code>, <code>docs/libbrecht-parameters.md</code>). The marked
+        pressures are the committed conditions of the Phase 8 families. It shows which door is
+        narrower and nothing more: it is not a claim about crystal shape, it scores no record, heat
+        is a third door it does not draw, and below a few hundred pascals it is stretching a
+        continuum formula past where it belongs.
+      </span></figcaption>
+    </figure>
 
     <aside class="callout callout--myth">
       <p class="callout__label">
@@ -180,18 +213,24 @@
       recovered from the paper, and the limits that travel with them.
     </p>
 
-    <figure class="anim" id="c31-matcher" data-rule="apparatus-observable-history">
+    <figure class="anim is-wide" id="c31-matcher" data-rule="observable-apparatus-environment-history" data-targets="3">
       <div class="anim__head">
-        <p class="anim__title">Try to make a fair pair</p>
-        <p class="anim__sub">Pick what the model would report, and see whether it can be subtracted from what the laboratory measured.</p>
+        <p class="anim__title">Build a fair pair</p>
+        <p class="anim__sub">Four independent choices, three real records. Guess whether your pair can be subtracted, then check &mdash; and watch what three of four green gets you.</p>
       </div>
-      <div class="anim__body"><div class="c31-stage" aria-live="polite"></div></div>
+      <div class="anim__body"><div class="p2-stage" aria-live="polite"></div></div>
       <div class="anim__controls"></div>
       <figcaption class="anim__foot"><span class="built-from">
-        Teaching example built from the Phase 8 record for Libbrecht 2011 (two crystals at
-        &minus;15&nbsp;&deg;C on sapphire, 1&nbsp;bar;
-        <code>evidence/phase8b-plot-digitization-v3/records.jsonl</code>). The matching rule is simplified to three
-        checks; real records carry units, uncertainty where available, and explicit gaps.
+        Original interactive. The three laboratory cards are the committed condition fields of three
+        Phase 8 records &mdash; Libbrecht 2011 crystal C1 and Sei and Gonda 1989 basal at
+        &minus;15&nbsp;&deg;C from
+        <code>evidence/phase8b-plot-digitization-v3/records.jsonl</code>, and levitation run 724b
+        from <code>evidence/phase8b-native-histories-v1/records.jsonl</code>. No measured value
+        appears anywhere on it. Two of the three targets can never reach four green, and that is the
+        record&rsquo;s own state rather than a puzzle: the solver has no substrate representation, so
+        a crystal resting on a window has no model operand at all. The <em>subtract</em> button never
+        enables on any setting, because comparable means the subtraction would be allowed, not that
+        it was performed &mdash; Phase 8 subtracted nothing.
       </span></figcaption>
     </figure>
 
@@ -235,7 +274,56 @@
       and it did so conditionally: Takahashi&rsquo;s free-falling crystals gained mass like time to
       the power 1.5, and Bacon&rsquo;s levitated particles grew in radius like the square root of
       time. Those are the same law if the crystal keeps roughly the same shape and density, because
-      mass goes as radius cubed, and the cube of a square root is the power 1.5. The other fifteen
+      mass goes as radius cubed, and the cube of a square root is the power 1.5.
+    </p>
+
+    <div class="equation">
+      <p class="equation__math">
+        <em>m</em> = &rho;&thinsp;<em>k</em>&thinsp;<em>r</em><sup>3</sup>
+        &nbsp;&nbsp;and&nbsp;&nbsp;
+        <em>r</em> = <em>a</em>&thinsp;<em>t</em><sup><em>p</em></sup>
+        &nbsp;&nbsp;so&nbsp;&nbsp;
+        <em>m</em> &prop; <em>t</em><sup>3<em>p</em></sup>
+      </p>
+      <div class="equation__where">
+        <strong>where</strong>
+        <dl>
+          <dt><em>m</em></dt><dd>the crystal&rsquo;s mass</dd>
+          <dt>&rho;</dt><dd>the density of ice &mdash; constant, as long as the crystal stays solid rather than turning hollow or feathery</dd>
+          <dt><em>k</em></dt><dd>a shape factor (4&pi;/3 for a sphere). It stays constant only while the crystal keeps its proportions. <strong>This is the condition.</strong></dd>
+          <dt><em>r</em></dt><dd>the radius of the sphere with the same volume as the crystal</dd>
+          <dt><em>a</em></dt><dd>a constant set by the conditions; it fixes the size, not the shape of the curve</dd>
+          <dt><em>p</em></dt><dd>the radius exponent: 0.5 in Bacon&rsquo;s levitated particles</dd>
+          <dt>3<em>p</em></dt><dd>the mass exponent that follows &mdash; 1.5, which is Takahashi&rsquo;s number for isometric crystals</dd>
+          <dt>&prop;</dt><dd>&ldquo;grows in proportion to&rdquo;</dd>
+        </dl>
+      </div>
+      <p class="equation__cite">
+        Exponents from <code>research/phase8-target-book.jsonl</code>, entry
+        <code>P8-T-BACON-DIFFUSION-SCALING</code> (radius as time to the one-half power), whose
+        second witness resolves to <code>research/takahashi-1991.md</code>, extract
+        <code>P8X-T91-OBS-08</code> (1.5 for isometric crystals at &minus;3.7, &minus;8.6,
+        &minus;10.6, &minus;20.1 and &minus;22.0&nbsp;&deg;C). Only the exponents are recorded
+        values; the algebra joining them is this course&rsquo;s.
+      </p>
+    </div>
+
+    <p>
+      Put numbers on it. Double the time: the radius grows by a factor of 1.41, the square root of
+      two, and the mass by 2.83, which is two to the power 1.5. Two laboratories measured different
+      quantities with different instruments and landed on one growth law. <strong>Now break the
+      condition.</strong> Let the crystal grow as a plate whose thickness stays fixed: mass now goes
+      as radius <em>squared</em>, the mass exponent falls to 1.0, and the two witnesses stop agreeing
+      without either of them being wrong. Takahashi&rsquo;s own shape-enhanced cases run above 1.9.
+      That is what the word <em>conditional</em> is doing in &ldquo;Class A, conditional&rdquo;. A
+      second limit travels with the pair: Takahashi&rsquo;s time points are different crystals at
+      different ages while Bacon followed individual particles through time, and the sources supply
+      no common raw rows for a joint fit. Chapter 32 meets the same law from the other end, as the
+      rule the Phase 9 sphere test integrates second by second.
+    </p>
+
+    <p>
+      The other fifteen
       targets, and both inputs, were Class B. None was Class C. One candidate disagreement, about the
       cold end below &minus;20&nbsp;&deg;C, could not be filed because the papers that govern it were
       never acquired and extracted; the other, two laboratories&rsquo; fitted attachment coefficients,
@@ -329,19 +417,37 @@
       kind of development, but it is explicit that agreement reached that way is never validation.
     </p>
 
-    <figure class="anim is-wide" id="c31-blender" data-lesson="no-global-score">
+    <figure class="anim is-wide" id="c31-weights" data-lesson="no-global-score" data-families="8" data-records="51" data-rows="252565">
       <div class="anim__head">
-        <p class="anim__title">Blend or keep the labels?</p>
-        <p class="anim__sub">Compare two ways of summarizing unlike evidence, and notice what the single number hides.</p>
+        <p class="anim__title">Who owns the vote?</p>
+        <p class="anim__sub">Give every family a mark out of 100 and average them. The catch is the word <em>average</em>: switch the counting rule and the headline jumps while your marks stay exactly where you left them.</p>
       </div>
-      <div class="anim__body"><div class="c31-stage" aria-live="polite"></div></div>
+      <div class="anim__body"><div class="p2-stage" aria-live="polite"></div></div>
       <div class="anim__controls"></div>
       <figcaption class="anim__foot"><span class="built-from">
-        Conceptual demonstration. The sample values are invented to expose weighting and
-        compatibility problems. Phase 8 published no global score, and this figure does not
-        reconstruct one.
+        Every agreement value here is <strong>invented</strong> and is labelled so on its own slider;
+        no family has ever received a real agreement score. What is real is the weight: the record
+        and row counts are summed from
+        <code>evidence/phase8b-benchmark-final-v1/successor-target-book.jsonl</code> &mdash; 51
+        records, 252,565 coordinate rows and points, of which the levitation chamber alone holds
+        252,040. The headline is always computed on this page from the sliders under the named rule,
+        never quoted. Two rows are honest about disappearing: the five P2 safeguards hold zero
+        numbers and never vote at all, because they are rules for using the other shelves rather than
+        five more experiments, while the Bacon aggregates carry no coordinate rows and so drop out
+        silently the moment you count by row. Phase 8 published no
+        global score; this figure does not reconstruct one, and it cannot say which counting rule
+        would be right &mdash; that is the point.
       </span></figcaption>
     </figure>
+
+    <p>
+      Play with it for a moment and one number is worth chasing. Under per-row counting, drag the
+      Gonda and Komabayasi slider from 0 all the way to 100 &mdash; the entire range of an entire
+      laboratory&rsquo;s contribution &mdash; and the headline moves by about two hundredths of a
+      point. Fifty digitized points against 252,040 rows is not a debate; it is a rounding error.
+      <strong>&ldquo;Drown&rdquo; is not a metaphor here.</strong> A score is a decision about weights
+      wearing the costume of a measurement, and that is why Phase 8 refused to publish one.
+    </p>
 
     <h2 id="blocked">&ldquo;Not recoverable&rdquo; is a data value</h2>
 
@@ -356,6 +462,31 @@
       recoverable&rdquo;): the comparison is fully specified, and one required input cannot be
       reconstructed from evidence the project actually holds.
     </p>
+    <p>
+      Take the &ldquo;48&nbsp;%&rdquo; label seriously for a moment. Supersaturation is a
+      <em>surplus</em>, and a surplus needs something to be a surplus over. Slide the reading below
+      and watch two digits land in very different places.
+    </p>
+
+    <figure class="anim is-wide" id="c31-forcing" data-labels="48,20" data-record="P8B-P2-HP25-SOURCE-SEMANTICS">
+      <div class="anim__head">
+        <p class="anim__title">48 percent of what?</p>
+        <p class="anim__sub">One label, two readings that land in very different places, and a third that is no position on the axis at all. The record cannot choose between them, and neither can you.</p>
+      </div>
+      <div class="anim__body"><div class="p2-stage" aria-live="polite"></div></div>
+      <div class="anim__controls"></div>
+      <figcaption class="anim__foot"><span class="built-from">
+        Original interactive. The labels 48&nbsp;% and 20&nbsp;%, the &minus;50&nbsp;&deg;C
+        temperature, and the allowed and forbidden uses quoted on the figure are the committed P2
+        record <code>P8B-P2-HP25-SOURCE-SEMANTICS</code>
+        (<code>evidence/phase8b-p2-terminal-v1/records.jsonl</code>). The bar lengths are
+        <strong>toy arithmetic</strong> from the monograph&rsquo;s approximate saturation formulas,
+        extrapolated below &minus;40&nbsp;&deg;C where its printed table stops. The figure shows what
+        the label <em>could</em> mean; it cannot say what the experimenters meant, and the record
+        forbids converting it into a model input at all.
+      </span></figcaption>
+    </figure>
+
     <p>
       Writing that down is useful in two directions. It stops a later model from quietly guessing a
       number, and it tells a human exactly which paper or which measurement would unblock the
@@ -387,7 +518,7 @@
       course, and the record is candid about both halves. The first plan called for an exhaustive
       census: inventory every measurement-bearing document, search the outside literature under a
       registered protocol, and give every unit a final label. Before a single search ran, the search
-      protocol had grown to 21,695 lines of code with 29 saved output files and 113 mutation
+      protocol had grown to 21,695 lines of code with 29 declared output artifacts and 113 mutation
       controls (deliberately corrupted inputs the checker had to catch), and it was rejected five
       times in review. The census then inspected 1,242 pages of 49 papers and extracted
       <strong>zero</strong> numeric rows, because it was a discovery pass: it found and sorted
@@ -430,6 +561,25 @@
       </p>
     </aside>
 
+    <aside class="callout callout--method">
+      <p class="callout__label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+        </svg>
+        Who checked this chapter
+      </p>
+      <p>      Every count on this page can be recomputed by anyone with the repository:
+      <code>evidence/phase8b-benchmark-final-v1/successor-target-book.jsonl</code> holds the 51
+      records and their row counts, <code>evidence/phase8-target-book/freeze.json</code> holds the
+      18-entry split, and <code>evidence/phase8b-p2-terminal-v1/records.jsonl</code> holds the
+      forcing-label restriction quoted above. The private bytes &mdash; the 252,134 native rows and
+      431 digitized points themselves &mdash; are not in the repository and are not drawn here; only
+      their counts and identities are. An independent review on 2026-09-03 and a multi-agent audit on
+      2026-09-14 re-derived the family totals from those files, and corrected this chapter where it
+      had been wrong: the levitation chamber samples about sixteen times a second, not once, and the
+      window stand-in this chapter used to describe is not a mechanism the project has adopted.</p>
+    </aside>
+
     <h2 id="held-out">The set that was supposed to be sealed</h2>
 
     <p>
@@ -451,6 +601,25 @@
       none. The charter says it plainly: the successor corpus &ldquo;contains zero held-out
       records&rdquo;.
     </p>
+    <figure class="anim is-wide" id="c31-seal" data-held-out-before="7" data-held-out-after="0">
+      <div class="anim__head">
+        <p class="anim__title">Seal, then peek</p>
+        <p class="anim__sub">Guess how many of the seven sealed entries survive an exploratory census. Then run it, and try to put the seal back.</p>
+      </div>
+      <div class="anim__body"><div class="p2-stage" aria-live="polite"></div></div>
+      <div class="anim__controls"></div>
+      <figcaption class="anim__foot"><span class="built-from">
+        Original interactive. The eighteen entries and their frozen partition &mdash; seven held out,
+        five model development, four outside the model&rsquo;s class, two calibration inputs &mdash;
+        are <code>evidence/phase8-target-book/freeze.json</code>; the relabelling rule is decision
+        0048&rsquo;s. It shows why a seal cannot survive a look. It does not say the project lost its
+        validation data: the seven stand unchanged in the frozen book as history, zero is a statement
+        about what a later phase may claim, and Phase 7&rsquo;s separately gated families remain one
+        of the charter&rsquo;s two routes to a validation label, beside Phase 6&rsquo;s Nakaya
+        comparison.
+      </span></figcaption>
+    </figure>
+
 
     <aside class="callout callout--open">
       <p class="callout__label">
@@ -536,43 +705,18 @@
     return select;
   }
 
-  /* --- operand matcher: real record, three checks --- */
-  (function(){
-    var root=document.getElementById("c31-matcher"); if(!root) return; var b=box(root);
-    var lab={obs:"radius against time",where:"sapphire window, air at 1 bar",cond:"−15 °C, far-field supersaturation stepped through a schedule"};
-    var cases={
-      "A finished habit label":{obs:"plate or column class",where:"free crystal in the model box",cond:"−15 °C, one constant forcing",checks:[false,false,false],verdict:"No match",why:"A class is not a radius; the box has no window; a constant forcing is not the recorded schedule."},
-      "Radius at one constant forcing":{obs:"radius against time",where:"free crystal in the model box",cond:"−15 °C, one constant forcing",checks:[true,false,false],verdict:"Not yet",why:"Same observable. But the window that cooled the real crystal is absent, and the real forcing was ramped through a recorded schedule during the run (37 recorded forcing points for crystal 1), not held constant."},
-      "Radius, mirrored window, schedule":{obs:"radius against time",where:"mirror-plane stand-in for the window",cond:"−15 °C, the recorded schedule replayed",checks:[true,true,true],verdict:"Comparable, with limits",why:"All three checks pass on paper. The record still carries a limit: the window's heat flow is represented by an assumption, not measured, and that limit travels with any result. Comparable means the subtraction is allowed, not that it came out small: Phase 8 performed no subtraction at all."}
-    };
-    function draw(name){
-      clear(b.stage); var c=cases[name];
-      var m=el("div","c31-machine");
-      var left=el("div","c31-card"); left.appendChild(el("span","c31-kicker","the laboratory reported"));
-      left.appendChild(el("b",null,lab.obs)); left.appendChild(el("p","c31-note",lab.where+" · "+lab.cond));
-      var right=el("div","c31-card"); right.appendChild(el("span","c31-kicker","the model would report"));
-      right.appendChild(el("b",null,c.obs)); right.appendChild(el("p","c31-note",c.where+" · "+c.cond));
-      m.appendChild(left); m.appendChild(el("div","c31-arrow","−")); m.appendChild(right);
-      var v=el("div","c31-card"); v.appendChild(el("span","c31-kicker","can they be subtracted?")); v.appendChild(el("div","c31-answer",c.verdict));
-      var ck=el("div","c31-check"); [["observable",0],["apparatus",1],["history",2]].forEach(function(k){ck.appendChild(el("span",null,c.checks[k[1]]?"✓":"✗")); ck.appendChild(el("span",null,k[0]+(c.checks[k[1]]?" matches":" differs")));});
-      v.appendChild(ck); v.appendChild(el("p","c31-note",c.why));
-      b.stage.appendChild(m); b.stage.appendChild(v);
-    }
-    modes(b.controls,Object.keys(cases),draw);
-  })();
-
   /* --- witnesses: robustness classes --- */
   (function(){
     var root=document.getElementById("c31-witnesses"); if(!root) return; var b=box(root);
     var cases={
-      "Mass grows like t to the 1.5":{labs:["Hokkaido cloud tunnel (Takahashi 1991)","Electrodynamic balance (Bacon 2003)"],cls:"Class A, conditional",why:"Two laboratories, two methods, one law: mass like t^1.5 and radius like t^0.5 agree if shape and density stay roughly fixed. The only Class A target in the book, and it carries that condition."},
-      "Plates give way to columns at −4.0 °C":{labs:["Hokkaido cloud tunnel (Takahashi 1991)"],cls:"Class B",why:"One laboratory, one apparatus, one protocol. Real and useful, but a single point of view. Libbrecht's near-equal face rates at −8 °C are recorded as context, not as a second witness."},
-      "Habit boundary below −20 °C":{labs:[],cls:"No target",why:"The papers that would carry it (Bailey and Hallett, 2004 to 2012) were never acquired. Only a 2002 precursor is on file, and it was recorded as a source gap rather than digitized."},
-      "Libbrecht vs Penn State coefficients":{labs:["Caltech substrate growth","Penn State levitation"],cls:"Not Class C",why:"Two laboratories, but they inverted different quantities under different assumptions. Unlike quantities cannot disagree, so the book refused to file this as a standing disagreement. Both records are calibration inputs, not targets, and an input can never validate the model whatever its class (Chapter 17)."}
+      "Mass grows like t to the 1.5":{labs:["Hokkaido cloud tunnel (Takahashi 1991)","Electrodynamic balance (Bacon 2003)"],witnesses:2,cls:"Class A, conditional",why:"Two laboratories, two methods, one law: mass like t^1.5 and radius like t^0.5 agree if shape and density stay roughly fixed. The only Class A target in the book, and it carries that condition."},
+      "Plates give way to columns at −4.0 °C":{labs:["Hokkaido cloud tunnel (Takahashi 1991)"],witnesses:1,cls:"Class B",why:"One laboratory, one apparatus, one protocol. Real and useful, but a single point of view, and the record says so in as many words: no audited second laboratory or method pins this exact warm boundary independently."},
+      "Habit boundary below −20 °C":{labs:[],witnesses:0,cls:"No target",why:"The papers that would carry it (Bailey and Hallett, 2004 to 2012) were never acquired. Only a 2002 precursor is on file, and it was recorded as a source gap rather than digitized."},
+      "Libbrecht vs Penn State coefficients":{labs:["Caltech substrate growth","Penn State levitation"],witnesses:0,cls:"Class B",why:"Filed Class B, and — this is the point — NOT Class C. Two laboratories, but they inverted different quantities under different assumptions. Unlike quantities cannot disagree, so neither counts as a witness to the other and the book refused to file this as a standing disagreement. Both records are calibration inputs, not targets, and an input can never validate the model whatever its class (Chapter 17)."}
     };
     function draw(name){
       clear(b.stage); var c=cases[name]; var card=el("div","c31-card");
-      card.appendChild(el("span","c31-kicker","independent witnesses: "+c.labs.length));
+      card.appendChild(el("span","c31-kicker","laboratories consulted: "+c.labs.length+" · comparable witnesses: "+c.witnesses));
       var w=el("div","c31-witness"); if(c.labs.length){c.labs.forEach(function(l){w.appendChild(el("span","c31-badge is-lab",l));});}else{w.appendChild(el("span","c31-badge","no acquired source"));}
       card.appendChild(w); card.appendChild(el("div","c31-answer",c.cls)); card.appendChild(el("p","c31-note",c.why));
       b.stage.appendChild(card);
@@ -597,27 +741,6 @@
     modes(b.controls,Object.keys(shelves),draw);
   })();
 
-  /* --- blender: one score vs typed --- */
-  (function(){
-    var root=document.getElementById("c31-blender"); if(!root) return; var b=box(root);
-    function draw(mode){
-      clear(b.stage);
-      if(mode==="One score"){
-        var d=el("div","c31-card"); d.appendChild(el("span","c31-kicker","apparently simple")); d.appendChild(el("div","c31-answer","73 / 100"));
-        d.appendChild(el("p","c31-note","Which instrument dominated? Were the units compatible? What happened to the rows with no uncertainty? The number hides every one of those questions, and it invites tuning."));
-        b.stage.appendChild(d);
-      } else {
-        var rack=el("div","c31-rack");
-        [["growth speed",82,"native history · one laboratory"],["habit class",48,"categorical · two numbers"],["pressure response",61,"different apparatus · other gas"]].forEach(function(x){
-          var q=el("div","c31-row"); q.appendChild(el("strong",null,x[0])); var t=el("div","c31-track"),f=el("div","c31-fill"); f.style.width=x[1]+"%"; t.appendChild(f); q.appendChild(t); q.appendChild(el("span","c31-note",x[2])); rack.appendChild(q);
-        });
-        rack.appendChild(el("p","c31-note","Invented values. Each bar keeps its own label, its own apparatus and its own limits, so a later question can be asked of the compatible rows only."));
-        b.stage.appendChild(rack);
-      }
-    }
-    modes(b.controls,["Keep the labels","One score"],draw);
-  })();
-
   /* --- provenance chain --- */
   (function(){
     var root=document.getElementById("c31-provenance"); if(!root) return; var b=box(root);
@@ -633,5 +756,550 @@
   })();
 })();
 </script>
+<script src="../assets/anim-part2-evidence.js"></script>
+<script>
+/* ===========================================================================
+   Chapter 31 — who owns the vote?
+
+   Family sizes are the committed record and row counts summed from
+   evidence/phase8b-benchmark-final-v1/successor-target-book.jsonl
+   (51 records; 252,565 coordinate rows and points; 18 P0 / 28 P1 / 5 P2).
+   Every AGREEMENT value is invented and labelled so on its own slider; no
+   family has ever received a real agreement score, and Phase 8 published none.
+   ======================================================================== */
+(function(){
+  "use strict";
+  var root=document.getElementById("c31-weights"); if(!root) return;
+  var stage=root.querySelector(".p2-stage"), controls=root.querySelector(".anim__controls");
+
+  var FAM=[
+    {id:"levitation",label:"levitation mass histories",lab:"Penn State, button-electrode chamber",
+     records:16,rows:252040,votes:true},
+    {id:"dimension",label:"cold-crystal dimension histories",lab:"Penn State, substrate chamber",
+     records:2,rows:94,votes:true},
+    {id:"l11",label:"Libbrecht 2011",lab:"Caltech",records:6,rows:207,votes:true},
+    {id:"l16",label:"Libbrecht 2016",lab:"Caltech",records:4,rows:78,votes:true},
+    {id:"s89",label:"Sei and Gonda 1989",lab:"Sei and Gonda",records:6,rows:96,votes:true},
+    {id:"sd71",label:"Gonda and Komabayasi 1971",lab:"Gonda and Komabayasi",records:10,rows:50,votes:true},
+    {id:"bacon",label:"Bacon reported aggregates",lab:"Bacon, electrodynamic balance",
+     records:2,rows:0,votes:true},
+    {id:"p2",label:"P2 safeguards",lab:null,records:5,rows:0,votes:false}
+  ];
+  var scores={};
+  FAM.forEach(function(f){scores[f.id]=50;});
+
+  var RULES={
+    "one row = one vote":function(f){return f.votes?f.rows:0;},
+    "one record = one vote":function(f){return f.votes?f.records:0;},
+    "one family = one vote":function(f){return f.votes?1:0;},
+    "one apparatus = one vote":function(f){return f.votes&&f.lab?1:0;}
+  };
+  var rule="one row = one vote", forcing=false, tuneLog=[];
+
+  function weights(){
+    var w={};
+    if(rule==="one apparatus = one vote"){
+      /* one apparatus votes once, and its score is the mean of its families */
+      var labs={};
+      FAM.forEach(function(f){
+        if(!f.votes||!f.lab) return;
+        if(forcing&&f.id==="dimension") return;
+        (labs[f.lab]=labs[f.lab]||[]).push(f);
+      });
+      var n=Object.keys(labs).length;
+      Object.keys(labs).forEach(function(k){
+        labs[k].forEach(function(f){w[f.id]=(1/n)/labs[k].length;});
+      });
+      return w;
+    }
+    FAM.forEach(function(f){
+      w[f.id]=(forcing&&f.id==="dimension")?0:RULES[rule](f);
+    });
+    return w;
+  }
+
+  function draw(){
+    Part2.clear(stage);
+    var w=weights();
+    var total=FAM.reduce(function(a,f){return a+(w[f.id]||0);},0);
+    var score=FAM.reduce(function(a,f){return a+(w[f.id]||0)*scores[f.id];},0)/total;
+
+    var rack=Part2.el("div","p2-bars");
+    FAM.forEach(function(f){
+      var share=total?((w[f.id]||0)/total)*100:0;
+      var row=Part2.el("div","p2-bar");
+      row.appendChild(Part2.el("strong",null,f.label));
+      var track=Part2.el("div","p2-bar__track");
+      var fill=Part2.el("div","p2-bar__fill"+((w[f.id]||0)?"":" is-muted"));
+      fill.style.width=Math.max(0.5,share)+"%";
+      track.appendChild(fill);
+      row.appendChild(track);
+      row.appendChild(Part2.el("span","p2-bar__value",share.toFixed(share<1?2:1)+" %"));
+      rack.appendChild(row);
+      var note=(w[f.id]||0)
+        ? f.records+" record"+(f.records===1?"":"s")+" · "
+          +(f.rows?f.rows.toLocaleString("en-GB")+" rows":"no coordinate rows")
+          +" · invented agreement "+scores[f.id]
+          +" · moving this slider from 0 to 100 moves the headline by "+(share/100*100).toFixed(2)+" points"
+        : (f.id==="p2"
+            ? "5 records, zero coordinates. These are rules for using the other shelves correctly, not five more experiments, so they cannot agree or disagree with anything and never vote."
+            : (forcing&&f.id==="dimension"
+               ? "dropped out: you asked a forcing-response question, and this archive's P2 record forbids converting its 48 % and 20 % labels into a model forcing"
+               : "no coordinate rows, so under this rule it has no weight at all — and it disappears silently unless something says so"));
+      rack.appendChild(Part2.el("p","p2-note p2-bar__note",note));
+    });
+    stage.appendChild(rack);
+
+    var card=Part2.el("div","p2-card");
+    card.appendChild(Part2.el("span","p2-kicker","headline score · every input invented"));
+    var line=Part2.el("p","p2-note");
+    line.innerHTML="<strong>"+score.toFixed(1)+" out of 100</strong> &mdash; under &ldquo;"+rule
+      +"&rdquo;. Invented agreement values; Phase 8 published no score.";
+    card.appendChild(line);
+    card.appendChild(Part2.el("p","p2-note",
+      "Move one family's slider, then switch the counting rule: the headline jumps without you "
+      +"touching that slider again. Nothing about the model changed; only what you decided one vote "
+      +"means. (With every family on the same mark, as they start, all four rules agree — which is "
+      +"the one case where a single score would have been safe.)"));
+    card.appendChild(Part2.el("p","p2-note",
+      "One caution about the last rule: it counts six apparatus, and Penn State supplies two of them "
+      +"because its levitation chamber and its substrate chamber are different instruments. The "
+      +"Phase 8 guide's stricter rule — shared raw data, apparatus, investigator and calibration "
+      +"lineages count once — would merge those two, and arguably Gonda's two campaigns as well, "
+      +"leaving four or five votes. There is no committed count of laboratories to appeal to here, "
+      +"which is itself the lesson."));
+    if(tuneLog.length){
+      card.appendChild(Part2.el("p","p2-note","Tuning log: "+tuneLog.join(", ")+"."));
+    }
+    stage.appendChild(card);
+  }
+
+  var handles={};
+  FAM.forEach(function(f){
+    if(!f.votes) return;
+    handles[f.id]=Viz.slider(controls,{label:f.label+" (invented)",id:"c31w-"+f.id,
+      min:0,max:100,step:1,value:50,
+      format:function(v){return String(v);},
+      onInput:function(v){scores[f.id]=v;draw();}});
+  });
+  Part2.tabs(controls,Object.keys(RULES),function(n){rule=n;draw();});
+  Viz.button(controls,"Tune until it rises",function(){
+    var w=weights(), best=null;
+    FAM.forEach(function(f){
+      if(!(w[f.id]>0)) return;
+      if(!best||w[f.id]>w[best.id]) best=f;
+    });
+    if(best){
+      tuneLog.push(best.label);
+      handles[best.id].value=Math.min(100,scores[best.id]+5);
+    }
+  });
+  forcingButton=Viz.button(controls,"Ask a forcing-response question",function(b){
+    forcing=!forcing;b.setAttribute("aria-pressed",String(forcing));draw();
+  },{pressed:false});
+  var forcingButton;
+  Viz.button(controls,"Reset",function(){
+    tuneLog=[];forcing=false;
+    if(forcingButton) forcingButton.setAttribute("aria-pressed","false");
+    FAM.forEach(function(f){if(handles[f.id]) handles[f.id].value=50; else scores[f.id]=50;});
+    draw();
+  });
+  draw();
+})();
+
+/* ===========================================================================
+   Chapter 31 — build a fair pair.
+   Laboratory cards are the committed condition fields of three Phase 8 records
+   (Libbrecht 2011 crystal C1 and Sei-Gonda 1989 basal at -15 C from
+   evidence/phase8b-plot-digitization-v3/records.jsonl; levitation run 724b from
+   evidence/phase8b-native-histories-v1/records.jsonl). No measured value appears.
+   ======================================================================== */
+(function(){
+  "use strict";
+  var root=document.getElementById("c31-matcher"); if(!root) return;
+  var stage=root.querySelector(".p2-stage"), controls=root.querySelector(".anim__controls");
+
+  var OBS=["radius against time","thickness against time","plate-or-column class",
+           "mass ratio (mass ÷ starting mass) against time","facet growth rate against supersaturation"];
+  var APP=["free crystal in still air (the model box)","levitated, nothing touching",
+           "a crystal resting on a substrate window"];
+  var ENV=["−15 °C, 1 bar","−15 °C, 40 Pa","−30.9 °C, 0.97 bar"];
+  var HIST=["one constant forcing","the recorded schedule replayed","chamber-reported constant conditions"];
+
+  var TARGETS={
+    "Libbrecht 2011, crystal C1":{
+      obs:"radius against time",app:"a crystal resting on a substrate window",
+      env:"−15 °C, 1 bar",hist:"the recorded schedule replayed",
+      card:["two crystals on a temperature-controlled sapphire window",
+            "radius 13.5 µm and thickness 2.5 µm at the start",
+            "37 recorded forcing points during the run"],
+      limit:"Even with all four ticked, this pair stays refused. The solver has no substrate: the window fed the crystal vapour from one side and drained the heat of freezing away, and no representation of that has been adopted. The Phase 9 plan still lists it as an open decision."},
+    "Sei and Gonda 1989, basal at −15 °C":{
+      obs:"facet growth rate against supersaturation",app:"a crystal resting on a substrate window",
+      env:"−15 °C, 40 Pa",hist:"one constant forcing",
+      card:["a polyhedral crystal on a substrate in still air at 40 pascals",
+            "19 digitized points on this series",
+            "two low-end markers the readers refused to place"],
+      limit:"Refused for the same reason, and one more: the paper reports the supersaturation in the chamber while the law wants it at the surface. Chapter 32 shows what happens when you guess at that translation five different ways."},
+    "Levitation run 724b":{
+      obs:"mass ratio (mass ÷ starting mass) against time",app:"levitated, nothing touching",
+      env:"−30.9 °C, 0.97 bar",hist:"chamber-reported constant conditions",
+      card:["a frozen droplet held in an electric field, touching nothing",
+            "58,301 time stamps over about an hour",
+            "chamber conditions −30.9 °C, 96,730 Pa, ice supersaturation 4 % (range 0.5)"],
+      limit:"All four match, so the subtraction would be allowed. Two limits travel with it: the chamber never observed the crystal's shape or crystallography, and the electric field that holds the droplet up is an unmeasured influence on the transfer. And the source's stated 5 % maximum relative mass error is a bound, not a probability interval."}
+  };
+
+  var target="Libbrecht 2011, crystal C1";
+  var choice={obs:OBS[0],app:APP[0],env:ENV[0],hist:HIST[0]};
+  var guess=null, checked=false;
+  var tally={right:0,asked:0};
+
+  function picker(parent,label,options,key){
+    var wrap=Part2.el("div","p2-picker");
+    var id="c31p-"+key;
+    var l=Part2.el("label",null,label); l.setAttribute("for",id);
+    var sel=document.createElement("select"); sel.id=id;
+    options.forEach(function(o){
+      var op=document.createElement("option"); op.value=o; op.textContent=o;
+      if(o===choice[key]) op.selected=true;
+      sel.appendChild(op);
+    });
+    sel.addEventListener("change",function(){choice[key]=sel.value;checked=false;draw();});
+    wrap.appendChild(l); wrap.appendChild(sel); parent.appendChild(wrap);
+  }
+
+  function draw(){
+    Part2.clear(stage);
+    var t=TARGETS[target];
+    var split=Part2.el("div","p2-split");
+
+    var lab=Part2.recordCard({kicker:"what the laboratory recorded",title:t.obs,
+      fields:[["held by",t.app],["conditions",t.env],["forcing",t.hist]],
+      note:t.card.join(" · ")});
+    split.appendChild(lab);
+    split.appendChild(Part2.el("div","p2-arrow","−"));
+
+    var model=Part2.el("div","p2-card");
+    model.appendChild(Part2.el("span","p2-kicker","what you are asking the model for"));
+    picker(model,"observable",OBS,"obs");
+    picker(model,"apparatus",APP,"app");
+    picker(model,"environment",ENV,"env");
+    picker(model,"history",HIST,"hist");
+    split.appendChild(model);
+    stage.appendChild(split);
+
+    if(!checked){
+      stage.appendChild(Part2.el("p","p2-note",
+        "Before you check: do you think this pair can be subtracted?"));
+      var g=Part2.el("div","p2-check__pick");
+      ["comparable","not yet"].forEach(function(o){
+        var b=Viz.button(g,o,function(){guess=o;draw();},{pressed:guess===o});
+        b.classList.add("p2-mini");
+      });
+      stage.appendChild(g);
+      return;
+    }
+
+    var ok={obs:choice.obs===t.obs,app:choice.app===t.app,env:choice.env===t.env,hist:choice.hist===t.hist};
+    /* The apparatus check can never go green for a supported crystal: the solver
+       has no substrate representation, so "a crystal resting on a substrate
+       window" is not something the model can be asked for. */
+    var appImpossible=(t.app===APP[2]);
+    if(appImpossible) ok.app=false;
+    var green=["obs","app","env","hist"].filter(function(k){return ok[k];}).length;
+    var comparable=green===4;
+
+    var card=Part2.el("div","p2-card"+(comparable?" is-ok":" is-refused"));
+    card.appendChild(Part2.el("span","p2-kicker","can these two be subtracted?"));
+    card.appendChild(Part2.el("b",null,comparable?"Comparable, with limits":green+" of 4 match — refused"));
+    var ck=Part2.el("div","p2-checklist");
+    [["observable","obs"],["apparatus","app"],["environment","env"],["history","hist"]].forEach(function(p){
+      ck.appendChild(Part2.el("span",ok[p[1]]?"is-ok":"is-no",ok[p[1]]?"✓":"✗"));
+      ck.appendChild(Part2.el("span",null,p[0]+(ok[p[1]]?" matches":
+        (p[1]==="app"&&appImpossible&&choice.app===t.app
+          ? " — you picked the right apparatus, and the model still has no such thing"
+          : " differs"))));
+    });
+    card.appendChild(ck);
+    card.appendChild(Part2.el("p","p2-note",t.limit));
+    card.appendChild(Part2.el("p","p2-note",
+      "Three of four green is not a pass. A refused operand is refused, and the honest record says "
+      +"so rather than subtracting anyway."));
+    stage.appendChild(card);
+
+    var sub=Part2.el("div","p2-check__pick");
+    var b=Viz.button(sub,"Subtract",function(){},{});
+    b.disabled=true;
+    b.title="Phase 8 performed no subtraction at all.";
+    sub.appendChild(Part2.el("span","p2-note",
+      "The subtract button never enables, on any setting. Comparable means the subtraction would be "
+      +"allowed, not that it was performed or came out small — Phase 8 subtracted nothing."));
+    stage.appendChild(sub);
+
+    if(tally.asked) stage.appendChild(Part2.el("p","p2-note",
+      "Predictions right: "+tally.right+" of "+tally.asked+"."));
+  }
+
+  Part2.tabs(controls,Object.keys(TARGETS),function(n){
+    target=n;checked=false;guess=null;draw();
+  });
+  Viz.button(controls,"Check the pair",function(){
+    if(!checked&&guess){
+      var t=TARGETS[target];
+      var appImpossible=(t.app===APP[2]);
+      var green=(choice.obs===t.obs)+(!appImpossible&&choice.app===t.app)+(choice.env===t.env)+(choice.hist===t.hist);
+      var truth=green===4?"comparable":"not yet";
+      tally.asked++; if(guess===truth) tally.right++;
+    }
+    checked=true;draw();
+  });
+  draw();
+})();
+
+/* ===========================================================================
+   Chapter 31 — seal, then peek.
+   The 18 entries and their frozen partition are
+   evidence/phase8-target-book/freeze.json (split.heldOutIds and the rest);
+   the relabelling rule is decision 0048's.
+   ======================================================================== */
+(function(){
+  "use strict";
+  var root=document.getElementById("c31-seal"); if(!root) return;
+  var stage=root.querySelector(".p2-stage"), controls=root.querySelector(".anim__controls");
+
+  var SPLIT={
+    "held out":["Bacon diffusion scaling","Bacon seed history","Levitation mass ratio",
+      "Levitation power","Levitation scaled","Shape-enhanced mass","Ventilation onset"],
+    "model development":["Habit boundary at −4 °C","Habit boundary at −8 °C",
+      "Libbrecht low-supersaturation","Libbrecht needle matrix","Libbrecht trajectories"],
+    "outside the model's class":["Rimed history","Nelson sublimation","Pressure context","Riming regimes"],
+    "calibration inputs":["Cross-laboratory attachment coefficients","Libbrecht kinetics"]
+  };
+  var censusRun=false, resealTried=false, guess=null;
+
+  function draw(){
+    Part2.clear(stage);
+    if(guess===null){
+      stage.appendChild(Part2.el("p","p2-note",
+        "Seven of the eighteen entries were pre-registered as held out — sealed, so a future test "
+        +"could face data nobody had looked at. Before you run the exploratory census: how many of "
+        +"the seven do you think survive it?"));
+      var g=Part2.el("div","p2-check__pick");
+      ["all seven","four or five","one or two","none"].forEach(function(o){
+        var b=Viz.button(g,o,function(){guess=o;draw();},{pressed:false});
+        b.classList.add("p2-mini");
+      });
+      stage.appendChild(g);
+      return;
+    }
+
+    var grid=Part2.el("div","p2-grid");
+    Object.keys(SPLIT).forEach(function(k){
+      var card=Part2.el("div","p2-card"+(k==="held out"&&censusRun?" is-refused":""));
+      card.appendChild(Part2.el("span","p2-kicker",k));
+      card.appendChild(Part2.el("b",null,String(SPLIT[k].length)));
+      card.appendChild(Part2.el("p","p2-note",SPLIT[k].join(" · ")));
+      if(k==="held out"&&censusRun){
+        card.appendChild(Part2.el("p","p2-note",
+          "All seven consulted. Their outcomes were on the table while Phase 9 was being designed."));
+      }
+      grid.appendChild(card);
+    });
+    stage.appendChild(grid);
+
+    var counter=Part2.el("div","p2-verdict");
+    counter.appendChild(Part2.el("span","p2-kicker",
+      "entries a later phase may still call held out"));
+    counter.appendChild(Part2.el("div","p2-verdict__num",censusRun?"0":"7"));
+    counter.appendChild(Part2.el("p","p2-note",censusRun
+      ? "Nobody tuned a single number. The exploratory census simply showed the outcomes while the "
+        +"next phase was being designed, and decision 0048 says what follows: every measurement that "
+        +"shapes a module, an expected effect, a probe, a threshold or a campaign design is "
+        +"development evidence, and “it cannot later be relabeled held out”."
+      : "Press “run the exploratory census” and watch what a look costs."));
+    if(resealTried){
+      counter.appendChild(Part2.el("p","p2-note",
+        "Reseal refused: you have seen it. A seal is a fact about who has looked, and looking is not "
+        +"reversible."));
+    }
+    stage.appendChild(counter);
+
+    var frozen=Part2.recordCard({kicker:"the frozen 2026 book, beside it, unchanged",
+      title:"still 7 held out",
+      note:"History is not rewritten. The seven entries stand in the frozen first book exactly as "
+        +"they were; what changed is what a later phase is allowed to claim about them. The "
+        +"successor library that Phase 9 actually used contains zero held-out records, and Phase "
+        +"7's separately gated families remain one of the charter's two routes to a validation "
+        +"label, beside Phase 6's Nakaya comparison."});
+    stage.appendChild(frozen);
+  }
+
+  Viz.button(controls,"Run the exploratory census",function(b){
+    censusRun=true;b.disabled=true;
+    resealButton.disabled=false;
+    resealButton.title="";
+    draw();
+  });
+  var resealButton=Viz.button(controls,"Reseal them",function(){
+    if(censusRun) resealTried=true; draw();
+  });
+  resealButton.disabled=true;
+  resealButton.title="Nothing has been unsealed yet. Run the census first.";
+  Viz.button(controls,"Start again",function(){
+    censusRun=false;resealTried=false;guess=null;
+    controls.querySelectorAll("button").forEach(function(b){b.disabled=false;});
+    resealButton.disabled=true;
+    resealButton.title="Nothing has been unsealed yet. Run the census first.";
+    draw();
+  });
+  draw();
+})();
+
+/* ===========================================================================
+   Chapter 31 — 48 percent of what?
+   The labels 48 % and 20 %, the -50 C temperature and the use restriction are
+   the committed P2 record P8B-P2-HP25-SOURCE-SEMANTICS. The bar lengths are toy
+   arithmetic from the monograph's approximate saturation formulas, labelled so.
+   ======================================================================== */
+(function(){
+  "use strict";
+  var root=document.getElementById("c31-forcing"); if(!root) return;
+  var stage=root.querySelector(".p2-stage"), controls=root.querySelector(".anim__controls");
+
+  var label=48, tempC=-50, reading="above ice";
+
+  /* monograph Eq. 2.8 forms, as used by Chapter 25's script */
+  function pIce(tc){return 3.7e10*Math.exp(-6150/(tc+273.15));}
+  function pWater(tc){return (2.8e9+1700*Math.pow(tc,3))*Math.exp(-5450/(tc+273.15));}
+  function gap(tc){return pWater(tc)/pIce(tc)-1;}
+
+  function draw(){
+    Part2.clear(stage);
+    var sw=gap(tempC);
+    var vals={
+      "above ice":label,
+      "above water":((1+label/100)*(1+sw)-1)*100,
+      "a chamber dial setting":null
+    };
+    var rows=Object.keys(vals).map(function(k){
+      return {label:k,value:vals[k]===null?0:vals[k],
+        display:vals[k]===null?"no position at all":vals[k].toFixed(0)+" %",
+        muted:vals[k]===null,fail:false,
+        note:k===reading?"this is the reading you have selected":undefined};
+    });
+    var card=Part2.el("div","p2-card");
+    card.appendChild(Part2.el("span","p2-kicker",
+      "the same label, “"+label+" %”, placed on the ice-relative axis at "+tempC+" °C"));
+    Part2.barRows(card,rows,{max:Math.max(60,vals["above water"]*1.1)});
+    card.appendChild(Part2.el("p","p2-note",
+      "At "+tempC+" °C, air in balance with supercooled water already carries "
+      +(sw*100).toFixed(0)+" % more vapour than ice can hold, so “above water” and “above ice” are "
+      +"very different places on the same axis. The record lists the candidate readings it cannot "
+      +"choose between: ice-relative, water-relative, ambient, far-field, witness-surface or "
+      +"surface supersaturation — a second ambiguity, about where the number was measured, "
+      +"sits on top of the first."));
+    card.appendChild(Part2.el("p","p2-note",
+      "Below −40 °C these are extrapolations of an approximate formula: Chapter 4's printed table "
+      +"stops there. Read the direction, not the digits."));
+    stage.appendChild(card);
+
+    var forbidden=Part2.el("div","p2-card is-refused");
+    forbidden.appendChild(Part2.el("span","p2-kicker","what the record allows and forbids"));
+    forbidden.appendChild(Part2.el("p","p2-note",
+      "Allowed: “dimension-versus-time and source-labelled change-point development analysis.” "
+      +"Forbidden: “conversion of 48 or 20 percent to solver sigmaInfinity, inferred supersaturation "
+      +"uncertainty, or absolute forcing-response score.” The fix it names is not cleverer "
+      +"arithmetic; it is acquiring the paper's methods section."));
+    var b=Viz.button(forbidden,"Convert it to a model forcing",function(){},{});
+    b.disabled=true;
+    b.title="Forbidden by the committed P2 record.";
+    stage.appendChild(forbidden);
+  }
+
+  Part2.tabs(controls,["above ice","above water","a chamber dial setting"],function(n){reading=n;draw();});
+  var labelSlider=Viz.slider(controls,{label:"the label on the archive",id:"c31-lab",min:0,max:60,step:1,value:48,
+    format:function(v){return v+" %";},onInput:function(v){label=v;draw();}});
+  Viz.slider(controls,{label:"temperature",id:"c31-t",min:-50,max:-10,step:1,value:-50,
+    format:function(v){return v+" °C";},onInput:function(v){tempC=v;draw();}});
+  Viz.button(controls,"Back to the archive's second label, 20 %",function(){labelSlider.value=20;});
+  draw();
+})();
+
+/* ===========================================================================
+   Chapter 31 — two doors under pressure.
+   Ideal-sphere calibration case from Chapter 4: sigma_surf/sigma_inf =
+   (X0/R)/(alphaHK + X0/R), with X0 = 0.145 um at -15 C in air and D
+   proportional to 1/P (core/src/libbrecht.ts; docs/libbrecht-parameters.md).
+   The marked pressures are the committed conditions of the Phase 8 families.
+   ======================================================================== */
+(function(){
+  "use strict";
+  var root=document.getElementById("c31-pressure"); if(!root) return;
+  var stage=root.querySelector(".p2-stage"), controls=root.querySelector(".anim__controls");
+
+  var logP=Math.log10(101325), radius=100, alphaHK=0.1;
+  var MARKS=[[40,"Sei and Gonda, 40 Pa"],[86000,"Takahashi and Fukuta 1988 tunnel, 86 kPa"],
+             [96730,"levitation, 96.7 kPa"],[101325,"Libbrecht and Bacon, 1 atm (101.3 kPa)"]];
+
+  function draw(){
+    Part2.clear(stage);
+    var P=Math.pow(10,logP);
+    var X0=0.145*(101325/P);                 /* micrometres */
+    var conductance=X0/radius;
+    var ratio=conductance/(alphaHK+conductance);
+    var limiting=alphaHK<conductance?"the surface":"the air";
+
+    var card=Part2.el("div","p2-card");
+    card.appendChild(Part2.el("span","p2-kicker",
+      "two doors in series at "+(P>=1000?(P/1000).toFixed(P>=10000?0:1)+" kPa":P.toFixed(0)+" Pa")));
+    Part2.barRows(card,[
+      {label:"surface door",value:Math.log10(alphaHK)+3,display:alphaHK.toFixed(3),
+       note:"the attachment coefficient: how readily an arriving molecule sticks"},
+      {label:"diffusion door",value:Math.log10(conductance)+3,display:conductance.toFixed(4),
+       note:"X₀/R = "+X0.toFixed(3)+" µm ÷ "+radius+" µm. The kinetic length X₀ grows as the air thins, because vapour diffuses more easily through a thinner gas."}
+    ],{max:6,caption:"Both bars are on a logarithmic scale six decades wide, from 0.001 to 1000, because the two doors differ by factors of hundreds. The SHORTER bar is the narrower door, and the narrower door sets the pace."});
+    card.appendChild(Part2.el("div","p2-verdict__num",
+      (ratio*100).toFixed(1)+" % of the chamber's surplus reaches the surface"));
+    card.appendChild(Part2.el("p","p2-note",
+      "The narrower door sets the pace, and here it is "+limiting+". At one "
+      +"atmosphere, with the attachment coefficient set to 0.1, a "
+      +"100-micrometre crystal sees about 1.4 % of the chamber value: diffusion is in charge, and "
+      +"you are measuring the air as much as the ice. At 40 pascals it sees about 97 %: the surface "
+      +"is in charge, which is why Sei and Gonda's curves are a direct measurement of Chapter 5's "
+      +"attachment law and Libbrecht's at one bar are not."));
+    card.appendChild(Part2.el("p","p2-note",
+      "Marked pressures in this library: "+MARKS.map(function(m){return m[1];}).join("; ")+"."));
+    card.appendChild(Part2.el("p","p2-note",
+      "Limits to keep: this is Chapter 4's ideal sphere, a calibration case rather than a claim "
+      +"about plates and dendrites; heat is a third door that is not drawn here; X₀ = 0.145 µm is "
+      +"the −15 °C value and changes with temperature; the 100-micrometre radius and the "
+      +"attachment coefficient of 0.1 are this course's illustrative settings rather than committed "
+      +"values; and below a few hundred pascals the gas is so "
+      +"thin — molecules travel of order a hundred micrometres between collisions, which is the size "
+      +"of the crystal itself — that the continuum formula is being stretched past where it belongs. "
+      +"Read the direction, not the percentages."));
+    stage.appendChild(card);
+  }
+
+  var pressureSlider=Viz.slider(controls,{label:"air pressure",id:"c31-p",
+    min:Math.log10(10),max:Math.log10(200000),step:0.02,value:Math.log10(101325),
+    format:function(v){var P=Math.pow(10,v);return P>=1000?(P/1000).toFixed(1)+" kPa":P.toFixed(0)+" Pa";},
+    onInput:function(v){logP=v;draw();}});
+  Viz.slider(controls,{label:"crystal radius (this course’s setting)",id:"c31-r",min:10,max:300,step:5,value:100,
+    format:function(v){return v+" µm";},onInput:function(v){radius=v;draw();}});
+  Viz.slider(controls,{label:"attachment coefficient alphaHK (this course’s setting)",id:"c31-a",
+    min:-2,max:0,step:0.02,value:-1,
+    format:function(v){return Math.pow(10,v).toFixed(3);},
+    onInput:function(v){alphaHK=Math.pow(10,v);draw();}});
+  Viz.button(controls,"Jump to 40 Pa (Sei and Gonda)",function(){pressureSlider.value=Math.log10(40);});
+  Viz.button(controls,"Back to 1 atm",function(){pressureSlider.value=Math.log10(101325);});
+  /* the range input snaps to its 0.02 grid, so take the model's value FROM the
+     control rather than from the unreachable literal it was seeded with */
+  logP=pressureSlider.value;
+  draw();
+})();
+</script>
+
 </body>
 </html>

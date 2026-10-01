@@ -51,7 +51,7 @@
         in great detail, has not started at all?
       </p>
       <div class="chapter-header__meta">
-        <span>~9 min read</span><span>4 interactives</span><span>1 table</span>
+        <span>~13 min read</span><span>5 interactives</span><span>3 tables</span><span>1 equation</span>
       </div>
     </header>
 
@@ -92,32 +92,194 @@
       respect, and agreed at 5 of 90 on the same common scope. That &ldquo;common scope&rdquo; needs one
       clause of explanation: it is CAK&rsquo;s frozen 90-point scoring rule re-applied to the other
       arms&rsquo; measured classes, a re-scoring rather than a second measurement; M1&rsquo;s own
-      registered scope was 78 points, on which it scored 54. An 80-row numerical ladder then returned
+      registered scope was 78 points, on which it scored 54.
+    </p>
+
+    <p>
+      Three arms, then, each growing the same grid of 204 crystals. Here is what was different about
+      each one, and how it scored.
+    </p>
+
+    <div class="table-wrap"><table>
+      <caption>What each arm contains and what it scored. From the pinned three-arm narrative
+        (<code>evidence/phase6-three-arm-report/report.md</code>) and the three per-arm
+        <code>points.json</code> files. Every figure is <strong>measured-only</strong>, and the grid
+        resolutions these arms ran at are published as not converged.</caption>
+      <thead><tr>
+        <th>Arm</th><th>What is different about it</th><th class="num">Agrees, own scope</th>
+        <th class="num">Agrees, common 90</th><th>Shapes it produced (plate&nbsp;/&nbsp;neutral&nbsp;/&nbsp;column)</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td>CAK</td>
+          <td>The broad-facet attachment rule with only measured or fitted inputs, no hand placement</td>
+          <td class="num">3 / 90</td><td class="num">3 / 90</td><td class="num">6 / 168 / 30</td>
+        </tr>
+        <tr>
+          <td>M1</td>
+          <td>The same skeleton, different broad curves and prefactors, <em>plus</em> two dips in the sticking barrier placed by looking at Nakaya&rsquo;s diagram</td>
+          <td class="num">54 / 78</td><td class="num">54 / 90</td><td class="num">75 / 119 / 10</td>
+        </tr>
+        <tr>
+          <td>No-dip ablation</td>
+          <td>M1 with only those two dips set back to one. Every other registered setting identical</td>
+          <td class="num">5 / 78</td><td class="num">5 / 90</td><td class="num">21 / 155 / 28</td>
+        </tr>
+      </tbody>
+    </table></div>
+
+    <p>
+      &ldquo;Agrees&rdquo; has a precise meaning here, and it is Chapter 28&rsquo;s: a point agrees
+      when the crystal&rsquo;s aspect-ratio class &mdash; plate at or below 0.6667, column at or
+      above 1.5 &mdash; matches the habit Nakaya&rsquo;s diagram names at that temperature and
+      humidity. Anything in between is <em>neutral</em>, and neutral counts as a miss. Look at the
+      last column and you can see the real story before reading another number: in every arm, most
+      of the 204 crystals came out neutral. <strong>The model mostly declined to commit to a
+      shape.</strong> Now split the same scores by which band of the diagram they fall in.
+    </p>
+
+    <div class="table-wrap"><table>
+      <caption>Agreements by regime, each arm on its own scope, from the same three-arm narrative.
+        The warm-plates band contains a single counted temperature (&minus;2&nbsp;&deg;C) with six
+        humidities; the columns band is four temperatures &times; six for CAK and two &times; six for
+        M1 and the ablation (&minus;5 and &minus;6&nbsp;&deg;C are excluded as bistable); the
+        cold-plates band is ten temperatures &times; six.</caption>
+      <thead><tr><th>Band of the Nakaya diagram</th><th class="num">CAK</th><th class="num">M1</th><th class="num">No-dip</th></tr></thead>
+      <tbody>
+        <tr><td>Plates, warm (above &minus;3.3&nbsp;&deg;C)</td><td class="num">3 / 6</td><td class="num">5 / 6</td><td class="num">5 / 6</td></tr>
+        <tr><td>Columns (&minus;9.9 to &minus;3.3&nbsp;&deg;C)</td><td class="num">0 / 24</td><td class="num">0 / 12</td><td class="num">0 / 12</td></tr>
+        <tr><td>Plates, cold (&minus;21.5 to &minus;9.9&nbsp;&deg;C)</td><td class="num">0 / 60</td><td class="num">49 / 60</td><td class="num">0 / 60</td></tr>
+      </tbody>
+    </table></div>
+
+    <p>
+      Add the three numbers in each column and you get that arm&rsquo;s total: 3&nbsp;+&nbsp;0&nbsp;+&nbsp;0&nbsp;=&nbsp;3;
+      5&nbsp;+&nbsp;0&nbsp;+&nbsp;49&nbsp;=&nbsp;54; 5&nbsp;+&nbsp;0&nbsp;+&nbsp;0&nbsp;=&nbsp;5. Two
+      things fall out. First, M1&rsquo;s much-quoted 54 is 49 cold plates plus 5 warm ones, and all
+      three arms&rsquo; warm-band wins sit at a single temperature, which decision 0025 registered as
+      carrying essentially no weight. The number that actually separates M1 from the others is
+      49&nbsp;of&nbsp;60, not 5&nbsp;against&nbsp;3. Second, and this is the row to remember:
+      <strong>in the columns band every arm scores zero.</strong> Under every implemented parameter
+      family, the model never once made a column where the diagram requires one. The report says it
+      in one sentence: &ldquo;The plate&nbsp;&rarr;&nbsp;column&nbsp;&rarr;&nbsp;plate transition
+      sequence is not reproduced by any arm.&rdquo; That is a different kind of failure from picking
+      the wrong habit, and it is the one this chapter is about.
+    </p>
+
+    <p>
+      An 80-row numerical ladder then returned
       <strong>NO-PASS</strong> at both grid spacings (the two sizes of grid cell that were tested):
       28 of 64 registered comparisons failed the rule that attached-cell counts (the number of grid
       cells the crystal has claimed, the model&rsquo;s stand-in for mass) must agree within half a
       percent, so every tally above carries the
       caveat that its grid resolutions are published as not converged. The ladder&rsquo;s verdict
       covers only the smallest registered crystal sizes at four check points; the larger size stratum
-      was never verified. The project reported all of it, ran its closure gate with no flags (no
+      was never verified.
+    </p>
+
+    <p>
+      &ldquo;Agree within half a percent&rdquo; is worth doing once by hand, because it is the whole
+      test.
+    </p>
+
+    <div class="equation">
+      <p class="equation__math">
+        relDiff = |<em>A</em><sub>next</sub> &minus; <em>A</em><sub>base</sub>| &divide; <em>A</em><sub>base</sub>
+        &nbsp;&nbsp;&nbsp;
+        pass when relDiff &le; 0.005
+      </p>
+      <div class="equation__where">
+        <strong>where</strong>
+        <dl>
+          <dt><em>A</em><sub>base</sub></dt><dd>the attached-cell count of the smaller box &mdash; the run you are comparing <em>from</em>, and always the denominator</dd>
+          <dt><em>A</em><sub>next</sub></dt><dd>the attached-cell count of the next box up, with nothing else changed</dd>
+          <dt>| &hellip; |</dt><dd>&ldquo;ignore the sign&rdquo;: growing and shrinking both count as a move</dd>
+          <dt>0.005</dt><dd>the registered tolerance, copied from the Phase 6 thresholds. 0.005 as a fraction <em>is</em> half a percent; the record writes 0.005 and the prose writes half a percent, and they are the same rule</dd>
+        </dl>
+      </div>
+      <p class="equation__cite">
+        <code>evidence/phase6-wp2-ladder/report.json</code>,
+        <code>thresholds.attachedCountTolerance</code>, and the comparison rule re-implemented in
+        <code>runner/src/gate6-aggregate.ts</code>. The tolerance was frozen on 2026-08-08, before a
+        single rung ran.
+      </p>
+    </div>
+
+    <p>
+      Take M1 at &minus;6&nbsp;&deg;C on the coarse grid. In the smallest box the crystal claims
+      <strong>7,489</strong> cells; in the next box up, <strong>7,465</strong>. That is a move of 24
+      cells: 24&nbsp;&divide;&nbsp;7,489&nbsp;=&nbsp;0.0032, or 0.32&nbsp;%.
+      <strong>Pass.</strong> Go one box larger and the count jumps to <strong>7,693</strong>: a move
+      of 228 cells, 228&nbsp;&divide;&nbsp;7,465&nbsp;=&nbsp;0.0305, or 3.05&nbsp;%.
+      <strong>Fail.</strong> Half a percent of a crystal this size is about 37 cells, so the second
+      step missed by six times its allowance. Both steps had to pass, and one did not.
+    </p>
+
+    <figure class="anim is-wide" id="c30-rungs" data-tolerance="0.005" data-comparisons="64" data-verdict="no-pass">
+      <div class="anim__head">
+        <p class="anim__title">Climb one ladder</p>
+        <p class="anim__sub">Same crystal, same physics, bigger box. Pick a check point and watch whether the count settles down.</p>
+      </div>
+      <div class="anim__body"><div class="p2-stage" aria-live="polite"></div></div>
+      <div class="anim__controls"></div>
+      <figcaption class="anim__foot"><span class="built-from">
+        Original interactive. Every count is one row of
+        <code>evidence/phase6-wp2-ladder/rows.jsonl</code>; the pass rule is that file&rsquo;s
+        registered 0.005 comparison, re-implemented here. It shows whether the count settled at these
+        three box sizes; it cannot say which box size is &ldquo;right&rdquo;, and a settled count
+        would not have meant the crystal matched nature. Chapter 33 lets you slide the line across
+        all 64 comparisons at once.
+      </span></figcaption>
+    </figure>
+
+    <p>
+      The project reported all of it, ran its closure gate with no flags (no
       command-line switches that could soften a check) on 2026-08-20 (<code>node runner/src/main.ts gate6</code>, exit 0 at commit <code>44488ab</code>),
       and accepted the failure to reproduce the Nakaya diagram as the finding. The gate passed 13 of
       13 closure checks. No Evidence label was upgraded: the phase closed with zero
       &ldquo;quantitatively validated&rdquo; claims.
     </p>
 
-    <figure class="anim is-wide" id="c30-two-results" data-phase="6" data-science="negative" data-closure="complete">
+    <figure class="anim is-wide" id="c30-gate-board" data-phase="6" data-science="negative" data-closure="complete" data-criteria="13">
       <div class="anim__head">
-        <p class="anim__title">One command, two questions</p>
-        <p class="anim__sub">Switch the question. The same evidence gives two different, non-conflicting answers.</p>
+        <p class="anim__title">Run the closure gate</p>
+        <p class="anim__sub">Thirteen checks. Sort them first: which ask about the project&rsquo;s record, and which ask about nature? Then try to make the record claim more, and watch what happens.</p>
       </div>
-      <div class="anim__body"><div class="c30-stage" aria-live="polite"></div></div>
+      <div class="anim__body"><div class="p2-stage" aria-live="polite"></div></div>
       <div class="anim__controls"></div>
       <figcaption class="anim__foot"><span class="built-from">
-        Built from the Phase 6 closure record: <code>gate6</code> passed 13/13 closure criteria;
-        the numerical ladder was NO-PASS at both spacings and no validation label was earned.
+        Original interactive. The thirteen criterion ids are transcribed from
+        <code>runner/src/gate6-aggregate.ts</code>, and the failure strings are transcribed from its
+        criterion labels or paraphrased from them; the sabotage buttons are shaped after the
+        named negative controls in <code>runner/test/gate6-aggregate.test.ts</code>
+        (<code>NC-LADDER-VERDICT-FORGE</code>, <code>NC-CLOSURE-LABEL-SWAP</code>,
+        <code>NC-DEFERRAL-ELIGIBILITY-FLIP</code>, <code>NC-DIRTY-TREE</code>). This is a
+        re-implementation of the selection rule on a throwaway in-page copy, not the gate itself.
+        It shows that
+        the gate certifies the record and can be made to fail; it proves nothing about whether any
+        physics is right.
       </span></figcaption>
     </figure>
+
+    <aside class="callout callout--method">
+      <p class="callout__label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M9 2h6M10 2v6.5L4.6 18a2.5 2.5 0 0 0 2.2 3.7h10.4A2.5 2.5 0 0 0 19.4 18L14 8.5V2"/>
+        </svg>
+        Who checked this chapter
+      </p>
+      <p>
+        Every figure above is built from files anyone with the repository can open:
+        <code>evidence/phase6-three-arm-report/report.md</code>, the three arms&rsquo;
+        <code>points.json</code> and <code>report.json</code>,
+        <code>evidence/phase6-wp2-ladder/rows.jsonl</code> and its <code>report.json</code>, and the
+        criterion names in <code>runner/src/gate6-aggregate.ts</code>. The chapter&rsquo;s numbers
+        were fact-checked against those records by an independent review on 2026-09-03 and again by
+        a multi-agent audit on 2026-09-14, which re-derived the three-arm tallies, the 64 ladder
+        comparisons and the thirteen criterion names from the bytes rather than from this page.
+        Where those checks disagreed with an earlier draft, the record won.
+      </p>
+    </aside>
 
     <h2 id="two-results">Two results from one gate</h2>
 
@@ -193,7 +355,8 @@
       <figcaption class="anim__foot"><span class="built-from">
         The labels follow the charter&rsquo;s &sect;1.5 Type &times; Evidence discipline (Chapter 15)
         and the final Phase 6 report. Phase completion, numerical disposition, and the Evidence label
-        are separate fields.
+        are separate fields. It shows how the four recorded labels compose; it cannot show that any of
+        them was earned, and nothing in it compares the model with nature.
       </span></figcaption>
     </figure>
 
@@ -343,6 +506,221 @@
 
 <script src="../assets/site.js"></script>
 <script src="../assets/viz.js"></script>
+<script src="../assets/anim-part2-evidence.js"></script>
+<script>
+/* ===========================================================================
+   Chapter 30 — climb one ladder.
+   Every attached-cell count below is a row of evidence/phase6-wp2-ladder/rows.jsonl,
+   transcribed. The pass rule is that bundle's registered comparison:
+   |A_next - A_base| / A_base <= 0.005, frozen 2026-08-08 before any rung ran.
+   ======================================================================== */
+(function(){
+  "use strict";
+  var root=document.getElementById("c30-rungs"); if(!root) return;
+  var stage=root.querySelector(".p2-stage"), controls=root.querySelector(".anim__controls");
+  var TOL=0.005;
+
+  var POINTS=["−31 °C, f 0.60","−13 °C, f 0.15","−6 °C, f 0.15","−27 °C, f 0.15"];
+  var SPACING={
+    "0.7 µm cells":{boxes:[48,64,80],widthUm:[33.6,44.8,56],seed:"seed radius 8 cells",
+      reach:"27 cells across, which at this cell size is 18.9 micrometres",
+      counts:{
+        "−31 °C, f 0.60":{M1:[9363,9621,9477],CAK:[8281,8677,8713]},
+        "−13 °C, f 0.15":{M1:[7249,7249,7225],CAK:[9851,9813,9827]},
+        "−6 °C, f 0.15":{M1:[7489,7465,7693],CAK:[11579,11627,11579]},
+        "−27 °C, f 0.15":{M1:[9923,9923,9923],CAK:[6651,6627,6711]}
+      }},
+    "0.35 µm cells":{boxes:[96,112,128],widthUm:[33.6,39.2,44.8],seed:"seed radius 17 cells",
+      reach:"55 cells across, which at this cell size is 19.25 micrometres — the registered target was 54 cells, and every run at this spacing stopped one cell past it",
+      counts:{
+        "−31 °C, f 0.60":{M1:[77021,77873,78281],CAK:[69383,69863,70007]},
+        "−13 °C, f 0.15":{M1:[56671,57079,57343],CAK:[84501,84669,85533]},
+        "−6 °C, f 0.15":{M1:[64113,64149,64545],CAK:[98871,99177,98793]},
+        "−27 °C, f 0.15":{M1:[86845,86893,86845],CAK:[64813,64809,64963]}
+      }}
+  };
+
+  var pick={point:POINTS[2],arm:"M1",spacing:"0.7 µm cells"};
+
+  function fmt(n){return n.toLocaleString("en-GB");}
+
+  function draw(){
+    Part2.clear(stage);
+    var sp=SPACING[pick.spacing];
+    var counts=sp.counts[pick.point][pick.arm];
+    var c=Viz.colors();
+    var W=700,H=280,padL=86,padR=150,padT=24,padB=52;
+
+    /* A zoomed axis: the moves are fractions of a percent, so a zero-based axis
+       would hide them. The note under the chart says so in as many words. */
+    var lo=Math.min.apply(null,counts), hi=Math.max.apply(null,counts);
+    var span=Math.max(hi-lo, lo*0.012);
+    var y=Viz.scaleLinear([lo-span*0.6, hi+span*0.6],[H-padB, padT]);
+    var x=Viz.scaleLinear([0,2],[padL+40, W-padR]);
+
+    var svg=Viz.createSvg(stage,W,H,{
+      label:"Attached-cell count at three box sizes for "+pick.arm+" at "+pick.point+", "+pick.spacing,
+      desc:"Three recorded counts with the half-percent tolerance band drawn around each comparison's base."
+    });
+
+    Viz.axisLeft(svg,y,{x:padL,ticks:5,format:function(v){return fmt(Math.round(v));},title:"attached cells",titleOffset:66});
+
+    /* tolerance ribbons: +-0.5 % around each base count */
+    counts.slice(0,2).forEach(function(base,i){
+      var top=y(base*(1+TOL)), bot=y(base*(1-TOL));
+      svg.appendChild(Viz.svgEl("rect",{
+        x:x(i), y:top, width:x(i+1)-x(i), height:Math.max(2,bot-top),
+        fill:c.good, opacity:0.16
+      }));
+    });
+
+    svg.appendChild(Viz.svgEl("path",{
+      d:Viz.linePath(counts.map(function(v,i){return [i,v];}),x,y),
+      fill:"none",stroke:c.series[0],"stroke-width":2
+    }));
+
+    counts.forEach(function(v,i){
+      svg.appendChild(Viz.svgEl("circle",{cx:x(i),cy:y(v),r:6,fill:c.series[0]}));
+      var t=Viz.svgEl("text",{class:"series-label",x:x(i),y:y(v)-13,"text-anchor":"middle",fill:c.ink});
+      t.textContent=fmt(v); svg.appendChild(t);
+      var b=Viz.svgEl("text",{class:"tick-text",x:x(i),y:H-padB+18,"text-anchor":"middle"});
+      b.textContent=sp.boxes[i]+" cells"; svg.appendChild(b);
+      var b2=Viz.svgEl("text",{class:"tick-text",x:x(i),y:H-padB+32,"text-anchor":"middle"});
+      b2.textContent=sp.widthUm[i]+" µm across"; svg.appendChild(b2);
+    });
+
+    var key=Viz.svgEl("text",{class:"series-label",x:x(1),y:padT+4,"text-anchor":"middle",fill:c.good});
+    key.textContent="shaded band = ±0.5 % of the count it is compared with";
+    svg.appendChild(key);
+
+    /* the two comparisons */
+    var rows=[];
+    for(var i=0;i<2;i++){
+      var a=counts[i],bnext=counts[i+1];
+      var rel=Math.abs(bnext-a)/a;
+      rows.push({
+        label:sp.boxes[i]+" → "+sp.boxes[i+1],
+        value:rel, fail:rel>TOL,
+        display:(rel*100).toFixed(3)+" %",
+        note:"|"+fmt(bnext)+" − "+fmt(a)+"| ÷ "+fmt(a)+" = "+(rel*100).toFixed(3)+" % — "+
+             (rel>TOL?"fails the 0.5 % rule":"passes the 0.5 % rule")
+      });
+    }
+    var wrap=Part2.el("div","p2-card");
+    wrap.appendChild(Part2.el("span","p2-kicker","the two comparisons this rung makes"));
+    Part2.barRows(wrap,rows,{max:0.035,rule:{value:TOL,label:"the registered 0.5 % limit"}});
+    var bothPass=rows.every(function(r){return !r.fail;});
+    wrap.appendChild(Part2.el("p","p2-note",
+      bothPass
+        ? "Both steps pass here. That is two of the sixty-four comparisons; the registered rule needed every one of them."
+        : "One step over the line is enough: the registered rule was every comparison, at both spacings."));
+    wrap.appendChild(Part2.el("p","p2-note",
+      "Habit class at all three box sizes: neutral. Every one of the 80 ladder runs came out neutral "
+      +"(aspect ratios 0.74 to 1.42), so the shape label could not have moved even where the count did."));
+    stage.appendChild(wrap);
+
+    stage.appendChild(Part2.el("p","p2-note",
+      "The vertical axis is zoomed to the three counts and does not start at zero — a "
+      +"half-percent move would be invisible if it did. "+sp.seed+". Both arms grow to the same "
+      +"stopping size at the same four check points: "+sp.reach+"."));
+  }
+
+  Part2.tabs(controls,POINTS,function(n){pick.point=n;draw();},{initial:POINTS[2]});
+  Part2.tabs(controls,["M1","CAK"],function(n){pick.arm=n;draw();});
+  Part2.tabs(controls,Object.keys(SPACING),function(n){pick.spacing=n;draw();});
+  Viz.onThemeChange(draw);
+  draw();
+})();
+
+/* ===========================================================================
+   Chapter 30 — run the closure gate.
+   The thirteen criterion ids, their plain readings and the failure strings are
+   transcribed from runner/src/gate6-aggregate.ts; the sabotage buttons follow
+   the registered negative controls in runner/test/gate6-aggregate.test.ts. The
+   board evaluates a throwaway in-page object, never a real artifact.
+   ======================================================================== */
+(function(){
+  "use strict";
+  var root=document.getElementById("c30-gate-board"); if(!root) return;
+
+  var CRITERIA=[
+    {id:"G6-TREE-CLEAN",kind:"record",plain:"Is the working copy clean? Nothing uncommitted, nothing untracked, at the moment the gate runs."},
+    {id:"G6-FREEZE-ANCESTRY",kind:"record",plain:"Is each of the three protocol freeze commits an ancestor of the commit being gated? You may not freeze a rule after the run it governs."},
+    {id:"G6-MANIFEST-PHASE6",kind:"record",plain:"Do the 26 registered Phase 6 files still hold exactly the bytes the manifest pins — and do the 13 closure files match the identities frozen into the gate’s own source code?"},
+    {id:"G6-STRATA",kind:"record",plain:"Does the crystal-size file still say the first size band runs from 5.9 to 12.1 micrometres, and does it still carry the held-out lock’s identity?"},
+    {id:"G6-ARM1-CAK",kind:"record",plain:"Do arm 1’s 204 points re-derive its published 3 of 90, its neutral count, and every stored shape label, from the point rows themselves?"},
+    {id:"G6-ARM2-M1",kind:"record",plain:"The same for arm 2: does it re-derive 54 of 78 on its own scope and 54 of 90 on the common one?"},
+    {id:"G6-ARM3-ABLATION",kind:"record",plain:"The same for the no-dip arm: 5 of 78 and 5 of 90."},
+    {id:"G6-LADDER",kind:"record",plain:"Do the 80 ladder rows still match their frozen fingerprint, and do they re-derive NO-PASS under the half-percent rule — rather than a pass?"},
+    {id:"G6-NARRATIVE",kind:"record",plain:"Does the three-arm report still contain all eight required sentences, and still print 3/90, 54/78, 54/90, 5/78 and 5/90?"},
+    {id:"G6-CLOSURE-LABELS",kind:"record",plain:"Do the decision record, the progress index and the charter all still say “not computed by decision 0045” about the three abandoned obligations?"},
+    {id:"G6-DEFERRALS",kind:"record",plain:"Is the held-out lock still marked not eligible to pass, and does the narrative still name the obligations handed to Phase 7?"},
+    {id:"G6-PARAMETER-TABLE",kind:"record",plain:"Does the parameter table still match the fingerprint decision 0040 pinned to it?"},
+    {id:"G6-HISTORY",kind:"record",plain:"Is the withdrawn early run still different from the live arm 1, and the stranded copy of arm 2 still byte-identical to it?"}
+  ];
+
+  function initial(){
+    return {
+      treeClean:true,
+      ladderReportVerdict:"no-pass",
+      ladderRowsIntact:true,
+      closureLabel:"not computed by decision 0045",
+      passEligible:false,
+      narrativeIntact:true,
+      manifestIntact:true
+    };
+  }
+
+  function evaluate(s){
+    var out={};
+    CRITERIA.forEach(function(c){out[c.id]={pass:true,reasons:[]};});
+    /* accumulate: two different edits can trip the same criterion, and both
+       reasons have to survive */
+    function fail(id,reason){out[id].pass=false;out[id].reasons.push(reason);}
+    if(!s.treeClean) fail("G6-TREE-CLEAN","tracked tree must be clean at gate time");
+    if(s.ladderReportVerdict!=="no-pass") fail("G6-LADDER","report.overallVerdict is not the published no-pass");
+    if(!s.ladderRowsIntact){
+      fail("G6-LADDER","rows.jsonl bytes do not match the frozen identity");
+      fail("G6-LADDER","report.rowsSha256 does not bind the rows bytes");
+      fail("G6-LADDER","the rows re-derive a PASS, contradicting the published no-pass verdict");
+    }
+    if(s.closureLabel!=="not computed by decision 0045")
+      fail("G6-CLOSURE-LABELS","the closure sentence is missing from the decision record, the progress index or the charter");
+    if(s.passEligible!==false) fail("G6-DEFERRALS","the lock no longer reads passEligible=false");
+    if(!s.narrativeIntact) fail("G6-NARRATIVE","a required narrative sentence or bold count is missing");
+    if(!s.manifestIntact) fail("G6-MANIFEST-PHASE6","a registered file no longer matches its pinned bytes");
+    return out;
+  }
+
+  Part2.gateBoard(root,{
+    criteria:CRITERIA,
+    predict:true,
+    initial:initial,
+    evaluate:evaluate,
+    sabotage:[
+      {label:"Store a PASS in the ladder report",note:"ladder report verdict set to “pass”",
+       apply:function(s){s.ladderReportVerdict="pass";}},
+      {label:"Swap the closure label to “satisfied”",note:"closure sentence replaced",
+       apply:function(s){s.closureLabel="satisfied";}},
+      {label:"Unlock the held-out set",note:"passEligible flipped to true",
+       apply:function(s){s.passEligible=true;}},
+      {label:"Leave an uncommitted edit behind",note:"working tree dirtied",
+       apply:function(s){s.treeClean=false;}}
+    ],
+    exitNote:function(allPass){
+      return allPass
+        ? "Every criterion holds, so the gate exits 0. That is the state the project actually recorded on 2026-08-20: 13 of 13, exit 0, at commit 44488ab."
+        : "One failed criterion is enough: the gate throws, prints the failure by name, and exits 1. (Adding any command-line switch is refused separately and exits 2 — there is no flag that softens a check, because gate6 accepts none.)";
+    },
+    footNote:"Not one of the thirteen asks whether the crystal matched nature. Arm 1 agreed at 3 of 90 "
+      +"and the gate still exits 0, because the gate verifies that the failure was written down "
+      +"honestly. Notice the direction of the first button: editing the record so the numerics "
+      +"“pass” turns the gate red. Rewriting the 28 failing rows themselves would turn it red three "
+      +"ways at once, because the rows would stop matching their fingerprint and would then "
+      +"re-derive a PASS the published verdict contradicts."
+  });
+})();
+</script>
 <script>
 (function(){
   "use strict";
@@ -356,14 +734,7 @@
   }
 
   (function(){
-    var root=document.getElementById("c30-two-results"),b=box(root);
-    var answers={science:{k:"Question 1 · did the model reproduce the target?",a:"NO",p:"The final comparison stayed negative. The ladder was NO-PASS at both spacings, and no Evidence label was upgraded."},closure:{k:"Question 2 · did the project complete its amended protocol?",a:"YES — 13 / 13",p:"Thirteen record checks, all re-derived from committed files: the size-strata freeze, the three arms' tallies, the ladder's NO-PASS, the narrative report, the closure labels and the Phase 7 deferrals. None of the thirteen is a check of the physics."}};
-    function draw(key){clear(b.stage);var d=answers[key],card=el("div","c30-card");card.appendChild(el("div","c30-kicker",d.k));card.appendChild(el("div","c30-answer",d.a));card.appendChild(el("p","c30-note",d.p));b.stage.appendChild(card);}
-    modes(b.controls,["Scientific result","Closure result"],function(n){draw(n==="Scientific result"?"science":"closure");});
-  })();
-
-  (function(){
-    var root=document.getElementById("c30-label-stack"),b=box(root);
+    var root=document.getElementById("c30-label-stack"); if(!root) return; var b=box(root);
     var rows=[
       ["Procedure","complete","The registered closure work reached its terminal rule."],
       ["Numerics","NO-PASS","The tested resolutions did not establish numerical adequacy."],
@@ -376,14 +747,14 @@
   })();
 
   (function(){
-    var root=document.getElementById("c30-profiles"),b=box(root);
+    var root=document.getElementById("c30-profiles"); if(!root) return; var b=box(root);
     var profiles={Realistic:["Beautiful ice, few controls","Renders a curated run without changing it."],Scientific:["Fields, rates, and validity controls","Lets a learner inspect why the crystal grew."],Designer:["Intent: widen, branch, seal","Compiles an intent into the same environment schedule."],Developer:["Deterministic scene replay","Uses the same checkpoint and schedule for explainers."]};
     function draw(name){clear(b.stage);var wrap=el("div","c30-card c30-profile");var snow=el("div","c30-snow","❄");snow.setAttribute("aria-hidden","true");var text=el("div");text.appendChild(el("span","c30-kicker",name+" profile · planned"));text.appendChild(el("div","c30-answer",profiles[name][0]));text.appendChild(el("p","c30-note",profiles[name][1]));text.appendChild(el("p","c30-code","same saved schedule · same solver state · illustrative only: no Phase 7 artifact exists"));wrap.appendChild(snow);wrap.appendChild(text);b.stage.appendChild(wrap);}
     modes(b.controls,Object.keys(profiles),draw);
   })();
 
   (function(){
-    var root=document.getElementById("c30-debts"),b=box(root);
+    var root=document.getElementById("c30-debts"); if(!root) return; var b=box(root);
     var items={"Product layer":["Make the instrument usable","Profiles, timeline, rendering, save/load, comparison, gallery, export."],"GPU parity":["Test whether the fast engine agrees within a stated tolerance","Port the v6 symmetry order to the graphics-card shader, derive a binary32 error envelope against the float64 oracle, then run at least 200 automated preview-budget runs, intended to be all 204 points for each of the three arms."],"Held-out tests":["Face genuinely unseen evidence","Keep growth rate, size-dependent habit, pressure, and history families separate and apparatus-matched."]};
     function draw(name){clear(b.stage);var c=el("div","c30-card");c.appendChild(el("span","c30-kicker","Phase 7 obligation · not started"));c.appendChild(el("div","c30-answer",items[name][0]));c.appendChild(el("p","c30-note",items[name][1]));c.appendChild(el("p","c30-note","Completing this job would not award the other two jobs' credit."));b.stage.appendChild(c);}
     modes(b.controls,Object.keys(items),draw);
