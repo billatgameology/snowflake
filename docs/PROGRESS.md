@@ -1688,8 +1688,64 @@ remains `http://127.0.0.1:5173/named-crystal-catalog.html`.
 2. **Education reconciliation** — done and merged on 2026-09-05: Chapters 30–33 and the corrected
    Chapters 13–29 status boundary are on `main`, and the education verifier oracles
    (`docs/education/tools/part-two-oracles.mjs`) now pin the final Phase 6 state instead of the
-   retired handoff. Still open: the exact `npm test` closure recorded in the education plan, and
-   catching this index up with Chapters 30–33 when the Phase 10 evidence branch merges.
+   retired handoff. The current consolidation also includes the reviewed Chapter 30–33 demos and
+   the private NAS-media offline builder from `f4e8962`. The latter changes only personal offline
+   builds; private media remains excluded from the public Pages artifact. Integration checks
+   are recorded in the local consolidation plan.
+
+Phase 7 stays on hold as a parallel product/engineering track; it still requires its own
+committed plan and isolated worktree before any work starts, and V4/V4.x apparatus stays
+retired.
+
+### Phase 6 closure record — no Phase 6 work remains
+
+Closed 2026-08-20 on the flagless `gate6` exit 0 (gate table above; completed
+[plan](plans/phase-6-science-first-completion.md)). The
+[80-row ladder](plans/phase-6-wp2-ladder.md) published **NO-PASS (criterion)** on both
+spacings — the numerics are NOT converged at these resolutions and the attached-count
+observable carries multi-percent seed sensitivity — and the WP2 and gate-unit non-author
+reviews closed with 0 blockers. A same-day macOS re-derivation at `9e64ef7` (clean tree)
+reproduced gate6 13/13 / exit 0 and exact `TMPDIR=/private/tmp npm test` green: 132 files,
+2,250 passed / 7 skipped in 403.61 s. Full closure detail:
+[the history file](progress-history-phases-6-8-9.md). Held-out and preview-GPU work remain
+Phase 7 property with no Phase 6 credit.
+
+### Journey compact growth replay — glass/camera parity follow-up active (2026-08-16)
+
+Open [explore-gutcheck-growth-glass-camera.md](plans/explore-gutcheck-growth-glass-camera.md), then
+[explore-gutcheck-growth-volume.md](plans/explore-gutcheck-growth-volume.md). The strict format,
+baker, full Run B asset, smooth viewer, measured comparison page, strict v5 Chromium record, visual
+inspection, adversarial reviews and final full suite are complete locally. No Journey/media action is
+required for those accepted v5 bytes. Hard-refresh
+`http://127.0.0.1:4177/gutcheck-growth-comparison.html?record=%2Fcomparison-record.json` and inspect
+poster views, final-state camera hold, orbit and `follow tour`. When Browser is available, add
+presentation/camera/manual-hold witnesses to `app/scripts/growth-comparison-capture.mjs`, capture to
+a new no-clobber directory, inspect the screenshots, then close the follow-up plan. Do not cite v5
+for this look. Governed publication still waits for the parallel NAS-governance workstream's forward
+collection command and catalogue/owner-manifest/receipt/fresh-restore contract. Do not run or
+retarget `scripts/gutcheck-publish-growth-comparison.ts`, recreate the retired NAS `out/` tree, or
+append the old ledger. Preserve the legacy meshes and do not count this media work toward any phase
+gate.
+
+### Phase 8B record — closed; external search remains stopped
+
+Decision 0048, charter v1.25, and the
+[benchmark-corpus plan](plans/phase-8-measurement-corpus.md) govern. Preserve `evidence/phase8-target-book/`
+byte-for-byte, along with rejected plot-adjudication history and the failed original residual
+audit. Broad discovery and the residual backlog remain stopped absent a new named
+measurement gap; Phase 9 S0B is bounded reconciliation of already registered complete Git/NAS
+sources. All 51 Phase 8B records are development evidence and none may be relabeled held out.
+
+### NAS asset governance — complete through the Windows write lane; prune approval pending
+
+The [governance plan](plans/nas-asset-governance.md) holds the full record: the macOS
+correction applied without deletion (`d92f39a`), the Windows write lane executed 2026-08-20
+(`0b34ee9`: 11 collections, 8,362 files, receipt-verified, 11/11 fresh-process full verifies,
+green restore round-trip), and the external-evidence backup gap closed same day (`9e64ef7`:
+independent-domain copies verified twice against ledger pins, `backup.status: verified`). SMB
+rename crash-durability stays verification-based. Remaining: the maker's exact prune approval
+(decision point 1 under **Other live decision points**). Quoted detail:
+[the history file](progress-history-phases-6-8-9.md).
 
 Phase 7 stays on hold as a parallel product/engineering track; it still requires its own
 committed plan and isolated worktree before any work starts, and V4/V4.x apparatus stays

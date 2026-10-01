@@ -39,6 +39,12 @@ The NAS layout has one rule for future work: durable bytes go to
 `collections/<asset-id>/<version>/manifest.private.jsonl`. Every collection is registered in
 `docs/nas-assets.json`. Do not create another top-level project data root.
 
+`node docs/education/tools/build-local.mjs` resolves its private media directly from the active
+`research-private-freeze` collection through the marked-share resolver and the catalogue-bound
+tracked media inventory. If the share is detached it falls back to a registered worktree's ignored
+`research/` cache and then to the public placeholders; it never makes the private collection
+serveable through `/nas`.
+
 ## Standard procedure for a new retained collection
 
 1. **Classify before copying.** Inventory the staging tree, decide its single storage class,
