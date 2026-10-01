@@ -1,8 +1,9 @@
 # Local consolidation — 2026-10-01
 
-Status: checks complete; primary fast-forward and final science-checkout closure pending. Maker
-requests saving, pushing, merging ready work and NAS backup before
-closing the extra worktrees on this PC. The website/film branch on the other computer is excluded.
+Status: complete. Integration `f54cb7c` is pushed to main; only the primary worktree and local main
+branch remain. All three original output trees are retained locally and the useful new snapshots
+are verified on NAS. One unregistered empty directory remains Windows-locked (details below).
+The website/film branch on the other computer is excluded and unchanged.
 
 ## Scope and approach
 
@@ -125,6 +126,36 @@ checkout's now-empty root is held open by another process; leave it rather than 
 After fast-forwarding primary, run the catalogued closeout restore verification there, push main,
 move the final science output, and unregister that checkout. Remove the local retired checkpoint
 ref only while it exactly matches its existing remote ref; never merge it or delete that remote.
+
+## Completed local closure
+
+- Primary `G:/Code Files/snowflake` fast-forwarded to `f54cb7c`, which was pushed to `origin/main`.
+  Its declared dependencies are synced without a lockfile change. The existing primary scene
+  needed one LF-only normalization after the attribute merge; its working/index/HEAD bytes now
+  all match the original pinned SHA-256, with no scene-content change. Private `.claude/` settings
+  remain in place and out of Git.
+- The ordinary catalogued `assets:verify-restored` command passed from primary: 15 files /
+  151,154,825 bytes, tree SHA-256 `517e56391a09041b61a1bcacc6990af1ae3e67d69380c4957325a3cb35d7f52d`.
+  Command/result and the exact closure state are in the tracked closeout verification JSON.
+- `git worktree list --porcelain` now lists only primary; `git branch -vv` lists only main.
+  Education, evidence and science local refs are removed. The retired checkpoint local ref was
+  removed only after matching its existing remote head `b595652`; it was never merged. All remote
+  refs and all three stashes remain, and the other computer's website/film branch was not changed.
+- All three `out/` roots were moved intact to primary under
+  `out/retained-worktrees-2026-10-01/{education-out,evidence-out,science-out}/`. In particular,
+  every integration log path above beginning `out/local-consolidation-2026-10-01/` now resolves
+  beneath `out/retained-worktrees-2026-10-01/science-out/local-consolidation-2026-10-01/`.
+  No original run-output tree was discarded. The catalogued science and closeout snapshots also
+  remain on NAS; retained private source bytes still exist in primary and their private collection.
+- `G:/Code Files/snowflake-phase10-evidence` is an empty, unregistered directory held open by
+  another Windows process. No process was killed to remove it. It can be removed non-recursively
+  after that application closes or Windows restarts; no data recovery depends on this empty folder.
+
+Next: remain paused. Use pushed main as the common grounding point; reconcile the other machines'
+active branches there when ready. A later experiment wave should start in fresh task worktrees,
+partition independent cases across the two PCs, retain the 28-worker cap here, and demonstrate
+pause/resume before a long launch. Raw prior science is in the retained science-out tree or its
+catalogued NAS snapshot; restore only the needed campaign to the new task's expected output path.
 
 ## Tried and rejected
 

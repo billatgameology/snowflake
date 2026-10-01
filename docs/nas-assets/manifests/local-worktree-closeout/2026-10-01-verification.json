@@ -267,5 +267,52 @@
       "fixed": "The extra motion suite-load failure was CRLF checkout bytes versus its pinned LF scene. The extra Phase 8 test failure was the redundant root NAS-manifest attribute rule; main's nested manifest rule preserves the same raw JSON bytes without changing the Phase 8 fingerprint. Both now pass in the 43-test focused run.",
       "limits": "This is not a green full-suite claim. The full suite ran before the final focused corrections; it was not rerun. No frozen scientific evidence, expected numerical value, or historical test was weakened."
     }
+  },
+  "independentChecks": [
+    {
+      "command": "npm.cmd run assets:verify -- --collection local-worktree-closeout@2026-10-01 --full",
+      "exitCode": 0,
+      "files": 15,
+      "bytes": 151154825,
+      "manifest": "verified",
+      "aggregate": "verified",
+      "payload": "verified-full"
+    },
+    {
+      "command": "npm.cmd run assets:verify-restored -- --collection local-worktree-closeout@2026-10-01 --from out/restores/local-worktree-closeout-2026-10-01",
+      "executedFrom": "G:/Code Files/snowflake",
+      "exitCode": 0,
+      "fileCount": 15,
+      "totalBytes": 151154825,
+      "treeSha256": "517e56391a09041b61a1bcacc6990af1ae3e67d69380c4957325a3cb35d7f52d",
+      "pruneAuthorized": false
+    }
+  ],
+  "localCloseout": {
+    "integrationMainCommit": "f54cb7ce3ba545b9511bb2a0a8da7f554d22cc04",
+    "mainPushed": true,
+    "registeredWorktrees": [
+      "G:/Code Files/snowflake"
+    ],
+    "localBranches": [
+      "main"
+    ],
+    "retainedOutputRoots": [
+      "out/retained-worktrees-2026-10-01/education-out",
+      "out/retained-worktrees-2026-10-01/evidence-out",
+      "out/retained-worktrees-2026-10-01/science-out"
+    ],
+    "integrationLogRelocation": {
+      "from": "out/local-consolidation-2026-10-01/",
+      "to": "out/retained-worktrees-2026-10-01/science-out/local-consolidation-2026-10-01/"
+    },
+    "remainingEmptyDirectory": "G:/Code Files/snowflake-phase10-evidence",
+    "remainingEmptyDirectoryReason": "Windows reports another process holds the empty directory. It is unregistered and contains zero entries.",
+    "retiredCheckpointMerged": false,
+    "remoteRefsDeleted": false,
+    "otherComputerWebsiteBranchChanged": false,
+    "threeHistoricalStashesRetained": true,
+    "primaryPrivateSettingsRetained": true,
+    "sourcePruning": "All extra-checkout out/ directories were moved intact into primary. Only pushed tracked checkout copies, regenerable dependencies/builds, empty generator directories and verified private-source duplicates were removed."
   }
 }

@@ -655,9 +655,10 @@ These are measured implementation-level patterns, not physical-cause claims.
 
 ## Active plan
 
-The current task is [local consolidation](plans/local-consolidation-2026-10-01.md): merge ready
-local work, preserve useful ignored output on NAS, and close only fully preserved extra worktrees.
-The other computer's website/film branch is excluded; no new experiment is authorized by this task.
+The [local consolidation](plans/local-consolidation-2026-10-01.md) is complete: ready local work is
+merged and pushed to main, useful output is verified on NAS, and only the primary worktree and
+local main branch remain. All original output trees are retained under primary `out/`.
+The other computer's website/film branch is unchanged; science remains paused.
 
 Current action: the cavity/grid and early/late history wave is complete; see **Next step**
 for the consolidation pause and the linked scientific report. The campaign chronology below
@@ -912,10 +913,10 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Local consolidation — in progress, 2026-10-01
+### Local consolidation — complete, 2026-10-01
 
 Open [the consolidation plan](plans/local-consolidation-2026-10-01.md). Current main, the reviewed
-education demos and the NAS-backed offline builder are merged in the existing science worktree.
+education demos and the NAS-backed offline builder are merged and pushed to main at `f54cb7c`.
 The other computer's website/film branch and the retired S6 checkpoint are excluded.
 The new `local-worktree-closeout@2026-10-01` NAS snapshot has passed publication and fresh restore,
 including the Git bundle's three retained stash commits; its exact scope and hashes are in the
@@ -924,10 +925,16 @@ The earlier science snapshot remains intact. The exact integration suite has fin
 its observed 2,795 passed / 70 failed / 76 skipped tests and two suite-load failures are classified
 in the verification record, with the subsequent 43-test focused correction run passing.
 Public education verification and the app build passed. This is not a green full-suite claim.
-Next: push and fast-forward primary main, then perform the exact remaining closure below.
-No experiment is running.
-Close extra worktrees only after transferring any remaining useful local-only output to the
-primary checkout and checking the restored NAS copy from that checkout. Keep private media private.
+Only `G:/Code Files/snowflake` on local `main` remains registered. All three original output trees
+are retained at `out/retained-worktrees-2026-10-01/{education-out,evidence-out,science-out}/`;
+the integration logs are now beneath the retained science-out tree. The standard closeout restore
+verification passed from primary. The retired checkpoint was never merged; its remote ref, all
+other remote refs, the three stashes and primary private settings remain. One Windows-locked empty
+directory at `G:/Code Files/snowflake-phase10-evidence` remains unregistered and can be removed
+after closing its owning application or restarting; it holds no data.
+Next: stay paused and use pushed main as the common baseline for the other machines' reconciliation.
+Start a later authorized wave in fresh worktrees, restore only the required prior output, distribute
+independent cases across both PCs, and prove pause/resume before long runs. No experiment is running.
 
 ### Science wave complete; consolidation pause — 2026-10-01
 
