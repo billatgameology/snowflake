@@ -6,20 +6,32 @@ true after every session that changes anything.** Rules: [AGENTS.md](../AGENTS.m
 2026-08-20): this index plus the active plans are the sole live state, and work proceeds in
 isolated worktrees per Rule 16.
 
-## Closing Episode 12 and finale repairs — in progress, 2026-09-29
+## Closing Episode 12 and finale repairs — done (local preview), 2026-10-01
 
-After a verified audit found that E11 does not close the chapter 1–13 science, the maker asked for
-a closing episode that revisits every episode and opens what comes next, plus all the audit's
-fixes, while holding off on redoing audio. The [plan](plans/science-series-closing-episode.md)
-records the scope. Done so far: E12 script (`docs/video/science-series-e12-script.md`, 12 scenes,
-about 14 minutes), staged E10/E11 revisions (`…-e10-script-pending.md`, `…-e11-script-pending.md`;
-the recorded scripts are byte-identical), the Ch14 crossing contradiction fix, and a non-author
-[Round 1 review](reviews/science-series-closing-episode-round1-2026-09-29.md) with all findings
-dispositioned. Website tooling now refuses paid narration for E10–E12 (`narrationHeld`), imports
-pending revisions outside `src/`, and proves the recorded E10/E11 drawings unchanged by snapshot.
-In flight: website E12 stage and E10/E11 pending visuals, local-voice rehearsals and Round 2.
-Nothing is recorded, deployed or committed as released. Next: finish Round 2, rerun
-`npm run education:verify` on an idle machine, record, commit.
+After a verified audit found that E11 did not close the chapter 1–13 science, the maker asked for a
+closing episode that revisits every episode and opens what comes next, plus all the audit's fixes,
+holding off on audio. The [plan](plans/science-series-closing-episode.md) is done for that scope.
+
+- **E12, “What we know, and where it stops”** (`docs/video/science-series-e12-script.md`, 12 scenes,
+  2,105 spoken words, about 13.6 minutes with the local voice, two prediction holds): one continuing
+  crystal recalls all eleven episodes through each episode's own drawing, states what is settled,
+  the leading proposal and what is open, closes on Episode 1's line, and opens the project's story
+  honestly (no chronology, no first person, its miss stated as a finding).
+- **E10/E11 repairs are staged, not recorded:** `…-e10-script-pending.md` (E10-01/05/09) and
+  `…-e11-script-pending.md` (E11-02/09); the recorded scripts and productions are unchanged
+  (draw-call snapshot). Paid synthesis is refused for E10–E12 until `narrationHeld` is removed.
+- **Ch14** no longer says curve crossings decide tall versus wide; `npm run education:verify` passed.
+- **Reviews:** [Round 1](reviews/science-series-closing-episode-round1-2026-09-29.md) (scripts, Rule 13)
+  and [Round 2](reviews/science-series-closing-episode-round2-2026-10-01.md) (performance; desktop and
+  phone confirmers both judge that the series now ends). Non-author, shared context; no human
+  listening, learner test, physical device or real recording.
+- **Local preview (maker direction 2026-09-30):** E12 plays in local builds only with a labelled
+  provisional voice; the public build excludes it. Live player and E11 → E12 checks pass.
+
+Website `codex/series-first-batch` carries the implementation (records under
+`docs/series-closing-episode-2026-09-29/`); both branches are pushed. Next: the maker watches E12
+locally, then decides on the recording pass (E10/E11 changed sections, then E12; see the runbook's
+promotion steps) and on release (E05–E11 must be public before E12).
 
 ## Remaining series episodes — complete, 2026-09-21
 

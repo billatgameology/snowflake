@@ -1,13 +1,20 @@
 # Plan — closing Episode 12 and finale repairs (audio held)
 
 - **Phase:** Maker-directed Journey/media; no scientific phase or gate change
-- **Status:** in progress
+- **Status:** done for the authorized scope (local preview on; recording, release and listening are
+  separate maker decisions)
 - **Started:** 2026-09-29
-- **Last touched:** 2026-09-29 by Claude Opus 5.5 (Claude Code)
+- **Last touched:** 2026-10-01 by Claude Opus 5.5 (Claude Code)
 - **Authorization:** after a verified finale audit found that E11 does not close the chapter 1–13
   science convincingly, the maker wrote: “i feel we can create a closing episode that revisits all
   episodes and like a summary recap of all episodes, and then you can add the opening for what's
   next.  please also do all the fixes, hold off on redoing audio”
+- **Later direction (2026-09-30):** asked how Episode 12 should be enabled, the maker chose the
+  local preview: “I build E12's real player and turn it on in the local site only, with the Mac's
+  Samantha voice clearly labelled provisional, after the repairs finish. The public build keeps E12
+  held, and there's no paid audio.” The player is therefore built now; the provisional narration
+  is an untracked local install, never the production narration path, and every public-build
+  branch folds it away.
 - **Checkouts:** authority `snowflake` / `explore/film-part1-plan` at `6c99e19`; website
   `snowcrystal_website` / `codex/series-first-batch` at `2e79e9b`. The website worktree carries
   someone else's uncommitted E02 edits (`scripts/episode-two.test.mjs`, `src/series/episodeTwoCues.ts`,
@@ -139,21 +146,34 @@ ledger and the what's-next constraints. Load-bearing corrections they establishe
 - [x] Website tooling: config (E12, `narrationHeld`), import `--pending`, rehearsal `--content` /
   `--cues`, preproduction redirect; draw-call snapshot baseline written from unmodified code
   (`2e79e9b`) with a passing negative control (one-character colour change alters the hash).
-- [ ] Website E12: content import, cues, drawing (continuing crystal + callbacks), stage,
-  rehearsal entry, held card/route/public rules, tests.
-- [ ] Website E10/E11: pending imports, pending-only visuals, footers, tests.
-- [ ] Rehearsals: generate local-voice scores; full 1× frozen-stage runs for E12 and pending
-  E10/E11; desktop and narrow captures.
-- [ ] Round 2: non-author review of captures against the scripts; repair; recheck affected passages.
-- [ ] Ch14 fix with its independent check.
-- [ ] Verify: focused tests, TypeScript, `npm run build`, `npm run build:public`, snapshot proof.
-- [ ] Record reviews, docs, PROGRESS; commit both repositories without the foreign E02 files.
+- [x] Website E12: content import, cues, drawing (continuing crystal + callbacks redrawn by each
+  episode's own drawer), stage, rehearsal entry, held card/route/public rules, tests.
+- [x] Website E10/E11: pending imports, pending-only visuals (in separate modules registered only
+  by rehearsal entries), footers, tests, public-build leak guard.
+- [x] Rehearsals: local-voice scores; full 1× frozen-stage runs for E12 and pending E10/E11;
+  desktop, 360-px and Still pose captures; contact sheets.
+- [x] Round 2: non-author performance reviews, repairs, Rule 13 audit of new spoken text,
+  independent confirmations (desktop and phone both judge that the series now ends); see the
+  [Round 2 review](../reviews/science-series-closing-episode-round2-2026-10-01.md).
+- [x] Ch14 fix with its independent check; `npm run education:verify` passed on 2026-09-30.
+- [x] Local preview (later direction): E12 player on in local builds only, provisional voice
+  labelled, public build excludes it; live player and E11 → E12 transition checks pass.
+- [x] Verify: focused tests, TypeScript, `npm run build`, `npm run build:public`, snapshot proof.
+- [x] Record reviews, docs, PROGRESS; commit both repositories. At the maker's direction
+  (2026-10-01) the four pre-existing E02 files are committed separately from this work, and both
+  branches are pushed. Website `codex/series-first-batch`: `f099108` (this work; its exact tree
+  passed TypeScript, both builds and 332/332 tests in a temporary clean worktree, since removed)
+  and `f7dcb53` (the earlier E02 exploded-view edits, which reintroduce the localization mirror
+  failure until the authority mirror is updated). Authority `explore/film-part1-plan` fast-forwards
+  its remote. Pre-push audit (non-author): no secrets, nothing over 1 MB, no ignored or provisional
+  files, Rule 7 clean. Worktrees: only the primary checkouts remain; no backup branches.
 
 ## Out of scope
 
 - Any paid narration request, pacing of new audio, or promotion of pending revisions.
-- E12's player component (`EpisodeTwelve.tsx`), its home mount, preview key and E11's Continue
-  wiring: each needs E12's recorded narration. The card shows “Coming soon” until then.
+- A public E12: its release flag stays false and the public build excludes it entirely. (Superseded
+  in part on 2026-09-30: the player, home mount, `?e12=preview` key and E11's Continue now exist
+  for local builds only, driven by a labelled provisional local voice; see the later direction.)
 - Mandarin for E12 or the E10/E11 revisions.
 - E09 spoken edits. The audit's E09-01 signpost is repaired where the series returns to the shape
   question (E10-01) and in E12's recap, because an E09 sentence would also require a Mandarin pair,
@@ -170,8 +190,18 @@ ledger and the what's-next constraints. Load-bearing corrections they establishe
   chapter's own headline arm (broad-facet curves with dips off); replaced after Round 1.
 - **Education verifier under load.** A full `npm run education:verify` run on 2026-09-29 passed
   its ten pre-browser checks, then timed out loading the offline profile page while two rehearsal
-  workflows held the load average near 160. Rerun when the machine is idle before claiming a pass.
+  workflows held the load average near 160. Rerun when the machine is idle before claiming a pass. **Rerun 2026-09-30: passed** (197 checks,
+  all 149 negative controls rejected, exit 0).
 
+- **Agents across machine sleep.** Long workflows died twice when the Mac slept (stall detection
+  after 3 minutes without progress). Keep the machine awake (`caffeinate -ims`) for the duration
+  of a run and stop it afterwards.
+- **Reviewing hundreds of single screenshots in one agent.** Image-heavy reviewers stalled; contact
+  sheets (PIL) plus at most ~40 individual images per agent worked.
+- **Headless real audio for full runs on this Mac.** Chrome's audio clock stalls; final runs use
+  `HEADLESS_FAKE_AUDIO=1` and say so. That checks timing, not sound.
+- **Pending visuals inside released modules.** Pending-only strings would ship (unrendered) in the
+  public E10/E11 chunks; moved to separate pending modules behind empty hooks.
 - **Revising E10/E11 authority scripts in place.** Tests bind content, narration and authority
   bytes by SHA-256, `narratedBeats` throws on paragraph-count changes and missing cue phrases throw;
   production would break until new audio exists.
@@ -184,4 +214,9 @@ ledger and the what's-next constraints. Load-bearing corrections they establishe
 
 - Maker: whether the eventual recording pass should also re-pace unchanged takes (no provider call)
   if reader-only edits are later made to recorded episodes.
-- Maker: whether E12's what's-next should link to the book's Part Two, a future video series, or both.
+- Maker: whether E12's what's-next should link to the book's Part Two, a future video series, or
+  both. (The local footer currently says “Continue reading: Part Two” and links Chapter 14.)
+- Maker: approve the recording pass (E10-01/05/09, E11-02/09, then E12) and listen; recheck the
+  1.2–1.8 s timing margins against measured alignment at promotion.
+- Maker: watch E12 once as an audience member (local preview) and decide on public release, which
+  also needs E05–E11 public first.
