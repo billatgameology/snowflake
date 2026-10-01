@@ -19,6 +19,16 @@ detail.
 
 ## Current state
 
+- **Current science wave complete and reviewed (2026-10-01); expansion paused.** The
+  [completed cavity/history report](../evidence/post-phase10-wave-2026-10-01/README.md)
+  preserves the final comparisons and raw run archives. Early-growth cavity memory survives
+  switch-off; grid-dependent waist thickness remains a limitation. The next action is
+  three-machine consolidation under **Next step**, not another experiment launch.
+  Publication verification is recorded in
+  [verification.json](../evidence/post-phase10-wave-2026-10-01/verification.json):
+  `npm.cmd test` passed Rule 7, both typechecks and 2612 tests, but retained the same
+  18 failed tests and one suite-load failure as the September 12 baseline; not suite green.
+
 - **Phase 6 is COMPLETE (2026-08-20).** The maker accepts the recorded failure to reproduce the
   Nakaya diagram as the phase's scientific finding. Decision
   [0045](decisions/0045-bound-phase6-closure-to-a-compute-week.md) and charter v1.22 defined the
@@ -423,6 +433,10 @@ These are measured implementation-level patterns, not physical-cause claims.
 
 ## Active plan
 
+Current action: the cavity/grid and early/late history wave is complete; see **Next step**
+for the consolidation pause and the linked scientific report. The campaign chronology below
+is retained context; the detailed active plan begins with the closing findings.
+
 The [adaptive discovery follow-up](plans/post-phase10-adaptive-discovery.md) is the sole active
 science plan. Its pilot, N64/extent-29 long wave, and 58-row confirmation wave 1 are complete. Wave
 1 ran from `cb33534e` at actual maximum concurrency 32; all 58 rows exited zero and a direct census
@@ -603,326 +617,53 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 
 ## Next step
 
-### Maker-requested consolidation pause — 2026-09-13
+### Science wave complete; consolidation pause — 2026-10-01
 
-Do not launch another experiment wave before the maker's requested cross-machine consolidation.
-Let the current fine-grid and basal-history campaigns finish, perform their named analyses, then
-pause scientific expansion. Selecting a possible follow-up is permitted; executing it waits for
-the common grounding point. This supersedes automatic follow-up launch wording below, not the
-current registered runs. Do not kill, restart, move or delete their execution worktree: the
-discovery runner writes observations/results but no restartable checkpoint, and experimental
-kinetics cannot use ordinary LK resume export. No merge or process interruption has occurred.
+Both outstanding campaigns have finished, their comparisons are reviewed, and no experimental
+workers remain. The [completed wave report](../evidence/post-phase10-wave-2026-10-01/README.md)
+contains the findings, review limits, preservation inventory, and reproduction commands.
+Sources are its cavity-comparison.json, history-t4p5.json and history-t5.json: all twenty
+cavity/grid rows and all ten history rows have admissible size-target results and exit zero.
+The final worker exit is 2026-10-01T11:38:09.276Z, recorded in the archived
+cavity-fine-thick-t5-nodip/exit.json. These campaigns no longer prevent a machine restart.
 
-**Maker direction, 2026-09-16:** every future nontrivial scientific campaign must demonstrate a
-real pause/resume path on one representative row before full launch, with its checkpoint cadence
-and exact resume command recorded. If resumable state is unavailable, split the work into short
-independently terminal stages first. Status and observation logs do not qualify as restart state.
-This rule does not interrupt or retrofit the two already-running non-resumable campaigns.
+The new lead is early-growth memory: both early-only rows retain fourteen original open planes
+and add eighteen/twenty-two new surviving planes after switch-off, with 3.5 um further axial
+tip advance and zero selected demand afterward. Late-only produces only 0.35 um terminal depth
+despite appreciable exposure. The original M1 cavity contrast survives the measured grid/seed
+changes, but the added waist remains four cells: 1.4 um coarse versus 0.7 um fine. The new
+history rule has not been tested on a finer grid. Sources and common-age/size limits are in the
+report; these are model-development results, with no physical-validation claim.
 
-The maker's next-wave topology is this 32-logical-processor PC, another 24-core PC, and a Mac mini
-for story/website work. Converge their intended committed changes and retained result ownership
-to one integration baseline before splitting work again. The other machines' current heads and
-uncommitted work have not yet been inspected. Keep the present worker cap unchanged; determine
-the second PC's available budget and exact runtime before assigning it work. Prefer disjoint
-independent case groups on the two PCs, with the same recorded scientific producer/runtime,
-explicit row ownership and separate output directories. Keep Mac story/website changes isolated
-from experiment production. A short assignment section in the active plan is enough; no generic
-distributed scheduler or coordination framework is requested.
+Three tracked run archives preserve 487 files / 324451935 source bytes, including these campaigns
+and the eight prior width-comparison rows. Every member matched a fresh restore by length and
+SHA-256; raw-inventory.json records the exact paths. No original local output was deleted.
+Older adaptive collections outside this bundle are not declared backed up or disposable.
 
-Code integration may be prepared separately while this worktree's jobs continue. Full retirement
-of execution worktrees or a restart must wait for terminal results and their preservation, unless
-the maker explicitly chooses to abandon partial runs. Reconcile branch intent and all machines'
-local-only changes before merging; do not merge every historical/retired branch blindly.
+**Push pending explicit approval:** the closure is committed locally, but the approval system
+blocked publication because origin (`billatgameology/snowflake`) is public and the pending science
+history includes raw generated simulation records and logs. The destination was confirmed as
+the authenticated maker's existing repository. Ask the maker to approve that public payload;
+only then run `git push origin HEAD:refs/heads/explore/post-phase10-discovery` from the science
+worktree. Do not infer success or bypass the rejection. No remote update occurred.
 
-### Resumed cavity mechanism/resolution experiment
+**After push, next action:** open the completed report and the closing section of
+`docs/plans/post-phase10-adaptive-discovery.md`, then reconcile the three machines' intended
+branches, local-only changes and remaining output ownership into one shared baseline.
+Start with `git worktree list --porcelain` and `git branch -vv`; do not merge historical/retired
+branches blindly. The 24-core PC and Mac's live state have not been inspected. No merge, deletion,
+or new experiment is performed as part of this save-and-push closure.
 
-The maker explicitly resumed on 2026-09-08. Open **Scientific review and resumed cavity experiment**
-in `docs/plans/post-phase10-adaptive-discovery.md`. The finite 20-row roster and optional raw spatial
-snapshots are implemented; focused tests (four files / 17 tests), both typechecks and the bounded
-review pass. The exact `npm test` finished: 163/172 files pass, with 2,521 passed / 16 failed /
-72 skipped tests; Rule 7 and both typechecks pass. The failures are the recorded historical
-Phase 9/10 surfaces, not new cavity/snapshot failures. Logs and the exact exit record are under
-`out/post-phase10-cavity/checkpoint-2026-09-08/`; do not repeat the suite or call it green.
-The producer is committed at `eb7b5c4f932939e3b40d686a996796fdaceb1894`, and its exact command
-`node runner/src/post-phase10-discovery-main.ts launch-cavity out/post-phase10-cavity/campaign-2026-09-08 28`
-has launched once. Parent PID 13768 and all 20 worker children were confirmed live; all 20 specs and
-host records name that producer. Requested concurrency is 28, actual startup concurrency is 20.
-Read `out/post-phase10-cavity/campaign-2026-09-08.launcher.log`, its `.launcher.stderr.log`, and
-per-row status/exit/result records; do not duplicate the launch. The standalone offline analyzer
-`runner/src/post-phase10-cavity-analysis.ts` now reconstructs occupancy, matches physical size/time,
-tracks transient versus terminal enclosure intervals, and profiles basal center/rim snapshots.
-Its focused manufactured-fixture checks and read-only scientific review pass. No running-producer
-imports changed. Analysis source is committed at `8c53763`. Its single exact `npm test` finished
-with exit 1: 163 passed / 12 failed files; 2,535 passed / 20 failed / 72 skipped tests, plus one
-worker-RPC error. Rule 7 and both typechecks pass; all 18 new offline-analysis tests pass.
-The old failure roster remains, with additional visual/S6 test and intake-cleanup timeouts;
-the active plan records the exact distinction. The suite is not green. Read
-`out/post-phase10-cavity/analysis-checkpoint-2026-09-08/npm-test.log` and `npm-test-exit.json`.
-Supervisor 37596 and test worker 27196 have exited. Do not repeat this suite or repair retired
-infrastructure. The old-trajectory analysis is retained at
-`out/post-phase10-cavity/retrospective-cavity-2026-09-08.json` (source head and exact command inside).
-It distinguishes transient pockets in both arms from enclosure persisting through the M1 stops;
-the active plan records the physical-size/time-qualified findings. The planned retained-data domain
-comparison is also complete: `out/post-phase10-cavity/cavity-domain-comparison-2026-09-08.json`
-finds unchanged cavity/waist measurements at common size across N64/N80, with small attached-count
-differences. `initial-boundary-contrast-2026-09-08.json` beside it records stronger initial basal
-rim/center kinetic-demand contrast in M1; it covers only completed initial snapshots, not terminal
-rows or a causal mechanism. Those first-relaxation fields use zero lagged monopole correction,
-not settled outer-boundary feedback (ADR 0024); the active plan explains the observed startup
-cost without changing the solver. Neither observation settles grid/seed sensitivity. Next watch the existing
-campaign's terminal records and analyze configurations as they finish with
-`node runner/src/post-phase10-cavity-analysis.ts campaign out/post-phase10-cavity/campaign-2026-09-08 <new-output.json>`.
-Do not generate repeated all-pending reports. Keep partial groups
-explicit; their common-time grid can change as additional rows complete. The maker's active goal authorizes autonomous
-finite follow-ups with a maximum of 28 combined experiment/test workers. Preserve the running cavity producer; its immediate
-question is whether warm cavity formation persists across explicit grid/seed perturbations and
-has the hypothesized spatial field precursor. All 12 coarse rows are now admissible size-target
-terminals. The consolidated report is `out/post-phase10-cavity/coarse-cavity-comparison-2026-09-08.json`;
-the active plan's **Consolidated coarse-grid result** records its identity and paired measurements.
-All six M1 rows retain enclosed center-air sections at stop; all six no-dip rows have only
-transient enclosure and none at stop. This is persistence versus closure, not cavity creation
-versus no creation. Common-age samples also include transient no-dip pockets, explicitly recorded.
-The arm-associated contrast survives the measured coarse seed perturbations, while waist thickness
-and cavity width retain seed dependence. Spatial snapshots support post-onset depletion, not
-an established initiation mechanism. At 23:04 UTC the parent and eight fine-grid workers were
-live, with 12 completed rows and no nonempty worker stderr. Next analyze those fine-grid rows
-without relaunching or changing their producer. Compare added waist thickness beyond the seed in
-physical units as well as cells; grid-independent dimensions are not established. Decision 0055
-and the active plan's **Bounded overlapping facet-isolation experiment** now explicitly amend
-the earlier serial wait. The small constant-preparation opt-in, four warm hybrid rows and explicit
-analysis labels are implemented. Focused checks pass five files / 30 tests, including nontrivial
-both/neither byte equivalence through attachment and independent hybrid Robin/fill checks;
-read `out/post-phase10-facet-factorial/checkpoint-2026-09-09/focused-tests.log` and the active plan
-for the exact command. The bounded solver review found no blocker. The one required exact
-`npm test` has finished: 167 passed / 10 failed files; 2,554 passed / 17 failed / 72 skipped tests.
-Rule 7, both typechecks and all 30 focused-file tests pass. The nine historical failed files remain,
-plus the Phase 9 M-GT frozen-spec identity check rejecting the intentionally extended spec. The
-plan records the doc-only updates during this numerically unchanged check and exact log/exit
-identities. Supervisor 34632 has exited; do not repeat this check or repair historical failures.
-The four-row factorial launched once with the plan's exact `launch-facet-factorial ... 4` command
-under producer `a69240b329874ee8c39412d78a9320574418d2f7`. Parent PID 4416 and four children were
-confirmed live at startup; host records carry that producer and specs identify each explicit facet arm. See
-`out/post-phase10-facet-factorial/campaign-2026-09-09.launcher.log`, its `.launcher.stderr.log`,
-and the campaign's row status/exit/results. Fine parent 13768 still has eight workers: actual
-experimental concurrency is twelve. Do not duplicate either launch. Reuse four completed baseline controls; analyze
-the resulting eight-row factorial before expanding its conditions. The maker also encouraged
-distinct parallel hypotheses. The active plan's **Geometric closure hypothesis** records a new
-retained-event attribution: M1's added center-axis sites in the matched N64/N80 histories were
-geometrically filled, and no-dip resealing also uses that rule heavily. Report:
-`out/post-phase10-cavity/axis-holefill-attribution-2026-09-09.json`. After facet verification/launch,
-the selected independent follow-up is four baseline-matched hole-fill-off rows, with ordinary
-kinetics retained and open cavities distinguished from artificial sealed vacancies. Decision
-0056's implementation and focused checks are complete; the active plan records the test-fixture
-correction and bounded review. Read `out/post-phase10-holefill/checkpoint-2026-09-09/focused-observations.json`.
-Its one exact `npm test` is complete at frozen source `b0144b6`: 167 passed / 12 failed files,
-2,571 passed / 18 failed / 72 skipped tests, plus one worker-reporting error. Rule 7 and both
-typechecks pass; all 28 tests in the three changed focused files report passes, corroborating
-their standalone checks. The active plan distinguishes the ten prior failed files from the
-S6 graph timeout and intake-cleanup timeout; do not call the suite green or repeat it. Read
-`out/post-phase10-holefill/checkpoint-2026-09-09/npm-test.log` and `npm-test-exit.json`.
-Supervisor 36404 has exited. The four disabled rows launched once with the registered
-`launch-holefill ... 4` command under producer `21da8313c3833e03fac6b9532c7ec52ebcaf7dff`.
-Parent PID 42212 and four worker children were confirmed live; all host records carry that
-producer and all specs identify the disabled mode. At 04:13 UTC actual experiment concurrency
-was sixteen: eight fine, four facet and four hole-fill workers. Read
-`out/post-phase10-holefill/campaign-2026-09-09.launcher.log`, its `.launcher.stderr.log`, and
-per-row status/exit/results. Do not duplicate any launch. Next analyze each finite comparison
-when its rows terminate: the four facet rows plus four ordinary baselines, and separately the
-four disabled rows plus those same four baselines, using the cavity analyzer's `rows` command.
-Keep the fine-grid comparison running. Decide longer follow-ups from those results, not from
-in-flight morphology.
-Maker correction, 2026-09-09: the minute-by-minute monitor was stopped because repeated checks
-and unchanged updates waste tokens and cause compaction. Observe roughly hourly or on a reported
-completion, not every minute. No new check, plan, test or status commit is needed merely because
-another goal continuation begins. The sixteen experiment workers were left running.
-The 08:33 UTC observation found three facet rows complete and thirteen experiment workers still
-live. The completed -4.5 C quartet is now analyzed at
-`out/post-phase10-facet-factorial/t4p5-comparison-2026-09-09.json`: both and basal-only retain
-22 straight-open enclosed center-air layers and five waist planes; neither and prism-only have
-no terminal enclosure and eleven waist planes. All four endpoints are admissible and their
-recorded nonkinetic settings match. At this anchor the basal-side dip reproduces the cavity
-contrast without the prism-side dip; this is a discrete-model intervention result, not physical
-validation. The active plan records histories, common-age matching and the report identity.
-Both mechanism campaigns are now complete. The final -5 C facet report is
-`out/post-phase10-facet-factorial/t5-comparison-2026-09-09.json`: both/basal-only again retain
-22 open enclosed center-air layers and five waist planes; neither/prism-only have no terminal
-enclosure and thirteen waist planes. The two matched hole-fill reports are
-`out/post-phase10-holefill/t4p5-comparison-2026-09-09.json` and `t5-comparison-2026-09-09.json`.
-Disabling geometric completion preserves persistent M1 enclosure versus no-dip resealing at both
-anchors, but reduces the -4.5 C M1 waist from five to three planes; at -5 C it still reaches five.
-The extra warmer throats are axially open, not isolated sealed vacancies. Thus the enabled
-trajectory's geometric attachment route was not a proof that its endpoint requires that route.
-The active plan's **Completed mechanism comparisons and selected longer evaluation** records
-the report identities, limitations and a finite extension registered before implementation.
-The eight longer N80/extent-37 variants are implemented at `d743e68`, using existing facet/hole-fill
-options and launchers and reusing the four ordinary larger-domain controls. The focused roster/CLI
-check passed; its transcript-derived record and exact command are in
-`out/post-phase10-mechanism-long/checkpoint-2026-09-09/focused-observations.json`. The
-single combined exact `npm test` is complete at frozen `6e6f514`: 169 passed / 10 failed files;
-2,576 passed / 17 failed / 72 skipped tests. Rule 7, both typechecks and both changed test files
-pass. The ten historical missing-file/identity failure surfaces remain, with no reported timeout
-or worker-RPC error. Read `npm-test-exit.json` and `npm-test.log` in that checkpoint directory;
-the active plan records the distinction. Supervisor 49000 has exited. The suite is not green and
-must not be repeated for confidence. Both new finite campaigns have now launched once under
-producer `4c35764965a3726ec0a405817343f5dec21aa76f`: facet parent 21736 and hole-fill parent 43860
-each had four live workers at 10:40 UTC, alongside the eight original fine-grid workers, for
-sixteen actual experiments. Read
-`out/post-phase10-facet-factorial/campaign-long-2026-09-09.launcher.log` and
-`out/post-phase10-holefill/campaign-long-2026-09-09.launcher.log`, their separate stderr logs,
-and per-row status/exit/results inside each campaign. Next observe these existing runs roughly
-hourly or on completion and analyze completed matched quartets; do not relaunch or recheck
-unchanged work merely because a goal continuation starts.
-The -4.5 C longer comparisons are now complete at
-`out/post-phase10-facet-factorial/t4p5-long-comparison-2026-09-10.json` and
-`out/post-phase10-holefill/t4p5-long-comparison-2026-09-10.json`. Both quartets are fully admissible
-and matched. Both/basal-only retain 30 open enclosed center-air layers and five waist planes;
-prism-only/no-dip reseal. Disabled M1 retains a three-plane waist through the larger endpoint,
-with 32 open enclosed layers; disabled no-dip still reseals. The active plan's **Completed warmer
-longer comparisons** records the identities, histories, physical-age matching and scope limits.
-This strengthens the model-level lead without establishing grid-independent physics. The final
--5 C companions have now completed too: all eight longer mechanism rows are admissible extent-37
-results. Their reports are `out/post-phase10-facet-factorial/t5-long-comparison-2026-09-10.json`
-and `out/post-phase10-holefill/t5-long-comparison-2026-09-10.json`. M1/basal-only retain thirty
-open layers and five waist planes; no-dip on/off reseal. Colder prism-only ends with two shallow
-single-cell surface openings, not a fully closed endpoint or a deep-cavity lead. The active plan's
-**Completed colder longer comparisons and selected interaction** records exact measurements,
-identities and the conditional next-step closure derivation. No simulation/test was repeated for
-these analyses. The eight original fine-grid workers remain active.
-Decision 0057 and that plan section now register two new prism-only/disabled-completion rows,
-using six completed N80 controls, with same-plane opening persistence measured behind advancing
-tips. All old rosters and numerical equations are preserved. The registered launch command is
-`launch-prism-holefill out/post-phase10-prism-holefill/campaign-2026-09-10 2`, executed only once
-after the single exact `npm test` at the stable combined checkpoint.
-The interaction is now implemented in existing files; the five focused solver/runner/analysis
-files pass all 54 tests. Original logs and the new geometry/history readout demonstration are in
-`out/post-phase10-prism-holefill/checkpoint-2026-09-10/`, with exact commands and limits in the
-active plan's **Interaction implementation checkpoint**. Existing-data demonstration separates
-M1's deepening cavity from prism-only's shallow surface pits without rerunning simulations.
-The single exact `npm test` at `29eebb389d9f903ba4b6f595828fb8ceffaf4174` is complete:
-169 passed / 10 failed files; 2,585 passed / 17 failed / 72 skipped tests. Rule 7, both typechecks
-and all 54 focused-file tests pass. The historical missing-file/frozen-identity failures remain;
-there is no new interaction failure, timeout or worker-RPC error. The suite is not green and is
-not to be repeated. Read `npm-test.log` and `npm-test-exit.json` in that checkpoint directory;
-the active plan records their identities and scope. Supervisor 26212 has exited.
-The two interaction rows launched once under producer `9ab31acbe8ab11f46ffee0fce0b3fb9d335ce135`.
-Parent 44648 and children 13340/31780 were confirmed live at launch alongside the eight original
-fine-grid jobs. Startup logs and specs record both opt-ins with the distinct interaction identity.
-Read `out/post-phase10-prism-holefill/campaign-2026-09-10.launcher.log`, its separate stderr log
-and per-row status/exit/results. The warmer interaction has now completed with an admissible
-extent-37 stop, exit zero and no integrity errors. Its final matched report is
-`out/post-phase10-prism-holefill/t4p5-comparison-2026-09-11.json`: all four corners reseal, with
-fifteen waist planes and zero terminal center-air enclosure. Each history's seven transient
-episodes has zero axial tip advance while its tracked planes stay open. The combined intervention
-delays some closure but supplies no registered deepening-cavity lead at this warmer anchor;
-no longer warmer extension is selected. The active plan's **Completed warmer interaction** holds
-exact measurements, source identity and age/size caveats. The colder interaction is now complete
-too, with an admissible extent-37 / exit-zero result. Its final matched report is
-`out/post-phase10-prism-holefill/t5-comparison-2026-09-11.json`: neither arms reseal; prism on/off
-retain shallow pits on the two outermost planes, with one/thirteen air sites per pit respectively.
-The combined pits contracted during their recorded interval, with zero axial-tip advance; their
-eventual closure was not observed. The plan's **Completed colder interaction and branch synthesis**
-records exact values and limits. No multi-plane persistence lead emerged at either anchor, so
-no further prism/completion extension is selected. Both interaction workers have exited; all
-eight original fine-grid workers were confirmed live at 14:05 UTC. Continue their hourly/completion
-observations and analyze matched seed/grid sets when complete, without relaunching or rechecking
-unchanged work.
-The local-width feasibility question now has a measured answer in
-`out/post-phase10-local-basal/geometry-feasibility-2026-09-11.json` (SHA-256
-`4ca75a2dc59703c1772367e53df7edb00b0ac540d030135225f24acc527f53e6`). Integer exposed-face chords
-distinguish broad no-dip faces from evolving narrow terraces, but also select recessed patches;
-this is not a rim-only rule. At the seed, thresholds two/three select zero/twenty-four of
-thirty-eight basal cells. The active plan's **Local basal-width investigation** records the
-source check, exact geometry findings and limits; do not repeat that calculation or source sweep.
+Retain the maker's pause before another long wave. A possible follow-up is a physically matched
+grid/width and initialization test of the early-history lead. Use disjoint case groups and
+separate outputs on the two PCs with a common recorded producer/runtime. This PC remains capped
+at 28 workers; determine the second PC's runtime and available budget. The Mac owns story/website
+work. Every future nontrivial campaign must demonstrate pause/resume on one representative row
+and record its checkpoint cadence and resume command, or use short independently terminal stages.
+Other scientific lead families remain open. No Phase 7 or C0V/S6 work is reopened.
 
-The plan's **Selected local basal-width experiment**, decision 0058 and attachment spec section 3
-were committed before implementation at `5f90eb0330d138a33dbc79537103c3e2f3b44be7`. The solver,
-four-row roster/CLI, demand telemetry and distinct analyzer grouping are now implemented.
-Focused checks passed 21 analyzer tests and six solver/four runner tests; both typechecks passed.
-Exact commands, retained initial fixture/type diagnostics, successful logs and the single bounded
-static review are recorded in the plan's **Local-width implementation checkpoint**. The warmer
-quartet is now complete in `out/post-phase10-local-basal/t4p5-comparison-2026-09-12.json`
-(SHA-256 `8e06391c81e5f71f322fcb1c6690683ada2b5bfaaa4b69184bf3196ee8b1d5fe`). All four arms
-are admissible and matched. The three-cell rule retains 34 straight-open enclosed planes and a
-one-plane waist, with approximately 5.95 micrometers of tip advance while a tracked plane stays
-open; the two-cell rule's nine transient episodes reseal, with zero such advance. The plan's
-**Completed warmer local-width comparison** records exact age/size contrasts and the key limit:
-the successful rule is seed-active, and 284 of 920 updates select every basal cell, including
-the onset-producing update. This is a persistent model lead, not isolated ongoing width-feedback
-causality, grid robustness or physical validation. All four local-width rows are now complete,
-exit zero (`campaign-2026-09-11/basal-width-wave-1-complete.json`). The colder matched report,
-`out/post-phase10-local-basal/t5-comparison-2026-09-12.json` (SHA-256
-`f0a7cfa8b4b71b3fbc808869d77a7f6a3c87cd0286fb86bf5821205c21584837`), also retains the
-three-cell lead: 34 open planes, one-plane waist and approximately 5.95 micrometers of tracked
-tip advance. Its two-cell arm retains only two outer-plane pits with zero depth/advance.
-The successful colder rule supplies only 27.85% of whole-history computed basal demand through
-selected cells (rounded); its final selected demand is zero. The plan's **Completed colder
-local-width comparison and synthesis** records why early history and later feedback remain
-entangled. The original eight fine-grid workers were confirmed live at 23:09 UTC on 2026-09-12.
-
-The single exact `npm test` at `271c70868e03a125939d97e2bee8b4f2a38ba8ce` completed, exit one:
-170 passed / 11 failed files, 2,597 passed / 18 failed / 72 skipped tests. These counts are from
-`out/post-phase10-local-basal/checkpoint-2026-09-11/npm-test.log` (SHA-256
-`da0ed6bbe07bfed03879b01576f8f50be3a5ab20c32360f2c9c4561e5d7fd867`); the adjacent
-`npm-test-exit.json` records completion. Rule 7, both typechecks and all 31 experiment-focused
-tests pass. The plan classifies the retained historical failures and the one additional C0V
-source-shape assertion: all required boundary fields remain returned, but its static checker
-does not resolve a local object/spread. No numerical defect was found in that diagnostic;
-the full suite is not green, and no retired repair or repeat check follows.
-The four rows launched once at 15:07:49 UTC on 2026-09-11 under producer
-`13f15d1227bea5877904e0af06e2df77ba33d952`, using:
-`node runner/src/post-phase10-discovery-main.ts launch-basal-width
-out/post-phase10-local-basal/campaign-2026-09-11 4`. Its `campaign.json` and startup
-`out/post-phase10-local-basal/campaign-2026-09-11.launcher.log` record the exact argv and four
-active launches. Parent 23280 and children 12516/41580/28944/8128 were confirmed live alongside
-the eight original fine-grid workers: twelve experiment workers total, no test worker. Separate
-launcher/per-row stderr logs are initially empty. The rows condition basal kinetics on chord
-thresholds two/three and reuse completed no-dip/basal-only controls.
-The plan's **Basal-width early/late longer investigation**, decision 0059 and matching spec were
-committed at `856379a5536b852eca1983ceddb84901ce176902` before implementation. The solver,
-runner, finite roster/CLI and matched history analyzer are now implemented. Focused checks passed
-12 solver, 26 analyzer and four runner tests once; original commands/output are retained under
-`out/post-phase10-basal-history/checkpoint-2026-09-12/` and detailed in the plan's
-**Early/late implementation checkpoint**. Both typechecks passed (`npm.cmd run typecheck`,
-`typecheck.log`); the one bounded non-author static review found no concrete blocker and did not
-rerun tests or simulations. The implementation is committed at
-`f93f40c288ced2d4e3b12aff22423e42a9b6353e`. Its one exact `npm test` completed, exit one:
-171 passed / 11 failed files, 2,612 passed / 18 failed / 72 skipped tests, with Rule 7, both
-typechecks and all 46 local-width/history focused tests passing. Counts and classification are
-in the plan's checkpoint and the retained `npm-test.log` (SHA-256
-`4e9bc52c070aa568849eb333e434874837df397b689739cf5dab0bd4cd8ff2f2`); `npm-test-exit.json`
-records completion. The failure headings match the preceding check; no new failing test appeared.
-Do not call the full suite green or repair retired pins/recovery.
-Ten N112 / extent-53 rows
-cross the two temperatures with broad, global-basal, full width-three, early-only and late-only
-kinetics. A fixed twenty-second physical-time cutoff tests early growth history, not seed-only
-effects; switches occur at complete coupled-update boundaries and preserve state. The registered
-`launch-basal-history out/post-phase10-basal-history/campaign-2026-09-12 10` command has now
-launched once from clean producer `a8fa8b3fe3f6665b77cdcd13adde9035d06b451b`, at
-2026-09-13T00:36:20.107Z. The campaign manifest and sibling `.launcher.log` record exact argv
-and ten actual concurrent launches; parent 28708 and all ten children were confirmed live
-alongside the eight original fine-grid jobs, with no test worker. Initial stderr files are empty.
-Next use hourly/completion observations, not another launch or test. On each temperature's
-five-row completion, generate one report from its broad/global-basal/full/early/late directories
-with `node runner/src/post-phase10-cavity-analysis.ts rows <new-output.json> <row-directories>`
-and `--center-spans-um=4.2,5.6,7,8.4,9.8,12.6,18.2`. The plan's checkpoint gives paths and
-interpretation limits. Do not regenerate
-the two completed width reports, scan thresholds or change the original fine-grid jobs. Their
-matched seed/grid analysis remains pending. Keep combined workers at or below 28 and the
-counterfactual P4; no physical-validation claim, Phase 7 work or C0V recovery follows.
-The plan gives exact launch commands and the verification scope. Preserve the eight original
-fine-grid runs; do not duplicate or modify their launch. Keep one final quartet report per
-temperature per experiment, without a redundant combined report or frequent pending reports.
-The retained first-axis closure analysis also qualifies the hypothesis: geometric completion
-skips a small remaining fill at those first events, not most of a voxel. Read
-`out/post-phase10-cavity/first-axis-fill-remainders-2026-09-09.json`; the completed counterfactual
-above now shows temperature-dependent waist consequences over its measured window. The loaded
-fine processes retain their original numerical source; completed checks must not be repeated.
-This identifies intervention effects in the current discrete model, not grid-robust physics.
-Scalar distinctness was already checked; do not repeat that feasibility work. Do not involve Phase 7, revive C0V/S6 recovery, or build
-a scheduler, dashboard, hostile-runtime defense, or new assurance framework.
-
-The prior Phase 10 selection note below is completed reproduction context; its request for a next
-workstream is superseded by the campaign selection above.
+The active plan retains the detailed earlier implementation, launch, failed-check and analysis
+history. Those checkpoints are reproduction context, not instructions to relaunch completed work.
 
 ### Completed Phase 10 reproduction context
 

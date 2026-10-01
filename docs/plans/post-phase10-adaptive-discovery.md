@@ -1,10 +1,64 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** wave 2 complete; maker resumed 2026-09-08; cavity mechanism/resolution wave selected
+**Status:** cavity/grid and early/late history wave complete and reviewed (2026-10-01); paused for three-machine consolidation
 **Worktree:** `G:\Code Files\snowflake-science-exploration`
 **Branch:** `explore/post-phase10-discovery`
 **Base:** `ba99d81`
 **Claim level:** exploratory model-development evidence only
+
+## Completed wave and consolidation pause — 2026-10-01
+
+The twenty-row cavity/grid campaign and ten-row early/late campaign have admissible size-target
+results for every row; the final worker finished at 2026-10-01T11:38:09.276Z. The separate prior
+eight width-comparison rows are preserved as domain-comparison inputs. No further run starts.
+The [completed scientific report](../../evidence/post-phase10-wave-2026-10-01/README.md) links the
+three final comparisons, two byte-preserved earlier comparisons and raw run archives. It replaces
+the pending-grid/pending-history next actions in the historical checkpoints below.
+
+The measured outcome is a growth-history lead: both early-only rows retain fourteen original
+straight-open planes, create eighteen/twenty-two additional surviving planes, and advance each
+axial tip another 3.5 um after the enhancement switches off with zero selected demand afterward.
+Late-only has appreciable selected demand but only 0.35 um terminal depth. Continued enhancement
+still changes the matched-age growth. Sources: history-t4p5.json and history-t5.json in that bundle,
+frames, basalWidthHistory and cutoffExposure; the report gives exact quantities and brackets.
+
+The original M1 cavity contrast survives the tested seed/grid conditions; added waist thickness
+is four planes on either grid, or 1.4/0.7 um at coarse/fine spacing. Thus the morphology lead
+survives, but its dimensions are not grid-qualified. The N112/N80 local-width comparison also
+retains cavity topology at common 12.6 um span while its timing/lateral growth changes. Neither
+test establishes domain independence, physical SDAK, or validation. The finer-grid campaign did
+not test the later width-conditioned rule. The independent review reproduced the early-only
+occupancy finding from raw events; its provenance and limits are in the report.
+
+Preservation: raw-inventory.json in the bundle records 487 archived files / 324451935 source
+bytes, all fresh-restored and compared byte-for-byte by length/SHA-256. Existing local outputs
+remain in place. Older adaptive collections outside this bundle still require retention review
+before deleting any worktree; no collection is declared disposable.
+
+Next: converge the 32-logical-processor PC, 24-core PC and Mac story/website changes to one
+baseline. Then propose a finite physically matched grid/width and initialization check of the
+early-history lead, split across both PCs, with demonstrated pause/resume before launch.
+The present cap is 28 workers; the other PC's runtime and available budget remain unknown.
+Other parked lead families remain open. No Phase 7 or C0V/S6 work is reopened.
+
+Local reconciliation before push: the science worktree was clean at 9658cd3 before this closure;
+the refreshed origin science branch is its ancestor (61 local commits ahead, zero behind).
+This publication includes that science history and the closing evidence/docs only. The main
+worktree at 9722561 has independently owned untracked .claude/ configuration; education is clean
+at 564a95a on docs/education-ch30-33-demos; the evidence/website worktree is clean at f4e8962.
+Their task-relevant ignored cavity/history/width paths are absent. The existing education branch,
+main, evidence/website branch, and explicitly do-not-merge S6 checkpoint remain independently
+owned or historical; nothing is merged or deleted. There is no temporary review worktree or PR.
+The surviving publication branch is explore/post-phase10-discovery; its publication head is the
+commit containing this closing record. The remote is origin on billatgameology/snowflake.
+
+Verification: `npm.cmd test` finished with Rule 7 and both typechecks passing, 171 passing
+test files / 2612 passing tests, and the same 11 failing files / 18 failing tests plus one
+suite-load failure as the September 12 baseline. All nineteen normalized failure headings
+match; this is not suite green. Cavity analysis, width/history tests and evidence integrity
+passed. The exact log, counters, baseline comparison and preservation checks are in
+[verification.json](../../evidence/post-phase10-wave-2026-10-01/verification.json) and its
+linked log. No historical recovery or source-identity fixture repairs were attempted.
 
 ## Goal
 

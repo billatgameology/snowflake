@@ -3,9 +3,57 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 451,
- "totalBytes": 6621331,
+ "fileCount": 463,
+ "totalBytes": 61080850,
  "files": {
+  "post-phase10-wave-2026-10-01/npm-test.log": {
+   "bytes": 114857,
+   "sha256": "571eda677c0479ba64e924e6ed133786fb633bba578383d6dab4e0e1eb16f83c"
+  },
+  "post-phase10-wave-2026-10-01/verification.json": {
+   "bytes": 6818,
+   "sha256": "ffd454a851815c6c36c7127be8bbacbe24051279241cb9d529a86afa869f2503"
+  },
+  "post-phase10-wave-2026-10-01/cavity-comparison.json": {
+   "bytes": 5298918,
+   "sha256": "fa10b16b17b1eedc29139cad85acf4fa32f0fb223de680ccc3f47d5a0c12c0b5"
+  },
+  "post-phase10-wave-2026-10-01/cavity-runs.tar.gz": {
+   "bytes": 19701096,
+   "sha256": "26823cf3dd65f38988b81bc50ffa117375abf63d2983fd124569d4e814a2db29"
+  },
+  "post-phase10-wave-2026-10-01/history-runs.tar.gz": {
+   "bytes": 18484087,
+   "sha256": "2f23fa2ca5317ea7ca830c6d31a71f492777bb5c5a6fb2bee127ad4f77f02f50"
+  },
+  "post-phase10-wave-2026-10-01/history-t4p5.json": {
+   "bytes": 1739472,
+   "sha256": "de94a90dd8b128d40d57c2b65c8003c9bef53466d97e278514b5eafb68c55b54"
+  },
+  "post-phase10-wave-2026-10-01/history-t5.json": {
+   "bytes": 1781909,
+   "sha256": "a45e0122b4be850c7ae5e46d5b835277c5dac8aabd7c6064d5fdf4efbf5841b5"
+  },
+  "post-phase10-wave-2026-10-01/prior-width-runs.tar.gz": {
+   "bytes": 5453924,
+   "sha256": "231c4d54c6a099d2cd0fe511bfbaa6e55a4b32fd36e6210e82b6552e1bf8f574"
+  },
+  "post-phase10-wave-2026-10-01/prior-width-t4p5.json": {
+   "bytes": 863208,
+   "sha256": "8e06391c81e5f71f322fcb1c6690683ada2b5bfaaa4b69184bf3196ee8b1d5fe"
+  },
+  "post-phase10-wave-2026-10-01/prior-width-t5.json": {
+   "bytes": 884454,
+   "sha256": "f0a7cfa8b4b71b3fbc808869d77a7f6a3c87cd0286fb86bf5821205c21584837"
+  },
+  "post-phase10-wave-2026-10-01/raw-inventory.json": {
+   "bytes": 120027,
+   "sha256": "3d0364e8e46b7884fe7cbc63ffa5375f2f9635188f02754951e400afbf943e65"
+  },
+  "post-phase10-wave-2026-10-01/README.md": {
+   "bytes": 10749,
+   "sha256": "53060ab1f43b5f60755fcf5f93f3680c0921285ea323e6e6cbf6a8df34be68a5"
+  },
   "phase6-crossplatform/arm64-libm-fingerprint.txt": {
    "bytes": 18398,
    "sha256": "d6686f8e687bc4328cf693febe0325932077582f4fd3445bf6d6010e9bce0c02"

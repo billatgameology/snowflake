@@ -1,0 +1,2469 @@
+{
+  "description": "Original run and prior-comparison inputs preserved byte-for-byte in tracked gzip tar archives. Every member was freshly restored and compared with the original source length and SHA-256 on 2026-10-01 at 06:57 PDT; all matched. This inventory records those restored files.",
+  "restoreDirectory": "out/restores/post-phase10-wave-2026-10-01",
+  "sourceGitHead": "9658cd37c423c80fe82823c0e934f2072fc39e25",
+  "archives": [
+    {
+      "archive": "cavity-runs.tar.gz",
+      "archiveBytes": 19701096,
+      "archiveSha256": "26823cf3dd65f38988b81bc50ffa117375abf63d2983fd124569d4e814a2db29",
+      "fileCount": 306,
+      "totalSourceBytes": 165824496,
+      "files": [
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/campaign.json",
+          "bytes": 11520,
+          "sha256": "bfb4e646379fa30f96fc3c6240dba0035fbc84d1badd6db118388240f201471b"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/cavity-wave-1-complete.json",
+          "bytes": 4866,
+          "sha256": "b542ca8ec11668e54ce3c1a4c1ccf6823408cc92a814683c0f78470f7257bc00"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/cavity-wave-1-launch.json",
+          "bytes": 1143,
+          "sha256": "351d7950f182ca8eff02cd546e943bb9cb5a24e52fa4513d27f9353bf61433e6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/cavity-wave-1-status.json",
+          "bytes": 4744,
+          "sha256": "7fc2cdf937a1d0e090c31c4d80bda29d86719cf32854a42f3ab9757f31f6d8a5"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-nodip/boundary-e13.json",
+          "bytes": 115833,
+          "sha256": "f10a2d3003c071b9dd311683be02fc17ad2c41594bac43b10c14b9b97269e3c6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-nodip/boundary-e17.json",
+          "bytes": 230224,
+          "sha256": "da00abe25e1ac3d51901c951618683554f90d9af10256eeeef8a147458b21776"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-nodip/boundary-e21.json",
+          "bytes": 385229,
+          "sha256": "bf1f8de78002c4878b7c44d4bce7c0661e096bcf87282ab41caf80853b45215d"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-nodip/boundary-e25.json",
+          "bytes": 591152,
+          "sha256": "d9190a3389aa70fe2358d2390a79957711596fb08a32708be4a7bc1ada44e723"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-nodip/boundary-e5.json",
+          "bytes": 37418,
+          "sha256": "a6e14bee57f0cf8a0802f092e652335db2c7764a12b4bde2ec4abacc1bbb1164"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-nodip/boundary-e9.json",
+          "bytes": 51977,
+          "sha256": "11ae8a79c1f9b802b412a849ee3775602f72986615677e22f89a0ece47374c34"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-nodip/events.jsonl",
+          "bytes": 1986260,
+          "sha256": "f14a0cd3bd0b8607fc1261d582a6afc81d7167f6b306c6b7ac0869d34712a705"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-nodip/exit.json",
+          "bytes": 238,
+          "sha256": "11096170d3d2c6021204da6fc7c471a55faac1f5fdd28ea1c34a46d879e4952c"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-nodip/host.json",
+          "bytes": 364,
+          "sha256": "bc418d73a86ed9e45e573922fb5c922da9ddc74109063e90f6b38e4e5494d8d6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-nodip/process.json",
+          "bytes": 482,
+          "sha256": "a27f8172245d6c107bccea0c23c09b5032341da0aeedf26def6a1c47d9cbd43a"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-nodip/result.json",
+          "bytes": 2200,
+          "sha256": "5905595de1ffd62a3eba7ac662737616680de6c1a5beb6b29cab37d4db864e03"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-nodip/spec.json",
+          "bytes": 807,
+          "sha256": "a2d2abc615a3c0eeabf3595d5da7070ccab9a07eff5e0ec1ba80c0d75fe6ec46"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-nodip/status.json",
+          "bytes": 313,
+          "sha256": "2d973434cc8f0f899d8731170eac69c2bc1d6c311f32de0c4614cf33194ca56c"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-nodip/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-nodip/stdout.log",
+          "bytes": 48915,
+          "sha256": "81367bb024f92fd257fdd3d865096f8cad579f959f36aae828cba52b7507f3ae"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-m1/boundary-e13.json",
+          "bytes": 221995,
+          "sha256": "b441371bfe1ed8fe2ca9bc2c723035ef16f600ee36795da444ca621a93009030"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-m1/boundary-e17.json",
+          "bytes": 332452,
+          "sha256": "557ccd54e9797ebfe163bcc94bcc324ee3454caf5a683a379048037c46e39192"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-m1/boundary-e21.json",
+          "bytes": 493019,
+          "sha256": "613ecc9375e45ee0128fca1cee4e3fe0cf939a723d46d41e05daf63770c4d958"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-m1/boundary-e25.json",
+          "bytes": 669268,
+          "sha256": "2c530f432a6f81f62f1cd93ec27fd738dddfdfd74eab0cbface36f033cfc76a4"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-m1/boundary-e5.json",
+          "bytes": 37415,
+          "sha256": "5d050a3e792d947cf1417203087bcd52f31b679ccb7dd84a44961fdf6e12c72d"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-m1/boundary-e9.json",
+          "bytes": 73154,
+          "sha256": "d47115db283ae7c7997bc471ef0268ae5b06c3ff7c97e6fbc32889651fdd43db"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-m1/events.jsonl",
+          "bytes": 1952877,
+          "sha256": "89b8b64239704ef82f723d30b5aa91b7ea64fba06eb30f7005e18f8a6bd1e7b0"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-m1/exit.json",
+          "bytes": 236,
+          "sha256": "5753ac74c0c50d08f3a0490c0c342913e3966783e281dfd0a75231e41ad2bc1e"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-m1/host.json",
+          "bytes": 364,
+          "sha256": "bc418d73a86ed9e45e573922fb5c922da9ddc74109063e90f6b38e4e5494d8d6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-m1/process.json",
+          "bytes": 473,
+          "sha256": "7e522bedfd25d0af54ea323c580e93e375a4df0c2196d0dad1a7a266537d0356"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-m1/result.json",
+          "bytes": 2198,
+          "sha256": "2b4aef42805d166d8ea2636cf2691d294ceed68b4eb2513eecdac4c24a07e677"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-m1/spec.json",
+          "bytes": 788,
+          "sha256": "e6217d1feaf951b700978f079b9c937574685dc98fbab145d90641413a5a183f"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-m1/status.json",
+          "bytes": 310,
+          "sha256": "d8a8bee746958541ab8eccd050222a0421cd6cf069bf34570f4ade74c5d71784"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-m1/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t5-m1/stdout.log",
+          "bytes": 51886,
+          "sha256": "e8946a40501d58dd443eb473f420e6d7e1453304c93bcfb4556b667782e18740"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-nodip/boundary-e13.json",
+          "bytes": 115978,
+          "sha256": "d244ee947b518d7ba938409f693cb509d04cb4dfe0237beb5f1350f4a2912da8"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-nodip/boundary-e17.json",
+          "bytes": 231723,
+          "sha256": "e95c8cc349509621c4cb7701ff34540d65ee42cf887fc94c21bb7dabf9dd61d3"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-nodip/boundary-e21.json",
+          "bytes": 385378,
+          "sha256": "4b9e4803cb7e0c322b4824cdab6ea265775fa788f6073dc1891ff88fc8158840"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-nodip/boundary-e25.json",
+          "bytes": 574986,
+          "sha256": "99b83a7f937ab8021af699ca1ace29be2d2d9149a5ede1f1c24c746d957fd47f"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-nodip/boundary-e5.json",
+          "bytes": 37369,
+          "sha256": "cc4c39ad7c1e11da771e0a3ad302044de2ef83abca67cb17aeb5d2d205bd7b31"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-nodip/boundary-e9.json",
+          "bytes": 51969,
+          "sha256": "92dcfa84a11e08f8012fe9ef05a5f708a1322424a1e619d4c1dab6e23b14e0e7"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-nodip/events.jsonl",
+          "bytes": 1923689,
+          "sha256": "81bdccc4b3b6d603b827cf458d6418eb4c0ce8019ec89f372f98086deb71a908"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-nodip/exit.json",
+          "bytes": 241,
+          "sha256": "84619978ac12a7e4e007fc4149776768ff91ac2ce33147158085746bed28ae0e"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-nodip/host.json",
+          "bytes": 364,
+          "sha256": "bc418d73a86ed9e45e573922fb5c922da9ddc74109063e90f6b38e4e5494d8d6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-nodip/process.json",
+          "bytes": 488,
+          "sha256": "af2cd4ea3d03e9f249107dc4f2a4db6722b059297c9ab56b6e7641a3317b1904"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-nodip/result.json",
+          "bytes": 2202,
+          "sha256": "0f1de9c4b8048ab2c90e3c18a7ccc8268e5416febb19c52329f2e53cdbc8f620"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-nodip/spec.json",
+          "bytes": 812,
+          "sha256": "8591c54dc22655a6c68fd5deb9b8cd8529692578bbbc66ade95e05ada07dd153"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-nodip/status.json",
+          "bytes": 315,
+          "sha256": "17e285c15c7e1f80a6b5efad1ea13c80554f122407e4b512b5b80faada2947db"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-nodip/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-nodip/stdout.log",
+          "bytes": 50280,
+          "sha256": "2bdc50113e3a1b237aac17f37c08061f504c2c1d0f7c6ec81a104de2cbe0049a"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-m1/boundary-e13.json",
+          "bytes": 218219,
+          "sha256": "a7da7d441d0e9f4b44417077fd048716f034db2ab1bc9b8981f9660776836fe5"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-m1/boundary-e17.json",
+          "bytes": 345694,
+          "sha256": "c626a0c0bb740f7fd553211a055f30fa689e59873ef1c89e72453abb7c962bbb"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-m1/boundary-e21.json",
+          "bytes": 483690,
+          "sha256": "c6bee8b805b3d2c15c87c7442fda249e933c6c9c561a6d740227ea4d54f468c7"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-m1/boundary-e25.json",
+          "bytes": 667964,
+          "sha256": "2743a9c88ae21305e4b9e0012818d585b20deafa0ac32f4170d2d990a83c84d8"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-m1/boundary-e5.json",
+          "bytes": 37370,
+          "sha256": "c9b0a6e793e490c207eb7d18ae564b91d80ad313051ea8fa5d6f373d5224c5ba"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-m1/boundary-e9.json",
+          "bytes": 73346,
+          "sha256": "7bf1d922c6adb8668ac6447b2ecfc84fb73e7b1036d8b8950c4424f665a619da"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-m1/events.jsonl",
+          "bytes": 1888814,
+          "sha256": "9e247482224e0e9dd832c04a4f2aab87f818d0c6d980758ed6ca54a5957005b1"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-m1/exit.json",
+          "bytes": 238,
+          "sha256": "783e5380e246566a172180ab8376ca63b675d6a9bcb21dfff1d4a25116eb9d0b"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-m1/host.json",
+          "bytes": 364,
+          "sha256": "bc418d73a86ed9e45e573922fb5c922da9ddc74109063e90f6b38e4e5494d8d6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-m1/process.json",
+          "bytes": 479,
+          "sha256": "61470c8d72e57e5a7bf3468161c5d16cce071a3eda39648289529b67c73f6cc1"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-m1/result.json",
+          "bytes": 2199,
+          "sha256": "86f0fcac88127c1692b2bda9c8f00d3ce2beffe72b3f112a221f5131f4ec5a39"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-m1/spec.json",
+          "bytes": 793,
+          "sha256": "eccdb6cdfd992b0e425718cf8ed2ca6295a5d8164ecd1f48e64fc4726b84e16e"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-m1/status.json",
+          "bytes": 312,
+          "sha256": "b929f2538b2e6f70144a4c03fcaa2fb62ae198f64a1ecf3dbe0ed5eb2d4fc3cd"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-m1/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-wide-t4p5-m1/stdout.log",
+          "bytes": 51558,
+          "sha256": "787ed58a8e79a28eae72117ab3faac05a2189fd6e0d1db5ce1239831e5131b1c"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-nodip/boundary-e13.json",
+          "bytes": 205127,
+          "sha256": "5fb29135f803df978ab09c810f767184fae4035057ea0801988d6273b23da3b5"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-nodip/boundary-e17.json",
+          "bytes": 345532,
+          "sha256": "419e23e895b298426b53c53d4858e0aceed4d0a338bc772a40aef6cc9c599509"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-nodip/boundary-e21.json",
+          "bytes": 526182,
+          "sha256": "5334b1ac56e1a83c1b5a41358704140bca351fd9257522c12e352026c3900490"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-nodip/boundary-e25.json",
+          "bytes": 760572,
+          "sha256": "090af88fb31b9048691b494623f4ce935ddb2fffb036d125269e9a312ef7112e"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-nodip/boundary-e5.json",
+          "bytes": 48379,
+          "sha256": "2a05aedc2185c1f243054b23a7fa8db0c2a2b703efacd78bc76f0770e8f2d62c"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-nodip/boundary-e9.json",
+          "bytes": 97517,
+          "sha256": "d8cb56663c5b9cddfd1654b3f58622b8f3b4583fbb58e0d65b78567a125eb920"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-nodip/events.jsonl",
+          "bytes": 2557464,
+          "sha256": "32298ad60dc7db2ccd6b70566976ee1f2ec02d7a9e63e8af3ed62b7ee570a13f"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-nodip/exit.json",
+          "bytes": 240,
+          "sha256": "35d7c549539e6f2ad150528d1e0c728910b9d3effa61d95da753d5cc15f8b9b5"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-nodip/host.json",
+          "bytes": 364,
+          "sha256": "bc418d73a86ed9e45e573922fb5c922da9ddc74109063e90f6b38e4e5494d8d6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-nodip/process.json",
+          "bytes": 485,
+          "sha256": "4b5d79fdf8f18ef19c7f44a572f26fe164ee7421757c061f8bdf6669527f69d4"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-nodip/result.json",
+          "bytes": 2200,
+          "sha256": "8666472d3453511d6f384f9fb30f7e91d7516276008c6d2e5f647874b9a2a2b0"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-nodip/spec.json",
+          "bytes": 808,
+          "sha256": "92212844c63a1b5a44911af47e9d51f44cd5e16f42efaac5281e16929ecb7e72"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-nodip/status.json",
+          "bytes": 314,
+          "sha256": "c200b3bdb49a504bba2e477b996e75758ab54f0b66518de8124cdb931cd888a6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-nodip/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-nodip/stdout.log",
+          "bytes": 66070,
+          "sha256": "daf4d3e066322c89ded0c48c1598cc0d7a7302ac5dd23a771bf17566f7ee2c1f"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-m1/boundary-e13.json",
+          "bytes": 134008,
+          "sha256": "42a04205c4657781113e25e14a82f834ca929c59b29b98c664131278f2f568ed"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-m1/boundary-e17.json",
+          "bytes": 219701,
+          "sha256": "0a417cdb3c11fe75854f4af2a43083c9eb63f054e2608529f80001cdbac02c6f"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-m1/boundary-e21.json",
+          "bytes": 324439,
+          "sha256": "3674bac25f543aae5467e0f8633d4dd510e9c5ab2fc9ad5c474946bd7b8758bc"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-m1/boundary-e25.json",
+          "bytes": 465408,
+          "sha256": "cca0e1b07c0e63c1714206d5f731b72928f593c9e70c71dacd178d08109ad4b9"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-m1/boundary-e5.json",
+          "bytes": 48384,
+          "sha256": "78cbac798a70143e49a0503aad0d5a38cb1dae1e1aed01f80186ba86eaae6f24"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-m1/boundary-e9.json",
+          "bytes": 76289,
+          "sha256": "8501249e3676b01421cafeb194051508c6c1d470c00057ff52b8d6787e70db3b"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-m1/events.jsonl",
+          "bytes": 1520142,
+          "sha256": "ce708318c79e901e494dd3d9513f915f4d80b3faf38c24e1cbf88d1b3fb6ae40"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-m1/exit.json",
+          "bytes": 237,
+          "sha256": "b3811f5edfb49ca9f7d996c47b747902ed9916e20186d1a253ee7296c0ec91a0"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-m1/host.json",
+          "bytes": 364,
+          "sha256": "bc418d73a86ed9e45e573922fb5c922da9ddc74109063e90f6b38e4e5494d8d6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-m1/process.json",
+          "bytes": 476,
+          "sha256": "cba4a4cdcb1b0f9f46697de4d4bed957ba6a2a8f71aa7f5195a7a6c39e44ec72"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-m1/result.json",
+          "bytes": 2196,
+          "sha256": "6bdbec746848d5f76948ab951504397cdb2415857816aa8a7c29e921ee8e8afc"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-m1/spec.json",
+          "bytes": 789,
+          "sha256": "f829f623ea880bf2d34302c01f2d91825c69fb3da96b68e6cc750d949e2124e1"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-m1/status.json",
+          "bytes": 312,
+          "sha256": "1e4acf166a63a524be2d781e38580072fe2d14c8008d9d1f5f091b92801bec89"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-m1/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t5-m1/stdout.log",
+          "bytes": 43771,
+          "sha256": "769eb90451a569c6b58f0710b9fa652a5cef92054805504f9883906f3bdec37a"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-nodip/boundary-e13.json",
+          "bytes": 201165,
+          "sha256": "1ffdc641fb074fe3575a732c9c5a952d03b53d0068ab981d3f854af4b37fdb9e"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-nodip/boundary-e17.json",
+          "bytes": 347071,
+          "sha256": "1fe7d69cd7a251e10a97fcb70156bf6c9438e21a6373ed7c8d82904f425137d1"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-nodip/boundary-e21.json",
+          "bytes": 526913,
+          "sha256": "ee3f52d3b7f05936eb643f291adc242844a74ed04eb909b85fdea6ccdc8d5d3a"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-nodip/boundary-e25.json",
+          "bytes": 744261,
+          "sha256": "c133b99f084dbd125941b36798394b4c3f3f745e63d65d702064acdfc8ead846"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-nodip/boundary-e5.json",
+          "bytes": 48392,
+          "sha256": "aa8b7f3243ca9db5c7f9d14ad988105e2632fbe2f9482aa0536f0af21175922e"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-nodip/boundary-e9.json",
+          "bytes": 83460,
+          "sha256": "af146a9ba891a42ead6d6b614366fa6145231d7e3dd13fa68a40ab7fbccc2287"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-nodip/events.jsonl",
+          "bytes": 2540996,
+          "sha256": "a88e57e30bd3073b7cd58f8115bd2fbc14df81df18d78cef557e9e2757c52d3d"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-nodip/exit.json",
+          "bytes": 240,
+          "sha256": "b9828bd8984f67c1d3c17134d094cfc5c3add059f59577a9bc1c227687b9c897"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-nodip/host.json",
+          "bytes": 364,
+          "sha256": "bc418d73a86ed9e45e573922fb5c922da9ddc74109063e90f6b38e4e5494d8d6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-nodip/process.json",
+          "bytes": 491,
+          "sha256": "67b4e51b5a94bbdbb4a0e3ce5659f95b95e30c06c62f1b66a90f52a90ef6fea0"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-nodip/result.json",
+          "bytes": 2203,
+          "sha256": "651b5ee9648d9fed81f254ec423a7570a09b7ee8221d8dad60f32d718191e9d2"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-nodip/spec.json",
+          "bytes": 813,
+          "sha256": "694d059a3bff12a28bc642a0b27d68490a6dc9b2cfa82d167666b5f815b8b89f"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-nodip/status.json",
+          "bytes": 316,
+          "sha256": "1bcc0435ec538b47154c20e9edcd078f9936abfe46f0ff48df6b4c5a941b1ebd"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-nodip/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-nodip/stdout.log",
+          "bytes": 68029,
+          "sha256": "d108abf51ed609161a21a7d7a5c4d52b70056419e9364d10d079cfad0bfc5681"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-m1/boundary-e13.json",
+          "bytes": 134201,
+          "sha256": "a3b37ade631c4aeb5cb7c0c048e87137686b44556855e60828fca131fdfac6b3"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-m1/boundary-e17.json",
+          "bytes": 219726,
+          "sha256": "559f1db60440328684ae80fa4146c1a0c8ad165e46ebffc3a88caf97221c863c"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-m1/boundary-e21.json",
+          "bytes": 329661,
+          "sha256": "8b9dd5bb90a1586b59c62d85af421f3102291d92e48b7566f943e3b78c1f35e1"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-m1/boundary-e25.json",
+          "bytes": 461431,
+          "sha256": "14e45eb6b2780db404e88b7196edea75a44ab811d3ab4f2b76e1b313fe2e3c15"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-m1/boundary-e5.json",
+          "bytes": 48317,
+          "sha256": "62bf48e62fdd07a3a3e5a4f3e2817158950e6f6aaf46a3c82c7a02b1f7d4cd70"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-m1/boundary-e9.json",
+          "bytes": 83208,
+          "sha256": "8e05eb824dcf0b1ba6cf50a3964dd98fceea5aa2d765a7a38d8065721264600b"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-m1/events.jsonl",
+          "bytes": 1473611,
+          "sha256": "a76102cef2963f8a23b3e39429c42b9cb073ea56a0a94f67fcad78c012e1eab1"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-m1/exit.json",
+          "bytes": 239,
+          "sha256": "acee5ccbdf4bec8e73926835ed4dbf498bae1b6caf619aa4a270bff3b6f31026"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-m1/host.json",
+          "bytes": 364,
+          "sha256": "bc418d73a86ed9e45e573922fb5c922da9ddc74109063e90f6b38e4e5494d8d6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-m1/process.json",
+          "bytes": 482,
+          "sha256": "d3ad1661e527e6d81439b666223f1ec9bafb8154b80656d1b4f53c321c906b6d"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-m1/result.json",
+          "bytes": 2197,
+          "sha256": "13950836661655f309cbcdb5f040862057fe9f08c993a5ba1509f6d97f8d06a5"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-m1/spec.json",
+          "bytes": 794,
+          "sha256": "82e2bc06205952ea87cb5bab05750b573815bf8421284be00ae18d083a842660"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-m1/status.json",
+          "bytes": 312,
+          "sha256": "19bb3455c83066cbfb14e7e51e3c7bf2b8190b4f2ca9330bd01e3fba311d88ff"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-m1/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-seed-thick-t4p5-m1/stdout.log",
+          "bytes": 42315,
+          "sha256": "edf83dae5701dd16fba20e6294ca28b5650841aae34cac03d2b8d072ede797c4"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-nodip/boundary-e17.json",
+          "bytes": 230519,
+          "sha256": "9f4e6542af682b6c08680926e1ca202c5954d680ed416fa3675d8d751200611d"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-nodip/boundary-e25.json",
+          "bytes": 574828,
+          "sha256": "2be156962914a493135b21a0605e802f61b64ec67c03ad479018a7d689d90ccc"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-nodip/boundary-e33.json",
+          "bytes": 1067447,
+          "sha256": "215f3b21f171d4e9c6e3935d7537d79769820b0fdfc2091cbf4c3b07b0db837f"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-nodip/boundary-e41.json",
+          "bytes": 1713510,
+          "sha256": "2232a37944648ffe9fa8b474d9ff4e119e36f2c7400828061e41b25a60a70554"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-nodip/boundary-e49.json",
+          "bytes": 2515354,
+          "sha256": "573f75806e8c66c878983499d87780dd701fc92666283c5ab2e86b97845c4b79"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-nodip/boundary-e9.json",
+          "bytes": 57839,
+          "sha256": "7fbd7d97f778337c700039bdf6cc7ff12edcd7efed08a77486ca4f10d05e488e"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-nodip/events.jsonl",
+          "bytes": 8888549,
+          "sha256": "a077d4d4bb7ad524aa763d7ed2f92cfa7c140347eb8c49f792322ca0b9d470a2"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-nodip/exit.json",
+          "bytes": 241,
+          "sha256": "cec5c50689b2d65e6536626ec4c08a795752147a41b82480a996db64b1ad86ce"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-nodip/host.json",
+          "bytes": 364,
+          "sha256": "bc418d73a86ed9e45e573922fb5c922da9ddc74109063e90f6b38e4e5494d8d6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-nodip/process.json",
+          "bytes": 482,
+          "sha256": "a5ae61d72b9c548aa30f07efd850c538ac41f8074ea5e7900fd552d1c4b7eadf"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-nodip/result.json",
+          "bytes": 2211,
+          "sha256": "bade75c26e133c5cef397bc3e74fc833d393d22a8f2a8ae1791074664de21f7b"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-nodip/spec.json",
+          "bytes": 810,
+          "sha256": "82838e08c708f7d0d0cd092c94087fdbefa125381e298163a1e8ed2a44121515"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-nodip/status.json",
+          "bytes": 318,
+          "sha256": "e250099fcfad9094bb9b0593807414b7e517af36198fb3376efadfc12d358b63"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-nodip/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-nodip/stdout.log",
+          "bytes": 2865491,
+          "sha256": "4a57ff269428901ae47f4acac1554b7538dbe005a84c474ad37bc7b722209c37"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-m1/boundary-e17.json",
+          "bytes": 390421,
+          "sha256": "d9169e5fd33ea1d61f6e2d03363d95a7124519c5feec5a30a908e7145369cc0c"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-m1/boundary-e25.json",
+          "bytes": 696641,
+          "sha256": "05d96db9239b4cec3acf260061022fd28d13e9a2f52c77a6b0e8d01f97c64f2f"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-m1/boundary-e33.json",
+          "bytes": 1090164,
+          "sha256": "e33b6d82b91f816e1372d81ba3b94866e93e36a93b7624e26014c0a8abd552da"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-m1/boundary-e41.json",
+          "bytes": 1515326,
+          "sha256": "99e4db6e00cd05879db6fd83ad6855a7a4af8671f236b8a2308365f2c7c95a55"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-m1/boundary-e49.json",
+          "bytes": 1981598,
+          "sha256": "e1a43e2320668610c95cc4b69fc98d492538b40d47e4d4c264f02024de83dffb"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-m1/boundary-e9.json",
+          "bytes": 57790,
+          "sha256": "a5bd27e75bba4d5162d05aaa7a8744869d70be93c836d37cac3ae37381e77bc2"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-m1/events.jsonl",
+          "bytes": 5033600,
+          "sha256": "b06bdc7f3c380d76ea07609763958cfcc61cbba41b57a5aa48d50d05b2ce6607"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-m1/exit.json",
+          "bytes": 238,
+          "sha256": "9b590886ba1c0e6e9d5235325d581c38ec5d2a1d409c1023b2eed5e16a89e261"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-m1/host.json",
+          "bytes": 364,
+          "sha256": "bc418d73a86ed9e45e573922fb5c922da9ddc74109063e90f6b38e4e5494d8d6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-m1/process.json",
+          "bytes": 473,
+          "sha256": "5bd38b83c4559fa032a5775aae831f10230176788ac36d8ebd08069de18f228c"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-m1/result.json",
+          "bytes": 2207,
+          "sha256": "86174db1266e48075bf23b53334e8dbc71b5a3626996dd43f6978df13ef78800"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-m1/spec.json",
+          "bytes": 791,
+          "sha256": "b59e297f13766ab30a43480525ed994b0df1ed88ea87fa3a029e6cfbec9110ea"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-m1/status.json",
+          "bytes": 315,
+          "sha256": "043bd1d9616a2c8df5c67489165e254d640ce358868b3ff7b383177b803bf610"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-m1/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t5-m1/stdout.log",
+          "bytes": 2227635,
+          "sha256": "662c138b732b6c58d3c49d3fd12d19880bb561725df0ded8e7576c2bb56e537f"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-nodip/boundary-e17.json",
+          "bytes": 190780,
+          "sha256": "223930164c3fda48358a7a3c4bb4ce7876f2a2d6ac28aabd3ec454f3b7c68fa2"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-nodip/boundary-e25.json",
+          "bytes": 541796,
+          "sha256": "8a5fd986617892305d3f66c5759a39968bf7c282012d4d83e3a9a1d2dfa9c186"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-nodip/boundary-e33.json",
+          "bytes": 991934,
+          "sha256": "3b20dbcd3a536467d187c1cd37675e7eafb273b0dda2c0fc4df09d518be77cca"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-nodip/boundary-e41.json",
+          "bytes": 1619122,
+          "sha256": "4e6d2fa4edb5c6c5ede675b393532b900a07504c1fee7a9bf2ac7e6a809b160a"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-nodip/boundary-e49.json",
+          "bytes": 2295962,
+          "sha256": "45f49ea9f7fae69f935f21ee104d50849e18c261bc76662b7c86098cb2ee0010"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-nodip/boundary-e9.json",
+          "bytes": 57820,
+          "sha256": "9fc9495b0b8c6cccd5dee65569462ecc5c6be2721320b84f9618c399e75aac82"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-nodip/events.jsonl",
+          "bytes": 7949683,
+          "sha256": "cda2c46062ff8248c90618c9e9a3d03246499f23b662f182132b036bd6996886"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-nodip/exit.json",
+          "bytes": 243,
+          "sha256": "f68e6f0285298759b34d877e3ef406ce2c89609dba4e8a76703696fdd5f2a484"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-nodip/host.json",
+          "bytes": 364,
+          "sha256": "bc418d73a86ed9e45e573922fb5c922da9ddc74109063e90f6b38e4e5494d8d6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-nodip/process.json",
+          "bytes": 488,
+          "sha256": "4af9677ea52e8874f708dbd28099b2f9f8fb6eb5378445b5d9caedb9b3b83a9d"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-nodip/result.json",
+          "bytes": 2212,
+          "sha256": "5d7e77761d69c7e3683c9d037b58de9ace9b989c5c59f7fbf58591daa51a1fb5"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-nodip/spec.json",
+          "bytes": 815,
+          "sha256": "d203c66c06e0b04344d034757330606c18663c55b3ccb5efa62ef6735a907e7d"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-nodip/status.json",
+          "bytes": 320,
+          "sha256": "748bc2c90e58527b2a072316c925ab3c8ed42067c5b710daf91c79127a1743c9"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-nodip/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-nodip/stdout.log",
+          "bytes": 2921868,
+          "sha256": "39f896166406c242f10546a2aff601baf9d5d5c0c4c96466bbb6fb473b460064"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-m1/boundary-e17.json",
+          "bytes": 396116,
+          "sha256": "6d0f32bb95fcf3a5977b1b8c8cbcbb0f7db2691bf6dda07f840bc6c30411cbac"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-m1/boundary-e25.json",
+          "bytes": 696393,
+          "sha256": "21e1f352e1dfd43df0b0e8923cf86c1b45471e7a75a75e80389cfc3090ebb610"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-m1/boundary-e33.json",
+          "bytes": 1112583,
+          "sha256": "b1195d34a1ce9238d1a80e5aee8d1092fcbff28c51950b2286ba7daa0b66685f"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-m1/boundary-e41.json",
+          "bytes": 1509924,
+          "sha256": "a9ca33a595763e01324f01906de6415df9edcba00f4e0e0a0618d41eb3b8fad9"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-m1/boundary-e49.json",
+          "bytes": 2016838,
+          "sha256": "c630633a561821a50c01e050ece412c95c5c09663e3e6106352b4b38b63d7d5b"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-m1/boundary-e9.json",
+          "bytes": 57831,
+          "sha256": "4ea65d9a9d1249d2a3b80f45b40b6032d9eacc7dff122836d921b3f588c81a3b"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-m1/events.jsonl",
+          "bytes": 5114063,
+          "sha256": "371f738c3b4d0bbe9ce65f88c4c48133672fb22e104b4fb7554863f726f96ec3"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-m1/exit.json",
+          "bytes": 240,
+          "sha256": "595934769ff25bf2769779b72e63eb1580c786b60f41e4ff4b36ad570bec9510"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-m1/host.json",
+          "bytes": 364,
+          "sha256": "bc418d73a86ed9e45e573922fb5c922da9ddc74109063e90f6b38e4e5494d8d6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-m1/process.json",
+          "bytes": 479,
+          "sha256": "81a56d2fa5edce8128af0c681ed4394e2725bc0e5d383bcc17395b3eca43cccc"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-m1/result.json",
+          "bytes": 2212,
+          "sha256": "0423ecb92c330ec9285205089a3846d8e50018aacea1338fdeb68db8c1d68404"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-m1/spec.json",
+          "bytes": 796,
+          "sha256": "5ce2d2e066509aa0b2941bfa6ec493dc85107af0868f449785e3262bb13ed6c3"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-m1/status.json",
+          "bytes": 317,
+          "sha256": "a4ca37b0e7513e21aae6b4a27ca17fed9eeff1855813f11e2cc68e2f691ae3e0"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-m1/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thin-t4p5-m1/stdout.log",
+          "bytes": 2194642,
+          "sha256": "aa0446836b805257308395dec14bfbb5f6e6ea3b5dae6b541dcddff0bf9042d8"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-nodip/boundary-e17.json",
+          "bytes": 277381,
+          "sha256": "0782b3e9e6a6b48dd29572474505cd70d0b7b27c320071e2fbe203f58d90e83b"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-nodip/boundary-e25.json",
+          "bytes": 631627,
+          "sha256": "7826773675b9ea8d24794e07063cd05ac995b0e26974640d2b61e8be4bfe945e"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-nodip/boundary-e33.json",
+          "bytes": 1142930,
+          "sha256": "9c50a6f1d8a7a40d0aa958fd5e181892db61b1a687d5ea03acef95be63b8ae36"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-nodip/boundary-e41.json",
+          "bytes": 1808057,
+          "sha256": "4bd88290eeeecd853611b874c22b382f64d26ebe827dfed27ec4f5d74ff78632"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-nodip/boundary-e49.json",
+          "bytes": 2634076,
+          "sha256": "d615fddb26db77061e78f231d84fc8362d5eae559d34f933259040962cf268ba"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-nodip/boundary-e9.json",
+          "bytes": 80289,
+          "sha256": "512bb97d65d8ef7d6d760887ac5da0b71a2c22691618303dc73e81c3c3cf0db1"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-nodip/events.jsonl",
+          "bytes": 9400383,
+          "sha256": "20ecc316a1f65fd478de42bdc21b9f09fde1d4a8ff00039bf8900189ed2501ce"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-nodip/exit.json",
+          "bytes": 242,
+          "sha256": "76586df997dc1db8377047810e9625619ed27b86312f3d1c9e04936518e8ebc7"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-nodip/host.json",
+          "bytes": 364,
+          "sha256": "bc418d73a86ed9e45e573922fb5c922da9ddc74109063e90f6b38e4e5494d8d6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-nodip/process.json",
+          "bytes": 485,
+          "sha256": "bc2890eb7490fbca233c54d8683092d82f6e498d0d886d798a3e920348e83c27"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-nodip/result.json",
+          "bytes": 2211,
+          "sha256": "68377a51bee2bb54ab6e34828663b6f7448fc02a708d7ffc34566cfdb9fa013a"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-nodip/spec.json",
+          "bytes": 811,
+          "sha256": "3ed009acf9c66797bc6d4a59aec9ace0630f5f8b8ef495a120a0ad2d4fddf7eb"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-nodip/status.json",
+          "bytes": 319,
+          "sha256": "396df84dc82f6f8ef37e5a77a2ff0e6759879f9eabed462b5261afd447945cbd"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-nodip/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-nodip/stdout.log",
+          "bytes": 3162999,
+          "sha256": "b92ce690b8f4f83b31eb48e888e965ea8145406ca1c861b073c9b4d4591d995f"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-m1/boundary-e17.json",
+          "bytes": 357868,
+          "sha256": "e2ba0819470da12d2ea1c24214b84e40570b6ad7fa3ea422d96c90068ce276a0"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-m1/boundary-e25.json",
+          "bytes": 668472,
+          "sha256": "d7cb012311a57344322ba66fc8e5de45d4c8e52f069a19717152a63e824cf51c"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-m1/boundary-e33.json",
+          "bytes": 1003454,
+          "sha256": "fc7ccb978cc25a74a859d0c6aade614af91a6f4970cd8d4705f0298816bd3548"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-m1/boundary-e41.json",
+          "bytes": 1457780,
+          "sha256": "15ec54702e4c0cc845cb90806c3cd7a09b26624391127b4534cdc4889b650808"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-m1/boundary-e49.json",
+          "bytes": 1941708,
+          "sha256": "2b9ea0b1280d8831c5a5fa5d8e5b9bdcee27a480a4578eaf71b2ed4d5353da79"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-m1/boundary-e9.json",
+          "bytes": 80416,
+          "sha256": "a72439c52c4d28e342cd16d029b10a1118fe57defbbb7b9e3d8c6f8dc3d36f1b"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-m1/events.jsonl",
+          "bytes": 4901308,
+          "sha256": "12ecb74b47d411e33ed330ad41af90c078735ccd7033a605a6ce0956e265d669"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-m1/exit.json",
+          "bytes": 239,
+          "sha256": "9077b452115033528956cf5ef36d34884385705a1c7e9154a3ad68e8b2a923cf"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-m1/host.json",
+          "bytes": 364,
+          "sha256": "bc418d73a86ed9e45e573922fb5c922da9ddc74109063e90f6b38e4e5494d8d6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-m1/process.json",
+          "bytes": 476,
+          "sha256": "dded97e514f2a15c766d2ea3cd304fb464991f4e739acc836b8d31c748a76e01"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-m1/result.json",
+          "bytes": 2210,
+          "sha256": "4996b29ff88a267487a53bc38cd2b8eeacc3375f6c0ce578d9aba89096405d7c"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-m1/spec.json",
+          "bytes": 792,
+          "sha256": "f59f2ad5326c44825b891b5fefdc761bf8e5c28924a984bef64cbb23d8cf6799"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-m1/status.json",
+          "bytes": 317,
+          "sha256": "458e291ecd620e8a2017ee311174a9c8b6426d328be95a2ea7a5e3e970cc3f63"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-m1/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t5-m1/stdout.log",
+          "bytes": 2094875,
+          "sha256": "584c5c2d371bbe108858d89329b0df4b0878f39fe5077cd7eb1e14f277d27371"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-nodip/boundary-e17.json",
+          "bytes": 234527,
+          "sha256": "e1356e140630589a1f4c66e452fdd1803fde6b34607c7b5d7d9f3a5c70d13af8"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-nodip/boundary-e25.json",
+          "bytes": 584507,
+          "sha256": "1cedec2d8f3402871f56c502302c74deb38ba97ce3a7075e2c6f76d373eee328"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-nodip/boundary-e33.json",
+          "bytes": 1083909,
+          "sha256": "d18aeb2875b04a1a2d47432a9b05cd7ebeb86d535e52256b8e28b3c75cf56db0"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-nodip/boundary-e41.json",
+          "bytes": 1713222,
+          "sha256": "2f99b215cd66fe83bcc0e0c229bd6d4f2107774247589c9c3cb637cf0e2b3afd"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-nodip/boundary-e49.json",
+          "bytes": 2408444,
+          "sha256": "2e31bee17684301cd2ff37eeb2b833d435f9ffa516d1485ba93929bf00083b6f"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-nodip/boundary-e9.json",
+          "bytes": 80368,
+          "sha256": "d8316d2db4631d412af21ee27fd48a12fdee8344cbd450f67178159bb7e261cf"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-nodip/events.jsonl",
+          "bytes": 8517477,
+          "sha256": "26ead187f7a307142c5a45eec80e84debe73b5e5c95763df64f4fbf3b9730599"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-nodip/exit.json",
+          "bytes": 243,
+          "sha256": "6bba5dc47519f6e71e421feff3bf07504877c2fa9914175b5f5d047837ae55b6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-nodip/host.json",
+          "bytes": 364,
+          "sha256": "bc418d73a86ed9e45e573922fb5c922da9ddc74109063e90f6b38e4e5494d8d6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-nodip/process.json",
+          "bytes": 491,
+          "sha256": "5b662fa1046c640b9d0af2e275913dfb63c0ec1570aa89b07fd6c3d4660eb9ac"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-nodip/result.json",
+          "bytes": 2215,
+          "sha256": "a198a3aeccbb7446825eb439a7a729899c3677da7aeae79a8adb6b998d9ac789"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-nodip/spec.json",
+          "bytes": 816,
+          "sha256": "e4b5183448c75a4deb973b488b747b684f8be814840160fd6a9605f2ecd6face"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-nodip/status.json",
+          "bytes": 321,
+          "sha256": "45ce9af8d78e105899a35c5d7ed898ecb1b6a771d5c9d17786e037a9c04d2aa9"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-nodip/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-nodip/stdout.log",
+          "bytes": 3086550,
+          "sha256": "8df7429ced385f5ce8ed4e68ff4817b83a635a6032bb5f3048de55fcf1fe1467"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-m1/boundary-e17.json",
+          "bytes": 346937,
+          "sha256": "bcfad5477b276ab8d772d81e0ffc81f5fb16075247da4d4c1e4542e1a45a487e"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-m1/boundary-e25.json",
+          "bytes": 663160,
+          "sha256": "900836a35d7e8de09db56525cb9c59d153c8d3e2efc517ac28aa304cfa9752c5"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-m1/boundary-e33.json",
+          "bytes": 989312,
+          "sha256": "ddd33300888d926d8f47df80c610d441cd751203f9136c5621c075546ffad910"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-m1/boundary-e41.json",
+          "bytes": 1476729,
+          "sha256": "87ec8e10723c811ac59cc465897c9ea922b2812b393bf292156ce30263c3c7ff"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-m1/boundary-e49.json",
+          "bytes": 1927856,
+          "sha256": "250fadfefacc8b3b492086f76e8b36adcdbf1004fe570a6dd70047df41833723"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-m1/boundary-e9.json",
+          "bytes": 80305,
+          "sha256": "ba3b1c7f65746374a6f59322d58fd494abcb92646fbddee224b2e026cf789077"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-m1/events.jsonl",
+          "bytes": 4803787,
+          "sha256": "ced487928b39da7dd5bd3c82296f154287b07925f03d468cae576366a3e9aa23"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-m1/exit.json",
+          "bytes": 241,
+          "sha256": "c403a4bb9f1d97cc52b9be1aed65d5e1aec2c6a603d72ab90263b1b2fd0891bf"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-m1/host.json",
+          "bytes": 364,
+          "sha256": "bc418d73a86ed9e45e573922fb5c922da9ddc74109063e90f6b38e4e5494d8d6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-m1/process.json",
+          "bytes": 482,
+          "sha256": "8a841dacb68a3f55dd233f1720084157fbc9dc79b460a05ebbb62f8a6579e6b0"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-m1/result.json",
+          "bytes": 2212,
+          "sha256": "8daa34035bc2e1b5afa622b210c43fa4458d1ee4c2ed89cea643430497971c26"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-m1/spec.json",
+          "bytes": 797,
+          "sha256": "65df272c336357b59e273f0b1c46bab947ae77f7f5b5d28eebc87163daae1194"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-m1/status.json",
+          "bytes": 318,
+          "sha256": "cc72d088016c048f270392c8c05f0497702089037cc3ead1b9468bdc98cb8b66"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-m1/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-fine-thick-t4p5-m1/stdout.log",
+          "bytes": 2039167,
+          "sha256": "8d66913ffef5a802f9d1ab86f5bd5a66b4c26b0ebe41c8442ed6663f8d7a6816"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-nodip/boundary-e13.json",
+          "bytes": 142978,
+          "sha256": "b223206b5709bc4a112470a68922058244aa9dd9e82a7d3ec24c6bc191e9af97"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-nodip/boundary-e17.json",
+          "bytes": 268474,
+          "sha256": "a3006eae7b5eff29d258257ed686a28ac79b1d1edd8a44dbea9eaff83bcc288a"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-nodip/boundary-e21.json",
+          "bytes": 432438,
+          "sha256": "0aa6d8ee44c4d4034cd911dbfcae7c7147ed53f914d46c24f1ca6b860559ab24"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-nodip/boundary-e25.json",
+          "bytes": 631479,
+          "sha256": "99e921344ed535162521b3c00db28126b94eda77c24f177c4f0788d8d78969cb"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-nodip/boundary-e5.json",
+          "bytes": 21567,
+          "sha256": "804f83c772a6e2792519bfb3d1fdf9aebdb56991367112e9421d11a08e3cebbf"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-nodip/boundary-e9.json",
+          "bytes": 44744,
+          "sha256": "d6c00c65f1f919302211705dcf3929b7103ec05ffcc38a38e75f12235306e584"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-nodip/events.jsonl",
+          "bytes": 2212149,
+          "sha256": "bdefb3a96a4c1ea609ee252c166043294aeab45a4299d29b5a4d3ac48aecf783"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-nodip/exit.json",
+          "bytes": 238,
+          "sha256": "4ccce0626fbefcbde0dd3781f3969dbb62d76200f15424058a20550e67fc1ca9"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-nodip/host.json",
+          "bytes": 364,
+          "sha256": "bc418d73a86ed9e45e573922fb5c922da9ddc74109063e90f6b38e4e5494d8d6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-nodip/process.json",
+          "bytes": 479,
+          "sha256": "6f2cd2d20f4c14e5325d8b940060473ecd628d34fe6c1d245dbc4858e8febc29"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-nodip/result.json",
+          "bytes": 2201,
+          "sha256": "d19cc7d0824b1a880ed03d27b8c3f19e3aa895b868fb35724422638df8375319"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-nodip/spec.json",
+          "bytes": 806,
+          "sha256": "93fe3962e93340cd2328528fe57baa66c4fde9ee9ad37bb8f0d548b0a51926db"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-nodip/status.json",
+          "bytes": 312,
+          "sha256": "16c95b041f0082f127c7b44bc1536e5b45d4ab3e6894aa981e4b554047290b6e"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-nodip/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-nodip/stdout.log",
+          "bytes": 57737,
+          "sha256": "ea936e8e5dc148a3e9f51e092a9637b42c545e21c44d5c1313c48499f5b4ec68"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-m1/boundary-e13.json",
+          "bytes": 174582,
+          "sha256": "3c2988dfddb90b0b68958ee2dd28f21d9d656b45b4fba1fdf0dda1bf7e680020"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-m1/boundary-e17.json",
+          "bytes": 283181,
+          "sha256": "25e5212c956c9067315f7f57f9a4868daf898ca594adfa9f485f92c21124598b"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-m1/boundary-e21.json",
+          "bytes": 411715,
+          "sha256": "c9220a037319f6d8922aa6762d4404a6db6db4117708b133f5f07d57e698a146"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-m1/boundary-e25.json",
+          "bytes": 559491,
+          "sha256": "7e5a2963cbf044f951a4de1cc735c0ce165c301a11443c5f336d070cc2112835"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-m1/boundary-e5.json",
+          "bytes": 21548,
+          "sha256": "3e08597a29dc45a3d1df4e829dbc2be15db30dac33ff3b8ace89eeb6a0e33715"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-m1/boundary-e9.json",
+          "bytes": 90687,
+          "sha256": "7fa1f67957d6b1a22c256af15fadb602f8bfd584ca7b81be7e63c151f0d32e5d"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-m1/events.jsonl",
+          "bytes": 1911554,
+          "sha256": "7f6c05a8e74ad5686f9f7e74311b1119253113efec04115cfc77d488c05a12ea"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-m1/exit.json",
+          "bytes": 235,
+          "sha256": "b0765b2f6100c5391bda3b572be18535c5c0a0c01422dc2b9fd3a7d528cd18d1"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-m1/host.json",
+          "bytes": 364,
+          "sha256": "bc418d73a86ed9e45e573922fb5c922da9ddc74109063e90f6b38e4e5494d8d6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-m1/process.json",
+          "bytes": 470,
+          "sha256": "cd2b27f79e26954dedd19bf3948001a584c8e82b5723c84490f4c026ce88744d"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-m1/result.json",
+          "bytes": 2198,
+          "sha256": "08398e214f7397ffdf958c26c2ac3234278dab38d9687095ec3755f696e6f333"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-m1/spec.json",
+          "bytes": 787,
+          "sha256": "2ad72443278ffc0441ab32bb3212762119582c57420b3a9cac1cf57a7e75c820"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-m1/status.json",
+          "bytes": 310,
+          "sha256": "f7b46cffb497f0689291b19efdfa3ed88de8ce40f67690f221031e896689c968"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-m1/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t5-m1/stdout.log",
+          "bytes": 53568,
+          "sha256": "331246c2f9b2e4a5355e313b2c9586efd6d8e482a294cca458712f72fdc55795"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-nodip/boundary-e13.json",
+          "bytes": 115025,
+          "sha256": "6a10ac61dc40496f50d35da559fed8842e3df988bf6985c2f69d0ba553993c38"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-nodip/boundary-e17.json",
+          "bytes": 247242,
+          "sha256": "d536bcf191c32231ad51ba42620cc93fc2e8e0d4f941ab5ad552d832aa7660b8"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-nodip/boundary-e21.json",
+          "bytes": 394837,
+          "sha256": "4172d41d1185150c1df699479b7d4b7b9ef0dc2590c2828d9773541f24d49bde"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-nodip/boundary-e25.json",
+          "bytes": 584243,
+          "sha256": "d462e8c6ac709018defdf6d06f1695d177fce6839e3ee02680386e3765a107d9"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-nodip/boundary-e5.json",
+          "bytes": 21570,
+          "sha256": "345e6d3109f2380c337369036b61206996f0fe244a8aef85b5efac97194bbcf3"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-nodip/boundary-e9.json",
+          "bytes": 43918,
+          "sha256": "22bc71ba944b77e28114a0747880e8fb66ca084d15d990269a4b0fc2a3601ecf"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-nodip/events.jsonl",
+          "bytes": 2008485,
+          "sha256": "4ca310bed56609de259f2e1c90507d75feb08232235528226b3162b293fd46d7"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-nodip/exit.json",
+          "bytes": 239,
+          "sha256": "981818b5cbc08e47edf3d1460c47aecb5493bd80e05b7021c3f900184cc0f676"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-nodip/host.json",
+          "bytes": 364,
+          "sha256": "bc418d73a86ed9e45e573922fb5c922da9ddc74109063e90f6b38e4e5494d8d6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-nodip/process.json",
+          "bytes": 485,
+          "sha256": "b5bcebbb90138f80c01700cdbe3956a859fe9357f6fb3d965160fdc2429f8594"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-nodip/result.json",
+          "bytes": 2200,
+          "sha256": "3e01119a6a3689fb2ca667e69c268acfef2045cfee9432501f92bea4e0e12ee2"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-nodip/spec.json",
+          "bytes": 811,
+          "sha256": "35bfa2ee38b77e140b608cf5027cee3c15921661f140fb04f521c949e21461c5"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-nodip/status.json",
+          "bytes": 313,
+          "sha256": "a116186d99aebbe0b40dfcb751e80aa5f7be80bac46efd837e4d538ee1d34289"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-nodip/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-nodip/stdout.log",
+          "bytes": 53637,
+          "sha256": "278fdb9152dd29ccb2657d4a25b63df6ce50ab2e344f666ffbf25502d32fd741"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-m1/boundary-e13.json",
+          "bytes": 178238,
+          "sha256": "cef5cd5f9150b58812ff1f6c0d47f73efcecb9960f3f878dfcc03c02d7a3b276"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-m1/boundary-e17.json",
+          "bytes": 283391,
+          "sha256": "5fc64bdafcdaf9f9e900402560a6701a385d1c7765231c77236ca4170ec73a53"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-m1/boundary-e21.json",
+          "bytes": 415210,
+          "sha256": "ec8928c9ba0907cf6f93c155bfb59e3b4a8cb2f3f0a70e6975d248cb469477e8"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-m1/boundary-e25.json",
+          "bytes": 563687,
+          "sha256": "d1fe8f386b3575427c5d55786d27923b3747f4691307cf5fe32ece2df302505a"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-m1/boundary-e5.json",
+          "bytes": 21603,
+          "sha256": "a1c29262b0523790c53d32163b2ce06a6578335be7c3bd831ccbce908992f69e"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-m1/boundary-e9.json",
+          "bytes": 90635,
+          "sha256": "2a931d2b21804df4f561a8907bb37a5ec253c2003c3967d2a24f1e3809f4eefb"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-m1/events.jsonl",
+          "bytes": 1856639,
+          "sha256": "17c3ec83863b623c3adf62f7d1d253ad3471b906be65c2c7f4818154e0dd7c50"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-m1/exit.json",
+          "bytes": 237,
+          "sha256": "ae7acf197027a386dad6ee9a25854983126290b6157dafd0828dd165dae85307"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-m1/host.json",
+          "bytes": 364,
+          "sha256": "bc418d73a86ed9e45e573922fb5c922da9ddc74109063e90f6b38e4e5494d8d6"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-m1/process.json",
+          "bytes": 476,
+          "sha256": "af05e331a8490dc53a000f9fa43334c087399205671ecfcb0679d6cd8ca09d50"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-m1/result.json",
+          "bytes": 2202,
+          "sha256": "0fddfa7e908cc1c5e87b2329c80f7df28797e9cbf50b7d67713c0260df031e9a"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-m1/spec.json",
+          "bytes": 792,
+          "sha256": "17cd6f6919147e443bb2e22ad9648c012162db50efc1bf6b5d0cc4283f19693a"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-m1/status.json",
+          "bytes": 312,
+          "sha256": "6012122048608612f42c9770e433e695ac00afb84412ad2b82f5981299159c41"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-m1/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08/rows/cavity-baseline-t4p5-m1/stdout.log",
+          "bytes": 52294,
+          "sha256": "ec0499660885d2e13bba854c7d6da3f62c916c8e7c0262307a9b374e7b5c9ae9"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08.launcher.log",
+          "bytes": 2790,
+          "sha256": "ffbdd2709935a0d108c8af788bf44e08a5b46658a57471d970c37b9e3c65ecac"
+        },
+        {
+          "path": "out/post-phase10-cavity/campaign-2026-09-08.launcher.stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "archive": "history-runs.tar.gz",
+      "archiveBytes": 18484087,
+      "archiveSha256": "2f23fa2ca5317ea7ca830c6d31a71f492777bb5c5a6fb2bee127ad4f77f02f50",
+      "fileCount": 109,
+      "totalSourceBytes": 124133202,
+      "files": [
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/basal-history-wave-1-complete.json",
+          "bytes": 5613,
+          "sha256": "e7c8671087aea611f1185350d7bdcf97ef7343904ae1a17ca8e7a9f99b8dcfec"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/basal-history-wave-1-launch.json",
+          "bytes": 2579,
+          "sha256": "91a54a3c8427a95f9cc6de080ab0c22e6faa1fc2067a68964e72cba7c701dc8a"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/basal-history-wave-1-status.json",
+          "bytes": 5491,
+          "sha256": "0a04723872f1a87607be45ebd116c2227470845b71f513782d431b39e8e21ac3"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/campaign.json",
+          "bytes": 5924,
+          "sha256": "5dfb4cf8203d1dc580f23f691733f88a88b9eaa2d4cf1dad01b673a9b30fc565"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-late/events.jsonl",
+          "bytes": 10970820,
+          "sha256": "5792c0032048cf7fdc4a05b19afcb7f225fddd3f4cf7c320e84f61c7d627c2fc"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-late/exit.json",
+          "bytes": 421,
+          "sha256": "2ce6a2bd2e60eb30b39be9b5347c5c91526f57749d7ebe83158f12687be5bf7a"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-late/host.json",
+          "bytes": 548,
+          "sha256": "344ecef98a2c4b50d507923b1d868b35e529e3de5b3b976fc8f1047207cbc8a7"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-late/process.json",
+          "bytes": 661,
+          "sha256": "002778da9833e23d6f910af7e7c3539c99ae36aa4f8b1fc01ce869c338388da5"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-late/result.json",
+          "bytes": 1341,
+          "sha256": "f97025eccd5ddcbeae735d1a8254d59e5cfa15a20cf91a49655dcaf893611f6d"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-late/spec.json",
+          "bytes": 1014,
+          "sha256": "030c14fa1bf49e6c306c30c84a2e3db43d901bbaf7577b61e021fb8da5fbd5de"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-late/status.json",
+          "bytes": 498,
+          "sha256": "a9b7058efba6786b28578e5f25730cea0ccde818a473f5c322f84d45eedf77bb"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-late/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-late/stdout.log",
+          "bytes": 4514680,
+          "sha256": "d16665ed51cc7de9b3737d940ddb232cf85e859a6a0f244816d394746ef595a3"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-global-basal/events.jsonl",
+          "bytes": 4552171,
+          "sha256": "37ec3edc78386914e3db714050b2c5d527c9c8a3abee0f8d600513a8b62f981c"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-global-basal/exit.json",
+          "bytes": 338,
+          "sha256": "edead0cca9f1f492da1235aa4320272007f0fb6a56dd53c78da5f51b3ddddbc6"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-global-basal/host.json",
+          "bytes": 458,
+          "sha256": "0a3ecb5f6542cb967310a5f23d595849eea2497476a6160eebba877a7b5e2536"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-global-basal/process.json",
+          "bytes": 595,
+          "sha256": "3eade5065ba137f414cfcdbd398e1aea29dbc09bdb2144ca395734a64a1dc532"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-global-basal/result.json",
+          "bytes": 1244,
+          "sha256": "947a0b7860c115afabbe9b7309f3dba180158ffa091cd7cb8174f394d81881c8"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-global-basal/spec.json",
+          "bytes": 838,
+          "sha256": "ece7b87ca9b54929995e48a3461a8ea9f9cff4dab7ae6a8b7b44640d9738f1c8"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-global-basal/status.json",
+          "bytes": 415,
+          "sha256": "6902d9228509ce10ebed50b9c6d38c034ad15b3d9aa76d7585045ea8025558c4"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-global-basal/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-global-basal/stdout.log",
+          "bytes": 1663505,
+          "sha256": "5450f02ada25df8b0f7fc417b9bd2d2cf71e7a88d1fef048cb2719b78f5086c4"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-full/events.jsonl",
+          "bytes": 14206515,
+          "sha256": "960c85d4ea502f3e755bfbd67d541cfaa7eabe0e47c467c0644912e86227d0df"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-full/exit.json",
+          "bytes": 328,
+          "sha256": "9f0fbb9afec35e722f058ba93379c12a731bb3509716552a3aa619513e062ae3"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-full/host.json",
+          "bytes": 455,
+          "sha256": "fa4bee0c0933df7172a7fb07c33f06ac08952d976f9a2412d76b26d8d89c5277"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-full/process.json",
+          "bytes": 568,
+          "sha256": "835e7ebd76b37bdffcfc70b13734f89fb2cb469a4d529573f6533766e0eff59d"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-full/result.json",
+          "bytes": 1250,
+          "sha256": "1cec919055275d0cf19a30fe9ced3f00b964d2a7747efd98f3097e3cbc37f226"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-full/spec.json",
+          "bytes": 822,
+          "sha256": "8140922a9116c5a31260cccc48634aadc03fb07cee2ef6c8b8f7b81f2aa93e81"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-full/status.json",
+          "bytes": 405,
+          "sha256": "2760b85eee8c55d616d22927f6eeb2f4bc72b074980b4cba67b1e7979f9a09d6"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-full/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-full/stdout.log",
+          "bytes": 4013791,
+          "sha256": "252a1e84f1166ab4e3d177f3c6f5b28cc9a9649ed8b68c230b866f16fa1c8f6a"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-early/events.jsonl",
+          "bytes": 12718838,
+          "sha256": "b4449e174898e8fdfdbdc0df708011b051dc9eaea1208bf25beb1194200c503a"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-early/exit.json",
+          "bytes": 423,
+          "sha256": "a97ce39547191f20975cd3c05f5e86baef990af56463b0c271fd3718a32d574e"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-early/host.json",
+          "bytes": 549,
+          "sha256": "122882e665191d0b55c1444612eeb750f5cf03433c140865697e50eae629d2f5"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-early/process.json",
+          "bytes": 665,
+          "sha256": "f2525452ec594c2332f5d666eb1c3f79d565149186b86d395655ee4450e952a2"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-early/result.json",
+          "bytes": 1345,
+          "sha256": "9df3893ac6748eb37918ffe34ce5e8622fda88869e21d43dd4ad922d4226aad0"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-early/spec.json",
+          "bytes": 1017,
+          "sha256": "57d7cd1f69d29f35b50ad69e8f1fcc978cbc5cf6ba726f622fb2104ed72cf7b7"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-early/status.json",
+          "bytes": 500,
+          "sha256": "1022bdc2df08034e07e563901ea7a15bec86b5b1c87d2cc37208399addd25b4b"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-early/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-early/stdout.log",
+          "bytes": 5107364,
+          "sha256": "a1deb93a88a8cf332b3c9df20343d91de6fe0005d46310a70dd074946c7939ba"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-broad/events.jsonl",
+          "bytes": 8429402,
+          "sha256": "22a90595c9e9202fe8e3a198ba1a5b6dc4bd8f45fe1d05fae09aa3dcb4d235b3"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-broad/exit.json",
+          "bytes": 238,
+          "sha256": "1884689aa737b003349a45a6364ae66868d9971ad74b9f334e59c336b9bc6e50"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-broad/host.json",
+          "bytes": 364,
+          "sha256": "be0ac17bb01872413d4110f74275dac560081afd3e590e59454905d1e1c8c963"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-broad/process.json",
+          "bytes": 480,
+          "sha256": "0fa8c633066b0b8e9493a40003534ef2e95920760e2908714411a360d91cdfe7"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-broad/result.json",
+          "bytes": 1160,
+          "sha256": "48898ae858fd9ec916505bfb2c02f461b1ddf39401f8ab9bf88ea52ef6a89383"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-broad/spec.json",
+          "bytes": 710,
+          "sha256": "3a0f1d47bc46d009fb6fa926fb2d2fb7f750faab1c597941e8ad0071b63ec2f4"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-broad/status.json",
+          "bytes": 316,
+          "sha256": "d98052ec9230feecc93888d29805eaedc79baf50026cf277537d2b3e03a0df35"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-broad/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t5-broad/stdout.log",
+          "bytes": 2280550,
+          "sha256": "3c6d78ac95681595b3aaf8002e434287a7c83c7d4090964b4c81b2149b67a427"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-late/events.jsonl",
+          "bytes": 9359216,
+          "sha256": "10ae9386ece029349863ae2b07dbf34a8252921e623080d05a712dc39dd0f55e"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-late/exit.json",
+          "bytes": 423,
+          "sha256": "dddef6ea872900bb3f5840ac779c8b2f290e1530dcc2c4bb1badbeb11b7d6114"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-late/host.json",
+          "bytes": 548,
+          "sha256": "344ecef98a2c4b50d507923b1d868b35e529e3de5b3b976fc8f1047207cbc8a7"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-late/process.json",
+          "bytes": 667,
+          "sha256": "4423c11e2d264b32f007d761c2c441fe9aa7e28c8fff6156d6d24553a04f7dd9"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-late/result.json",
+          "bytes": 1343,
+          "sha256": "d164fe9d2e2cc869a84132d157c27fb999cabc5d668723a4283fd0e298259423"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-late/spec.json",
+          "bytes": 1019,
+          "sha256": "b597d59f332c12326878d9b47ee9908e6e0d736efa39118cda5f95f0d384d101"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-late/status.json",
+          "bytes": 501,
+          "sha256": "312a4d9db0e21c751d4589df897d52f740fcca6821283d475b0c577fbb949768"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-late/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-late/stdout.log",
+          "bytes": 4365306,
+          "sha256": "cb30e7bf7800a6067ee6529c0632cf18abb0538d3eceaf7b124e8d6fd857f7a9"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-global-basal/events.jsonl",
+          "bytes": 4582429,
+          "sha256": "31a7cbbda338d42d48a080fc2f5672d0a59fd6bee40060971ccd7575ccefb11e"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-global-basal/exit.json",
+          "bytes": 340,
+          "sha256": "199e33912344a23215379aaa97801402acd988e378d5e66b43dc2f8764aff61b"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-global-basal/host.json",
+          "bytes": 458,
+          "sha256": "0a3ecb5f6542cb967310a5f23d595849eea2497476a6160eebba877a7b5e2536"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-global-basal/process.json",
+          "bytes": 601,
+          "sha256": "2e3aa8ca41ecafd6eca0214c44e5496dce492261f35e2d985160bfc393d05bd3"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-global-basal/result.json",
+          "bytes": 1251,
+          "sha256": "996de96ae6a367ef62c3a8783a69feeade8a549451d7e5c53b9457383cb99269"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-global-basal/spec.json",
+          "bytes": 843,
+          "sha256": "8a7862e91df565dea0496171de968b7c500490d98e5b9b89b74bc1d630c48127"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-global-basal/status.json",
+          "bytes": 418,
+          "sha256": "e968296f2578b60fe48890d02f2ca3ebbc798403445e71f5ceb51ff9af7581ad"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-global-basal/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-global-basal/stdout.log",
+          "bytes": 2773467,
+          "sha256": "7febb4b2b5426498817862180e0489311c6138eaaaed6d82c61a609da1d7957d"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-full/events.jsonl",
+          "bytes": 5418126,
+          "sha256": "9b1cff8d7c61de0d3799842bbe806364b2e872f04f04d94d0a3acfcb1332d044"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-full/exit.json",
+          "bytes": 328,
+          "sha256": "489080abb66a8f623efe1a53a510b4996169def62717b41c64022fe52e7f822c"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-full/host.json",
+          "bytes": 455,
+          "sha256": "fa4bee0c0933df7172a7fb07c33f06ac08952d976f9a2412d76b26d8d89c5277"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-full/process.json",
+          "bytes": 574,
+          "sha256": "31bcc9da8132c0577c97264a485853191921131214da890b06d396f08cba2c4c"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-full/result.json",
+          "bytes": 1252,
+          "sha256": "f94418df99d87ded298da5208803a99f1d05863eaaafa1f556cec68ae6b19531"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-full/spec.json",
+          "bytes": 827,
+          "sha256": "059e94e10a286ec1db5926a892a817e0902b05a4b5c3af51a0a802bd8f5051ae"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-full/status.json",
+          "bytes": 405,
+          "sha256": "1aa104e026ca9f3dc733001c1a0e0a126dbb5152e15ab2dee79dd7d37c3dfd01"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-full/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-full/stdout.log",
+          "bytes": 2747145,
+          "sha256": "c786bda3496cd7c0593e5466e3b4c113087fb1570b42d0e74adf4b7b5df535fb"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-early/events.jsonl",
+          "bytes": 11567608,
+          "sha256": "a142049c4019259c7e798ce1092bb89780718e515917f799a2b4a056c2393573"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-early/exit.json",
+          "bytes": 425,
+          "sha256": "1a45cd171406add2206ee23ac3c295114a09e1dbb76e80456936a334b014132f"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-early/host.json",
+          "bytes": 549,
+          "sha256": "122882e665191d0b55c1444612eeb750f5cf03433c140865697e50eae629d2f5"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-early/process.json",
+          "bytes": 671,
+          "sha256": "b689771eee119059d9fe77a9eb09a138e506ed7d46d6f2d38f0a594c9fe3a472"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-early/result.json",
+          "bytes": 1349,
+          "sha256": "e8fc6f5417b645613b7ec5bd988f086d28278d0f920fe6fcffacbd19037133c0"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-early/spec.json",
+          "bytes": 1022,
+          "sha256": "40270fdf5f530e2711116ee87eeaf7703b1b91bf81bc8339aea2f4cf8cadd740"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-early/status.json",
+          "bytes": 502,
+          "sha256": "0c0cb63945d74b00b4d3f0551fe7ebf1efac9764e5d41770b891e57f61e4436e"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-early/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-early/stdout.log",
+          "bytes": 4837818,
+          "sha256": "05dc55eaf726d1c875c45a5189c347a42bd74a5addd3c5857a1ce75a7d4026bf"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-broad/events.jsonl",
+          "bytes": 7480112,
+          "sha256": "b92164fbb8d8d810d13780a21dd9829e0d2155b15f03ba57bed6d28728500ab8"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-broad/exit.json",
+          "bytes": 240,
+          "sha256": "ad78590a891b0cf9a25315f3bdca6467652ab91f7175a40a2eaebed108fa6c4d"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-broad/host.json",
+          "bytes": 364,
+          "sha256": "be0ac17bb01872413d4110f74275dac560081afd3e590e59454905d1e1c8c963"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-broad/process.json",
+          "bytes": 486,
+          "sha256": "c7384dd321f67a97855267c763f940516272b1992681a81dfb7e8b81d290dff8"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-broad/result.json",
+          "bytes": 1163,
+          "sha256": "3a63226abfa3d96eaa31990d866e16dd3d69ec6947a9fd59a2078d464e876d8f"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-broad/spec.json",
+          "bytes": 715,
+          "sha256": "21c92b13b4a7726dcff96e3f34a7a90498a5d070b53f0abebc8e59280715424f"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-broad/status.json",
+          "bytes": 318,
+          "sha256": "9a1d14db1db8a219b3d447abc6da73a388a284d912e8c8eec51a94cf9b576669"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-broad/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12/rows/basal-history-t4p5-broad/stdout.log",
+          "bytes": 2223102,
+          "sha256": "0af682e56e45ac837f9bf0b0a7f37f944cb4c26d6ab13b0fabd24a730e37ba50"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12.launcher.log",
+          "bytes": 3074,
+          "sha256": "126759a68b56a074988ebcea6bbf338605a0dfd1f712bf3860ad4bda738f65a9"
+        },
+        {
+          "path": "out/post-phase10-basal-history/campaign-2026-09-12.launcher.stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-basal-history/checkpoint-2026-09-12/analysis-focused-exit.json",
+          "bytes": 345,
+          "sha256": "b3a8dc5c8a4723a8a6c0a392cbdcc8cdeac5a9f498fc4f42eb76d14c265c07db"
+        },
+        {
+          "path": "out/post-phase10-basal-history/checkpoint-2026-09-12/analysis-focused.log",
+          "bytes": 924,
+          "sha256": "ed3a4ef3b4a8b3b62dc2b921542e09df00ccf7c9f2e68286e215f37c47028e20"
+        },
+        {
+          "path": "out/post-phase10-basal-history/checkpoint-2026-09-12/npm-test-exit.json",
+          "bytes": 410,
+          "sha256": "e4dbf93ad1ee432fecbde9ee82a8dfc8b3f0d78556cce18169bda172db0850c1"
+        },
+        {
+          "path": "out/post-phase10-basal-history/checkpoint-2026-09-12/npm-test-start.json",
+          "bytes": 285,
+          "sha256": "f24d89cdb3d0580361aef77556ca8797b3eb9e69f6c2046fc33b2ea06926a161"
+        },
+        {
+          "path": "out/post-phase10-basal-history/checkpoint-2026-09-12/npm-test.log",
+          "bytes": 251054,
+          "sha256": "4e9bc52c070aa568849eb333e434874837df397b689739cf5dab0bd4cd8ff2f2"
+        },
+        {
+          "path": "out/post-phase10-basal-history/checkpoint-2026-09-12/run-check.ps1",
+          "bytes": 1461,
+          "sha256": "f828bd50edb0be8bd05f3a4003a314a1601493f0805772703b6a6ca5b6818017"
+        },
+        {
+          "path": "out/post-phase10-basal-history/checkpoint-2026-09-12/runner-focused.command.txt",
+          "bytes": 96,
+          "sha256": "2983069ffb328e830142e601762809a292ad761ba8679480ea697d639737a9cd"
+        },
+        {
+          "path": "out/post-phase10-basal-history/checkpoint-2026-09-12/runner-focused.exit.txt",
+          "bytes": 8,
+          "sha256": "4af4aed4248c649ed7ae90eded643d8af8b56359361f7e856389976ac216cf6b"
+        },
+        {
+          "path": "out/post-phase10-basal-history/checkpoint-2026-09-12/runner-focused.log",
+          "bytes": 640,
+          "sha256": "e106b389362f18d2974a379863b33c87752c7f9e0581eb5f2d5145f8c437591f"
+        },
+        {
+          "path": "out/post-phase10-basal-history/checkpoint-2026-09-12/solver-focused.log",
+          "bytes": 3140,
+          "sha256": "7e57b7598b750672d7bc522041898e92d795246c9b76c9cfc70ffc218dab8708"
+        },
+        {
+          "path": "out/post-phase10-basal-history/checkpoint-2026-09-12/supervisor.stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-basal-history/checkpoint-2026-09-12/supervisor.stdout.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-basal-history/checkpoint-2026-09-12/typecheck.log",
+          "bytes": 170,
+          "sha256": "a792873184eb3b22b82ba2cfb770d7953d9beddaa5f3be4de10d73b33f3f679c"
+        }
+      ]
+    },
+    {
+      "archive": "prior-width-runs.tar.gz",
+      "archiveBytes": 5453924,
+      "archiveSha256": "231c4d54c6a099d2cd0fe511bfbaa6e55a4b32fd36e6210e82b6552e1bf8f574",
+      "fileCount": 72,
+      "totalSourceBytes": 34494237,
+      "files": [
+        {
+          "path": "out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t4p5-basal-only/events.jsonl",
+          "bytes": 2752130,
+          "sha256": "5d17e6874dc7f11c159b36e7e727566444cf3d5a1fc3c1ed29a6b2f7290d26db"
+        },
+        {
+          "path": "out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t4p5-basal-only/exit.json",
+          "bytes": 343,
+          "sha256": "cda8e48018bdade4c9e44194ba1ad825fa95b906068879f9af5919568daea477"
+        },
+        {
+          "path": "out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t4p5-basal-only/host.json",
+          "bytes": 458,
+          "sha256": "9030a10f6e8ff169ad9c7cfe42e95e91ee09a4e15b00876649f45d23a538fa2f"
+        },
+        {
+          "path": "out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t4p5-basal-only/process.json",
+          "bytes": 623,
+          "sha256": "eaf2ba5bde9a133b91cac87e9cbdec18a0b94c6be98e9e5fd7d3febd65e2d8f3"
+        },
+        {
+          "path": "out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t4p5-basal-only/result.json",
+          "bytes": 1249,
+          "sha256": "462baa1b09c6980f0dfbaab5c6030933822ce55081427273b134afb3b730e3a8"
+        },
+        {
+          "path": "out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t4p5-basal-only/spec.json",
+          "bytes": 847,
+          "sha256": "30aa56b769f42af1e72c51f9304103df8a2111caadf8da7eb1327ba36f94e482"
+        },
+        {
+          "path": "out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t4p5-basal-only/status.json",
+          "bytes": 418,
+          "sha256": "df13248feae1a8b695002bc4fbe13b100eed0a70e757ed69458305455d757934"
+        },
+        {
+          "path": "out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t4p5-basal-only/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t4p5-basal-only/stdout.log",
+          "bytes": 300507,
+          "sha256": "5e6ed7b6e2a5fed3e70e2a3fe52cb973e680adf22c1068b51fbf82d27463d29c"
+        },
+        {
+          "path": "out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t5-basal-only/events.jsonl",
+          "bytes": 2723220,
+          "sha256": "6f9e6ca603901b4f9acc22c6fd8d4ac6b421d303b40259043e7f0da1de944d6e"
+        },
+        {
+          "path": "out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t5-basal-only/exit.json",
+          "bytes": 342,
+          "sha256": "009ec700ac5e59d833998d697dd3c65ccbf636e1d8ab7b5cb52e2e990a025bf9"
+        },
+        {
+          "path": "out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t5-basal-only/host.json",
+          "bytes": 458,
+          "sha256": "9030a10f6e8ff169ad9c7cfe42e95e91ee09a4e15b00876649f45d23a538fa2f"
+        },
+        {
+          "path": "out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t5-basal-only/process.json",
+          "bytes": 617,
+          "sha256": "a32105914744a9d0368ad0d67a2dc2eb48a8625bae938a0077429b47589179e5"
+        },
+        {
+          "path": "out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t5-basal-only/result.json",
+          "bytes": 1256,
+          "sha256": "5fabcb4fbc9281c04f3b6025a1ac52e0cf15721fbb16041f59f8bc61187537ea"
+        },
+        {
+          "path": "out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t5-basal-only/spec.json",
+          "bytes": 842,
+          "sha256": "91ed94734ba5eef03f7154a0cad5569e8fa4d3cba529e87734f9413c37bd5324"
+        },
+        {
+          "path": "out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t5-basal-only/status.json",
+          "bytes": 416,
+          "sha256": "c74ee1a3cac9e436cb67473dbf92dbffdd0815ddaafdd17111bcdd9d69d85cc0"
+        },
+        {
+          "path": "out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t5-basal-only/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-facet-factorial/campaign-long-2026-09-09/rows/facet-isolation-long-t5-basal-only/stdout.log",
+          "bytes": 299295,
+          "sha256": "3300526f3a5885d21a1626efc073e334e9d750a5ea61c5a7c103d844ef1d5506"
+        },
+        {
+          "path": "out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t4p5-f0p075-nodip/events.jsonl",
+          "bytes": 3470685,
+          "sha256": "b87996aa5faa43b441a5a6adfa5c2170a595d369af62f1756a1211bc56efe598"
+        },
+        {
+          "path": "out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t4p5-f0p075-nodip/exit.json",
+          "bytes": 255,
+          "sha256": "5dcb71e40c3c7249a51a395db534800a89cb3502ab4a4212fa163356d3e995de"
+        },
+        {
+          "path": "out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t4p5-f0p075-nodip/host.json",
+          "bytes": 364,
+          "sha256": "296c3747534328e966dc6a3576a8b92b51a8b0cff3113670da9f9f1ce7853ebf"
+        },
+        {
+          "path": "out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t4p5-f0p075-nodip/process.json",
+          "bytes": 535,
+          "sha256": "221e0f9295445d494447c22628ef7739826bc01032e6de0ad1ec4d1d4ef59f85"
+        },
+        {
+          "path": "out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t4p5-f0p075-nodip/result.json",
+          "bytes": 1176,
+          "sha256": "0e218350fb6b01f7e683d89031f995a1a11977c05649d466b532aa0602538260"
+        },
+        {
+          "path": "out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t4p5-f0p075-nodip/spec.json",
+          "bytes": 730,
+          "sha256": "d265cfd4690d51a30bd20429ddde2d1b2f643d9a31e2ba98d4b24b97bedef514"
+        },
+        {
+          "path": "out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t4p5-f0p075-nodip/status.json",
+          "bytes": 331,
+          "sha256": "94ce753e5efb224b116748ee727b312804ede0c6c4d48b70644c0e419fdfd49a"
+        },
+        {
+          "path": "out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t4p5-f0p075-nodip/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t4p5-f0p075-nodip/stdout.log",
+          "bytes": 280411,
+          "sha256": "752037119cd8ae317929843860571dbf2406c822d211075a87a13a91eb85b7e6"
+        },
+        {
+          "path": "out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t5-f0p075-nodip/events.jsonl",
+          "bytes": 3800462,
+          "sha256": "e5ebbbf1a0c16ad0db05c9fef5ae1f8b2c47dd00d3f036f21bb15701507dd646"
+        },
+        {
+          "path": "out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t5-f0p075-nodip/exit.json",
+          "bytes": 253,
+          "sha256": "4ec85c3b29300923b516282c4268a6c131c9fd34dec1c5aec514842789ced0e2"
+        },
+        {
+          "path": "out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t5-f0p075-nodip/host.json",
+          "bytes": 364,
+          "sha256": "296c3747534328e966dc6a3576a8b92b51a8b0cff3113670da9f9f1ce7853ebf"
+        },
+        {
+          "path": "out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t5-f0p075-nodip/process.json",
+          "bytes": 529,
+          "sha256": "9a70ded0952685a10df5d4ce22bec1b4b8f84ff77900bde731a8ef1171f6cd65"
+        },
+        {
+          "path": "out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t5-f0p075-nodip/result.json",
+          "bytes": 1169,
+          "sha256": "8cc0ca31f3da6afae6b8171b44df3927a5788eaad835f833c7c74eccfb321628"
+        },
+        {
+          "path": "out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t5-f0p075-nodip/spec.json",
+          "bytes": 725,
+          "sha256": "93cbd20baf782332b381f62639f621be4a0fa91748ba8c8e57efdd507bf05f66"
+        },
+        {
+          "path": "out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t5-f0p075-nodip/status.json",
+          "bytes": 330,
+          "sha256": "ca0ce790ddc42e2f9fac67d2b58524065cdda71d3f059a63c540048a64fce9bf"
+        },
+        {
+          "path": "out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t5-f0p075-nodip/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-followup/campaign-2026-09-03-wave2/rows/followup-larger-cavity-t5-f0p075-nodip/stdout.log",
+          "bytes": 251551,
+          "sha256": "a9da8462f8e741f7c13c36282e692f3b2ab70b77ae017b894e1d0ece063d5af3"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t4p5-le2/events.jsonl",
+          "bytes": 4687887,
+          "sha256": "7ec76a1c6a3b809c55b735cf08f6bd6edaabab64c3ac35ce24033e6954c8fcc5"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t4p5-le2/exit.json",
+          "bytes": 325,
+          "sha256": "31fb2d92b370596d0a9b198131040c9770d41c22f4bc1ad6a0ff903cc34f7c29"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t4p5-le2/host.json",
+          "bytes": 455,
+          "sha256": "7a14ce99a3ff2dc8db2ed97b40ac552ee24e1aedee6f7a3d69a928c63398823e"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t4p5-le2/process.json",
+          "bytes": 563,
+          "sha256": "b57c04ab1ebe30fd38a226dc33d25ca3b428d176b8a81afff0244cffa9db66ad"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t4p5-le2/result.json",
+          "bytes": 1245,
+          "sha256": "ecacf25802fc0522ccf8128dfb04b5f104a365ec0959865dae42d3d5ceb6e6bc"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t4p5-le2/spec.json",
+          "bytes": 823,
+          "sha256": "4b634ecdee76bd88c303ecbdd9a959c54a6a3891196f28575402b5fadbb0b300"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t4p5-le2/status.json",
+          "bytes": 402,
+          "sha256": "4371d23a7159ce6eb88d24cc439ae10b9fb3c20f12f5c91f9dc7c7d436735424"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t4p5-le2/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t4p5-le2/stdout.log",
+          "bytes": 308906,
+          "sha256": "ed9e1dc2d1273a57599555d63a8d07925fe6e7f405c6ac0404ae807153e9c20a"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t4p5-le3/events.jsonl",
+          "bytes": 3703888,
+          "sha256": "0d0dc30f73b24306b0544681b6bb75df0a5f001a0035752757a510678888930d"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t4p5-le3/exit.json",
+          "bytes": 325,
+          "sha256": "c28405940ea6d6476f0bd907e8837c600aedb270ef426112ac213e6295226761"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t4p5-le3/host.json",
+          "bytes": 455,
+          "sha256": "5ce0f3fc1e4ae94ece877752fa55e58e126dec762c550387632999ae669f1c43"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t4p5-le3/process.json",
+          "bytes": 563,
+          "sha256": "12b1e9d0728dbaf56a3ef5154362e68e53ad896d03b47bbe4e2a60aadf595d3b"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t4p5-le3/result.json",
+          "bytes": 1241,
+          "sha256": "12980004c72069a62b796e61c8f6afc47e7863bae2b0d4035e4393a9c5679549"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t4p5-le3/spec.json",
+          "bytes": 823,
+          "sha256": "af16e5eb1bbb9c0d69ee45bf439b556a9b6c522368eba09e113abe8f2db2a59e"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t4p5-le3/status.json",
+          "bytes": 400,
+          "sha256": "22ac5cdfb6450ce71a703b994954ac42f30ee1421468d36561ae36debb534918"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t4p5-le3/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t4p5-le3/stdout.log",
+          "bytes": 243143,
+          "sha256": "c694484aad5369eb1b106e5df1aa20079118d88896f56d4532f0d483c05c1407"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t5-le2/events.jsonl",
+          "bytes": 4874632,
+          "sha256": "fee1647654199e6497aadcbf1ba6abdd6a2a4f40ee74967b73015f2c96f4be4b"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t5-le2/exit.json",
+          "bytes": 323,
+          "sha256": "ee140b51f56f10737d4e8f4648d4891313f26064312216062c2004ddf6bccf86"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t5-le2/host.json",
+          "bytes": 455,
+          "sha256": "7a14ce99a3ff2dc8db2ed97b40ac552ee24e1aedee6f7a3d69a928c63398823e"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t5-le2/process.json",
+          "bytes": 557,
+          "sha256": "491c8dcea33a20421212a1591f92aae02a082738f30567e6aa57cb39f24d1fab"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t5-le2/result.json",
+          "bytes": 1230,
+          "sha256": "79a6299979d48ff6cb0ad9a998bfdb7f97815a1452484851f5f44cde652ed5f8"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t5-le2/spec.json",
+          "bytes": 818,
+          "sha256": "50771fe798a97f25a85f821b6646b2de904db4b5aa93091e6639de719cace0ce"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t5-le2/status.json",
+          "bytes": 400,
+          "sha256": "8762c96392d69666a9692a1d1b97c33168f51864617742b7556d60243f5bae95"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t5-le2/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t5-le2/stdout.log",
+          "bytes": 302812,
+          "sha256": "7c1787b0116b2f2ada6a77687938350eed0f228ea96db3da496a1629415be63d"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t5-le3/events.jsonl",
+          "bytes": 6113012,
+          "sha256": "01081d31eb9e9e66bf126dfaa3792bd91ccddee94877f147163029fcc6a0e89e"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t5-le3/exit.json",
+          "bytes": 324,
+          "sha256": "deb9ef71900e98c13af3c2f912710e998495ff05b09fff51be0b5468bfcea72b"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t5-le3/host.json",
+          "bytes": 455,
+          "sha256": "5ce0f3fc1e4ae94ece877752fa55e58e126dec762c550387632999ae669f1c43"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t5-le3/process.json",
+          "bytes": 557,
+          "sha256": "46fe6544073927fcb425fd6796465e27b1d4ab12693bcdda190457cfd9b61710"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t5-le3/result.json",
+          "bytes": 1245,
+          "sha256": "72bd73d113ba8c28167bd51a77a420f8995c6c1f7b5491c6f0736a94d28d9d4b"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t5-le3/spec.json",
+          "bytes": 818,
+          "sha256": "4a22b20794d18e5531620a9a88a6659ff36a8e08f401e3e316494a0b42005bdf"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t5-le3/status.json",
+          "bytes": 401,
+          "sha256": "55f3845d107f7df1eb40175fd4cd0ac7626d6fbe7c43f7dcc67cdf4b80c5b94b"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t5-le3/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "out/post-phase10-local-basal/campaign-2026-09-11/rows/basal-width-t5-le3/stdout.log",
+          "bytes": 351863,
+          "sha256": "829a4c1a43b650c3136e861821ba3af2a873064c020427fcb4c8cbc376864226"
+        }
+      ]
+    }
+  ]
+}

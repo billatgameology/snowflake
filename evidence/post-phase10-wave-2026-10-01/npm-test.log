@@ -1,0 +1,1342 @@
+
+> virtual-cloud-chamber@0.0.0 test
+> npm run lint:rule7 && npm run typecheck && vitest run
+
+
+> virtual-cloud-chamber@0.0.0 lint:rule7
+> node scripts/lint-rule7.mjs
+
+rule7: clean (1563 files scanned)
+
+> virtual-cloud-chamber@0.0.0 typecheck
+> tsc --noEmit && tsc -p app --noEmit
+
+
+ RUN  v3.2.7 G:/Code Files/snowflake-science-exploration
+
+From G:\Code Files\snowflake-science-exploration
+ * branch            e092259b8d4c3099b569febc08944bf99bfef31a -> FETCH_HEAD
+Switched to a new branch 'phase10/evidence-verification'
+warning: LF will be replaced by CRLF in baseline.txt.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in evidence/MANIFEST.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in evidence/item.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in evidence/MANIFEST.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in evidence/first.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in evidence/MANIFEST.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in evidence/second.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in evidence/MANIFEST.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-cpu/src/spherical-reference.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-cpu/src/spherical-reference.ts.
+The file will have its original line endings in your working directory
+ ❯ runner/test/phase10-c0v-s6-executor.test.ts (67 tests | 5 failed) 43768ms
+   × Phase 10 C0V S6 filesystem and closure refusal boundary > reopens the exact nine-generation stop before recovery-v9 lock acquisition 442ms
+     → ENOENT: no such file or directory, open 'G:\Code Files\snowflake-science-exploration\out\phase10-execution-v2\recovery-v1\attempts\a-p-c0v-s6\a-p-c0v-s6-20260822-v2\exit-status.json'
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects total-preserving attempt-root category shifts across exact scratch ceilings 21ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > exports the exact registry-bound generic refusal evaluator and caller 0ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > keeps canonical retained-preflight resource fields idempotent in protocol order 68ms
+   × Phase 10 C0V S6 filesystem and closure refusal boundary > reopens the accepted V5 A-P freeze from Git after the V8 source successor 6ms
+     → ENOENT: no such file or directory, open 'G:\Code Files\snowflake-science-exploration\out\phase10-execution-v2\recovery-v5\attempts\a-p-c0v-s6\a-p-c0v-s6-20260822-v6\freeze-evaluation.json'
+   × Phase 10 C0V S6 filesystem and closure refusal boundary > requires the live run-lock token before any current A-P candidate write 5525ms
+     → ENOENT: no such file or directory, open 'G:\Code Files\snowflake-science-exploration\out\phase10-execution-v2\recovery-v1\attempts\a-p-c0v-s6\a-p-c0v-s6-20260822-v2\exit-status.json'
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > raw-projects a retained prelaunch refusal and rejects forged cause bytes 72ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > raw-projects all seven produce cap prefixes with a strict equality boundary  1080ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > refuses strict-over-cap timing on every complete produce leaf while allowing equality 22ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > preserves infrastructure failure after a closed leaf without granting a claim row 1ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > raw-projects moving and static semantic refusals and rejects a wrong exit class  398ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > covers the exact union of all execution-v2 registered callable IDs 3ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > keeps the invocation-cap boundary disjoint 0ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > admits exact empty case progress only for a route-cause cap 0ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rederives exact worker leaf timing from the parent-owned invocation stream 1ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > durably appends canonical parent-owned worker JSONL and seals an immutable identity 26ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects sequence, clock, and invocation-boundary drift before appending 12ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > keeps UTC provenance from changing the monotonic cap boundary 1ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects omitted, reordered, and future worker invocation events 1ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > accepts only a strictly over-cap worker invocation as registered cap 0ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > preserves a signaled capped child without fabricating an exit code 0ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > binds a freeze evaluation to independently derived protocol, preflight, Git, and closure facts 1ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > admits only exact freeze lifecycle dirt and a normal launch-HEAD index  1347ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > records classification assembly separately from its exact independent evaluator roster 1ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > constructs the immutable terminal candidate before ledger, census, resource, or final receipt 1ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > never publishes a radial scientific result with failed negative controls 0ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects Windows-ambiguous path out/file:stream 0ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects Windows-ambiguous path out/con.txt/value 0ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects Windows-ambiguous path out/trailing. /value 0ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects Windows-ambiguous path out/wild*/value 0ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects Windows-ambiguous path out/question?/value 0ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > creates once, reopens exact bytes, and refuses overwrite 10ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > accepts growing logs only as exact terminal-byte prefixes 1ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects a hard-linked retained artifact 5ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > publishes through a registered stage and fail-stops on a stranded stage 15ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > retains and refuses a lock whose link identity changes during the action 5ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > holds the lock across a deferred asynchronous action 10ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > retains the lock when an asynchronous action rejects 4ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > classifies governed caps only from exact parent-monotonic integer duration 0ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > synchronously refuses a next action after event-loop starvation crosses the outer limit 2ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > synchronously caps a governed leaf after event-loop starvation crosses its limit 1ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > classifies a governed result at its authenticated arrival boundary, not promise settlement 0ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects a caller-forged governed completion boundary and quiesces the child 0ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > keeps registered-cap elapsed at the authenticated timer boundary, excluding quiescence 3ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > awaits timeout quiescence, prevents later writes, and retains both locks 10ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > awaits action quiescence even when the outer termination callback rejects 39ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > awaits governed-leaf quiescence when a rejecting terminator fires at limit plus one millisecond 1ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > terminates and awaits an active child when the outer action rejects 1ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > terminates and awaits a child left active by an otherwise completed outer action 0ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > terminates and awaits governed-leaf child quiescence on ordinary action rejection 0ms
+   × Phase 10 C0V S6 filesystem and closure refusal boundary > serializes distinct packets under the catalogue-bound package lock 330ms
+     → ENOENT: no such file or directory, open 'G:\Code Files\snowflake-science-exploration\out\phase10-execution-v2\recovery-v1\attempts\a-p-c0v-s6\a-p-c0v-s6-20260822-v2\exit-status.json'
+   × Phase 10 C0V S6 filesystem and closure refusal boundary > rejects materialized successor runs before locking and admits verify-existing 407ms
+     → ENOENT: no such file or directory, open 'G:\Code Files\snowflake-science-exploration\out\phase10-execution-v2\recovery-v1\attempts\a-p-c0v-s6\a-p-c0v-s6-20260822-v2\exit-status.json'
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > raw-derives every nonproduce cap prefix before terminal materialization 25ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > treats governed retained roots as a closed physical world 10ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > binds resolution metadata to the exact HEAD blob while accepting only Git-equivalent EOLs  629ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects hard-linked source closure bytes and alternate loaders  9905ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects a coherently changed assume-unchanged manifest and dependency  443ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > reopens a historical launch manifest after a later evidence-manifest commit  615ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > binds the retained preflight manifest identity to the recorded launch HEAD bytes  407ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > materializes only an exact-byte descriptor-stable filesystem-policy artifact refusal 13ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > requires null verification execution exactly on radial validated-refusal routes 1ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > admits only exact direct prototype inspections in trusted strict parsers  4711ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects node:fs from the radial producer builtin closure  969ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects node:child_process from the radial producer builtin closure  1011ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > resolves the live publish producer, verifier, and check-caller closures under exact builtin rosters  14340ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects one extra producer/evaluator shared module 0ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects tuning a producer dependency that existed at the science freeze  814ms
+ ❯ runner/test/phase10-scope-overlay.test.ts (23 tests | 23 skipped) 549ms
+   ↓ Phase 10 A-S scope overlay > reconstructs the registered raw v1.28 charter instead of substituting the later live charter
+   ↓ Phase 10 A-S scope overlay > independently executes every registered check and exact mutation control
+   ↓ Phase 10 A-S scope overlay > retains exactly 18 Phase 8A entries plus status and all 51 Phase 8B rows
+   ↓ Phase 10 A-S scope overlay > preserves immutable roles, seven held-out owners, and the zero-held-out successor corpus
+   ↓ Phase 10 A-S scope overlay > retains cited reasons, multi-blocker witnesses, and the challenged scope distinctions
+   ↓ Phase 10 A-S scope overlay > matches both report count families to an independent overlay reduction
+   ↓ Phase 10 A-S scope overlay > rejects a coordinated zero-blocker validation-credit upgrade even with repaired report and index
+   ↓ Phase 10 A-S scope overlay > rejects a coordinated producer-provenance rewrite even with a repaired artifact index
+   ↓ Phase 10 A-S scope overlay > binds canonical producer bytes through the exact three-entry index and four evaluated paths
+   ↓ Phase 10 A-S scope overlay > writes only a canonical packet-specific verification receipt with resolved evaluator bytes
+   ↓ Phase 10 A-S scope overlay > requires the exact candidate-local receipt path at the CLI boundary
+   ↓ Phase 10 A-S scope overlay > fails closed on unsafe protocol paths and noncanonical candidate bytes
+   ↓ Phase 10 A-S scope overlay > keeps the independent evaluator source free of producer imports
+   ↓ Phase 10 A-S scope overlay > pins every resolved A-S callable module as checkout-stable binary text
+   ↓ Phase 10 A-S scope overlay > binds the A-S protocol and contract to the reachable ca40a47 freeze blobs
+   ↓ Phase 10 A-S static packet lifecycle > rejects a structurally valid committed post-freeze classification-protocol drift
+   ↓ Phase 10 A-S static packet lifecycle > requires an exact passing A-P dependency lifecycle before A-S preflight
+   ↓ Phase 10 A-S static packet lifecycle > executes the exact clean-head produce, verify, publish sequence and resumes exact publication
+   ↓ Phase 10 A-S static packet lifecycle > refuses a dirty preflight and a tampered retained observed runtime
+   ↓ Phase 10 A-S static packet lifecycle > rejects terminal obligation-set drift and malformed mutation witnesses
+   ↓ Phase 10 A-S static packet lifecycle > prevalidates a conflicting receipt destination and safely retries after its removal
+   ↓ Phase 10 A-S static packet lifecycle > resumes either exact scope-only or receipt-only partial publication orientation
+   ↓ Phase 10 A-S static packet lifecycle > documents identity verification, manifest pinning, and seven-file staging before npm test
+ ❯ runner/test/phase10-c0v-s6-preflight-observer.test.ts (12 tests | 1 failed) 175ms
+   ✓ Phase 10 C0V S6 parent preflight observer > maps the exact raw Node version to the registered runtime label 1ms
+   ✓ Phase 10 C0V S6 parent preflight observer > rejects every other raw Node version 1ms
+   ✓ Phase 10 C0V S6 parent preflight observer > resolves every accepted A-P route output from its exact matrix row through the live overlay 19ms
+   ✓ Phase 10 C0V S6 parent preflight observer > deep-reproofs the moving publication before any current preflight write 55ms
+   ✓ Phase 10 C0V S6 parent preflight observer > uses exact integer boundaries and refuses ambiguous simultaneous resource failures 11ms
+   ✓ Phase 10 C0V S6 parent preflight observer > carries the accepted A-P and retained moving-v4 accounting into the recovery-v9 moving-v5 projection 5ms
+   ✓ Phase 10 C0V S6 parent preflight observer > requires the accepted A-P attempt's six internal plus three selected candidate files 6ms
+   ✓ Phase 10 C0V S6 parent preflight observer > censuses physical copies in path order and rejects a hard-linked retained artifact 6ms
+   ✓ Phase 10 C0V S6 parent preflight observer > recursively rejects an unknown file anywhere below a governed retained root 11ms
+   ✓ Phase 10 C0V S6 parent preflight observer > reopens both live lock bytes and rejects caller or on-disk lock drift 24ms
+   × Phase 10 C0V S6 parent preflight observer > binds preflight authority to the exact active lock-issued parent watchdog 25ms
+     → ENOENT: no such file or directory, open 'G:\Code Files\snowflake-science-exploration\out\phase10-execution-v2\recovery-v1\attempts\a-p-c0v-s6\a-p-c0v-s6-20260822-v2\exit-status.json'
+   ✓ Phase 10 C0V S6 parent preflight observer > retains a completed lock when the cleanup-eligibility deadline expires before unlink 10ms
+ ❯ runner/test/phase10-c0v-s6-historical-ap.test.ts (1 test | 1 failed) 266ms
+   × Phase 10 C0V S6 accepted historical A-P reopen > reopens the complete accepted prefix through its retained V5 protocol and exact 15 paths 265ms
+     → ENOENT: no such file or directory, lstat 'G:\Code Files\snowflake-science-exploration\out\phase10-execution-v2\recovery-v5\attempts\a-p-c0v-s6\a-p-c0v-s6-20260822-v6'
+ ❯ runner/test/phase10-c0v-moving-static-reference.test.ts (9 tests | 1 failed) 93ms
+   ✓ Phase 10 C0V moving independent reference > derives a deterministic synthetic event and passes the separately coded checker 11ms
+   ✓ Phase 10 C0V moving independent reference > fails closed on independent scalar, topology, event, and ledger mutations 8ms
+   ✓ Phase 10 C0V moving independent reference > rejects a changed ordered-neighbor contract before deriving a candidate 1ms
+   ✓ Phase 10 C0V moving independent reference > rejects an inflated smoother-drift limit with drift above the independent bound 3ms
+   ✓ Phase 10 C0V static scoped reference refusal > constructs a protocol-bound zero-execution audit and validates the refusal 18ms
+   ✓ Phase 10 C0V static scoped reference refusal > independently rejects one-sweep continuation and independent-spec-clause mutations 12ms
+   × Phase 10 C0V static scoped reference refusal > matches the frozen current solver/spec source shape without reading a layer protocol 32ms
+     → expected [ …(5) ] to deeply equal []
+   ✓ Phase 10 C0V static scoped reference refusal > rejects changed grounds and fails a nonzero or universal candidate 5ms
+   ✓ Phase 10 C0V moving/static reference import boundary > keeps each recursive closure within the frozen shared allowlist and separates maker/checker 3ms
+ ❯ runner/test/phase10-c0v-s6-lifecycle.test.ts (5 tests | 1 failed) 82ms
+   × Phase 10 C0V S6 lifecycle whole-file publication overlay > reopens the accepted A-P lifecycle through its retained recovery-v5 protocol only 68ms
+     → ENOENT: no such file or directory, lstat 'G:\Code Files\snowflake-science-exploration\out\phase10-execution-v2\recovery-v5\attempts\a-p-c0v-s6\a-p-c0v-s6-20260822-v6'
+   ✓ Phase 10 C0V S6 lifecycle whole-file publication overlay > resolves every exact immutable A-P v2 row to its fresh v6 publication path 0ms
+   ✓ Phase 10 C0V S6 lifecycle whole-file publication overlay > rejects swapped matrix rows, unknown A-P output IDs, and wrong current registrations 1ms
+   ✓ Phase 10 C0V S6 lifecycle whole-file publication overlay > preserves exact non-A-P matrix paths and rejects a protocol mismatch 0ms
+   ✓ Phase 10 C0V S6 lifecycle whole-file publication overlay > resolves the real immutable moving bindings without adding them to the writable roster 12ms
+ ❯ runner/test/phase10-final-package.test.ts (3 tests | 1 failed) 43ms
+   ✓ Phase 10 final package > derives completion from B refusal while preserving incomplete C0V credit 21ms
+   ✓ Phase 10 final package > refuses a non-commit producer identity 1ms
+   × Phase 10 final package > matches the published report to its bound producer commit 21ms
+     → expected { …(15) } to deeply equal { …(15) }
+ ❯ runner/test/phase10-b-acquisition.test.ts (4 tests | 3 failed) 37ms
+   × Phase 10 B acquisition > freezes exactly six targets and passes the resolved packet preflight 16ms
+     → Phase 10 A-P refused: packet protocol artifact-schema registry byte identity differs
+   × Phase 10 B acquisition > promotes only the NAS publication disposition schema 7ms
+     → expected [ { …(7) } ] to deeply equal [ { …(7) } ]
+   ✓ Phase 10 B acquisition > keeps only complete requested media from the single network response 1ms
+   × Phase 10 B acquisition > rejects an obsolete no-byte disposition and an incomplete roster 13ms
+     → expected [Function] to throw error matching /registered zero-byte collection/u but got 'Phase 10 A-P refused: packet protocol…'
+ ❯ runner/test/phase10-b-branches.test.ts (3 tests | 2 failed) 32ms
+   × Phase 10 terminal B branches > promotes only the two return schemas and leaves the acquisition authority usable 11ms
+     → expected [ { …(7) }, { …(7) } ] to deeply equal [ { …(7) }, { …(7) } ]
+   ✓ Phase 10 terminal B branches > derives each deciding protocol from the frozen matrix roster before results 11ms
+   × Phase 10 terminal B branches > passes the resolved preflight for every frozen B packet 10ms
+     → Phase 10 A-P refused: packet protocol artifact-schema registry byte identity differs
+ ❯ runner/test/phase9-mgt-analytic.test.ts (18 tests | 1 failed) 27ms
+   ✓ Phase 9 M-GT frozen foundation > binds the diagnostic-only state and every tracked implementation identity 2ms
+   ✓ Phase 9 M-GT frozen foundation > independently validates every load-bearing protocol semantic 1ms
+   ✓ Phase 9 M-GT frozen foundation > executes and rejects semantic mutations instead of trusting protocol self-description 5ms
+   ✓ Phase 9 M-GT frozen foundation > exact-binds the final S0B bytes and retains every M-GT restriction as a physical-score block 3ms
+   ✓ Phase 9 M-GT frozen foundation > exact-binds the knowledge files, equation sources, hypothesis, and prior diagnostic range 2ms
+   × Phase 9 M-GT frozen foundation > binds the unchanged lattice, metric, parameter, and attachment specifications 6ms
+     → docs/attachment-kinetics.md: expected { byteLength: 61648, …(1) } to deeply equal { byteLength: 56814, …(1) }
+   ✓ Phase 9 M-GT frozen foundation > keeps protocol arithmetic, units, grid roster, and future blockers synchronized with code 1ms
+   ✓ Phase 9 M-GT spherical arithmetic > independently reproduces the exact spherical correction at representative radii 1ms
+   ✓ Phase 9 M-GT spherical arithmetic > labels positive, exact-equilibrium, and negative effective drive without applying any update 0ms
+   ✓ Phase 9 M-GT spherical arithmetic > compares the zero-term control with the intervention while holding all other operands fixed 0ms
+   ✓ Phase 9 M-GT spherical arithmetic > reports a nonzero binary64 identity witness within the registered conservative bound 0ms
+   ✓ Phase 9 M-GT spherical arithmetic > refuses a reversed control and any second changed operand 0ms
+   ✓ Phase 9 M-GT spherical arithmetic > fails closed on wrong purpose, geometry, units-like percent input, domain, and term value 1ms
+   ✓ Phase 9 M-GT manufactured grid diagnostic > re-derives the exact four-level second-order fixture and correction convergence 1ms
+   ✓ Phase 9 M-GT manufactured grid diagnostic > refuses a future 3-D provenance, wrong ladder roster, and mutated fixture 0ms
+   ✓ Phase 9 M-GT manufactured grid diagnostic > admits the frozen eight-ULP fixture boundary and refuses the ninth ULP 0ms
+   ✓ Phase 9 M-GT manufactured grid diagnostic > throws on malformed grid purpose, control substitution, and nonpositive estimate 0ms
+   ✓ Phase 9 M-GT purpose eligibility > admits only the two manufactured purposes and never grants a score or promotion 0ms
+ ❯ runner/test/phase9-permanent-control-readiness.test.ts (4 tests | 2 failed) 21ms
+   × Phase 9 S2 permanent-control readiness > derives the exact 51-row census and refuses both controls without running or scoring 5ms
+     → GGThreshold spec byte/hash identity differs
+   ✓ Phase 9 S2 permanent-control readiness > rejects shifted frozen inputs instead of accepting caller-attested availability 7ms
+   × Phase 9 S2 permanent-control readiness > binds the bounded protocol and every named input and implementation artifact 4ms
+     → docs/gg-machinery.md: expected 24888 to be 24718 // Object.is equality
+   ✓ Phase 9 S2 permanent-control readiness > rejects named semantic mutations even when the edited protocol remains coherent JSON 5ms
+ ✓ solver-cpu/test/monopole-far-field.test.ts (10 tests) 164743ms
+   ✓ monopole-matched far field > holds symmetry at the LARGEST fill-CFL, which is what amplifies a ulp shell error  24728ms
+   ✓ monopole-matched far field — construction > holds the shell at exactly sigma_infinity until growth has been measured  673ms
+   ✓ monopole-matched far field — its validity limit > stops being domain-independent below a limit that has to be measured per configuration  16979ms
+ ✓ runner/test/phase10-c0v-s6-authority.test.ts (19 tests) 161604ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > binds recovery-v2 to the exact recovery-v1 stop and authorizes only A-P v3  304ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > binds recovery-v4 to the exact recovery-v3 stop and authorizes only A-P v5  336ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > binds recovery-v5 to the exact recovery-v4 stop and authorizes only A-P v6  415ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > binds recovery-v6 to the accepted A-P checkpoint and authorizes only moving-produce v2  507ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > binds recovery-v7 to the exact recovery-v6 stop and authorizes only moving-produce v3  514ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > binds recovery-v8 to the exact recovery-v7 stop and authorizes only moving-produce v4  506ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > binds recovery-v9 to the exact recovery-v8 stop and authorizes only moving-produce v5  593ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > independently closes all ten supplemental A-P graph checks  148101ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > executes the split missing-producer and uncalled-check mutations non-vacuously  755ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > strict-parses the canonical graph and registers every successor output schema once  3624ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > keeps every authority path unignored and byte-stable on checkout  5308ms
+ ✓ runner/test/gate4a.test.ts (89 tests) 128187ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > passes the complete synthetic 13-run evidence matrix  8850ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-PROVENANCE trips alone  3767ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-CONFIG trips alone  4416ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-SYMMETRY trips alone on an internally consistent asymmetric delta  3935ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-SYMMETRY trips alone on asymmetric boundary/vapor bits with symmetric occupancy  3957ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NOISE trips alone  3603ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NOISE raw guard rejects run-disconnected evidence: shifted phi  304ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NOISE alone owns representative run-disconnected evidence  4287ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-MASS trips alone  4433ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-DOMAIN trips alone  4433ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-DOMAIN trips alone on a reconstructed contacting crystal  4637ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-TERMINATION trips alone  4197ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-TERMINATION trips alone on shifted threshold  3583ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-TERMINATION trips alone on shifted cycle-0 mean  3590ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-TERMINATION trips alone on far-field run carrying extent witness  4356ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-TERMINATION rejects a size run carrying a far-field witness  1935ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-TERMINATION alone owns a forged transition report and equal fabricated masses  4367ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NUMERIC trips alone on a reopened artifact byte mismatch  1958ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NUMERIC reconstruction rejects multi-witness mutation: orphan witness on an empty-delta row  482ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NUMERIC reconstruction rejects multi-witness mutation: out-of-order witness cycles  466ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NUMERIC alone owns a representative malformed delta chain  1349ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NUMERIC owns a checkpoint/scenario metric mismatch  2152ms
+   ✓ gate4a branch morphology is nonvacuous against raw attachment chains > a coherent seed-only comparator changes only A-BRANCH from true to false  12580ms
+   ✓ gate4a branch morphology is nonvacuous against raw attachment chains > rejects a grown final comparator whose attachment deltas are missing before morphology  2898ms
+   ✓ gate4a artifact and checkpoint seams > reopens and cross-links the complete exact payload set  1824ms
+   ✓ gate4a artifact and checkpoint seams > rejects Pass-A v1 manifest and scenario identities  1827ms
+   ✓ gate4a artifact and checkpoint seams > rejects byte mutations in every Pass-A artifact family  2950ms
+   ✓ gate4a artifact and checkpoint seams > rejects missing scenario farFieldWitness metadata keys or types  1627ms
+   ✓ gate4a artifact and checkpoint seams > rejects extra scenario farFieldWitness metadata keys or types  1617ms
+   ✓ gate4a artifact and checkpoint seams > rejects renamed scenario farFieldWitness metadata keys or types  1631ms
+   ✓ gate4a artifact and checkpoint seams > rejects mistyped scenario farFieldWitness metadata keys or types  1631ms
+   ✓ gate4a artifact and checkpoint seams > A-EXEC-CONFIG owns corrupt manifest bytes: invalid UTF-8  2205ms
+   ✓ gate4a artifact and checkpoint seams > A-EXEC-CONFIG owns corrupt manifest bytes: invalid JSON  2208ms
+   ✓ gate4a artifact and checkpoint seams > A-EXEC-CONFIG owns corrupt manifest bytes: noncanonical whitespace  2212ms
+   ✓ gate4a artifact and checkpoint seams > A-EXEC-CONFIG owns corrupt manifest bytes: BOM-prefixed canonical bytes  2181ms
+   ✓ gate4a artifact and checkpoint seams > A-EXEC-CONFIG owns corrupt manifest bytes: canonical bytes off the freeze  2256ms
+   ✓ gate4a artifact and checkpoint seams > rejects a canonically re-encoded noise header mutation with unchanged field bytes  2846ms
+   ✓ gate4a serial orchestration seams > executes the frozen matrix serially without a cross-run resolver  7895ms
+ ✓ runner/test/phase10-executor.test.ts (13 tests) 105505ms
+   ✓ Phase 10 bounded non-solver executor > losing concurrent run acquires no authorization observation before the writer lock  9050ms
+   ✓ Phase 10 bounded non-solver executor > runs a read-only preflight against a clean committed synthetic code freeze without opening rows  10866ms
+   ✓ Phase 10 bounded non-solver executor > rejects stage-set, command, path, and resource mutations in retained preflight bytes  10426ms
+   ✓ Phase 10 bounded non-solver executor > rejects dependency schema substitution and callable, preflight, and eager-worker transitive drift  25403ms
+   ✓ Phase 10 bounded non-solver executor > accepts the registered c0-publish dependency schema and rejects a generic-schema substitution  21633ms
+   ✓ Phase 10 bounded non-solver executor > validates the distinct c0-publish independent-verification dependency shape and six-artifact roster  27713ms
+   ✓ Phase 10 bounded non-solver executor > CLI no-args exits nonzero before any execution or scientific input access  392ms
+ ✓ runner/test/phase10-intake.test.ts (12 tests) 88888ms
+   ✓ Phase 10 A-I synthetic lifecycle > runs exact produce, safely resumes a partial candidate, verifies, and publishes beside unchanged A-S bytes  19295ms
+   ✓ Phase 10 A-I synthetic lifecycle > refuses duplicate artifacts, wrong dependency, and wrong evaluator provenance before any new write  12759ms
+   ✓ Phase 10 A-I synthetic lifecycle > rejects a producer-only shared currency-derivation bug  11683ms
+   ✓ Phase 10 A-I synthetic lifecycle > rejects an implementation that omits a registered check-caller invocation  11577ms
+   ✓ Phase 10 A-I synthetic lifecycle > refuses a committed post-freeze support-module drift  10568ms
+   ✓ Phase 10 A-I freeze-before-input ordering > refuses observation from a descendant HEAD before any endpoint or NAS operation  7662ms
+ ✓ runner/test/gate5-runner.test.ts (27 tests) 61512ms
+   ✓ Phase 5 lane runner > publishes only after stable clean provenance and source snapshots  3599ms
+   ✓ Phase 5 lane runner > removes the canonical lane when source identity drifts after rename  1979ms
+   ✓ Phase 5 lane runner > runs the probe from the snapshot root, never the live working tree  2634ms
+   ✓ Phase 5 immutable source snapshot > exports a detached commit-bound worktree that live edits cannot change  1248ms
+   ✓ Phase 5 immutable source snapshot > derives the registered inventory from the commit, not from the checkout  1586ms
+   ✓ Phase 5 immutable source snapshot > releases the snapshot when the inventory read fails  793ms
+   ✓ Phase 5 immutable source snapshot > refuses a snapshot request without a full commit id  460ms
+   ✓ Phase 5 immutable source snapshot > removes the snapshot without descending into the installed dependencies  725ms
+   ✓ Phase 5 immutable source snapshot > quarantines the snapshot before any recursive removal  748ms
+   ✓ Phase 5 immutable source snapshot > refuses to delete a replacement that appears at the private snapshot path  727ms
+   ✓ Phase 5 aggregate gate > reopens the lane, re-derives all criteria, and commits the index last  4583ms
+   ✓ Phase 5 aggregate gate > re-derives the lane's commit inventory with no seams at all  7773ms
+   ✓ Phase 5 aggregate gate > rejects a lane from another commit  3255ms
+   ✓ Phase 5 aggregate gate > rejects source drift before aggregate publication  2623ms
+   ✓ Phase 5 aggregate gate > detects post-publication lane mutation and removes only its aggregate files  3276ms
+   ✓ Phase 5 aggregate gate > refuses to delete a replacement aggregate report during failed cleanup  3930ms
+   ✓ Phase 5 aggregate gate > recovers an authenticated orphan report after an interrupted publication  5218ms
+   ✓ Phase 5 aggregate gate > rejects aggregate report mutation against its commit marker  4531ms
+   ✓ Phase 5 aggregate gate > rejects hard-linked aggregate artifacts  4504ms
+   ✓ Phase 5 aggregate gate > never overwrites completed aggregate evidence  3977ms
+   ✓ Phase 5 aggregate gate > rejects unindexed aggregate-directory entries  2674ms
+   ✓ Phase 5 aggregate gate > makes both public commands flagless at the CLI boundary  426ms
+ ✓ runner/test/gate4b.test.ts (78 tests) 61626ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > passes the complete synthetic 11-run evidence matrix  2111ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > records all eight diagnostic morphology verdicts on the same matrix  582ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-PROVENANCE trips alone  1311ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-CONFIG trips alone  1769ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-TERMINATION trips alone  1763ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-SYMMETRY trips alone on an internally consistent asymmetric delta  1794ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-NOISE trips alone on a shifted witness stream  1512ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-CONVERGENCE trips alone  1783ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-SURFACE trips alone  1771ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-LEDGER trips alone  1758ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-PECLET trips alone  1774ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-CHECKPOINT trips alone  995ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-NUMERIC trips alone on a reopened artifact byte mismatch  648ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-COMPLETE trips alone on a missing registered sweep point  1611ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-COMPLETE trips alone on a duplicated registered record  1381ms
+   ✓ gate4b rejects the registered LK negative list by name > wrong surface policy fails B-EXEC-CONFIG  487ms
+   ✓ gate4b rejects the registered LK negative list by name > reflecting far field fails B-EXEC-CONFIG  494ms
+   ✓ gate4b rejects the registered LK negative list by name > a legacy-v3 checkpoint artifact fails B-EXEC-CHECKPOINT  988ms
+   ✓ gate4b rejects the registered LK negative list by name > a checkpoint policy shift fails B-EXEC-CHECKPOINT  1000ms
+   ✓ gate4b rejects the registered LK negative list by name > residual-only convergence claims fail B-EXEC-CONVERGENCE  1770ms
+   ✓ gate4b rejects the registered LK negative list by name > a forged divergence report that disagrees with shell/exchange fails B-EXEC-CONVERGENCE  1754ms
+   ✓ gate4b rejects the registered LK negative list by name > clipped-demand omission fails B-EXEC-LEDGER  1744ms
+   ✓ gate4b rejects the registered LK negative list by name > an incomplete temperature sweep fails B-EXEC-COMPLETE  1558ms
+   ✓ gate4b noise witnesses are independently recomputed > a divergent same-seed replay fails B-EXEC-NOISE alone  1783ms
+   ✓ gate4b noise witnesses are independently recomputed > a witness cell set detached from the reconstructed boundary fails B-EXEC-NOISE  1749ms
+   ✓ gate4b noise witnesses are independently recomputed > epsilon/seed round-trip through the frozen LK v2 checkpoint is enforced  1500ms
+   ✓ gate4b timeline evidence is independently recomputed > clamping the transformed negatives to zero fails the bitwise density transform  1804ms
+   ✓ gate4b timeline evidence is independently recomputed > the cross-temperature vapor ledger catches final-temperature multiplication by name  1796ms
+   ✓ gate4b artifact and checkpoint seams > reopens and cross-links the complete exact payload set  697ms
+   ✓ gate4b artifact and checkpoint seams > rejects byte mutations in every Pass-B artifact family  2020ms
+   ✓ gate4b artifact and checkpoint seams > B-EXEC-CONFIG owns corrupt manifest bytes: invalid UTF-8  618ms
+   ✓ gate4b artifact and checkpoint seams > B-EXEC-CONFIG owns corrupt manifest bytes: invalid JSON  602ms
+   ✓ gate4b artifact and checkpoint seams > B-EXEC-CONFIG owns corrupt manifest bytes: noncanonical whitespace  613ms
+   ✓ gate4b artifact and checkpoint seams > B-EXEC-CONFIG owns corrupt manifest bytes: BOM-prefixed canonical bytes  613ms
+   ✓ gate4b artifact and checkpoint seams > B-EXEC-CONFIG owns corrupt manifest bytes: canonical bytes off the freeze  614ms
+   ✓ gate4b serial orchestration seams > executes the frozen matrix serially and publishes a verifiable bundle on validity  2874ms
+   ✓ gate4b serial orchestration seams > records diagnostic morphology misses without blocking exit 0 or publication  2778ms
+   ✓ gate4b serial orchestration seams > an execution-integrity failure publishes nothing and exits 1 by name  2309ms
+   ✓ gate4b serial orchestration seams > refuses to present an execution-valid verdict without a verified publication  1818ms
+   ✓ gate4b serial orchestration seams > refuses to present an execution-invalid verdict that carries a publication  2346ms
+   ✓ gate4b real solver integration (tiny dims) > captures a validated dual-outcome noise witness and replays bit-identically  1228ms
+   ✓ gate4b real solver integration (tiny dims) > fires a real timeline event exactly once with a bitwise-verified density transform  304ms
+ ✓ solver-cpu/test/lk-hole-filling.test.ts (9 tests) 52879ms
+   ✓ ADR 0056 geometric completion counterfactual > -4.5 M1: enabled preserves ordinary evolution including geometric completion  8097ms
+   ✓ ADR 0056 geometric completion counterfactual > -4.5 M1_NO_DIP_ABLATION: enabled preserves ordinary evolution including geometric completion  17224ms
+   ✓ ADR 0056 geometric completion counterfactual > -5 M1: enabled preserves ordinary evolution including geometric completion  7957ms
+   ✓ ADR 0056 geometric completion counterfactual > -5 M1_NO_DIP_ABLATION: enabled preserves ordinary evolution including geometric completion  17226ms
+   ✓ ADR 0056 geometric completion counterfactual > M1 still grows kinetically with exact attached symmetry at fill-CFL 0.2  884ms
+   ✓ ADR 0056 geometric completion counterfactual > M1_NO_DIP_ABLATION still grows kinetically with exact attached symmetry at fill-CFL 0.2  969ms
+ ✓ runner/test/phase10-c0v-reference-lifecycle.test.ts (12 tests) 57078ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > supplies frozen static source bytes to the independent refusal checker  3561ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > derives, independently checks, publishes, and retries exact synthetic bytes  12165ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > publishes a registered discrepancy refusal instead of silently dropping the artifact  9149ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > reexecutes the independent check and rejects a post-check receipt mutation  6277ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > rejects an unknown field in a scientific candidate before independent checking  3260ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > rejects tracked code drift and untracked static source locators  926ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > accepts Git-equivalent CRLF only for package metadata and keeps protocol bytes exact  4535ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > recursively detects a forbidden dynamic local import  943ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > rejects an aliased staging parent before writing an attempt  1948ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > rejects a retained publication timestamp that predates its independent check  6246ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > rejects future timestamps at the derive and check command boundaries  8066ms
+ ✓ solver-cpu/test/prepared-kinetics.test.ts (35 tests) 30442ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 legacy-v3 noise=0  967ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 legacy-v3 noise=0.375  921ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 aggregate-hv-g1h1-v4 noise=0  931ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 aggregate-hv-g1h1-v4 noise=0.375  915ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 aggregate-hv-g1h1-v5 noise=0  922ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 aggregate-hv-g1h1-v5 noise=0.375  912ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 aggregate-hv-g1h1-v6 noise=0  920ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 aggregate-hv-g1h1-v6 noise=0.375  910ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK legacy-v3 noise=0  914ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK legacy-v3 noise=0.375  920ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK aggregate-hv-g1h1-v4 noise=0  909ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK aggregate-hv-g1h1-v4 noise=0.375  917ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK aggregate-hv-g1h1-v5 noise=0  919ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK aggregate-hv-g1h1-v5 noise=0.375  915ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK aggregate-hv-g1h1-v6 noise=0  909ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK aggregate-hv-g1h1-v6 noise=0.375  911ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 legacy-v3 noise=0  922ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 legacy-v3 noise=0.375  924ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 aggregate-hv-g1h1-v4 noise=0  921ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 aggregate-hv-g1h1-v4 noise=0.375  918ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 aggregate-hv-g1h1-v5 noise=0  912ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 aggregate-hv-g1h1-v5 noise=0.375  915ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 aggregate-hv-g1h1-v6 noise=0  908ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 aggregate-hv-g1h1-v6 noise=0.375  917ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION legacy-v3 noise=0  920ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION legacy-v3 noise=0.375  915ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION aggregate-hv-g1h1-v4 noise=0  910ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION aggregate-hv-g1h1-v4 noise=0.375  910ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION aggregate-hv-g1h1-v5 noise=0  918ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION aggregate-hv-g1h1-v5 noise=0.375  912ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION aggregate-hv-g1h1-v6 noise=0  915ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION aggregate-hv-g1h1-v6 noise=0.375  913ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > keeps the prepared temperature constants across a same-temperature reservoir event  460ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > leaves arbitrary test overrides ahead of prepared production kinetics  309ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > does not publish a prepared temperature when an event rejects after staging it  305ms
+ ✓ app/test/phase4-verify.test.ts (59 tests) 49714ms
+   ✓ frozen run completeness and provenance > the visual harness rejects a Pass-A v1 bundle before capture output exists  1016ms
+   ✓ real publication provenance is derived from recorded Git objects > accepts immutable recorded commits without requiring recorded HEAD == current HEAD  662ms
+   ✓ real publication provenance is derived from recorded Git objects > rejects both false and true ancestry rewrites against independently recomputed facts  498ms
+   ✓ real publication provenance is derived from recorded Git objects > rejects solver source rewrites at an otherwise descendant recorded commit  2010ms
+   ✓ visual harness test-hook isolation > an ordinary harness without IPC never activates or waits for a test hook  498ms
+   ✓ visual harness output-parent swap hooks > fails closed when the absent output parent becomes a Pass A junction after the verifying log  496ms
+   ✓ visual harness output-parent swap hooks > cleans trusted staging when the output parent becomes a Pass A junction after staging  520ms
+   ✓ visual harness staged-file hard-link attacks > rejects a first-PNG destination precreated as a hard link to the Pass A manifest  6796ms
+   ✓ visual harness staged-file hard-link attacks > rejects a staged manifest precreated as a hard link to the Pass A report  11638ms
+   ✓ visual harness staged-file hard-link attacks > rejects a post-create external hard link before publication  11520ms
+   ✓ visual harness staged-file hard-link attacks > rolls back and rejects a post-rename external hard link before publication verification  11581ms
+ ✓ solver-cpu/test/lk-solver.test.ts (41 tests) 38097ms
+   ✓ LKSolver — divergence identity (§4.4 test 3) > at convergence, Dirichlet injection equals signed net boundary exchange  703ms
+   ✓ LKSolver — ledger identity (§4.4 test 4) > fill ledger + hole-fill deficit account for every attached cell and every partial fill  5508ms
+   ✓ LKSolver — ledger identity (§4.4 test 4) > NON-TAUTOLOGICAL: the ledger delta equals independently recomputed kinetic demand  1785ms
+   ✓ LKSolver — legacy-v3 sink-vs-demand regression > COMPUTED: legacy Robin absorption vs converged-field per-sweep demand  3179ms
+   ✓ LKSolver — fill-CFL (§4.4 test 5, kinetic-only per the round-2 correction) > no growth step's KINETIC fill ever exceeds the bound  4671ms
+   ✓ LKSolver — growth, determinism, symmetry > a crystal grows at all (plan, Stage 2b check)  7087ms
+   ✓ LKSolver — growth, determinism, symmetry > two runs with the same options are bit-identical (pinned-oracle scope)  5903ms
+   ✓ LKSolver — growth, determinism, symmetry > noise off, hexPrism: every attachment delta is D6h-invariant and the full metric reads 0  7073ms
+   ✓ opposing-vapor mean, D6h equivariance > v6 holds the opposing mean, the field and the attached set exactly D6h-invariant  417ms
+   ✓ opposing-vapor mean, D6h equivariance > v6 is an ordering change only: it reaches the same state v5 does at this scale  818ms
+ ✓ solver-cpu/test/lk-resume.test.ts (16 tests) 24317ms
+   ✓ LK v3 field-adopting restore > CAK: direct, checkpoint-every-cycle, and multiply resumed evolution are exact  10142ms
+   ✓ LK v3 field-adopting restore > M1: direct, checkpoint-every-cycle, and multiply resumed evolution are exact  10055ms
+   ✓ LK v3 field-adopting restore > CAK: converged multi-sweep continuation remains exact after nonlinear events  2035ms
+   ✓ LK v3 field-adopting restore > M1: converged multi-sweep continuation remains exact after nonlinear events  2057ms
+ ✓ runner/test/gate5-evidence.test.ts (51 tests) 26203ms
+   ✓ Phase 5 lane evidence publication > publishes and independently reopens the complete indexed graph  3881ms
+   ✓ Phase 5 lane evidence publication > reconstructs an interleaved global readback audit from per-fixture artifacts  2638ms
+   ✓ Phase 5 lane evidence publication > uses the real core decoders when no test-only checkpoint seam is supplied  746ms
+   ✓ Phase 5 lane evidence publication > rejects UTF-8 BOMs in terminal evidence  761ms
+   ✓ Phase 5 lane evidence publication > rejects an indexed artifact byte mutation after publication  2613ms
+   ✓ Phase 5 lane evidence publication > rejects noncanonical JSON even if a caller edits a JSON artifact directly  2614ms
+   ✓ Phase 5 lane evidence publication > rejects unindexed extra files  2624ms
+   ✓ Phase 5 lane evidence publication > rejects a coherent index kind shift against the frozen artifact graph  2608ms
+   ✓ Phase 5 lane evidence publication > rejects hard-linked artifacts and removes its private failed attempt  701ms
+   ✓ Phase 5 lane evidence publication > detects a staging mutation before rename and leaves no canonical lane  1351ms
+   ✓ Phase 5 lane evidence publication > refuses to delete a replacement that appears at the private staging path  1359ms
+   ✓ ADR-0019 G-G Dirichlet corrected-mass ledger > publishes the complete registered chronology and both device witnesses  3236ms
+   ✓ ADR-0019 G-G Dirichlet corrected-mass ledger > rejects a negative-control roster the runner's own replay does not observe  571ms
+ ✓ solver-cpu/test/lk-facet-dips.test.ts (8 tests) 25510ms
+   ✓ ADR 0055 finite facet preparation > -4.5 both preserves ordinary evolution through attachment  6206ms
+   ✓ ADR 0055 finite facet preparation > -4.5 neither preserves ordinary evolution through attachment  5910ms
+   ✓ ADR 0055 finite facet preparation > -5 both preserves ordinary evolution through attachment  6147ms
+   ✓ ADR 0055 finite facet preparation > -5 neither preserves ordinary evolution through attachment  5914ms
+   ✓ ADR 0055 finite facet preparation > basal-only uses the selected facet law in both Robin solution and deposited fill  409ms
+   ✓ ADR 0055 finite facet preparation > prism-only uses the selected facet law in both Robin solution and deposited fill  460ms
+   ✓ ADR 0055 finite facet preparation > prism-only/holefill-off uses the selected facet law in both Robin solution and deposited fill  461ms
+ ✓ runner/test/gate4-protocol.test.ts (90 tests) 20475ms
+   ✓ Phase 4 hollow ensemble validators > recomputes real open-tube geometry and passes distinct streams plus a full-state replay  613ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'missing canonical seed site'  475ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'extra canonical seed site'  452ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'shifted canonical seed'  609ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'wrong dimensions'  608ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'wrong target'  455ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'wrong step cap'  445ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'wrong stop'  443ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'nonconsecutive crossing'  439ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'malformed final occupancy length'  447ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'nonbinary occupancy'  443ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'initial occupancy not subset of previ…'  463ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'previous occupancy not subset of final'  471ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'wrong previous raw extent'  455ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'wrong final raw extent'  469ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'invalid execution identity'  434ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'overlapping raw field buffers'  454ms
+   ✓ Phase 4 hollow ensemble validators > rejects a reused ensemble execution identity through A-HOLLOW-NONVACUOUS  551ms
+   ✓ Phase 4 hollow ensemble validators > rejects independent replay divergence in 'initial occupancy'  447ms
+   ✓ Phase 4 hollow ensemble validators > rejects independent replay divergence in 'previous occupancy'  548ms
+   ✓ Phase 4 hollow ensemble validators > rejects independent replay divergence in 'final occupancy'  540ms
+   ✓ Phase 4 hollow ensemble validators > rejects independent replay divergence in 'surface field'  554ms
+   ✓ Phase 4 hollow ensemble validators > rejects independent replay divergence in 'vapor field'  550ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw solid, sealed, pre-hollowed, and domain-contact geometry by A-HOLLOW-EACH  2179ms
+   ✓ Phase 4 hollow ensemble validators > ignores fabricated metric claims and independently derives a solid failure  537ms
+   ✓ Phase 4 hollow ensemble validators > rejects seed-vacuous occupancy, replay divergence, identity reuse, and overlapping buffers  2297ms
+   ✓ Phase 4 hollow ensemble validators > keeps structural inspection independent from raw morphology checks  556ms
+   ✓ Phase 4 hollow ensemble validators > keeps B hollowing diagnostic while recomputing the registered B-domain geometry  448ms
+   ✓ Phase 4 hollow ensemble validators > enforces the 12,000-cycle cap on every Pass A hollow primary and replay  3070ms
+ ✓ runner/test/phase9-mgp-intake.test.ts (15 tests) 53758ms
+   ✓ Phase 9 M-GP source-only intake > resolves every source only through the portable NAS resolver when the share is present  53640ms
+ ✓ runner/test/phase10-ap-lifecycle.test.ts (5 tests) 16059ms
+   ✓ Phase 10 A-P retained lifecycle > runs the exact produce/verify/publish commands and republishes only identical bytes  7207ms
+   ✓ Phase 10 A-P retained lifecycle > refuses CLI omission and a receipt path outside the candidate  1941ms
+   ✓ Phase 10 A-P retained lifecycle > rejects verification-path, duplicate-attempt-root, and packet-path catalogue mutations  1429ms
+   ✓ Phase 10 A-P retained lifecycle > rejects checkout-unstable callable bytes  1366ms
+   ✓ Phase 10 A-P retained lifecycle > rejects post-verification control tampering and handcrafted execution provenance  4115ms
+ ✓ runner/test/gate5-protocol.test.ts (47 tests) 11240ms
+   ✓ Phase 5 negative controls executed at their named boundary > re-derives the unmutated capture's raw evidence from its own payload  605ms
+   ✓ Phase 5 negative controls executed at their named boundary > returns the frozen control inventory in registered order  558ms
+   ✓ Phase 5 negative controls executed at their named boundary > observes an owner-independent failing set for the tolerance bypass  558ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-WINDOWS-BACKEND-RELABEL corrupts its named evidence and is refused by the evaluator  583ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-PROTOCOL-HASH-SHIFT corrupts its named evidence and is refused by the evaluator  583ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-REQUIRED-LIMIT-DOWNGRADE corrupts its named evidence and is refused by the evaluator  577ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-AXIS-SWAP corrupts its named evidence and is refused by the evaluator  582ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-WRONG-BOUNDARY-CLAMP corrupts its named evidence and is refused by the evaluator  580ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-STALE-PING-PONG corrupts its named evidence and is refused by the evaluator  583ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-LK-RESIDUAL-ONLY corrupts its named evidence and is refused by the evaluator  582ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-SYMMETRY-BIT corrupts its named evidence and is refused by the evaluator  589ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-DOMAIN-CONTACT corrupts its named evidence and is refused by the evaluator  585ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-EXCESSIVE-DISPATCH corrupts its named evidence and is refused by the evaluator  589ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-LATE-EDIT-ACK corrupts its named evidence and is refused by the evaluator  581ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-LATE-FIRST-FRAME corrupts its named evidence and is refused by the evaluator  592ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-FULL-FIELD-PER-FRAME corrupts its named evidence and is refused by the evaluator  582ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-CHECKPOINT-DTYPE-SHIFT corrupts its named evidence and is refused by the evaluator  583ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-TOLERANCE-BYPASS corrupts its named evidence and is refused by the evaluator  583ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-ARTIFACT-BYTE-MUTATION corrupts its named evidence and is refused by the evaluator  587ms
+ ✓ solver-cpu/test/lk-basal-width.test.ts (12 tests) 9205ms
+   ✓ ADR 0058 exposed-support basal width experiment > matches the broad control from nonuniform vapor with nonzero fill  1030ms
+   ✓ ADR 0058 exposed-support basal width experiment > matches the dipped control from nonuniform vapor with nonzero fill  1927ms
+   ✓ ADR 0058 exposed-support basal width experiment > uses independently classified mixed widths in the Robin law and kinetic demand  449ms
+   ✓ ADR 0059 early/late basal-width history > preserves the nonuniform early-only numerical prefix and accumulated fill  1935ms
+   ✓ ADR 0059 early/late basal-width history > crosses the early-only cutoff without splitting and changes both coupled kinetics without attachment  547ms
+   ✓ ADR 0059 early/late basal-width history > preserves the nonuniform late-only numerical prefix and accumulated fill  2038ms
+   ✓ ADR 0059 early/late basal-width history > crosses the late-only cutoff without splitting and changes both coupled kinetics without attachment  561ms
+   ✓ ADR 0059 early/late basal-width history > uses the new window when accumulated time equals the cutoff exactly  393ms
+ ✓ runner/test/phase10-c0v-s6-radial.test.ts (24 tests) 6247ms
+   ✓ Phase 10 C0V S6 radial production and independent evaluation > encodes the exact 5,891-byte witness and binds the S5 science protocol  4492ms
+   ✓ Phase 10 C0V S6 radial production and independent evaluation > retains each raw mutation and purely rederives the clean science and complete NC audit  320ms
+stderr | runner/test/gutcheck-hardening.test.ts > evidence manifest pinning > recovers a lock owned by a process that has exited
+evidence-pin: recovering lock C:\Users\biao3\AppData\Local\Temp\gutcheck-manifest-MLO7vw\MANIFEST.json.lock left by dead pid 21756
+
+stderr | runner/test/gutcheck-hardening.test.ts > evidence manifest pinning > recovers an ownerless lock only after its grace period
+evidence-pin: recovering an ownerless lock at C:\Users\biao3\AppData\Local\Temp\gutcheck-manifest-mqqr8g\MANIFEST.json.lock
+
+ ✓ runner/test/gutcheck-hardening.test.ts (57 tests | 25 skipped) 5315ms
+   ✓ evidence manifest pinning > does not mistake an eval import with the library at argv[1] for direct CLI execution  337ms
+   ✓ evidence manifest pinning > makes a live manifest update wait until the current lock holder exits its action  517ms
+   ✓ workpack is self-contained > builds a pack whose grow-batch resolves and dry-runs from inside the pack  763ms
+   ✓ workpack is self-contained > uses canonical invocation identity when deciding whether a fake-repo spec is already done  473ms
+   ✓ archive-pack ledger semantics > fails closed on malformed, wrong-format, and absent priors (round-2)  393ms
+   ✓ grow-batch frame-enabled resume > does not skip wrong spec, dimensions, domain, ticks, seed, noise, extraction, cadence, or final tick  849ms
+ ✓ solver-cpu/test/gg-solver.test.ts (15 tests) 5449ms
+   ✓ GGSolver — mass conservation (gate at full size runs via runner; this is the dev-grid version) > crystal-free control run characterizes the float floor  466ms
+   ✓ GGSolver — mass conservation (gate at full size runs via runner; this is the dev-grid version) > conserves total mass to < 1e-10 relative over 10 000 ticks GROWN, noise OFF, reflecting  3005ms
+   ✓ GGSolver — mass conservation (gate at full size runs via runner; this is the dev-grid version) > conserves total mass with noise ON (the §6 form conserves by construction)  917ms
+ ✓ runner/test/phase10-c0v-s6-aggregate.test.ts (5 tests) 4854ms
+   ✓ Phase 10 C0V S6 aggregate > keeps aggregate producers outside the independent evaluator closure  4841ms
+ ✓ runner/test/gate-enforce.test.ts (21 tests) 4534ms
+ ✓ runner/test/phase10-c0-lifecycle.test.ts (16 tests) 3584ms
+   ✓ Phase 10 C0 frozen existing-byte lifecycle > independently re-derives all checks and executes all seven named controls  460ms
+   ✓ Phase 10 C0 frozen existing-byte lifecycle > independently proves every exact control target and rejects no-op, wrong-target, and cross-target attacks  321ms
+   ✓ Phase 10 C0 frozen existing-byte lifecycle > binds producer and evaluator provenance to the exact same retained preflight  320ms
+   ✓ Phase 10 C0 frozen existing-byte lifecycle > writes both independently derived verification receipt schemas from resolved callables  437ms
+   ✓ Phase 10 C0 frozen existing-byte lifecycle > installs derive and publish artifacts idempotently at only the registered destination  1797ms
+ ✓ runner/test/phase5-lk-reduction-shadow.test.ts (3 tests) 3096ms
+   ✓ Phase 5 LK f32 reduction shadow > measures every frozen blocking LK topology before production WGSL exists  3090ms
+ ✓ runner/test/phase5-wp0.test.ts (12 tests) 3307ms
+   ✓ Phase 5 criteria freeze > runs the pre-GPU binary32 shadow inside the frozen envelope  3297ms
+ ✓ solver-cpu/test/surface-cycle-hardening.test.ts (18 tests) 2413ms
+   ✓ SurfaceOperator cycle ownership hardening > makes direct and wrapper G-G cycles bit-identical with noise enabled  836ms
+   ✓ SurfaceOperator cycle ownership hardening > makes direct and wrapper LK cycles bit-identical with noise enabled  474ms
+ ✓ runner/test/gate6-aggregate.test.ts (21 tests) 4009ms
+ ✓ core/test/lk-resume-checkpoint.test.ts (22 tests) 2095ms
+   ✓ streamed LK resume checkpoint v3 > splits f64 fields exactly at the fixed chunk boundary without crossing field/alignment seams  2039ms
+ ✓ runner/test/nas-assets-catalog.test.ts (8 tests) 1824ms
+   ✓ tracked NAS asset catalogue > re-derives every machine-readable tracked owner selection  574ms
+   ✓ tracked NAS asset catalogue > assigns every live ledger row to exactly one collection owner  1228ms
+ ✓ runner/test/nas-asset-transaction-lib.test.ts (42 tests | 6 skipped) 2237ms
+ ✓ runner/test/phase8-search-protocol-successor.test.ts (15 tests) 1520ms
+ ✓ runner/test/phase10-obligation-preflight.test.ts (14 tests) 1842ms
+   ✓ Phase 10 A-P strict contracts > keeps every registered research output trackable with raw-byte-stable attributes  1158ms
+   ✓ Phase 10 A-P callable and receipt preflight > allows planned callables only at freeze and verifies resolved module identities for launch  375ms
+ ✓ solver-cpu/test/timeline-environment.test.ts (10 tests) 1307ms
+   ✓ GGSolver abrupt environment transitions (ADR 0011) > rejects no-op, malformed, and non-finite targets atomically  432ms
+   ✓ LKSolver abrupt environment transitions (ADR 0011) > invalid, no-op, overflowed, malformed, and impossible-density changes are atomic  392ms
+ ✓ runner/test/grow-lk.test.ts (12 tests) 1740ms
+   ✓ grow-lk policy/checkpoint evidence path > produces bit-identical compact checkpoints sequentially and in concurrent processes  658ms
+ ✓ runner/test/phase6-wp2-ladder-eval.test.ts (24 tests) 1554ms
+   ✓ Phase 6 WP2 ladder dispatcher lock and clamp (review H5) > clamps --concurrency to 1..12, the plan's recorded ceiling, by name  332ms
+ ✓ runner/test/post-phase10-spatial.test.ts (1 test) 1338ms
+   ✓ optional spatial boundary observations > records the converged pre-update boundary without changing numerical trajectories  1337ms
+ ✓ runner/test/phase6-independent-evidence-scripts.test.ts (10 tests) 1435ms
+   ✓ Phase 6 independent evidence script labels > evaluates TAX2 M2 with its own unit prefactors, not CAK's A_prism curve  311ms
+ ✓ runner/test/phase8-target-book.test.ts (17 tests) 1270ms
+   ✓ published Phase 8 freeze > re-derives the book, pins, and split from published bytes  1183ms
+ ✓ runner/test/post-phase10-holefill.test.ts (11 tests) 1026ms
+   ✓ bounded post-Phase-10 geometric-completion experiment > lists the separate larger campaign and applies the existing concurrency ceiling  321ms
+   ✓ bounded post-Phase-10 geometric-completion experiment > lists four new rows without their reused controls and retains the 28-worker ceiling  324ms
+ ✓ runner/test/phase9-dbt-publication.test.ts (67 tests) 983ms
+   ✓ Phase 9 D-BT source-data publication pipeline > skips an off-grid decrease and requires a later prepare-visible monotonic mutation  317ms
+ ✓ runner/test/nas-asset-legacy-restore.test.ts (17 tests | 4 skipped) 913ms
+   ✓ legacy NAS restore and restored-tree verifier > scans alias namespaces by directory rather than once per flat file  519ms
+ ✓ runner/test/post-phase10-cavity-analysis.test.ts (26 tests) 1012ms
+ ✓ runner/test/post-phase10-facet-factorial.test.ts (8 tests) 957ms
+   ✓ bounded post-Phase-10 facet factorial > lists the separate larger campaign and applies the existing concurrency ceiling  317ms
+   ✓ bounded post-Phase-10 facet factorial > lists only those four launch rows and retains the 28-worker ceiling  342ms
+ ✓ runner/test/phase10-c0v-schema-promotion.test.ts (7 tests) 847ms
+   ✓ Phase 10 C0V schema promotion > keeps every new research contract pretty-2 LF, trackable, and byte-stable  722ms
+ ✓ runner/test/post-phase10-followup.test.ts (5 tests) 745ms
+   ✓ post-Phase-10 follow-up wave 2 > runs one abrupt event at its exact first extent crossing  740ms
+ ✓ runner/test/phase8-search-protocol.test.ts (22 tests) 563ms
+ ✓ runner/test/gutcheck-build-index-catalog.test.ts (4 tests | 1 skipped) 635ms
+   ✓ gutcheck index catalogue boundary > emits only catalogue-authorized logical NAS URLs from a marked share  306ms
+ ✓ runner/test/depletion-metric.test.ts (3 tests) 487ms
+ ✓ runner/test/post-phase10-basal-history.test.ts (4 tests) 495ms
+ ✓ runner/test/phase10-c0v-s6-semantic-fingerprint.test.ts (2 tests) 382ms
+   ✓ Phase 10 C0V S6 semantic fingerprints > round-trips real A-P controls through independent reproof and verification-v2  367ms
+ ✓ runner/test/phase9-measurement-adapters-row-parsers.test.ts (12 tests) 339ms
+ ✓ solver-cpu/test/diffusion.test.ts (11 tests) 372ms
+ ✓ runner/test/phase6-ladder-reader.test.ts (3 tests) 466ms
+ ✓ runner/test/gate4-aggregate.test.ts (17 tests) 485ms
+ ✓ runner/test/nas-asset-restore-cli.test.ts (15 tests) 432ms
+ ✓ solver-cpu/test/phase6-ablation-arm.test.ts (1 test) 431ms
+   ✓ phase6 three-arm growth differential (WP2 sub-unit A) > CAK, M1, and M1_NO_DIP_ABLATION produce finite, converged, pairwise distinct states  430ms
+ ✓ runner/test/phase8-focused-discovery.test.ts (3 tests) 323ms
+ ✓ runner/test/phase10-c0v-s6-executor-dispatch.test.ts (19 tests) 309ms
+ ✓ runner/test/phase6-wp2-ladder-independent.test.ts (4 tests) 361ms
+ ✓ runner/test/post-phase10-basal-width.test.ts (4 tests) 339ms
+ ✓ runner/test/vite-nas-serving.test.ts (19 tests | 2 skipped) 305ms
+ ✓ runner/test/nas-assets.test.ts (26 tests) 257ms
+ ✓ runner/test/phase9-mf-mk2-publication.test.ts (7 tests) 235ms
+ ✓ runner/test/evidence-integrity.test.ts (7 tests) 342ms
+ ✓ runner/test/post-phase10-cavity.test.ts (5 tests) 311ms
+   ✓ post-Phase-10 cavity mechanism wave > lists the complete executable roster and rejects a worker request above the maker cap  305ms
+ ✓ runner/test/gate4-evidence.test.ts (44 tests) 256ms
+ ✓ runner/test/phase6-provenance.test.ts (12 tests) 278ms
+ ✓ runner/test/nas-asset-selection-lib.test.ts (18 tests) 199ms
+ ✓ runner/test/progress-index.test.ts (8 tests) 238ms
+ ✓ runner/test/phase9-source-overlay.test.ts (8 tests) 174ms
+ ✓ runner/test/phase9-measurement-adapters.test.ts (20 tests) 191ms
+ ✓ runner/test/phase6-heldout-source-lock.test.ts (7 tests) 199ms
+ ✓ runner/test/gate3.test.ts (20 tests) 215ms
+ ✓ runner/test/phase6-protocol.test.ts (50 tests) 234ms
+ ✓ runner/test/phase6-arm2.test.ts (38 tests) 204ms
+ ✓ runner/test/phase9-dbt-model.test.ts (27 tests) 179ms
+ ✓ runner/test/phase9-mpk-residual-foundation.test.ts (5 tests) 155ms
+ ✓ runner/test/phase6-arm3.test.ts (26 tests) 179ms
+ ✓ runner/test/phase10-c0v-s6-executor-worker.test.ts (6 tests) 132ms
+ ✓ runner/test/rule7-lint.test.ts (3 tests) 176ms
+ ✓ runner/test/nas-asset-bootstrap.test.ts (21 tests | 2 skipped) 141ms
+ ✓ solver-cpu/test/operator.test.ts (3 tests) 142ms
+ ✓ runner/test/phase6-sweep.test.ts (39 tests) 147ms
+ ✓ solver-gpu/test/layout.test.ts (10 tests) 83ms
+ ✓ solver-cpu/test/dirichlet.test.ts (3 tests) 88ms
+ ✓ runner/test/phase8-plot-extraction-v3.test.ts (7 tests) 73ms
+ ✓ runner/test/gutcheck-photo-match-cli.test.ts (2 tests) 99ms
+ ✓ runner/test/phase9-knowledge-source.test.ts (9 tests | 2 skipped) 82ms
+ ✓ runner/test/gate4a-reference.test.ts (6 tests) 60ms
+ ✓ app/test/gpuengine.test.ts (38 tests) 77ms
+ ✓ runner/test/post-phase10-discovery.test.ts (6 tests) 158ms
+ ✓ runner/test/nas-asset-lib.test.ts (52 tests | 4 skipped) 77ms
+ ✓ runner/test/phase8-benchmark-selection.test.ts (5 tests) 49ms
+ ✓ runner/test/phase10-c0v-s6-publication-finalization-paths.test.ts (2 tests) 60ms
+ ✓ runner/test/phase10-c0v-s6-worker-progress.test.ts (6 tests) 67ms
+ ✓ core/test/metrics.test.ts (32 tests) 43ms
+ ✓ runner/test/phase8-benchmark-final.test.ts (7 tests) 40ms
+ ✓ core/test/libbrecht.test.ts (35 tests) 41ms
+ ✓ runner/test/phase8-plot-extraction.test.ts (17 tests) 62ms
+ ✓ app/test/inspect.test.ts (20 tests) 38ms
+ ✓ runner/test/phase9-mv-preflight.test.ts (2 tests) 45ms
+ ✓ runner/test/phase10-c0v-s6-aggregate-parent.test.ts (2 tests) 28ms
+ ✓ runner/test/phase8-corpus-local.test.ts (22 tests) 44ms
+ ✓ runner/test/phase8-bacon-successor.test.ts (4 tests) 43ms
+ ✓ runner/test/phase8-native-history.test.ts (8 tests) 37ms
+ ✓ app/test/stoprule.test.ts (8 tests) 37ms
+ ✓ core/test/lattice.test.ts (13 tests) 28ms
+ ✓ runner/test/nas-mount-identity.test.ts (9 tests | 2 skipped) 38ms
+ ✓ runner/test/phase10-c0v-radial-reference.test.ts (10 tests) 29ms
+ ✓ solver-gpu/test/gg-surface.test.ts (17 tests) 30ms
+ ✓ app/test/ggtimeline.test.ts (7 tests) 23ms
+ ✓ runner/test/phase10-c0v-contracts.test.ts (5 tests) 25ms
+ ✓ core/test/timeline.test.ts (20 tests) 24ms
+ ✓ core/test/prng.test.ts (6 tests) 21ms
+ ✓ app/test/gpu-instrument.test.ts (17 tests) 20ms
+ ✓ runner/test/phase6-crossplatform.test.ts (13 tests) 21ms
+ ✓ runner/test/phase9-nas.test.ts (6 tests | 1 skipped) 20ms
+ ✓ core/test/checkpoint.test.ts (15 tests) 22ms
+ ✓ solver-gpu/test/diffusion.test.ts (12 tests) 18ms
+ ✓ runner/test/phase9-ms-categorical.test.ts (8 tests) 21ms
+ ✓ solver-cpu/test/lk-cycle-phase.test.ts (5 tests) 15ms
+ ✓ app/test/gpuview.test.ts (29 tests) 16ms
+ ✓ solver-gpu/test/lk-applied-noise.test.ts (10 tests) 16ms
+ ✓ runner/test/phase9-mh-msr-foundation.test.ts (8 tests) 18ms
+ ✓ runner/test/post-phase10-long.test.ts (2 tests) 15ms
+ ✓ runner/test/phase9-mf-mk2-model.test.ts (16 tests) 18ms
+ ✓ runner/test/phase9-transport-analytic.test.ts (20 tests) 18ms
+ ✓ runner/test/phase9-dbt-preflight.test.ts (2 tests) 16ms
+ ✓ runner/test/phase9-hollowing-rivals.test.ts (12 tests) 13ms
+ ✓ runner/test/phase6-size-strata.test.ts (8 tests) 14ms
+ ✓ runner/test/suite-integrity.test.ts (4 tests) 13ms
+ ✓ runner/test/phase6-diagram.test.ts (6 tests) 7ms
+ ✓ app/test/snapshot.test.ts (3 tests) 11ms
+ ✓ runner/test/phase6-sdak.test.ts (13 tests) 9ms
+ ✓ solver-gpu/test/transport.test.ts (10 tests) 11ms
+ ✓ runner/test/gate5-readback-attribution.test.ts (16 tests) 9ms
+ ✓ runner/test/pgm.test.ts (2 tests) 12ms
+ ✓ core/test/target-observables.test.ts (26 tests) 9ms
+ ✓ runner/test/gate2b-v4-artifact.test.ts (2 tests) 11ms
+ ✓ app/test/display.test.ts (10 tests) 8ms
+ ✓ app/test/colormap.test.ts (8 tests) 8ms
+ ✓ app/test/protocol.test.ts (15 tests) 7ms
+ ✓ runner/test/phase9-mv-eligibility.test.ts (6 tests) 6ms
+ ✓ runner/test/post-phase10-cavity-geometry.test.ts (6 tests) 7ms
+ ✓ app/test/scenarios.test.ts (11 tests) 6ms
+ ✓ runner/test/phase10-c0v-s6-watchdog-transition.test.ts (5 tests) 7ms
+ ✓ app/test/lkoverlays.test.ts (14 tests) 6ms
+ ✓ app/test/hexgeom.test.ts (8 tests) 5ms
+ ✓ app/test/slice.test.ts (11 tests) 5ms
+ ✓ runner/test/phase10-c0v-s6-publication.test.ts (3 tests) 5ms
+ ✓ solver-gpu/test/lk-input.test.ts (5 tests) 4ms
+ ✓ solver-gpu/test/lk-conversion.test.ts (3 tests) 5ms
+ ✓ solver-cpu/test/spherical-reference.test.ts (10 tests) 5ms
+ ✓ runner/test/post-phase10-cavity-spatial.test.ts (5 tests) 5ms
+ ✓ app/test/gpudevice.test.ts (15 tests) 5ms
+ ✓ runner/test/post-phase10-confirm.test.ts (3 tests) 4ms
+ ✓ app/test/overlays.test.ts (14 tests) 5ms
+ ✓ runner/test/phase10-c0v-s6-static-parent.test.ts (4 tests) 5ms
+ ✓ runner/test/post-phase10-adaptive.test.ts (4 tests) 4ms
+ ✓ app/test/surface.test.ts (6 tests) 5ms
+ ✓ runner/test/phase10-c0v-s6-radial-publish-parent.test.ts (2 tests) 4ms
+ ✓ core/test/params.test.ts (11 tests) 5ms
+ ✓ runner/test/phase10-c0v-s6-moving-locked-dispatch.test.ts (1 test) 3ms
+ ✓ app/test/hud.test.ts (8 tests) 4ms
+ ✓ runner/test/phase10-c0v-s6-radial-parent.test.ts (2 tests) 4ms
+ ✓ solver-gpu/test/lk-cycle.test.ts (2 tests) 3ms
+ ✓ solver-gpu/test/gg-surface-numerical.test.ts (1 test) 3ms
+ ✓ app/test/readout.test.ts (6 tests) 3ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  runner/test/phase10-scope-overlay.test.ts [ runner/test/phase10-scope-overlay.test.ts ]
+Error: protocol decision binding byte identity differs
+ ❯ invalid runner/src/phase10-scope-overlay.ts:188:9
+    186| 
+    187| function invalid(label: string, detail: string): never {
+    188|   throw new Error(`${label} ${detail}`);
+       |         ^
+    189| }
+    190| 
+ ❯ assertTuple runner/src/phase10-scope-overlay.ts:377:5
+ ❯ validateInputs runner/src/phase10-scope-overlay.ts:593:3
+ ❯ producePhase10ScopeArtifacts runner/src/phase10-scope-overlay.ts:777:21
+ ❯ runner/test/phase10-scope-overlay.test.ts:736:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/19]⎯
+
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 18 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  runner/test/phase10-b-acquisition.test.ts > Phase 10 B acquisition > freezes exactly six targets and passes the resolved packet preflight
+Error: Phase 10 A-P refused: packet protocol artifact-schema registry byte identity differs
+ ❯ refuse runner/src/phase10-obligation-preflight.ts:102:9
+    100| 
+    101| function refuse(message: string): never {
+    102|   throw new Error(`Phase 10 A-P refused: ${message}`);
+       |         ^
+    103| }
+    104| 
+ ❯ readBoundArtifactSchemaRegistry runner/src/phase10-obligation-preflight.ts:401:5
+ ❯ validateActiveArtifactSchemas runner/src/phase10-obligation-preflight.ts:422:5
+ ❯ prepare runner/src/phase10-obligation-preflight.ts:1306:3
+ ❯ phase10ObligationRunPreflight runner/src/phase10-obligation-preflight.ts:1391:5
+ ❯ runner/test/phase10-b-acquisition.test.ts:72:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/19]⎯
+
+ FAIL  runner/test/phase10-b-acquisition.test.ts > Phase 10 B acquisition > promotes only the NAS publication disposition schema
+AssertionError: expected [ { …(7) } ] to deeply equal [ { …(7) } ]
+
+- Expected
++ Received
+
+  [
+    {
+-     "byteLength": 1557,
++     "byteLength": 1523,
+      "contractPath": "research/phase10-b-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-nas-publication-disposition-v1",
+      "owner": "S1 integration",
+      "schemaId": "phase10-nas-publication-disposition-v1",
+-     "sha256": "22f387843aa8c0dea866de6fcdc26b4d8acc8bec1a343564311e81b4d2aef813",
++     "sha256": "ca34bd9bae3d9a33e84ffa722899dd02395544ef2129389628dae2985d85f59a",
+      "state": "defined",
+    },
+  ]
+
+ ❯ runner/test/phase10-b-acquisition.test.ts:114:19
+    112|       ),
+    113|     );
+    114|     expect(added).toEqual([{
+       |                   ^
+    115|       schemaId,
+    116|       owner: "S1 integration",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/19]⎯
+
+ FAIL  runner/test/phase10-b-acquisition.test.ts > Phase 10 B acquisition > rejects an obsolete no-byte disposition and an incomplete roster
+AssertionError: expected [Function] to throw error matching /registered zero-byte collection/u but got 'Phase 10 A-P refused: packet protocol…'
+
+- Expected: 
+/registered zero-byte collection/u
+
++ Received: 
+"Phase 10 A-P refused: packet protocol artifact-schema registry byte identity differs"
+
+ ❯ runner/test/phase10-b-acquisition.test.ts:221:9
+    219|       startedOn: timestamp,
+    220|       endedOn: timestamp,
+    221|     })).toThrow(/registered zero-byte collection/u);
+       |         ^
+    222| 
+    223|     writeJson(join(directory, "acquisition-round.json"), { ...round, t…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/19]⎯
+
+ FAIL  runner/test/phase10-b-branches.test.ts > Phase 10 terminal B branches > promotes only the two return schemas and leaves the acquisition authority usable
+AssertionError: expected [ { …(7) }, { …(7) } ] to deeply equal [ { …(7) }, { …(7) } ]
+
+- Expected
++ Received
+
+  [
+    {
+-     "byteLength": 1794,
++     "byteLength": 1742,
+      "contractPath": "research/phase10-b-branch-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-return-proposal-v1",
+      "owner": "S7 B branch integration",
+      "schemaId": "phase10-return-proposal-v1",
+-     "sha256": "de5bd37f5c990b0170c05ce86895da3d78059d04e3212e1265f269e24324c1d6",
++     "sha256": "645dd4f8a7aa5aa5f804ff07a29e804e68fcb7df7817910b5d501d782ed96bcc",
+      "state": "defined",
+    },
+    {
+-     "byteLength": 1794,
++     "byteLength": 1742,
+      "contractPath": "research/phase10-b-branch-schema-contracts-v1.json",
+      "contractPointer": "/schemas/phase10-return-proposals-v1",
+      "owner": "S7 B branch integration",
+      "schemaId": "phase10-return-proposals-v1",
+-     "sha256": "de5bd37f5c990b0170c05ce86895da3d78059d04e3212e1265f269e24324c1d6",
++     "sha256": "645dd4f8a7aa5aa5f804ff07a29e804e68fcb7df7817910b5d501d782ed96bcc",
+      "state": "defined",
+    },
+  ]
+
+ ❯ runner/test/phase10-b-branches.test.ts:63:19
+     61|       ),
+     62|     );
+     63|     expect(added).toEqual(promoted.map((schemaId) => ({
+       |                   ^
+     64|       schemaId,
+     65|       owner: "S7 B branch integration",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/19]⎯
+
+ FAIL  runner/test/phase10-b-branches.test.ts > Phase 10 terminal B branches > passes the resolved preflight for every frozen B packet
+Error: Phase 10 A-P refused: packet protocol artifact-schema registry byte identity differs
+ ❯ refuse runner/src/phase10-obligation-preflight.ts:102:9
+    100| 
+    101| function refuse(message: string): never {
+    102|   throw new Error(`Phase 10 A-P refused: ${message}`);
+       |         ^
+    103| }
+    104| 
+ ❯ readBoundArtifactSchemaRegistry runner/src/phase10-obligation-preflight.ts:401:5
+ ❯ validateActiveArtifactSchemas runner/src/phase10-obligation-preflight.ts:422:5
+ ❯ prepare runner/src/phase10-obligation-preflight.ts:1306:3
+ ❯ phase10ObligationRunPreflight runner/src/phase10-obligation-preflight.ts:1391:5
+ ❯ runner/test/phase10-b-branches.test.ts:113:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/19]⎯
+
+ FAIL  runner/test/phase10-c0v-moving-static-reference.test.ts > Phase 10 C0V static scoped reference refusal > matches the frozen current solver/spec source shape without reading a layer protocol
+AssertionError: expected [ …(5) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   "public boundaryState does not return sigmaOpp",
++   "public boundaryState does not return sigmaBoundary",
++   "public boundaryState does not return alphaHKBoundary",
++   "public boundaryState does not return robinGeometry",
++   "public boundaryState does not return fillGeometry",
++ ]
+
+ ❯ runner/test/phase10-c0v-moving-static-reference.test.ts:674:26
+    672|     const candidate = derivePhase10C0VStaticRefusal(protocol, audit);
+    673|     const check = independentlyCheckPhase10C0VStaticRefusal(protocol, …
+    674|     expect(check.errors).toEqual([]);
+       |                          ^
+    675|     expect(check.verdict).toBe("pass");
+    676|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/19]⎯
+
+ FAIL  runner/test/phase10-c0v-s6-executor.test.ts > Phase 10 C0V S6 filesystem and closure refusal boundary > reopens the exact nine-generation stop before recovery-v9 lock acquisition
+Error: ENOENT: no such file or directory, open 'G:\Code Files\snowflake-science-exploration\out\phase10-execution-v2\recovery-v1\attempts\a-p-c0v-s6\a-p-c0v-s6-20260822-v2\exit-status.json'
+ ❯ copyRecoveryV5PredecessorState runner/test/phase10-c0v-s6-executor.test.ts:449:42
+    447|     ...authority.predecessorPublishedArtifacts,
+    448|   ]) {
+    449|     const artifactBytes = new Uint8Array(readFileSync(resolve(process.…
+       |                                          ^
+    450|     expect(phase10C0VS6ArtifactIdentity(artifact.path, artifactBytes))…
+    451|     if (!existsSync(resolve(root, artifact.path))) writeBytes(root, ar…
+ ❯ copyRecoveryV6PredecessorState runner/test/phase10-c0v-s6-executor.test.ts:457:3
+ ❯ copyRecoveryV7PredecessorState runner/test/phase10-c0v-s6-executor.test.ts:495:3
+ ❯ copyRecoveryV8PredecessorState runner/test/phase10-c0v-s6-executor.test.ts:533:3
+ ❯ copyRecoveryPredecessorState runner/test/phase10-c0v-s6-executor.test.ts:571:3
+ ❯ runner/test/phase10-c0v-s6-executor.test.ts:1053:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/19]⎯
+
+ FAIL  runner/test/phase10-c0v-s6-executor.test.ts > Phase 10 C0V S6 filesystem and closure refusal boundary > reopens the accepted V5 A-P freeze from Git after the V8 source successor
+Error: ENOENT: no such file or directory, open 'G:\Code Files\snowflake-science-exploration\out\phase10-execution-v2\recovery-v5\attempts\a-p-c0v-s6\a-p-c0v-s6-20260822-v6\freeze-evaluation.json'
+ ❯ historicalApFreezeFixture runner/test/phase10-c0v-s6-executor.test.ts:916:45
+    914|   };
+    915|   const freezeReceiptPath = `${packet.paths.attemptRoot}/${packet.regi…
+    916|   const freezeReceiptBytes = new Uint8Array(readFileSync(resolve(root,…
+       |                                             ^
+    917|   return Object.freeze({
+    918|     input: Object.freeze({
+ ❯ runner/test/phase10-c0v-s6-executor.test.ts:1146:24
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/19]⎯
+
+ FAIL  runner/test/phase10-c0v-s6-executor.test.ts > Phase 10 C0V S6 filesystem and closure refusal boundary > requires the live run-lock token before any current A-P candidate write
+Error: ENOENT: no such file or directory, open 'G:\Code Files\snowflake-science-exploration\out\phase10-execution-v2\recovery-v1\attempts\a-p-c0v-s6\a-p-c0v-s6-20260822-v2\exit-status.json'
+ ❯ copyRecoveryV5PredecessorState runner/test/phase10-c0v-s6-executor.test.ts:449:42
+    447|     ...authority.predecessorPublishedArtifacts,
+    448|   ]) {
+    449|     const artifactBytes = new Uint8Array(readFileSync(resolve(process.…
+       |                                          ^
+    450|     expect(phase10C0VS6ArtifactIdentity(artifact.path, artifactBytes))…
+    451|     if (!existsSync(resolve(root, artifact.path))) writeBytes(root, ar…
+ ❯ copyRecoveryV6PredecessorState runner/test/phase10-c0v-s6-executor.test.ts:457:3
+ ❯ copyRecoveryV7PredecessorState runner/test/phase10-c0v-s6-executor.test.ts:495:3
+ ❯ copyRecoveryV8PredecessorState runner/test/phase10-c0v-s6-executor.test.ts:533:3
+ ❯ copyRecoveryPredecessorState runner/test/phase10-c0v-s6-executor.test.ts:571:3
+ ❯ prepareApPreFreezeAuthority runner/test/phase10-c0v-s6-executor.test.ts:632:3
+ ❯ rawCauseFixture runner/test/phase10-c0v-s6-executor.test.ts:678:7
+ ❯ runner/test/phase10-c0v-s6-executor.test.ts:1158:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/19]⎯
+
+ FAIL  runner/test/phase10-c0v-s6-executor.test.ts > Phase 10 C0V S6 filesystem and closure refusal boundary > serializes distinct packets under the catalogue-bound package lock
+Error: ENOENT: no such file or directory, open 'G:\Code Files\snowflake-science-exploration\out\phase10-execution-v2\recovery-v1\attempts\a-p-c0v-s6\a-p-c0v-s6-20260822-v2\exit-status.json'
+ ❯ copyRecoveryV5PredecessorState runner/test/phase10-c0v-s6-executor.test.ts:449:42
+    447|     ...authority.predecessorPublishedArtifacts,
+    448|   ]) {
+    449|     const artifactBytes = new Uint8Array(readFileSync(resolve(process.…
+       |                                          ^
+    450|     expect(phase10C0VS6ArtifactIdentity(artifact.path, artifactBytes))…
+    451|     if (!existsSync(resolve(root, artifact.path))) writeBytes(root, ar…
+ ❯ copyRecoveryV6PredecessorState runner/test/phase10-c0v-s6-executor.test.ts:457:3
+ ❯ copyRecoveryV7PredecessorState runner/test/phase10-c0v-s6-executor.test.ts:495:3
+ ❯ copyRecoveryV8PredecessorState runner/test/phase10-c0v-s6-executor.test.ts:533:3
+ ❯ copyRecoveryPredecessorState runner/test/phase10-c0v-s6-executor.test.ts:571:3
+ ❯ runner/test/phase10-c0v-s6-executor.test.ts:2799:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/19]⎯
+
+ FAIL  runner/test/phase10-c0v-s6-executor.test.ts > Phase 10 C0V S6 filesystem and closure refusal boundary > rejects materialized successor runs before locking and admits verify-existing
+Error: ENOENT: no such file or directory, open 'G:\Code Files\snowflake-science-exploration\out\phase10-execution-v2\recovery-v1\attempts\a-p-c0v-s6\a-p-c0v-s6-20260822-v2\exit-status.json'
+ ❯ copyRecoveryV5PredecessorState runner/test/phase10-c0v-s6-executor.test.ts:449:42
+    447|     ...authority.predecessorPublishedArtifacts,
+    448|   ]) {
+    449|     const artifactBytes = new Uint8Array(readFileSync(resolve(process.…
+       |                                          ^
+    450|     expect(phase10C0VS6ArtifactIdentity(artifact.path, artifactBytes))…
+    451|     if (!existsSync(resolve(root, artifact.path))) writeBytes(root, ar…
+ ❯ copyRecoveryV6PredecessorState runner/test/phase10-c0v-s6-executor.test.ts:457:3
+ ❯ copyRecoveryV7PredecessorState runner/test/phase10-c0v-s6-executor.test.ts:495:3
+ ❯ copyRecoveryV8PredecessorState runner/test/phase10-c0v-s6-executor.test.ts:533:3
+ ❯ copyRecoveryPredecessorState runner/test/phase10-c0v-s6-executor.test.ts:571:3
+ ❯ makeLockedRoot runner/test/phase10-c0v-s6-executor.test.ts:2873:7
+ ❯ runner/test/phase10-c0v-s6-executor.test.ts:2877:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/19]⎯
+
+ FAIL  runner/test/phase10-c0v-s6-historical-ap.test.ts > Phase 10 C0V S6 accepted historical A-P reopen > reopens the complete accepted prefix through its retained V5 protocol and exact 15 paths
+Error: ENOENT: no such file or directory, lstat 'G:\Code Files\snowflake-science-exploration\out\phase10-execution-v2\recovery-v5\attempts\a-p-c0v-s6\a-p-c0v-s6-20260822-v6'
+ ❯ assertPhysicalDirectory runner/src/phase10-c0v-s6-filesystem.ts:307:16
+    305| 
+    306| function assertPhysicalDirectory(root: Phase10C0VS6PhysicalRoot, absol…
+    307|   const stat = lstatSync(absolute);
+       |                ^
+    308|   if (!stat.isDirectory() || stat.isSymbolicLink()) {
+    309|     fail(`${label} is not a physical contained directory`);
+ ❯ phase10C0VS6ReadUniquePhysicalFile runner/src/phase10-c0v-s6-filesystem.ts:412:3
+ ❯ projectPhase10C0VS6RawLifecycleRoute runner/src/phase10-c0v-s6-lifecycle.ts:248:27
+ ❯ reopenPhase10C0VS6TerminalCandidate runner/src/phase10-c0v-s6-lifecycle.ts:997:21
+ ❯ independentlyReopenPhase10C0VS6HistoricalTerminalCandidate runner/src/phase10-c0v-s6-lifecycle.ts:1077:10
+ ❯ verifyCorePacket runner/src/phase10-c0v-s6-published-packet.ts:4666:21
+ ❯ independentlyReopenPhase10C0VS6AcceptedHistoricalApPacket runner/src/phase10-c0v-s6-published-packet.ts:5464:10
+ ❯ runner/test/phase10-c0v-s6-historical-ap.test.ts:16:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/19]⎯
+
+ FAIL  runner/test/phase10-c0v-s6-lifecycle.test.ts > Phase 10 C0V S6 lifecycle whole-file publication overlay > reopens the accepted A-P lifecycle through its retained recovery-v5 protocol only
+Error: ENOENT: no such file or directory, lstat 'G:\Code Files\snowflake-science-exploration\out\phase10-execution-v2\recovery-v5\attempts\a-p-c0v-s6\a-p-c0v-s6-20260822-v6'
+ ❯ assertPhysicalDirectory runner/src/phase10-c0v-s6-filesystem.ts:307:16
+    305| 
+    306| function assertPhysicalDirectory(root: Phase10C0VS6PhysicalRoot, absol…
+    307|   const stat = lstatSync(absolute);
+       |                ^
+    308|   if (!stat.isDirectory() || stat.isSymbolicLink()) {
+    309|     fail(`${label} is not a physical contained directory`);
+ ❯ phase10C0VS6ReadUniquePhysicalFile runner/src/phase10-c0v-s6-filesystem.ts:412:3
+ ❯ projectPhase10C0VS6RawLifecycleRoute runner/src/phase10-c0v-s6-lifecycle.ts:248:27
+ ❯ reopenPhase10C0VS6TerminalCandidate runner/src/phase10-c0v-s6-lifecycle.ts:997:21
+ ❯ independentlyReopenPhase10C0VS6HistoricalTerminalCandidate runner/src/phase10-c0v-s6-lifecycle.ts:1077:10
+ ❯ runner/test/phase10-c0v-s6-lifecycle.test.ts:99:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/19]⎯
+
+ FAIL  runner/test/phase10-c0v-s6-preflight-observer.test.ts > Phase 10 C0V S6 parent preflight observer > binds preflight authority to the exact active lock-issued parent watchdog
+Error: ENOENT: no such file or directory, open 'G:\Code Files\snowflake-science-exploration\out\phase10-execution-v2\recovery-v1\attempts\a-p-c0v-s6\a-p-c0v-s6-20260822-v2\exit-status.json'
+ ❯ writeRecoveryPredecessorState runner/test/phase10-c0v-s6-preflight-observer.test.ts:214:37
+    212|     ...authority.predecessorPublishedArtifacts,
+    213|   ]) {
+    214|     const artifact = new Uint8Array(readFileSync(resolve(ROOT, identit…
+       |                                     ^
+    215|     expect(phase10C0VS6ArtifactIdentity(identity.path, artifact)).toEq…
+    216|     write(root, identity.path, artifact);
+ ❯ runner/test/phase10-c0v-s6-preflight-observer.test.ts:840:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/19]⎯
+
+ FAIL  runner/test/phase10-final-package.test.ts > Phase 10 final package > matches the published report to its bound producer commit
+AssertionError: expected { …(15) } to deeply equal { …(15) }
+
+- Expected
++ Received
+
+@@ -48,13 +48,13 @@
+    "closedOn": "2026-08-25",
+    "completionBasis": "terminal-b-source-refusal",
+    "downstreamCandidates": [],
+    "inputs": [
+      {
+-       "byteLength": 14448,
++       "byteLength": 14336,
+        "path": "docs/decisions/0054-close-phase10-after-maker-terminated-c0v-infrastructure.md",
+-       "sha256": "a8192d110f5c8c0f08b12975be14859f5bfe5423f57e9e016f2bccd59ea51363",
++       "sha256": "b94f3b9a7b215085b4fd1f7cc66b228beebd4fe8e0a09c22370343a21b66a231",
+      },
+      {
+        "byteLength": 7657,
+        "path": "evidence/phase10-numerical-verification-v1/c0-report.json",
+        "sha256": "571e62ae3ff170ae4f864ca8fae79c7d4b1597b746a2f43477ea4445ea4f0b72",
+
+ ❯ runner/test/phase10-final-package.test.ts:55:23
+     53|   it("matches the published report to its bound producer commit", () =…
+     54|     const published = JSON.parse(readFileSync(join(ROOT, "evidence/pha…
+     55|     expect(published).toEqual(derivePhase10FinalPackageReport(ROOT, pu…
+       |                       ^
+     56|   });
+     57| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/19]⎯
+
+ FAIL  runner/test/phase9-mgt-analytic.test.ts > Phase 9 M-GT frozen foundation > binds the unchanged lattice, metric, parameter, and attachment specifications
+AssertionError: docs/attachment-kinetics.md: expected { byteLength: 61648, …(1) } to deeply equal { byteLength: 56814, …(1) }
+
+- Expected
++ Received
+
+  {
+-   "byteLength": 56814,
+-   "sha256": "e245a7355aef6926a0228e69d4dedfc9c68ae311d4d04a210cace33bdf1e1900",
++   "byteLength": 61648,
++   "sha256": "6671e09ab9c38ec926acda415a0e753ad2b124b11e4625cf8aa6758459d386be",
+  }
+
+ ❯ runner/test/phase9-mgt-analytic.test.ts:768:58
+    766|     const machinery = protocol().upstreamBindings.machinery;
+    767|     for (const artifact of Object.values(machinery)) {
+    768|       expect(fileIdentity(artifact.path), artifact.path).toEqual({
+       |                                                          ^
+    769|         byteLength: artifact.byteLength,
+    770|         sha256: artifact.sha256,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/19]⎯
+
+ FAIL  runner/test/phase9-permanent-control-readiness.test.ts > Phase 9 S2 permanent-control readiness > derives the exact 51-row census and refuses both controls without running or scoring
+Error: GGThreshold spec byte/hash identity differs
+ ❯ assertIdentity runner/src/phase9-permanent-control-readiness.ts:127:11
+    125| function assertIdentity(bytes: Uint8Array, identity: Identity, label: …
+    126|   if (bytes.byteLength !== identity.byteLength || sha256Bytes(bytes) !…
+    127|     throw new Error(`${label} byte/hash identity differs`);
+       |           ^
+    128|   }
+    129| }
+ ❯ evaluatePhase9PermanentControlReadiness runner/src/phase9-permanent-control-readiness.ts:186:3
+ ❯ runner/test/phase9-permanent-control-readiness.test.ts:149:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/19]⎯
+
+ FAIL  runner/test/phase9-permanent-control-readiness.test.ts > Phase 9 S2 permanent-control readiness > binds the bounded protocol and every named input and implementation artifact
+AssertionError: docs/gg-machinery.md: expected 24888 to be 24718 // Object.is equality
+
+- Expected
++ Received
+
+- 24718
++ 24888
+
+ ❯ fileIdentity runner/test/phase9-permanent-control-readiness.test.ts:143:43
+    141| function fileIdentity(identity: { readonly path: string; readonly byte…
+    142|   const bytes = readFileSync(identity.path);
+    143|   expect(bytes.byteLength, identity.path).toBe(identity.byteLength);
+       |                                           ^
+    144|   expect(createHash("sha256").update(bytes).digest("hex"), identity.pa…
+    145| }
+ ❯ runner/test/phase9-permanent-control-readiness.test.ts:203:45
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/19]⎯
+
+
+ Test Files  11 failed | 171 passed (182)
+      Tests  18 failed | 2612 passed | 72 skipped (2702)
+   Start at  07:03:57
+   Duration  1356.27s (transform 3.52s, setup 0ms, collect 13.95s, tests 1313.07s, environment 23ms, prepare 12.62s)
+
+npm notice
+npm notice New minor version of npm available! 11.8.0 -> 11.21.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.21.0
+npm notice To update run: npm install -g npm@11.21.0
+npm notice

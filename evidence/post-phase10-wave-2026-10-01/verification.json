@@ -1,0 +1,118 @@
+{
+  "recordedAt": "2026-10-01",
+  "scope": "Completed cavity/grid and early/late history wave publication; no solver or scientific readout code changed in this closure.",
+  "fullCheck": {
+    "command": "npm.cmd test",
+    "worktree": "G:\\Code Files\\snowflake-science-exploration",
+    "baseCommit": "9658cd37c423c80fe82823c0e934f2072fc39e25",
+    "start": "2026-10-01T07:03:18.5951870-07:00",
+    "end": "2026-10-01T07:26:33.9680740-07:00",
+    "testWorkerConcurrency": 1,
+    "experimentWorkers": 0,
+    "exitCode": 1,
+    "log": {
+      "path": "npm-test.log",
+      "bytes": 114857,
+      "sha256": "571eda677c0479ba64e924e6ed133786fb633bba578383d6dab4e0e1eb16f83c"
+    },
+    "rule7": {
+      "result": "passed",
+      "filesScanned": 1563
+    },
+    "typechecks": "both passed",
+    "testFiles": {
+      "passed": 171,
+      "failed": 11,
+      "total": 182
+    },
+    "tests": {
+      "passed": 2612,
+      "failed": 18,
+      "skipped": 72,
+      "total": 2702
+    },
+    "vitestDurationSeconds": 1356.27,
+    "relevantPasses": [
+      {
+        "file": "solver-cpu/test/lk-basal-width.test.ts",
+        "tests": 12
+      },
+      {
+        "file": "runner/test/post-phase10-cavity-analysis.test.ts",
+        "tests": 26
+      },
+      {
+        "file": "runner/test/post-phase10-basal-history.test.ts",
+        "tests": 4
+      },
+      {
+        "file": "runner/test/evidence-integrity.test.ts",
+        "tests": 7
+      }
+    ],
+    "baseline": {
+      "path": "out/post-phase10-basal-history/checkpoint-2026-09-12/npm-test.log",
+      "archive": "history-runs.tar.gz",
+      "bytes": 251054,
+      "sha256": "4e9bc52c070aa568849eb333e434874837df397b689739cf5dab0bd4cd8ff2f2",
+      "comparison": "Identical normalized failure-heading set and identical final file/test counters. Join wrapped heading lines and collapse whitespace; 18 failed tests plus one collection failure. This is not a green suite.",
+      "addedFailureHeadings": [],
+      "removedFailureHeadings": [],
+      "commonFailureHeadings": [
+        "FAIL runner/test/phase10-scope-overlay.test.ts [ runner/test/phase10-scope-overlay.test.ts ]",
+        "FAIL runner/test/phase10-b-acquisition.test.ts > Phase 10 B acquisition > freezes exactly six targets and passes the resolved packet preflight",
+        "FAIL runner/test/phase10-b-acquisition.test.ts > Phase 10 B acquisition > promotes only the NAS publication disposition schema",
+        "FAIL runner/test/phase10-b-acquisition.test.ts > Phase 10 B acquisition > rejects an obsolete no-byte disposition and an incomplete roster",
+        "FAIL runner/test/phase10-b-branches.test.ts > Phase 10 terminal B branches > promotes only the two return schemas and leaves the acquisition authority usable",
+        "FAIL runner/test/phase10-b-branches.test.ts > Phase 10 terminal B branches > passes the resolved preflight for every frozen B packet",
+        "FAIL runner/test/phase10-c0v-moving-static-reference.test.ts > Phase 10 C0V static scoped reference refusal > matches the frozen current solver/spec source shape without reading a layer protocol",
+        "FAIL runner/test/phase10-c0v-s6-executor.test.ts > Phase 10 C0V S6 filesystem and closure refusal boundary > reopens the exact nine-generation stop before recovery-v9 lock acquisition",
+        "FAIL runner/test/phase10-c0v-s6-executor.test.ts > Phase 10 C0V S6 filesystem and closure refusal boundary > reopens the accepted V5 A-P freeze from Git after the V8 source successor",
+        "FAIL runner/test/phase10-c0v-s6-executor.test.ts > Phase 10 C0V S6 filesystem and closure refusal boundary > requires the live run-lock token before any current A-P candidate write",
+        "FAIL runner/test/phase10-c0v-s6-executor.test.ts > Phase 10 C0V S6 filesystem and closure refusal boundary > serializes distinct packets under the catalogue-bound package lock",
+        "FAIL runner/test/phase10-c0v-s6-executor.test.ts > Phase 10 C0V S6 filesystem and closure refusal boundary > rejects materialized successor runs before locking and admits verify-existing",
+        "FAIL runner/test/phase10-c0v-s6-historical-ap.test.ts > Phase 10 C0V S6 accepted historical A-P reopen > reopens the complete accepted prefix through its retained V5 protocol and exact 15 paths",
+        "FAIL runner/test/phase10-c0v-s6-lifecycle.test.ts > Phase 10 C0V S6 lifecycle whole-file publication overlay > reopens the accepted A-P lifecycle through its retained recovery-v5 protocol only",
+        "FAIL runner/test/phase10-c0v-s6-preflight-observer.test.ts > Phase 10 C0V S6 parent preflight observer > binds preflight authority to the exact active lock-issued parent watchdog",
+        "FAIL runner/test/phase10-final-package.test.ts > Phase 10 final package > matches the published report to its bound producer commit",
+        "FAIL runner/test/phase9-mgt-analytic.test.ts > Phase 9 M-GT frozen foundation > binds the unchanged lattice, metric, parameter, and attachment specifications",
+        "FAIL runner/test/phase9-permanent-control-readiness.test.ts > Phase 9 S2 permanent-control readiness > derives the exact 51-row census and refuses both controls without running or scoring",
+        "FAIL runner/test/phase9-permanent-control-readiness.test.ts > Phase 9 S2 permanent-control readiness > binds the bounded protocol and every named input and implementation artifact"
+      ]
+    },
+    "knownFailureScope": "Historical source/specification identity pins, absent retired recovery fixtures, and the old static solver-source-shape assertion. These were not repaired or rerun in this publication task."
+  },
+  "preservation": {
+    "inventory": "raw-inventory.json",
+    "archiveFiles": 487,
+    "uncompressedBytes": 324451935,
+    "restoreRoot": "out/restores/post-phase10-wave-2026-10-01",
+    "restoredMemberCheck": "Every restored member matched the source byte length and SHA-256.",
+    "reportSourceChecks": [
+      {
+        "report": "cavity-comparison.json",
+        "sourceReferences": 200
+      },
+      {
+        "report": "history-t4p5.json",
+        "sourceReferences": 20
+      },
+      {
+        "report": "history-t5.json",
+        "sourceReferences": 20
+      },
+      {
+        "report": "prior-width-t4p5.json",
+        "sourceReferences": 16
+      },
+      {
+        "report": "prior-width-t5.json",
+        "sourceReferences": 16
+      }
+    ],
+    "reportSourceCheck": "All 272 report source references match archived member pins.",
+    "limits": "This bundle preserves claim-backing inputs, not every older ignored output. No worktree, branch, or local output was deleted."
+  },
+  "review": "Bounded non-author scientific review and its limits are recorded in README.md.",
+  "next": "Pause for three-machine consolidation. Do not launch a new long wave. Any later run requires demonstrated pause/resume first."
+}
