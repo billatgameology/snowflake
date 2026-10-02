@@ -937,6 +937,9 @@ Only main and the other computer's untouched website/film branch remain on origi
 stashes and primary private settings remain. One Windows-locked empty
 directory at `G:/Code Files/snowflake-phase10-evidence` remains unregistered and can be removed
 after closing its owning application or restarting; it holds no data.
+The separately discovered, unregistered `G:/Code Files/snowflake-animation-generation` leftover
+was removed at the maker's request after its source matched merged commit `c2791b3` and useful
+outputs matched retained primary copies, including previews in the restored closeout NAS backup.
 Next: stay paused and use pushed main as the common baseline for the other machines' reconciliation.
 Start a later authorized wave in fresh worktrees, restore only the required prior output, distribute
 independent cases across both PCs, and prove pause/resume before long runs. No experiment is running.
