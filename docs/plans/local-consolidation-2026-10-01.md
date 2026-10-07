@@ -201,8 +201,8 @@ The existing full-suite debt remains explicit; no campaign or full scientific su
 After the record is committed, fast-forward primary main locally and remove the temporary task
 worktree/ref. This local machine record is not automatically pushed.
 
-Status: user-level installation and NAS recovery checks complete; Windows administrator-dependent
-instruction-link/system-long-path changes remain pending after the native prompt was canceled.
+Status: readiness complete, including the maker-executed administrator settings and instruction
+symlink repair. The final follow-up below records the exact verified state and receipts.
 
 Installation receipt: primary `out/host-readiness-2026-10-07/tools.json` records Node v24.13.1,
 npm 11.8.0, TypeScript 5.9.3, Playwright 1.61.1, Python 3.13.15, PyMuPDF 1.28.2 and
@@ -246,7 +246,7 @@ fallback with zero errors (`gallery-smoke.log`, primary `out/growth-gallery/brow
 The dev server runs at `http://127.0.0.1:5191/dendrite-styles.html?browse=1`, with the owned PID
 and separate stdout/stderr at `dev-server.pid`, `dev-server.log`, `dev-server.error.log`.
 
-Remaining Windows step: `host-settings.json` records Developer Mode absent, system
+Initial Windows step: `host-settings-before-admin.json` records Developer Mode absent, system
 `LongPathsEnabled=0`, Git `core.symlinks=false` and the unchanged nine-byte `CLAUDE.md` placeholder.
 The native administrator launch reported user cancellation (`windows-development-launch.json`).
 The exact prepared settings script is `enable-windows-development.ps1`; it changes only Developer
@@ -299,19 +299,24 @@ smoke report is preserved as `browser-smoke-before-run-b.json`. The follow-up
 `npm.cmd run build --workspace app` exits zero (`app-build-complete.log`, `.exit`), including the
 recovered input. This does not close the separate glass/camera visual-acceptance plan.
 
-Windows is still blocked on native administrator consent. The retry launch reported cancellation
-(`windows-development-retry-launch.json`); registry checks still show Developer Mode absent and
-system long paths disabled. Prepared `finish-windows-readiness.ps1` performs both registry changes
-and invokes `repair-instruction-links.mjs`. The helper proves symlink creation before replacing
-the exact nine-byte placeholder, preserves AGENTS.md bytes, verifies the relative target, and
-enables Git symlink handling. Run the script once in Administrator PowerShell, then verify
-`windows-readiness-complete.json`, `instruction-links.json`, and actual links. No privilege
-bypass, copied instruction file, or unsupported success claim was substituted.
+The native retry also reported cancellation (`windows-development-retry-launch.json`). The maker
+then ran `finish-windows-readiness.ps1` from Administrator PowerShell; its exit file records zero.
+`windows-readiness-complete.json` records Developer Mode and system long paths enabled. Fresh root
+checks confirm both registry values are 1, Git `core.symlinks=true` / `core.longpaths=true`, and
+actual `CLAUDE.md` -> `AGENTS.md` symbolic linkage. The refreshed `host-settings.json` agrees; its
+initial pending-state receipt is retained as `host-settings-before-admin.json`.
+
+`instruction-links.json` records a successful 364-character create/read path probe and unchanged
+canonical AGENTS.md SHA-256 `129a5386d79dfde478c4212b0fc09e81557129e5509c5348b520f908b6d951cf`.
+An independent agent verified the same actual link, canonical Git blob unchanged, clean primary
+checkout, and unchanged restored Run B digest. A fresh task checkout from `8c21ece` at the same
+readiness sibling path creates the real relative instruction symlink without elevation. Both
+remaining items are resolved; no further administrator step is needed.
 
 Record checks: `npm.cmd run lint:rule7` exits zero with 1,925 files scanned
 (`rule7-followup.log`); `npx.cmd vitest run runner/test/progress-index.test.ts` passes all nine
-tests (`progress-followup.log`). The prepared PowerShell/Node scripts parse successfully; their
-administrator-dependent actions have not executed. The task documentation is fast-forwarded
+tests (`progress-followup.log`). The PowerShell/Node repair scripts parsed successfully and the
+maker's administrator execution completed their host checks. The task documentation is fast-forwarded
 into local primary main; the empty task worktree/ref is removed after the disposition check.
 Nothing is pushed, and recovered product bytes and setup receipts remain in their primary paths.
 

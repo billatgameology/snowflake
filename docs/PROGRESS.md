@@ -19,7 +19,7 @@ detail.
 
 ## Current state
 
-- **New Windows host tools and NAS checks complete (2026-10-07); administrator step pending.** Primary checkout
+- **New Windows host readiness complete (2026-10-07).** Primary checkout
   `C:/Users/biao3/Documents/GitHub/snowflake` starts from clean shared main `94fabd2`.
   The maker mapped the marked NAS to `Z:/`; the persistent host setting is `VCC_NAS_ROOT=Z:/`.
   Independent streamed SHA-256/length checks passed all 30 files in the science and local-worktree
@@ -35,10 +35,12 @@ detail.
   (`run-b-restore.json` under the setup directory). Strict decode and reconstructed occupancy
   pass; `live-gallery-complete.json` reports all 151 recordings available. Run B's existing
   browser smoke and the new app build pass (`run-b-browser-smoke.json`, `app-build-complete.log`).
-  Windows denied the symlink probe and reported both administrator prompts canceled; the actual
-  `CLAUDE.md` symlink and system long-path setting remain pending. Restart terminal/Codex to pick
-  up persistent PATH/NAS settings. Science stays paused; existing full-suite debt and phase claims
-  are unchanged.
+  The maker executed the prepared administrator script successfully: Developer Mode and system
+  long paths are enabled, Git symlink handling is enabled, and `CLAUDE.md` is the actual relative
+  link to unchanged `AGENTS.md` (`host-settings.json`, `windows-readiness-complete.json`). The
+  364-character path probe passes (`instruction-links.json`), and a fresh task worktree checks
+  out the real instruction link. Restart terminal/Codex to inherit persistent PATH/NAS settings.
+  Science stays paused; existing full-suite debt and phase claims are unchanged.
 
 - **Current science wave complete and reviewed (2026-10-01); expansion paused.** The
   [completed cavity/history report](../evidence/post-phase10-wave-2026-10-01/README.md)
@@ -941,12 +943,10 @@ Use `C:/Users/biao3/Documents/GitHub/snowflake` with the installed Node v24.13.1
 `http://127.0.0.1:5191/dendrite-styles.html?browse=1`; the
 [consolidation-plan follow-up](plans/local-consolidation-2026-10-01.md) records installation,
 NAS hash/restore and focused checks. Original Run B is restored at the existing sibling website
-input path, with its original digest verified and all gallery recordings available. The remaining
-Windows settings require an Administrator PowerShell session: run the prepared primary
-`out/host-readiness-2026-10-07/finish-windows-readiness.ps1` to enable Developer Mode/system long
-paths and restore the relative `CLAUDE.md` symlink. The second native launch also reported
-cancellation (`windows-development-retry-launch.json`); neither setting changed. Recheck its
-completion receipt and the actual instruction link afterward.
+input path, with its original digest verified and all gallery recordings available. The maker's
+administrator execution completed the Windows settings and actual instruction symlink; the
+setup directory's `windows-readiness-complete.json`, `instruction-links.json` and refreshed
+`host-settings.json` record the verified state. This computer is ready for the next selected task.
 Keep science paused. A later selected experiment still requires its own task worktree, common
 producer/runtime, a measured worker budget for this 24-core host, and a demonstrated pause/resume
 path. No Phase 7 or retired S6 work is reopened.
