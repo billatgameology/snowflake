@@ -5,9 +5,10 @@ including **Tried and rejected**. The charter defines intended behavior; this in
 The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
 
 - **Last updated:** 2026-10-07 by Codex
-- **Agent-rules cleanup:** [in progress](plans/repository-housekeeping-2026-10-07.md#agent-rules-follow-up--2026-10-07)
-  in `snowflake-agent-rules`, branch `chore/agent-rules-cleanup-2026-10-07`. Compact repeated
-  detail while preserving learned safeguards, mandatory reading and existing enforcement.
+- **Agent-rules cleanup:** [verified, integration pending](plans/repository-housekeeping-2026-10-07.md#agent-rules-follow-up--2026-10-07)
+  in `snowflake-agent-rules`, branch `chore/agent-rules-cleanup-2026-10-07`. Repeated detail now links
+  to its authority while explicit learned warnings, required reading and existing enforcement remain.
+  Bounded text review has no unresolved finding (primary `out/agent-rules-cleanup-2026-10-07/review.json`).
 - **Repository housekeeping:** [complete](plans/repository-housekeeping-2026-10-07.md), integrated
   into local `main` through `6f4e050`; its reconciled task worktree and branch are removed.
   Changes remain local and unpushed. The primary checkout is the sole local worktree.
@@ -128,6 +129,12 @@ protocols; hours-scale gates are not setup smoke tests. Consult each completed p
 
 ## Verification
 
+The agent-rules cleanup's `npm.cmd run lint:rule7`, `git diff --check` and bounded text review
+passed. Primary `out/agent-rules-cleanup-2026-10-07/document-checks-final.json` records 717 → 415
+AGENTS lines, all 18 unchanged rule headings, resolved links/anchors and the actual CLAUDE symlink;
+`review.json` records the repaired finding and review limits. This is prose verification, not a new
+full-suite or scientific result. Accepted ADRs, charter, evidence and code remain unchanged.
+
 Exact `npm.cmd test` at clean `f528d29`, Node v24.13.1, exited zero: **224 files / 2,945 tests passed,
 23 skipped**, in 835.83 seconds. Primary `out/housekeeping-2026-10-07/final-v2-invocation.json`,
 `final-v2.log` and `final-v2-result.json` record command, source and exit. Rule 7 and both typechecks
@@ -155,7 +162,9 @@ availability confirmation. Primary `nas-retention-review.json` records the dispo
 ## Active plan
 
 - [Agent-rules follow-up](plans/repository-housekeeping-2026-10-07.md#agent-rules-follow-up--2026-10-07)
-  is the current editorial task; accepted ADRs, science and evidence remain unchanged.
+  is the current editorial task, verified and awaiting local integration; accepted ADRs, science and
+  evidence remain unchanged. Relevant failure/lesson/check references now belong in each existing
+  work plan before its risky action; agent discipline is distinguished from automated enforcement.
 - [Repository housekeeping](plans/repository-housekeeping-2026-10-07.md) is complete. Its required
   checks, approved cleanup, local fast-forward and non-force worktree/ref closeout are recorded.
 - [Adaptive discovery](plans/post-phase10-adaptive-discovery.md) is paused after its completed closing
@@ -177,7 +186,7 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-Finish the agent-rules cleanup and its bounded verification/review, then reconcile its worktree.
+Integrate the verified agent-rules cleanup locally and reconcile its task worktree/ref.
 
 The next product task is [glass/camera acceptance](plans/explore-gutcheck-growth-glass-camera.md):
 recover its separately required comparison bundle, then execute its browser and visual acceptance

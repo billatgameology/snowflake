@@ -9,7 +9,7 @@
 
 ## Agent-rules follow-up — 2026-10-07
 
-- **Status:** in progress, maker-approved editorial cleanup
+- **Status:** editorial cleanup verified; local integration/closeout pending
 - **Worktree:** `C:/Users/biao3/Documents/GitHub/snowflake-agent-rules`
 - **Branch:** `chore/agent-rules-cleanup-2026-10-07`, from `334a467`
 
@@ -35,13 +35,42 @@ scope. Record the commands and review limits, integrate locally, and reconcile t
 Do not push or resume any scientific campaign.
 
 - [x] Inspect current state, canonical symlink, accepted ADRs and existing check coupling.
-- [ ] Compact instructions and clarify the lessons' agent-discipline labels.
-- [ ] Compare retained safeguards with the original, check links/anchors and run Rule 7.
+- [x] Compact instructions and clarify the lessons' agent-discipline labels.
+- [x] Compare retained safeguards with the original, check links/anchors and run Rule 7.
 - [ ] Record results, integrate locally and remove the reconciled task worktree/ref without force.
 
 Tried and rejected: deleting all repetition would hide the warnings that expensive incidents
 made necessary; copying the old instructions into another live guide would recreate drift;
 rewriting accepted ADRs or adding another compliance registry would exceed the editorial task.
+
+Draft checkpoint: primary `out/agent-rules-cleanup-2026-10-07/document-checks.json` records the
+717-line original and 411-line draft, all 18 unchanged Rule 1–16 / 14A–14B headings, 69 resolved
+local links, three explicit section anchors and the actual relative CLAUDE symlink. The draft
+retained explicit recurring-failure warnings and mandatory task reading; its bounded non-author
+comparison against original `334a467` was pending at that checkpoint. `npm.cmd run lint:rule7` passed (1,936 files;
+primary `rule7.log`, `rule7.error.log`, `rule7.exit`); `git diff --check` passed. Only four prose
+files differ from the base. These are document checks, not a full-suite or scientific result.
+
+The bounded non-author text review compared original `334a467`, the complete shortened guide,
+lesson-label changes and the delegated retention procedure. It found one omitted operative phrase:
+gate precondition violations must fail the process by name. That requirement was restored; the
+same engagement's targeted follow-up confirmed it and the charter/accepted-ADR check override
+across all verification tiers. No unresolved finding remains. Primary
+`out/agent-rules-cleanup-2026-10-07/review.json` records provenance and limits: Codex subagent,
+shared inherited context/model (exact configured identifier unavailable), independently read text,
+no executed tests or scientific evidence re-derivation. This is not a scientific certification.
+
+The final document checks use `npm.cmd run lint:rule7`, `git diff --check` and a one-off Python
+inspection of unchanged rule headings, resolved links/section anchors, exact changed-path scope
+and the actual symlink. Primary `rule7-final.log`, `rule7-final.error.log`, `rule7-final.exit` and
+`document-checks-final.json` record them. No new validator, tests, ADR or lesson registry was added.
+Remaining work is the local fast-forward and non-force task worktree/ref reconciliation.
+
+Final checks passed: `document-checks-final.json` records **717 → 415 lines**, all 18 unchanged
+rule headings, 69 local links, three section anchors, the actual symlink and the four-file prose
+scope. `npm.cmd run lint:rule7` passed (1,936 files; `rule7-final.exit` = 0) and
+`git diff --check` passed. The known gate-failure omission is repaired, and the targeted review
+follow-up has no unresolved finding. No full suite or scientific gate was executed for this task.
 
 ## Goal
 

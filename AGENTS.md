@@ -1,717 +1,415 @@
 # Working rules — The Virtual Cloud Chamber
 
-This project is worked on by **multiple different LLMs across sessions**, with no shared memory
-between them. Any model may pick up work another left mid-flight. `docs/PROGRESS.md` is the compact
-current-state index, and the active plans hold the detailed work records; logs, checkpoints, and
-other artifacts are evidence only when one of those current records points to them.
+Different LLMs work on this project across sessions without shared memory. The durable memory is
+[PROGRESS](docs/PROGRESS.md), the affected active plans and the lesson records. Logs, checkpoints
+and other artifacts support live state only when those records point to them.
 
-The handoff mechanism is retired (maker direction, 2026-08-20). There is no live handoff
-document: `docs/PROGRESS.md` and the active plans are the sole live state, and work proceeds in
-isolated worktrees per Rule 16. `docs/HANDOFF.md` remains only as a tombstone because the
-byte-frozen progress archive links to it; never revive it as a snapshot.
-
-**`CLAUDE.md` is a symlink to this file.** Keep `AGENTS.md` canonical and never replace the
-symlink with a second copy; two instruction files will drift.
-
-The governing document is [project charter.md](project charter.md). It defines the goal, the
-science, the stack, and Phases 0–10. **The charter is the spec; these files are the state.**
-
----
+**`CLAUDE.md` is a symlink to this file. Keep `AGENTS.md` canonical; never replace the symlink with
+a second instruction file.** The handoff mechanism is retired: `docs/HANDOFF.md` is a tombstone for
+historical links, never a live snapshot. Use isolated task worktrees under Rule 16.
 
 ## Cold-start read order and authority
 
-| File | Answers | Written |
-|---|---|---|
-| `docs/PROGRESS.md` | Where is the project *right now*? | Every session that changes anything |
-| `docs/plans/<phase>-<slug>.md` | What are we about to do, and why that way? | Before any non-trivial work |
-| `docs/decisions/NNNN-<slug>.md` | Why is it this way and not the obvious alternative? | When a real choice gets made |
-
-Templates live at `docs/plans/_TEMPLATE.md` and `docs/decisions/_TEMPLATE.md`.
-
 Read in this order on every cold start:
 
-0. **Read `docs/phase6-lessons.md`** — every rule in it came from a real incident that cost time or
-   nearly cost evidence, and several are enforced by `npm test`
-   (`runner/test/evidence-integrity.test.ts`).
-1. Read `docs/PROGRESS.md` completely, including **Next step**.
-   It is deliberately a compact current-state index. Its linked pre-compaction archive is a frozen
-   historical record, not current authority; open that archive only when a current record points to
-   it or the task requires historical provenance.
-2. Read each active plan it names for the workstream you will touch, including **Tried and
-   rejected**. If a task crosses workstreams, read every affected active plan. Those sections
-   contain killed protocols and measured failure modes that must not be rediscovered or restored.
-3. Inspect `git status` and the relevant diff before editing. A dirty worktree is often a
-   deliberate, reviewed handoff rather than disposable noise.
-4. Read the relevant charter clauses, accepted ADRs, and solver spec before changing behavior.
-5. Inspect code, tests, logs, and checkpoints only after the intended contract is clear.
-
-**The solver specs** are separate, and they are the technical ground truth — read the relevant
-one before writing solver code, every time:
-
-| File | Contains | Truth status |
-|---|---|---|
-| `docs/gg-machinery.md` | lattice, diffusion, state, mass, melting, noise | shared machinery; diffusion is physical transport, G-G surface knobs phenomenological |
-| `docs/attachment-kinetics.md` | the attachment rule and coupled surface operator — Libbrecht's kinetics | **the physically parameterized surface-exchange step** (diffusion is physical transport too) |
-| `docs/libbrecht-parameters.md` | provenance-recorded σ₀(T), A(T), v_kin(T), D(T,P), and exact metrological inputs | extracted mapping table distinguishing directly adopted empirical inputs and authoritative exact definitions from fits/inversions, digitizations and P3/P4 prescriptions, with stated uncertainty/exact status and explicit gaps; source values/transcriptions cite their source, while project-derived/P4 choices name operands and method |
-
-### When sources disagree
-
-These files answer different questions; do not collapse them into one vague "source of truth."
+0. Read [phase6-lessons.md](docs/phase6-lessons.md) completely. Its incidents explain why the short
+   warnings below exist; compaction does not make the lessons optional.
+1. Read [PROGRESS.md](docs/PROGRESS.md) completely, including **Next step**. Its linked archives are
+   historical records; open them only when a current record points there or provenance is needed.
+2. Read every affected active plan, including **Tried and rejected**. Killed protocols and measured
+   failure modes must not be rediscovered or restored.
+3. Inspect `git status` and the relevant diff. Preserve unrelated dirty changes; they may be
+   deliberate work belonging to another task.
+4. Read the applicable charter clauses, accepted ADRs and technical contracts before changing
+   behavior. Inspect implementation and evidence only after that contract is clear.
 
 | Source | Authority |
 |---|---|
-| `project charter.md` | Governing product, science, phase, and gate contract. The current charter wins. |
-| Accepted ADRs in `docs/decisions/` | Why the charter changed and which tempting alternative was rejected. An ADR and the charter should already agree. |
-| Solver specs | Delegated technical ground truth for the implemented algorithms. |
-| Active plan for the affected workstream | Current implementation approach, pre-registered protocols, evidence, and rejected attempts. |
-| `docs/PROGRESS.md` | Live state: what is complete, what is in flight, and the next concrete action. |
-| Code, tests, logs, checkpoints | Implementation and evidence. They do not silently overrule the written contract. |
+| [project charter.md](project%20charter.md) | Governing product, science, phases and gates; the current charter wins. |
+| Accepted ADRs in `docs/decisions/` | Decisions, rationale and explicit amendments. Read status and supersession notes; quoted prior charter clauses are history. |
+| Solver specs | Delegated technical ground truth for algorithms. |
+| Affected active plan | Current approach, registered protocols, evidence and rejected attempts. |
+| `docs/PROGRESS.md` | Live state, completed work and next action. |
+| Code, tests, logs, checkpoints | Implementation and evidence; they do not silently overrule the written contract. |
 
-If any two disagree, state the disagreement explicitly and fix it at the proper authority level;
-never choose one silently.
+If sources disagree, state the disagreement and fix it at the proper authority level. Code existing,
+a proposed ADR, a green self-test or an old launch record does not establish current authorization.
 
----
+### Read before the affected action
 
-## Project context — the Phase 2b baseline
-
-This is no longer a greenfield repository. The durable baseline is:
-
-- Phase 0 research is established and the Phase 1 Reiter UX spike is archived under `spike/`.
-- Phase 2a's float64 CPU oracle, G-G machinery, morphology metrics, checkpoints, field dumps,
-  and enforcing plate gate exist. `GGThreshold` is the permanent working floor and control.
-- Phase 2b's operator spec, cited parameter table, `LibbrechtKinetics` implementation,
-  fixed-σ boundary support, strict LK checkpoints, and habit-gate tooling exist. Their existence
-  does **not** mean the Phase 2b scientific gate is accepted; only `docs/PROGRESS.md` may say that.
-- The CPU oracle and `GGThreshold` are never deleted. GPU and app work must stay downstream of
-  their charter gates.
-
-The project is an interactive snow-crystal growth instrument, not merely a crystal generator.
-The product must expose the vapor field and surface propensity so a user can understand why a
-shape grew. Physical inputs make the model falsifiable; they do not make it validated. Only
-an executed, pre-registered chartered validation gate can earn a quantitative validation claim
-over its named domain: Phase 6 owns the Nakaya comparison, and Phase 7 may separately gate a
-held-out domain. Phase 8 source reconciliation cannot grant that label.
-
-## Repository map
-
-The root is a strict-TypeScript ESM npm workspace on Node 23.6 or newer.
-
-| Path | Responsibility and boundary |
+| Action | Required additional reading |
 |---|---|
-| `core/` | Environment-neutral data/model contracts: lattice and D6h transforms, state, G-G parameters, Libbrecht mappings, seeded counter-based PRNG, metrics, and strict checkpoint codecs. |
-| `solver-cpu/` | Permanent float64 oracle. Exports `GGSolver`, `LKSolver`, and their shared `SurfaceOperator` contract. No Node APIs or file I/O. |
-| `runner/` | Node-only CLI and evidence boundary: argument validation, runs, stopping rules, metrics, PGM dumps, checkpoint I/O and round-trip checks, and enforced gates. |
-| `spike/` | Frozen Phase 1 Reiter prototype, deliberately outside the npm workspace. Do not evolve it into the product. |
-| `research/` | Tracked source indexes and citations plus temporary, ignored local input staging. Durable private source bytes belong in governed, non-served NAS collections; never force-add copyrighted or private media. |
-| `evidence/` | Tracked, digest-pinned artifacts: evidence backing published claims (ADR 0038) plus the gut-check spike's recipes and run records (`gutcheck-gg-realism/`, relocated out of `out/` 2026-08-12). Every artifact file below it, except the two root control manifests `evidence/MANIFEST.json` and `evidence/OUT-TREES-MANIFEST.json`, must be tracked and pinned in `evidence/MANIFEST.json`; `npm test` enforces file mode, presence, byte length, and SHA-256. |
-| `app/` | Phase 3 Three.js development instrument: Web Worker CPU solver, overlays, vapor slice, picking/readouts, stop-rule parity, and deterministic visual harness. Phase 4 extends it without moving solver work onto the UI thread. |
-| `solver-gpu/` | Phase 5 WebGPU implementation and Windows/Chromium/D3D12 evidence path. Phase 7 GPU-parity work must preserve the accepted Phase 5 protocols and remains downstream of its own freeze/comparison gate. |
+| Numerical or solver work | [G-G machinery](docs/gg-machinery.md), relevant [attachment-kinetics](docs/attachment-kinetics.md) components, [parameter provenance](docs/libbrecht-parameters.md) and affected accepted ADRs. |
+| Timeline or checkpoint work | [ADR 0011](docs/decisions/0011-phase4-timeline-environment-semantics.md), solver-spec state/codec contract and the affected plan. [ADR 0039](docs/decisions/0039-cycle-boundary-lk-resume-checkpoints.md) remains proposed; implemented core resume code does not authorize its production protocol. |
+| Gate, comparison, scientific claim or campaign | Current charter gate, frozen protocol, active plan and relevant lessons; identify required outputs, executable checks and their actual producers/callers. |
+| Retained assets, NAS publication, serving or cleanup | Rule 15, [local-assets.md](docs/local-assets.md), [ADR 0051](docs/decisions/0051-govern-durable-untracked-assets-on-nas.md) and the affected collection plan. |
 
-Dependency direction is `core` → `solver-cpu` → `runner`. Keep solver code environment-neutral
-so the same oracle can later run in a Web Worker and serve as the GPU comparison target.
+## Repository and permanent controls
 
-## The two permanent surface operators
+Strict-TypeScript ESM npm workspace. Use the development runtime in `.nvmrc`; `package.json`
+records the minimum supported Node version. Current host, mount and readiness facts belong in
+`PROGRESS.md` and its readiness record, not in a second machine inventory here.
 
-Both solvers implement `SurfaceOperator` with `relaxField()`, `advanceSurface()`, and `ledger()`.
-They share contracts and lattice definitions, but keeping their mutable update implementations
-separate is deliberate: the G-G path is the differential control when kinetics behaves strangely.
-
-| Operator | Contract |
+| Path | Boundary |
 |---|---|
-| `GGThreshold` / `GGSolver` | The published G-G cycle: one masked-average diffusion pass, freezing, threshold attachment, and melting. Its tick has no physical-time interpretation. Reflecting runs support the `Σ(b+d)` mass invariant. |
-| `LibbrechtKinetics` / `LKSolver` | A coupled Robin field/surface operator: quasi-static relaxation, a policy-versioned self-consistent aggregate boundary value, deterministic boundary-pixel fill, and a physical interface timestep. Temperature is an input to its broad-facet kinetics. |
+| `core/` | Environment-neutral lattice/state, parameters, seeded counter-based PRNG, metrics and strict codecs. |
+| `solver-cpu/` | Permanent float64 oracle: `GGSolver`, `LKSolver`, shared `SurfaceOperator`; no Node APIs or file I/O. |
+| `runner/` | Node-only CLI, evidence I/O, stopping rules, metrics and enforced gates. |
+| `spike/` | Frozen Phase 1 Reiter prototype, outside the workspace; never evolve it into the product. |
+| `research/` | Tracked source records and ignored local input staging; private source bytes follow Rule 15. |
+| `evidence/` | Tracked, digest-pinned claim artifacts and gut-check recipes/run records. Every artifact except the two root control manifests must be tracked and pinned in `evidence/MANIFEST.json`. |
+| `app/` | Development instrument and product presentation; solver work stays off the UI thread. |
+| `solver-gpu/` | WebGPU implementation under its own phase/comparison gates; preserve accepted Phase 5 protocols. |
 
-`LibbrechtKinetics` replaces surface exchange as a coupled whole. Do not run G-G freezing or
-melting transfers alongside it: freezing is replaced by the policy-versioned boundary condition
-plus fill update, melting
-is disabled, hole-filling is retained and separately deficit-ledgered, and `f` is a distinct
-dimensionless field rather than a reuse of G-G boundary mass `b`.
+Dependency direction is `core` → `solver-cpu` → `runner`; keep the oracle usable in a Web Worker.
+**Never delete the CPU oracle or `GGThreshold`: it is the permanent floor and differential control.**
+App/GPU work follows its chartered scope and explicit exceptions, not assumed phase completion.
 
-## Phase 2b numerical contract — do not regress
+The product must expose vapor and surface propensity so users can understand growth. Physical
+inputs make the model falsifiable, not validated. Only an executed, pre-registered chartered
+validation gate can earn that label over its named domain. Read current phase ownership and holds
+in `PROGRESS.md`; source reconciliation and development experiments do not inherit validation credit.
 
-The concise contract below is a navigation aid. The equations and rationale live in
-`docs/attachment-kinetics.md` §4.4 and ADRs 0005–0006, 0009, and 0013.
+## Numerical and timeline warnings — do not regress
 
-- Fixed-σ Dirichlet physics runs converge only when **both** the iterate residual and discrete
-  divergence identity pass their stated tolerances. Reflecting LK is residual-only,
-  diagnostic-only, and cannot support a physical gate claim.
-- Under `aggregate-hv-g1h1-v5` and `-v6`, the divergence numerator is shell injection plus the
-  directly metered signed float64 reflecting-smoother drift minus signed boundary exchange. The
-  drift is measured before boundary replacement/clamp, is zero in exact arithmetic, and is never
-  inferred from the other terms or called vapor. Legacy-v3 and aggregate-v4 keep their executed
-  two-term identity (decision 0013). Ask `metersSmootherDrift(policy)`; never re-spell the
-  comparison, because a fifth policy added to one site and missed at another is the failure mode.
-- **Anything a D6h generator maps onto itself must be computed so that the invariance survives
-  evaluation, not merely so that it holds in exact arithmetic** (gg-solver determinism decision
-  2; ADRs 0023 and 0024). This has now been got wrong twice, in two different ways, so it is
-  stated in the general form and both instances are named below. The cheapest guarantee is to
-  key the value to something the group preserves *exactly* — a multiset, or an integer.
-  - **Reductions over a permuted neighborhood** must be a function of the multiset, not of the
-    enumeration order (ADR 0023). Float addition is not associative, so a fixed direction order
-    makes a cell and its image round differently.
-  - **Geometric quantities must be keyed to an integer invariant, not to evaluated cartesian
-    floats** (ADR 0024). The distance from the centre is equal across an orbit in exact
-    arithmetic, but `sqrt(dx² + dy² + dz²)` on the embedded coordinates differs by up to ~7e-15
-    between equivalent cells. Use the integer form `di² + di·dj + dj² + dk²`, which rot60 and
-    mirror preserve exactly.
+These are reminders of recurrent failures, not a second specification. Read the required contracts
+above before editing. Ordinary policies/checkpoints stay frozen; separately accepted experimental
+opt-ins have their own identity, limits and active plan and do not silently amend the ordinary path.
 
-  Either way, growth amplifies the ulp until an orbit splits, and a larger fill-CFL amplifies it
-  faster — the ADR 0024 break was invisible at `cfl = 0.1` and obvious at `0.2`, so a symmetry
-  regression test that does not run at the largest admissible step is not testing much.
+- **Keep the operators separate.** LK replaces surface exchange as a coupled whole; do not layer
+  G-G freezing/melting onto it. LK fill `f` is not G-G boundary mass `b`; hole fill is separately
+  deficit-ledgered. G-G ticks have no physical-time interpretation.
+- **Convergence needs both checks.** Fixed-σ Dirichlet physics requires residual and discrete
+  divergence identity tolerances; read the registered maintained-shell policy for monopole runs.
+  Reflecting LK is residual-only, diagnostic-only and cannot support a physical gate claim.
+- **Drift is directly metered, bounded roundoff.** For v5/v6, meter reflecting-smoother drift before
+  boundary replacement/clamp, never infer it from other terms or call it vapor. Require the
+  independent absolute bound, including zero/subnormal cases; finite cancellation is not enough.
+  Use `metersSmootherDrift(policy)`; legacy-v3/v4 retain their executed identity. See
+  [0013](docs/decisions/0013-float64-smoother-drift-divergence-identity.md) and
+  [0014](docs/decisions/0014-bound-float64-smoother-drift.md) for the formula and derivation.
+- **D6h must survive evaluated arithmetic.** Reductions over a permuted neighborhood depend on
+  the operand multiset, not gather order; evolution geometry uses exact integer invariants, not
+  rounded Cartesian distances. Diagnostics wired into decisions inherit this requirement. Test at
+  the largest admissible step, where earlier failures amplified. See
+  [0023](docs/decisions/0023-d6h-equivariant-opposing-vapor-mean.md) and
+  [0024](docs/decisions/0024-monopole-matched-far-field.md); existing LK/monopole suites cover both causes.
+- **Do not repair historical policies in place.** v4/v5 gather-order surface reductions are not
+  D6h-equivariant; a zero symmetry report alone does not prove otherwise. v6 sorts the operands.
+  Preserve v3/v4/v5 bytes, the runner's v5 default and the GPU's v5-only refusal; do not relax that
+  refusal without porting the shader and meeting its gate.
+- **Use one coupled boundary/fill law.** Every forward run names `surfacePolicy`; for aggregate
+  v4/v5/v6, `[01]` is basal, `[20]` prism, `[10]` inhibited. Never restore legacy classification,
+  cell-value/inward-ghost growth sampling or per-contact fill to the aggregate path. Use the same
+  solved `sigma_b` and `alphaHK` for the boundary condition and once-per-boundary-pixel kinetic
+  demand; noise multiplies the coefficient identically on both sides. Detailed geometry/P4 closure
+  belongs in [spec §4.4](docs/attachment-kinetics.md#44-the-surface-operator-specification-decision-0005-d2--phase-2b-opening-deliverable).
+- **Keep ledger meanings honest.** Placed fill plus recorded unapplied saturation excess equals
+  computed geometry-adjusted kinetic demand. Excess is not deposited ice or physical uptake;
+  signed relaxation exchange and shell-clamp totals are numerical diagnostics. Fill-CFL bounds the
+  per-cell kinetic increment; hole-fill events are outside it and reported separately. Never hide
+  loss with clipping or replace this contract with vapor-loss/ice-gain equality.
+- **Ordinary final snapshots stay strict.** LK checkpoints carry far field, convergence controls
+  and recognized coupled policy; every codec/construction/round-trip boundary rejects invalid,
+  missing, mismatched or shifted state. V1 means implicit `legacy-v3`; ordinary new final snapshots
+  are v2. A distinct resume codec does not imply an authorized runner or timeline-resume protocol.
+- **Relaxation is not physical time.** Only interface updates advance LK time; many elliptic sweeps
+  do not by themselves demonstrate a units bug.
+- **Timeline conservation is operator-specific.** The capped-column history is column→plate.
+  G-G events replace parameters atomically without changing `a`, `b`, `d`. LK temperature events
+  conserve active unattached cells' absolute vapor density, excluding attached cells/walls; never
+  clamp negative transformed supersaturation. Transform the active shell before its next explicit
+  reservoir clamp and report that exchange only as a numerical diagnostic.
+- **Use each step's temperature.** Update derived kinetics/conversions atomically and accumulate
+  ledger conversions per step; never apply the final temperature to the whole history. Phase 4
+  supports deterministic abrupt events; old checkpoint meanings stay frozen and final snapshots
+  carry external schedule/event manifests. Mid-history resume needs a new version and decision.
 
-  Audited 2026-07-26: the remaining float-geometry sites (`Math.hypot` in `core/src/metrics.ts`,
-  for `centerRimDepletion` and `boundingRadius`) are REPORTED DIAGNOSTICS that never feed back
-  into the evolution, so they cannot break the crystal's symmetry. If any of them is ever wired
-  into the solver's own decisions, it inherits this rule. The in-plane smoother
-  discharges this by summing opposite-direction pairs then adding the three pair sums sorted.
-  ADR 0009's aggregate boundary operator did **not** inherit the rule: v4 and v5 sum the Eq. 5.35
-  opposing-vapor operands in gather order and are therefore not D6h-equivariant, so a noise-off
-  `symErr = 0` under them means only "did not stop mid-split". `aggregate-hv-g1h1-v6` is v5 with
-  those operands summed in ascending value order and is the policy Phase 6 registers; v4 and v5
-  stay bit-unchanged because Phase 4b and Phase 2b evidence was produced under them, and the
-  runner's default stays v5. The WGSL kernel is still gather-order and the GPU LK entry points
-  refuse any policy but v5 — do not relax that refusal without porting the shader.
-- Aggregate-v5/v6 drift must also satisfy decision 0014's absolute roundoff bound. For a nonzero
-  field it is `1024 * activeCellCount * max(Number.EPSILON * maxAbsSweepInput,
-  Number.MIN_VALUE)`; an exact zero field has a zero bound. The minimum-subnormal ULP floor keeps
-  accepted subnormal fields covered. The positive fixed-temperature gate derives its independent
-  bound with `sigmaInfinity`; a finite or coherently canceling term outside the bound is a solver
-  failure, never accepted convergence.
-- Every forward run names the coupled `surfacePolicy`. Under aggregate v4, v5 and v6, `[01]`
-  is basal, `[20]` is prism, `[10]` is inhibited, and other valid raw configurations follow the
-  explicit P4 closure in §4.4. Do not restore v3's `[10]`-prism / `[20]`-rough mapping.
-- The same self-consistent aggregate `sigma_b` solution defines the surface boundary condition
-  and Hertz–Knudsen kinetic demand. Signed local relaxation exchange may be negative and is a
-  numerical potential diagnostic, never uptake or fill. Never restore cell-value or inward-ghost
-  growth sampling as a second, inconsistent path.
-- Aggregate fill (v4, v5, v6) is accumulated once per boundary pixel:
-  `alphaHK * vKin * sigmaB * dt / (hB * dx)`, with source-cited `G_b = H_b = 1` on `[01]`
-  and `[20]` and a labeled P4 unit extension elsewhere. The fill-CFL binds the per-cell kinetic
-  increment; hole-fill events are outside that bound and reported separately. The per-contact
-  `[(2/3) * nT + nZ]` formula belongs only to the immutable `legacy-v3` policy.
-- The exact ledger claim is **placed fill + recorded unapplied saturation excess = computed
-  geometry-adjusted per-boundary-pixel Hertz–Knudsen kinetic demand**. Recorded excess is not
-  deposited ice, physical uptake, or a license to hide loss. Shell-clamp totals are
-  elliptic-solve diagnostics, not physical mass.
-- Noise multiplies `alphaHK` identically in the boundary condition and fill for a tick. Never
-  perturb only one side.
-- Every forward LK checkpoint must carry the far-field condition, convergence controls, and
-  recognized coupled surface policy; encode, decode, solver construction, and runner round trips
-  must reject invalid, missing, mismatched, or shifted state. V1 decodes only as implicit
-  `legacy-v3`; new writes are v2.
-- Physical time advances only in the interface update. Elliptic relaxation sweeps are convergence
-  work, not timesteps; a large sweep count is not by itself a units bug.
+Changing these numerical/ledger contracts requires the proper ADR and a committed protocol before
+results are generated; it is not a cleanup refactor. Existing protection includes
+`solver-cpu/test/lk-solver.test.ts`, `monopole-far-field.test.ts`, `timeline-environment.test.ts`
+and the core checkpoint/timeline suites. Tests protect named cases, not every future use of a rule.
 
-Any change back to the legacy classifier/per-contact geometry, residual-only Dirichlet
-convergence, silent clipping, or a bare vapor-loss/ice-gain equality overturns measured audit
-findings. It requires an ADR and a new, committed protocol before results are generated; it is
-not a cleanup refactor.
+## Execution and common traps
 
-## Phase 4 timeline contract — do not regress
-
-Decision 0011 resolves the timeline seam left open by decision 0005 D5:
-
-- The capped-column history is **column→plate**, matching G-G §XII. The earlier charter
-  plate→column wording was corrected, not implemented.
-- G-G events atomically replace registered parameter vectors and leave `a`, `b`, and `d`
-  bit-unchanged. G-G field state has no temperature or physical-supersaturation meaning.
-- LK temperature events conserve active unattached cells' absolute vapor number density:
-  `sigmaNew = (1 + sigmaOld) * cSat(oldT) / cSat(newT) - 1`. Do not clamp negative results.
-  Attached cells and inactive walls are excluded.
-- Transform the active Dirichlet shell with the field, then let the next elliptic solve clamp
-  it to the schedule's explicit `sigmaInfinity`. Report that reservoir exchange only as a
-  numerical boundary diagnostic.
-- Update temperature-derived kinetics and conversion factors atomically. Accumulate each
-  interface step's vapor-equivalent ledger increment using that step's temperature; never
-  multiply an all-temperature history by the final `M_ice`.
-- Phase 4 supports deterministic abrupt events only. Existing GG v1 and LK v1/v2 checkpoint
-  meanings stay frozen; final-state checkpoints carry an external schedule/event manifest.
-  Resumable mid-history checkpoints require a new version and decision.
-
-## Commands and evidence semantics
-
-### Local execution host and operator preference
-
-- The current primary Windows host (2026-10-07) has an Intel Core Ultra 9 285K (24 physical cores /
-  24 logical processors), 64 GB RAM and an NVIDIA GeForce RTX 5080. Its checkout is
-  `C:/Users/biao3/Documents/GitHub/snowflake`. The former Windows evidence host had a Ryzen 9
-  5900XT (16 cores / 32 logical processors), 64 GB RAM and an RTX 3080; its recorded launch counts
-  and 28-worker cap are historical measurements, not this host's budget. Measure the new host's
-  available process budget before a scientific campaign. Prefer an NVMe-backed workspace.
-- Run independent cases, temperature points, sweeps, and other scientifically separable jobs in
-  parallel processes whenever the registered protocol and available memory allow it. Preserve
-  deterministic per-case semantics and never alter a pre-registered protocol merely to increase
-  concurrency.
-- Before any future nontrivial scientific campaign launches, prove a real pause/resume path on one
-  representative row. Resume must preserve the scientific state needed to continue the same row;
-  record the checkpoint cadence and exact resume command. One representative interruption test is
-  enough unless the checkpoint contract changes. If a runner cannot resume, split the work into
-  short independently terminal stages before launch; a status or observation log is not restart
-  state. Never launch another multi-day non-resumable campaign.
-- Every long evidence launch records the actual process concurrency and exact launch command and
-  flags in its bundle; the intended concurrency is not silently substituted for what executed.
-- The current float64 CPU oracle is effectively single-threaded per process, so exploit the host
-  primarily by running independent cases as separate Node processes. Do not route solver work to
-  the GPU before its charter phase and comparison gate authorize that implementation.
-- For parallel background runs, write clearly labeled live logs plus separate error and exit-status
-  files. Unless the operator asks for narration, report only those paths so they can inspect the
-  run directly.
-
-```text
-npm test
-node runner/src/main.ts grow [options]
-node runner/src/main.ts grow-lk --temp-c <C> --sigma-inf <fraction> [options]
-node runner/src/main.ts gate2b
-```
-
-- `npm test` runs the Rule 7 scan, strict typecheck, and all Vitest suites. It is the required
-  full check for the scientific and cross-cutting changes named in Rule 6; it is not the default
-  check for isolated website, presentation, or animation-orchestration work. A green self-test is
-  not sufficient evidence for a scientific gate.
-- `grow` is observational unless the appropriate enforcement flag is present. Printed metrics
-  do not turn exit 0 into a gate result.
-- `grow-lk` is exploratory. `gate2b` is flagless because it encodes the pre-registered protocol;
-  it is an hours-scale evidence run, not a smoke test. Read `docs/PROGRESS.md` and check for an
-  existing process before launching, killing, or replacing it.
-- For a gate, derive every precondition from the charter/spec and make the process fail by name
-  when one is violated. Pin each bypass with an adversarial negative-control test.
-- Record the metric and value, seed, dimensions/domain, exact command, termination reason, engine,
-  and validated checkpoint. A liveness line, screenshot, test count, or contact-stopped state is
-  not an accepted result.
-- Tests of scientific contracts must be non-vacuous and independently recompute load-bearing
-  quantities. A uniform fixed point does not prove a diffusion path ran; a report agreeing with
-  itself does not prove its ledger.
-
-## High-value traps already paid for
-
-- `docs/gg-model.md` is a tombstone. Use `docs/gg-machinery.md` and
-  `docs/attachment-kinetics.md`.
-- The canonical radius-2, thickness-1 seed has **19 sites**. The paper's “20” is an erratum.
-- Exact D6h symmetry gates require `hexPrism`. A box footprint and its walls are not a
-  sixfold-symmetric environment. The runner defaults to `hexPrism`; `GGSolver` itself defaults to
-  `box`, so tests must choose intentionally.
-- A uniform field initialized at the Dirichlet set value is a fixed point under reflecting and
-  fixed-σ boundaries alike. Use the documented depleted-start differential test.
-- The 65% domain-contact guard detects collision; it does not prove boundary independence.
-  Contact-stopped states are invalid gate evidence, and Phase 6 still needs domain convergence.
-- Never compare results across far-field conditions silently. The checkpoint records the
-  condition because reflecting is a finite reservoir and fixed-σ Dirichlet is replenished.
-- Bitwise reproducibility is claimed only for the float64 oracle on the pinned Node/V8 engine.
-  Cross-engine, float32, and GPU comparisons use stated tolerances.
+- Measure this host's process/memory budget before a scientific campaign; old-host worker counts
+  do not transfer. Prefer NVMe. Run scientifically independent cases in parallel Node processes
+  when the registered protocol and memory allow; do not change the protocol to gain concurrency
+  or route work to GPU before its charter/comparison gate authorizes it.
+- Before a nontrivial scientific campaign, prove a representative real pause/resume that preserves
+  the same row's scientific state. Record checkpoint cadence and exact resume command; repeat only
+  if that contract changes. Without resume, split into short independently terminal stages.
+  Observation logs are not restart state; never launch another multi-day non-resumable campaign.
+- Record actual concurrency and exact launch command/flags, not intended values. For parallel
+  background runs, keep labeled live logs and separate error/exit files; report their paths unless
+  narration is requested. Rule 6 governs check selection and trustworthy verification receipts.
+- `grow` is observational unless its enforcement flag is present; `grow-lk` is exploratory.
+  Flagless `gate2b` encodes its registered protocol and is hours-scale evidence, not a smoke test.
+  Read state and check for an existing process before launching, killing or replacing a gate.
+- The canonical radius-2, thickness-1 seed has **19 sites**; the paper's “20” is an erratum.
+  Exact D6h gates require `hexPrism`; box walls are not symmetric. The runner defaults to
+  `hexPrism`, but `GGSolver` defaults to `box`: tests must choose intentionally.
+- A uniform field at the Dirichlet set value is a fixed point under both boundaries; it proves no
+  boundary distinction. Use the depleted-start differential in `solver-cpu/test/dirichlet.test.ts`.
+- A 65% contact guard detects collision, not domain independence; contact-stopped states are invalid
+  gate evidence. Compare only named compatible far fields. Bitwise claims are limited to the pinned
+  float64 Node/V8 oracle; cross-engine, float32 and GPU comparisons use stated tolerances.
 - Use the counter-based seeded PRNG and named streams. Never introduce `Math.random()`.
-- On macOS the required local check is `TMPDIR=/private/tmp npm test`. A bare `npm test` fails
-  31 Phase 5 gate tests ("publication parent resolves through an alias or junction"):
-  `os.tmpdir()` returns `/var/folders/…`, which `realpathSync.native` resolves through the
-  macOS `/var` → `/private/var` symlink, tripping the evidence guard in
-  `runner/src/gate5-evidence.ts`. The guard is correct; set `TMPDIR`, never relax it.
-- The NAS share `\\GameStation\snowcrystal` is mapped `Z:` on the current Windows host through
-  persistent `VCC_NAS_ROOT=Z:/`; the former Windows host used `S:`, and macOS used
-  `/Volumes/snowcrystal`. Never hardcode a mount: resolve it via
-  `scripts/nas-root.ts` and address share files by share-relative path (the dev server's
-  `/nas/<path>` route). That route authorizes only the exact public generated prefixes in
-  `docs/nas-assets.json`; share containment alone is not permission to serve a file. Emitted URLs
-  are mount-agnostic by construction. After the physical marker was installed on 2026-08-15, the
-  governed index rebuilt on macOS and a live loopback check returned 200 for a catalogued file,
-  206 for its byte range, and 403 for private and unknown roots. The Windows `S:/` write path
-  executed 2026-08-20 (the Windows write lane in `docs/plans/nas-asset-governance.md`): reads,
-  semantics probe, staged archival with receipt, and fresh-process verifies all green; SMB
-  rename crash-durability stays verification-based (win32 cannot fsync a directory handle).
-  Paid for twice: the 2026-08-06 and 2026-08-12 machine transfers each broke the same tooling.
-- Nothing under `out/` is tracked. It and ignored payloads under `research/` are local staging,
-  not evidence of either preservation or disposability; Rule 15 governs retention and cleanup.
-  `scripts/gutcheck-grow-batch.mjs`,
-  `scripts/gutcheck-sweep-specs.mjs`, and `scripts/gutcheck-archive-pack.ts` re-pin the
-  gut-check evidence subtree automatically. After a direct writer invocation or hand edit
-  under `evidence/gutcheck-gg-realism/`, run `npm run evidence:pin`; it re-pins that subtree
-  ONLY. A new file elsewhere under `evidence/` needs its own MANIFEST entry or `npm test`
-  fails on the stray.
-- Keep unrelated dirty changes intact. Never “clean up” a handoff by reverting or absorbing it
-  without understanding the affected active plan.
-
----
+- On macOS, the required full local check is `TMPDIR=/private/tmp npm test`: `/var` aliases trip
+  the Phase 5 publication-path guard. Set `TMPDIR`; never relax the correct guard.
+- Resolve NAS mounts through `scripts/nas-root.ts` and share-relative `/nas/<path>` URLs.
+  Serving requires exact catalogue-approved public generated prefixes; containment alone is not
+  permission. Mount facts and executed host checks live in the readiness/NAS records.
+- After a direct edit under `evidence/gutcheck-gg-realism/`, run `npm run evidence:pin`.
+  Its batch/spec/archive writers re-pin automatically; that command covers **only that subtree**.
+  New artifacts elsewhere need their own `MANIFEST.json` entry. Integrity tests enforce presence,
+  modes, bytes and digests, not whether every published claim has supplied its evidence.
+- `docs/gg-model.md` is a tombstone; use the current machinery and kinetics specs.
 
 ## Rule 1 — Start every session by reading the state
 
-Before touching anything: read `docs/PROGRESS.md`, then every active plan relevant to the work.
-Do not infer project state from the code, the file tree, or this charter alone — they tell you
-what exists, not what was *intended*, what was *tried and rejected*, or what the last model was
-halfway through. If `PROGRESS.md` disagrees with the code, say so explicitly rather than
-silently trusting one.
+Follow the cold-start order above, including the complete lessons document. Do not infer current
+intent or completion from available code/artifacts; use current state and the affected active plans.
 
 ## Rule 2 — Plan in a file before you build
 
-Any work beyond a trivial fix gets a plan file *first*, committed before implementation starts.
-A plan is: the goal, the approach, the steps, the "done when", and the things deliberately not
-done. Charter phases already state their own **done when** — copy it into the plan verbatim and
-do not quietly soften it.
+Beyond a trivial fix, write and commit the plan before implementation: goal, approach, steps,
+done-when and exclusions. Copy a charter milestone's done-when verbatim; never soften it silently.
+Use [the plan template](docs/plans/_TEMPLATE.md). Chat approval does not replace the file.
 
-A bounded single-source intake, a direct analysis requested by the maker, or a focused docs/rules
-correction with an obvious scope is not a build and does not need a new plan file. Do not create a
-plan merely to restate the request or to document that another process document will be changed.
+A bounded single-source intake, direct maker-requested analysis or focused docs/rules correction
+with obvious scope is not a build and needs no new plan merely to restate the request.
 
-If the user approves a plan in chat, write it to the file anyway. The next model cannot read
-this conversation.
+**Keep lessons actionable.** In the existing plan or work note, name the relevant known failure,
+the rule/lesson to reread before the risky action and the existing check that addresses it. Where
+judgment remains necessary, say so; a link or green test is not proof the general mistake is impossible.
+Use existing records and checks, not a new lesson registry or compliance document.
 
 ## Rule 3 — Update PROGRESS.md as you go, not at the end
 
-Sessions get cut off. A plan step that is done but unrecorded is work the next model will redo
-or, worse, half-redo. Update `PROGRESS.md` when you finish a meaningful step — not only when
-the whole task lands. Leaving work in progress is fine; leaving it *undescribed* is not.
-
-Every entry states: what changed, what it proves, and what is next. Prefer "column aspect ratio
-inverts at f=0.06, hollowing not yet observed" over "worked on the solver."
+Record meaningful completed steps and unfinished work while working: what changed, what it proves
+and what is next, with artifact-backed numbers under Rule 6. Keep the index compact; chronology,
+commands and rejected attempts belong in the affected plan. At closure, apply Rule 8.
 
 ## Rule 4 — Record what failed, not just what worked
 
-Dead ends are expensive and invisible. A model that doesn't know the last one already tried
-`X` will try `X`. Every plan file ends with a **Tried and rejected** section, and it is a
-first-class part of the document. "Kept the Laplace solve on a cubic grid, sixfold symmetry
-error never dropped below threshold, abandoned" saves the next model a day.
+Every plan ends with **Tried and rejected**. Record the attempted approach, measured failure and why
+it was abandoned. Read that section before proposing an approach that may repeat it.
 
 ## Rule 5 — Decisions that contradict or extend the charter get an ADR
 
-The charter is decided, not sacred — but a change to it is a *documented* change. Write a
-numbered decision record (context, decision, consequences, alternatives), and update the
-charter itself in the same session so the two never drift. Never let a decision live only in a
-chat transcript or a code comment.
-
-An ADR must quote verbatim every charter clause it touches — and a "charter impact: none"
-claim must quote the clauses that make it none. Paid for once: ADR 0024 declared no charter
-impact while §2.4 literally mandated the far-field condition it replaced; the contradiction
-sat unnoticed until an outside review and cost ADR 0027 plus charter v1.17 to repair.
+Write a numbered ADR and update the charter in the same session; use
+[the decision template](docs/decisions/_TEMPLATE.md). Quote verbatim every charter clause touched,
+including the clauses supporting a “charter impact: none” claim, and audit the complete diff.
+Keep decisions out of chat-only memory. Accepted records and frozen historical bytes are not edited
+merely to remove repetition; record genuine changes at the proper authority level.
 
 ## Rule 6 — Claims are cheap; evidence is the deliverable
 
-This project's identity is epistemic honesty (charter §1.5), and it applies to the docs too.
-Scientific milestones are **automated metrics, not screenshots** (§3.3). So:
+- Scientific milestones are automated metrics, not screenshots. A completed gate record names
+  metric/value, seed, dimensions/domain, engine, exact command, termination and validated checkpoint.
+  Derive every gate precondition from its contract, make violations fail the process by name and
+  pin bypasses with executed negative controls.
+- Evidence/provenance labels apply to prose as well as UI. Do not write an unearned physical claim;
+  if a finding was eyeballed, say so. Re-read the stated limitations before writing the conclusion.
+- Copy every number in progress/plans from its named artifact **at write time**, with path or hash.
+  Correct affected quotes when a bundle is superseded. Census/range/extremum claims require the
+  complete named set, units, denominator and witness; reconcile recomputation with published fields.
+- “Cannot”, “every”, “always”, “independent of” and “provably” require a scoped derivation about the
+  quantity actually governed. A measurement supports its measured scope, not a stronger theorem.
+- Tests must be non-vacuous and independently recompute load-bearing quantities. A uniform fixed
+  point proves no transport path; a report agreeing with itself proves no ledger.
 
-- Never mark a phase gate done in `PROGRESS.md` without naming the metric, its value, and how
-  to reproduce it (seed, resolution, command).
-- Never write a physical claim the model hasn't earned. The confidence-level discipline in
-  §1.5 governs prose in the docs exactly as it governs UI labels.
-- "Looks right" is not a result. If you eyeballed it, write that you eyeballed it.
-- Every number written into `PROGRESS.md` or a plan is copied from a named artifact **at
-  write time**, with that artifact's path or hash beside it — never quoted from memory or an
-  earlier prose mention. When a bundle is superseded, correct its quoted numbers in the same
-  session; at least three review rounds have been spent entirely on stale prose quotes (a
-  recomputed p99, superseded bundle measurements, a wrong file count).
-- **State the measured claim, not the strongest claim.** "Cannot", "every", "always",
-  "independent of", and "provably" assert theorems: they require a stated derivation whose
-  quantity and scope are both named — and the derivation must be about the quantity the
-  claim governs. If what you have is a measurement, write the measured statement with its
-  scope. Paid for twice in two days: ADR 0031's retracted "three independent routes"
-  paragraph, and the `5463e76` retraction of the Phase 6 structural bound, whose script
-  counted sigma_0 crossings while the claim governed habit — which depends on the full
-  attachment coefficient alphaHK, a different quantity with a different crossing count.
-- **Choose verification by the surface and decision risk before running it.** Exact `npm test` is
-  required when a change touches numerical or scientific behavior in `core/`, `solver-cpu/`, or
-  `solver-gpu/`; scientific readout or claim logic; a phase gate; evidence generation,
-  verification, integrity, or publication; root-wide test/build configuration; or a mixture of
-  those surfaces with product code. It also remains required when a charter or accepted ADR names
-  it for that exact scope. A green `npx vitest run` does not substitute for the full check in those
-  cases: it omits the Rule 7 scan and both typechecks, which is how 319 scan violations merged to
-  `main` unnoticed on 2026-07-29.
-- **Isolated product work stops at product-sized checks.** A presentation-only website, gallery,
-  selection UI, animation queue, camera/render recipe, or batch-orchestration change that does not
-  alter solver behavior, scientific readouts or claims, evidence, or gates uses the focused Vitest
-  files for the changed boundary, `npm run typecheck`, the app build when bundled app code changes,
-  and a live browser smoke, dry run, or representative sample render as applicable. When those pass,
-  stop. Do not run exact `npm test`, scientific gates, or unrelated solver suites merely because a
-  TypeScript file changed or because extra confidence feels desirable.
-- A plan for isolated product work must not add exact `npm test` as a default done criterion. If an
-  inherited plan does so without a scientific or cross-cutting failure surface, amend the plan to
-  this rule before continuing; a completed historical record still reports what actually ran but
-  is not precedent for repeating it.
-- Pure prose, source-index, and governance edits use the cheapest check that covers their actual
-  failure surfaces, including the Rule 7 scan when repository prose changes, and are never
-  described as "suite green." Name the exact command beside any claim.
-- Before starting any check expected to take more than five minutes, tell the maker which required
-  failure surface it covers and that it is starting. If the check is not required by the tiers
-  above and a cheaper check covers the changed boundary, do not launch it.
+**Choose verification by the changed surface before running it:**
+
+Checks explicitly required by the charter or an accepted ADR remain mandatory over their named
+scope, including when the ordinary tier below would otherwise use a cheaper check.
+
+| Changed surface | Required verification |
+|---|---|
+| Numerical/scientific behavior in `core/`, `solver-cpu/`, `solver-gpu/`; scientific readouts/claims; phase gates; evidence generation, verification, integrity/publication; root-wide test/build configuration; or a mixture with product code | Exact `npm test` (Rule 7, both typechecks, all Vitest suites). Focused Vitest is not a substitute. A green suite is not a scientific gate result. |
+| Isolated presentation website, gallery/selection UI, animation queue, camera/render recipe or batch orchestration without the surfaces above | Focused Vitest for the changed boundary, `npm run typecheck`, app build for bundled app changes, and applicable browser smoke/dry run/sample render. Stop when these pass; no full suite, solver suites or scientific gates for extra comfort. |
+| Pure prose, source-index or governance edit | Cheapest check for its failure surface; Rule 7 for repository prose, plus applicable diff/link/contract checks. Never describe this as “suite green.” |
+
+An isolated-product plan must not make exact `npm test` its default done criterion; amend an inherited
+plan accordingly. Historical completed checks remain a report of what ran, not a future requirement.
+Before a check expected to exceed five minutes, tell the maker which required failure surface it
+covers and that it is starting. Do not launch it if an allowed cheaper check covers that surface.
+Use unique logs for each run, verify no stale process contaminates them, and record the exact command
+and real completion/exit. Only exact `npm test` supports a full-suite-green claim.
 
 ## Rule 7 — A bare `alpha` is banned from this repository
 
-The ban targets identifiers and unqualified prose. Bare identifier forms are prohibited in code
-everywhere (including `spike/` and `scripts/`), documentation inline code, and commit messages.
-Prose may use a Greek symbol only when its provenance is attached in the same sentence or heading;
-unqualified prose is forbidden. Deliberate policy mentions and lint fixtures are explicitly
-waived where they occur.
+The ban targets identifiers and unqualified prose everywhere, including `spike/`, `scripts/`,
+documentation inline code and commit messages. Greek symbols in prose need provenance in the same
+sentence or heading; deliberate policy mentions and lint fixtures are waived where they occur.
 
-Libbrecht's **attachment coefficient** (Hertz–Knudsen, dimensionless, [0, 1]) and
-Gravner–Griffeath's **attachment threshold** (a boundary-mass cutoff indexed by neighbor count)
-are *unrelated quantities that are both conventionally written α*. They appear in the same
-update step of the same solver. A model that conflates them will produce plausible-looking
-crystals for the wrong reasons — which is the worst available outcome for a project whose stated
-identity is epistemic honesty (charter §1.5).
-
+The Hertz–Knudsen attachment coefficient and G-G boundary-mass threshold are unrelated quantities.
 Every occurrence carries its provenance:
 
 | Write this | Never this | Meaning |
 |---|---|---|
-| `alphaHK`, `alphaHKBasal`, `alphaHKPrism` | `alpha`, `α` | Hertz–Knudsen attachment coefficient |
-| `ggThreshAlpha`, `ggThreshBeta`, `ggThreshTheta` | `alpha`, `beta` | G–G boundary-mass thresholds |
+| `alphaHK`, `alphaHKBasal`, `alphaHKPrism` | `alpha`, `α` | Hertz–Knudsen attachment coefficient, dimensionless [0, 1] |
+| `ggThreshAlpha`, `ggThreshBeta`, `ggThreshTheta` | `alpha`, `beta` | G-G boundary-mass thresholds |
 
-Enforce identifier use with a lint rule, not vigilance. Vigilance does not survive a model
-handoff; a failing build does. Reviewers enforce the qualified-prose rule because the scanner
-mechanically covers identifier cases only.
+The lint scanner enforces identifier cases; reviewers enforce qualified prose. Preserve both.
 
 ## Rule 8 — Leave the next model a landing spot
 
-End every session by making `PROGRESS.md`'s **Next step** section true and specific enough to
-act on cold: the next concrete action, the file to open, the command to run, and any trap you
-already know about. Write it for someone with no memory of today — because that is exactly who
-reads it.
+At session end, make **Next step** true and actionable on cold start: next concrete action, file,
+command and known trap. Use current state, not a session diary or a revived handoff snapshot.
 
 ## Rule 9 — A verdict is computed from the artifact, never inherited from its producer
 
-Any gate, evaluator, or report derives pass/fail by re-deriving from the published bytes. No
-component may supply both sides of a comparison it participates in. Every negative control
-must execute its named mutation, verified by something other than its author. A harness that
-silently ignores an unrecognized field in a status line is fail-open and invalid evidence.
-
-Paid for twice: the rejected Phase 5 WP5 gate candidate (`eb5c5fb` — self-attested duplicate
-witnesses; ten of sixteen negative controls never executing their named mutation) and the
-Phase 6 WP0b calibration probe that parsed only `symErr=` and dropped the
-`deltaSymClean=false` that was reporting a real solver defect.
+Gates/evaluators/reports rederive pass/fail from published bytes. No component supplies both sides
+of its own comparison. Each negative control executes its named mutation, checked independently
+of its author. Silently dropping an unrecognized diagnostic/status field is fail-open evidence.
 
 ## Rule 10 — Reviews carry provenance and state their limits
 
-Every review round records three things: the reviewing agent's model and whether it shared
-context with the developer; what it independently re-executed; and what it did **not** check,
-stated as a limit of the evidence rather than left implicit (Phase 5 WP7's closing review is
-the template). Gate-bearing reviews prefer a different model than the one that wrote the
-code — this history shows each model catching seams the other's author missed, and none of
-that is recoverable afterward from git, because reviewers do not commit.
+Record reviewer model and shared-context status, what was independently re-executed and what was
+not checked. Limits are part of the evidence. Gate-bearing reviews prefer a model different from
+the author; ordinary reviews remain proportionate under Rules 13–14.
 
 ## Rule 11 — Probes transfer only from the registered configuration
 
-A calibration, convergence, or cost measurement supports a decision only if it ran at exactly
-the configuration the decision governs. Anything else is stamped **non-transferable** in the
-record that reports it, at creation time — not discovered later. Paid for twice in one work
-package: the extent-15 domain ladder whose conclusion *reversed* when re-run at the
-registered extent 21, and the grid-spacing ladder that repeated the identical composition
-error at extents 9/15/23.
+Calibration, convergence and cost measurements support only the exact configuration they govern.
+Otherwise mark them **non-transferable** at record creation. Read governing freeze rows before
+varying a quantity; a constant extent/domain ratio is not a substitute for measured adequacy.
 
 ## Rule 12 — Check source currency before any freeze
 
-Before a parameter table or protocol freezes: confirm every cited source is its latest
-version, and sweep the cited authors' later output for anything superseding the extraction.
-Record the check as part of the freeze. Paid for at exactly the wrong moment: three uncited
-Libbrecht papers printing closed forms for figure-digitized curves (arXiv:2009.08404,
-2306.13087, 2306.04042) surfaced the day *after* the table's hash-freeze, converting a free
-upgrade into an ADR-plus-re-freeze decision.
+Before freezing parameters/protocols, verify cited versions and the authors' later output for
+superseding sources; record the check with the freeze. Do not split a freeze from its provenance.
 
 ## Rule 13 — Interpretation is gated like evidence
 
-An interpretive document — a sweep report, a scientific-claim section of an ADR, a memory or
-ledger entry, education content, anything outward-facing — receives an adversarial audit
-**before** it is published, merged, or propagated into other artifacts, not after. Scale the
-audit to the claim: anything carrying a theorem-strength claim (Rule 6's "cannot / every /
-independent of" class), a gate verdict, or a public scientific conclusion gets the full
-adversarial treatment. Routine source triage, internal working judgments, and non-load-bearing
-records get the author's proportionate skeptical pass; they do not require independent review
-merely because they are committed. The audit that retracted the Phase 6
-structural bound (`5463e76`) found exactly the attacks it was asked to try — meaning it
-would have caught the error pre-publication, and running it post-publication was purely a
-scheduling choice. By then the claim had already propagated into a memory entry, a findings
-ledger, and education chapters, each of which needed its own correction pass. Evidence
-earned this gate in Phase 2; interpretation has now paid for it twice.
+Before publishing/merging/propagating an interpretation (reports, ADR claims, education or memory
+records), audit it at the claim's decision risk
+(Rule 14). Theorem-strength claims, gate verdicts and public scientific conclusions require the
+chartered/accepted adversarial review; routine triage/internal judgments need the author's
+proportionate skeptical pass, not independent review merely because they are committed.
+Propagate accepted corrections to the documents readers meet; an isolated raw audit is not closure.
+Matched code interventions identify effects in that implementation, not physical causality in nature.
 
 ## Rule 14 — Fix stupid process
 
-Do not preserve a gate, workflow, plan detail, or inherited convention merely because time has
-already been spent on it. When process is demonstrably redundant, self-defeating, disproportionate
-to its risk, or displacing the real work, say so plainly and stop extending it. Determine the actual
-authority: preserve controls required by the charter or an accepted ADR unless the maker authorizes
-an amendment, in which case Rule 5 still requires the ADR and matching charter edit to land before
-the control is relaxed; simplify plan- and implementation-level machinery directly; and record what
-was superseded so a later model does not restore it by inertia.
+Stop extending demonstrably redundant, disproportionate or self-defeating process. Preserve controls
+required by the charter/accepted ADR over their named scope until amended at that authority; simplify
+plan/implementation ceremony directly and record what was superseded. Prior effort is not evidence
+of value. Follow [ADR 0049](docs/decisions/0049-make-assurance-proportionate-to-decision-risk.md):
 
-Keep checks that protect scientific correctness, provenance, safety, reproducibility, or a real
-fail-open boundary. Remove or defer ceremony that only proves the proof system, duplicates a later
-gate, attacks an out-of-scope adversary, or attempts to machine-prove social facts such as reviewer
-identity. Prior effort is not evidence of value, and accumulated ceremony is not rigor. When a
-review loop starts producing more review machinery instead of source coverage, measurements, or
-other named deliverables, escalate to the maker and fix the process before doing another rebuild.
+| Decision risk | Assurance depth |
+|---|---|
+| Routine source intake | Identity/version, original/hash where applicable, exact locators, values with units/conditions/uncertainty and measured/transcribed/derived distinction; then stop. No default independent audit. |
+| Load-bearing quantitative input | The above plus one independent targeted transcription, calculation or semantic check. |
+| Phase gate or strong public scientific claim | Named pre-registration, independent derivation, negative controls and adversarial review under the charter/accepted ADR. |
 
-Use decision risk, not anxiety or the mere availability of another check, to set assurance depth:
-
-- **Routine source intake:** establish identity/version, preserve the original and hash when
-  applicable, record exact locators, and extract values with units, conditions, uncertainty, and a
-  measured/transcribed/derived distinction. Then stop; independent review is not the default.
-- **Load-bearing quantitative input:** do the routine work plus one independent transcription,
-  calculation, or semantic check targeted at the value the project will consume.
-- **Phase gate or strong public scientific claim:** use the pre-registered evaluator, independent
-  derivation, negative controls, and adversarial review required by the charter or accepted ADR.
-
-A proposed gate, check, review, registry, or verifier is admitted only when it names a plausible
-in-scope failure, explains how that failure could change a scientific decision or silently corrupt
-evidence, shows that existing controls do not already catch it, and costs less than the likely harm.
-If any part is missing, do not build it. Never add a review of a review or a validator whose main
-purpose is to validate another validator.
-
-Stop checking when another pass is unlikely to change inclusion, classification, extracted values,
-the next experiment, or a published claim. State the residual uncertainty and move on. As a judgment
-tripwire—not a tracked metric—if process consumes roughly one quarter of a work block without
-producing source coverage, measurements, calculations, code, experiments, or the requested
-decision, or if a second meta-validation layer appears, stop and simplify before continuing.
+No review-of-review or validator whose main purpose is validating another validator. Stop when
+another pass is unlikely to change inclusion, classification, values, next experiment or claim;
+state residual uncertainty. Use Rule 14A to admit controls and Rule 14B to keep work advancing.
 
 ### Rule 14A — Admit the threat before building the defense
 
-Before adding or expanding an adversarial test, launcher, transport protocol, identity registry,
-verifier, or integrity gate, answer four questions in the existing active plan or implementation
-note; never create a new tracking document for this procedure:
+Before adding/expanding a check, gate, review, launcher, transport, registry or verifier, answer in
+the **existing** plan/note: plausible failure; accidental/in-scope versus deliberate hostile control;
+scientific decision or claim-bearing bytes affected; why existing checks at the nearest boundary
+miss it; and why it costs less than the likely harm. Missing answers mean do not build it.
 
-1. What plausible failure is being prevented?
-2. Is it accidental and in scope, or does it require deliberate hostile control?
-3. Which scientific decision or claim-bearing evidence bytes could it change?
-4. Why do the existing checks at the nearest claim-bearing boundary not already catch it?
-
-If any answer is missing, do not build the control. Treat as out of scope by default any scenario
-that requires code already executing inside the trusted runtime to erase its launch trace;
-deliberate substitution of repository, runtime, executable, worker, or verifier bytes; process or
-PID impersonation after an authenticated launch; a trusted authenticated peer intentionally
-violating its own frozen protocol; or a person controlling the machine who mutates bytes during a
-check. These are not relabeled as ordinary environment drift. An out-of-scope finding may be noted
-as a limit, but it is never a blocker, required negative control, freeze prerequisite, or reason to
-build another launcher or protocol layer. Expanding that threat model requires explicit maker
-direction and amendment at the governing authority level. Credential, destructive-action, and
-external-system safety rules remain in force independently of this research-integrity boundary.
+Under [ADR 0042](docs/decisions/0042-bound-phase6-evidence-integrity-scope.md), deliberate hostile
+control of the maker's machine/repository is outside the research-integrity threat model: trace
+erasure inside a trusted runtime; substitution of repository/runtime/executable/worker/verifier
+bytes; reference/index/attribute/path laundering; process/PID impersonation after authenticated
+launch; intentional violation by an authenticated peer; or owner mutation during a check.
+Do not relabel these as environment drift or make them blockers, required negative controls or
+freeze prerequisites. Note limits without dispatching preserved attacker-only findings.
+Expansion requires explicit maker direction and governing amendment. Credential, destructive-action
+and external-system safety requirements remain independently in force.
 
 ### Rule 14B — Deliver the vertical slice before expanding process
 
-Every non-trivial work block names one end-to-end deliverable and its shortest meaningful check in
-the existing plan, `PROGRESS.md`, or working commentary. Do not create a new plan, ledger, schema,
-or dashboard merely to manage the work block. Shared infrastructure is built only when that current
-deliverable is concretely blocked by its absence; implement the smallest seam, then return to the
-vertical slice instead of generalizing for hypothetical later routes.
+Name one end-to-end deliverable and its shortest meaningful check in the existing plan/progress or
+commentary. Build shared infrastructure only when its absence blocks that deliverable; implement
+the smallest seam and return to it. Do not create another dashboard/schema/ledger to manage this.
 
-Do not aim multiple independent reviewers at moving implementation. Use one implementation lane
-and at most one bounded review engagement after the relevant interface and focused tests are
-stable; decision 0042's maker escalation applies after two blocker-bearing verdicts. During
-implementation, use focused checks. Regenerate identity cascades and run the exact full suite at a
-named stable checkpoint, not after every interface edit.
+Use focused checks while implementation moves; one implementation lane and at most one bounded
+review engagement after interfaces/checks stabilize. Run identity cascades/full checks at a named
+stable checkpoint under Rule 6. Two blocker-bearing verdicts require maker escalation, not a third
+rebuild; a blocker must be capable of changing a scientific claim/number or silently corrupting
+evidence. Other hardening suggestions are non-blocking.
 
-When Rule 14's one-quarter tripwire fires, or the latest progress consists mainly of plans,
-reviews, registries, and verification machinery while the named deliverable remains unusable, stop
-immediately and tell the maker what has not been delivered. Cut or defer non-blocking machinery and
-resume only with a smaller vertical slice. The corrective action is simplification and delivery,
-not another process document, gate, audit round, or metric for tracking the excess.
-
-Before an intentional pause/compaction checkpoint and immediately after resuming from compacted
-context, explicitly restate the operating constraint: this is solo scientific research, deliberate
-hostile actors are outside scope unless the maker says otherwise, and the next work must advance one
-named scientific or product deliverable. Re-read Rules 14A–14B before adding any assurance machinery.
+If process consumes roughly one quarter of a work block without a direct source/measurement/
+calculation/code/experiment/requested decision, a second meta-validation layer appears, or the
+deliverable stays unusable while machinery grows, stop and tell the maker what remains undelivered.
+Simplify to a smaller slice; do not add a metric, document or audit to manage process excess.
+At intentional pause/compaction and immediately after resume, restate: solo scientific research;
+hostile actors excluded unless maker-directed; one named scientific/product deliverable next.
+Re-read Rules 14A–14B before adding assurance machinery.
 
 ## Rule 15 — Ignored is neither preserved nor disposable
 
-Tracked source records under `research/` remain Git authority; ignored payloads staged under
-`research/` and every byte under `out/` are temporary worktree bytes. Before a useful untracked
-byte outlives its immediate task or any local source is pruned, either promote claim-bearing bytes
-to tracked `evidence/` under decision 0038 or classify and publish the collection under decision
-0051 to the governed NAS. Scratch is explicitly declared and discarded. An ignore rule, pathname,
-digest, raw copy, or current NAS presence alone grants neither preservation nor deletion authority.
+**A hash detects change; it does not preserve bytes. An ignore rule, path, raw copy or NAS presence
+grants neither preservation nor deletion authority.** Tracked research records remain Git authority;
+ignored research payloads and `out/` are local staging. Before useful bytes outlive a task or a local
+source is pruned, promote fitting project-owned claim evidence to tracked `evidence/` under
+[ADR 0038](docs/decisions/0038-evidence-tree-is-tracked.md), or classify/publish under
+[ADR 0051](docs/decisions/0051-govern-durable-untracked-assets-on-nas.md). Explicitly declared scratch
+may be discarded. ADR 0038's historical `out/` deletion wording is superseded by this governance.
 
-On the NAS, durable payloads live only at `collections/<asset-id>/<version>/payload/`; `_control/`
-is temporary non-served operational custody. Apart from the share identity marker, those are the
-only project-owned top-level namespaces. Public-safe owner manifests live at
-`docs/nas-assets/manifests/<asset-id>/<version>.json`; manifests containing private filenames live
-at `collections/<asset-id>/<version>/manifest.private.jsonl`, and Git binds only their digest and
-aggregate. Do not recreate top-level NAS `out/` or `research-cache/`; producer-era paths are
-historical identities translated by catalogue-aware readers, not current storage destinations.
+Before preserving, moving, serving or pruning a useful untracked collection, read and execute
+[local-assets.md's standard procedure](docs/local-assets.md#standard-procedure-for-a-new-retained-collection)
+and ADR 0051's applicable lifecycle. Use one class/rights/privacy/serving/retention policy per
+collection; choose a provisional stable ID/immutable version before durable placement. Durable
+payloads use `collections/<asset-id>/<version>/payload/`; `_control/` is non-served operational
+custody, not durable ownership. Apart from the share marker these are the only project-owned roots.
+Never recreate top-level NAS `out/` or `research-cache/`; translate historical locators via catalogue.
 
-Governed publication requires a catalogue entry, one owner manifest, final byte verification, a
-publication receipt, an executable restore procedure, and a successful fresh-stage restore. Local
-pruning is a separate reviewed decision derived from those committed records; no publish or restore
-command silently deletes its source. Migrated pre-transaction registrations may carry only a
-level-qualified historical verification record; that makes them discoverable and restorable, not
-transaction-certified or prune-authorizing. A detached, unmarked, or conflicting share fails
-closed and never falls back to a local worktree. Use exact reviewed targets, never a broad
-repository clean.
+Publication requires one bound owner manifest, stable regular-file inventory, copy-first staging,
+absent immutable final placement, final byte verification, publication receipt, committed catalogue/
+provenance/recipe bindings, executable restore and successful fresh-stage verification. No merging
+existing targets, silent source deletion or missing-receipt bypass. Historical/legacy registration
+and restore may be read/restore-only; they do not certify transaction, backup or prune eligibility.
+A detached/unmarked/conflicting share fails closed, never silently substitutes a local worktree.
 
-Credentials are not assets. They never enter Git, asset collections, manifests, receipts,
-archives, or `/nas`; use the approved credential manager or runtime environment. Only catalogue-
-approved public generated prefixes may be served. Loose copies, archives, snapshots, and recycle
-entries on the same NAS are one failure domain, not an independent backup. External evidence,
-unique private sources, and irreplaceable masters require their class-specific independent recovery
-domain before the last workstation copy may be pruned.
+Private filenames/media stay in their permitted non-served records; Git exposes only permissible
+identity/binding. Credentials are not assets and never enter Git, collections, manifests, receipts,
+archives or `/nas`; use the credential manager/runtime environment. Only catalogue-approved public
+generated prefixes may be served. Containment is not serving authorization.
 
-For every new retained untracked collection, execute this order:
-
-1. Inventory the local staging bytes and classify them as tracked evidence, external evidence,
-   private source, irreplaceable master, generated cache, or scratch. Do not mix classes, rights,
-   privacy, serving, or retention policies in one collection.
-2. Before writing a durable NAS path, choose one stable `<asset-id>` and immutable `<version>` and
-   add a provisional entry to `docs/nas-assets.json` with its owner workstream, class, rights,
-   privacy, serving, retention, recovery, and backup requirements.
-3. Use only `collections/<asset-id>/<version>/payload/`. Write exactly one owner manifest at the
-   public or private standard path above and bind its exact bytes, SHA-256, file count, and byte
-   count in the catalogue. Unknown or mixed material goes to a dated
-   `_control/quarantine/unresolved/<batch-id>/` inventory instead of being guessed into a class.
-4. Follow decision 0051's copy-first publication order: stable regular-file inventory; uniquely
-   named same-share `_control/` staging; source/stage hash comparison; absent immutable final
-   placement; final re-hash; publication receipt; catalogue update; then fresh restore and exact
-   restored-tree verification. Never publish with raw `rsync --ignore-existing`, merge into an
-   existing target, or make an in-place cache mutation look like a new version.
-5. Run `npm run assets:verify -- --collection <asset-id>@<version> --full`, restore to a fresh
-   `out/restores/` path, and run `npm run assets:verify-restored`. Record the exact commands and
-   results. A legacy or collection-specific procedure that cannot emit the required receipts is
-   explicitly non-prune-authorizing.
-6. Commit the catalogue, public manifest or private-manifest binding, provenance, recipe where
-   applicable, verification record, and restore procedure together. Only then may documentation
-   call the NAS copy durable.
-7. Delete local staging only through a separately reviewed exact prune list after every class-
-   specific backup requirement passes. Otherwise retain it or quarantine it. Never use broad
-   `git clean`, recursive deletion, or directory-wide globbing as the retention decision.
-
-There is intentionally no registered generic forward `assets:publish` or `assets:prune` command
-yet. Until a concrete use justifies one, a new publication uses a bounded plan that spells out the
-same steps and exact commands; the missing convenience command is never permission to skip them.
+Local pruning is a **separate reviewed exact-target decision** after committed bindings, verified
+restore and every class-specific backup condition. Same-NAS loose copies, archives, snapshots and
+recycle entries are one failure domain. External evidence, unique private sources and irreplaceable
+masters need their independent recovery domain before the last workstation copy is pruned.
+Retain/quarantine unresolved material; no broad `git clean`, directory glob or recursive sweep may
+substitute for classification/disposition. There is no generic forward `assets:publish`/`assets:prune`
+command yet: use the affected bounded plan's exact lifecycle commands; convenience is not a waiver.
 
 ## Rule 16 — One task, one branch and one worktree; reconcile before PR
 
-Default to one implementation branch in one worktree for an active task. Before creating either,
-run `git worktree list --porcelain` and `git branch -vv`; reuse the existing task worktree when it
-exists. Subagents share that worktree and do not create branches, backup refs, or additional
-worktrees unless the coordinator assigns an isolation need that cannot be met safely in place.
+Default to one implementation branch/worktree per task. Before creating either, inspect
+`git worktree list --porcelain` and `git branch -vv`; reuse an existing task checkout. Subagents
+share it and create no extra branches/backup refs/worktrees unless assigned a necessary isolation.
+At most one temporary detached review worktree may accompany it; record path, exact commit/tree,
+purpose, owner/removal condition in the existing plan and remove it when review ends.
+No `backup`/`finalize`/`close` chains instead of coherent commits. Emergency recovery refs name their
+protected work and must be reconciled/deleted before publication.
 
-At most one temporary detached review worktree may accompany the implementation worktree. Record
-its path, exact commit/tree, purpose, owner, and removal condition in the active plan or progress
-record when it is created. Remove it immediately when that review ends. Do not create chains named
-`backup`, `finalize`, `close`, or similar as a substitute for committing coherent checkpoints on
-the task branch. An emergency recovery ref must name what it protects and must be reconciled or
-deleted before publication.
+Before pushing/opening a PR:
 
-Before pushing or opening a PR, the owning agent must:
+1. List every registered worktree/local branch and inspect staged, unstaged, untracked and ignored
+   task-relevant state in each.
+2. Classify deltas as included, independently owned or verified superseded; preserve other workstreams.
+3. Remove temporary worktrees and redundant refs only after unique changes are committed, moved to
+   their owning checkout or explicitly approved for deletion.
+4. Verify the surviving primary, named unrelated worktrees and exactly one PR branch; record branch,
+   head, checks and PR URL in the plan/progress and PR description.
 
-1. list every registered worktree and local branch;
-2. inspect staged, unstaged, untracked, and ignored task-relevant state in each;
-3. classify every delta as included, independently owned, or verified superseded—never silently
-   discard another workstream such as education;
-4. remove temporary worktrees, then delete redundant task and backup branches only after their
-   unique changes are committed, moved to their owning worktree, or explicitly approved for
-   deletion;
-5. verify `git worktree list --porcelain` and `git branch -vv` show the primary worktree, named
-   unrelated ongoing worktrees, and exactly one branch for the PR; and
-6. record the surviving branch, head commit, checks, and PR URL in the active plan/PROGRESS and PR
-   description.
-
-`git worktree remove --force` and `git branch -D` are destructive cleanup tools, not ordinary
-workflow. Use them only after exact path/ref resolution and the disposition audit above; a dirty
-worktree by itself is never evidence that its contents are disposable.
-
----
+`git worktree remove --force` and `git branch -D` are destructive tools, not ordinary workflow.
+They require resolved exact paths/refs and the disposition audit; dirty never means disposable.
 
 ## Anti-rules
 
-- Don't summarize the charter into `PROGRESS.md`. Link to it. Two copies of a spec means one is
-  wrong.
-- Don't keep a per-session diary. `PROGRESS.md` describes *state*, not chronology; prune it as
-  work lands. Detail belongs in the plan file for that work.
-- Don't create documents these rules don't call for. More files is not more clarity.
-- Don't split a freeze from its provenance record. They are one commit, not two a minute
-  apart.
-- Don't build new adversarial evidence machinery per work package. Reuse the existing
-  verifier seams; a new seam is justified only by a new attack surface. Integrity has a
-  budget: ceremony ran ~15% of all commits and evidence-hardening ~45% of all rework through
-  Phase 5, with visibly declining yield after WP5.
+- Link the charter from progress; do not create a second specification or a per-session diary.
+- Do not create documents these rules do not call for; use existing plans and lesson records.
+- Reuse existing verifier seams. A new seam needs an admitted in-scope failure, not proof machinery
+  for its own sake. Keep the short learned warnings here and the complete incident history linked.

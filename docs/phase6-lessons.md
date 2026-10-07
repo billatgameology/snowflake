@@ -376,7 +376,8 @@ Those cases require deliberate hostile control already excluded by charter §3.3
 0042/0049. The added protocol, schema, identity, liveness, and review work became an
 implementation-freeze blocker while the radial parent path was still not wired end to end.
 
-**Rule — ENFORCED BY AGENTS RULE 14A.** Classify the actor and failure before writing the defense.
+**Rule — DISCIPLINE, required by AGENTS Rule 14A.** This is an agent instruction, not an automated
+test of the rule text. Classify the actor and failure before writing the defense.
 Protect against plausible accidental error at the nearest claim-bearing boundary. Do not promote a
 hostile-owner construction into environment drift or a required research gate. Expanding the
 threat model is a maker/authority decision, not an implementation inference.
@@ -390,7 +391,8 @@ full suite, but every run route remained disabled and the immediate radial paren
 unfinished. The existing one-quarter stop-and-simplify rule had been read but was not operationally
 obeyed.
 
-**Rule — ENFORCED BY AGENTS RULE 14B.** Name one vertical deliverable per work block. Use focused
+**Rule — DISCIPLINE, required by AGENTS Rule 14B.** This is an agent instruction, not an automated
+test of the rule text. Name one vertical deliverable per work block. Use focused
 checks while it moves, one bounded review after it stabilizes, and identity regeneration/full-suite
 checks at a checkpoint. If plans, reviews, registries, or proof machinery dominate while the
 deliverable remains unusable, stop and simplify; do not answer process excess with more process.
