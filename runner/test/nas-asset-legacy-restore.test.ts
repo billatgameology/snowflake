@@ -416,32 +416,36 @@ describe("legacy NAS restore and restored-tree verifier", () => {
     }
   });
 
-  it("detects source append, truncation, and same-length mutation during descriptor-bound copy", () => {
-    const mutations = [
-      (path: string) => appendFileSync(path, "x"),
-      (path: string) => truncateSync(path, 1),
-      (path: string) => writeFileSync(path, "xxx"),
-    ];
-    for (const [index, mutate] of mutations.entries()) {
-      const fixture = makeFixture(`source-mutation-${index}`, {
-        files: [{ relativePath: "secret-source-name.bin", bytes: Buffer.from("one") }],
-      });
-      let changed = false;
-      expect(() => restoreLegacyNasCollection({
-        catalogue: fixture.catalogue,
-        collection: fixture.identity,
-        repoRoot: fixture.repo,
-        shareRoot: fixture.share,
-        destinationPath: fixture.destination,
-        hooks: {
-          afterSourceChunk: () => {
-            if (changed) return;
-            mutate(join(fixture.share, "payload", "secret-source-name.bin"));
-            changed = true;
-          },
+  it.each([
+    { name: "append", sourceAfter: "onex", mutate: (path: string) => appendFileSync(path, "x") },
+    { name: "truncation", sourceAfter: "o", mutate: (path: string) => truncateSync(path, 1) },
+    { name: "same-length rewrite", sourceAfter: "xxx", mutate: (path: string) => writeFileSync(path, "xxx") },
+  ])("detects source $name during descriptor-bound copy", ({ name, sourceAfter, mutate }) => {
+    const fixture = makeFixture(`source-mutation-${name}`, {
+      files: [{ relativePath: "secret-source-name.bin", bytes: Buffer.from("one") }],
+    });
+    const source = join(fixture.share, "payload", "secret-source-name.bin");
+    let changed = false;
+    expect(() => restoreLegacyNasCollection({
+      catalogue: fixture.catalogue,
+      collection: fixture.identity,
+      repoRoot: fixture.repo,
+      shareRoot: fixture.share,
+      destinationPath: fixture.destination,
+      hooks: {
+        afterSourceChunk: () => {
+          if (changed) return;
+          mutate(source);
+          changed = true;
         },
-      })).toThrowError(expect.objectContaining({ code: "source-byte-mismatch", destinationReserved: true }));
-      expect(changed).toBe(true);
+      },
+    })).toThrowError(expect.objectContaining({ code: "source-byte-mismatch", destinationReserved: true }));
+    expect(changed).toBe(true);
+    expect(readFileSync(source, "utf8")).toBe(sourceAfter);
+    if (name === "same-length rewrite") {
+      // The copied bytes themselves still match the owner row; source validation must reject
+      // the later rewrite even when its length and filesystem timestamps remain unchanged.
+      expect(readFileSync(join(fixture.destination, "secret-source-name.bin"), "utf8")).toBe("one");
     }
   });
 

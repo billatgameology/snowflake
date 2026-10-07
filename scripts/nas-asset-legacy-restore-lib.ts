@@ -800,6 +800,24 @@ const copyExpectedFile = (
       }
     }
     fsyncSync(destinationFd);
+    if (total !== expected.bytes || digest.digest("hex") !== expected.sha256) {
+      return fail("source-byte-mismatch", "copied source disagrees with its owner row", true);
+    }
+    // A same-length rewrite after an already copied chunk can retain the same timestamps,
+    // particularly on Windows. Bind the source's current bytes to the owner row too:
+    // reread this same descriptor by position, with at most one byte beyond the expected size.
+    const sourceDigest = createHash("sha256");
+    let sourceBytes = 0;
+    while (sourceBytes <= expected.bytes) {
+      const requested = Math.min(buffer.byteLength, expected.bytes + 1 - sourceBytes);
+      const count = readSync(sourceFd, buffer, 0, requested, sourceBytes);
+      if (count === 0) break;
+      sourceDigest.update(buffer.subarray(0, count));
+      sourceBytes += count;
+      if (sourceBytes > expected.bytes) {
+        return fail("source-byte-mismatch", "selected source grew after its copied chunks", true);
+      }
+    }
     const after = fstatSync(sourceFd);
     const current = lstatSync(opened.path);
     const placed = fstatSync(destinationFd);
@@ -808,8 +826,8 @@ const copyExpectedFile = (
       statObjectIdentity(after) !== statObjectIdentity(before) ||
       statObjectIdentity(current) !== statObjectIdentity(before) ||
       current.isSymbolicLink() ||
-      total !== expected.bytes ||
-      digest.digest("hex") !== expected.sha256
+      sourceBytes !== expected.bytes ||
+      sourceDigest.digest("hex") !== expected.sha256
     ) {
       return fail("source-byte-mismatch", "selected source mutated or disagrees with its owner row", true);
     }
