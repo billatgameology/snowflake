@@ -29,9 +29,13 @@ detail.
   verifiers and a fresh science-snapshot restore/verification pass. Typecheck, Rule 7, app build,
   21 focused tests and two existing browser smokes pass; the
   [consolidation-plan follow-up](plans/local-consolidation-2026-10-01.md) names exact commands/logs
-  and limits. The verified gallery recovery restores 150 registered inputs, and live index reports
-  only original Run B unavailable (`live-gallery-index-summary.json` under that setup directory).
-  Windows denied the symlink probe and reported the administrator prompt canceled; the actual
+  and limits. The NAS recovery restored 150 registered inputs. The remaining original Run B was
+  recovered byte-for-byte from its published website asset: 7,695,060 bytes, SHA-256
+  `475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d`
+  (`run-b-restore.json` under the setup directory). Strict decode and reconstructed occupancy
+  pass; `live-gallery-complete.json` reports all 151 recordings available. Run B's existing
+  browser smoke and the new app build pass (`run-b-browser-smoke.json`, `app-build-complete.log`).
+  Windows denied the symlink probe and reported both administrator prompts canceled; the actual
   `CLAUDE.md` symlink and system long-path setting remain pending. Restart terminal/Codex to pick
   up persistent PATH/NAS settings. Science stays paused; existing full-suite debt and phase claims
   are unchanged.
@@ -936,10 +940,13 @@ Use `C:/Users/biao3/Documents/GitHub/snowflake` with the installed Node v24.13.1
 `VCC_NAS_ROOT=Z:/`; restart the terminal/Codex app to inherit PATH. The live gallery is
 `http://127.0.0.1:5191/dendrite-styles.html?browse=1`; the
 [consolidation-plan follow-up](plans/local-consolidation-2026-10-01.md) records installation,
-NAS hash/restore and focused checks. Original Run B remains unavailable; its historical local
-candidate needs its own governed recovery, not regeneration. For the remaining Windows settings,
-the administrator prompt must be approved before Developer Mode/system long paths and the actual
-`CLAUDE.md` symlink can be completed. The canceled prompt changed neither setting.
+NAS hash/restore and focused checks. Original Run B is restored at the existing sibling website
+input path, with its original digest verified and all gallery recordings available. The remaining
+Windows settings require an Administrator PowerShell session: run the prepared primary
+`out/host-readiness-2026-10-07/finish-windows-readiness.ps1` to enable Developer Mode/system long
+paths and restore the relative `CLAUDE.md` symlink. The second native launch also reported
+cancellation (`windows-development-retry-launch.json`); neither setting changed. Recheck its
+completion receipt and the actual instruction link afterward.
 Keep science paused. A later selected experiment still requires its own task worktree, common
 producer/runtime, a measured worker budget for this 24-core host, and a demonstrated pause/resume
 path. No Phase 7 or retired S6 work is reopened.

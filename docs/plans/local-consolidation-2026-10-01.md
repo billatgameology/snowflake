@@ -272,6 +272,42 @@ update this plan and PROGRESS, run the focused progress check and Rule 7 for rec
 fast-forward primary main locally before removing the empty task worktree/ref. No scientific
 campaign, publication, remote branch change, or historical-byte cleanup is part of this follow-up.
 
+Run B recovery is complete. The other computer's untouched film branch at
+`4f7a03207f8e42f650074a1d7601d2f126800320` names the live host and exact release allowlist in
+`docs/plans/explore-nivogenesis-public-release.md`, and binds this asset's URL/digest/size in
+`docs/video/part1-score.json`. Downloaded
+`https://nivogenesis.web.app/growth/run-b-growth-v1.bin` matches the original registered identity:
+7,695,060 bytes and SHA-256 `475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d`.
+An independent read-only agent fetch agrees. Primary `run-b-restore.json` under the setup directory
+records the exact copy to `C:/Users/biao3/Documents/GitHub/snowcrystal_website/public/growth/run-b-growth-v1.bin`,
+strict decode, 961,597 events, 19 seed sites, final tick 70,000 and 593 x 593 x 17 crop.
+The event-reconstructed full occupancy digest is the original
+`9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7`.
+This is local recovery of existing bytes; no new solver result or NAS publication is claimed.
+
+`live-gallery-complete.json` reports 151 registered / 151 available and the exact Run B source
+digest. The earlier dev server had stopped; the first Run B smoke therefore failed connection
+before loading (`run-b-browser-smoke-first.log`). Restarted
+`npm.cmd run dev --workspace app -- --host 127.0.0.1 --port 5191 --strictPort`; the owned PID and
+stdout/stderr are `dev-server-followup.pid`, `dev-server-followup.log`, and
+`dev-server-followup.error.log`. With `DENDRITE_STUDY_URL` set to
+`http://127.0.0.1:5191/dendrite-styles.html?capture=1&crystal=run-b`, the existing
+`node app/scripts/dendrite-study-preview.mjs` passes seed/endpoint/reverse-seek/UI/four-view/mobile
+and reduced-motion checks with zero browser errors (`run-b-browser-smoke.json`,
+`run-b-browser-smoke.log`, exit zero). Its comparison image was visually inspected. The previous
+smoke report is preserved as `browser-smoke-before-run-b.json`. The follow-up
+`npm.cmd run build --workspace app` exits zero (`app-build-complete.log`, `.exit`), including the
+recovered input. This does not close the separate glass/camera visual-acceptance plan.
+
+Windows is still blocked on native administrator consent. The retry launch reported cancellation
+(`windows-development-retry-launch.json`); registry checks still show Developer Mode absent and
+system long paths disabled. Prepared `finish-windows-readiness.ps1` performs both registry changes
+and invokes `repair-instruction-links.mjs`. The helper proves symlink creation before replacing
+the exact nine-byte placeholder, preserves AGENTS.md bytes, verifies the relative target, and
+enables Git symlink handling. Run the script once in Administrator PowerShell, then verify
+`windows-readiness-complete.json`, `instruction-links.json`, and actual links. No privilege
+bypass, copied instruction file, or unsupported success claim was substituted.
+
 ## Tried and rejected
 
 - Blanket worktree/branch deletion: education and offline-build commits were local-only, and
