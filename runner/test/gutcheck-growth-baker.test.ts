@@ -4,6 +4,7 @@ import {
   mkdtempSync,
   readFileSync,
   readdirSync,
+  realpathSync,
   rmSync,
   writeFileSync,
 } from "node:fs";
@@ -27,7 +28,7 @@ import {
   type LegacyGrowthChecks,
 } from "../../scripts/gutcheck-bake-growth.ts";
 
-const REPOSITORY_ROOT = resolve(import.meta.dirname, "..", "..");
+const REPOSITORY_ROOT = realpathSync.native(resolve(import.meta.dirname, "..", ".."));
 const SCRIPT = join(REPOSITORY_ROOT, "scripts", "gutcheck-bake-growth.ts");
 const DIMS = { nx: 20, ny: 20, nz: 12 } as const;
 const TICK_CAP = 200;
@@ -339,7 +340,8 @@ describe("growth baker CLI", () => {
     const source = decodeGrowthAsset(readFileSync(output)).header.source as Record<string, unknown>;
     expect(source["command"]).toMatchObject({ cwd: REPOSITORY_ROOT });
     expect(source["runtime"]).toMatchObject({ node: process.version });
-    expect(source["git"]).toMatchObject({ repositoryRoot: REPOSITORY_ROOT });
+    const capturedGit = source["git"] as Record<string, unknown>;
+    expect(realpathSync.native(capturedGit["repositoryRoot"] as string)).toBe(REPOSITORY_ROOT);
   });
 
   it("returns a nonzero CLI result without creating output when required flags are absent", () => {

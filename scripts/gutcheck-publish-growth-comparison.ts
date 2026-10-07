@@ -1,12 +1,8 @@
-// Publish the completed Run B compact-growth comparison bundle to the mirrored NAS path.
+// Retired Run B compact-growth publisher: production entry points refuse before NAS access.
 //
-// This is deliberately a fixed-roster, flagless publisher. The baker, comparison builder, and
-// browser capture all write locally first; this command then copies exactly their completed bytes
-// through one private same-share staging directory, reopens and hashes both sides, and publishes by
-// one final directory rename. It never writes a ledger entry: docs/nas-ledger.json is updated only
-// from the final canonical inventory printed by this command.
-//
-//   node scripts/gutcheck-publish-growth-comparison.ts
+// The old top-level NAS out/ destination was retired during governed collection migration.
+// Keep the historical derivation and injected fixture controls for regression coverage only.
+// A future publisher requires its own catalogue, owner manifest, receipt and fresh-restore contract.
 
 // Node has no portable RENAME_NOREPLACE equivalent for directories. As in the repository's gate
 // publishers, this implementation refuses every lexical canonical path initially and immediately
@@ -32,7 +28,7 @@ import {
   statSync,
 } from "node:fs";
 import { dirname, join, relative, resolve, sep } from "node:path";
-import { fileURLToPath } from "node:url";
+import { isCliEntry } from "./cli-entry.ts";
 
 import {
   decodeGrowthComparisonRecord,
@@ -48,7 +44,7 @@ import {
   deriveGrowthOccupancySha256,
   parseCompactBakeElapsedSeconds,
 } from "./gutcheck-build-growth-comparison.ts";
-import { detectNasMount, pathIsWithinRoot } from "./nas-root.ts";
+import { pathIsWithinRoot } from "./nas-root.ts";
 
 export const GUTCHECK_GROWTH_RUN_B_SHARE_DIRECTORY =
   "out/gutcheck-growth-runB" as const;
@@ -112,12 +108,6 @@ const CAPTURE_SCREENSHOTS = Object.freeze({
   portrait: "comparison-browser-v1/portrait.png",
 } as const);
 const READ_BUFFER_BYTES = 1024 * 1024;
-const SCRIPT_DIRECTORY = dirname(fileURLToPath(import.meta.url));
-const DEFAULT_SOURCE_DIRECTORY = resolve(
-  SCRIPT_DIRECTORY,
-  "..",
-  GUTCHECK_GROWTH_RUN_B_SHARE_DIRECTORY,
-);
 
 export interface GrowthComparisonPublishedFile {
   readonly path: string;
@@ -1329,7 +1319,8 @@ function resolvePublicationPaths(
 function syncCopiedFile(path: string): void {
   const descriptor = openSync(
     path,
-    constants.O_RDONLY |
+    // Windows FlushFileBuffers requires a writable handle; these are our exclusive staged copies.
+    (process.platform === "win32" ? constants.O_RDWR : constants.O_RDONLY) |
       (typeof constants.O_NOFOLLOW === "number" ? constants.O_NOFOLLOW : 0),
   );
   try {
@@ -1576,18 +1567,13 @@ function publishGrowthComparisonBundleCore(
   }
 }
 
-/** Publish the fixed local Run B bundle to the currently detected snowcrystal NAS mount. */
+/** Retained API name for callers; the retired production publication route is disabled. */
 export function publishGrowthComparisonBundleToDetectedNas(): GrowthComparisonNasPublicationReport {
-  const nasMount = detectNasMount();
-  if (nasMount === null) fail("snowcrystal NAS share is not attached");
-  return publishGrowthComparisonBundleCore({
-    sourceDirectory: DEFAULT_SOURCE_DIRECTORY,
-    nasMount,
-    attemptId: `${process.pid}-${randomUUID()}`,
-  });
+  return fail("retired Run B publisher: the top-level NAS out/ destination is forbidden; " +
+    "use a separately registered governed-collection publication procedure");
 }
 
-/** Test-only injected-mount seam; production CLI always calls detectNasMount(). */
+/** Historical test-only injected-mount seam; no production publication route is available. */
 export const growthComparisonNasPublisherTestOnly = Object.freeze({
   publish(options: {
     readonly sourceDirectory: string;
@@ -1619,8 +1605,7 @@ export function runGrowthComparisonNasPublisherCli(
   return report;
 }
 
-const invokedPath = process.argv[1] === undefined ? null : resolve(process.argv[1]);
-if (invokedPath !== null && invokedPath === fileURLToPath(import.meta.url)) {
+if (isCliEntry(import.meta.url)) {
   try {
     runGrowthComparisonNasPublisherCli();
   } catch (error) {

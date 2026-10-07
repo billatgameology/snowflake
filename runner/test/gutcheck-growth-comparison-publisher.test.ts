@@ -35,6 +35,7 @@ import {
   GUTCHECK_GROWTH_RUN_B_BUNDLE_FILES,
   GUTCHECK_GROWTH_RUN_B_SHARE_DIRECTORY,
   growthComparisonNasPublisherTestOnly,
+  publishGrowthComparisonBundleToDetectedNas,
   runGrowthComparisonNasPublisherCli,
 } from "../../scripts/gutcheck-publish-growth-comparison.ts";
 
@@ -762,6 +763,11 @@ describe("Run B comparison NAS publisher", () => {
   it("rejects unknown CLI arguments before NAS detection", () => {
     expect(() => runGrowthComparisonNasPublisherCli(["--source", "elsewhere"]))
       .toThrow(/usage/u);
+  });
+
+  it("refuses both retired production entry points before NAS detection", () => {
+    expect(() => publishGrowthComparisonBundleToDetectedNas()).toThrow(/retired Run B publisher/u);
+    expect(() => runGrowthComparisonNasPublisherCli([])).toThrow(/retired Run B publisher/u);
   });
 
   it("preserves a pre-existing empty canonical directory", () => {

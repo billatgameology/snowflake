@@ -66,12 +66,16 @@ function temporaryRoot(label: string): string {
 
 function withGutcheckNasRoot<T>(root: string, action: () => T): T {
   const previous = process.env.GUTCHECK_NAS_ROOT;
+  const previousCanonical = process.env.VCC_NAS_ROOT;
   process.env.GUTCHECK_NAS_ROOT = root;
+  process.env.VCC_NAS_ROOT = root;
   try {
     return action();
   } finally {
     if (previous === undefined) delete process.env.GUTCHECK_NAS_ROOT;
     else process.env.GUTCHECK_NAS_ROOT = previous;
+    if (previousCanonical === undefined) delete process.env.VCC_NAS_ROOT;
+    else process.env.VCC_NAS_ROOT = previousCanonical;
   }
 }
 
@@ -501,8 +505,9 @@ describe("comparison record derivation", () => {
   it("accepts a custom collection mount through the documented NAS override only with the exact marker", () => {
     const fixture = collectionManifestPair("collection-layout");
     withGutcheckNasRoot(fixture.share, () => {
+      const expectedMount = fixture.share.replace(/\\/gu, "/").replace(/\/*$/u, "/");
       expect(detectGovernedVccNasMount()).toBe(
-        fixture.share.replace(/\\/gu, "/").replace(/\/*$/u, "/"),
+        process.platform === "win32" ? expectedMount.toLowerCase() : expectedMount,
       );
       expect(() => assertRunBManifestPairOnGovernedShare(fixture.raw, fixture.v2q)).not.toThrow();
     });

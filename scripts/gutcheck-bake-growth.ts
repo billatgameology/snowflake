@@ -30,6 +30,7 @@ import {
 import { endianness } from "node:os";
 import { basename, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { isCliEntry } from "./cli-entry.ts";
 
 import {
   GG_PRESETS,
@@ -819,22 +820,7 @@ export function runGrowthBakeCli(argv: readonly string[] = process.argv.slice(2)
   return result;
 }
 
-// Under node -e, argv[1] is a caller positional and may coincidentally name this module. Imports
-// must remain side-effect-free for tests and future orchestration.
-const evalOrPrintInvocation = process.execArgv.some(
-  (argument) =>
-    argument === "-e" ||
-    argument === "--eval" ||
-    argument.startsWith("--eval=") ||
-    argument === "-p" ||
-    argument === "--print" ||
-    argument.startsWith("--print="),
-);
-if (
-  !evalOrPrintInvocation &&
-  process.argv[1] !== undefined &&
-  resolve(process.argv[1]) === fileURLToPath(import.meta.url)
-) {
+if (isCliEntry(import.meta.url)) {
   try {
     runGrowthBakeCli();
   } catch (error) {

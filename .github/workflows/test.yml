@@ -53,9 +53,8 @@ jobs:
 
       - uses: actions/setup-node@v5
         with:
-          # The runner uses `--experimental-strip-types`, so the major version matters. package.json
-          # asks for >=23.6; pin the major here so a silent bump cannot change what the numerics do.
-          node-version: "24"
+          # Use the exact development engine; historical evidence retains its recorded engine.
+          node-version-file: ".nvmrc"
           cache: npm
 
       - run: npm ci

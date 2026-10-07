@@ -38,7 +38,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { basename, dirname, isAbsolute, relative, resolve, sep } from "node:path";
-import { fileURLToPath } from "node:url";
+import { isCliEntry } from "./cli-entry.ts";
 
 import { GG_PRESETS, domainCenter } from "@vcc/core";
 
@@ -1483,8 +1483,7 @@ export async function runGrowthComparisonCli(argv: readonly string[] = process.a
   return record;
 }
 
-const invokedPath = process.argv[1] === undefined ? null : resolve(process.argv[1]);
-if (invokedPath !== null && invokedPath === fileURLToPath(import.meta.url)) {
+if (isCliEntry(import.meta.url)) {
   runGrowthComparisonCli().catch((error: unknown) => {
     console.error(error instanceof Error ? error.message : String(error));
     process.exitCode = 1;
