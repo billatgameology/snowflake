@@ -78,8 +78,8 @@ than a failed acceptance, lost recovery or another interrupted long run. No extr
 - [x] Read current state, glass contract, known retention records and current host boundaries.
 - [x] Create the sole task branch/worktree and commit this scope before implementation.
 - [x] Locate/recover the exact minimum comparison inputs and record bounded NAS/backup findings.
-- [ ] Update the product capture contract, run focused checks/typecheck/build and fresh browser capture.
-- [ ] Inspect the required views and close the existing glass plan only when every criterion passes.
+- [x] Update the product capture contract, run focused checks/typecheck/build and fresh browser capture.
+- [x] Inspect the required views and close the existing glass plan only when every criterion passes.
 - [x] Commit a bounded current-host workload/concurrency protocol, then execute it with live receipts.
 - [x] Prove representative core pause/resume and record its exact scope/production limitation.
 - [ ] Record findings, review the stable deliverable once as needed, and reconcile local worktree/ref.
@@ -116,6 +116,10 @@ inspection, external publication, and the other computer's film branch. No autom
   overlapping the player's verbose status and obscuring upper crystal arms in the small pane. Keep
   that capture as an intermediate result, move the comparison status outside the iframe, preserve
   visible model/nonphysical limits and standalone labels, and capture the actual corrected UI again.
+- Narrow cards could hide a media shell sized from minimum height/aspect ratio, oversized controls
+  and header pills even when document scroll width passed. The final capture checks actual drawn
+  shell/frame/panel/control/header rectangles; the repaired layout reserves controls outside the
+  canvas. Document overflow and projected world bounds alone were rejected as sufficient coverage.
 
 ## Registered capacity protocol
 
@@ -234,3 +238,20 @@ Its checks record 68 attached sites, 65 partial-fill cells and one cycle-eight h
 exact adopted state, prefix, final report and final scientific bytes. These numbers are operational
 witness scope only; the production discovery runner still has no restart writer. The next campaign
 must register short independently terminal stages or obtain a separately authorized resume path.
+
+## Product result and durable preservation
+
+[Glass/camera local acceptance](explore-gutcheck-growth-glass-camera.md#local-acceptance--2026-10-07)
+is complete. Final capture: `comparison-browser-glass-v5/record.json`, 170,492 bytes, SHA-256
+`052b4c0f92fc1f8ea9b5c88219322c4fd3ceaba4db79051a93b587d6bd4c51c8`; direct visual review includes
+the unobstructed mobile card and separate manual seed detail. Five focused files / 59 tests, both
+typechecks, app build, syntax and real-browser controls/failures pass. The limitations remain
+nonphysical appearance, independent pane transport, and no hardware-GPU/mobile/scientific validation.
+
+The durable receipt root is now
+[evidence/new-host-readiness-2026-10-07/](../../evidence/new-host-readiness-2026-10-07/README.md).
+NAS, capacity and resume paths above are byte-identical copies under that root; final product
+capture/images and exact product-check receipts also live there. Absolute execution paths inside
+JSON identify the original task checkout. Intermediate attempts are explicitly not final acceptance.
+Scientific source, accepted historical evidence and NAS source bytes remain unchanged. The combined
+integrity/full check and local ref/worktree reconciliation are the remaining closeout work.

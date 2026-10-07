@@ -1,0 +1,128 @@
+{
+  "schema": "operational-lk-core-continuation-v1",
+  "pass": true,
+  "root": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness",
+  "runRoot": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\witness-2026-10-07T23-29-08-538Z",
+  "sourceHead": "cc03b0da9a869e8070516a944af1afd561c36171",
+  "driverSha256": "4fdc44cf3b30615097dc37eaa87174a0740d21009ff29862f7c68c6c79500345",
+  "workerSha256": "e4cf60aa0a45ff8f33faa46cd5f78e4a7ca7293d0742d6c69a2c828711d51b10",
+  "options": {
+    "surfacePolicy": "aggregate-hv-g1h1-v6",
+    "dims": {
+      "nx": 12,
+      "ny": 12,
+      "nz": 9
+    },
+    "tempC": -5,
+    "sigmaInfinity": 0.01,
+    "dxUm": 0.35,
+    "pressurePa": 101325,
+    "paramSet": "M1",
+    "cflFill": 0.2,
+    "relaxTol": 1e-8,
+    "divTol": 0.000001,
+    "relaxMaxSweeps": 200000,
+    "rngSeed": 305419896,
+    "noiseEpsilon": 0.25,
+    "domain": "hexPrism",
+    "farField": "monopole-matched",
+    "seedRadius": 2,
+    "seedThickness": 1
+  },
+  "checkpointCadence": "pause after eight complete interface cycles",
+  "commands": [
+    {
+      "mode": "direct",
+      "pid": 24076,
+      "execPath": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+      "argv": [
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\worker.mjs",
+        "direct",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\witness-2026-10-07T23-29-08-538Z\\direct"
+      ],
+      "cwd": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness",
+      "started": "2026-10-07T23:29:08.539Z",
+      "finished": "2026-10-07T23:29:08.695Z",
+      "code": 0,
+      "signal": null,
+      "stdout": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\witness-2026-10-07T23-29-08-538Z\\direct\\stdout.log",
+      "stderr": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\witness-2026-10-07T23-29-08-538Z\\direct\\stderr.log"
+    },
+    {
+      "mode": "pause",
+      "pid": 16868,
+      "execPath": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+      "argv": [
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\worker.mjs",
+        "pause",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\witness-2026-10-07T23-29-08-538Z\\pause"
+      ],
+      "cwd": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness",
+      "started": "2026-10-07T23:29:08.696Z",
+      "finished": "2026-10-07T23:29:08.842Z",
+      "code": 0,
+      "signal": null,
+      "stdout": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\witness-2026-10-07T23-29-08-538Z\\pause\\stdout.log",
+      "stderr": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\witness-2026-10-07T23-29-08-538Z\\pause\\stderr.log"
+    },
+    {
+      "mode": "continue",
+      "pid": 20660,
+      "execPath": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+      "argv": [
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\worker.mjs",
+        "continue",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\witness-2026-10-07T23-29-08-538Z\\continue",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\witness-2026-10-07T23-29-08-538Z\\pause/state-v3.ckpt"
+      ],
+      "cwd": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness",
+      "started": "2026-10-07T23:29:08.843Z",
+      "finished": "2026-10-07T23:29:08.970Z",
+      "code": 0,
+      "signal": null,
+      "stdout": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\witness-2026-10-07T23-29-08-538Z\\continue\\stdout.log",
+      "stderr": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\witness-2026-10-07T23-29-08-538Z\\continue\\stderr.log"
+    }
+  ],
+  "checkpoint": {
+    "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\witness-2026-10-07T23-29-08-538Z\\pause/state-v3.ckpt",
+    "bytes": 23767,
+    "sha256": "b4f38a424c6595b02e235e4fbf82a1c464c95a6d06b0867461947edaab07e252"
+  },
+  "directFinal": {
+    "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\witness-2026-10-07T23-29-08-538Z\\direct/state-v3.ckpt",
+    "bytes": 23735,
+    "sha256": "2cd7333b895ab3b4383c508943c72324e2bf0f0969dbf408c77e99a2da15d8f0"
+  },
+  "resumedFinal": {
+    "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\witness-2026-10-07T23-29-08-538Z\\continue/state-v3.ckpt",
+    "bytes": 23735,
+    "sha256": "2cd7333b895ab3b4383c508943c72324e2bf0f0969dbf408c77e99a2da15d8f0"
+  },
+  "checks": {
+    "freshProcesses": true,
+    "exactPrefix": true,
+    "exactPausedState": true,
+    "exactAdoptedState": true,
+    "exactFinalReport": true,
+    "exactFinalScientificBytes": true,
+    "attachments": 68,
+    "partialFillCount": 65,
+    "cycleEightHoleFillCount": 1,
+    "vaporMin": 0.0004133158705115245,
+    "vaporMax": 0.0076794930929740615,
+    "volumeRateM3PerS": 4.478077438033302e-18,
+    "sweeps": [
+      71,
+      71,
+      66,
+      61,
+      56,
+      50,
+      44,
+      43,
+      34
+    ]
+  },
+  "limit": "Named operational core disk/fresh-process witness only. Discovery runner has no restart writer; ADR0039 remains proposed. Not transferable to experimental modes, production protocols or larger domains."
+}

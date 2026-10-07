@@ -1,0 +1,98 @@
+{
+  "recordedAt": "2026-10-07T23:27:43.467Z",
+  "hostname": "HIL",
+  "sourceHead": "269ede646367a55a083d7234e183bfa364503a0b",
+  "scopeCommit": "efed3cca41e2aa07f37ac440bf5ef737b55b223b",
+  "node": "v24.13.1",
+  "command": "node out/new-host-readiness-2026-10-07/nas/recover-known-nas.mjs copy",
+  "helperSha256": "ff36bbbf97945430d765014ff04924b65784df2ac96a070ef74f2fbf9d63c304",
+  "nasMutation": false,
+  "sourcePruneAuthority": false,
+  "format": "bounded-comparison-recovery-v1",
+  "destination": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\comparison-inputs",
+  "sourceRecord": {
+    "bytes": 3002,
+    "sha256": "5488f738f3068e74cfdbc38e07c35c1a30e21fe73f891a22ab1e8d50399086f8"
+  },
+  "videoCollection": "gutcheck-generated-diagnostic-frames@2026-08-15",
+  "files": [
+    {
+      "path": "comparison-record-v2.json",
+      "sourcePath": "_control/quarantine/unresolved/journey-worktree-closeout-20260912-basic-backup/out/gutcheck-growth-runB/comparison-record-v2.json",
+      "bytes": 3002,
+      "sha256": "5488f738f3068e74cfdbc38e07c35c1a30e21fe73f891a22ab1e8d50399086f8"
+    },
+    {
+      "path": "gutcheck-growth-v1.bin",
+      "sourcePath": "_control/quarantine/unresolved/journey-worktree-closeout-20260912-basic-backup/out/gutcheck-growth-runB/gutcheck-growth-v1.bin",
+      "bytes": 7695060,
+      "sha256": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d"
+    },
+    {
+      "path": "growth-B-intro.mp4",
+      "sourcePath": "collections/gutcheck-generated-diagnostic-frames/2026-08-15/payload/p7/growth-B-intro.mp4",
+      "bytes": 5592795,
+      "sha256": "a5ead695add684791f2cd2c02dc650a64d14e37a78df22606b4675f72f6a4c1f"
+    },
+    {
+      "path": "poster-start.png",
+      "sourcePath": "_control/quarantine/unresolved/journey-worktree-closeout-20260912-basic-backup/out/gutcheck-growth-runB/comparison-inputs/poster-start.png",
+      "bytes": 53456,
+      "sha256": "77eef45804186f4ca8661da99985563f5882e26374e4237f8723faafe3ab99fc"
+    },
+    {
+      "path": "poster-middle.png",
+      "sourcePath": "_control/quarantine/unresolved/journey-worktree-closeout-20260912-basic-backup/out/gutcheck-growth-runB/comparison-inputs/poster-middle.png",
+      "bytes": 263892,
+      "sha256": "91ecb688fed0d31a98ac1af6c01f188e0d518d86e16b213cd09d9fb0a27bae3d"
+    },
+    {
+      "path": "poster-final.png",
+      "sourcePath": "_control/quarantine/unresolved/journey-worktree-closeout-20260912-basic-backup/out/gutcheck-growth-runB/comparison-inputs/poster-final.png",
+      "bytes": 481983,
+      "sha256": "7b6e00030c4be45a6bec25db200ab0b31a6d28faca484724adeed2151c51a8ea"
+    }
+  ],
+  "inventory": {
+    "format": "snowflake-nas-tree-inventory-v1",
+    "fileCount": 6,
+    "totalBytes": 14090188,
+    "treeSha256": "b068319b79613b444746dbce4a6b55ef41c03e978ee8166ef6cd9930ffbbe9b9",
+    "files": [
+      {
+        "path": "comparison-record-v2.json",
+        "byteLength": 3002,
+        "sha256": "5488f738f3068e74cfdbc38e07c35c1a30e21fe73f891a22ab1e8d50399086f8"
+      },
+      {
+        "path": "growth-B-intro.mp4",
+        "byteLength": 5592795,
+        "sha256": "a5ead695add684791f2cd2c02dc650a64d14e37a78df22606b4675f72f6a4c1f"
+      },
+      {
+        "path": "gutcheck-growth-v1.bin",
+        "byteLength": 7695060,
+        "sha256": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d"
+      },
+      {
+        "path": "poster-final.png",
+        "byteLength": 481983,
+        "sha256": "7b6e00030c4be45a6bec25db200ab0b31a6d28faca484724adeed2151c51a8ea"
+      },
+      {
+        "path": "poster-middle.png",
+        "byteLength": 263892,
+        "sha256": "91ecb688fed0d31a98ac1af6c01f188e0d518d86e16b213cd09d9fb0a27bae3d"
+      },
+      {
+        "path": "poster-start.png",
+        "byteLength": 53456,
+        "sha256": "77eef45804186f4ca8661da99985563f5882e26374e4237f8723faafe3ab99fc"
+      }
+    ]
+  },
+  "limits": [
+    "Known quarantine is restore-only custody, not new durable publication.",
+    "No historical capture is changed or replaced."
+  ]
+}

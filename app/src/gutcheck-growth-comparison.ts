@@ -212,8 +212,10 @@ function comparisonMarkup(): string {
               </div>
               <span class="status-pill" data-role="compact-status" role="status" aria-live="polite">loading · model</span>
             </figcaption>
+            <p class="compact-presentation-status" data-role="compact-presentation-status">
+              Glass-styled · MODEL / UNVALIDATED · Nonphysical presentation
+            </p>
             <div class="media-shell">
-              <span class="media-badge">Glass-styled · authored camera tour · model / unvalidated</span>
               <iframe data-role="compact-frame" title="Interactive compact Run B growth replay"></iframe>
               <div class="media-error" data-role="compact-error" role="status" hidden>
                 <p>
@@ -578,7 +580,10 @@ async function render(record: GrowthComparisonRecord, recordUrl: URL): Promise<v
     player.searchParams.set("quality", "medium");
     player.searchParams.set("presentation", RUN_B_PRESENTATION_ID);
     player.searchParams.set("autoplay", reducedMotion ? "0" : "1");
-    if (attempt !== undefined) player.searchParams.set("comparisonAttempt", String(attempt));
+    if (attempt !== undefined) {
+      player.searchParams.set("comparisonAttempt", String(attempt));
+      player.searchParams.set("status", "parent");
+    }
     return player;
   };
   openPlayer.href = makePlayerUrl(assetUrl.href).href;

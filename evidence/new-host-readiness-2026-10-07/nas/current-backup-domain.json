@@ -1,0 +1,34 @@
+﻿{
+    "observedAt":  "2026-10-07T23:28:50.8778686Z",
+    "hostname":  "HIL",
+    "commands":  [
+                     "Get-Disk -Number 1",
+                     "Get-Partition -DriveLetter C",
+                     "Get-Volume -DriveLetter C"
+                 ],
+    "disk":  {
+                 "Number":  1,
+                 "BusType":  "NVMe",
+                 "HealthStatus":  "Healthy",
+                 "OperationalStatus":  "Online",
+                 "IsBoot":  true,
+                 "IsSystem":  true,
+                 "Size":  4000787030016
+             },
+    "partition":  {
+                      "DriveLetter":  "C",
+                      "DiskNumber":  1,
+                      "PartitionNumber":  3
+                  },
+    "volume":  {
+                   "DriveLetter":  "C",
+                   "FileSystem":  "NTFS",
+                   "DriveType":  "Fixed",
+                   "HealthStatus":  "Healthy",
+                   "Size":  3960124469248,
+                   "SizeRemaining":  3846514212864
+               },
+    "nasFailureDomain":  "remote SMB share",
+    "notOffsite":  true,
+    "noNasMutation":  true
+}

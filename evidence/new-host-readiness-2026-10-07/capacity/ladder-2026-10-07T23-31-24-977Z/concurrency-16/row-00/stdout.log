@@ -1,0 +1,5 @@
+grow-lk T=-5C sigmaInf=0.00375 dims=64,64,64 (hexRadius=31, zHalfExtent=31, active=187551) dx=0.35um P=101325Pa paramSet=M1 surfacePolicy=aggregate-hv-g1h1-v6 farField=monopole-matched cfl=0.05 tol=1e-9 divTol=1e-7 maxSweeps=200000 targetExtent=1000000 seed=1 noise=0 seedRadius=2 seedSites=19 vKin=4.9482e-4m/s X0=0.1427um peclet<=2.08e-6 seedSymErr=0  smootherDriftLimit=1.599e-10
+step=1 attached=19 extent=5 AR=0.200000 sweeps=7120 div=9.99e-8 simTime=0.08s deltaSym=true elapsed=20.3s
+step=2 attached=19 extent=5 AR=0.200000 sweeps=6968 div=9.99e-8 simTime=0.17s deltaSym=true elapsed=41.2s
+step=3 attached=19 extent=5 AR=0.200000 sweeps=5501 div=1.00e-7 simTime=0.25s deltaSym=true elapsed=57.3s
+stop reason=step-cap step=3 attached=19 extent=5 AR=0.200000 symErr=0 deltaSymClean=true allConverged=true minShell=1.497e-2 minExchange=1.497e-2 worstDiv=9.999e-8 maxKineticFill=0.0500 maxAbsSmootherDrift=4.144e-14 smootherDriftLimit=1.599e-10 holeFills=0 simTime=0.25s fillLedger=6.175 holeFillDeficit=0.000 saturationClipped=0.000

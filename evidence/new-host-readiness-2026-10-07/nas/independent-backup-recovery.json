@@ -1,0 +1,702 @@
+{
+  "recordedAt": "2026-10-07T23:27:54.457Z",
+  "hostname": "HIL",
+  "sourceHead": "269ede646367a55a083d7234e183bfa364503a0b",
+  "scopeCommit": "efed3cca41e2aa07f37ac440bf5ef737b55b223b",
+  "node": "v24.13.1",
+  "command": "node out/new-host-readiness-2026-10-07/nas/recover-known-nas.mjs verify",
+  "helperSha256": "ff36bbbf97945430d765014ff04924b65784df2ac96a070ef74f2fbf9d63c304",
+  "nasMutation": false,
+  "sourcePruneAuthority": false,
+  "format": "bounded-independent-backup-recovery-v1",
+  "comparisonInventory": {
+    "format": "snowflake-nas-tree-inventory-v1",
+    "fileCount": 6,
+    "totalBytes": 14090188,
+    "treeSha256": "b068319b79613b444746dbce4a6b55ef41c03e978ee8166ef6cd9930ffbbe9b9",
+    "files": [
+      {
+        "path": "comparison-record-v2.json",
+        "byteLength": 3002,
+        "sha256": "5488f738f3068e74cfdbc38e07c35c1a30e21fe73f891a22ab1e8d50399086f8"
+      },
+      {
+        "path": "growth-B-intro.mp4",
+        "byteLength": 5592795,
+        "sha256": "a5ead695add684791f2cd2c02dc650a64d14e37a78df22606b4675f72f6a4c1f"
+      },
+      {
+        "path": "gutcheck-growth-v1.bin",
+        "byteLength": 7695060,
+        "sha256": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d"
+      },
+      {
+        "path": "poster-final.png",
+        "byteLength": 481983,
+        "sha256": "7b6e00030c4be45a6bec25db200ab0b31a6d28faca484724adeed2151c51a8ea"
+      },
+      {
+        "path": "poster-middle.png",
+        "byteLength": 263892,
+        "sha256": "91ecb688fed0d31a98ac1af6c01f188e0d518d86e16b213cd09d9fb0a27bae3d"
+      },
+      {
+        "path": "poster-start.png",
+        "byteLength": 53456,
+        "sha256": "77eef45804186f4ca8661da99985563f5882e26374e4237f8723faafe3ab99fc"
+      }
+    ]
+  },
+  "collections": [
+    {
+      "collection": "windows-phase6-ladder-workspace@2026-08-20",
+      "backupSource": "C:\\Users\\biao3\\snowflake-nas-backup\\collections\\windows-phase6-ladder-workspace\\2026-08-20\\payload",
+      "restoredDestination": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\restores\\new-host-independent-backup-2026-10-07\\windows-phase6-ladder-workspace-2026-08-20",
+      "ownerManifestSha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
+      "expectedTreeSha256": "a1492e9744de45d09e442fdf06ee8abc647c1cb3e119f71dcafe13a693e65de2",
+      "backupInventory": {
+        "format": "snowflake-nas-tree-inventory-v1",
+        "fileCount": 9,
+        "totalBytes": 131247,
+        "treeSha256": "a1492e9744de45d09e442fdf06ee8abc647c1cb3e119f71dcafe13a693e65de2",
+        "files": [
+          {
+            "path": "ladder-out/phase6-wp2-ladder-launch.log",
+            "byteLength": 2721,
+            "sha256": "c4c120f7df3827be41e7af3b60ecce7947fbb989e7613c218b6c38e078744bcd"
+          },
+          {
+            "path": "ladder-out/phase6-wp2-ladder-launch2.log",
+            "byteLength": 251,
+            "sha256": "bae3cf6a75fafc2e3b556a90d9d99f9adae9cc07773c9d526df4d077195157ad"
+          },
+          {
+            "path": "ladder-out/phase6-wp2-ladder-launch3.log",
+            "byteLength": 1697,
+            "sha256": "3a1136dcb07abbc935142727c52b3531c3ffb1edca3de81160eaa05279f6260d"
+          },
+          {
+            "path": "ladder-out/phase6-wp2-ladder-launch4.log",
+            "byteLength": 3895,
+            "sha256": "c55192df4bdee9549304eb0b312dd8aa57de7196d1d96dc187cbcd5b2dc2abdd"
+          },
+          {
+            "path": "ladder-out/phase6-wp2-ladder-launch5.log",
+            "byteLength": 1183,
+            "sha256": "13ba9ed1b410dd2815aa47b57fd9712f7e60599210a09c7d8e15646393447818"
+          },
+          {
+            "path": "ladder-out/phase6-wp2-ladder-launch6.log",
+            "byteLength": 3298,
+            "sha256": "b5c9117ddf27588640bb2d6fa6b9d90d869f6212230e9fb3a10de6cff7d9a4b0"
+          },
+          {
+            "path": "ladder-out/phase6-wp2-ladder-launch7.log",
+            "byteLength": 13317,
+            "sha256": "e395d0e9c76a72cca23da89b0a4131911032561578e5af43faef3e8dfafc9954"
+          },
+          {
+            "path": "ladder-out/phase6-wp2-ladder/live.log",
+            "byteLength": 31012,
+            "sha256": "44f8e5cca3e3df55ce813d8840162da96ac5a8a8b74bf084b7633d24b030bfde"
+          },
+          {
+            "path": "ladder-out/phase6-wp2-ladder/rows.jsonl",
+            "byteLength": 73873,
+            "sha256": "c4fa70f7d8351f998f4800ff580ddaad0eb09fd2e2f2df7f606ca717e789cd14"
+          }
+        ]
+      },
+      "restoredInventory": {
+        "format": "snowflake-nas-tree-inventory-v1",
+        "fileCount": 9,
+        "totalBytes": 131247,
+        "treeSha256": "a1492e9744de45d09e442fdf06ee8abc647c1cb3e119f71dcafe13a693e65de2",
+        "files": [
+          {
+            "path": "ladder-out/phase6-wp2-ladder-launch.log",
+            "byteLength": 2721,
+            "sha256": "c4c120f7df3827be41e7af3b60ecce7947fbb989e7613c218b6c38e078744bcd"
+          },
+          {
+            "path": "ladder-out/phase6-wp2-ladder-launch2.log",
+            "byteLength": 251,
+            "sha256": "bae3cf6a75fafc2e3b556a90d9d99f9adae9cc07773c9d526df4d077195157ad"
+          },
+          {
+            "path": "ladder-out/phase6-wp2-ladder-launch3.log",
+            "byteLength": 1697,
+            "sha256": "3a1136dcb07abbc935142727c52b3531c3ffb1edca3de81160eaa05279f6260d"
+          },
+          {
+            "path": "ladder-out/phase6-wp2-ladder-launch4.log",
+            "byteLength": 3895,
+            "sha256": "c55192df4bdee9549304eb0b312dd8aa57de7196d1d96dc187cbcd5b2dc2abdd"
+          },
+          {
+            "path": "ladder-out/phase6-wp2-ladder-launch5.log",
+            "byteLength": 1183,
+            "sha256": "13ba9ed1b410dd2815aa47b57fd9712f7e60599210a09c7d8e15646393447818"
+          },
+          {
+            "path": "ladder-out/phase6-wp2-ladder-launch6.log",
+            "byteLength": 3298,
+            "sha256": "b5c9117ddf27588640bb2d6fa6b9d90d869f6212230e9fb3a10de6cff7d9a4b0"
+          },
+          {
+            "path": "ladder-out/phase6-wp2-ladder-launch7.log",
+            "byteLength": 13317,
+            "sha256": "e395d0e9c76a72cca23da89b0a4131911032561578e5af43faef3e8dfafc9954"
+          },
+          {
+            "path": "ladder-out/phase6-wp2-ladder/live.log",
+            "byteLength": 31012,
+            "sha256": "44f8e5cca3e3df55ce813d8840162da96ac5a8a8b74bf084b7633d24b030bfde"
+          },
+          {
+            "path": "ladder-out/phase6-wp2-ladder/rows.jsonl",
+            "byteLength": 73873,
+            "sha256": "c4fa70f7d8351f998f4800ff580ddaad0eb09fd2e2f2df7f606ca717e789cd14"
+          }
+        ]
+      },
+      "files": [
+        {
+          "sharePath": "collections/windows-phase6-ladder-workspace/2026-08-20/payload/ladder-out/phase6-wp2-ladder-launch.log",
+          "relativePath": "ladder-out/phase6-wp2-ladder-launch.log",
+          "bytes": 2721,
+          "sha256": "c4c120f7df3827be41e7af3b60ecce7947fbb989e7613c218b6c38e078744bcd"
+        },
+        {
+          "sharePath": "collections/windows-phase6-ladder-workspace/2026-08-20/payload/ladder-out/phase6-wp2-ladder-launch2.log",
+          "relativePath": "ladder-out/phase6-wp2-ladder-launch2.log",
+          "bytes": 251,
+          "sha256": "bae3cf6a75fafc2e3b556a90d9d99f9adae9cc07773c9d526df4d077195157ad"
+        },
+        {
+          "sharePath": "collections/windows-phase6-ladder-workspace/2026-08-20/payload/ladder-out/phase6-wp2-ladder-launch3.log",
+          "relativePath": "ladder-out/phase6-wp2-ladder-launch3.log",
+          "bytes": 1697,
+          "sha256": "3a1136dcb07abbc935142727c52b3531c3ffb1edca3de81160eaa05279f6260d"
+        },
+        {
+          "sharePath": "collections/windows-phase6-ladder-workspace/2026-08-20/payload/ladder-out/phase6-wp2-ladder-launch4.log",
+          "relativePath": "ladder-out/phase6-wp2-ladder-launch4.log",
+          "bytes": 3895,
+          "sha256": "c55192df4bdee9549304eb0b312dd8aa57de7196d1d96dc187cbcd5b2dc2abdd"
+        },
+        {
+          "sharePath": "collections/windows-phase6-ladder-workspace/2026-08-20/payload/ladder-out/phase6-wp2-ladder-launch5.log",
+          "relativePath": "ladder-out/phase6-wp2-ladder-launch5.log",
+          "bytes": 1183,
+          "sha256": "13ba9ed1b410dd2815aa47b57fd9712f7e60599210a09c7d8e15646393447818"
+        },
+        {
+          "sharePath": "collections/windows-phase6-ladder-workspace/2026-08-20/payload/ladder-out/phase6-wp2-ladder-launch6.log",
+          "relativePath": "ladder-out/phase6-wp2-ladder-launch6.log",
+          "bytes": 3298,
+          "sha256": "b5c9117ddf27588640bb2d6fa6b9d90d869f6212230e9fb3a10de6cff7d9a4b0"
+        },
+        {
+          "sharePath": "collections/windows-phase6-ladder-workspace/2026-08-20/payload/ladder-out/phase6-wp2-ladder-launch7.log",
+          "relativePath": "ladder-out/phase6-wp2-ladder-launch7.log",
+          "bytes": 13317,
+          "sha256": "e395d0e9c76a72cca23da89b0a4131911032561578e5af43faef3e8dfafc9954"
+        },
+        {
+          "sharePath": "collections/windows-phase6-ladder-workspace/2026-08-20/payload/ladder-out/phase6-wp2-ladder/live.log",
+          "relativePath": "ladder-out/phase6-wp2-ladder/live.log",
+          "bytes": 31012,
+          "sha256": "44f8e5cca3e3df55ce813d8840162da96ac5a8a8b74bf084b7633d24b030bfde"
+        },
+        {
+          "sharePath": "collections/windows-phase6-ladder-workspace/2026-08-20/payload/ladder-out/phase6-wp2-ladder/rows.jsonl",
+          "relativePath": "ladder-out/phase6-wp2-ladder/rows.jsonl",
+          "bytes": 73873,
+          "sha256": "c4fa70f7d8351f998f4800ff580ddaad0eb09fd2e2f2df7f606ca717e789cd14"
+        }
+      ]
+    },
+    {
+      "collection": "windows-out-gate-artifacts@2026-08-20",
+      "backupSource": "C:\\Users\\biao3\\snowflake-nas-backup\\collections\\windows-out-gate-artifacts\\2026-08-20\\payload",
+      "restoredDestination": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\restores\\new-host-independent-backup-2026-10-07\\windows-out-gate-artifacts-2026-08-20",
+      "ownerManifestSha256": "46a0d214394a0d149037803f932752131c8ea2b457584cb34c2a9ad3a828c9c7",
+      "expectedTreeSha256": "2891eb05ed7ddfc0f2d5114c39978ca183faf3b4c247fff285af54aebd3f80e5",
+      "backupInventory": {
+        "format": "snowflake-nas-tree-inventory-v1",
+        "fileCount": 28,
+        "totalBytes": 137079788,
+        "treeSha256": "2891eb05ed7ddfc0f2d5114c39978ca183faf3b4c247fff285af54aebd3f80e5",
+        "files": [
+          {
+            "path": "out-root/gate2b-column.ckpt",
+            "byteLength": 15041051,
+            "sha256": "108227d929af7686eea6f95e30f60caa5d6f2deed12793340ec0c1931a7723ca"
+          },
+          {
+            "path": "out-root/gate2b-exit-status.txt",
+            "byteLength": 1406,
+            "sha256": "9f3e13503db3d9decb6ae9323650f013d2ff44786688527f9399eb997dca224b"
+          },
+          {
+            "path": "out-root/gate2b-plate.ckpt",
+            "byteLength": 15041049,
+            "sha256": "e1fe0c8062aa4dd21e42a83d1bf953ee5cd72c45e55c6d2bdf18c65595902ecb"
+          },
+          {
+            "path": "out-root/gate2b-rerun-20260717_162159.err",
+            "byteLength": 596,
+            "sha256": "bcb3b63974063e85d359210353878060919b67a7627694e19ba11db3fd82a1d5"
+          },
+          {
+            "path": "out-root/gate2b-rerun-20260717_162159.log",
+            "byteLength": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "out-root/gate2b-rerun-20260717_162411.err",
+            "byteLength": 597,
+            "sha256": "3b82dac2fdbcef9bb0534091c49779551bceca3fe6eaea9e61eff9df6ed3d6d0"
+          },
+          {
+            "path": "out-root/gate2b-rerun-20260717_162411.log",
+            "byteLength": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "out-root/gate2b-result-probe.ts",
+            "byteLength": 2305,
+            "sha256": "3b670ea09993be64c7ca1a3758a0a059373fb175e880926c339be8921800a1e4"
+          },
+          {
+            "path": "out-root/gate2b-v4-rerun-20260717_161846.err",
+            "byteLength": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "out-root/gate2b-v4-rerun-20260717_161846.log",
+            "byteLength": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "out-root/gate2b-v4-rerun-20260717_161853.err",
+            "byteLength": 968,
+            "sha256": "025e2b2877e8f04db177645c6f0ac762979e4d33888d10e21ffd696042033f92"
+          },
+          {
+            "path": "out-root/gate2b-v4-rerun-20260717_161853.log",
+            "byteLength": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "out-root/gate2b.log",
+            "byteLength": 1908,
+            "sha256": "344bbcacfd06626bafd5ea0ca66770fd9e48cbef949d25a8abf7e3bfc17e44b0"
+          },
+          {
+            "path": "out-root/gate3-depletion.csv",
+            "byteLength": 4993,
+            "sha256": "e3aec1f703d6cb56fc7db7b33f3a47677bd585b73fb457cdabceb444ca87a13e"
+          },
+          {
+            "path": "out-root/gate3-exit-status.txt",
+            "byteLength": 14,
+            "sha256": "d00fb6132827ee216f20f99c7de0efada224a83931c3146743b6136c4c6dfd3f"
+          },
+          {
+            "path": "out-root/gate3-plate.ckpt",
+            "byteLength": 17826573,
+            "sha256": "f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389"
+          },
+          {
+            "path": "out-root/gate3.log",
+            "byteLength": 7924,
+            "sha256": "aaeba6b3ba3d96503539bbbcbac353a2bffeb5b6e88e198edc8f50edc63c54b9"
+          },
+          {
+            "path": "out-root/plate-gate-enforced.log",
+            "byteLength": 2933,
+            "sha256": "aff116a5df59c01a11387d0e0e77203264fbdcf2827fedbd9a56a74289ccf3fa"
+          },
+          {
+            "path": "out-root/plate-gate-postrefactor.ckpt",
+            "byteLength": 17826573,
+            "sha256": "f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389"
+          },
+          {
+            "path": "out-root/plate-gate-postrefactor.log",
+            "byteLength": 2947,
+            "sha256": "0a16633a9a9e39f1bf8d78ee3c5299e0123c40a56f8845d96a82988a12499b89"
+          },
+          {
+            "path": "out-root/plate-gate-round2.ckpt",
+            "byteLength": 17826573,
+            "sha256": "f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389"
+          },
+          {
+            "path": "out-root/plate-gate-round2.log",
+            "byteLength": 2941,
+            "sha256": "2fe807d65989f4598ea39b795de270d6cbaadf3076dbf426d01ea76a03c079ec"
+          },
+          {
+            "path": "out-root/plate-gate-round3.ckpt",
+            "byteLength": 17826573,
+            "sha256": "f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389"
+          },
+          {
+            "path": "out-root/plate-gate-round3.log",
+            "byteLength": 2941,
+            "sha256": "7736431ca84e1ae18da5cfa2ba4899412a83c7bd099a9ea22469471a8138bb69"
+          },
+          {
+            "path": "out-root/plate-gate-round5.ckpt",
+            "byteLength": 17826573,
+            "sha256": "f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389"
+          },
+          {
+            "path": "out-root/plate-gate-round5.log",
+            "byteLength": 2941,
+            "sha256": "4af84e84fb54095f5f80aeac4d39b6dce13cfe1b7ca618e5b73de7840f9f4262"
+          },
+          {
+            "path": "out-root/plate-gate.ckpt",
+            "byteLength": 17826573,
+            "sha256": "f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389"
+          },
+          {
+            "path": "out-root/plate-gate.log",
+            "byteLength": 2836,
+            "sha256": "8c8d615a416eb51d1655ee8914f98de62adb3f7e437771b7333acc535f5c29b5"
+          }
+        ]
+      },
+      "restoredInventory": {
+        "format": "snowflake-nas-tree-inventory-v1",
+        "fileCount": 28,
+        "totalBytes": 137079788,
+        "treeSha256": "2891eb05ed7ddfc0f2d5114c39978ca183faf3b4c247fff285af54aebd3f80e5",
+        "files": [
+          {
+            "path": "out-root/gate2b-column.ckpt",
+            "byteLength": 15041051,
+            "sha256": "108227d929af7686eea6f95e30f60caa5d6f2deed12793340ec0c1931a7723ca"
+          },
+          {
+            "path": "out-root/gate2b-exit-status.txt",
+            "byteLength": 1406,
+            "sha256": "9f3e13503db3d9decb6ae9323650f013d2ff44786688527f9399eb997dca224b"
+          },
+          {
+            "path": "out-root/gate2b-plate.ckpt",
+            "byteLength": 15041049,
+            "sha256": "e1fe0c8062aa4dd21e42a83d1bf953ee5cd72c45e55c6d2bdf18c65595902ecb"
+          },
+          {
+            "path": "out-root/gate2b-rerun-20260717_162159.err",
+            "byteLength": 596,
+            "sha256": "bcb3b63974063e85d359210353878060919b67a7627694e19ba11db3fd82a1d5"
+          },
+          {
+            "path": "out-root/gate2b-rerun-20260717_162159.log",
+            "byteLength": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "out-root/gate2b-rerun-20260717_162411.err",
+            "byteLength": 597,
+            "sha256": "3b82dac2fdbcef9bb0534091c49779551bceca3fe6eaea9e61eff9df6ed3d6d0"
+          },
+          {
+            "path": "out-root/gate2b-rerun-20260717_162411.log",
+            "byteLength": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "out-root/gate2b-result-probe.ts",
+            "byteLength": 2305,
+            "sha256": "3b670ea09993be64c7ca1a3758a0a059373fb175e880926c339be8921800a1e4"
+          },
+          {
+            "path": "out-root/gate2b-v4-rerun-20260717_161846.err",
+            "byteLength": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "out-root/gate2b-v4-rerun-20260717_161846.log",
+            "byteLength": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "out-root/gate2b-v4-rerun-20260717_161853.err",
+            "byteLength": 968,
+            "sha256": "025e2b2877e8f04db177645c6f0ac762979e4d33888d10e21ffd696042033f92"
+          },
+          {
+            "path": "out-root/gate2b-v4-rerun-20260717_161853.log",
+            "byteLength": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "out-root/gate2b.log",
+            "byteLength": 1908,
+            "sha256": "344bbcacfd06626bafd5ea0ca66770fd9e48cbef949d25a8abf7e3bfc17e44b0"
+          },
+          {
+            "path": "out-root/gate3-depletion.csv",
+            "byteLength": 4993,
+            "sha256": "e3aec1f703d6cb56fc7db7b33f3a47677bd585b73fb457cdabceb444ca87a13e"
+          },
+          {
+            "path": "out-root/gate3-exit-status.txt",
+            "byteLength": 14,
+            "sha256": "d00fb6132827ee216f20f99c7de0efada224a83931c3146743b6136c4c6dfd3f"
+          },
+          {
+            "path": "out-root/gate3-plate.ckpt",
+            "byteLength": 17826573,
+            "sha256": "f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389"
+          },
+          {
+            "path": "out-root/gate3.log",
+            "byteLength": 7924,
+            "sha256": "aaeba6b3ba3d96503539bbbcbac353a2bffeb5b6e88e198edc8f50edc63c54b9"
+          },
+          {
+            "path": "out-root/plate-gate-enforced.log",
+            "byteLength": 2933,
+            "sha256": "aff116a5df59c01a11387d0e0e77203264fbdcf2827fedbd9a56a74289ccf3fa"
+          },
+          {
+            "path": "out-root/plate-gate-postrefactor.ckpt",
+            "byteLength": 17826573,
+            "sha256": "f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389"
+          },
+          {
+            "path": "out-root/plate-gate-postrefactor.log",
+            "byteLength": 2947,
+            "sha256": "0a16633a9a9e39f1bf8d78ee3c5299e0123c40a56f8845d96a82988a12499b89"
+          },
+          {
+            "path": "out-root/plate-gate-round2.ckpt",
+            "byteLength": 17826573,
+            "sha256": "f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389"
+          },
+          {
+            "path": "out-root/plate-gate-round2.log",
+            "byteLength": 2941,
+            "sha256": "2fe807d65989f4598ea39b795de270d6cbaadf3076dbf426d01ea76a03c079ec"
+          },
+          {
+            "path": "out-root/plate-gate-round3.ckpt",
+            "byteLength": 17826573,
+            "sha256": "f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389"
+          },
+          {
+            "path": "out-root/plate-gate-round3.log",
+            "byteLength": 2941,
+            "sha256": "7736431ca84e1ae18da5cfa2ba4899412a83c7bd099a9ea22469471a8138bb69"
+          },
+          {
+            "path": "out-root/plate-gate-round5.ckpt",
+            "byteLength": 17826573,
+            "sha256": "f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389"
+          },
+          {
+            "path": "out-root/plate-gate-round5.log",
+            "byteLength": 2941,
+            "sha256": "4af84e84fb54095f5f80aeac4d39b6dce13cfe1b7ca618e5b73de7840f9f4262"
+          },
+          {
+            "path": "out-root/plate-gate.ckpt",
+            "byteLength": 17826573,
+            "sha256": "f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389"
+          },
+          {
+            "path": "out-root/plate-gate.log",
+            "byteLength": 2836,
+            "sha256": "8c8d615a416eb51d1655ee8914f98de62adb3f7e437771b7333acc535f5c29b5"
+          }
+        ]
+      },
+      "files": [
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/gate2b-column.ckpt",
+          "relativePath": "out-root/gate2b-column.ckpt",
+          "bytes": 15041051,
+          "sha256": "108227d929af7686eea6f95e30f60caa5d6f2deed12793340ec0c1931a7723ca"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/gate2b-exit-status.txt",
+          "relativePath": "out-root/gate2b-exit-status.txt",
+          "bytes": 1406,
+          "sha256": "9f3e13503db3d9decb6ae9323650f013d2ff44786688527f9399eb997dca224b"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/gate2b-plate.ckpt",
+          "relativePath": "out-root/gate2b-plate.ckpt",
+          "bytes": 15041049,
+          "sha256": "e1fe0c8062aa4dd21e42a83d1bf953ee5cd72c45e55c6d2bdf18c65595902ecb"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/gate2b-rerun-20260717_162159.err",
+          "relativePath": "out-root/gate2b-rerun-20260717_162159.err",
+          "bytes": 596,
+          "sha256": "bcb3b63974063e85d359210353878060919b67a7627694e19ba11db3fd82a1d5"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/gate2b-rerun-20260717_162159.log",
+          "relativePath": "out-root/gate2b-rerun-20260717_162159.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/gate2b-rerun-20260717_162411.err",
+          "relativePath": "out-root/gate2b-rerun-20260717_162411.err",
+          "bytes": 597,
+          "sha256": "3b82dac2fdbcef9bb0534091c49779551bceca3fe6eaea9e61eff9df6ed3d6d0"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/gate2b-rerun-20260717_162411.log",
+          "relativePath": "out-root/gate2b-rerun-20260717_162411.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/gate2b-result-probe.ts",
+          "relativePath": "out-root/gate2b-result-probe.ts",
+          "bytes": 2305,
+          "sha256": "3b670ea09993be64c7ca1a3758a0a059373fb175e880926c339be8921800a1e4"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/gate2b-v4-rerun-20260717_161846.err",
+          "relativePath": "out-root/gate2b-v4-rerun-20260717_161846.err",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/gate2b-v4-rerun-20260717_161846.log",
+          "relativePath": "out-root/gate2b-v4-rerun-20260717_161846.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/gate2b-v4-rerun-20260717_161853.err",
+          "relativePath": "out-root/gate2b-v4-rerun-20260717_161853.err",
+          "bytes": 968,
+          "sha256": "025e2b2877e8f04db177645c6f0ac762979e4d33888d10e21ffd696042033f92"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/gate2b-v4-rerun-20260717_161853.log",
+          "relativePath": "out-root/gate2b-v4-rerun-20260717_161853.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/gate2b.log",
+          "relativePath": "out-root/gate2b.log",
+          "bytes": 1908,
+          "sha256": "344bbcacfd06626bafd5ea0ca66770fd9e48cbef949d25a8abf7e3bfc17e44b0"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/gate3-depletion.csv",
+          "relativePath": "out-root/gate3-depletion.csv",
+          "bytes": 4993,
+          "sha256": "e3aec1f703d6cb56fc7db7b33f3a47677bd585b73fb457cdabceb444ca87a13e"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/gate3-exit-status.txt",
+          "relativePath": "out-root/gate3-exit-status.txt",
+          "bytes": 14,
+          "sha256": "d00fb6132827ee216f20f99c7de0efada224a83931c3146743b6136c4c6dfd3f"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/gate3-plate.ckpt",
+          "relativePath": "out-root/gate3-plate.ckpt",
+          "bytes": 17826573,
+          "sha256": "f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/gate3.log",
+          "relativePath": "out-root/gate3.log",
+          "bytes": 7924,
+          "sha256": "aaeba6b3ba3d96503539bbbcbac353a2bffeb5b6e88e198edc8f50edc63c54b9"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/plate-gate-enforced.log",
+          "relativePath": "out-root/plate-gate-enforced.log",
+          "bytes": 2933,
+          "sha256": "aff116a5df59c01a11387d0e0e77203264fbdcf2827fedbd9a56a74289ccf3fa"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/plate-gate-postrefactor.ckpt",
+          "relativePath": "out-root/plate-gate-postrefactor.ckpt",
+          "bytes": 17826573,
+          "sha256": "f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/plate-gate-postrefactor.log",
+          "relativePath": "out-root/plate-gate-postrefactor.log",
+          "bytes": 2947,
+          "sha256": "0a16633a9a9e39f1bf8d78ee3c5299e0123c40a56f8845d96a82988a12499b89"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/plate-gate-round2.ckpt",
+          "relativePath": "out-root/plate-gate-round2.ckpt",
+          "bytes": 17826573,
+          "sha256": "f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/plate-gate-round2.log",
+          "relativePath": "out-root/plate-gate-round2.log",
+          "bytes": 2941,
+          "sha256": "2fe807d65989f4598ea39b795de270d6cbaadf3076dbf426d01ea76a03c079ec"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/plate-gate-round3.ckpt",
+          "relativePath": "out-root/plate-gate-round3.ckpt",
+          "bytes": 17826573,
+          "sha256": "f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/plate-gate-round3.log",
+          "relativePath": "out-root/plate-gate-round3.log",
+          "bytes": 2941,
+          "sha256": "7736431ca84e1ae18da5cfa2ba4899412a83c7bd099a9ea22469471a8138bb69"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/plate-gate-round5.ckpt",
+          "relativePath": "out-root/plate-gate-round5.ckpt",
+          "bytes": 17826573,
+          "sha256": "f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/plate-gate-round5.log",
+          "relativePath": "out-root/plate-gate-round5.log",
+          "bytes": 2941,
+          "sha256": "4af84e84fb54095f5f80aeac4d39b6dce13cfe1b7ca618e5b73de7840f9f4262"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/plate-gate.ckpt",
+          "relativePath": "out-root/plate-gate.ckpt",
+          "bytes": 17826573,
+          "sha256": "f1796b501564937874065d411455a02a7c8dfb673710df01f799500df0d3a389"
+        },
+        {
+          "sharePath": "collections/windows-out-gate-artifacts/2026-08-20/payload/out-root/plate-gate.log",
+          "relativePath": "out-root/plate-gate.log",
+          "bytes": 2836,
+          "sha256": "8c8d615a416eb51d1655ee8914f98de62adb3f7e437771b7333acc535f5c29b5"
+        }
+      ]
+    }
+  ],
+  "totalFiles": 37,
+  "totalBytes": 137211035,
+  "scientificState": "historical bytes unchanged; operational recovery only",
+  "limits": [
+    "Recovery source is the current independent C backup, not NAS.",
+    "Other required-missing backups and unresolved custody are outside this bounded scope.",
+    "NAS and all original source custody retained; no prune authorization."
+  ]
+}

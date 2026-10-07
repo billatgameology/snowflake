@@ -1,0 +1,6 @@
+﻿{
+    "command":  "node out/new-host-readiness-2026-10-07/resume/run-witness.mjs",
+    "started":  "2026-10-07T23:29:08.5049620Z",
+    "finished":  "2026-10-07T23:29:08.9898686Z",
+    "code":  0
+}

@@ -1,0 +1,3700 @@
+{
+  "format": "gutcheck-growth-comparison-glass-browser-v1",
+  "status": "pass",
+  "command": [
+    "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+    "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\app\\scripts\\growth-comparison-capture.mjs",
+    "--record",
+    "out/new-host-readiness-2026-10-07/comparison-inputs/comparison-record-v2.json",
+    "--growth",
+    "out/new-host-readiness-2026-10-07/comparison-inputs/gutcheck-growth-v1.bin",
+    "--legacy-video",
+    "out/new-host-readiness-2026-10-07/comparison-inputs/growth-B-intro.mp4",
+    "--poster",
+    "out/new-host-readiness-2026-10-07/comparison-inputs/poster-start.png",
+    "--poster",
+    "out/new-host-readiness-2026-10-07/comparison-inputs/poster-middle.png",
+    "--poster",
+    "out/new-host-readiness-2026-10-07/comparison-inputs/poster-final.png",
+    "--out-dir",
+    "out/new-host-readiness-2026-10-07/comparison-browser-glass-v2",
+    "--port",
+    "4334"
+  ],
+  "browser": "149.0.7827.55",
+  "renderer": "Chromium ANGLE SwiftShader",
+  "inputs": {
+    "record": {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\comparison-inputs\\comparison-record-v2.json",
+      "bytes": 3002,
+      "sha256": "5488f738f3068e74cfdbc38e07c35c1a30e21fe73f891a22ab1e8d50399086f8"
+    },
+    "growth": {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\comparison-inputs\\gutcheck-growth-v1.bin",
+      "bytes": 7695060,
+      "sha256": "475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d"
+    },
+    "legacyVideo": {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\comparison-inputs\\growth-B-intro.mp4",
+      "bytes": 5592795,
+      "sha256": "a5ead695add684791f2cd2c02dc650a64d14e37a78df22606b4675f72f6a4c1f"
+    },
+    "authoredScene": {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\app\\scenes\\growth-B-intro.json",
+      "bytes": 838,
+      "sha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+      "id": "run-b-intro-v1"
+    },
+    "posters": [
+      {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\comparison-inputs\\poster-start.png",
+        "bytes": 53456,
+        "sha256": "77eef45804186f4ca8661da99985563f5882e26374e4237f8723faafe3ab99fc"
+      },
+      {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\comparison-inputs\\poster-middle.png",
+        "bytes": 263892,
+        "sha256": "91ecb688fed0d31a98ac1af6c01f188e0d518d86e16b213cd09d9fb0a27bae3d"
+      },
+      {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\comparison-inputs\\poster-final.png",
+        "bytes": 481983,
+        "sha256": "7b6e00030c4be45a6bec25db200ab0b31a6d28faca484724adeed2151c51a8ea"
+      }
+    ]
+  },
+  "independentlyDecoded": {
+    "eventCount": 961597,
+    "finalTick": 70000,
+    "crop": {
+      "iMin": 304,
+      "iMax": 896,
+      "jMin": 304,
+      "jMax": 896,
+      "kMin": 16,
+      "kMax": 32,
+      "padding": 2
+    },
+    "finalEventTick": 70000
+  },
+  "valid": {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "initialTick": 74.30769230769238,
+    "readiness": {
+      "comparisonReady": true,
+      "comparisonError": null,
+      "comparisonDebugPresent": true,
+      "comparisonReducedMotion": false,
+      "compactDebugPresent": true,
+      "compactPlaying": true,
+      "compactAppearance": {
+        "name": "glass",
+        "style": "glass",
+        "ior": 1.12,
+        "roughness": 0.02,
+        "specular": 0.8,
+        "clearcoat": 0.35
+      },
+      "compactPresentation": {
+        "id": "run-b-intro-v1",
+        "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+        "durationSeconds": 16,
+        "sceneSeconds": 0.013800000000000012,
+        "sampledFrame": 0.7430769230769237,
+        "legacyFrame": 1,
+        "tickInterval": 100,
+        "growthSampling": "continuous-frame-coordinate",
+        "cameraMode": "scripted",
+        "camera": {
+          "tiltDegrees": 0.000001460040000000004,
+          "yawDegrees": 0.0000019467200000000056,
+          "zoom": 1.000000012167
+        }
+      },
+      "compactFraming": {
+        "fitMode": "tour-bounds-with-authored-zoom",
+        "sourceFrameExtent": 620,
+        "baseSpan": 544.8687049189007,
+        "tourMaximumZoom": 1.25,
+        "radius": 310,
+        "halfWidth": 876.6602626628123,
+        "halfHeight": 544.8687049189007,
+        "projectedBounds": {
+          "xMin": -0.33536368049230175,
+          "xMax": 0.33536368049230175,
+          "yMin": -0.46728960549215176,
+          "yMax": 0.46728960549215154
+        }
+      }
+    },
+    "content": {
+      "headline": "One crystal.Two timelines.",
+      "tableCount": 1,
+      "iframeTitle": "Interactive compact Run B growth replay",
+      "iframeSrc": "http://127.0.0.1:4334/spike-gg-realism.html?growth=blob%3Ahttp%3A%2F%2F127.0.0.1%3A4334%2F704d8cdb-8d4a-4de1-a448-04efd5de1662&look=glass&quality=medium&presentation=run-b-intro-v1&autoplay=1&comparisonAttempt=1",
+      "legacySizeNote": "701 frames plus manifest · 6,622,194,703 bytes",
+      "compactSizeNote": "One measured file · 7,695,060 bytes",
+      "ratio": "861× smaller"
+    },
+    "screenshots": {
+      "landscape": "133e53fb7a3d71d10677c8e089cf6fe51fc779bf7513aeb21206f4d52f8295dc",
+      "fullPage": "e4659139544d08799eeab3e7942cea6a1e0cf94486b8dbf8f300573734750d11",
+      "start": "4c514bcf3c58817a8f82bd9810b1014d4586579f486d778142369cefc00f9dec",
+      "middle": "1c9769a06b576a9e3eb2eb26c87a77c292d3c67c7b344f8eb787c200c41ea3ea",
+      "final": "723393ef1ad53e31bfcc0b9a942f9d6449ea8acf70ed5ac739c921035b7ef1e2",
+      "reverse": "1c9769a06b576a9e3eb2eb26c87a77c292d3c67c7b344f8eb787c200c41ea3ea",
+      "authoredOblique": "2bd74d8908dd1ae046b70649030004bdbd5e83f0aa5b62a46412dbf1ffb0f79c",
+      "finalHold": "3cf577c81f102defd73f44aec509dcccd0eb3335bf310513890a436d3abe6b9f",
+      "orbit": "915b6b25579f6ada5f7fcfc6a491034557754d8fc25c8cd56d04536dba128898",
+      "portrait": "52183423fdfbf647b9009e69ece16c338477e096dcd18b560147a46047d04cdd"
+    },
+    "layout": {
+      "landscape": {
+        "innerWidth": 1440,
+        "scrollWidth": 1440
+      },
+      "portrait": {
+        "innerWidth": 390,
+        "scrollWidth": 390
+      }
+    },
+    "requests": {
+      "total": 40,
+      "comparisonRecord": 1,
+      "compactAsset": 1,
+      "legacyManifest": 0,
+      "legacyMeshes": 0,
+      "entries": [
+        {
+          "url": "http://127.0.0.1:4334/gutcheck-growth-comparison.html?record=%2Fcomparison-record.json",
+          "method": "GET",
+          "resourceType": "document"
+        },
+        {
+          "url": "http://127.0.0.1:4334/@vite/client",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-comparison.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/@fs/C:/Users/biao3/Documents/GitHub/snowflake-resume-readiness/node_modules/vite/dist/client/env.mjs",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-comparison.css",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-comparison-record.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-format.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/sha256.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-scene-motion.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/scenes/growth-B-intro.json?import&raw",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-record.json",
+          "method": "GET",
+          "resourceType": "fetch"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/gutcheck-growth-v1.bin",
+          "method": "GET",
+          "resourceType": "fetch"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/poster-start.png",
+          "method": "GET",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/growth-B-intro.mp4",
+          "method": "GET",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:4334/spike-gg-realism.html?growth=blob%3Ahttp%3A%2F%2F127.0.0.1%3A4334%2F704d8cdb-8d4a-4de1-a448-04efd5de1662&look=glass&quality=medium&presentation=run-b-intro-v1&autoplay=1&comparisonAttempt=1",
+          "method": "GET",
+          "resourceType": "document"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/growth-B-intro.mp4",
+          "method": "GET",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:4334/@vite/client",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/spike-gg-realism.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/@fs/C:/Users/biao3/Documents/GitHub/snowflake-resume-readiness/node_modules/vite/dist/client/env.mjs",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/node_modules/.vite/deps/three.js?v=e9519fa0",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/node_modules/.vite/deps/three_addons_controls_OrbitControls__js.js?v=e9519fa0",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/scene-editor.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-view.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-scene-motion.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/growth-asset.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/growth-scene.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/growth-scene-review-camera.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/spike-frame.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/node_modules/.vite/deps/chunk-J22CUE5G.js?v=e9519fa0",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/node_modules/.vite/deps/chunk-PICW5E4J.js?v=e9519fa0",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/node_modules/.vite/deps/chunk-YLJ4XMA6.js?v=e9519fa0",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-format.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-framing.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/scenes/growth-B-intro.json?import&raw",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/sha256.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/growth-B-intro.mp4",
+          "method": "GET",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/growth-B-intro.mp4",
+          "method": "GET",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/growth-B-intro.mp4",
+          "method": "GET",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/growth-B-intro.mp4",
+          "method": "GET",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/growth-B-intro.mp4",
+          "method": "GET",
+          "resourceType": "media"
+        }
+      ]
+    },
+    "controls": {
+      "buttonCount": 3,
+      "posterSeeks": [
+        {
+          "label": "start",
+          "tick": 0,
+          "videoTimeSeconds": 0,
+          "presentation": {
+            "id": "run-b-intro-v1",
+            "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+            "durationSeconds": 16,
+            "sceneSeconds": 0,
+            "sampledFrame": 0,
+            "legacyFrame": 0,
+            "tickInterval": 100,
+            "growthSampling": "continuous-frame-coordinate",
+            "cameraMode": "scripted",
+            "camera": {
+              "tiltDegrees": 0,
+              "yawDegrees": 0,
+              "zoom": 1
+            }
+          }
+        },
+        {
+          "label": "middle",
+          "tick": 35000,
+          "videoTimeSeconds": 6.5,
+          "presentation": {
+            "id": "run-b-intro-v1",
+            "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+            "durationSeconds": 16,
+            "sceneSeconds": 6.5,
+            "sampledFrame": 350,
+            "legacyFrame": 350,
+            "tickInterval": 100,
+            "growthSampling": "continuous-frame-coordinate",
+            "cameraMode": "scripted",
+            "camera": {
+              "tiltDegrees": 30.1,
+              "yawDegrees": 40.22,
+              "zoom": 1.2494
+            }
+          }
+        },
+        {
+          "label": "final",
+          "tick": 70000,
+          "videoTimeSeconds": 13,
+          "presentation": {
+            "id": "run-b-intro-v1",
+            "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+            "durationSeconds": 16,
+            "sceneSeconds": 13,
+            "sampledFrame": 700,
+            "legacyFrame": 700,
+            "tickInterval": 100,
+            "growthSampling": "continuous-frame-coordinate",
+            "cameraMode": "scripted",
+            "camera": {
+              "tiltDegrees": 35.685871056241425,
+              "yawDegrees": 103.77914951989025,
+              "zoom": 1.1280932784636488
+            }
+          }
+        }
+      ],
+      "sceneSeeks": [
+        {
+          "tick": 0,
+          "displayTick": 0,
+          "id": "run-b-intro-v1",
+          "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+          "durationSeconds": 16,
+          "sceneSeconds": 0,
+          "sampledFrame": 0,
+          "legacyFrame": 0,
+          "tickInterval": 100,
+          "growthSampling": "continuous-frame-coordinate",
+          "cameraMode": "scripted",
+          "camera": {
+            "tiltDegrees": 0,
+            "yawDegrees": 0,
+            "zoom": 1
+          },
+          "framing": {
+            "fitMode": "tour-bounds-with-authored-zoom",
+            "sourceFrameExtent": 620,
+            "baseSpan": 544.8687049189007,
+            "tourMaximumZoom": 1.25,
+            "radius": 310,
+            "halfWidth": 876.6602626628123,
+            "halfHeight": 544.8687049189007,
+            "projectedBounds": {
+              "xMin": -0.3353636665439694,
+              "xMax": 0.3353636665439694,
+              "yMin": -0.4672895808000605,
+              "yMax": 0.4672895808000603
+            }
+          }
+        },
+        {
+          "tick": 16153.846153846154,
+          "displayTick": 16153.846153846154,
+          "id": "run-b-intro-v1",
+          "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+          "durationSeconds": 16,
+          "sceneSeconds": 3,
+          "sampledFrame": 161.53846153846155,
+          "legacyFrame": 162,
+          "tickInterval": 100,
+          "growthSampling": "continuous-frame-coordinate",
+          "cameraMode": "scripted",
+          "camera": {
+            "tiltDegrees": 15,
+            "yawDegrees": 20,
+            "zoom": 1.125
+          },
+          "framing": {
+            "fitMode": "tour-bounds-with-authored-zoom",
+            "sourceFrameExtent": 620,
+            "baseSpan": 544.8687049189007,
+            "tourMaximumZoom": 1.25,
+            "radius": 310,
+            "halfWidth": 876.6602626628123,
+            "halfHeight": 544.8687049189007,
+            "projectedBounds": {
+              "xMin": -0.46628196136374456,
+              "xMax": 0.46628196136374456,
+              "yMin": -0.6854009152967941,
+              "yMax": 0.6854009152967937
+            }
+          }
+        },
+        {
+          "tick": 32307.69230769231,
+          "displayTick": 32307.69230769231,
+          "id": "run-b-intro-v1",
+          "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+          "durationSeconds": 16,
+          "sceneSeconds": 6,
+          "sampledFrame": 323.0769230769231,
+          "legacyFrame": 323,
+          "tickInterval": 100,
+          "growthSampling": "continuous-frame-coordinate",
+          "cameraMode": "scripted",
+          "camera": {
+            "tiltDegrees": 30,
+            "yawDegrees": 40,
+            "zoom": 1.25
+          },
+          "framing": {
+            "fitMode": "tour-bounds-with-authored-zoom",
+            "sourceFrameExtent": 620,
+            "baseSpan": 544.8687049189007,
+            "tourMaximumZoom": 1.25,
+            "radius": 310,
+            "halfWidth": 876.6602626628123,
+            "halfHeight": 544.8687049189007,
+            "projectedBounds": {
+              "xMin": -0.5544881241513512,
+              "xMax": 0.5544881241513511,
+              "yMin": -0.7794857137438154,
+              "yMax": 0.7794857137438148
+            }
+          }
+        },
+        {
+          "tick": 45769.230769230766,
+          "displayTick": 45769.230769230766,
+          "id": "run-b-intro-v1",
+          "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+          "durationSeconds": 16,
+          "sceneSeconds": 8.5,
+          "sampledFrame": 457.6923076923077,
+          "legacyFrame": 458,
+          "tickInterval": 100,
+          "growthSampling": "continuous-frame-coordinate",
+          "cameraMode": "scripted",
+          "camera": {
+            "tiltDegrees": 42.5,
+            "yawDegrees": 67.5,
+            "zoom": 1.175
+          },
+          "framing": {
+            "fitMode": "tour-bounds-with-authored-zoom",
+            "sourceFrameExtent": 620,
+            "baseSpan": 544.8687049189007,
+            "tourMaximumZoom": 1.25,
+            "radius": 310,
+            "halfWidth": 876.6602626628123,
+            "halfHeight": 544.8687049189007,
+            "projectedBounds": {
+              "xMin": -0.46607978098124336,
+              "xMax": 0.46607978098124353,
+              "yMin": -0.6077513126208394,
+              "yMax": 0.6077513126208387
+            }
+          }
+        },
+        {
+          "tick": 59230.76923076923,
+          "displayTick": 59230.76923076923,
+          "id": "run-b-intro-v1",
+          "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+          "durationSeconds": 16,
+          "sceneSeconds": 11,
+          "sampledFrame": 592.3076923076923,
+          "legacyFrame": 592,
+          "tickInterval": 100,
+          "growthSampling": "continuous-frame-coordinate",
+          "cameraMode": "scripted",
+          "camera": {
+            "tiltDegrees": 55,
+            "yawDegrees": 95,
+            "zoom": 1.1
+          },
+          "framing": {
+            "fitMode": "tour-bounds-with-authored-zoom",
+            "sourceFrameExtent": 620,
+            "baseSpan": 544.8687049189007,
+            "tourMaximumZoom": 1.25,
+            "radius": 310,
+            "halfWidth": 876.6602626628123,
+            "halfHeight": 544.8687049189007,
+            "projectedBounds": {
+              "xMin": -0.35041285092227753,
+              "xMax": 0.350412850922278,
+              "yMin": -0.38865342703147787,
+              "yMax": 0.3886534270314779
+            }
+          }
+        },
+        {
+          "tick": 70000,
+          "displayTick": 70116.66666666667,
+          "id": "run-b-intro-v1",
+          "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+          "durationSeconds": 16,
+          "sceneSeconds": 13,
+          "sampledFrame": 700,
+          "legacyFrame": 700,
+          "tickInterval": 100,
+          "growthSampling": "continuous-frame-coordinate",
+          "cameraMode": "scripted",
+          "camera": {
+            "tiltDegrees": 35.685871056241425,
+            "yawDegrees": 103.77914951989025,
+            "zoom": 1.1280932784636488
+          },
+          "framing": {
+            "fitMode": "tour-bounds-with-authored-zoom",
+            "sourceFrameExtent": 620,
+            "baseSpan": 544.8687049189007,
+            "tourMaximumZoom": 1.25,
+            "radius": 310,
+            "halfWidth": 876.6602626628123,
+            "halfHeight": 544.8687049189007,
+            "projectedBounds": {
+              "xMin": -0.40831562581367503,
+              "xMax": 0.40831562581367475,
+              "yMin": -0.599542617895132,
+              "yMax": 0.5995426178951326
+            }
+          }
+        },
+        {
+          "tick": 70000,
+          "displayTick": 70116.66666666667,
+          "id": "run-b-intro-v1",
+          "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+          "durationSeconds": 16,
+          "sceneSeconds": 14.5,
+          "sampledFrame": 700,
+          "legacyFrame": 700,
+          "tickInterval": 100,
+          "growthSampling": "continuous-frame-coordinate",
+          "cameraMode": "scripted",
+          "camera": {
+            "tiltDegrees": 2.4142661179698166,
+            "yawDegrees": 118.90260631001372,
+            "zoom": 1.1764883401920438
+          },
+          "framing": {
+            "fitMode": "tour-bounds-with-authored-zoom",
+            "sourceFrameExtent": 620,
+            "baseSpan": 544.8687049189007,
+            "tourMaximumZoom": 1.25,
+            "radius": 310,
+            "halfWidth": 876.6602626628123,
+            "halfHeight": 544.8687049189007,
+            "projectedBounds": {
+              "xMin": -0.4898268136072375,
+              "xMax": 0.4898268136072374,
+              "yMin": -0.82203102284352,
+              "yMax": 0.8220310228435201
+            }
+          }
+        },
+        {
+          "tick": 70000,
+          "displayTick": 70116.66666666667,
+          "id": "run-b-intro-v1",
+          "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+          "durationSeconds": 16,
+          "sceneSeconds": 15.5,
+          "sampledFrame": 700,
+          "legacyFrame": 700,
+          "tickInterval": 100,
+          "growthSampling": "continuous-frame-coordinate",
+          "cameraMode": "scripted",
+          "camera": {
+            "tiltDegrees": 0,
+            "yawDegrees": 120,
+            "zoom": 1.18
+          },
+          "framing": {
+            "fitMode": "tour-bounds-with-authored-zoom",
+            "sourceFrameExtent": 620,
+            "baseSpan": 544.8687049189007,
+            "tourMaximumZoom": 1.25,
+            "radius": 310,
+            "halfWidth": 876.6602626628123,
+            "halfHeight": 544.8687049189007,
+            "projectedBounds": {
+              "xMin": -0.4946614081523548,
+              "xMax": 0.49466140815235465,
+              "yMin": -0.827102558016107,
+              "yMax": 0.8271025580161071
+            }
+          }
+        },
+        {
+          "tick": 70000,
+          "displayTick": 70116.66666666667,
+          "id": "run-b-intro-v1",
+          "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+          "durationSeconds": 16,
+          "sceneSeconds": 16,
+          "sampledFrame": 700,
+          "legacyFrame": 700,
+          "tickInterval": 100,
+          "growthSampling": "continuous-frame-coordinate",
+          "cameraMode": "scripted",
+          "camera": {
+            "tiltDegrees": 0,
+            "yawDegrees": 120,
+            "zoom": 1.18
+          },
+          "framing": {
+            "fitMode": "tour-bounds-with-authored-zoom",
+            "sourceFrameExtent": 620,
+            "baseSpan": 544.8687049189007,
+            "tourMaximumZoom": 1.25,
+            "radius": 310,
+            "halfWidth": 876.6602626628123,
+            "halfHeight": 544.8687049189007,
+            "projectedBounds": {
+              "xMin": -0.4946614081523548,
+              "xMax": 0.49466140815235465,
+              "yMin": -0.827102558016107,
+              "yMax": 0.8271025580161071
+            }
+          }
+        }
+      ],
+      "exactTick": {
+        "mode": "gutcheck-growth-v1",
+        "tick": 11,
+        "displayTick": 11,
+        "normalizedTime": 0.00015714285714285713,
+        "finalTick": 70000,
+        "representativeGrowthTick": 42953,
+        "playing": false,
+        "reducedMotion": false,
+        "quality": "medium",
+        "appearance": {
+          "name": "glass",
+          "style": "glass",
+          "ior": 1.12,
+          "roughness": 0.02,
+          "specular": 0.8,
+          "clearcoat": 0.35
+        },
+        "presentation": {
+          "id": "run-b-intro-v1",
+          "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+          "durationSeconds": 16,
+          "sceneSeconds": 0.0020428571428571427,
+          "sampledFrame": 0.11,
+          "legacyFrame": 0,
+          "tickInterval": 100,
+          "growthSampling": "continuous-frame-coordinate",
+          "cameraMode": "scripted",
+          "camera": {
+            "tiltDegrees": 4.736324910916747e-9,
+            "yawDegrees": 6.3150998812223295e-9,
+            "zoom": 1.0000000000394693
+          }
+        },
+        "viewport": {
+          "width": 576,
+          "height": 358,
+          "pixelRatio": 1
+        },
+        "capabilities": {
+          "webgl2": true,
+          "maxTextureSize": 8192,
+          "maxArrayTextureLayers": 2048,
+          "max3DTextureSize": 2048,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "vendor": "Google Inc. (Google)"
+        },
+        "framing": {
+          "fitMode": "tour-bounds-with-authored-zoom",
+          "sourceFrameExtent": 620,
+          "baseSpan": 544.8687049189007,
+          "tourMaximumZoom": 1.25,
+          "radius": 310,
+          "halfWidth": 876.6602626628123,
+          "halfHeight": 544.8687049189007,
+          "projectedBounds": {
+            "xMin": -0.3353636665892173,
+            "xMax": 0.3353636665892173,
+            "yMin": -0.4672895808801608,
+            "yMax": 0.4672895808801606
+          }
+        },
+        "asset": {
+          "terminationReason": "tick-cap",
+          "config": {
+            "preset": "plate",
+            "dims": {
+              "nx": 1200,
+              "ny": 1200,
+              "nz": 48
+            },
+            "domain": "hexPrism",
+            "tickCap": 70000,
+            "rngSeed": 1,
+            "noiseEpsilon": 0,
+            "farField": "reflecting",
+            "seedRadius": 2,
+            "seedThickness": 1,
+            "center": [
+              600,
+              600,
+              24
+            ],
+            "params": {
+              "rho": 0.1,
+              "phi": 0,
+              "kappa": [
+                null,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              "mu": [
+                null,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001
+              ],
+              "ggThreshBeta": [
+                null,
+                2.5,
+                2,
+                2,
+                2,
+                1,
+                1,
+                1
+              ]
+            }
+          },
+          "source": {
+            "command": {
+              "argv": [
+                "--preset",
+                "plate",
+                "--dims",
+                "1200,1200,48",
+                "--ticks",
+                "70000",
+                "--out",
+                "out/gutcheck-growth-runB/gutcheck-growth-v1.bin",
+                "--domain",
+                "hexPrism",
+                "--seed",
+                "1",
+                "--noise",
+                "0",
+                "--padding",
+                "2",
+                "--progress",
+                "100",
+                "--legacy-manifest",
+                "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json",
+                "--expected-attached-count",
+                "961597",
+                "--expected-occupancy-sha256",
+                "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7"
+              ],
+              "cwd": "/Users/clipper/github/snowflake-education-ch1-video",
+              "executable": "/Users/clipper/.nvm/versions/node/v24.13.1/bin/node",
+              "script": "/Users/clipper/github/snowflake-education-ch1-video/scripts/gutcheck-bake-growth.ts"
+            },
+            "endpoint": {
+              "expectedAttachedCount": 961597,
+              "expectedOccupancySha256": "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7",
+              "measuredAttachedCount": 961597,
+              "measuredOccupancySha256": "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7",
+              "occupancyEncoding": "full-lattice-u8-a-field-i-fastest-j-next-k-slowest"
+            },
+            "git": {
+              "branch": "explore/education-ch1-video",
+              "dirty": false,
+              "head": "44fd4b604cddf1c1c30ed4aec2afba5bdc18be5c",
+              "repositoryRoot": "/Users/clipper/github/snowflake-education-ch1-video",
+              "statusPorcelainV1": []
+            },
+            "label": "deterministic G-G sparse attachment replay",
+            "legacyComparison": {
+              "frameCount": 701,
+              "path": "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json",
+              "sha256": "a06bf93000ab948cd72617649530bcf96d39dbcd01badb22d5617a1b73d17c4d"
+            },
+            "runtime": {
+              "architecture": "arm64",
+              "endianness": "LE",
+              "node": "v24.13.1",
+              "platform": "darwin",
+              "v8": "13.6.233.17-node.40"
+            }
+          }
+        },
+        "volume": {
+          "size": [
+            593,
+            593,
+            17
+          ],
+          "crop": {
+            "iMin": 304,
+            "iMax": 896,
+            "jMin": 304,
+            "jMax": 896,
+            "kMin": 16,
+            "kMax": 32,
+            "padding": 2
+          },
+          "eventCount": 961597,
+          "sourceBytes": 7695060,
+          "decodedUint32Bytes": 23912132,
+          "nominalTextureBytes": 23912132,
+          "textureFormat": "R32UI DataArrayTexture",
+          "syntheticProbe": null
+        }
+      },
+      "manualView": {
+        "mode": "gutcheck-growth-v1",
+        "tick": 35000,
+        "displayTick": 35000,
+        "normalizedTime": 0.5,
+        "finalTick": 70000,
+        "representativeGrowthTick": 42953,
+        "playing": false,
+        "reducedMotion": false,
+        "quality": "medium",
+        "appearance": {
+          "name": "glass",
+          "style": "glass",
+          "ior": 1.12,
+          "roughness": 0.02,
+          "specular": 0.8,
+          "clearcoat": 0.35
+        },
+        "presentation": {
+          "id": "run-b-intro-v1",
+          "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+          "durationSeconds": 16,
+          "sceneSeconds": 6.5,
+          "sampledFrame": 350,
+          "legacyFrame": 350,
+          "tickInterval": 100,
+          "growthSampling": "continuous-frame-coordinate",
+          "cameraMode": "manualHold",
+          "camera": {
+            "tiltDegrees": 55,
+            "yawDegrees": 34.99999999999999,
+            "zoom": 1
+          }
+        },
+        "viewport": {
+          "width": 576,
+          "height": 358,
+          "pixelRatio": 1
+        },
+        "capabilities": {
+          "webgl2": true,
+          "maxTextureSize": 8192,
+          "maxArrayTextureLayers": 2048,
+          "max3DTextureSize": 2048,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "vendor": "Google Inc. (Google)"
+        },
+        "framing": {
+          "fitMode": "tour-bounds-with-authored-zoom",
+          "sourceFrameExtent": 620,
+          "baseSpan": 544.8687049189007,
+          "tourMaximumZoom": 1.25,
+          "radius": 310,
+          "halfWidth": 876.6602626628123,
+          "halfHeight": 544.8687049189007,
+          "projectedBounds": {
+            "xMin": -0.44129961899283393,
+            "xMax": 0.4412996189928341,
+            "yMin": -0.4187193822431119,
+            "yMax": 0.41871938224311056
+          }
+        },
+        "asset": {
+          "terminationReason": "tick-cap",
+          "config": {
+            "preset": "plate",
+            "dims": {
+              "nx": 1200,
+              "ny": 1200,
+              "nz": 48
+            },
+            "domain": "hexPrism",
+            "tickCap": 70000,
+            "rngSeed": 1,
+            "noiseEpsilon": 0,
+            "farField": "reflecting",
+            "seedRadius": 2,
+            "seedThickness": 1,
+            "center": [
+              600,
+              600,
+              24
+            ],
+            "params": {
+              "rho": 0.1,
+              "phi": 0,
+              "kappa": [
+                null,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              "mu": [
+                null,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001
+              ],
+              "ggThreshBeta": [
+                null,
+                2.5,
+                2,
+                2,
+                2,
+                1,
+                1,
+                1
+              ]
+            }
+          },
+          "source": {
+            "command": {
+              "argv": [
+                "--preset",
+                "plate",
+                "--dims",
+                "1200,1200,48",
+                "--ticks",
+                "70000",
+                "--out",
+                "out/gutcheck-growth-runB/gutcheck-growth-v1.bin",
+                "--domain",
+                "hexPrism",
+                "--seed",
+                "1",
+                "--noise",
+                "0",
+                "--padding",
+                "2",
+                "--progress",
+                "100",
+                "--legacy-manifest",
+                "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json",
+                "--expected-attached-count",
+                "961597",
+                "--expected-occupancy-sha256",
+                "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7"
+              ],
+              "cwd": "/Users/clipper/github/snowflake-education-ch1-video",
+              "executable": "/Users/clipper/.nvm/versions/node/v24.13.1/bin/node",
+              "script": "/Users/clipper/github/snowflake-education-ch1-video/scripts/gutcheck-bake-growth.ts"
+            },
+            "endpoint": {
+              "expectedAttachedCount": 961597,
+              "expectedOccupancySha256": "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7",
+              "measuredAttachedCount": 961597,
+              "measuredOccupancySha256": "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7",
+              "occupancyEncoding": "full-lattice-u8-a-field-i-fastest-j-next-k-slowest"
+            },
+            "git": {
+              "branch": "explore/education-ch1-video",
+              "dirty": false,
+              "head": "44fd4b604cddf1c1c30ed4aec2afba5bdc18be5c",
+              "repositoryRoot": "/Users/clipper/github/snowflake-education-ch1-video",
+              "statusPorcelainV1": []
+            },
+            "label": "deterministic G-G sparse attachment replay",
+            "legacyComparison": {
+              "frameCount": 701,
+              "path": "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json",
+              "sha256": "a06bf93000ab948cd72617649530bcf96d39dbcd01badb22d5617a1b73d17c4d"
+            },
+            "runtime": {
+              "architecture": "arm64",
+              "endianness": "LE",
+              "node": "v24.13.1",
+              "platform": "darwin",
+              "v8": "13.6.233.17-node.40"
+            }
+          }
+        },
+        "volume": {
+          "size": [
+            593,
+            593,
+            17
+          ],
+          "crop": {
+            "iMin": 304,
+            "iMax": 896,
+            "jMin": 304,
+            "jMax": 896,
+            "kMin": 16,
+            "kMax": 32,
+            "padding": 2
+          },
+          "eventCount": 961597,
+          "sourceBytes": 7695060,
+          "decodedUint32Bytes": 23912132,
+          "nominalTextureBytes": 23912132,
+          "textureFormat": "R32UI DataArrayTexture",
+          "syntheticProbe": null
+        }
+      },
+      "followed": {
+        "mode": "gutcheck-growth-v1",
+        "tick": 35000,
+        "displayTick": 35000,
+        "normalizedTime": 0.5,
+        "finalTick": 70000,
+        "representativeGrowthTick": 42953,
+        "playing": false,
+        "reducedMotion": false,
+        "quality": "medium",
+        "appearance": {
+          "name": "glass",
+          "style": "glass",
+          "ior": 1.12,
+          "roughness": 0.02,
+          "specular": 0.8,
+          "clearcoat": 0.35
+        },
+        "presentation": {
+          "id": "run-b-intro-v1",
+          "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+          "durationSeconds": 16,
+          "sceneSeconds": 6.5,
+          "sampledFrame": 350,
+          "legacyFrame": 350,
+          "tickInterval": 100,
+          "growthSampling": "continuous-frame-coordinate",
+          "cameraMode": "scripted",
+          "camera": {
+            "tiltDegrees": 30.1,
+            "yawDegrees": 40.22,
+            "zoom": 1.2494
+          }
+        },
+        "viewport": {
+          "width": 576,
+          "height": 358,
+          "pixelRatio": 1
+        },
+        "capabilities": {
+          "webgl2": true,
+          "maxTextureSize": 8192,
+          "maxArrayTextureLayers": 2048,
+          "max3DTextureSize": 2048,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "vendor": "Google Inc. (Google)"
+        },
+        "framing": {
+          "fitMode": "tour-bounds-with-authored-zoom",
+          "sourceFrameExtent": 620,
+          "baseSpan": 544.8687049189007,
+          "tourMaximumZoom": 1.25,
+          "radius": 310,
+          "halfWidth": 876.6602626628123,
+          "halfHeight": 544.8687049189007,
+          "projectedBounds": {
+            "xMin": -0.5542510690319266,
+            "xMax": 0.5542510690319264,
+            "yMin": -0.7788551092813197,
+            "yMax": 0.7788551092813196
+          }
+        },
+        "asset": {
+          "terminationReason": "tick-cap",
+          "config": {
+            "preset": "plate",
+            "dims": {
+              "nx": 1200,
+              "ny": 1200,
+              "nz": 48
+            },
+            "domain": "hexPrism",
+            "tickCap": 70000,
+            "rngSeed": 1,
+            "noiseEpsilon": 0,
+            "farField": "reflecting",
+            "seedRadius": 2,
+            "seedThickness": 1,
+            "center": [
+              600,
+              600,
+              24
+            ],
+            "params": {
+              "rho": 0.1,
+              "phi": 0,
+              "kappa": [
+                null,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              "mu": [
+                null,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001
+              ],
+              "ggThreshBeta": [
+                null,
+                2.5,
+                2,
+                2,
+                2,
+                1,
+                1,
+                1
+              ]
+            }
+          },
+          "source": {
+            "command": {
+              "argv": [
+                "--preset",
+                "plate",
+                "--dims",
+                "1200,1200,48",
+                "--ticks",
+                "70000",
+                "--out",
+                "out/gutcheck-growth-runB/gutcheck-growth-v1.bin",
+                "--domain",
+                "hexPrism",
+                "--seed",
+                "1",
+                "--noise",
+                "0",
+                "--padding",
+                "2",
+                "--progress",
+                "100",
+                "--legacy-manifest",
+                "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json",
+                "--expected-attached-count",
+                "961597",
+                "--expected-occupancy-sha256",
+                "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7"
+              ],
+              "cwd": "/Users/clipper/github/snowflake-education-ch1-video",
+              "executable": "/Users/clipper/.nvm/versions/node/v24.13.1/bin/node",
+              "script": "/Users/clipper/github/snowflake-education-ch1-video/scripts/gutcheck-bake-growth.ts"
+            },
+            "endpoint": {
+              "expectedAttachedCount": 961597,
+              "expectedOccupancySha256": "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7",
+              "measuredAttachedCount": 961597,
+              "measuredOccupancySha256": "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7",
+              "occupancyEncoding": "full-lattice-u8-a-field-i-fastest-j-next-k-slowest"
+            },
+            "git": {
+              "branch": "explore/education-ch1-video",
+              "dirty": false,
+              "head": "44fd4b604cddf1c1c30ed4aec2afba5bdc18be5c",
+              "repositoryRoot": "/Users/clipper/github/snowflake-education-ch1-video",
+              "statusPorcelainV1": []
+            },
+            "label": "deterministic G-G sparse attachment replay",
+            "legacyComparison": {
+              "frameCount": 701,
+              "path": "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json",
+              "sha256": "a06bf93000ab948cd72617649530bcf96d39dbcd01badb22d5617a1b73d17c4d"
+            },
+            "runtime": {
+              "architecture": "arm64",
+              "endianness": "LE",
+              "node": "v24.13.1",
+              "platform": "darwin",
+              "v8": "13.6.233.17-node.40"
+            }
+          }
+        },
+        "volume": {
+          "size": [
+            593,
+            593,
+            17
+          ],
+          "crop": {
+            "iMin": 304,
+            "iMax": 896,
+            "jMin": 304,
+            "jMax": 896,
+            "kMin": 16,
+            "kMax": 32,
+            "padding": 2
+          },
+          "eventCount": 961597,
+          "sourceBytes": 7695060,
+          "decodedUint32Bytes": 23912132,
+          "nominalTextureBytes": 23912132,
+          "textureFormat": "R32UI DataArrayTexture",
+          "syntheticProbe": null
+        }
+      },
+      "pointerStarted": {
+        "mode": "gutcheck-growth-v1",
+        "tick": 35000,
+        "displayTick": 35000,
+        "normalizedTime": 0.5,
+        "finalTick": 70000,
+        "representativeGrowthTick": 42953,
+        "playing": false,
+        "reducedMotion": false,
+        "quality": "medium",
+        "appearance": {
+          "name": "glass",
+          "style": "glass",
+          "ior": 1.12,
+          "roughness": 0.02,
+          "specular": 0.8,
+          "clearcoat": 0.35
+        },
+        "presentation": {
+          "id": "run-b-intro-v1",
+          "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+          "durationSeconds": 16,
+          "sceneSeconds": 6.5,
+          "sampledFrame": 350,
+          "legacyFrame": 350,
+          "tickInterval": 100,
+          "growthSampling": "continuous-frame-coordinate",
+          "cameraMode": "manualHold",
+          "camera": {
+            "tiltDegrees": 30.099999999999998,
+            "yawDegrees": 40.22,
+            "zoom": 1.2494
+          }
+        },
+        "viewport": {
+          "width": 576,
+          "height": 358,
+          "pixelRatio": 1
+        },
+        "capabilities": {
+          "webgl2": true,
+          "maxTextureSize": 8192,
+          "maxArrayTextureLayers": 2048,
+          "max3DTextureSize": 2048,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "vendor": "Google Inc. (Google)"
+        },
+        "framing": {
+          "fitMode": "tour-bounds-with-authored-zoom",
+          "sourceFrameExtent": 620,
+          "baseSpan": 544.8687049189007,
+          "tourMaximumZoom": 1.25,
+          "radius": 310,
+          "halfWidth": 876.6602626628123,
+          "halfHeight": 544.8687049189007,
+          "projectedBounds": {
+            "xMin": -0.5542510690319266,
+            "xMax": 0.5542510690319264,
+            "yMin": -0.7788551092813197,
+            "yMax": 0.7788551092813196
+          }
+        },
+        "asset": {
+          "terminationReason": "tick-cap",
+          "config": {
+            "preset": "plate",
+            "dims": {
+              "nx": 1200,
+              "ny": 1200,
+              "nz": 48
+            },
+            "domain": "hexPrism",
+            "tickCap": 70000,
+            "rngSeed": 1,
+            "noiseEpsilon": 0,
+            "farField": "reflecting",
+            "seedRadius": 2,
+            "seedThickness": 1,
+            "center": [
+              600,
+              600,
+              24
+            ],
+            "params": {
+              "rho": 0.1,
+              "phi": 0,
+              "kappa": [
+                null,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              "mu": [
+                null,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001
+              ],
+              "ggThreshBeta": [
+                null,
+                2.5,
+                2,
+                2,
+                2,
+                1,
+                1,
+                1
+              ]
+            }
+          },
+          "source": {
+            "command": {
+              "argv": [
+                "--preset",
+                "plate",
+                "--dims",
+                "1200,1200,48",
+                "--ticks",
+                "70000",
+                "--out",
+                "out/gutcheck-growth-runB/gutcheck-growth-v1.bin",
+                "--domain",
+                "hexPrism",
+                "--seed",
+                "1",
+                "--noise",
+                "0",
+                "--padding",
+                "2",
+                "--progress",
+                "100",
+                "--legacy-manifest",
+                "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json",
+                "--expected-attached-count",
+                "961597",
+                "--expected-occupancy-sha256",
+                "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7"
+              ],
+              "cwd": "/Users/clipper/github/snowflake-education-ch1-video",
+              "executable": "/Users/clipper/.nvm/versions/node/v24.13.1/bin/node",
+              "script": "/Users/clipper/github/snowflake-education-ch1-video/scripts/gutcheck-bake-growth.ts"
+            },
+            "endpoint": {
+              "expectedAttachedCount": 961597,
+              "expectedOccupancySha256": "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7",
+              "measuredAttachedCount": 961597,
+              "measuredOccupancySha256": "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7",
+              "occupancyEncoding": "full-lattice-u8-a-field-i-fastest-j-next-k-slowest"
+            },
+            "git": {
+              "branch": "explore/education-ch1-video",
+              "dirty": false,
+              "head": "44fd4b604cddf1c1c30ed4aec2afba5bdc18be5c",
+              "repositoryRoot": "/Users/clipper/github/snowflake-education-ch1-video",
+              "statusPorcelainV1": []
+            },
+            "label": "deterministic G-G sparse attachment replay",
+            "legacyComparison": {
+              "frameCount": 701,
+              "path": "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json",
+              "sha256": "a06bf93000ab948cd72617649530bcf96d39dbcd01badb22d5617a1b73d17c4d"
+            },
+            "runtime": {
+              "architecture": "arm64",
+              "endianness": "LE",
+              "node": "v24.13.1",
+              "platform": "darwin",
+              "v8": "13.6.233.17-node.40"
+            }
+          }
+        },
+        "volume": {
+          "size": [
+            593,
+            593,
+            17
+          ],
+          "crop": {
+            "iMin": 304,
+            "iMax": 896,
+            "jMin": 304,
+            "jMax": 896,
+            "kMin": 16,
+            "kMax": 32,
+            "padding": 2
+          },
+          "eventCount": 961597,
+          "sourceBytes": 7695060,
+          "decodedUint32Bytes": 23912132,
+          "nominalTextureBytes": 23912132,
+          "textureFormat": "R32UI DataArrayTexture",
+          "syntheticProbe": null
+        }
+      },
+      "pointerMoved": {
+        "mode": "gutcheck-growth-v1",
+        "tick": 35000,
+        "displayTick": 35000,
+        "normalizedTime": 0.5,
+        "finalTick": 70000,
+        "representativeGrowthTick": 42953,
+        "playing": false,
+        "reducedMotion": false,
+        "quality": "medium",
+        "appearance": {
+          "name": "glass",
+          "style": "glass",
+          "ior": 1.12,
+          "roughness": 0.02,
+          "specular": 0.8,
+          "clearcoat": 0.35
+        },
+        "presentation": {
+          "id": "run-b-intro-v1",
+          "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+          "durationSeconds": 16,
+          "sceneSeconds": 6.5,
+          "sampledFrame": 350,
+          "legacyFrame": 350,
+          "tickInterval": 100,
+          "growthSampling": "continuous-frame-coordinate",
+          "cameraMode": "manualHold",
+          "camera": {
+            "tiltDegrees": 75.7303018805221,
+            "yawDegrees": 49.012697558410466,
+            "zoom": 1.2494
+          }
+        },
+        "viewport": {
+          "width": 576,
+          "height": 358,
+          "pixelRatio": 1
+        },
+        "capabilities": {
+          "webgl2": true,
+          "maxTextureSize": 8192,
+          "maxArrayTextureLayers": 2048,
+          "max3DTextureSize": 2048,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "vendor": "Google Inc. (Google)"
+        },
+        "framing": {
+          "fitMode": "tour-bounds-with-authored-zoom",
+          "sourceFrameExtent": 620,
+          "baseSpan": 544.8687049189007,
+          "tourMaximumZoom": 1.25,
+          "radius": 310,
+          "halfWidth": 876.6602626628123,
+          "halfHeight": 544.8687049189007,
+          "projectedBounds": {
+            "xMin": -0.48562423943071004,
+            "xMax": 0.4856242394307097,
+            "yMin": -0.47009268281690825,
+            "yMax": 0.47009268281690775
+          }
+        },
+        "asset": {
+          "terminationReason": "tick-cap",
+          "config": {
+            "preset": "plate",
+            "dims": {
+              "nx": 1200,
+              "ny": 1200,
+              "nz": 48
+            },
+            "domain": "hexPrism",
+            "tickCap": 70000,
+            "rngSeed": 1,
+            "noiseEpsilon": 0,
+            "farField": "reflecting",
+            "seedRadius": 2,
+            "seedThickness": 1,
+            "center": [
+              600,
+              600,
+              24
+            ],
+            "params": {
+              "rho": 0.1,
+              "phi": 0,
+              "kappa": [
+                null,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              "mu": [
+                null,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001
+              ],
+              "ggThreshBeta": [
+                null,
+                2.5,
+                2,
+                2,
+                2,
+                1,
+                1,
+                1
+              ]
+            }
+          },
+          "source": {
+            "command": {
+              "argv": [
+                "--preset",
+                "plate",
+                "--dims",
+                "1200,1200,48",
+                "--ticks",
+                "70000",
+                "--out",
+                "out/gutcheck-growth-runB/gutcheck-growth-v1.bin",
+                "--domain",
+                "hexPrism",
+                "--seed",
+                "1",
+                "--noise",
+                "0",
+                "--padding",
+                "2",
+                "--progress",
+                "100",
+                "--legacy-manifest",
+                "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json",
+                "--expected-attached-count",
+                "961597",
+                "--expected-occupancy-sha256",
+                "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7"
+              ],
+              "cwd": "/Users/clipper/github/snowflake-education-ch1-video",
+              "executable": "/Users/clipper/.nvm/versions/node/v24.13.1/bin/node",
+              "script": "/Users/clipper/github/snowflake-education-ch1-video/scripts/gutcheck-bake-growth.ts"
+            },
+            "endpoint": {
+              "expectedAttachedCount": 961597,
+              "expectedOccupancySha256": "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7",
+              "measuredAttachedCount": 961597,
+              "measuredOccupancySha256": "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7",
+              "occupancyEncoding": "full-lattice-u8-a-field-i-fastest-j-next-k-slowest"
+            },
+            "git": {
+              "branch": "explore/education-ch1-video",
+              "dirty": false,
+              "head": "44fd4b604cddf1c1c30ed4aec2afba5bdc18be5c",
+              "repositoryRoot": "/Users/clipper/github/snowflake-education-ch1-video",
+              "statusPorcelainV1": []
+            },
+            "label": "deterministic G-G sparse attachment replay",
+            "legacyComparison": {
+              "frameCount": 701,
+              "path": "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json",
+              "sha256": "a06bf93000ab948cd72617649530bcf96d39dbcd01badb22d5617a1b73d17c4d"
+            },
+            "runtime": {
+              "architecture": "arm64",
+              "endianness": "LE",
+              "node": "v24.13.1",
+              "platform": "darwin",
+              "v8": "13.6.233.17-node.40"
+            }
+          }
+        },
+        "volume": {
+          "size": [
+            593,
+            593,
+            17
+          ],
+          "crop": {
+            "iMin": 304,
+            "iMax": 896,
+            "jMin": 304,
+            "jMax": 896,
+            "kMin": 16,
+            "kMax": 32,
+            "padding": 2
+          },
+          "eventCount": 961597,
+          "sourceBytes": 7695060,
+          "decodedUint32Bytes": 23912132,
+          "nominalTextureBytes": 23912132,
+          "textureFormat": "R32UI DataArrayTexture",
+          "syntheticProbe": null
+        }
+      },
+      "manualSettled": {
+        "mode": "gutcheck-growth-v1",
+        "tick": 35000,
+        "displayTick": 35000,
+        "normalizedTime": 0.5,
+        "finalTick": 70000,
+        "representativeGrowthTick": 42953,
+        "playing": false,
+        "reducedMotion": false,
+        "quality": "medium",
+        "appearance": {
+          "name": "glass",
+          "style": "glass",
+          "ior": 1.12,
+          "roughness": 0.02,
+          "specular": 0.8,
+          "clearcoat": 0.35
+        },
+        "presentation": {
+          "id": "run-b-intro-v1",
+          "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+          "durationSeconds": 16,
+          "sceneSeconds": 6.5,
+          "sampledFrame": 350,
+          "legacyFrame": 350,
+          "tickInterval": 100,
+          "growthSampling": "continuous-frame-coordinate",
+          "cameraMode": "manualHold",
+          "camera": {
+            "tiltDegrees": 75.7303018805221,
+            "yawDegrees": 49.01269755841046,
+            "zoom": 1.2494
+          }
+        },
+        "viewport": {
+          "width": 576,
+          "height": 358,
+          "pixelRatio": 1
+        },
+        "capabilities": {
+          "webgl2": true,
+          "maxTextureSize": 8192,
+          "maxArrayTextureLayers": 2048,
+          "max3DTextureSize": 2048,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "vendor": "Google Inc. (Google)"
+        },
+        "framing": {
+          "fitMode": "tour-bounds-with-authored-zoom",
+          "sourceFrameExtent": 620,
+          "baseSpan": 544.8687049189007,
+          "tourMaximumZoom": 1.25,
+          "radius": 310,
+          "halfWidth": 876.6602626628123,
+          "halfHeight": 544.8687049189007,
+          "projectedBounds": {
+            "xMin": -0.5487332278307351,
+            "xMax": 0.548733227830735,
+            "yMin": -0.25182152170206396,
+            "yMax": 0.2518215217020637
+          }
+        },
+        "asset": {
+          "terminationReason": "tick-cap",
+          "config": {
+            "preset": "plate",
+            "dims": {
+              "nx": 1200,
+              "ny": 1200,
+              "nz": 48
+            },
+            "domain": "hexPrism",
+            "tickCap": 70000,
+            "rngSeed": 1,
+            "noiseEpsilon": 0,
+            "farField": "reflecting",
+            "seedRadius": 2,
+            "seedThickness": 1,
+            "center": [
+              600,
+              600,
+              24
+            ],
+            "params": {
+              "rho": 0.1,
+              "phi": 0,
+              "kappa": [
+                null,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              "mu": [
+                null,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001
+              ],
+              "ggThreshBeta": [
+                null,
+                2.5,
+                2,
+                2,
+                2,
+                1,
+                1,
+                1
+              ]
+            }
+          },
+          "source": {
+            "command": {
+              "argv": [
+                "--preset",
+                "plate",
+                "--dims",
+                "1200,1200,48",
+                "--ticks",
+                "70000",
+                "--out",
+                "out/gutcheck-growth-runB/gutcheck-growth-v1.bin",
+                "--domain",
+                "hexPrism",
+                "--seed",
+                "1",
+                "--noise",
+                "0",
+                "--padding",
+                "2",
+                "--progress",
+                "100",
+                "--legacy-manifest",
+                "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json",
+                "--expected-attached-count",
+                "961597",
+                "--expected-occupancy-sha256",
+                "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7"
+              ],
+              "cwd": "/Users/clipper/github/snowflake-education-ch1-video",
+              "executable": "/Users/clipper/.nvm/versions/node/v24.13.1/bin/node",
+              "script": "/Users/clipper/github/snowflake-education-ch1-video/scripts/gutcheck-bake-growth.ts"
+            },
+            "endpoint": {
+              "expectedAttachedCount": 961597,
+              "expectedOccupancySha256": "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7",
+              "measuredAttachedCount": 961597,
+              "measuredOccupancySha256": "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7",
+              "occupancyEncoding": "full-lattice-u8-a-field-i-fastest-j-next-k-slowest"
+            },
+            "git": {
+              "branch": "explore/education-ch1-video",
+              "dirty": false,
+              "head": "44fd4b604cddf1c1c30ed4aec2afba5bdc18be5c",
+              "repositoryRoot": "/Users/clipper/github/snowflake-education-ch1-video",
+              "statusPorcelainV1": []
+            },
+            "label": "deterministic G-G sparse attachment replay",
+            "legacyComparison": {
+              "frameCount": 701,
+              "path": "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json",
+              "sha256": "a06bf93000ab948cd72617649530bcf96d39dbcd01badb22d5617a1b73d17c4d"
+            },
+            "runtime": {
+              "architecture": "arm64",
+              "endianness": "LE",
+              "node": "v24.13.1",
+              "platform": "darwin",
+              "v8": "13.6.233.17-node.40"
+            }
+          }
+        },
+        "volume": {
+          "size": [
+            593,
+            593,
+            17
+          ],
+          "crop": {
+            "iMin": 304,
+            "iMax": 896,
+            "jMin": 304,
+            "jMax": 896,
+            "kMin": 16,
+            "kMax": 32,
+            "padding": 2
+          },
+          "eventCount": 961597,
+          "sourceBytes": 7695060,
+          "decodedUint32Bytes": 23912132,
+          "nominalTextureBytes": 23912132,
+          "textureFormat": "R32UI DataArrayTexture",
+          "syntheticProbe": null
+        }
+      },
+      "manualPlaying": {
+        "mode": "gutcheck-growth-v1",
+        "tick": 35183.61538462341,
+        "displayTick": 35183.61538462341,
+        "normalizedTime": 0.5026230769231915,
+        "finalTick": 70000,
+        "representativeGrowthTick": 42953,
+        "playing": true,
+        "reducedMotion": false,
+        "quality": "medium",
+        "appearance": {
+          "name": "glass",
+          "style": "glass",
+          "ior": 1.12,
+          "roughness": 0.02,
+          "specular": 0.8,
+          "clearcoat": 0.35
+        },
+        "presentation": {
+          "id": "run-b-intro-v1",
+          "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+          "durationSeconds": 16,
+          "sceneSeconds": 6.53410000000149,
+          "sampledFrame": 351.8361538462341,
+          "legacyFrame": 352,
+          "tickInterval": 100,
+          "growthSampling": "continuous-frame-coordinate",
+          "cameraMode": "manualHold",
+          "camera": {
+            "tiltDegrees": 75.7303018805221,
+            "yawDegrees": 49.01269755841046,
+            "zoom": 1.2494
+          }
+        },
+        "viewport": {
+          "width": 576,
+          "height": 358,
+          "pixelRatio": 1
+        },
+        "capabilities": {
+          "webgl2": true,
+          "maxTextureSize": 8192,
+          "maxArrayTextureLayers": 2048,
+          "max3DTextureSize": 2048,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "vendor": "Google Inc. (Google)"
+        },
+        "framing": {
+          "fitMode": "tour-bounds-with-authored-zoom",
+          "sourceFrameExtent": 620,
+          "baseSpan": 544.8687049189007,
+          "tourMaximumZoom": 1.25,
+          "radius": 310,
+          "halfWidth": 876.6602626628123,
+          "halfHeight": 544.8687049189007,
+          "projectedBounds": {
+            "xMin": -0.5487332278307351,
+            "xMax": 0.548733227830735,
+            "yMin": -0.25182152170206396,
+            "yMax": 0.2518215217020637
+          }
+        },
+        "asset": {
+          "terminationReason": "tick-cap",
+          "config": {
+            "preset": "plate",
+            "dims": {
+              "nx": 1200,
+              "ny": 1200,
+              "nz": 48
+            },
+            "domain": "hexPrism",
+            "tickCap": 70000,
+            "rngSeed": 1,
+            "noiseEpsilon": 0,
+            "farField": "reflecting",
+            "seedRadius": 2,
+            "seedThickness": 1,
+            "center": [
+              600,
+              600,
+              24
+            ],
+            "params": {
+              "rho": 0.1,
+              "phi": 0,
+              "kappa": [
+                null,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              "mu": [
+                null,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001
+              ],
+              "ggThreshBeta": [
+                null,
+                2.5,
+                2,
+                2,
+                2,
+                1,
+                1,
+                1
+              ]
+            }
+          },
+          "source": {
+            "command": {
+              "argv": [
+                "--preset",
+                "plate",
+                "--dims",
+                "1200,1200,48",
+                "--ticks",
+                "70000",
+                "--out",
+                "out/gutcheck-growth-runB/gutcheck-growth-v1.bin",
+                "--domain",
+                "hexPrism",
+                "--seed",
+                "1",
+                "--noise",
+                "0",
+                "--padding",
+                "2",
+                "--progress",
+                "100",
+                "--legacy-manifest",
+                "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json",
+                "--expected-attached-count",
+                "961597",
+                "--expected-occupancy-sha256",
+                "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7"
+              ],
+              "cwd": "/Users/clipper/github/snowflake-education-ch1-video",
+              "executable": "/Users/clipper/.nvm/versions/node/v24.13.1/bin/node",
+              "script": "/Users/clipper/github/snowflake-education-ch1-video/scripts/gutcheck-bake-growth.ts"
+            },
+            "endpoint": {
+              "expectedAttachedCount": 961597,
+              "expectedOccupancySha256": "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7",
+              "measuredAttachedCount": 961597,
+              "measuredOccupancySha256": "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7",
+              "occupancyEncoding": "full-lattice-u8-a-field-i-fastest-j-next-k-slowest"
+            },
+            "git": {
+              "branch": "explore/education-ch1-video",
+              "dirty": false,
+              "head": "44fd4b604cddf1c1c30ed4aec2afba5bdc18be5c",
+              "repositoryRoot": "/Users/clipper/github/snowflake-education-ch1-video",
+              "statusPorcelainV1": []
+            },
+            "label": "deterministic G-G sparse attachment replay",
+            "legacyComparison": {
+              "frameCount": 701,
+              "path": "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json",
+              "sha256": "a06bf93000ab948cd72617649530bcf96d39dbcd01badb22d5617a1b73d17c4d"
+            },
+            "runtime": {
+              "architecture": "arm64",
+              "endianness": "LE",
+              "node": "v24.13.1",
+              "platform": "darwin",
+              "v8": "13.6.233.17-node.40"
+            }
+          }
+        },
+        "volume": {
+          "size": [
+            593,
+            593,
+            17
+          ],
+          "crop": {
+            "iMin": 304,
+            "iMax": 896,
+            "jMin": 304,
+            "jMax": 896,
+            "kMin": 16,
+            "kMax": 32,
+            "padding": 2
+          },
+          "eventCount": 961597,
+          "sourceBytes": 7695060,
+          "decodedUint32Bytes": 23912132,
+          "nominalTextureBytes": 23912132,
+          "textureFormat": "R32UI DataArrayTexture",
+          "syntheticProbe": null
+        }
+      },
+      "pointerRestored": {
+        "mode": "gutcheck-growth-v1",
+        "tick": 35542.23076923878,
+        "displayTick": 35542.23076923878,
+        "normalizedTime": 0.5077461538462682,
+        "finalTick": 70000,
+        "representativeGrowthTick": 42953,
+        "playing": false,
+        "reducedMotion": false,
+        "quality": "medium",
+        "appearance": {
+          "name": "glass",
+          "style": "glass",
+          "ior": 1.12,
+          "roughness": 0.02,
+          "specular": 0.8,
+          "clearcoat": 0.35
+        },
+        "presentation": {
+          "id": "run-b-intro-v1",
+          "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+          "durationSeconds": 16,
+          "sceneSeconds": 6.600700000001488,
+          "sampledFrame": 355.4223076923878,
+          "legacyFrame": 355,
+          "tickInterval": 100,
+          "growthSampling": "continuous-frame-coordinate",
+          "cameraMode": "scripted",
+          "camera": {
+            "tiltDegrees": 30.17340550587569,
+            "yawDegrees": 40.381492112926516,
+            "zoom": 1.248959566964746
+          }
+        },
+        "viewport": {
+          "width": 576,
+          "height": 358,
+          "pixelRatio": 1
+        },
+        "capabilities": {
+          "webgl2": true,
+          "maxTextureSize": 8192,
+          "maxArrayTextureLayers": 2048,
+          "max3DTextureSize": 2048,
+          "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+          "vendor": "Google Inc. (Google)"
+        },
+        "framing": {
+          "fitMode": "tour-bounds-with-authored-zoom",
+          "sourceFrameExtent": 620,
+          "baseSpan": 544.8687049189007,
+          "tourMaximumZoom": 1.25,
+          "radius": 310,
+          "halfWidth": 876.6602626628123,
+          "halfHeight": 544.8687049189007,
+          "projectedBounds": {
+            "xMin": -0.5540718408176867,
+            "xMax": 0.5540718408176866,
+            "yMin": -0.778383117184978,
+            "yMax": 0.7783831171849777
+          }
+        },
+        "asset": {
+          "terminationReason": "tick-cap",
+          "config": {
+            "preset": "plate",
+            "dims": {
+              "nx": 1200,
+              "ny": 1200,
+              "nz": 48
+            },
+            "domain": "hexPrism",
+            "tickCap": 70000,
+            "rngSeed": 1,
+            "noiseEpsilon": 0,
+            "farField": "reflecting",
+            "seedRadius": 2,
+            "seedThickness": 1,
+            "center": [
+              600,
+              600,
+              24
+            ],
+            "params": {
+              "rho": 0.1,
+              "phi": 0,
+              "kappa": [
+                null,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1,
+                0.1
+              ],
+              "mu": [
+                null,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001,
+                0.001
+              ],
+              "ggThreshBeta": [
+                null,
+                2.5,
+                2,
+                2,
+                2,
+                1,
+                1,
+                1
+              ]
+            }
+          },
+          "source": {
+            "command": {
+              "argv": [
+                "--preset",
+                "plate",
+                "--dims",
+                "1200,1200,48",
+                "--ticks",
+                "70000",
+                "--out",
+                "out/gutcheck-growth-runB/gutcheck-growth-v1.bin",
+                "--domain",
+                "hexPrism",
+                "--seed",
+                "1",
+                "--noise",
+                "0",
+                "--padding",
+                "2",
+                "--progress",
+                "100",
+                "--legacy-manifest",
+                "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json",
+                "--expected-attached-count",
+                "961597",
+                "--expected-occupancy-sha256",
+                "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7"
+              ],
+              "cwd": "/Users/clipper/github/snowflake-education-ch1-video",
+              "executable": "/Users/clipper/.nvm/versions/node/v24.13.1/bin/node",
+              "script": "/Users/clipper/github/snowflake-education-ch1-video/scripts/gutcheck-bake-growth.ts"
+            },
+            "endpoint": {
+              "expectedAttachedCount": 961597,
+              "expectedOccupancySha256": "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7",
+              "measuredAttachedCount": 961597,
+              "measuredOccupancySha256": "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7",
+              "occupancyEncoding": "full-lattice-u8-a-field-i-fastest-j-next-k-slowest"
+            },
+            "git": {
+              "branch": "explore/education-ch1-video",
+              "dirty": false,
+              "head": "44fd4b604cddf1c1c30ed4aec2afba5bdc18be5c",
+              "repositoryRoot": "/Users/clipper/github/snowflake-education-ch1-video",
+              "statusPorcelainV1": []
+            },
+            "label": "deterministic G-G sparse attachment replay",
+            "legacyComparison": {
+              "frameCount": 701,
+              "path": "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json",
+              "sha256": "a06bf93000ab948cd72617649530bcf96d39dbcd01badb22d5617a1b73d17c4d"
+            },
+            "runtime": {
+              "architecture": "arm64",
+              "endianness": "LE",
+              "node": "v24.13.1",
+              "platform": "darwin",
+              "v8": "13.6.233.17-node.40"
+            }
+          }
+        },
+        "volume": {
+          "size": [
+            593,
+            593,
+            17
+          ],
+          "crop": {
+            "iMin": 304,
+            "iMax": 896,
+            "jMin": 304,
+            "jMax": 896,
+            "kMin": 16,
+            "kMax": 32,
+            "padding": 2
+          },
+          "eventCount": 961597,
+          "sourceBytes": 7695060,
+          "decodedUint32Bytes": 23912132,
+          "nominalTextureBytes": 23912132,
+          "textureFormat": "R32UI DataArrayTexture",
+          "syntheticProbe": null
+        }
+      }
+    },
+    "playback": {
+      "startedPlaying": true,
+      "startedTick": 446.38461539665093,
+      "pausedPlaying": false,
+      "pausedTick": 805.5384615505011,
+      "pausedDisplayTick": 805.5384615505011,
+      "heldTick": 805.5384615505011,
+      "heldDisplayTick": 805.5384615505011,
+      "startedPresentation": {
+        "id": "run-b-intro-v1",
+        "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+        "durationSeconds": 16,
+        "sceneSeconds": 0.08290000000223517,
+        "sampledFrame": 4.463846153966509,
+        "legacyFrame": 4,
+        "tickInterval": 100,
+        "growthSampling": "continuous-frame-coordinate",
+        "cameraMode": "scripted",
+        "camera": {
+          "tiltDegrees": 0.00031651266058115723,
+          "yawDegrees": 0.0004220168807748763,
+          "zoom": 1.000002637605505
+        }
+      },
+      "advancingPresentation": {
+        "id": "run-b-intro-v1",
+        "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+        "durationSeconds": 16,
+        "sceneSeconds": 0.09950000000223372,
+        "sampledFrame": 5.357692307812585,
+        "legacyFrame": 5,
+        "tickInterval": 100,
+        "growthSampling": "continuous-frame-coordinate",
+        "cameraMode": "scripted",
+        "camera": {
+          "tiltDegrees": 0.0005472638194813018,
+          "yawDegrees": 0.0007296850926417357,
+          "zoom": 1.000004560531829
+        }
+      },
+      "pausedPresentation": {
+        "id": "run-b-intro-v1",
+        "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+        "durationSeconds": 16,
+        "sceneSeconds": 0.1496000000022359,
+        "sampledFrame": 8.05538461550501,
+        "legacyFrame": 8,
+        "tickInterval": 100,
+        "growthSampling": "continuous-frame-coordinate",
+        "cameraMode": "scripted",
+        "camera": {
+          "tiltDegrees": 0.0018600399645278436,
+          "yawDegrees": 0.002480053286037125,
+          "zoom": 1.0000155003330378
+        }
+      },
+      "heldPresentation": {
+        "id": "run-b-intro-v1",
+        "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+        "durationSeconds": 16,
+        "sceneSeconds": 0.1496000000022359,
+        "sampledFrame": 8.05538461550501,
+        "legacyFrame": 8,
+        "tickInterval": 100,
+        "growthSampling": "continuous-frame-coordinate",
+        "cameraMode": "scripted",
+        "camera": {
+          "tiltDegrees": 0.0018600399645278436,
+          "yawDegrees": 0.002480053286037125,
+          "zoom": 1.0000155003330378
+        }
+      },
+      "finalHold": {
+        "started": {
+          "mode": "gutcheck-growth-v1",
+          "tick": 70000,
+          "displayTick": 70116.66666666667,
+          "normalizedTime": 1,
+          "finalTick": 70000,
+          "representativeGrowthTick": 42953,
+          "playing": true,
+          "reducedMotion": false,
+          "quality": "medium",
+          "appearance": {
+            "name": "glass",
+            "style": "glass",
+            "ior": 1.12,
+            "roughness": 0.02,
+            "specular": 0.8,
+            "clearcoat": 0.35
+          },
+          "presentation": {
+            "id": "run-b-intro-v1",
+            "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+            "durationSeconds": 16,
+            "sceneSeconds": 13.059100000002235,
+            "sampledFrame": 700,
+            "legacyFrame": 700,
+            "tickInterval": 100,
+            "growthSampling": "continuous-frame-coordinate",
+            "cameraMode": "scripted",
+            "camera": {
+              "tiltDegrees": 33.92257972321673,
+              "yawDegrees": 104.58064558035603,
+              "zoom": 1.1306580658571392
+            }
+          },
+          "viewport": {
+            "width": 576,
+            "height": 358,
+            "pixelRatio": 1
+          },
+          "capabilities": {
+            "webgl2": true,
+            "maxTextureSize": 8192,
+            "maxArrayTextureLayers": 2048,
+            "max3DTextureSize": 2048,
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "vendor": "Google Inc. (Google)"
+          },
+          "framing": {
+            "fitMode": "tour-bounds-with-authored-zoom",
+            "sourceFrameExtent": 620,
+            "baseSpan": 544.8687049189007,
+            "tourMaximumZoom": 1.25,
+            "radius": 310,
+            "halfWidth": 876.6602626628123,
+            "halfHeight": 544.8687049189007,
+            "projectedBounds": {
+              "xMin": -0.4132612936066719,
+              "xMax": 0.4132612936066721,
+              "yMin": -0.6169799418981756,
+              "yMax": 0.6169799418981762
+            }
+          },
+          "asset": {
+            "terminationReason": "tick-cap",
+            "config": {
+              "preset": "plate",
+              "dims": {
+                "nx": 1200,
+                "ny": 1200,
+                "nz": 48
+              },
+              "domain": "hexPrism",
+              "tickCap": 70000,
+              "rngSeed": 1,
+              "noiseEpsilon": 0,
+              "farField": "reflecting",
+              "seedRadius": 2,
+              "seedThickness": 1,
+              "center": [
+                600,
+                600,
+                24
+              ],
+              "params": {
+                "rho": 0.1,
+                "phi": 0,
+                "kappa": [
+                  null,
+                  0.1,
+                  0.1,
+                  0.1,
+                  0.1,
+                  0.1,
+                  0.1,
+                  0.1
+                ],
+                "mu": [
+                  null,
+                  0.001,
+                  0.001,
+                  0.001,
+                  0.001,
+                  0.001,
+                  0.001,
+                  0.001
+                ],
+                "ggThreshBeta": [
+                  null,
+                  2.5,
+                  2,
+                  2,
+                  2,
+                  1,
+                  1,
+                  1
+                ]
+              }
+            },
+            "source": {
+              "command": {
+                "argv": [
+                  "--preset",
+                  "plate",
+                  "--dims",
+                  "1200,1200,48",
+                  "--ticks",
+                  "70000",
+                  "--out",
+                  "out/gutcheck-growth-runB/gutcheck-growth-v1.bin",
+                  "--domain",
+                  "hexPrism",
+                  "--seed",
+                  "1",
+                  "--noise",
+                  "0",
+                  "--padding",
+                  "2",
+                  "--progress",
+                  "100",
+                  "--legacy-manifest",
+                  "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json",
+                  "--expected-attached-count",
+                  "961597",
+                  "--expected-occupancy-sha256",
+                  "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7"
+                ],
+                "cwd": "/Users/clipper/github/snowflake-education-ch1-video",
+                "executable": "/Users/clipper/.nvm/versions/node/v24.13.1/bin/node",
+                "script": "/Users/clipper/github/snowflake-education-ch1-video/scripts/gutcheck-bake-growth.ts"
+              },
+              "endpoint": {
+                "expectedAttachedCount": 961597,
+                "expectedOccupancySha256": "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7",
+                "measuredAttachedCount": 961597,
+                "measuredOccupancySha256": "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7",
+                "occupancyEncoding": "full-lattice-u8-a-field-i-fastest-j-next-k-slowest"
+              },
+              "git": {
+                "branch": "explore/education-ch1-video",
+                "dirty": false,
+                "head": "44fd4b604cddf1c1c30ed4aec2afba5bdc18be5c",
+                "repositoryRoot": "/Users/clipper/github/snowflake-education-ch1-video",
+                "statusPorcelainV1": []
+              },
+              "label": "deterministic G-G sparse attachment replay",
+              "legacyComparison": {
+                "frameCount": 701,
+                "path": "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json",
+                "sha256": "a06bf93000ab948cd72617649530bcf96d39dbcd01badb22d5617a1b73d17c4d"
+              },
+              "runtime": {
+                "architecture": "arm64",
+                "endianness": "LE",
+                "node": "v24.13.1",
+                "platform": "darwin",
+                "v8": "13.6.233.17-node.40"
+              }
+            }
+          },
+          "volume": {
+            "size": [
+              593,
+              593,
+              17
+            ],
+            "crop": {
+              "iMin": 304,
+              "iMax": 896,
+              "jMin": 304,
+              "jMax": 896,
+              "kMin": 16,
+              "kMax": 32,
+              "padding": 2
+            },
+            "eventCount": 961597,
+            "sourceBytes": 7695060,
+            "decodedUint32Bytes": 23912132,
+            "nominalTextureBytes": 23912132,
+            "textureFormat": "R32UI DataArrayTexture",
+            "syntheticProbe": null
+          }
+        },
+        "completed": {
+          "mode": "gutcheck-growth-v1",
+          "tick": 70000,
+          "displayTick": 70116.66666666667,
+          "normalizedTime": 1,
+          "finalTick": 70000,
+          "representativeGrowthTick": 42953,
+          "playing": false,
+          "reducedMotion": false,
+          "quality": "medium",
+          "appearance": {
+            "name": "glass",
+            "style": "glass",
+            "ior": 1.12,
+            "roughness": 0.02,
+            "specular": 0.8,
+            "clearcoat": 0.35
+          },
+          "presentation": {
+            "id": "run-b-intro-v1",
+            "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+            "durationSeconds": 16,
+            "sceneSeconds": 16,
+            "sampledFrame": 700,
+            "legacyFrame": 700,
+            "tickInterval": 100,
+            "growthSampling": "continuous-frame-coordinate",
+            "cameraMode": "scripted",
+            "camera": {
+              "tiltDegrees": 0,
+              "yawDegrees": 120,
+              "zoom": 1.18
+            }
+          },
+          "viewport": {
+            "width": 576,
+            "height": 358,
+            "pixelRatio": 1
+          },
+          "capabilities": {
+            "webgl2": true,
+            "maxTextureSize": 8192,
+            "maxArrayTextureLayers": 2048,
+            "max3DTextureSize": 2048,
+            "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+            "vendor": "Google Inc. (Google)"
+          },
+          "framing": {
+            "fitMode": "tour-bounds-with-authored-zoom",
+            "sourceFrameExtent": 620,
+            "baseSpan": 544.8687049189007,
+            "tourMaximumZoom": 1.25,
+            "radius": 310,
+            "halfWidth": 876.6602626628123,
+            "halfHeight": 544.8687049189007,
+            "projectedBounds": {
+              "xMin": -0.4946614081523548,
+              "xMax": 0.49466140815235465,
+              "yMin": -0.827102558016107,
+              "yMax": 0.8271025580161071
+            }
+          },
+          "asset": {
+            "terminationReason": "tick-cap",
+            "config": {
+              "preset": "plate",
+              "dims": {
+                "nx": 1200,
+                "ny": 1200,
+                "nz": 48
+              },
+              "domain": "hexPrism",
+              "tickCap": 70000,
+              "rngSeed": 1,
+              "noiseEpsilon": 0,
+              "farField": "reflecting",
+              "seedRadius": 2,
+              "seedThickness": 1,
+              "center": [
+                600,
+                600,
+                24
+              ],
+              "params": {
+                "rho": 0.1,
+                "phi": 0,
+                "kappa": [
+                  null,
+                  0.1,
+                  0.1,
+                  0.1,
+                  0.1,
+                  0.1,
+                  0.1,
+                  0.1
+                ],
+                "mu": [
+                  null,
+                  0.001,
+                  0.001,
+                  0.001,
+                  0.001,
+                  0.001,
+                  0.001,
+                  0.001
+                ],
+                "ggThreshBeta": [
+                  null,
+                  2.5,
+                  2,
+                  2,
+                  2,
+                  1,
+                  1,
+                  1
+                ]
+              }
+            },
+            "source": {
+              "command": {
+                "argv": [
+                  "--preset",
+                  "plate",
+                  "--dims",
+                  "1200,1200,48",
+                  "--ticks",
+                  "70000",
+                  "--out",
+                  "out/gutcheck-growth-runB/gutcheck-growth-v1.bin",
+                  "--domain",
+                  "hexPrism",
+                  "--seed",
+                  "1",
+                  "--noise",
+                  "0",
+                  "--padding",
+                  "2",
+                  "--progress",
+                  "100",
+                  "--legacy-manifest",
+                  "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json",
+                  "--expected-attached-count",
+                  "961597",
+                  "--expected-occupancy-sha256",
+                  "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7"
+                ],
+                "cwd": "/Users/clipper/github/snowflake-education-ch1-video",
+                "executable": "/Users/clipper/.nvm/versions/node/v24.13.1/bin/node",
+                "script": "/Users/clipper/github/snowflake-education-ch1-video/scripts/gutcheck-bake-growth.ts"
+              },
+              "endpoint": {
+                "expectedAttachedCount": 961597,
+                "expectedOccupancySha256": "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7",
+                "measuredAttachedCount": 961597,
+                "measuredOccupancySha256": "9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7",
+                "occupancyEncoding": "full-lattice-u8-a-field-i-fastest-j-next-k-slowest"
+              },
+              "git": {
+                "branch": "explore/education-ch1-video",
+                "dirty": false,
+                "head": "44fd4b604cddf1c1c30ed4aec2afba5bdc18be5c",
+                "repositoryRoot": "/Users/clipper/github/snowflake-education-ch1-video",
+                "statusPorcelainV1": []
+              },
+              "label": "deterministic G-G sparse attachment replay",
+              "legacyComparison": {
+                "frameCount": 701,
+                "path": "/Volumes/snowcrystal/out/gutcheck-gg-realism/large/anim-B/manifest.json",
+                "sha256": "a06bf93000ab948cd72617649530bcf96d39dbcd01badb22d5617a1b73d17c4d"
+              },
+              "runtime": {
+                "architecture": "arm64",
+                "endianness": "LE",
+                "node": "v24.13.1",
+                "platform": "darwin",
+                "v8": "13.6.233.17-node.40"
+              }
+            }
+          },
+          "volume": {
+            "size": [
+              593,
+              593,
+              17
+            ],
+            "crop": {
+              "iMin": 304,
+              "iMax": 896,
+              "jMin": 304,
+              "jMax": 896,
+              "kMin": 16,
+              "kMax": 32,
+              "padding": 2
+            },
+            "eventCount": 961597,
+            "sourceBytes": 7695060,
+            "decodedUint32Bytes": 23912132,
+            "nominalTextureBytes": 23912132,
+            "textureFormat": "R32UI DataArrayTexture",
+            "syntheticProbe": null
+          }
+        }
+      }
+    },
+    "keyboard": {
+      "beforeArrow": 35000,
+      "afterArrow": 35001
+    },
+    "portraitFraming": {
+      "xMin": -0.5537516537597766,
+      "xMax": 0.5537516537597765,
+      "yMin": -0.7788551092813197,
+      "yMax": 0.7788551092813196
+    },
+    "portraitWitnesses": [
+      {
+        "tick": 0,
+        "id": "run-b-intro-v1",
+        "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+        "durationSeconds": 16,
+        "sceneSeconds": 0,
+        "sampledFrame": 0,
+        "legacyFrame": 0,
+        "tickInterval": 100,
+        "growthSampling": "continuous-frame-coordinate",
+        "cameraMode": "scripted",
+        "camera": {
+          "tiltDegrees": 0,
+          "yawDegrees": 0,
+          "zoom": 1
+        },
+        "framing": {
+          "fitMode": "tour-bounds-with-authored-zoom",
+          "sourceFrameExtent": 620,
+          "baseSpan": 544.8687049189007,
+          "tourMaximumZoom": 1.25,
+          "radius": 310,
+          "halfWidth": 877.4509014278401,
+          "halfHeight": 544.8687049189007,
+          "projectedBounds": {
+            "xMin": -0.3350614826671051,
+            "xMax": 0.3350614826671051,
+            "yMin": -0.4672895808000605,
+            "yMax": 0.4672895808000603
+          }
+        }
+      },
+      {
+        "tick": 32307.69230769231,
+        "id": "run-b-intro-v1",
+        "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+        "durationSeconds": 16,
+        "sceneSeconds": 6,
+        "sampledFrame": 323.0769230769231,
+        "legacyFrame": 323,
+        "tickInterval": 100,
+        "growthSampling": "continuous-frame-coordinate",
+        "cameraMode": "scripted",
+        "camera": {
+          "tiltDegrees": 30,
+          "yawDegrees": 40,
+          "zoom": 1.25
+        },
+        "framing": {
+          "fitMode": "tour-bounds-with-authored-zoom",
+          "sourceFrameExtent": 620,
+          "baseSpan": 544.8687049189007,
+          "tourMaximumZoom": 1.25,
+          "radius": 310,
+          "halfWidth": 877.4509014278401,
+          "halfHeight": 544.8687049189007,
+          "projectedBounds": {
+            "xMin": -0.5539884952775439,
+            "xMax": 0.5539884952775438,
+            "yMin": -0.7794857137438154,
+            "yMax": 0.7794857137438148
+          }
+        }
+      },
+      {
+        "tick": 35000,
+        "id": "run-b-intro-v1",
+        "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+        "durationSeconds": 16,
+        "sceneSeconds": 6.5,
+        "sampledFrame": 350,
+        "legacyFrame": 350,
+        "tickInterval": 100,
+        "growthSampling": "continuous-frame-coordinate",
+        "cameraMode": "scripted",
+        "camera": {
+          "tiltDegrees": 30.1,
+          "yawDegrees": 40.22,
+          "zoom": 1.2494
+        },
+        "framing": {
+          "fitMode": "tour-bounds-with-authored-zoom",
+          "sourceFrameExtent": 620,
+          "baseSpan": 544.8687049189007,
+          "tourMaximumZoom": 1.25,
+          "radius": 310,
+          "halfWidth": 877.4509014278401,
+          "halfHeight": 544.8687049189007,
+          "projectedBounds": {
+            "xMin": -0.5537516537597766,
+            "xMax": 0.5537516537597765,
+            "yMin": -0.7788551092813197,
+            "yMax": 0.7788551092813196
+          }
+        }
+      },
+      {
+        "tick": 59230.76923076923,
+        "id": "run-b-intro-v1",
+        "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+        "durationSeconds": 16,
+        "sceneSeconds": 11,
+        "sampledFrame": 592.3076923076923,
+        "legacyFrame": 592,
+        "tickInterval": 100,
+        "growthSampling": "continuous-frame-coordinate",
+        "cameraMode": "scripted",
+        "camera": {
+          "tiltDegrees": 55,
+          "yawDegrees": 95,
+          "zoom": 1.1
+        },
+        "framing": {
+          "fitMode": "tour-bounds-with-authored-zoom",
+          "sourceFrameExtent": 620,
+          "baseSpan": 544.8687049189007,
+          "tourMaximumZoom": 1.25,
+          "radius": 310,
+          "halfWidth": 877.4509014278401,
+          "halfHeight": 544.8687049189007,
+          "projectedBounds": {
+            "xMin": -0.3500971067783577,
+            "xMax": 0.3500971067783581,
+            "yMin": -0.38865342703147787,
+            "yMax": 0.3886534270314779
+          }
+        }
+      },
+      {
+        "tick": 70000,
+        "id": "run-b-intro-v1",
+        "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+        "durationSeconds": 16,
+        "sceneSeconds": 13,
+        "sampledFrame": 700,
+        "legacyFrame": 700,
+        "tickInterval": 100,
+        "growthSampling": "continuous-frame-coordinate",
+        "cameraMode": "scripted",
+        "camera": {
+          "tiltDegrees": 35.685871056241425,
+          "yawDegrees": 103.77914951989025,
+          "zoom": 1.1280932784636488
+        },
+        "framing": {
+          "fitMode": "tour-bounds-with-authored-zoom",
+          "sourceFrameExtent": 620,
+          "baseSpan": 544.8687049189007,
+          "tourMaximumZoom": 1.25,
+          "radius": 310,
+          "halfWidth": 877.4509014278401,
+          "halfHeight": 544.8687049189007,
+          "projectedBounds": {
+            "xMin": -0.40794770760695886,
+            "xMax": 0.40794770760695853,
+            "yMin": -0.599542617895132,
+            "yMax": 0.5995426178951326
+          }
+        }
+      },
+      {
+        "tick": 70000,
+        "id": "run-b-intro-v1",
+        "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+        "durationSeconds": 16,
+        "sceneSeconds": 15.5,
+        "sampledFrame": 700,
+        "legacyFrame": 700,
+        "tickInterval": 100,
+        "growthSampling": "continuous-frame-coordinate",
+        "cameraMode": "scripted",
+        "camera": {
+          "tiltDegrees": 0,
+          "yawDegrees": 120,
+          "zoom": 1.18
+        },
+        "framing": {
+          "fitMode": "tour-bounds-with-authored-zoom",
+          "sourceFrameExtent": 620,
+          "baseSpan": 544.8687049189007,
+          "tourMaximumZoom": 1.25,
+          "radius": 310,
+          "halfWidth": 877.4509014278401,
+          "halfHeight": 544.8687049189007,
+          "projectedBounds": {
+            "xMin": -0.49421568693398005,
+            "xMax": 0.4942156869339799,
+            "yMin": -0.827102558016107,
+            "yMax": 0.8271025580161071
+          }
+        }
+      },
+      {
+        "tick": 70000,
+        "id": "run-b-intro-v1",
+        "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+        "durationSeconds": 16,
+        "sceneSeconds": 16,
+        "sampledFrame": 700,
+        "legacyFrame": 700,
+        "tickInterval": 100,
+        "growthSampling": "continuous-frame-coordinate",
+        "cameraMode": "scripted",
+        "camera": {
+          "tiltDegrees": 0,
+          "yawDegrees": 120,
+          "zoom": 1.18
+        },
+        "framing": {
+          "fitMode": "tour-bounds-with-authored-zoom",
+          "sourceFrameExtent": 620,
+          "baseSpan": 544.8687049189007,
+          "tourMaximumZoom": 1.25,
+          "radius": 310,
+          "halfWidth": 877.4509014278401,
+          "halfHeight": 544.8687049189007,
+          "projectedBounds": {
+            "xMin": -0.49421568693398005,
+            "xMax": 0.4942156869339799,
+            "yMin": -0.827102558016107,
+            "yMax": 0.8271025580161071
+          }
+        }
+      }
+    ],
+    "errors": []
+  },
+  "reducedMotion": {
+    "requested": true,
+    "comparisonReducedMotion": true,
+    "compactReducedMotion": true,
+    "playing": false,
+    "manualTick": 35000,
+    "initialPresentation": {
+      "id": "run-b-intro-v1",
+      "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+      "durationSeconds": 16,
+      "sceneSeconds": 0,
+      "sampledFrame": 0,
+      "legacyFrame": 0,
+      "tickInterval": 100,
+      "growthSampling": "continuous-frame-coordinate",
+      "cameraMode": "scripted",
+      "camera": {
+        "tiltDegrees": 0,
+        "yawDegrees": 0,
+        "zoom": 1
+      }
+    },
+    "initialHeldPresentation": {
+      "id": "run-b-intro-v1",
+      "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+      "durationSeconds": 16,
+      "sceneSeconds": 0,
+      "sampledFrame": 0,
+      "legacyFrame": 0,
+      "tickInterval": 100,
+      "growthSampling": "continuous-frame-coordinate",
+      "cameraMode": "scripted",
+      "camera": {
+        "tiltDegrees": 0,
+        "yawDegrees": 0,
+        "zoom": 1
+      }
+    },
+    "manualPresentation": {
+      "id": "run-b-intro-v1",
+      "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+      "durationSeconds": 16,
+      "sceneSeconds": 6.5,
+      "sampledFrame": 350,
+      "legacyFrame": 350,
+      "tickInterval": 100,
+      "growthSampling": "continuous-frame-coordinate",
+      "cameraMode": "scripted",
+      "camera": {
+        "tiltDegrees": 30.1,
+        "yawDegrees": 40.22,
+        "zoom": 1.2494
+      }
+    },
+    "manualHeldPresentation": {
+      "id": "run-b-intro-v1",
+      "sourceSha256": "95bebf9d2e4ea385b0949c2cca7263799480ecbb67942d12d8f3fd11650c211a",
+      "durationSeconds": 16,
+      "sceneSeconds": 6.5,
+      "sampledFrame": 350,
+      "legacyFrame": 350,
+      "tickInterval": 100,
+      "growthSampling": "continuous-frame-coordinate",
+      "cameraMode": "scripted",
+      "camera": {
+        "tiltDegrees": 30.1,
+        "yawDegrees": 40.22,
+        "zoom": 1.2494
+      }
+    },
+    "errors": []
+  },
+  "errors": {
+    "malformed": {
+      "label": "malformed record",
+      "error": "gutcheck growth comparison: record keys must be exactly compact, format, legacy, recordedAt, run",
+      "ready": false,
+      "bodyText": "Skip to the comparison\nComparison unavailable\n\ngutcheck growth comparison: record keys must be exactly compact, format, legacy, recordedAt, run",
+      "iframeReady": null,
+      "iframeSrc": null,
+      "requests": [
+        {
+          "url": "http://127.0.0.1:4334/gutcheck-growth-comparison.html?record=%2Fcomparison-record.json",
+          "method": "GET",
+          "resourceType": "document"
+        },
+        {
+          "url": "http://127.0.0.1:4334/@vite/client",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-comparison.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/@fs/C:/Users/biao3/Documents/GitHub/snowflake-resume-readiness/node_modules/vite/dist/client/env.mjs",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-comparison.css",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-comparison-record.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-format.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/sha256.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-scene-motion.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/scenes/growth-B-intro.json?import&raw",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-record.json",
+          "method": "GET",
+          "resourceType": "fetch"
+        }
+      ],
+      "overrideApplications": [
+        {
+          "pathname": "/comparison-record.json",
+          "status": 200,
+          "contentType": "application/json",
+          "bytes": 2228,
+          "sha256": "b962f11407d183f6bbbd51985d9cc783acde9a28a97188312354ffb1489fad34"
+        }
+      ],
+      "contextNullWitness": null
+    },
+    "truncated": {
+      "label": "truncated compact asset",
+      "error": "compact asset differs from the pinned comparison record: asset bytes",
+      "ready": false,
+      "bodyText": "Skip to the comparison\n\nTHE VIRTUAL CLOUD CHAMBER · RUN B · MEASURED COMPARISON\n\nOne crystal.\nTwo timelines.\n\nThe original workflow saved a complete 3D surface every 100 solver ticks. The compact workflow saves each cell once—at the tick it attached—and reconstructs a smooth surface while you watch. Both replay the same registered deterministic G–G configuration and reproduce the same endpoint; they preserve different things.\n\n861× smaller\nOne measured 7.70 MB asset replaces a 6.62 GB quantized web sequence.\n\nLOOK FIRST\n\nThe same growth, carried differently\n\nThe left video is a lightweight viewing derivative of the legacy mesh timeline—not the multi-gigabyte sequence itself. The right side is the actual compact Run B asset rendered live with a nonphysical glass-styled treatment. It replays the same committed authored camera tour on its own scene clock; the two panes do not share a live transport. Drag, orbit, pause, and reverse the compact replay in the browser.\n\nLEGACY REPRESENTATION\n701 independent mesh frames\nSOURCE NOT LOADED\nENCODED VIDEO PROXY · NOT THE MESH PAYLOAD\nstart · tick 0\nmiddle · tick 35,000\nfinal · tick 70,000\n\nWhat it keeps: a fully extracted surface at each sampled tick. Any sampled state can stand alone, while every later frame re-encodes the crystal grown by then.\n\nCOMPACT REPRESENTATION · GLASS-STYLED\nOne attachment-time volume\nUNAVAILABLE\nGLASS-STYLED · AUTHORED CAMERA TOUR · MODEL / UNVALIDATED\n\nInteractive replay unavailable\ncompact asset differs from the pinned comparison record: asset bytes\nRetry replay\n\nOpen raw replay alone (outside this page's integrity check)\n\nWhat it keeps: the exact lattice index and attachment tick for every ultimately attached cell. The compact player follows the legacy video's committed camera choreography, but not its live playback position. Its glass-styled body is a nonphysical presentation approximation, and the continuous shell between events is a visual interpolation.\n\nMEASURE SECOND\n\nWhere the bytes went\n\nMost values are re-derived from the completed legacy manifests and checked against the compact asset when the replay loads. Timing rows distinguish retained log measurements from a rounded project record. Nominal storage is separate from transfer size and unmeasured device memory.\n\nLEGACY WEB SEQUENCE\n6.62 GB\n701 frames plus manifest · 6,622,194,703 bytes\nCOMPACT ASSET\n7.70 MB\nOne measured file · 7,695,060 bytes\nDECODED TICK FIELD\n23.9 MB\nExact nominal R32UI data; measured VRAM is unknown\nRECORDED EVENTS\n961,597\nOne index/tick pair per ultimately attached site\nQUESTION\nPER-FRAME MESHES\nCOMPACT REPLAY\nCOMPLETE SEQUENCE\n6.62 GB · 6,622,194,703 bytes across 701 quantized mesh frames and one manifest.\n7.70 MB · 7,695,060 bytes in one attachment-event asset.\nBEFORE WEB QUANTIZATION\n9.99 GB · 9,986,632,571 bytes for the original float mesh sequence.\nNo mesh-quantization pass is required; the attachment-event asset is already the web representation.\nLIGHTWEIGHT VIEWING DERIVATIVE\n5.59 MB · 5,592,795 bytes for the displayed MP4. It is easy to play, but gives up 3D orbit and exact-tick interaction.\nThe same compact asset can autoplay in the page while retaining orbit, pause, reverse, and exact-tick scrub; a fixed MP4 export remains optional.\nOBSERVED GENERATION WALL CLOCK\n11 h 26 m 34 s in the retained replay/extraction manifest; the later web quantization was recorded as approximately 25 s (rounded project record; its timing log was not retained).\n10 h 5 m 48 s from this bake's final log while recording attachment events; no mesh extraction. These separate executions are not a controlled performance benchmark.\nTEMPORAL SAMPLING\nOne complete extracted surface every 100 ticks, including both endpoints.\nEvery ultimately attached cell carries its exact uint32 attachment tick.\nBETWEEN RECORDED EVENTS\nThe artifact retained no intermediate surface snapshots between adjacent mesh frames; a player steps or visually blends them.\nThe shader reveals exact discrete events, then spatially and temporally smooths the presentation surface.\nINDEPENDENT SNAPSHOTS\nYes. Any mesh frame is a complete, independently renderable surface snapshot.\nNo. A requested tick is reconstructed from the cumulative event timeline.\nTOPOLOGY AND REVERSIBILITY\nArbitrary sampled topology and non-monotonic changes can be stored because every frame is complete.\nVersion 1 is specialized for terminal G–G attachment; reverse playback reconstructs earlier occupancy but does not encode a general melting field.\nWEB INTERACTION\nOrbit and scrub are possible, but each uncached state requires another frame fetch and decode.\nOne fetch supports continuous play, pause, exact-tick scrub, reverse, and a free 3D camera.\nCAMERA PRESENTATION\nThe lightweight viewing proxy contains the committed growth-B-intro camera choreography.\nThe compact player replays that same authored camera track from its own scene clock. The two panes are not transport-locked.\nDECODED/DEVICE MEMORY\nNot measured for the complete sequence; the legacy viewer keeps a bounded frame cache rather than all 701 decoded meshes.\n23.9 MB · 23,912,132 bytes is the exact nominal decoded R32UI tick field; actual browser overhead and VRAM were not measured.\nNETWORK COMPRESSION\nNot measured as a production/CDN transfer for the complete sequence.\nNot measured as a production/CDN transfer. The comparison uses verified uncompressed asset bytes.\nSCIENTIFIC MEANING\nA sampled visualization artifact derived from model state; not scientific gate evidence.\nExact attachment timing with an interpolated display shell and nonphysical glass-styled treatment; MODEL / UNVALIDATED and not scientific gate evidence.\nIdentity check. Both columns name the same source manifest and final occupancy digest. Legacy manifest SHA-256: a06bf93000ab948cd72617649530bcf96d39dbcd01badb22d5617a1b73d17c4d.\nFinal occupancy SHA-256: 9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7.\nCompact asset SHA-256: 475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d.\nMODEL · UNVALIDATED. This is a media-representation comparison, not a scientific gate. G–G ticks have no physical-time interpretation. Record timestamp: 2026-08-16T11:11:13.634Z.",
+      "iframeReady": false,
+      "iframeSrc": null,
+      "requests": [
+        {
+          "url": "http://127.0.0.1:4334/gutcheck-growth-comparison.html?record=%2Fcomparison-record.json",
+          "method": "GET",
+          "resourceType": "document"
+        },
+        {
+          "url": "http://127.0.0.1:4334/@vite/client",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-comparison.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-comparison.css",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-comparison-record.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-format.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/sha256.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-scene-motion.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/@fs/C:/Users/biao3/Documents/GitHub/snowflake-resume-readiness/node_modules/vite/dist/client/env.mjs",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/scenes/growth-B-intro.json?import&raw",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-record.json",
+          "method": "GET",
+          "resourceType": "fetch"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/gutcheck-growth-v1.bin",
+          "method": "GET",
+          "resourceType": "fetch"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/poster-start.png",
+          "method": "GET",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/growth-B-intro.mp4",
+          "method": "GET",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/growth-B-intro.mp4",
+          "method": "GET",
+          "resourceType": "media"
+        }
+      ],
+      "overrideApplications": [
+        {
+          "pathname": "/comparison-media/gutcheck-growth-v1.bin",
+          "status": 200,
+          "contentType": "application/octet-stream",
+          "bytes": 9,
+          "sha256": "f06200a62867095eb8c57da13e252b004ea375e5b0656b58fffadecd743d7664"
+        }
+      ],
+      "contextNullWitness": null
+    },
+    "payloadMutation": {
+      "label": "same-size compact payload mutation",
+      "error": "compact asset differs from the pinned comparison record: asset SHA-256",
+      "ready": false,
+      "bodyText": "Skip to the comparison\n\nTHE VIRTUAL CLOUD CHAMBER · RUN B · MEASURED COMPARISON\n\nOne crystal.\nTwo timelines.\n\nThe original workflow saved a complete 3D surface every 100 solver ticks. The compact workflow saves each cell once—at the tick it attached—and reconstructs a smooth surface while you watch. Both replay the same registered deterministic G–G configuration and reproduce the same endpoint; they preserve different things.\n\n861× smaller\nOne measured 7.70 MB asset replaces a 6.62 GB quantized web sequence.\n\nLOOK FIRST\n\nThe same growth, carried differently\n\nThe left video is a lightweight viewing derivative of the legacy mesh timeline—not the multi-gigabyte sequence itself. The right side is the actual compact Run B asset rendered live with a nonphysical glass-styled treatment. It replays the same committed authored camera tour on its own scene clock; the two panes do not share a live transport. Drag, orbit, pause, and reverse the compact replay in the browser.\n\nLEGACY REPRESENTATION\n701 independent mesh frames\nSOURCE NOT LOADED\nENCODED VIDEO PROXY · NOT THE MESH PAYLOAD\nstart · tick 0\nmiddle · tick 35,000\nfinal · tick 70,000\n\nWhat it keeps: a fully extracted surface at each sampled tick. Any sampled state can stand alone, while every later frame re-encodes the crystal grown by then.\n\nCOMPACT REPRESENTATION · GLASS-STYLED\nOne attachment-time volume\nUNAVAILABLE\nGLASS-STYLED · AUTHORED CAMERA TOUR · MODEL / UNVALIDATED\n\nInteractive replay unavailable\ncompact asset differs from the pinned comparison record: asset SHA-256\nRetry replay\n\nOpen raw replay alone (outside this page's integrity check)\n\nWhat it keeps: the exact lattice index and attachment tick for every ultimately attached cell. The compact player follows the legacy video's committed camera choreography, but not its live playback position. Its glass-styled body is a nonphysical presentation approximation, and the continuous shell between events is a visual interpolation.\n\nMEASURE SECOND\n\nWhere the bytes went\n\nMost values are re-derived from the completed legacy manifests and checked against the compact asset when the replay loads. Timing rows distinguish retained log measurements from a rounded project record. Nominal storage is separate from transfer size and unmeasured device memory.\n\nLEGACY WEB SEQUENCE\n6.62 GB\n701 frames plus manifest · 6,622,194,703 bytes\nCOMPACT ASSET\n7.70 MB\nOne measured file · 7,695,060 bytes\nDECODED TICK FIELD\n23.9 MB\nExact nominal R32UI data; measured VRAM is unknown\nRECORDED EVENTS\n961,597\nOne index/tick pair per ultimately attached site\nQUESTION\nPER-FRAME MESHES\nCOMPACT REPLAY\nCOMPLETE SEQUENCE\n6.62 GB · 6,622,194,703 bytes across 701 quantized mesh frames and one manifest.\n7.70 MB · 7,695,060 bytes in one attachment-event asset.\nBEFORE WEB QUANTIZATION\n9.99 GB · 9,986,632,571 bytes for the original float mesh sequence.\nNo mesh-quantization pass is required; the attachment-event asset is already the web representation.\nLIGHTWEIGHT VIEWING DERIVATIVE\n5.59 MB · 5,592,795 bytes for the displayed MP4. It is easy to play, but gives up 3D orbit and exact-tick interaction.\nThe same compact asset can autoplay in the page while retaining orbit, pause, reverse, and exact-tick scrub; a fixed MP4 export remains optional.\nOBSERVED GENERATION WALL CLOCK\n11 h 26 m 34 s in the retained replay/extraction manifest; the later web quantization was recorded as approximately 25 s (rounded project record; its timing log was not retained).\n10 h 5 m 48 s from this bake's final log while recording attachment events; no mesh extraction. These separate executions are not a controlled performance benchmark.\nTEMPORAL SAMPLING\nOne complete extracted surface every 100 ticks, including both endpoints.\nEvery ultimately attached cell carries its exact uint32 attachment tick.\nBETWEEN RECORDED EVENTS\nThe artifact retained no intermediate surface snapshots between adjacent mesh frames; a player steps or visually blends them.\nThe shader reveals exact discrete events, then spatially and temporally smooths the presentation surface.\nINDEPENDENT SNAPSHOTS\nYes. Any mesh frame is a complete, independently renderable surface snapshot.\nNo. A requested tick is reconstructed from the cumulative event timeline.\nTOPOLOGY AND REVERSIBILITY\nArbitrary sampled topology and non-monotonic changes can be stored because every frame is complete.\nVersion 1 is specialized for terminal G–G attachment; reverse playback reconstructs earlier occupancy but does not encode a general melting field.\nWEB INTERACTION\nOrbit and scrub are possible, but each uncached state requires another frame fetch and decode.\nOne fetch supports continuous play, pause, exact-tick scrub, reverse, and a free 3D camera.\nCAMERA PRESENTATION\nThe lightweight viewing proxy contains the committed growth-B-intro camera choreography.\nThe compact player replays that same authored camera track from its own scene clock. The two panes are not transport-locked.\nDECODED/DEVICE MEMORY\nNot measured for the complete sequence; the legacy viewer keeps a bounded frame cache rather than all 701 decoded meshes.\n23.9 MB · 23,912,132 bytes is the exact nominal decoded R32UI tick field; actual browser overhead and VRAM were not measured.\nNETWORK COMPRESSION\nNot measured as a production/CDN transfer for the complete sequence.\nNot measured as a production/CDN transfer. The comparison uses verified uncompressed asset bytes.\nSCIENTIFIC MEANING\nA sampled visualization artifact derived from model state; not scientific gate evidence.\nExact attachment timing with an interpolated display shell and nonphysical glass-styled treatment; MODEL / UNVALIDATED and not scientific gate evidence.\nIdentity check. Both columns name the same source manifest and final occupancy digest. Legacy manifest SHA-256: a06bf93000ab948cd72617649530bcf96d39dbcd01badb22d5617a1b73d17c4d.\nFinal occupancy SHA-256: 9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7.\nCompact asset SHA-256: 475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d.\nMODEL · UNVALIDATED. This is a media-representation comparison, not a scientific gate. G–G ticks have no physical-time interpretation. Record timestamp: 2026-08-16T11:11:13.634Z.",
+      "iframeReady": false,
+      "iframeSrc": null,
+      "requests": [
+        {
+          "url": "http://127.0.0.1:4334/gutcheck-growth-comparison.html?record=%2Fcomparison-record.json",
+          "method": "GET",
+          "resourceType": "document"
+        },
+        {
+          "url": "http://127.0.0.1:4334/@vite/client",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-comparison.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/@fs/C:/Users/biao3/Documents/GitHub/snowflake-resume-readiness/node_modules/vite/dist/client/env.mjs",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-comparison.css",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-comparison-record.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-format.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/sha256.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-scene-motion.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/scenes/growth-B-intro.json?import&raw",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-record.json",
+          "method": "GET",
+          "resourceType": "fetch"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/gutcheck-growth-v1.bin",
+          "method": "GET",
+          "resourceType": "fetch"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/poster-start.png",
+          "method": "GET",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/growth-B-intro.mp4",
+          "method": "GET",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/growth-B-intro.mp4",
+          "method": "GET",
+          "resourceType": "media"
+        }
+      ],
+      "overrideApplications": [
+        {
+          "pathname": "/comparison-media/gutcheck-growth-v1.bin",
+          "status": 200,
+          "contentType": "application/octet-stream",
+          "bytes": 7695060,
+          "sha256": "9337885c16409a671d53b0b59b65ce96e915fa5519010c84dab2bf4190dd6d96"
+        }
+      ],
+      "contextNullWitness": null
+    },
+    "missing": {
+      "label": "missing compact asset",
+      "error": "compact asset fetch failed: 404",
+      "ready": false,
+      "bodyText": "Skip to the comparison\n\nTHE VIRTUAL CLOUD CHAMBER · RUN B · MEASURED COMPARISON\n\nOne crystal.\nTwo timelines.\n\nThe original workflow saved a complete 3D surface every 100 solver ticks. The compact workflow saves each cell once—at the tick it attached—and reconstructs a smooth surface while you watch. Both replay the same registered deterministic G–G configuration and reproduce the same endpoint; they preserve different things.\n\n861× smaller\nOne measured 7.70 MB asset replaces a 6.62 GB quantized web sequence.\n\nLOOK FIRST\n\nThe same growth, carried differently\n\nThe left video is a lightweight viewing derivative of the legacy mesh timeline—not the multi-gigabyte sequence itself. The right side is the actual compact Run B asset rendered live with a nonphysical glass-styled treatment. It replays the same committed authored camera tour on its own scene clock; the two panes do not share a live transport. Drag, orbit, pause, and reverse the compact replay in the browser.\n\nLEGACY REPRESENTATION\n701 independent mesh frames\nSOURCE NOT LOADED\nENCODED VIDEO PROXY · NOT THE MESH PAYLOAD\nstart · tick 0\nmiddle · tick 35,000\nfinal · tick 70,000\n\nWhat it keeps: a fully extracted surface at each sampled tick. Any sampled state can stand alone, while every later frame re-encodes the crystal grown by then.\n\nCOMPACT REPRESENTATION · GLASS-STYLED\nOne attachment-time volume\nUNAVAILABLE\nGLASS-STYLED · AUTHORED CAMERA TOUR · MODEL / UNVALIDATED\n\nInteractive replay unavailable\ncompact asset fetch failed: 404\nRetry replay\n\nOpen raw replay alone (outside this page's integrity check)\n\nWhat it keeps: the exact lattice index and attachment tick for every ultimately attached cell. The compact player follows the legacy video's committed camera choreography, but not its live playback position. Its glass-styled body is a nonphysical presentation approximation, and the continuous shell between events is a visual interpolation.\n\nMEASURE SECOND\n\nWhere the bytes went\n\nMost values are re-derived from the completed legacy manifests and checked against the compact asset when the replay loads. Timing rows distinguish retained log measurements from a rounded project record. Nominal storage is separate from transfer size and unmeasured device memory.\n\nLEGACY WEB SEQUENCE\n6.62 GB\n701 frames plus manifest · 6,622,194,703 bytes\nCOMPACT ASSET\n7.70 MB\nOne measured file · 7,695,060 bytes\nDECODED TICK FIELD\n23.9 MB\nExact nominal R32UI data; measured VRAM is unknown\nRECORDED EVENTS\n961,597\nOne index/tick pair per ultimately attached site\nQUESTION\nPER-FRAME MESHES\nCOMPACT REPLAY\nCOMPLETE SEQUENCE\n6.62 GB · 6,622,194,703 bytes across 701 quantized mesh frames and one manifest.\n7.70 MB · 7,695,060 bytes in one attachment-event asset.\nBEFORE WEB QUANTIZATION\n9.99 GB · 9,986,632,571 bytes for the original float mesh sequence.\nNo mesh-quantization pass is required; the attachment-event asset is already the web representation.\nLIGHTWEIGHT VIEWING DERIVATIVE\n5.59 MB · 5,592,795 bytes for the displayed MP4. It is easy to play, but gives up 3D orbit and exact-tick interaction.\nThe same compact asset can autoplay in the page while retaining orbit, pause, reverse, and exact-tick scrub; a fixed MP4 export remains optional.\nOBSERVED GENERATION WALL CLOCK\n11 h 26 m 34 s in the retained replay/extraction manifest; the later web quantization was recorded as approximately 25 s (rounded project record; its timing log was not retained).\n10 h 5 m 48 s from this bake's final log while recording attachment events; no mesh extraction. These separate executions are not a controlled performance benchmark.\nTEMPORAL SAMPLING\nOne complete extracted surface every 100 ticks, including both endpoints.\nEvery ultimately attached cell carries its exact uint32 attachment tick.\nBETWEEN RECORDED EVENTS\nThe artifact retained no intermediate surface snapshots between adjacent mesh frames; a player steps or visually blends them.\nThe shader reveals exact discrete events, then spatially and temporally smooths the presentation surface.\nINDEPENDENT SNAPSHOTS\nYes. Any mesh frame is a complete, independently renderable surface snapshot.\nNo. A requested tick is reconstructed from the cumulative event timeline.\nTOPOLOGY AND REVERSIBILITY\nArbitrary sampled topology and non-monotonic changes can be stored because every frame is complete.\nVersion 1 is specialized for terminal G–G attachment; reverse playback reconstructs earlier occupancy but does not encode a general melting field.\nWEB INTERACTION\nOrbit and scrub are possible, but each uncached state requires another frame fetch and decode.\nOne fetch supports continuous play, pause, exact-tick scrub, reverse, and a free 3D camera.\nCAMERA PRESENTATION\nThe lightweight viewing proxy contains the committed growth-B-intro camera choreography.\nThe compact player replays that same authored camera track from its own scene clock. The two panes are not transport-locked.\nDECODED/DEVICE MEMORY\nNot measured for the complete sequence; the legacy viewer keeps a bounded frame cache rather than all 701 decoded meshes.\n23.9 MB · 23,912,132 bytes is the exact nominal decoded R32UI tick field; actual browser overhead and VRAM were not measured.\nNETWORK COMPRESSION\nNot measured as a production/CDN transfer for the complete sequence.\nNot measured as a production/CDN transfer. The comparison uses verified uncompressed asset bytes.\nSCIENTIFIC MEANING\nA sampled visualization artifact derived from model state; not scientific gate evidence.\nExact attachment timing with an interpolated display shell and nonphysical glass-styled treatment; MODEL / UNVALIDATED and not scientific gate evidence.\nIdentity check. Both columns name the same source manifest and final occupancy digest. Legacy manifest SHA-256: a06bf93000ab948cd72617649530bcf96d39dbcd01badb22d5617a1b73d17c4d.\nFinal occupancy SHA-256: 9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7.\nCompact asset SHA-256: 475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d.\nMODEL · UNVALIDATED. This is a media-representation comparison, not a scientific gate. G–G ticks have no physical-time interpretation. Record timestamp: 2026-08-16T11:11:13.634Z.",
+      "iframeReady": false,
+      "iframeSrc": null,
+      "requests": [
+        {
+          "url": "http://127.0.0.1:4334/gutcheck-growth-comparison.html?record=%2Fcomparison-record.json",
+          "method": "GET",
+          "resourceType": "document"
+        },
+        {
+          "url": "http://127.0.0.1:4334/@vite/client",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-comparison.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-comparison.css",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-comparison-record.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-format.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/sha256.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-scene-motion.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/@fs/C:/Users/biao3/Documents/GitHub/snowflake-resume-readiness/node_modules/vite/dist/client/env.mjs",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/scenes/growth-B-intro.json?import&raw",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-record.json",
+          "method": "GET",
+          "resourceType": "fetch"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/gutcheck-growth-v1.bin",
+          "method": "GET",
+          "resourceType": "fetch"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/poster-start.png",
+          "method": "GET",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/growth-B-intro.mp4",
+          "method": "GET",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/growth-B-intro.mp4",
+          "method": "GET",
+          "resourceType": "media"
+        }
+      ],
+      "overrideApplications": [
+        {
+          "pathname": "/comparison-media/gutcheck-growth-v1.bin",
+          "status": 404,
+          "contentType": "text/plain",
+          "bytes": 7,
+          "sha256": "ffa63583dfa6706b87d284b86b0d693a161e4840aad2c5cf6b5d27c3b9621f7d"
+        }
+      ],
+      "contextNullWitness": null
+    },
+    "noWebgl": {
+      "label": "WebGL2 unavailable",
+      "error": "Error: growth replay requires WebGL2\n    at runGutcheckGrowthView (http://127.0.0.1:4334/src/gutcheck-growth-view.ts:472:31)\n    at async main (http://127.0.0.1:4334/src/spike-gg-realism.ts:1436:5)",
+      "ready": false,
+      "bodyText": "Skip to the comparison\n\nTHE VIRTUAL CLOUD CHAMBER · RUN B · MEASURED COMPARISON\n\nOne crystal.\nTwo timelines.\n\nThe original workflow saved a complete 3D surface every 100 solver ticks. The compact workflow saves each cell once—at the tick it attached—and reconstructs a smooth surface while you watch. Both replay the same registered deterministic G–G configuration and reproduce the same endpoint; they preserve different things.\n\n861× smaller\nOne measured 7.70 MB asset replaces a 6.62 GB quantized web sequence.\n\nLOOK FIRST\n\nThe same growth, carried differently\n\nThe left video is a lightweight viewing derivative of the legacy mesh timeline—not the multi-gigabyte sequence itself. The right side is the actual compact Run B asset rendered live with a nonphysical glass-styled treatment. It replays the same committed authored camera tour on its own scene clock; the two panes do not share a live transport. Drag, orbit, pause, and reverse the compact replay in the browser.\n\nLEGACY REPRESENTATION\n701 independent mesh frames\nSOURCE NOT LOADED\nENCODED VIDEO PROXY · NOT THE MESH PAYLOAD\nstart · tick 0\nmiddle · tick 35,000\nfinal · tick 70,000\n\nWhat it keeps: a fully extracted surface at each sampled tick. Any sampled state can stand alone, while every later frame re-encodes the crystal grown by then.\n\nCOMPACT REPRESENTATION · GLASS-STYLED\nOne attachment-time volume\nUNAVAILABLE\nGLASS-STYLED · AUTHORED CAMERA TOUR · MODEL / UNVALIDATED\n\nInteractive replay unavailable\nError: growth replay requires WebGL2 at runGutcheckGrowthView (http://127.0.0.1:4334/src/gutcheck-growth-view.ts:472:31) at async main (http://127.0.0.1:4334/src/spike-gg-realism.ts:1436:5)\nRetry replay\n\nOpen raw replay alone (outside this page's integrity check)\n\nWhat it keeps: the exact lattice index and attachment tick for every ultimately attached cell. The compact player follows the legacy video's committed camera choreography, but not its live playback position. Its glass-styled body is a nonphysical presentation approximation, and the continuous shell between events is a visual interpolation.\n\nMEASURE SECOND\n\nWhere the bytes went\n\nMost values are re-derived from the completed legacy manifests and checked against the compact asset when the replay loads. Timing rows distinguish retained log measurements from a rounded project record. Nominal storage is separate from transfer size and unmeasured device memory.\n\nLEGACY WEB SEQUENCE\n6.62 GB\n701 frames plus manifest · 6,622,194,703 bytes\nCOMPACT ASSET\n7.70 MB\nOne measured file · 7,695,060 bytes\nDECODED TICK FIELD\n23.9 MB\nExact nominal R32UI data; measured VRAM is unknown\nRECORDED EVENTS\n961,597\nOne index/tick pair per ultimately attached site\nQUESTION\nPER-FRAME MESHES\nCOMPACT REPLAY\nCOMPLETE SEQUENCE\n6.62 GB · 6,622,194,703 bytes across 701 quantized mesh frames and one manifest.\n7.70 MB · 7,695,060 bytes in one attachment-event asset.\nBEFORE WEB QUANTIZATION\n9.99 GB · 9,986,632,571 bytes for the original float mesh sequence.\nNo mesh-quantization pass is required; the attachment-event asset is already the web representation.\nLIGHTWEIGHT VIEWING DERIVATIVE\n5.59 MB · 5,592,795 bytes for the displayed MP4. It is easy to play, but gives up 3D orbit and exact-tick interaction.\nThe same compact asset can autoplay in the page while retaining orbit, pause, reverse, and exact-tick scrub; a fixed MP4 export remains optional.\nOBSERVED GENERATION WALL CLOCK\n11 h 26 m 34 s in the retained replay/extraction manifest; the later web quantization was recorded as approximately 25 s (rounded project record; its timing log was not retained).\n10 h 5 m 48 s from this bake's final log while recording attachment events; no mesh extraction. These separate executions are not a controlled performance benchmark.\nTEMPORAL SAMPLING\nOne complete extracted surface every 100 ticks, including both endpoints.\nEvery ultimately attached cell carries its exact uint32 attachment tick.\nBETWEEN RECORDED EVENTS\nThe artifact retained no intermediate surface snapshots between adjacent mesh frames; a player steps or visually blends them.\nThe shader reveals exact discrete events, then spatially and temporally smooths the presentation surface.\nINDEPENDENT SNAPSHOTS\nYes. Any mesh frame is a complete, independently renderable surface snapshot.\nNo. A requested tick is reconstructed from the cumulative event timeline.\nTOPOLOGY AND REVERSIBILITY\nArbitrary sampled topology and non-monotonic changes can be stored because every frame is complete.\nVersion 1 is specialized for terminal G–G attachment; reverse playback reconstructs earlier occupancy but does not encode a general melting field.\nWEB INTERACTION\nOrbit and scrub are possible, but each uncached state requires another frame fetch and decode.\nOne fetch supports continuous play, pause, exact-tick scrub, reverse, and a free 3D camera.\nCAMERA PRESENTATION\nThe lightweight viewing proxy contains the committed growth-B-intro camera choreography.\nThe compact player replays that same authored camera track from its own scene clock. The two panes are not transport-locked.\nDECODED/DEVICE MEMORY\nNot measured for the complete sequence; the legacy viewer keeps a bounded frame cache rather than all 701 decoded meshes.\n23.9 MB · 23,912,132 bytes is the exact nominal decoded R32UI tick field; actual browser overhead and VRAM were not measured.\nNETWORK COMPRESSION\nNot measured as a production/CDN transfer for the complete sequence.\nNot measured as a production/CDN transfer. The comparison uses verified uncompressed asset bytes.\nSCIENTIFIC MEANING\nA sampled visualization artifact derived from model state; not scientific gate evidence.\nExact attachment timing with an interpolated display shell and nonphysical glass-styled treatment; MODEL / UNVALIDATED and not scientific gate evidence.\nIdentity check. Both columns name the same source manifest and final occupancy digest. Legacy manifest SHA-256: a06bf93000ab948cd72617649530bcf96d39dbcd01badb22d5617a1b73d17c4d.\nFinal occupancy SHA-256: 9c98fe41e5ea2f6b2020063218b37255877548bdeb49dadf4235a4cf039cf9f7.\nCompact asset SHA-256: 475c1f7c227c45b005bfdb8691b1250599b405fa59902462110312a4f26ceb7d.\nMODEL · UNVALIDATED. This is a media-representation comparison, not a scientific gate. G–G ticks have no physical-time interpretation. Record timestamp: 2026-08-16T11:11:13.634Z.",
+      "iframeReady": false,
+      "iframeSrc": "http://127.0.0.1:4334/spike-gg-realism.html?growth=blob%3Ahttp%3A%2F%2F127.0.0.1%3A4334%2F4425cb5d-3560-46e5-bcd3-cd7cbea58e7d&look=glass&quality=medium&presentation=run-b-intro-v1&autoplay=1&comparisonAttempt=1",
+      "requests": [
+        {
+          "url": "http://127.0.0.1:4334/gutcheck-growth-comparison.html?record=%2Fcomparison-record.json",
+          "method": "GET",
+          "resourceType": "document"
+        },
+        {
+          "url": "http://127.0.0.1:4334/@vite/client",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-comparison.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-comparison.css",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-comparison-record.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-format.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/sha256.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-scene-motion.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/@fs/C:/Users/biao3/Documents/GitHub/snowflake-resume-readiness/node_modules/vite/dist/client/env.mjs",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/scenes/growth-B-intro.json?import&raw",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-record.json",
+          "method": "GET",
+          "resourceType": "fetch"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/gutcheck-growth-v1.bin",
+          "method": "GET",
+          "resourceType": "fetch"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/poster-start.png",
+          "method": "GET",
+          "resourceType": "image"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/growth-B-intro.mp4",
+          "method": "GET",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:4334/spike-gg-realism.html?growth=blob%3Ahttp%3A%2F%2F127.0.0.1%3A4334%2F4425cb5d-3560-46e5-bcd3-cd7cbea58e7d&look=glass&quality=medium&presentation=run-b-intro-v1&autoplay=1&comparisonAttempt=1",
+          "method": "GET",
+          "resourceType": "document"
+        },
+        {
+          "url": "http://127.0.0.1:4334/comparison-media/growth-B-intro.mp4",
+          "method": "GET",
+          "resourceType": "media"
+        },
+        {
+          "url": "http://127.0.0.1:4334/@vite/client",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/spike-gg-realism.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/@fs/C:/Users/biao3/Documents/GitHub/snowflake-resume-readiness/node_modules/vite/dist/client/env.mjs",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/node_modules/.vite/deps/three.js?v=e9519fa0",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/node_modules/.vite/deps/three_addons_controls_OrbitControls__js.js?v=e9519fa0",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/scene-editor.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-view.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-scene-motion.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/growth-asset.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/growth-scene.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/growth-scene-review-camera.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/spike-frame.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/node_modules/.vite/deps/chunk-J22CUE5G.js?v=e9519fa0",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/node_modules/.vite/deps/chunk-PICW5E4J.js?v=e9519fa0",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/node_modules/.vite/deps/chunk-YLJ4XMA6.js?v=e9519fa0",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-format.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/gutcheck-growth-framing.ts",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/scenes/growth-B-intro.json?import&raw",
+          "method": "GET",
+          "resourceType": "script"
+        },
+        {
+          "url": "http://127.0.0.1:4334/src/sha256.ts",
+          "method": "GET",
+          "resourceType": "script"
+        }
+      ],
+      "overrideApplications": [],
+      "contextNullWitness": {
+        "installed": true,
+        "webgl2Calls": 1,
+        "returnedNull": true,
+        "frameUrl": "http://127.0.0.1:4334/spike-gg-realism.html?growth=blob%3Ahttp%3A%2F%2F127.0.0.1%3A4334%2F4425cb5d-3560-46e5-bcd3-cd7cbea58e7d&look=glass&quality=medium&presentation=run-b-intro-v1&autoplay=1&comparisonAttempt=1"
+      }
+    }
+  },
+  "limits": "Product appearance/camera acceptance with Chromium/ANGLE SwiftShader; visual readability requires direct inspection of the named screenshots. The glass treatment is nonphysical, the panes are not transport-locked, and this does not measure hardware-GPU performance, VRAM, production compression, mobile-device performance, cross-browser behavior or scientific validity."
+}

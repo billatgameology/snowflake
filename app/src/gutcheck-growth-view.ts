@@ -30,6 +30,7 @@ import {
   sceneTimeAtFrameCoordinate,
   type SceneCameraPose,
 } from "./gutcheck-scene-motion.ts";
+import { growthTourFramingSpan } from "./gutcheck-growth-framing.ts";
 
 export interface GutcheckGrowthViewOptions {
   readonly query: URLSearchParams;
@@ -121,6 +122,10 @@ interface GrowthDebugState {
     vendor: string;
   };
   framing: {
+    fitMode: "crop-radius" | "tour-bounds-with-authored-zoom";
+    sourceFrameExtent: number | null;
+    baseSpan: number;
+    tourMaximumZoom: number | null;
     radius: number;
     halfWidth: number;
     halfHeight: number;
@@ -202,6 +207,7 @@ function makeStatusLabel(
 ): HTMLDivElement {
   const label = document.createElement("div");
   label.setAttribute("role", "status");
+  label.dataset.growthStatus = "player";
   label.style.cssText =
     "position:fixed;left:14px;top:14px;z-index:20;max-width:370px;padding:9px 11px;" +
     "border:1px solid rgba(210,228,255,.32);border-radius:7px;background:rgba(7,13,25,.72);" +
@@ -688,7 +694,20 @@ export async function runGutcheckGrowthView(
   const framingRadius = presentation?.frameExtent === undefined
     ? cropRadius
     : presentation.frameExtent / 2;
-  const framingSpan = framingRadius * 1.12;
+  const tourMaximumZoom = presentation === null
+    ? null
+    : Math.max(1, ...presentation.motion.camera.map((key) => key.zoom));
+  // Fix the frustum once for the tour. Fitting each sampled pose would cancel
+  // authored zoom and make an identical reverse seek depend on earlier views.
+  const framingSpan = tourMaximumZoom === null
+    ? framingRadius * 1.12
+    : growthTourFramingSpan(framingRadius, occupiedBounds, tourMaximumZoom);
+  const framingPolicy = {
+    fitMode: presentation === null ? "crop-radius" as const : "tour-bounds-with-authored-zoom" as const,
+    sourceFrameExtent: presentation?.frameExtent ?? null,
+    baseSpan: framingSpan,
+    tourMaximumZoom,
+  };
   const cameraDistance = presentation?.frameExtent === undefined
     ? cropRadius * 3
     : presentation.frameExtent * 2;
@@ -778,11 +797,11 @@ export async function runGutcheckGrowthView(
   slider.max = String(asset.header.finalTick);
   slider.step = "1";
   slider.value = String(Math.round(currentTick));
-  slider.style.cssText = "flex:1;min-width:180px";
+  slider.style.cssText = "width:100%;min-width:0";
   slider.dataset.growthControl = "timeline";
   slider.setAttribute("aria-label", "Growth replay tick");
   const tickLabel = document.createElement("span");
-  tickLabel.style.cssText = "min-width:205px;text-align:right";
+  tickLabel.style.cssText = "grid-column:1 / -1;min-width:0;text-align:center;font-size:11px";
   const playButton = styledButton(playing ? "pause" : "play");
   playButton.dataset.growthControl = "play";
   if (reducedMotion) {
@@ -795,13 +814,20 @@ export async function runGutcheckGrowthView(
   const faceButton = styledButton(presentation === null ? "face-on" : "follow tour");
   faceButton.dataset.growthControl = presentation === null ? "face-on" : "follow-tour";
   const bar = document.createElement("div");
+  bar.dataset.growthControl = "bar";
   bar.style.cssText =
-    "position:fixed;left:0;right:0;bottom:0;display:flex;gap:10px;align-items:center;" +
-    "padding:10px 14px;background:rgba(8,12,22,.68);color:#dfe7f4;" +
+    "position:fixed;left:0;right:0;bottom:0;display:grid;grid-template-columns:auto minmax(0,1fr) auto;" +
+    "gap:6px 10px;align-items:center;padding:8px 14px;background:rgba(8,12,22,.68);color:#dfe7f4;" +
     "font:13px/1.4 ui-monospace,monospace;z-index:10";
-  bar.append(playButton, slider, tickLabel, faceButton);
+  bar.append(playButton, slider, faceButton, tickLabel);
   if (options.query.get("ui") !== "0") {
-    document.body.append(makeStatusLabel(appearance, presentation?.id ?? null), bar);
+    // The actual comparison embed has its visible warning above the canvas.
+    // Standalone replays keep their own warning even if given this URL option.
+    const comparisonOwnsStatus = window.parent !== window && options.query.get("status") === "parent";
+    if (!comparisonOwnsStatus) {
+      document.body.append(makeStatusLabel(appearance, presentation?.id ?? null));
+    }
+    document.body.append(bar);
   }
 
   const debugState: GrowthDebugState = {
@@ -843,6 +869,7 @@ export async function runGutcheckGrowthView(
       vendor,
     },
     framing: {
+      ...framingPolicy,
       radius: framingRadius,
       halfWidth: framingSpan,
       halfHeight: framingSpan,
@@ -890,7 +917,7 @@ export async function runGutcheckGrowthView(
 
   const updateProjection = (): void => {
     const width = window.innerWidth;
-    const height = window.innerHeight;
+    const height = Math.max(1, window.innerHeight - bar.getBoundingClientRect().height);
     const pixelRatio = Math.min(window.devicePixelRatio || 1, quality.dprCap);
     renderer.setPixelRatio(pixelRatio);
     renderer.setSize(width, height);
@@ -908,6 +935,7 @@ export async function runGutcheckGrowthView(
     camera.updateProjectionMatrix();
     debugState.viewport = { width, height, pixelRatio };
     debugState.framing = {
+      ...framingPolicy,
       radius: framingRadius,
       halfWidth,
       halfHeight,
@@ -916,6 +944,7 @@ export async function runGutcheckGrowthView(
   };
   updateProjection();
   window.addEventListener("resize", updateProjection);
+  if (bar.isConnected) new ResizeObserver(updateProjection).observe(bar);
 
   const updatePresentation = (): void => {
     const playhead = splitGrowthPlayhead(displayTick, asset.header.finalTick);

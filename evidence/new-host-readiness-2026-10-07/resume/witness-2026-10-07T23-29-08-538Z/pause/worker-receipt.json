@@ -1,0 +1,348 @@
+{
+  "schema": "operational-lk-core-continuation-worker-v1",
+  "mode": "pause",
+  "pid": 16868,
+  "execPath": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+  "argv": [
+    "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+    "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\worker.mjs",
+    "pause",
+    "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\witness-2026-10-07T23-29-08-538Z\\pause"
+  ],
+  "versions": {
+    "node": "24.13.1",
+    "acorn": "8.15.0",
+    "ada": "3.4.2",
+    "amaro": "1.1.5",
+    "ares": "1.34.6",
+    "brotli": "1.2.0",
+    "cjs_module_lexer": "2.2.0",
+    "cldr": "48.0",
+    "icu": "78.2",
+    "llhttp": "9.3.0",
+    "modules": "137",
+    "napi": "10",
+    "nbytes": "0.1.1",
+    "ncrypto": "0.0.1",
+    "nghttp2": "1.68.0",
+    "openssl": "3.5.5",
+    "simdjson": "4.2.4",
+    "simdutf": "6.4.0",
+    "sqlite": "3.51.2",
+    "tz": "2025c",
+    "undici": "7.18.2",
+    "unicode": "17.0",
+    "uv": "1.51.0",
+    "uvwasi": "0.0.23",
+    "v8": "13.6.233.17-node.40",
+    "zlib": "1.3.1-e00f703",
+    "zstd": "1.5.7"
+  },
+  "started": "2026-10-07T23:29:08.788Z",
+  "finished": "2026-10-07T23:29:08.843Z",
+  "options": {
+    "surfacePolicy": "aggregate-hv-g1h1-v6",
+    "dims": {
+      "nx": 12,
+      "ny": 12,
+      "nz": 9
+    },
+    "tempC": -5,
+    "sigmaInfinity": 0.01,
+    "dxUm": 0.35,
+    "pressurePa": 101325,
+    "paramSet": "M1",
+    "cflFill": 0.2,
+    "relaxTol": 1e-8,
+    "divTol": 0.000001,
+    "relaxMaxSweeps": 200000,
+    "rngSeed": 305419896,
+    "noiseEpsilon": 0.25,
+    "domain": "hexPrism",
+    "farField": "monopole-matched",
+    "seedRadius": 2,
+    "seedThickness": 1
+  },
+  "before": {
+    "tick": 0,
+    "attachedCount": 19,
+    "simTimeSeconds": 0,
+    "volumeRateM3PerS": 0,
+    "partialFillCount": 0,
+    "vaporMin": 0.01,
+    "vaporMax": 0.01,
+    "holeFillCountTotal": 0,
+    "fillLedger": 0,
+    "holeFillDeficit": 0,
+    "saturationClippedFill": 0,
+    "lastRelaxation": null,
+    "ledger": {
+      "rule": "LibbrechtKinetics",
+      "claim": "the fill ledger plus recorded saturation clipping integrates exactly the geometry-adjusted per-boundary-pixel Hertz-Knudsen demand (sigma_b; G_b=H_b=1); placed-fill vapor units accumulate each interface step at that step's M_ice; clipping is unapplied numerical excess, not deposited ice; maintained-shell solve quality is the divergence identity over signed net numerical boundary exchange, required for convergence there; local exchange is potential redistribution, not uptake; no Sigma(b+d) claim exists under this rule",
+      "totalMassBD": null,
+      "dirichletMeter": null,
+      "fillLedgerIceCells": 0,
+      "fillLedgerVaporUnits": 0,
+      "holeFillDeficit": 0,
+      "saturationClippedFill": 0,
+      "lastDivergenceResidual": null
+    },
+    "fieldSha256": {
+      "a": "829cebd92a138b379d9b74eaac317fbc3b2f9a7c5fdfbbe1f8dc8b0f4dd44dbf",
+      "f": "f35d651b92caaa6d5f5c13d24ba8f3b5781a494aa214a0ead2aef13a5a4c803e",
+      "sigma": "c9c07144dccfa0e65a59a8f81fa32b3379c2075909e385fae3a8ec909ba7e576"
+    },
+    "boundaryOrderSha256": "88bc63971e91c118552c84b0819da82b1de5170e74fcd9b0a926e29f8662212a",
+    "lastAttachedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stateAtEight": {
+    "tick": 8,
+    "attachedCount": 68,
+    "simTimeSeconds": 0.7650835078726062,
+    "volumeRateM3PerS": 4.478077438033302e-18,
+    "partialFillCount": 65,
+    "vaporMin": 0.0004133158705115245,
+    "vaporMax": 0.0076794930929740615,
+    "holeFillCountTotal": 1,
+    "fillLedger": 67.43627709280321,
+    "holeFillDeficit": 0.009882506744313346,
+    "saturationClippedFill": 3.695326343285713,
+    "lastRelaxation": {
+      "sweeps": 43,
+      "converged": true,
+      "residual": 9.445045353467796e-9,
+      "divergenceResidual": 1.778479525940899e-7,
+      "shellClampDiagnostic": 0.07403119149291143,
+      "surfaceExchangeDiagnostic": 0.0740312046592094,
+      "smootherDriftDiagnostic": -2.1250362580715887e-16,
+      "minLocalSurfaceExchangeDiagnostic": -0.0017351732489963327
+    },
+    "ledger": {
+      "rule": "LibbrechtKinetics",
+      "claim": "the fill ledger plus recorded saturation clipping integrates exactly the geometry-adjusted per-boundary-pixel Hertz-Knudsen demand (sigma_b; G_b=H_b=1); placed-fill vapor units accumulate each interface step at that step's M_ice; clipping is unapplied numerical excess, not deposited ice; maintained-shell solve quality is the divergence identity over signed net numerical boundary exchange, required for convergence there; local exchange is potential redistribution, not uptake; no Sigma(b+d) claim exists under this rule",
+      "totalMassBD": null,
+      "dirichletMeter": null,
+      "fillLedgerIceCells": 67.43627709280321,
+      "fillLedgerVaporUnits": 19099666.57903441,
+      "holeFillDeficit": 0.009882506744313346,
+      "saturationClippedFill": 3.695326343285713,
+      "lastDivergenceResidual": 1.778479525940899e-7
+    },
+    "fieldSha256": {
+      "a": "1fa74edefa93caaa08075a72ae64fe0a3997a47738113f0618ac2eba8b393130",
+      "f": "58f9b7abdb73fdc21a1a0160309b5d954238ab518b4d86e43b644db0f3758cbe",
+      "sigma": "eee152db7b2141ac5fa9acc20c1de481447a0e3665a43821f3e5321f2b2a21fb"
+    },
+    "boundaryOrderSha256": "b075e3dc02a2b85127aa8d0592329c284a7334a851bf2c501d8347e5e5b90462",
+    "lastAttachedSha256": "c8ed1450485b79e10750ec2967aac78f206886d0a8b7214a19224a7a0441d800"
+  },
+  "final": {
+    "tick": 8,
+    "attachedCount": 68,
+    "simTimeSeconds": 0.7650835078726062,
+    "volumeRateM3PerS": 4.478077438033302e-18,
+    "partialFillCount": 65,
+    "vaporMin": 0.0004133158705115245,
+    "vaporMax": 0.0076794930929740615,
+    "holeFillCountTotal": 1,
+    "fillLedger": 67.43627709280321,
+    "holeFillDeficit": 0.009882506744313346,
+    "saturationClippedFill": 3.695326343285713,
+    "lastRelaxation": {
+      "sweeps": 43,
+      "converged": true,
+      "residual": 9.445045353467796e-9,
+      "divergenceResidual": 1.778479525940899e-7,
+      "shellClampDiagnostic": 0.07403119149291143,
+      "surfaceExchangeDiagnostic": 0.0740312046592094,
+      "smootherDriftDiagnostic": -2.1250362580715887e-16,
+      "minLocalSurfaceExchangeDiagnostic": -0.0017351732489963327
+    },
+    "ledger": {
+      "rule": "LibbrechtKinetics",
+      "claim": "the fill ledger plus recorded saturation clipping integrates exactly the geometry-adjusted per-boundary-pixel Hertz-Knudsen demand (sigma_b; G_b=H_b=1); placed-fill vapor units accumulate each interface step at that step's M_ice; clipping is unapplied numerical excess, not deposited ice; maintained-shell solve quality is the divergence identity over signed net numerical boundary exchange, required for convergence there; local exchange is potential redistribution, not uptake; no Sigma(b+d) claim exists under this rule",
+      "totalMassBD": null,
+      "dirichletMeter": null,
+      "fillLedgerIceCells": 67.43627709280321,
+      "fillLedgerVaporUnits": 19099666.57903441,
+      "holeFillDeficit": 0.009882506744313346,
+      "saturationClippedFill": 3.695326343285713,
+      "lastDivergenceResidual": 1.778479525940899e-7
+    },
+    "fieldSha256": {
+      "a": "1fa74edefa93caaa08075a72ae64fe0a3997a47738113f0618ac2eba8b393130",
+      "f": "58f9b7abdb73fdc21a1a0160309b5d954238ab518b4d86e43b644db0f3758cbe",
+      "sigma": "eee152db7b2141ac5fa9acc20c1de481447a0e3665a43821f3e5321f2b2a21fb"
+    },
+    "boundaryOrderSha256": "b075e3dc02a2b85127aa8d0592329c284a7334a851bf2c501d8347e5e5b90462",
+    "lastAttachedSha256": "c8ed1450485b79e10750ec2967aac78f206886d0a8b7214a19224a7a0441d800"
+  },
+  "reports": [
+    {
+      "relaxation": {
+        "sweeps": 71,
+        "residual": 8.150615165430919e-9,
+        "converged": true,
+        "divergenceResidual": 2.1454436221007506e-7,
+        "shellClampDiagnostic": 0.06971179116303931,
+        "surfaceExchangeDiagnostic": 0.06971180611931392,
+        "smootherDriftDiagnostic": -3.8163916471489756e-16,
+        "minLocalSurfaceExchangeDiagnostic": -0.0018777328254331272
+      },
+      "surface": {
+        "attachedNow": 0,
+        "maxKineticFillIncrement": 0.2,
+        "holeFillCount": 0,
+        "deltaTimeSeconds": 0.08040615535267619,
+        "stalled": false,
+        "skippedUnconverged": false
+      }
+    },
+    {
+      "relaxation": {
+        "sweeps": 71,
+        "residual": 9.633499119948707e-9,
+        "converged": true,
+        "divergenceResidual": 3.674543553250011e-7,
+        "shellClampDiagnostic": 0.04817004806416074,
+        "surfaceExchangeDiagnostic": 0.0481700657644609,
+        "smootherDriftDiagnostic": -2.96637714392034e-16,
+        "minLocalSurfaceExchangeDiagnostic": -0.0012660262354218426
+      },
+      "surface": {
+        "attachedNow": 0,
+        "maxKineticFillIncrement": 0.2,
+        "holeFillCount": 0,
+        "deltaTimeSeconds": 0.11377315526716904,
+        "stalled": false,
+        "skippedUnconverged": false
+      }
+    },
+    {
+      "relaxation": {
+        "sweeps": 66,
+        "residual": 9.760930865659878e-9,
+        "converged": true,
+        "divergenceResidual": 3.151788299087442e-7,
+        "shellClampDiagnostic": 0.054358655411503184,
+        "surfaceExchangeDiagnostic": 0.054358638278810816,
+        "smootherDriftDiagnostic": -3.608224830031759e-16,
+        "minLocalSurfaceExchangeDiagnostic": -0.0014284778757965143
+      },
+      "surface": {
+        "attachedNow": 0,
+        "maxKineticFillIncrement": 0.2,
+        "holeFillCount": 0,
+        "deltaTimeSeconds": 0.10028863722610454,
+        "stalled": false,
+        "skippedUnconverged": false
+      }
+    },
+    {
+      "relaxation": {
+        "sweeps": 61,
+        "residual": 9.228314206549681e-9,
+        "converged": true,
+        "divergenceResidual": 3.0973267920616145e-7,
+        "shellClampDiagnostic": 0.053113479334830536,
+        "surfaceExchangeDiagnostic": 0.05311349578581559,
+        "smootherDriftDiagnostic": -2.949029909160572e-16,
+        "minLocalSurfaceExchangeDiagnostic": -0.0013965138238713395
+      },
+      "surface": {
+        "attachedNow": 0,
+        "maxKineticFillIncrement": 0.2,
+        "holeFillCount": 0,
+        "deltaTimeSeconds": 0.10399273744284177,
+        "stalled": false,
+        "skippedUnconverged": false
+      }
+    },
+    {
+      "relaxation": {
+        "sweeps": 56,
+        "residual": 8.684359915217543e-9,
+        "converged": true,
+        "divergenceResidual": 2.906523595384028e-7,
+        "shellClampDiagnostic": 0.052931702454631975,
+        "surfaceExchangeDiagnostic": 0.05293168706991185,
+        "smootherDriftDiagnostic": -3.8250652645288596e-16,
+        "minLocalSurfaceExchangeDiagnostic": -0.001405267693571942
+      },
+      "surface": {
+        "attachedNow": 0,
+        "maxKineticFillIncrement": 0.2,
+        "holeFillCount": 0,
+        "deltaTimeSeconds": 0.10347753172906643,
+        "stalled": false,
+        "skippedUnconverged": false
+      }
+    },
+    {
+      "relaxation": {
+        "sweeps": 50,
+        "residual": 9.281377489483988e-9,
+        "converged": true,
+        "divergenceResidual": 2.404225138394823e-7,
+        "shellClampDiagnostic": 0.053498013482143156,
+        "surfaceExchangeDiagnostic": 0.05349802634427287,
+        "smootherDriftDiagnostic": -2.6107588313450947e-16,
+        "minLocalSurfaceExchangeDiagnostic": -0.0014137361576750957
+      },
+      "surface": {
+        "attachedNow": 29,
+        "maxKineticFillIncrement": 0.2,
+        "holeFillCount": 0,
+        "deltaTimeSeconds": 0.10348207008396824,
+        "stalled": false,
+        "skippedUnconverged": false
+      }
+    },
+    {
+      "relaxation": {
+        "sweeps": 44,
+        "residual": 8.764470225963716e-9,
+        "converged": true,
+        "divergenceResidual": 1.5291456889726672e-7,
+        "shellClampDiagnostic": 0.0759189517798668,
+        "surfaceExchangeDiagnostic": 0.07591896338898207,
+        "smootherDriftDiagnostic": -2.8275992658421956e-16,
+        "minLocalSurfaceExchangeDiagnostic": -0.0019666772833768706
+      },
+      "surface": {
+        "attachedNow": 11,
+        "maxKineticFillIncrement": 0.20000000000000004,
+        "holeFillCount": 0,
+        "deltaTimeSeconds": 0.07345005385771991,
+        "stalled": false,
+        "skippedUnconverged": false
+      }
+    },
+    {
+      "relaxation": {
+        "sweeps": 43,
+        "residual": 9.445045353467796e-9,
+        "converged": true,
+        "divergenceResidual": 1.778479525940899e-7,
+        "shellClampDiagnostic": 0.07403119149291143,
+        "surfaceExchangeDiagnostic": 0.0740312046592094,
+        "smootherDriftDiagnostic": -2.1250362580715887e-16,
+        "minLocalSurfaceExchangeDiagnostic": -0.0017351732489963327
+      },
+      "surface": {
+        "attachedNow": 9,
+        "maxKineticFillIncrement": 0.2,
+        "holeFillCount": 1,
+        "deltaTimeSeconds": 0.08621316691306008,
+        "stalled": false,
+        "skippedUnconverged": false
+      }
+    }
+  ],
+  "encoded": {
+    "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\witness-2026-10-07T23-29-08-538Z\\pause/state-v3.ckpt",
+    "bytes": 23767,
+    "sha256": "b4f38a424c6595b02e235e4fbf82a1c464c95a6d06b0867461947edaab07e252"
+  },
+  "limit": "Named operational core witness only; not production discovery resume or ADR0039 acceptance."
+}

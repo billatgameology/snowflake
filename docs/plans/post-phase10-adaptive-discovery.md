@@ -35,12 +35,17 @@ bytes, all fresh-restored and compared byte-for-byte by length/SHA-256. Existing
 remain in place. Older adaptive collections outside this bundle still require retention review
 before deleting any worktree; no collection is declared disposable.
 
-Current next step (2026-10-07): Windows consolidation and the new 24-core computer's readiness
-are complete; the other computer's film branch remains untouched. Finish the separately planned
-repository housekeeping, then select a new finite experiment before launching any wave. A physically
+Current next step (2026-10-07): Windows consolidation, repository housekeeping and the new
+24-core computer's operational readiness are complete; the other computer's film branch remains
+untouched. Select a new finite experiment before launching any wave. A physically
 matched grid/width and initialization check of the early-history lead is a proposal, not a registered
-run queue. Measure the current host's worker budget and prove representative pause/resume first.
-The 28-worker cap belongs to the former 32-logical-processor execution host, not this computer.
+run queue. The [current-host readiness task](new-host-acceptance-and-capacity-2026-10-07.md)
+measured a 16-process recommendation for its ordinary N64 three-cycle workload and proved one
+strict core disk continuation. Source artifacts are its tracked capacity result and resume receipt;
+this does not qualify N112/N126/experimental rows or make the discovery runner resumable. Register
+matched capacity/memory checks and short independently terminal stages, or a separately authorized
+production resume path, before another campaign. The 28-worker cap belongs to the former
+32-logical-processor execution host, not this computer.
 Other parked lead families remain open. No Phase 7 or C0V/S6 work is reopened.
 
 Local reconciliation before push: the science worktree was clean at 9658cd3 before this closure;

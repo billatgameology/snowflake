@@ -9,8 +9,9 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   `snowflake-resume-readiness`, branch `chore/resume-readiness-2026-10-07`: glass/camera acceptance,
   bounded NAS recovery/custody checks and measured worker capacity. The six comparison inputs are
   restored and both small C-drive backups passed fresh-process recovery. Core continuation matched
-  uninterrupted bytes in a fresh process. The first glass capture found portrait clipping, now under
-  focused repair. The completed short-row ladder recommends 16 workers for its ordinary N64 workload
+  uninterrupted bytes in a fresh process. Glass/camera browser and direct visual acceptance pass after
+  the framing/layout repairs. Durable receipts are in `evidence/new-host-readiness-2026-10-07/`;
+  the combined integrity check and local reconciliation remain. The short-row ladder recommends 16 workers for its ordinary N64 workload
   (task capacity receipt SHA-256 `eb79aa6ddcaddaf79c2ec45aa919e0a6e7363674bfe0dcfcb83dcb0b33b4936b`);
   larger/experimental rows remain unqualified. Scientific campaigns remain paused.
 - **Verification scope:** maker clarification is recorded through local `91c0684`: website/education
@@ -190,8 +191,10 @@ custody remain retained. Primary `nas-retention-review.json` records the disposi
 - [Adaptive discovery](plans/post-phase10-adaptive-discovery.md) is paused after its completed closing
   wave. The next scientific experiment is not selected; completed campaign rows are not a resume queue.
 - [Glass/camera follow-up](plans/explore-gutcheck-growth-glass-camera.md) has an implementation candidate
-  but still needs fresh comparison-bundle browser and visual acceptance. The new Run B dendrite smoke
-  does not close this plan. Its required local comparison bundle is not restored by the 151-input gallery.
+  with completed local browser/visual acceptance: current tracked glass record SHA-256
+  `052b4c0f92fc1f8ea9b5c88219322c4fd3ceaba4db79051a93b587d6bd4c51c8`.
+  Its restored comparison bundle and accepted views are distinct from the 151-input gallery.
+  Publication and hardware/mobile/cross-browser performance remain outside this acceptance.
 - [Render worktree closeout](plans/render-worktrees-nas-closeout.md) has merged publication and completed
   worktree/branch consolidation. Full cross-machine restoration of the roughly 215 GB collection pair
   and any pruning of retained original output remain separate pending decisions.
@@ -206,13 +209,11 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-Execute the [new-host follow-up](plans/new-host-acceptance-and-capacity-2026-10-07.md): recover the
-exact comparison inputs, accept the implemented glass/camera behavior, check known NAS custody,
-then measure the registered short-row worker ladder and prove its scoped core resume witness.
-
-The next product task is [glass/camera acceptance](plans/explore-gutcheck-growth-glass-camera.md):
-recover its separately required comparison bundle, then execute its browser and visual acceptance
-in a new isolated task worktree. The 151-input gallery is ready to use in the primary checkout.
+Finish the [new-host follow-up](plans/new-host-acceptance-and-capacity-2026-10-07.md)'s remaining
+closeout: complete its combined integrity check and reconcile local main/worktree/ref.
+Comparison recovery, local glass/camera acceptance, both small independent backups, the measured
+N64 worker ladder and the scoped core continuation witness are done. The 151-input gallery remains
+ready to use in the primary checkout.
 
 The large-output restore/retention decision, education/film work on its owning computer, and a newly
 planned scientific experiment remain separate choices. For science, establish this host's runtime/concurrency and representative

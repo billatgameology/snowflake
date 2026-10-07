@@ -1,0 +1,383 @@
+{
+  "schema": "operational-host-capacity-invocation-v1",
+  "runRoot": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\capacity\\ladder-2026-10-07T23-31-24-977Z",
+  "sourceHead": "2617c3124cc6874401ea7efe1986cbc4bf0f38ad",
+  "driverSha256": "4fe96fe409615c78efca79cb332d2a37eb1c187dd41f9a67f6144204a857fb1c",
+  "execPath": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+  "argv": [
+    "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+    "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\capacity\\benchmark.mjs",
+    "ladder"
+  ],
+  "childArgv": [
+    "runner/src/main.ts",
+    "grow-lk",
+    "--temp-c",
+    "-5",
+    "--sigma-inf",
+    "0.00375",
+    "--dims",
+    "64,64,64",
+    "--dx-um",
+    "0.35",
+    "--param-set",
+    "M1",
+    "--cfl",
+    "0.05",
+    "--tol",
+    "1e-9",
+    "--div-tol",
+    "1e-7",
+    "--steps",
+    "3",
+    "--target-extent",
+    "1000000",
+    "--surface-policy",
+    "aggregate-hv-g1h1-v6",
+    "--far-field",
+    "monopole-matched",
+    "--seed",
+    "1",
+    "--noise",
+    "0",
+    "--metrics-every",
+    "1"
+  ],
+  "cwd": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness",
+  "versions": {
+    "node": "24.13.1",
+    "acorn": "8.15.0",
+    "ada": "3.4.2",
+    "amaro": "1.1.5",
+    "ares": "1.34.6",
+    "brotli": "1.2.0",
+    "cjs_module_lexer": "2.2.0",
+    "cldr": "48.0",
+    "icu": "78.2",
+    "llhttp": "9.3.0",
+    "modules": "137",
+    "napi": "10",
+    "nbytes": "0.1.1",
+    "ncrypto": "0.0.1",
+    "nghttp2": "1.68.0",
+    "openssl": "3.5.5",
+    "simdjson": "4.2.4",
+    "simdutf": "6.4.0",
+    "sqlite": "3.51.2",
+    "tz": "2025c",
+    "undici": "7.18.2",
+    "unicode": "17.0",
+    "uv": "1.51.0",
+    "uvwasi": "0.0.23",
+    "v8": "13.6.233.17-node.40",
+    "zlib": "1.3.1-e00f703",
+    "zstd": "1.5.7"
+  },
+  "host": {
+    "hostname": "HIL",
+    "platform": "win32",
+    "release": "10.0.26200",
+    "totalmem": 68023050240,
+    "cpus": [
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 203203,
+          "nice": 0,
+          "sys": 363593,
+          "idle": 20773109,
+          "irq": 120125
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 280671,
+          "nice": 0,
+          "sys": 179031,
+          "idle": 20880000,
+          "irq": 13203
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 311609,
+          "nice": 0,
+          "sys": 188468,
+          "idle": 20839625,
+          "irq": 9968
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 313640,
+          "nice": 0,
+          "sys": 197500,
+          "idle": 20828578,
+          "irq": 9656
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 323156,
+          "nice": 0,
+          "sys": 172375,
+          "idle": 20844187,
+          "irq": 8281
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 306437,
+          "nice": 0,
+          "sys": 169140,
+          "idle": 20864140,
+          "irq": 7968
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 129312,
+          "nice": 0,
+          "sys": 83031,
+          "idle": 21127328,
+          "irq": 4562
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 136875,
+          "nice": 0,
+          "sys": 96765,
+          "idle": 21106000,
+          "irq": 6218
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 131750,
+          "nice": 0,
+          "sys": 70421,
+          "idle": 21137531,
+          "irq": 3828
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 126453,
+          "nice": 0,
+          "sys": 57656,
+          "idle": 21155562,
+          "irq": 3375
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 251578,
+          "nice": 0,
+          "sys": 131968,
+          "idle": 20956156,
+          "irq": 6062
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 256265,
+          "nice": 0,
+          "sys": 125406,
+          "idle": 20958031,
+          "irq": 5812
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 1803906,
+          "nice": 0,
+          "sys": 946500,
+          "idle": 18589312,
+          "irq": 22453
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 203843,
+          "nice": 0,
+          "sys": 99656,
+          "idle": 21036218,
+          "irq": 5562
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 64750,
+          "nice": 0,
+          "sys": 19593,
+          "idle": 21255203,
+          "irq": 1421
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 67921,
+          "nice": 0,
+          "sys": 21171,
+          "idle": 21249390,
+          "irq": 1468
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 66046,
+          "nice": 0,
+          "sys": 17859,
+          "idle": 21254625,
+          "irq": 1218
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 63421,
+          "nice": 0,
+          "sys": 15859,
+          "idle": 21260265,
+          "irq": 1187
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 55781,
+          "nice": 0,
+          "sys": 10343,
+          "idle": 21273437,
+          "irq": 671
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 52531,
+          "nice": 0,
+          "sys": 10984,
+          "idle": 21276046,
+          "irq": 843
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 56359,
+          "nice": 0,
+          "sys": 10781,
+          "idle": 21272421,
+          "irq": 687
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 55421,
+          "nice": 0,
+          "sys": 10625,
+          "idle": 21272437,
+          "irq": 593
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 1840109,
+          "nice": 0,
+          "sys": 1061875,
+          "idle": 18437734,
+          "irq": 24843
+        }
+      },
+      {
+        "model": "Intel(R) Core(TM) Ultra 9 285K",
+        "speed": 3686,
+        "times": {
+          "user": 226578,
+          "nice": 0,
+          "sys": 102687,
+          "idle": 21010437,
+          "irq": 4687
+        }
+      }
+    ]
+  },
+  "startingHost": {
+    "capturedUtc": "2026-10-07T23:31:26.5022378Z",
+    "availablePhysicalBytes": 55191646208,
+    "commitLimitBytes": 77686726656,
+    "committedBytes": 13797941248,
+    "commitHeadroomBytes": 63888785408,
+    "cpuPercent": 5.982892828685538,
+    "children": []
+  },
+  "ladder": [
+    1,
+    2,
+    4,
+    8,
+    12,
+    16,
+    20
+  ],
+  "sampleCadenceMs": 2000,
+  "memorySampleSource": "Windows Memory Available Bytes, Committed Bytes and Commit Limit performance counters",
+  "lowerLimits": {
+    "availablePhysicalBytes": 12884901888,
+    "commitHeadroomBytes": 8589934592
+  },
+  "caps": {
+    "rungSeconds": 180,
+    "calibrationSecondsBeforeAmendment": 60
+  },
+  "unflaggedDefaults": {
+    "pressurePa": 101325,
+    "seedRadius": 2,
+    "seedThickness": 1,
+    "relaxMaxSweeps": 200000
+  },
+  "limit": "Unchanged ordinary N64 three-cycle initial-solve-heavy host timing, not a science gate or a transfer claim for larger/experimental rows."
+}

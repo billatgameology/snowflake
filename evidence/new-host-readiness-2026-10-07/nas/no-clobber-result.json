@@ -1,0 +1,10 @@
+﻿{
+    "observedAt":  "2026-10-07T23:29:08.0677868Z",
+    "command":  "node out/new-host-readiness-2026-10-07/nas/recover-known-nas.mjs copy",
+    "expected":  "refuse existing comparison destination before any copy",
+    "exit":  1,
+    "refusal":  true,
+    "originalReceiptUnchanged":  true,
+    "receiptSha256":  "1ced678bb22c40e91b6e6e324c5cc7a41dea8ae75d5501c11d796094df08dd70",
+    "nasMutation":  false
+}

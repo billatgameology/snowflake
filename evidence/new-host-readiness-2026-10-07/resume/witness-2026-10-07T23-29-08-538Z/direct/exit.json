@@ -1,0 +1,17 @@
+{
+  "mode": "direct",
+  "pid": 24076,
+  "execPath": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+  "argv": [
+    "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\worker.mjs",
+    "direct",
+    "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\witness-2026-10-07T23-29-08-538Z\\direct"
+  ],
+  "cwd": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness",
+  "started": "2026-10-07T23:29:08.539Z",
+  "finished": "2026-10-07T23:29:08.695Z",
+  "code": 0,
+  "signal": null,
+  "stdout": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\witness-2026-10-07T23-29-08-538Z\\direct\\stdout.log",
+  "stderr": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-resume-readiness\\out\\new-host-readiness-2026-10-07\\resume\\witness-2026-10-07T23-29-08-538Z\\direct\\stderr.log"
+}

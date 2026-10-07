@@ -239,11 +239,22 @@ h1 {
 
 .media-shell {
   position: relative;
+  width: 100%;
+  min-width: 0;
   min-height: 360px;
   aspect-ratio: 16 / 10;
   overflow: hidden;
   border-block: 1px solid var(--line);
   background: #050b14;
+}
+
+.compact-presentation-status {
+  margin: 0;
+  padding: 10px 24px;
+  border-top: 1px solid var(--line);
+  color: var(--ice-bright);
+  font: 650 0.7rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.04em;
 }
 
 .media-shell video,
@@ -499,6 +510,12 @@ h1 {
 
   .panel-heading {
     min-height: 0;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .panel-heading .status-pill {
+    max-width: 100%;
   }
 
   .media-shell {

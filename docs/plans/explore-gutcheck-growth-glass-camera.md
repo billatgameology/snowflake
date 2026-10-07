@@ -1,9 +1,9 @@
 # Plan — Glass look and legacy-camera parity for compact Run B
 
 - **Phase:** Maker-directed Journey/media exploration; not a charter phase gate
-- **Status:** implementation candidate complete; fresh browser/visual acceptance pending
+- **Status:** local browser and visual acceptance complete; NAS/public publication remains separate
 - **Started:** 2026-08-16
-- **Last touched:** 2026-10-07 by Codex (verification scope clarification)
+- **Last touched:** 2026-10-07 by Codex (new-host acceptance)
 
 ## Goal
 
@@ -80,9 +80,9 @@ scene pose.
       retired publisher.
 - [x] Run focused checks, typecheck, the production build and one
       proportionate non-author source audit; repair every blocker/high finding.
-- [ ] Supersede the local browser-capture contract, run a fresh browser capture and visually inspect
+- [x] Supersede the local browser-capture contract, run a fresh browser capture and visually inspect
       the accepted views before calling the new appearance accepted evidence.
-- [ ] Close this plan only after that browser/visual boundary is satisfied; keep the historical v5
+- [x] Close this plan only after that browser/visual boundary is satisfied; keep the historical v5
       record and its screenshots unchanged meanwhile.
 
 ## Out of scope
@@ -163,3 +163,41 @@ the app build pass on the reconciled tree. Exact `TMPDIR=/private/tmp npm test` 
 already-recorded `main` catalog failures; additional sandbox-only bind denials pass in those focused
 permitted runs. This reconciliation does not supply the still-pending fresh browser/WebGL visual
 acceptance.
+
+## Local acceptance — 2026-10-07
+
+The exact record/replay/video/posters recovered on the new host without rewriting their historical
+pins or rerunning the strict legacy-frame builder. The final current capture is
+[the tracked glass browser record](../../evidence/new-host-readiness-2026-10-07/comparison-browser-glass-v5/record.json),
+170,492 bytes, SHA-256 `052b4c0f92fc1f8ea9b5c88219322c4fd3ceaba4db79051a93b587d6bd4c51c8`,
+under the distinct `gutcheck-growth-comparison-glass-browser-v1` contract. Its command reproduces
+the six-source input binding; Chromium 149.0.7827.55/ANGLE SwiftShader reports one compact request,
+zero legacy manifest/mesh requests and zero normal page errors. Nine scene and seven portrait
+witnesses, three poster seeks, exact tick 11, final hold, reverse, manual orbit/follow, play/pause,
+reduced-motion holds and the five required failure lanes pass. Values above were read directly
+from that final record at write time.
+
+Root directly inspected the seed-detail/start, middle, final, authored-oblique, manual-orbit,
+final-hold and readable mobile-card images. The glass body, rim and backdrop treatment are legible;
+warnings and controls no longer cover the crystal. The initial seed is tiny at the full-run authored
+scale; a separate manual zoom-8 tick-zero witness shows it without changing the authored start pose.
+This earns local nonphysical appearance/camera acceptance only; neither optical fidelity nor
+hardware/mobile/cross-browser performance or scientific validity is claimed.
+
+The real-browser boundary exposed failures that sampler tests could not see. A fixed tour span now
+accounts for occupied-bound rotation and maximum authored zoom while preserving every source pose.
+The compact warning sits above the iframe, standalone warnings remain, explicit media width prevents
+hidden overflow, and responsive controls reserve their measured height outside the drawn canvas.
+Narrow headers wrap instead of clipping status pills. New executable browser assertions cover these
+nearest boundaries; the source/clock contract remains unchanged. Earlier attempt records are retained
+as intermediate results, and the original historical bold-ice v5 capture remains unchanged on NAS.
+
+Final product checks were `npx.cmd vitest run app/test/gutcheck-scene-motion.test.ts
+app/test/gutcheck-growth-comparison-record.test.ts app/test/gutcheck-growth-format.test.ts
+app/test/growth-comparison-contract.test.ts app/test/gutcheck-growth-framing.test.ts` (5 files / 59
+tests), `npm.cmd run typecheck`, `npm.cmd run build --workspace app`, and
+`node --check app/scripts/growth-comparison-capture.mjs`, followed by the fresh capture and visual
+review. Exact logs/exits are in the tracked `product-checks/glass-v5-*` artifacts. Scientific source,
+the comparison builder, accepted source pins and retired publisher are unchanged. The full suite
+for the combined operational evidence addition belongs to the
+[new-host task](new-host-acceptance-and-capacity-2026-10-07.md), not this product acceptance criterion.

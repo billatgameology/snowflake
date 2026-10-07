@@ -1,0 +1,6 @@
+﻿{
+    "command":  "node out/new-host-readiness-2026-10-07/capacity/benchmark.mjs ladder",
+    "started":  "2026-10-07T23:31:24.9292785Z",
+    "finished":  "2026-10-07T23:37:40.0376988Z",
+    "code":  0
+}
