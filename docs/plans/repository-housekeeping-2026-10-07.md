@@ -9,9 +9,9 @@
 
 ## Agent-rules follow-up — 2026-10-07
 
-- **Status:** editorial cleanup verified; local integration/closeout pending
-- **Worktree:** `C:/Users/biao3/Documents/GitHub/snowflake-agent-rules`
-- **Branch:** `chore/agent-rules-cleanup-2026-10-07`, from `334a467`
+- **Status:** complete, integrated locally and unpushed
+- **Worktree:** former `C:/Users/biao3/Documents/GitHub/snowflake-agent-rules`; removed after reconciliation
+- **Branch:** former `chore/agent-rules-cleanup-2026-10-07`, from `334a467`; merged and deleted
 
 Compact the canonical `AGENTS.md` after the read-only ADR comparison. Repetition that prevents
 a known mistake stays as a short explicit guardrail. Equations, transactional recipes, host facts,
@@ -37,7 +37,7 @@ Do not push or resume any scientific campaign.
 - [x] Inspect current state, canonical symlink, accepted ADRs and existing check coupling.
 - [x] Compact instructions and clarify the lessons' agent-discipline labels.
 - [x] Compare retained safeguards with the original, check links/anchors and run Rule 7.
-- [ ] Record results, integrate locally and remove the reconciled task worktree/ref without force.
+- [x] Record results, integrate locally and remove the reconciled task worktree/ref without force.
 
 Tried and rejected: deleting all repetition would hide the warnings that expensive incidents
 made necessary; copying the old instructions into another live guide would recreate drift;
@@ -64,13 +64,20 @@ The final document checks use `npm.cmd run lint:rule7`, `git diff --check` and a
 inspection of unchanged rule headings, resolved links/section anchors, exact changed-path scope
 and the actual symlink. Primary `rule7-final.log`, `rule7-final.error.log`, `rule7-final.exit` and
 `document-checks-final.json` record them. No new validator, tests, ADR or lesson registry was added.
-Remaining work is the local fast-forward and non-force task worktree/ref reconciliation.
+At that verified checkpoint, remaining work was local integration and task worktree/ref reconciliation.
 
 Final checks passed: `document-checks-final.json` records **717 → 415 lines**, all 18 unchanged
 rule headings, 69 local links, three section anchors, the actual symlink and the four-file prose
 scope. `npm.cmd run lint:rule7` passed (1,936 files; `rule7-final.exit` = 0) and
 `git diff --check` passed. The known gate-failure omission is repaired, and the targeted review
 follow-up has no unresolved finding. No full suite or scientific gate was executed for this task.
+
+Local closeout: primary main fast-forwarded to `23de3a8`; the task checkout had no untracked or
+ignored bytes, and its committed changes were integrated before non-force `git worktree remove`
+and `git branch -d`. Primary `out/agent-rules-cleanup-2026-10-07/worktree-closeout.json` records
+the exact source/target paths and disposition. The sole remaining local worktree/branch is primary
+main. No push, NAS write/prune or scientific campaign occurred. Glass/camera acceptance remains
+the next product task in its own isolated worktree.
 
 ## Goal
 

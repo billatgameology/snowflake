@@ -5,9 +5,10 @@ including **Tried and rejected**. The charter defines intended behavior; this in
 The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
 
 - **Last updated:** 2026-10-07 by Codex
-- **Agent-rules cleanup:** [verified, integration pending](plans/repository-housekeeping-2026-10-07.md#agent-rules-follow-up--2026-10-07)
-  in `snowflake-agent-rules`, branch `chore/agent-rules-cleanup-2026-10-07`. Repeated detail now links
-  to its authority while explicit learned warnings, required reading and existing enforcement remain.
+- **Agent-rules cleanup:** [complete](plans/repository-housekeeping-2026-10-07.md#agent-rules-follow-up--2026-10-07),
+  integrated into local main through `23de3a8`; its task worktree/ref are removed without force.
+  Repeated detail now links to its authority while explicit learned warnings, required reading and
+  existing enforcement remain. Changes are local and unpushed.
   Bounded text review has no unresolved finding (primary `out/agent-rules-cleanup-2026-10-07/review.json`).
 - **Repository housekeeping:** [complete](plans/repository-housekeeping-2026-10-07.md), integrated
   into local `main` through `6f4e050`; its reconciled task worktree and branch are removed.
@@ -162,8 +163,8 @@ availability confirmation. Primary `nas-retention-review.json` records the dispo
 ## Active plan
 
 - [Agent-rules follow-up](plans/repository-housekeeping-2026-10-07.md#agent-rules-follow-up--2026-10-07)
-  is the current editorial task, verified and awaiting local integration; accepted ADRs, science and
-  evidence remain unchanged. Relevant failure/lesson/check references now belong in each existing
+  is complete and locally integrated; accepted ADRs, science and evidence remain unchanged.
+  Relevant failure/lesson/check references now belong in each existing
   work plan before its risky action; agent discipline is distinguished from automated enforcement.
 - [Repository housekeeping](plans/repository-housekeeping-2026-10-07.md) is complete. Its required
   checks, approved cleanup, local fast-forward and non-force worktree/ref closeout are recorded.
@@ -185,8 +186,6 @@ full comparison-bundle NAS publication remains deferred. Recovering the deployed
 publish that bundle. Completed catalog/gallery/phase plans are references, not active launch instructions.
 
 ## Next step
-
-Integrate the verified agent-rules cleanup locally and reconcile its task worktree/ref.
 
 The next product task is [glass/camera acceptance](plans/explore-gutcheck-growth-glass-camera.md):
 recover its separately required comparison bundle, then execute its browser and visual acceptance
