@@ -8,8 +8,9 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
 - **New-host follow-up:** [in progress](plans/new-host-acceptance-and-capacity-2026-10-07.md) in
   `snowflake-resume-readiness`, branch `chore/resume-readiness-2026-10-07`: glass/camera acceptance,
   bounded NAS recovery/custody checks and measured worker capacity. The six comparison inputs are
-  restored and both small C-drive backups passed fresh-process recovery; browser acceptance and the
-  committed capacity ladder are next. Scientific campaigns remain paused.
+  restored and both small C-drive backups passed fresh-process recovery. Core continuation matched
+  uninterrupted bytes in a fresh process. The first glass capture found portrait clipping, now under
+  focused repair; the committed short-row capacity ladder is running. Scientific campaigns remain paused.
 - **Verification scope:** maker clarification is recorded through local `91c0684`: website/education
   presentation uses focused product/content checks; executable science and evidence retain rigorous
   requirements. The active glass/camera plan's inherited full-suite criterion is removed; historical

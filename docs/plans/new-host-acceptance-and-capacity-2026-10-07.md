@@ -107,6 +107,11 @@ inspection, external publication, and the other computer's film branch. No autom
 - Treating observation logs or a core resume codec as production campaign restart authorization:
   the discovery runner has no restart writer and ADR 0039 remains proposed.
 - Broad NAS enumeration/pruning: unknown and insufficiently preserved custody must remain intact.
+- First fresh glass capture: normal scene/control witnesses reached the portrait check, which failed
+  at the authored middle zoom: projected y bounds -1.2222735811035867 to 1.2222735811035865
+  (`out/new-host-readiness-2026-10-07/glass-browser.error.log`). The old stationary-camera harness
+  hid this candidate framing failure. Preserve that failed directory and fix the responsive frustum
+  without changing the authored pose or weakening the containment criterion.
 
 ## Registered capacity protocol
 
@@ -175,3 +180,18 @@ Commands were `node out/new-host-readiness-2026-10-07/nas/recover-known-nas.mjs 
 both emitted separate stdout/error/exit files. The NAS was neither changed nor pruned. This closes
 current availability of these two backups, not off-site protection, the other backup gaps or mixed
 custody disposition. Browser acceptance and the idle-host capacity ladder are next.
+
+## Acceptance and capacity checkpoint
+
+The first browser run failed responsive containment as recorded above; no accepted browser record
+was emitted. A focused product framing repair is in scope. The normal scene/control checks and
+glass screenshots reached that failure; focused four-file checks (57 tests), both typechecks and
+the app build passed before it. These are product checks, not a scientific-suite claim.
+
+The three-process ordinary core continuation witness passed exact final bytes and cycle-nine
+report. Current source receipt is
+`out/new-host-readiness-2026-10-07/resume/witness-2026-10-07T23-29-08-538Z/receipt.json`;
+final checkpoint SHA-256 is `2cd7333b895ab3b4383c508943c72324e2bf0f0969dbf408c77e99a2da15d8f0`.
+It contains nonuniform vapor, partial fill and the required hole-fill event; final durable receipt
+promotion follows the idle-host ladder. The browser has exited and NAS copying is complete, so
+the registered ladder is now launched while framing diagnosis remains read/edit only.
