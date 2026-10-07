@@ -308,6 +308,13 @@ enables Git symlink handling. Run the script once in Administrator PowerShell, t
 `windows-readiness-complete.json`, `instruction-links.json`, and actual links. No privilege
 bypass, copied instruction file, or unsupported success claim was substituted.
 
+Record checks: `npm.cmd run lint:rule7` exits zero with 1,925 files scanned
+(`rule7-followup.log`); `npx.cmd vitest run runner/test/progress-index.test.ts` passes all nine
+tests (`progress-followup.log`). The prepared PowerShell/Node scripts parse successfully; their
+administrator-dependent actions have not executed. The task documentation is fast-forwarded
+into local primary main; the empty task worktree/ref is removed after the disposition check.
+Nothing is pushed, and recovered product bytes and setup receipts remain in their primary paths.
+
 ## Tried and rejected
 
 - Blanket worktree/branch deletion: education and offline-build commits were local-only, and
