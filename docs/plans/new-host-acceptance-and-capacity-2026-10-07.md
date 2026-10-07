@@ -56,6 +56,14 @@ is one failure domain. Each benchmark row terminates independently; logs are not
 Relevant controls are the existing scene-motion/comparison tests, NAS catalogue/restore verifiers,
 strict ordinary LK checkpoint/resume contracts and Rules 6/14/15.
 
+The plausible in-scope failures are accidental use of the old stationary-camera capture as new
+acceptance, missing backup bytes after machine transfer, and oversubscribing this different host.
+No hostile control is admitted. These affect product acceptance, recovery and operational scheduling,
+not new scientific claims. Existing sampler tests cannot exercise real browser controls; old backup
+receipts cannot prove bytes exist here; old-host timings cannot measure this CPU. One bounded browser
+capture, exact selected-file restore and finite timing ladder directly cover those gaps at lower cost
+than a failed acceptance, lost recovery or another interrupted long run. No extra audit layer is added.
+
 ## Steps
 
 - [x] Read current state, glass contract, known retention records and current host boundaries.
