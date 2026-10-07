@@ -190,6 +190,9 @@ locked dependencies, and passes a representative app build/browser smoke. Use th
 Playwright Chromium; repair the canonical instruction symlink without copying AGENTS into it.
 Verify the science and local-worktree October snapshots by their owner manifests and exercise
 a fresh bounded restore. Keep unique logs under primary `out/host-readiness-2026-10-07/`.
+Also restore only the registered compact gallery inputs from the render closeout owner manifest
+to their expected local product paths, verifying each source and copied digest. Full mesh trees
+are outside this readiness pass. Any unavailable replay remains explicitly unavailable.
 
 Done when tool versions, NAS verification/restore, Rule 7, typecheck, focused relevant tests and
 app build/browser results are recorded here and in PROGRESS with their exact artifact paths.
@@ -198,8 +201,60 @@ The existing full-suite debt remains explicit; no campaign or full scientific su
 After the record is committed, fast-forward primary main locally and remove the temporary task
 worktree/ref. This local machine record is not automatically pushed.
 
-Status: in progress. The mapped share's marker is confirmed; installation and executable checks
-remain pending. Detailed results will replace this line as checks finish.
+Status: user-level installation and NAS recovery checks complete; Windows administrator-dependent
+instruction-link/system-long-path changes remain pending after the native prompt was canceled.
+
+Installation receipt: primary `out/host-readiness-2026-10-07/tools.json` records Node v24.13.1,
+npm 11.8.0, TypeScript 5.9.3, Playwright 1.61.1, Python 3.13.15, PyMuPDF 1.28.2 and
+FFmpeg/FFprobe 9.0.2. Node's official archive SHA-256 matched (`node-install.json`). The final
+`npm.cmd ci --ignore-scripts --no-audit --no-fund` and `npx.cmd playwright install chromium`
+exited zero (`npm-ci-final.log`, `npm-ci-final.exit`, `playwright-install.log`,
+`playwright-install.exit`); Chromium launches successfully. The dependency lockfile has no Git
+diff; its raw SHA-256 is recorded in `tools.json`. User PATH and `VCC_NAS_ROOT=Z:/` are persistent.
+Restart the terminal/Codex application to inherit them. Git `core.longpaths=true` is configured.
+
+NAS: the share marker matches, `detectNasMount()` returns `z:/`, and
+`npm.cmd run assets:verify` exits zero with no defects (`nas-metadata-verify.log`). Independent
+streamed hashes plus the project's two `assets:verify -- --collection <id> --full` commands
+agree on science 15 files / 304,047,835 bytes and closeout 15 files / 151,154,825 bytes
+(`nas-independent-hashes.json`, `nas-science-full.log`, `nas-closeout-full.log`). The science
+snapshot was restored through `assets:restore` to primary
+`out/restores/host-readiness-science-2026-10-07/`; `assets:verify-restored` exits zero and reports
+tree SHA-256 `7b512af0ca229cc6ea5ef21594d1a8dfb773be217b346fed5777865698c6802f`
+(`nas-science-restore.log`, `nas-science-restore-verify.log`). This is packed local recovery,
+not another scientific result or source-prune authorization.
+
+Gallery: the exact selected source/copy hash checks restored 150 registered inputs /
+372,671,658 bytes from `render-worktrees-closeout@2026-09-04` (`gallery-restore.json`). No full
+scientific mesh tree was copied. The live `/growth-studies/index.json` reports 151 registered /
+150 available, with only original `run-b` unavailable (`live-gallery-index-summary.json`). Its
+compact candidate digest does not appear in the tracked recovery owner manifests searched here;
+the previous local-candidate/deferred-publication status is preserved. Do not regenerate or replace
+that historical candidate to fill the card.
+
+Executable checks: `npm.cmd run lint:rule7`, `npm.cmd run typecheck`, and
+`npm.cmd run build --workspace app` exit zero (`rule7-primary.log`, `typecheck.log`, `app-build.log`).
+The focused Vitest command in `focused-tests.log` passes 3 files / 21 tests for progress,
+evidence integrity and product-asset handling; its additional nonexistent `nas-root.test.ts`
+filter selected no file, so no NAS-root test-suite execution is claimed. NAS checks above are
+actual attached-share CLI execution. The existing `dendrite-study-preview.mjs` smoke passes its
+seed/endpoint/seek/four-view/UI/mobile/reduced-motion checks with zero browser errors
+(`browser-smoke.log`, primary `out/dendrite-styles/browser-smoke.json`), and the rendered
+comparison image was visually inspected. The existing `growth-gallery-smoke.mjs` passes all
+151 card/preview checks, filtering, real Compose selection, keyboard/mobile controls and broken-image
+fallback with zero errors (`gallery-smoke.log`, primary `out/growth-gallery/browser-smoke.json`).
+The dev server runs at `http://127.0.0.1:5191/dendrite-styles.html?browse=1`, with the owned PID
+and separate stdout/stderr at `dev-server.pid`, `dev-server.log`, `dev-server.error.log`.
+
+Remaining Windows step: `host-settings.json` records Developer Mode absent, system
+`LongPathsEnabled=0`, Git `core.symlinks=false` and the unchanged nine-byte `CLAUDE.md` placeholder.
+The native administrator launch reported user cancellation (`windows-development-launch.json`).
+The exact prepared settings script is `enable-windows-development.ps1`; it changes only Developer
+Mode and system long-path support. A later approved administrator execution permits restoring the
+actual relative `CLAUDE.md` -> `AGENTS.md` symlink and enabling Git symlink handling. Never replace
+the link with a copied instruction file. No full suite, scientific campaign, NAS publication or
+cleanup of historical source bytes ran. Existing full-suite debt is unchanged. Local installation
+diagnostics are operational scratch, not scientific claim-bearing evidence.
 
 ## Tried and rejected
 
@@ -207,3 +262,8 @@ remain pending. Detailed results will replace this line as checks finish.
   ignored historical outputs still needed preservation.
 - Merging the retired `checkpoint/phase10-s6-pre-freeze-do-not-merge-20260822`: its incomplete
   implementation is historical, not a ready deliverable.
+- New-host npm installation first used PowerShell's stop-on-error mode, which treated a native
+  npm notice as an exception after packages installed. The final invocation uses native exit status
+  and succeeds; the first log is retained, not reported as a successful command wrapper.
+- Windows refused unprivileged symlink creation. The administrator prompt was canceled; neither
+  an instruction-file copy nor a privilege bypass was substituted.

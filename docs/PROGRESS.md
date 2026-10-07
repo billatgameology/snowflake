@@ -19,15 +19,22 @@ detail.
 
 ## Current state
 
-- **New Windows host setup in progress (2026-10-07).** Primary checkout
+- **New Windows host tools and NAS checks complete (2026-10-07); administrator step pending.** Primary checkout
   `C:/Users/biao3/Documents/GitHub/snowflake` starts from clean shared main `94fabd2`.
   The maker mapped the marked NAS to `Z:/`; the persistent host setting is `VCC_NAS_ROOT=Z:/`.
   Independent streamed SHA-256/length checks passed all 30 files in the science and local-worktree
   October snapshots (`out/host-readiness-2026-10-07/nas-independent-hashes.json`). Node v24.13.1,
-  npm 11.8.0, Python 3.13.15 and FFmpeg are installed; locked dependencies, browser tooling and
-  executable readiness checks are in progress. Windows denied the symlink probe without administrator
-  privilege. The [consolidation-plan follow-up](plans/local-consolidation-2026-10-01.md)
-  owns this bounded setup. Science stays paused; no phase claim changed.
+  npm 11.8.0, locked dependencies, Python 3.13.15/PyMuPDF, FFmpeg/FFprobe and Playwright Chromium
+  are installed (`out/host-readiness-2026-10-07/tools.json`). Both selected canonical NAS full
+  verifiers and a fresh science-snapshot restore/verification pass. Typecheck, Rule 7, app build,
+  21 focused tests and two existing browser smokes pass; the
+  [consolidation-plan follow-up](plans/local-consolidation-2026-10-01.md) names exact commands/logs
+  and limits. The verified gallery recovery restores 150 registered inputs, and live index reports
+  only original Run B unavailable (`live-gallery-index-summary.json` under that setup directory).
+  Windows denied the symlink probe and reported the administrator prompt canceled; the actual
+  `CLAUDE.md` symlink and system long-path setting remain pending. Restart terminal/Codex to pick
+  up persistent PATH/NAS settings. Science stays paused; existing full-suite debt and phase claims
+  are unchanged.
 
 - **Current science wave complete and reviewed (2026-10-01); expansion paused.** The
   [completed cavity/history report](../evidence/post-phase10-wave-2026-10-01/README.md)
@@ -558,7 +565,7 @@ detail.
   previews, zero full recording downloads on browse-first entry and no unexpected errors
   (`out/growth-gallery/browser-smoke.json`). Keyboard focus, phone layout, selection, playback,
   filter/scroll retention and broken-image fallback pass. Next: open the gallery link below.
-- **Last updated:** 2026-10-01 (local consolidation in progress; no scientific-claim change)
+- **Last updated:** 2026-10-07 (new Windows host setup; no scientific-claim change)
 - **Optional graphs and MP4 export are complete.** Single views offer attached-site,
   interval-attachment and outward-reach graphs with independent toggles and synchronized seeking.
   **Export MP4** creates the current treatment/camera in H.264, with optional graphs. Actual UI
@@ -922,6 +929,20 @@ the package-specific prerequisites in its charter amendment and execution plan. 
 0043–0044's Phase 7 deferrals remain authoritative and cannot be discharged by Phase 10.
 
 ## Next step
+
+### New Windows host — 2026-10-07
+
+Use `C:/Users/biao3/Documents/GitHub/snowflake` with the installed Node v24.13.1 and persistent
+`VCC_NAS_ROOT=Z:/`; restart the terminal/Codex app to inherit PATH. The live gallery is
+`http://127.0.0.1:5191/dendrite-styles.html?browse=1`; the
+[consolidation-plan follow-up](plans/local-consolidation-2026-10-01.md) records installation,
+NAS hash/restore and focused checks. Original Run B remains unavailable; its historical local
+candidate needs its own governed recovery, not regeneration. For the remaining Windows settings,
+the administrator prompt must be approved before Developer Mode/system long paths and the actual
+`CLAUDE.md` symlink can be completed. The canceled prompt changed neither setting.
+Keep science paused. A later selected experiment still requires its own task worktree, common
+producer/runtime, a measured worker budget for this 24-core host, and a demonstrated pause/resume
+path. No Phase 7 or retired S6 work is reopened.
 
 ### Local consolidation — complete, 2026-10-01
 
