@@ -49,6 +49,15 @@ from local acceptance. Store working logs/captures in `out/new-host-readiness-20
 their disposition. Durable small operational summaries belong in the tracked plan/results, while
 large generated assets retain their existing governed owner and recovery method.
 
+Before closeout, preserve the compact operational receipts, measured worker results and strict
+core resume witness, with the accepted product capture, in tracked
+`evidence/new-host-readiness-2026-10-07/` under ADR 0038. Pin only that new subtree without rewriting
+historical evidence. This avoids a new NAS publication tool or leaving useful results as orphaned
+staging. The combined evidence/integrity addition requires exact `npm test` once at the stable
+checkpoint after capacity timing; the website implementation itself keeps its focused checks.
+Restored duplicate source sets, build output and unused exploratory capture attempts are scratch;
+their existing governed sources remain recovery authority. Do not prune independent backups.
+
 Known lessons and checks: the old bold-ice/stationary-camera capture cannot accept the new glass
 candidate; uniform tests or screenshots alone prove no scientific gate; exact source/media hashes
 and executable browser assertions must agree. A hash alone is not backup, and same-NAS custody
