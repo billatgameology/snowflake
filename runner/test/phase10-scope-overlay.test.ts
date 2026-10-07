@@ -12,6 +12,7 @@ import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { historicalGitBytes } from "./historical-fixture.ts";
 import {
   canonicalJson,
   canonicalJsonBytes,
@@ -227,6 +228,18 @@ function copy(repositoryRoot: string, path: string): void {
   mkdirSync(dirname(destination), { recursive: true });
   if (path === CHARTER_PATH) {
     writeFileSync(destination, frozenScopeCharterBytes());
+    return;
+  }
+  if (path === DECISION_PATH) {
+    const frozenProtocol = parsePhase10ScopeClassificationProtocol(JSON.parse(
+      historicalGitBytes(PHASE10_SCOPE_CLASSIFICATION_PROTOCOL_PATH, SCOPE_FREEZE_COMMIT, {
+        path: PHASE10_SCOPE_CLASSIFICATION_PROTOCOL_PATH,
+        ...SCOPE_FREEZE_IDENTITIES[PHASE10_SCOPE_CLASSIFICATION_PROTOCOL_PATH],
+      }).toString("utf8"),
+    ));
+    writeFileSync(destination, historicalGitBytes(
+      DECISION_PATH, SCOPE_FREEZE_COMMIT, frozenProtocol.rules.authority.decisionArtifact,
+    ));
     return;
   }
   copyFileSync(resolve(SOURCE_REPOSITORY, path), destination);
@@ -773,6 +786,45 @@ afterAll(() => {
 });
 
 describe("Phase 10 A-S scope overlay", () => {
+  it("reopens the exact decision authority and refuses present-source byte drift", () => {
+    const protocolBytes = bytes(resolve(state.repositoryRoot, PHASE10_SCOPE_CLASSIFICATION_PROTOCOL_PATH));
+    const protocol = parsePhase10ScopeClassificationProtocol(JSON.parse(new TextDecoder().decode(protocolBytes)));
+    const frozenDecision = bytes(resolve(state.repositoryRoot, DECISION_PATH));
+    expect(frozenDecision.byteLength).toBe(protocol.rules.authority.decisionArtifact.byteLength);
+    expect(sha256Bytes(frozenDecision)).toBe(protocol.rules.authority.decisionArtifact.sha256);
+    const currentDecision = bytes(resolve(SOURCE_REPOSITORY, DECISION_PATH));
+    // Some hosts check out the original LF blob unchanged. Every host still exercises
+    // a real byte mutation from today's decision, without altering the registered pin.
+    const shiftedCurrent = new Uint8Array(currentDecision.byteLength + 1);
+    shiftedCurrent.set(currentDecision);
+    shiftedCurrent[currentDecision.byteLength] = 10;
+    for (const decisionBytes of [currentDecision, shiftedCurrent]) {
+      const produce = () => producePhase10ScopeArtifacts({
+        protocolPath: PHASE10_SCOPE_CLASSIFICATION_PROTOCOL_PATH,
+        protocolBytes,
+        foundationBytes: bytes(resolve(state.repositoryRoot, FOUNDATION_PATH)),
+        matrixBytes: bytes(resolve(state.repositoryRoot, MATRIX_PATH)),
+        schemaRegistryBytes: bytes(resolve(state.repositoryRoot, SCHEMA_REGISTRY_PATH)),
+        contractBytes: bytes(resolve(state.repositoryRoot, CONTRACT_PATH)),
+        charterBytes: bytes(resolve(state.repositoryRoot, CHARTER_PATH)),
+        decisionBytes,
+        phase8aFreezeBytes: bytes(resolve(state.repositoryRoot, PHASE8A_FREEZE_PATH)),
+        phase8aBytes: bytes(resolve(state.repositoryRoot, PHASE8A_PATH)),
+        phase8bBytes: bytes(resolve(state.repositoryRoot, PHASE8B_PATH)),
+        provenance: {
+          commit: state.commit, command: PHASE10_SCOPE_PRODUCE_COMMAND,
+          startedOn: "2026-08-21T12:00:00.000Z", endedOn: "2026-08-21T12:00:00.001Z",
+          actualConcurrency: 1,
+        },
+      });
+      if (sha256Bytes(decisionBytes) === protocol.rules.authority.decisionArtifact.sha256) {
+        expect(produce).not.toThrow();
+      } else {
+        expect(produce).toThrow(/protocol decision binding byte identity differs/u);
+      }
+    }
+  });
+
   it("reconstructs the registered raw v1.28 charter instead of substituting the later live charter", () => {
     const protocol = parsePhase10ScopeClassificationProtocol(
       JSON.parse(
