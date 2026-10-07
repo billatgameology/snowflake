@@ -112,6 +112,10 @@ inspection, external publication, and the other computer's film branch. No autom
   (`out/new-host-readiness-2026-10-07/glass-browser.error.log`). The old stationary-camera harness
   hid this candidate framing failure. Preserve that failed directory and fix the responsive frustum
   without changing the authored pose or weakening the containment criterion.
+- The repaired v2 capture passed executable checks, but direct visual review found the parent badge
+  overlapping the player's verbose status and obscuring upper crystal arms in the small pane. Keep
+  that capture as an intermediate result, move the comparison status outside the iframe, preserve
+  visible model/nonphysical limits and standalone labels, and capture the actual corrected UI again.
 
 ## Registered capacity protocol
 
