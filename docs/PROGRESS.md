@@ -19,6 +19,16 @@ detail.
 
 ## Current state
 
+- **New Windows host setup in progress (2026-10-07).** Primary checkout
+  `C:/Users/biao3/Documents/GitHub/snowflake` starts from clean shared main `94fabd2`.
+  The maker mapped the marked NAS to `Z:/`; the persistent host setting is `VCC_NAS_ROOT=Z:/`.
+  Independent streamed SHA-256/length checks passed all 30 files in the science and local-worktree
+  October snapshots (`out/host-readiness-2026-10-07/nas-independent-hashes.json`). Node v24.13.1,
+  npm 11.8.0, Python 3.13.15 and FFmpeg are installed; locked dependencies, browser tooling and
+  executable readiness checks are in progress. Windows denied the symlink probe without administrator
+  privilege. The [consolidation-plan follow-up](plans/local-consolidation-2026-10-01.md)
+  owns this bounded setup. Science stays paused; no phase claim changed.
+
 - **Current science wave complete and reviewed (2026-10-01); expansion paused.** The
   [completed cavity/history report](../evidence/post-phase10-wave-2026-10-01/README.md)
   preserves the final comparisons and raw run archives. Early-growth cavity memory survives
