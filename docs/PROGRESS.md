@@ -10,7 +10,9 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   bounded NAS recovery/custody checks and measured worker capacity. The six comparison inputs are
   restored and both small C-drive backups passed fresh-process recovery. Core continuation matched
   uninterrupted bytes in a fresh process. The first glass capture found portrait clipping, now under
-  focused repair; the committed short-row capacity ladder is running. Scientific campaigns remain paused.
+  focused repair. The completed short-row ladder recommends 16 workers for its ordinary N64 workload
+  (task capacity receipt SHA-256 `eb79aa6ddcaddaf79c2ec45aa919e0a6e7363674bfe0dcfcb83dcb0b33b4936b`);
+  larger/experimental rows remain unqualified. Scientific campaigns remain paused.
 - **Verification scope:** maker clarification is recorded through local `91c0684`: website/education
   presentation uses focused product/content checks; executable science and evidence retain rigorous
   requirements. The active glass/camera plan's inherited full-suite criterion is removed; historical
@@ -42,7 +44,9 @@ Completed chronology and failed attempts are retained, not live instructions:
 `C:/Users/biao3/Documents/GitHub/snowflake`; the marked NAS resolves at `Z:/` through persistent
 `VCC_NAS_ROOT=Z:/`. The current host is Intel Core Ultra 9 285K (24 cores / 24 logical processors),
 64 GB RAM and RTX 5080. The former Ryzen/RTX 3080 host's measurements do not establish this host's
-scientific worker budget. Restart older terminals/Codex to inherit the installed PATH/settings.
+scientific worker budget. The [current measurement](plans/new-host-acceptance-and-capacity-2026-10-07.md#measured-host-budget--2026-10-07)
+recommends 16 workers for its ordinary N64 three-cycle workload; it does not qualify larger domains
+or experimental rows. Restart older terminals/Codex to inherit the installed PATH/settings.
 
 The [completed readiness record](plans/local-consolidation-2026-10-01.md#new-windows-computer-readiness--2026-10-07)
 and primary `out/host-readiness-2026-10-07/` receipts record Node v24.13.1, npm 11.8.0, Python

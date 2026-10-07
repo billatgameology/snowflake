@@ -80,8 +80,8 @@ than a failed acceptance, lost recovery or another interrupted long run. No extr
 - [x] Locate/recover the exact minimum comparison inputs and record bounded NAS/backup findings.
 - [ ] Update the product capture contract, run focused checks/typecheck/build and fresh browser capture.
 - [ ] Inspect the required views and close the existing glass plan only when every criterion passes.
-- [ ] Commit a bounded current-host workload/concurrency protocol, then execute it with live receipts.
-- [ ] Prove representative core pause/resume and record its exact scope/production limitation.
+- [x] Commit a bounded current-host workload/concurrency protocol, then execute it with live receipts.
+- [x] Prove representative core pause/resume and record its exact scope/production limitation.
 - [ ] Record findings, review the stable deliverable once as needed, and reconcile local worktree/ref.
 
 ## Verification
@@ -194,4 +194,39 @@ report. Current source receipt is
 final checkpoint SHA-256 is `2cd7333b895ab3b4383c508943c72324e2bf0f0969dbf408c77e99a2da15d8f0`.
 It contains nonuniform vapor, partial fill and the required hole-fill event; final durable receipt
 promotion follows the idle-host ladder. The browser has exited and NAS copying is complete, so
-the registered ladder is now launched while framing diagnosis remains read/edit only.
+the registered ladder executed while framing diagnosis remained read/edit only.
+
+## Measured host budget — 2026-10-07
+
+All 63 independent rows exited zero with empty stderr and identical terminal numerical lines;
+observed peak overlap matched each rung, and no registered cap fired. The measured recommendation
+is **16 processes for this N64 three-cycle workload**: its throughput is within 5% of the largest
+measured throughput at 20. This is a finite operational measurement, not a universal optimum or
+authorization for a new scientific wave. Larger domains and experimental rows remain unqualified.
+
+| Processes | Rung seconds | Completed rows/second |
+|---:|---:|---:|
+| 1 | 42.2903 | 0.0236461 |
+| 2 | 42.9059 | 0.0466136 |
+| 4 | 47.6193 | 0.0839996 |
+| 8 | 46.3081 | 0.1727559 |
+| 12 | 51.0809 | 0.2349214 |
+| 16 | 60.3989 | 0.2649056 |
+| 20 | 72.2027 | 0.2769978 |
+
+Minimum sampled available physical memory was 53,912,084,480 bytes and commit headroom
+62,252,609,536 bytes. All values above were read at write time from
+`capacity/ladder-2026-10-07T23-31-24-977Z/result.json` under the task output root, 152,629 bytes,
+SHA-256 `eb79aa6ddcaddaf79c2ec45aa919e0a6e7363674bfe0dcfcb83dcb0b33b4936b`.
+The command was `node out/new-host-readiness-2026-10-07/capacity/benchmark.mjs ladder`, with
+separate invocation/child stdout, stderr and exit files. Its async host collector records actual
+sample timestamps; throughput uses actual child close times and excludes the trailing collector
+wait. Source HEAD was `2617c31`, Node v24.13.1 on this Intel 285K host. No competing build or browser
+render ran during the ladder, and every owned child exited before the repaired browser run began.
+
+The continuation receipt is 6,155 bytes, SHA-256
+`dd200ab60db229989393607c793082dd4a4e49f54d6ce8bf4ad61bcd5be3fdd4` at the witness path above.
+Its checks record 68 attached sites, 65 partial-fill cells and one cycle-eight hole fill, plus
+exact adopted state, prefix, final report and final scientific bytes. These numbers are operational
+witness scope only; the production discovery runner still has no restart writer. The next campaign
+must register short independently terminal stages or obtain a separately authorized resume path.
