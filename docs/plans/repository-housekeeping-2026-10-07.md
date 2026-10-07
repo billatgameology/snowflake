@@ -49,7 +49,7 @@ and optional verified packed restore; execute only those exact targets after fin
 - [x] Retire the forbidden legacy publisher entry point; preserve historical derivation controls.
 - [x] Add precise research metadata ignore exceptions and exact development runtime selection.
 - [x] Track the smallest gallery restore command and verify it against existing exact inputs.
-- [ ] Review NAS collection/custody inventories and record bounded dispositions.
+- [x] Review NAS collection/custody inventories and record bounded dispositions.
 - [ ] Verify and remove `app/dist/`, the downloaded Node ZIP, duplicate Run B download, and the
       packed readiness science restore. Retain canonical assets, logs, scripts and receipts.
 - [ ] Run final required checks, record results, reconcile task state into local primary main,
@@ -114,6 +114,49 @@ publication, and deletion of unclassified NAS material or original workstation o
 - Repinning frozen evidence to changed source: this would erase the historical contract.
 - Treating the recorded 70 failures as today's count: permissions and focused repairs changed
   since that integration run, so a new immutable baseline is required.
+- Omitting the registered Phase 6 closure wording during compaction: the full check exposed the
+  loss of the explicit conservative-intersection/R15 closure label. Restore the canonical
+  wording in the compact live index; preserve the gate and its mutation controls.
+
+## NAS retention review
+
+Primary `out/housekeeping-2026-10-07/nas-retention-review.json` records the bounded review:
+35 catalogue entries (20 active / 10 provisional / 5 unavailable), with all 30 declared owner
+manifests and selector aggregates bound successfully. Payload hashes were outside this metadata
+review. The top-level audit still reports two unclassified entries; their names, contents and
+hashes are omitted from the receipt, and both remain intact.
+
+The catalogue records 17 collections with required backups missing, 16 without that requirement,
+and two historically verified backups on the former Windows source host. Current access to those
+two backup locations has not been confirmed. All collection/source custody remains retained.
+
+Failed scientific publication attempt 2 records the final owner's same 6,308-file / 84,247,312,054-byte
+inventory and tree `4a1e18634896a58b5e8acf26a041c75de72982bd32a665cae7762976f6465f3e`;
+attempt 1's recorded file also matches a final owner row. These are metadata duplicate candidates,
+retained pending fresh stage payload identity and an exact disposition. Mixed research/gut-check
+custody, journey backup custody and the old Phase 3 relocation remain retained for their named
+classification, recovery or prune requirements. The review made no NAS changes.
+
+Separately, the corrected copy path passed an actual small SMB restore and restored-tree check:
+`npm.cmd run assets:restore -- --collection earlier-phase3-visual@2026-08-01 --to
+out/restores/housekeeping-legacy-probe-2026-10-07`, followed by `assets:verify-restored` at that path.
+Both report 10 files / 984,164 bytes and owner tree
+`73a9f672d9e803854ec8c82a2a0e0192f448989984ce30772e768b20644d3faf` in
+`nas-current-copy-probe.log` and `nas-current-copy-probe-verify.log`. This local probe is a generated
+duplicate in the task worktree; the NAS source and receipts remain intact.
+
+## Full-check follow-up
+
+The first final check at clean `0482b79` exited 1 in 770.28 seconds: 2 files failed / 222 passed,
+19 tests failed / 2,902 passed / 46 skipped (`final.log`, `final-result.json` in the primary
+housekeeping directory). One suite still used a historical Phase 10 ADR's live checkout bytes;
+the other caught the missing canonical Phase 6 closure wording after compaction. The live wording
+is restored from decision 0045 and the pinned three-arm narrative, with no gate/claim change.
+The restored closure wording passed 32 tests across `gate6-aggregate` and `progress-index`
+(`closure-focused.log`). Checkpoint `95675b3` repairs the ADR 0052 original-byte fixture and
+preserves current-decision drift refusal; all 24 scope-overlay tests executed and passed in
+39.40 seconds (`scope-overlay-focused.log`). Both typechecks and Rule 7 passed. A second exact
+full check remains required before cleanup; its distinct `final-v2` receipts preserve the first run.
 
 ## Open questions
 

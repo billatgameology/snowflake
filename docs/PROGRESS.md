@@ -74,6 +74,9 @@ and prove a representative scientific pause/resume path under the registered pro
   closure obligations; the numerical ladder is NO-PASS (criterion). The
   [science-first completion plan](plans/phase-6-science-first-completion.md),
   `research/phase6-conclusion.md` and pinned gate evidence own the details.
+  The three-arm counts are measured-only ([pinned narrative](../evidence/phase6-three-arm-report/report.md)).
+  They are not the registered conservative-intersection verdict: **not computed by decision 0045**.
+  R15 and the full registered production campaign remain closed by that decision.
 - **Phase 8 is COMPLETE (Phase 8A 2026-08-10; Phase 8B 2026-08-12).** The
   [8A plan](plans/phase-8-what-is-real.md) and [8B plan](plans/phase-8-measurement-corpus.md) are closed.
   Phase 8B writes separate artifacts; preserve `evidence/phase8-target-book/` byte-for-byte and
@@ -132,6 +135,9 @@ and the new dated history. The fresh immutable `7c58f8b` baseline exited 1: 27 f
 `out/housekeeping-2026-10-07/baseline.log` and `baseline-result.json`. Housekeeping is fixing
 historical-input, portability and source-recovery failures without changing scientific pins.
 No green full-suite claim is made until the final stable `npm test` completes.
+The first final run at `0482b79` exposed two remaining seams (19 failed tests): omitted Phase 6
+closure wording and an original ADR byte fixture. Both focused repairs passed; the second full
+check is required before cleanup and integration. Receipts are under primary housekeeping `final-v2`.
 Documentation compaction checks pass: `npx.cmd vitest run runner/test/progress-index.test.ts`
 reports 11/11 tests, and `npm.cmd run lint:rule7` reports clean (1,933 files scanned).
 The exact new history body, current/archive local links and unchanged prior archives were checked.
