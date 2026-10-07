@@ -68,7 +68,7 @@ than a failed acceptance, lost recovery or another interrupted long run. No extr
 
 - [x] Read current state, glass contract, known retention records and current host boundaries.
 - [x] Create the sole task branch/worktree and commit this scope before implementation.
-- [ ] Locate/recover the exact minimum comparison inputs and record bounded NAS/backup findings.
+- [x] Locate/recover the exact minimum comparison inputs and record bounded NAS/backup findings.
 - [ ] Update the product capture contract, run focused checks/typecheck/build and fresh browser capture.
 - [ ] Inspect the required views and close the existing glass plan only when every criterion passes.
 - [ ] Commit a bounded current-host workload/concurrency protocol, then execute it with live receipts.
@@ -147,3 +147,22 @@ a separate fresh local staging directory and reverify in another process. These 
 total 137,211,035 bytes, quoted from the NAS agent's fresh 37-row source verification; the final
 record must cite the emitted artifact rather than this preparatory estimate. Existing differing
 destinations fail without overwrite. Known mixed custody and unknown root objects remain retained.
+
+## NAS result — 2026-10-07
+
+The six comparison inputs recovered to `out/new-host-readiness-2026-10-07/comparison-inputs/`:
+6 files / 14,090,188 bytes, unchanged historical record SHA-256
+`5488f738f3068e74cfdbc38e07c35c1a30e21fe73f891a22ab1e8d50399086f8`.
+Source: `nas/comparison-recovery.json` under this task's output root, 4,076 bytes, SHA-256
+`1ced678bb22c40e91b6e6e324c5cc7a41dea8ae75d5501c11d796094df08dd70`.
+
+Both independent C-drive backups were renewed and recovered in a separate fresh process:
+37 files / 137,211,035 bytes matched all owner rows. Source: `nas/independent-backup-recovery.json`,
+31,349 bytes, SHA-256 `e6cf3576f71a80407b4f5ed0833bf3b649e8dc751315e82d848af6277b961629`.
+The backup and restored tree hashes agree: ladder
+`a1492e9744de45d09e442fdf06ee8abc647c1cb3e119f71dcafe13a693e65de2`, gate artifacts
+`2891eb05ed7ddfc0f2d5114c39978ca183faf3b4c247fff285af54aebd3f80e5`.
+Commands were `node out/new-host-readiness-2026-10-07/nas/recover-known-nas.mjs copy` then `verify`;
+both emitted separate stdout/error/exit files. The NAS was neither changed nor pruned. This closes
+current availability of these two backups, not off-site protection, the other backup gaps or mixed
+custody disposition. Browser acceptance and the idle-host capacity ladder are next.

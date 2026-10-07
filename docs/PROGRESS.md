@@ -7,7 +7,9 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
 - **Last updated:** 2026-10-07 by Codex
 - **New-host follow-up:** [in progress](plans/new-host-acceptance-and-capacity-2026-10-07.md) in
   `snowflake-resume-readiness`, branch `chore/resume-readiness-2026-10-07`: glass/camera acceptance,
-  bounded NAS recovery/custody checks and measured worker capacity. Scientific campaigns remain paused.
+  bounded NAS recovery/custody checks and measured worker capacity. The six comparison inputs are
+  restored and both small C-drive backups passed fresh-process recovery; browser acceptance and the
+  committed capacity ladder are next. Scientific campaigns remain paused.
 - **Verification scope:** maker clarification is recorded through local `91c0684`: website/education
   presentation uses focused product/content checks; executable science and evidence retain rigorous
   requirements. The active glass/camera plan's inherited full-suite criterion is removed; historical
@@ -164,8 +166,11 @@ Use product-sized checks for isolated presentation work; scientific gates are no
 
 The [bounded NAS review](plans/repository-housekeeping-2026-10-07.md#nas-retention-review) bound all
 30 declared owner manifests across 35 entries. It retained unclassified and insufficiently preserved
-custody, including recorded duplicate candidates. Two historical backup records still need current
-availability confirmation. Primary `nas-retention-review.json` records the disposition requirements.
+custody, including recorded duplicate candidates. The two former-host backup sets now have verified
+current C-drive copies and fresh-process recovery (37 files / 137,211,035 bytes; current task
+`nas/independent-backup-recovery.json`, SHA-256
+`e6cf3576f71a80407b4f5ed0833bf3b649e8dc751315e82d848af6277b961629`). Other backup gaps and mixed
+custody remain retained. Primary `nas-retention-review.json` records the disposition requirements.
 
 ## Active plan
 
