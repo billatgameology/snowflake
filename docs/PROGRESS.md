@@ -5,6 +5,9 @@ including **Tried and rejected**. The charter defines intended behavior; this in
 The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
 
 - **Last updated:** 2026-10-07 by Codex
+- **Agent-rules cleanup:** [in progress](plans/repository-housekeeping-2026-10-07.md#agent-rules-follow-up--2026-10-07)
+  in `snowflake-agent-rules`, branch `chore/agent-rules-cleanup-2026-10-07`. Compact repeated
+  detail while preserving learned safeguards, mandatory reading and existing enforcement.
 - **Repository housekeeping:** [complete](plans/repository-housekeeping-2026-10-07.md), integrated
   into local `main` through `6f4e050`; its reconciled task worktree and branch are removed.
   Changes remain local and unpushed. The primary checkout is the sole local worktree.
@@ -151,6 +154,8 @@ availability confirmation. Primary `nas-retention-review.json` records the dispo
 
 ## Active plan
 
+- [Agent-rules follow-up](plans/repository-housekeeping-2026-10-07.md#agent-rules-follow-up--2026-10-07)
+  is the current editorial task; accepted ADRs, science and evidence remain unchanged.
 - [Repository housekeeping](plans/repository-housekeeping-2026-10-07.md) is complete. Its required
   checks, approved cleanup, local fast-forward and non-force worktree/ref closeout are recorded.
 - [Adaptive discovery](plans/post-phase10-adaptive-discovery.md) is paused after its completed closing
@@ -171,6 +176,8 @@ full comparison-bundle NAS publication remains deferred. Recovering the deployed
 publish that bundle. Completed catalog/gallery/phase plans are references, not active launch instructions.
 
 ## Next step
+
+Finish the agent-rules cleanup and its bounded verification/review, then reconcile its worktree.
 
 The next product task is [glass/camera acceptance](plans/explore-gutcheck-growth-glass-camera.md):
 recover its separately required comparison bundle, then execute its browser and visual acceptance

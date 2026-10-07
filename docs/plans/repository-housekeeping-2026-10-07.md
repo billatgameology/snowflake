@@ -7,6 +7,42 @@
 - **Worktree:** former `C:/Users/biao3/Documents/GitHub/snowflake-housekeeping`; removed after reconciliation
 - **Branch:** former `chore/repository-housekeeping-2026-10-07`, from `7c58f8b`; merged and deleted
 
+## Agent-rules follow-up — 2026-10-07
+
+- **Status:** in progress, maker-approved editorial cleanup
+- **Worktree:** `C:/Users/biao3/Documents/GitHub/snowflake-agent-rules`
+- **Branch:** `chore/agent-rules-cleanup-2026-10-07`, from `334a467`
+
+Compact the canonical `AGENTS.md` after the read-only ADR comparison. Repetition that prevents
+a known mistake stays as a short explicit guardrail. Equations, transactional recipes, host facts,
+and incident narratives link to their existing owning documents. Preserve the mandatory lessons
+read, authority order, all Rule 1–16 / 14A–14B identifiers, and every operative safeguard.
+This focused rules correction uses the existing maintenance record under Rule 2's exception;
+it has no charter milestone and creates no additional process document.
+
+To address forgotten lessons, keep action-specific reading triggers next to the guardrails and
+name relevant lessons and existing checks in the work's existing plan. Do not create a new lesson
+registry, generic preflight, or test merely to check prose. Automated protections and judgment
+requirements must be distinguished honestly. ADR 0051 remains the current retention authority;
+ADR 0039 remains proposed and cannot authorize production resume.
+
+Done when the original controls are covered by the shortened text or an explicit mandatory read,
+repeated procedures have one owning location, the actual `CLAUDE.md` symlink remains intact, and
+accepted ADRs, charter, evidence, code and configuration are unchanged. Verify with
+`npm.cmd run lint:rule7`, `git diff --check`, local link/rule-anchor inspection and one bounded
+non-author text review after the draft stabilizes. Exact `npm test` is not required for this prose
+scope. Record the commands and review limits, integrate locally, and reconcile the task worktree/ref.
+Do not push or resume any scientific campaign.
+
+- [x] Inspect current state, canonical symlink, accepted ADRs and existing check coupling.
+- [ ] Compact instructions and clarify the lessons' agent-discipline labels.
+- [ ] Compare retained safeguards with the original, check links/anchors and run Rule 7.
+- [ ] Record results, integrate locally and remove the reconciled task worktree/ref without force.
+
+Tried and rejected: deleting all repetition would hide the warnings that expensive incidents
+made necessary; copying the old instructions into another live guide would recreate drift;
+rewriting accepted ADRs or adding another compliance registry would exceed the editorial task.
+
 ## Goal
 
 Make the merged repository straightforward to resume on this Windows computer: current live
