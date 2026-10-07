@@ -57,7 +57,7 @@ export function readStudy(root: string, entry: GrowthStudyEntry, library?: Growt
   if (entry.source.startsWith("named-")) return readNamedStudy(root, entry, library ?? loadStudyManifest(root), packageStudy);
   const filename = `${entry.id}-growth-v1.bin`;
   const candidates: Array<[string, string]> = entry.source === "run-b"
-    ? [[resolve(root, "../snowcrystal_website/public/growth"), "run-b-growth-v1.bin"]]
+    ? [[resolve(root, "out/growth-assets"), "run-b-growth-v1.bin"], [resolve(root, "../snowcrystal_website/public/growth"), "run-b-growth-v1.bin"]]
     : [[resolve(root, "out/growth-assets"), filename], [resolve(root, "../snowcrystal_website/public/growth/library"), filename]];
   for (const [folder, name] of candidates) {
     const bytes = containedBytes(folder, name, entry.eventCount * 8 + 1048580);

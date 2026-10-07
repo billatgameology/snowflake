@@ -18,6 +18,7 @@
     "assets:restore": "node scripts/nas-asset-restore.ts restore",
     "assets:verify": "node scripts/nas-assets.ts verify",
     "assets:verify-restored": "node scripts/nas-asset-restore.ts verify",
+    "gallery:restore": "node scripts/restore-growth-gallery.ts",
     "typecheck": "tsc --noEmit && tsc -p app --noEmit",
     "test": "npm run lint:rule7 && npm run typecheck && vitest run",
     "education:verify": "node docs/education/tools/verify.mjs",

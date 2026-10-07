@@ -43,12 +43,12 @@ and optional verified packed restore; execute only those exact targets after fin
 
 ## Steps
 
-- [ ] Capture exact immutable baseline command, logs, results and failure names.
-- [ ] Compact live state; repair README, host/retention guidance and completed plan headers.
+- [x] Capture exact immutable baseline command, logs, results and failure names.
+- [x] Compact live state; repair README, host/retention guidance and completed plan headers.
 - [ ] Repair historical catalog/source/recovery fixtures and Windows CLI path handling.
-- [ ] Retire the forbidden legacy publisher entry point; preserve historical derivation controls.
-- [ ] Add precise research metadata ignore exceptions and exact development runtime selection.
-- [ ] Track the smallest gallery restore command and verify it against existing exact inputs.
+- [x] Retire the forbidden legacy publisher entry point; preserve historical derivation controls.
+- [x] Add precise research metadata ignore exceptions and exact development runtime selection.
+- [x] Track the smallest gallery restore command and verify it against existing exact inputs.
 - [ ] Review NAS collection/custody inventories and record bounded dispositions.
 - [ ] Verify and remove `app/dist/`, the downloaded Node ZIP, duplicate Run B download, and the
       packed readiness science restore. Retain canonical assets, logs, scripts and receipts.
@@ -60,6 +60,30 @@ and optional verified packed restore; execute only those exact targets after fin
 Solver evolution, numerical expectations, accepted ADRs/charter, frozen evidence bytes, scientific
 labels, Phase 7 or retired S6 execution, the other computer's film branch, copyrighted/private media
 publication, and deletion of unclassified NAS material or original workstation outputs.
+
+## Execution record
+
+- Immutable primary `7c58f8b`, Node v24.13.1: `npm.cmd test` exited 1 after 675.50 seconds;
+  27 files failed / 195 passed, 77 tests failed / 2,826 passed / 46 skipped. Command identity,
+  complete stdout/stderr, failure names and exit record are in primary
+  `out/housekeeping-2026-10-07/baseline-invocation.json`, `baseline.log`,
+  `baseline.error.log` and `baseline-result.json`. This is the fresh baseline, not a gate result.
+- Documentation checkpoint `c05b204` preserves the exact old index in a separate dated archive,
+  compacts current state, and corrects setup, retention and completed-plan guidance. Tooling
+  checkpoint `fa81419` supplies portable CLI entry detection, exact runtime selection, precise
+  public metadata ignore exceptions, and refusal of the retired legacy publisher.
+- `npm.cmd run gallery:restore` in the fresh task worktree restored all 151 registered inputs,
+  totaling 380,366,718 bytes, without running a solver. The 150 NAS rows are bound to the existing
+  render-closeout owner; Run B is bound to its registered digest and existing public asset.
+  Primary `out/housekeeping-2026-10-07/gallery-fresh-restore.log` and the task's
+  `out/growth-gallery/restore.json` record the exact rows. The command also verified primary's
+  existing inputs and placed its missing local Run B copy; the sibling website copy remains.
+  `npx.cmd vitest run runner/test/growth-gallery-restore.test.ts runner/test/growth-study-assets.test.ts`
+  passed 9 tests; `npm.cmd run typecheck` passed. Their named `gallery-restore-focused` and
+  `gallery-typecheck` logs/exit records are in the primary housekeeping directory.
+- A fresh Windows reproduction found that a same-length edit can retain file timestamps during
+  a restore copy. The NAS restore lane is adding a bounded reread of the same source descriptor;
+  source identity checks and the corruption negative controls remain required.
 
 ## Tried and rejected
 

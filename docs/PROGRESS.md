@@ -127,7 +127,9 @@ Their logs are in primary `out/host-readiness-2026-10-07/`; they are not an exac
 
 The historical integration `npm.cmd test` result was non-green; the exact counts and failure classes
 are retained in [consolidation](plans/local-consolidation-2026-10-01.md#final-integration-checks-and-remaining-closure)
-and the new dated history. Housekeeping is measuring a fresh immutable `7c58f8b` baseline and fixing
+and the new dated history. The fresh immutable `7c58f8b` baseline exited 1: 27 files failed,
+77 tests failed / 2,826 passed / 46 skipped, in primary
+`out/housekeeping-2026-10-07/baseline.log` and `baseline-result.json`. Housekeeping is fixing
 historical-input, portability and source-recovery failures without changing scientific pins.
 No green full-suite claim is made until the final stable `npm test` completes.
 Documentation compaction checks pass: `npx.cmd vitest run runner/test/progress-index.test.ts`
