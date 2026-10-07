@@ -176,6 +176,31 @@ partition independent cases across the two PCs, retain the 28-worker cap here, a
 pause/resume before a long launch. Raw prior science is in the retained science-out tree or its
 catalogued NAS snapshot; restore only the needed campaign to the new task's expected output path.
 
+## New Windows computer readiness — 2026-10-07
+
+Maker direction: verify the newly mapped NAS at `Z:/` and install missing tools so this computer
+can continue from shared main. The source checkout starts clean at `94fabd2`; the task record
+uses branch `chore/windows-host-readiness-2026-10-07` in the isolated sibling
+`C:/Users/biao3/Documents/GitHub/snowflake-host-readiness`. Software and dependencies are installed
+for the primary checkout, `C:/Users/biao3/Documents/GitHub/snowflake`.
+
+Deliverable: the primary checkout resolves the marked NAS, runs the recorded Node engine with
+locked dependencies, and passes a representative app build/browser smoke. Use the existing
+`VCC_NAS_ROOT` setting for this host's drive letter. Install repository-needed Python/FFmpeg and
+Playwright Chromium; repair the canonical instruction symlink without copying AGENTS into it.
+Verify the science and local-worktree October snapshots by their owner manifests and exercise
+a fresh bounded restore. Keep unique logs under primary `out/host-readiness-2026-10-07/`.
+
+Done when tool versions, NAS verification/restore, Rule 7, typecheck, focused relevant tests and
+app build/browser results are recorded here and in PROGRESS with their exact artifact paths.
+This setup changes no solver, scientific claim, dependency lockfile, phase gate or remote branch.
+The existing full-suite debt remains explicit; no campaign or full scientific suite is launched.
+After the record is committed, fast-forward primary main locally and remove the temporary task
+worktree/ref. This local machine record is not automatically pushed.
+
+Status: in progress. The mapped share's marker is confirmed; installation and executable checks
+remain pending. Detailed results will replace this line as checks finish.
+
 ## Tried and rejected
 
 - Blanket worktree/branch deletion: education and offline-build commits were local-only, and
