@@ -93,5 +93,49 @@ inspection, external publication, and the other computer's film branch. No autom
 
 ## Registered capacity protocol
 
-Pending the bounded read-only workload assessment. No benchmark or solver campaign launches before
-the finite workload, concurrency ladder, stop limits and exact invocation are committed here.
+Committed before launch: independent ordinary LK rows, concurrency ladder **1, 2, 4, 8, 12, 16, 20**.
+Every process runs the following unchanged CLI from this task checkout, with unique stdout, stderr
+and exit receipts below `out/new-host-readiness-2026-10-07/capacity/`:
+
+```text
+node runner/src/main.ts grow-lk --temp-c -5 --sigma-inf 0.00375 --dims 64,64,64 --dx-um 0.35 --param-set M1 --cfl 0.05 --tol 1e-9 --div-tol 1e-7 --steps 3 --target-extent 1000000 --surface-policy aggregate-hv-g1h1-v6 --far-field monopole-matched --seed 1 --noise 0 --metrics-every 1
+```
+
+Unflagged defaults are pressure 101325 Pa, radius-two/thickness-one seed and maximum 200000
+relaxation sweeps. Record source HEAD and Node/V8/OS/CPU/RAM; sample actual child PIDs, per-child
+CPU and peak working set, available physical memory and commit headroom every two seconds. Record
+each rung's wall time and aggregate completed rows/second. No competing local build, browser render
+or test runs occur during the timing ladder. The step cap is operational termination, not a gate.
+
+Stop only this task's children if available RAM drops below 12 GiB, commit headroom below 8 GiB,
+or a rung exceeds 180 seconds; capped rungs are not throughput measurements. If the first N64 row
+exceeds 60 seconds, amend and commit a uniform N48 workload before restarting the whole ladder.
+Select the smallest concurrency within 5% of the highest measured throughput, at most 20, leaving
+four logical slots for desktop work. This result covers this initial-solve-heavy short row only;
+future N112/N126 or experimental workloads need matched memory/size qualification.
+
+The separate disk continuation witness uses existing public core APIs, without modifying solver
+or runner source: dimensions 12x12x9, -5 C, sigma 0.01, dx 0.35 micrometres, pressure 101325 Pa,
+fill-CFL 0.2, noise 0.25, seed `0x12345678`, residual/divergence tolerances `1e-8`/`1e-6`,
+`aggregate-hv-g1h1-v6`, hexPrism and monopole-matched. Process A executes nine cycles; process B
+executes eight and flushes a v3 resume checkpoint to disk before exit; process C freshly decodes
+and adopts it via `fromResumeStateV3`, executes cycle nine and writes final bytes. Require identical
+final checkpoint bytes and cycle-nine report, plus nonuniform field, attachments, partial fill,
+nonzero shell lag, converged multiple sweeps and the known cycle-eight hole-fill event. Retain exact
+commands and eight-cycle checkpoint cadence. This is an operational core witness, not acceptance
+of proposed ADR 0039 or production discovery-runner resume authorization.
+
+## Bounded NAS execution scope
+
+Recover exactly the six comparison inputs (record, replay, video and three posters) whose hashes
+are registered in the unchanged historical comparison record. The known Journey quarantine is a
+custody source for the record/replay/posters; the video has an existing governed collection owner.
+Keep all source bytes and historical captures unchanged; no broad restore or quarantine release.
+
+Renew the two former-host independent backups at their already recorded
+`C:/Users/biao3/snowflake-nas-backup/collections/` locators: the 9-file external ladder and 28-file
+external gate-artifact sets. Verify every expected owner row before and after copy, then recover to
+a separate fresh local staging directory and reverify in another process. These bounded copies
+total 137,211,035 bytes, quoted from the NAS agent's fresh 37-row source verification; the final
+record must cite the emitted artifact rather than this preparatory estimate. Existing differing
+destinations fail without overwrite. Known mixed custody and unknown root objects remain retained.
