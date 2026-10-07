@@ -1,7 +1,9 @@
 import { createHash } from "node:crypto";
 import {
   appendFileSync,
+  existsSync,
   linkSync,
+  lstatSync,
   mkdirSync,
   mkdtempSync,
   readFileSync,
@@ -17,6 +19,7 @@ import { afterAll, describe, expect, it } from "vitest";
 
 import {
   loadCatalogueBoundKnowledgeSources,
+  Phase9KnowledgeSourceError,
   type Phase9KnowledgeSourceIdentity,
 } from "../../scripts/phase9-knowledge-source-lib.ts";
 import {
@@ -254,23 +257,46 @@ describe("catalogue-bound Phase 9 knowledge source reads", () => {
   });
 
   it.skipIf(!CAN_SYMLINK)(
-    "refuses an in-share ancestor symlink rebound to the original payload",
+    "blocks an attempted in-share ancestor symlink rebound to the original payload",
     () => {
       const fixture = makeFixture();
       const physicalPath = fixture.physicalPaths.dimensions20231128 as string;
       const ancestor = dirname(physicalPath);
       const originalAncestor = `${ancestor}.original`;
+      let attempted = false;
       let rebound = false;
-      expect(() => loadFixture(fixture, {
-        afterPayloadChunk: (source) => {
-          if (!rebound && source.id === "dimensions20231128") {
-            rebound = true;
-            renameSync(ancestor, originalAncestor);
-            symlinkSync(originalAncestor, ancestor, "dir");
-          }
-        },
-      })).toThrow(/path changed after reading/u);
-      expect(rebound).toBe(true);
+      let readError: unknown;
+      try {
+        loadFixture(fixture, {
+          afterPayloadChunk: (source) => {
+            if (!attempted && source.id === "dimensions20231128") {
+              attempted = true;
+              renameSync(ancestor, originalAncestor);
+              symlinkSync(originalAncestor, ancestor, "dir");
+              rebound = true;
+            }
+          },
+        });
+      } catch (error) {
+        readError = error;
+      }
+      expect(attempted).toBe(true);
+      if (process.platform === "win32" && !rebound) {
+        // Windows can prohibit renaming the ancestor while its child descriptor is open.
+        // Prove this exact attempted operation was denied and left the original source intact;
+        // do not report an unexecuted rebinding as a successful verifier control.
+        expect(readError).toMatchObject({ code: "EPERM", syscall: "rename", path: ancestor, dest: originalAncestor });
+        expect(lstatSync(ancestor).isDirectory()).toBe(true);
+        expect(lstatSync(ancestor).isSymbolicLink()).toBe(false);
+        expect(existsSync(originalAncestor)).toBe(false);
+        expect(() => loadFixture(fixture)).not.toThrow();
+      } else {
+        expect(rebound).toBe(true);
+        expect(readError).toBeInstanceOf(Phase9KnowledgeSourceError);
+        expect(readError).toHaveProperty("message", expect.stringMatching(/path changed after reading/u));
+        expect(lstatSync(ancestor).isSymbolicLink()).toBe(true);
+        expect(readFileSync(physicalPath, "utf8")).toBe(sourceRows[2][2]);
+      }
     },
   );
 });
