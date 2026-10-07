@@ -1,7 +1,7 @@
 # Plan — Repository housekeeping
 
 - **Phase:** cross-cutting maintenance; no scientific phase reopened
-- **Status:** in progress
+- **Status:** verification and approved local cleanup complete; local consolidation in progress
 - **Started:** 2026-10-07
 - **Last touched:** 2026-10-07 by Codex
 - **Worktree:** `C:/Users/biao3/Documents/GitHub/snowflake-housekeeping`
@@ -50,7 +50,7 @@ and optional verified packed restore; execute only those exact targets after fin
 - [x] Add precise research metadata ignore exceptions and exact development runtime selection.
 - [x] Track the smallest gallery restore command and verify it against existing exact inputs.
 - [x] Review NAS collection/custody inventories and record bounded dispositions.
-- [ ] Verify and remove `app/dist/`, the downloaded Node ZIP, duplicate Run B download, and the
+- [x] Verify and remove `app/dist/`, the downloaded Node ZIP, duplicate Run B download, and the
       packed readiness science restore. Retain canonical assets, logs, scripts and receipts.
 - [ ] Run final required checks, record results, reconcile task state into local primary main,
       remove the empty task worktree/ref. Do not push automatically.
@@ -155,8 +155,22 @@ is restored from decision 0045 and the pinned three-arm narrative, with no gate/
 The restored closure wording passed 32 tests across `gate6-aggregate` and `progress-index`
 (`closure-focused.log`). Checkpoint `95675b3` repairs the ADR 0052 original-byte fixture and
 preserves current-decision drift refusal; all 24 scope-overlay tests executed and passed in
-39.40 seconds (`scope-overlay-focused.log`). Both typechecks and Rule 7 passed. A second exact
-full check remains required before cleanup; its distinct `final-v2` receipts preserve the first run.
+39.40 seconds (`scope-overlay-focused.log`). Both typechecks and Rule 7 passed. The second exact
+full check used distinct `final-v2` receipts to preserve the first run.
+
+The second exact `npm.cmd test` at clean `f528d29` passed: 224 files, 2,945 tests passed / 23 skipped,
+in 835.83 seconds. `final-v2-invocation.json`, `final-v2.log` and `final-v2-result.json` record Node
+v24.13.1, the exact source/command and exit 0. The formerly skipped scope tests now execute;
+no new scientific result or phase authorization is implied by these regression checks.
+
+The approved four-target cleanup removed 348 files / 846,636,474 bytes after all before-removal
+identities and retained Run B copies matched (`local-prune-result.json`). Installed software,
+primary dependencies, all 151 registered gallery inputs, original output custody and receipts remain.
+`gallery-closeout-parity.json` independently matches every physical primary/task input to the
+registered SHA; the 15 retained browser/restore reports and screenshots also match their task copies.
+`worktree-disposition.json` classifies all ignored task outputs as retained duplicates, generated
+dependencies/build output or synthetic regression scratch. Local fast-forward and non-force
+task worktree/ref removal remain the final consolidation step.
 
 ## Open questions
 

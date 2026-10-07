@@ -122,33 +122,37 @@ protocols; hours-scale gates are not setup smoke tests. Consult each completed p
 | 9 | **Complete (development-only)** | All-no-pass branch closed, zero items promoted. [Completed plan](plans/phase-9-execution.md); no validation credit. |
 | 10 | **Complete (negative package; B refusal; C0V incomplete/NO-PASS)** | `gate10` exit 0 at `e2cca93`: 7/7 closure checks re-derive `complete-negative`; terminal B refusal, C0 criterion NO-PASS, C0V incomplete/non-PASS and zero S6 credit. [Completed plan](plans/phase-10-evidence-verification-execution.md). Repro: `node runner/src/main.ts gate10`. |
 
-## Verification and test debt
+## Verification
 
-The latest readiness receipts name the executed product checks: Rule 7, both typechecks, app build,
-21 focused tests, the default dendrite smoke, gallery smoke and exact recovered Run B smoke passed.
-Their logs are in primary `out/host-readiness-2026-10-07/`; they are not an exact full-suite result.
+Exact `npm.cmd test` at clean `f528d29`, Node v24.13.1, exited zero: **224 files / 2,945 tests passed,
+23 skipped**, in 835.83 seconds. Primary `out/housekeeping-2026-10-07/final-v2-invocation.json`,
+`final-v2.log` and `final-v2-result.json` record command, source and exit. Rule 7 and both typechecks
+are included. Historical catalog/source/recovery fixtures now reopen their registered bytes;
+current-source drift refusal and named corruption controls remain. Scientific pins are unchanged.
 
-The historical integration `npm.cmd test` result was non-green; the exact counts and failure classes
-are retained in [consolidation](plans/local-consolidation-2026-10-01.md#final-integration-checks-and-remaining-closure)
-and the new dated history. The fresh immutable `7c58f8b` baseline exited 1: 27 files failed,
-77 tests failed / 2,826 passed / 46 skipped, in primary
-`out/housekeeping-2026-10-07/baseline.log` and `baseline-result.json`. Housekeeping is fixing
-historical-input, portability and source-recovery failures without changing scientific pins.
-No green full-suite claim is made until the final stable `npm test` completes.
-The first final run at `0482b79` exposed two remaining seams (19 failed tests): omitted Phase 6
-closure wording and an original ADR byte fixture. Both focused repairs passed; the second full
-check is required before cleanup and integration. Receipts are under primary housekeeping `final-v2`.
-Documentation compaction checks pass: `npx.cmd vitest run runner/test/progress-index.test.ts`
-reports 11/11 tests, and `npm.cmd run lint:rule7` reports clean (1,933 files scanned).
-The exact new history body, current/archive local links and unchanged prior archives were checked.
-Use product-sized checks for isolated presentation work; Rule 6 requires exact `npm test` for this
-mixed evidence/test/configuration maintenance checkpoint. Do not run scientific gates as housekeeping.
+`npm.cmd run build --workspace app`, the live gallery smoke and exact Run B browser smoke passed.
+All 151 previews decoded, and Run B reached all 961,597 registered events with zero browser errors;
+primary housekeeping `app-build`, `gallery-browser`, `run-b-browser` and `task-verification/`
+receipts name those checks. `gallery-closeout-parity.json` matches all 151 physical inputs in both
+checkouts to their registered hashes. The immutable baseline (77 failed tests), first final run
+and rejected attempts remain in the [housekeeping record](plans/repository-housekeeping-2026-10-07.md).
+
+The approved cleanup removed **348 files / 846,636,474 bytes** (`local-prune-result.json`):
+rebuildable primary `app/dist/`, downloaded Node ZIP, duplicate Run B download and redundant local
+science recovery probe. Canonical gallery inputs, installed tools, primary dependencies and receipts remain.
+The compact index and exact archives are checked by `runner/test/progress-index.test.ts`.
+Use product-sized checks for isolated presentation work; scientific gates are not setup smoke tests.
+
+The [bounded NAS review](plans/repository-housekeeping-2026-10-07.md#nas-retention-review) bound all
+30 declared owner manifests across 35 entries. It retained unclassified and insufficiently preserved
+custody, including recorded duplicate candidates. Two historical backup records still need current
+availability confirmation. Primary `nas-retention-review.json` records the disposition requirements.
 
 ## Active plan
 
 - [Repository housekeeping](plans/repository-housekeeping-2026-10-07.md) is the current implementation
-  task: reconcile docs, tests/tooling and gallery recovery; record bounded retention review and execute
-  only approved exact cleanup targets; finish required checks and integrate locally. No automatic push.
+  task: implementation, required verification and approved local cleanup are complete; finish local
+  fast-forward and non-force removal of the reconciled task worktree/ref. No automatic push.
 - [Adaptive discovery](plans/post-phase10-adaptive-discovery.md) is paused after its completed closing
   wave. The next scientific experiment is not selected; completed campaign rows are not a resume queue.
 - [Glass/camera follow-up](plans/explore-gutcheck-growth-glass-camera.md) has an implementation candidate
@@ -169,9 +173,8 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 ## Next step
 
 Complete the [housekeeping checklist](plans/repository-housekeeping-2026-10-07.md) in the existing task
-worktree. Reconcile the immutable baseline failures, finish the tracked gallery restore command and
-NAS disposition review, run final required checks, then fast-forward local primary main and remove
-only the empty reconciled task worktree/ref. Preserve current gallery inputs and recovery receipts.
+worktree: fast-forward local primary main and remove only the reconciled task worktree/ref after its
+ignored-output disposition audit. Preserve current gallery inputs and recovery receipts.
 
 After housekeeping, choose one actual pending deliverable: glass/camera acceptance, the separate
 large-output restore/retention decision, education/film work on its owning computer, or a newly planned
