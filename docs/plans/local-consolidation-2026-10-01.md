@@ -256,6 +256,22 @@ the link with a copied instruction file. No full suite, scientific campaign, NAS
 cleanup of historical source bytes ran. Existing full-suite debt is unchanged. Local installation
 diagnostics are operational scratch, not scientific claim-bearing evidence.
 
+### Final readiness follow-up — 2026-10-07
+
+The maker requests resolution of both remaining items. Reuse the readiness task branch and
+sibling worktree from primary `3c74a51`. Retry the prepared native administrator launch, verify
+both registry values, then restore the relative instruction symlink and exercise a long local
+path. Search existing Git and governed NAS records, including bounded archive member lists, for
+the original Run B compact asset. Restore only bytes matching its registered digest and length
+to the existing product input path, then decode and check the live gallery. If the historical
+asset is held only on another computer, record its exact required source rather than substituting
+a new bake. Keep recovery receipts in primary `out/host-readiness-2026-10-07/`.
+
+Done when both items are verified or an actual external access blocker is precisely identified;
+update this plan and PROGRESS, run the focused progress check and Rule 7 for record changes, and
+fast-forward primary main locally before removing the empty task worktree/ref. No scientific
+campaign, publication, remote branch change, or historical-byte cleanup is part of this follow-up.
+
 ## Tried and rejected
 
 - Blanket worktree/branch deletion: education and offline-build commits were local-only, and
