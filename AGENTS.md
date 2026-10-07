@@ -227,9 +227,16 @@ scope, including when the ordinary tier below would otherwise use a cheaper chec
 
 | Changed surface | Required verification |
 |---|---|
-| Numerical/scientific behavior in `core/`, `solver-cpu/`, `solver-gpu/`; scientific readouts/claims; phase gates; evidence generation, verification, integrity/publication; root-wide test/build configuration; or a mixture with product code | Exact `npm test` (Rule 7, both typechecks, all Vitest suites). Focused Vitest is not a substitute. A green suite is not a scientific gate result. |
+| Numerical/scientific behavior in `core/`, `solver-cpu/`, `solver-gpu/`; executable scientific calculation, readout or claim logic; phase gates; evidence generation, verification, integrity/publication; root-wide test/build configuration; or a mixture with product code | Exact `npm test` (Rule 7, both typechecks, all Vitest suites). Focused Vitest is not a substitute. A green suite is not a scientific gate result. |
 | Isolated presentation website, gallery/selection UI, animation queue, camera/render recipe or batch orchestration without the surfaces above | Focused Vitest for the changed boundary, `npm run typecheck`, app build for bundled app changes, and applicable browser smoke/dry run/sample render. Stop when these pass; no full suite, solver suites or scientific gates for extra comfort. |
+| Education/media presentation, layout, navigation, styling, playback, animation or video production without the scientific surfaces above | Relevant content/interactive checks, applicable build/render and browser/visual checks; typecheck only when affected code needs it. No full repository suite, unrelated solver tests or scientific gates. |
 | Pure prose, source-index or governance edit | Cheapest check for its failure surface; Rule 7 for repository prose, plus applicable diff/link/contract checks. Never describe this as “suite green.” |
+
+Scientific prose alone does not trigger solver suites or gates: check changed factual claims against
+cited sources or named project artifacts and apply proportionate Rule 13 interpretation review.
+Choose the smallest existing education/media check that covers the change. The complete
+`education:verify` command includes scientific-model and negative-control execution; it is not the
+default for layout, styling or playback edits with unchanged scientific logic.
 
 An isolated-product plan must not make exact `npm test` its default done criterion; amend an inherited
 plan accordingly. Historical completed checks remain a report of what ran, not a future requirement.

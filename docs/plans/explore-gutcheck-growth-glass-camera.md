@@ -3,7 +3,7 @@
 - **Phase:** Maker-directed Journey/media exploration; not a charter phase gate
 - **Status:** implementation candidate complete; fresh browser/visual acceptance pending
 - **Started:** 2026-08-16
-- **Last touched:** 2026-08-16 by OpenAI Codex
+- **Last touched:** 2026-10-07 by Codex (verification scope clarification)
 
 ## Goal
 
@@ -34,14 +34,20 @@ This follow-up has no charter milestone. It is done when all of the following ar
   separate interpolation meanings;
 - the comparison page identifies the compact side as the glass look with matched camera movement
   without upgrading its `MODEL / UNVALIDATED` status;
-- focused adversarial tests cover malformed scene data, track endpoints, interpolation, final hold,
-  manual override, reduced motion and comparison URL wiring; exact `TMPDIR=/private/tmp npm test`
+- focused tests cover malformed scene data, track endpoints, interpolation, final hold,
+  manual override, reduced motion and comparison URL wiring; `npm run typecheck`
   and the production app build pass; and
 - a fresh real-browser comparison record and direct visual inspection confirm glass readability,
   matched camera witnesses, exact seek/reverse behavior, zero legacy-mesh requests, responsive
   containment and the existing five failure lanes before the local review bundle is replaced.
 
 ## Approach
+
+Verification scope clarified 2026-10-07 under AGENTS Rule 6 and maker direction: this remains
+presentation-only work. The focused checks, typecheck, app build and browser/visual acceptance
+above are its prospective requirements. Historical full-suite runs below record what actually ran;
+they do not require another solver suite or scientific gate for this appearance/camera acceptance.
+Any future scientific, evidence or shared test/build change is classified separately under Rule 6.
 
 Treat `app/scenes/growth-B-intro.json` as the one camera/timing authority. Add a small browser-safe
 scene-track parser and sampler, then use that same sampler in both the legacy scene player and the
@@ -72,7 +78,7 @@ scene pose.
       override and reduced-motion handling.
 - [x] Wire the exact committed scene into the comparison page without executing or retargeting the
       retired publisher.
-- [x] Run focused checks, exact `TMPDIR=/private/tmp npm test`, the production build and one
+- [x] Run focused checks, typecheck, the production build and one
       proportionate non-author source audit; repair every blocker/high finding.
 - [ ] Supersede the local browser-capture contract, run a fresh browser capture and visually inspect
       the accepted views before calling the new appearance accepted evidence.

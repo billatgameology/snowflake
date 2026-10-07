@@ -79,6 +79,27 @@ the exact source/target paths and disposition. The sole remaining local worktree
 main. No push, NAS write/prune or scientific campaign occurred. Glass/camera acceptance remains
 the next product task in its own isolated worktree.
 
+## Website and education check scope — 2026-10-07
+
+Maker clarification: rigorous scientific verification remains appropriate, but routine website
+and education building must not dispatch scientific suites. The follow-up explicitly includes
+education/media presentation in Rule 6, distinguishes changed factual prose from executable
+scientific calculation/readout/claim logic, and removes the active glass/camera plan's inherited
+full-suite criterion. Historical test records remain intact. The complete education verifier runs
+scientific models and negative controls as well as browser checks; it is not a default layout smoke.
+
+This focused prose correction uses task branch `chore/product-check-scope-2026-10-07` in
+`C:/Users/biao3/Documents/GitHub/snowflake-product-checks`. Its scope is AGENTS, the active glass
+plan, this record and progress. Verify with Rule 7, `git diff --check` and scope/wording inspection;
+no full suite, app build or scientific campaign is required for this rules-only edit. Scientific
+requirements, accepted ADRs/charter, test scripts and code remain unchanged. Local integration and
+non-force worktree/ref closeout are pending; do not push.
+
+Checks passed: `npm.cmd run lint:rule7` and `git diff --check`; primary
+`out/product-check-scope-2026-10-07/rule7.log`, `rule7.error.log` and `rule7.exit` record the scan.
+The diff changes only the four named prose files and preserves the scientific-check requirement,
+canonical symlink and historical glass-plan test records. No executable check scripts changed.
+
 ## Goal
 
 Make the merged repository straightforward to resume on this Windows computer: current live
