@@ -1,3 +1,4 @@
+import { execFileSync } from "node:child_process";
 import { mkdtempSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
@@ -16,8 +17,37 @@ import {
   verifyPhase8FreezeFile,
   type Phase8Freeze,
 } from "../src/phase8-freeze.ts";
+import { historicalGitBytes, temporaryFixture, writeFixtureFile } from "./historical-fixture.ts";
 
 const REPOSITORY_ROOT = fileURLToPath(new URL("../..", import.meta.url));
+const PHASE8_FREEZE_COMMIT = "ae6953055056567cc65292ddff24644d6ac7100c";
+
+// The accepted freeze binds its verifier test and root attributes too. Re-derive the original
+// publication from exact Git bytes; evolving source/configuration must remain a refused input.
+const PHASE8_HISTORICAL_ROOT = (() => {
+  const root = temporaryFixture("phase8-freeze-history-");
+  const freezeBytes = historicalGitBytes(PHASE8_FREEZE_PATH, PHASE8_FREEZE_COMMIT);
+  const freeze = JSON.parse(freezeBytes.toString("utf8")) as Phase8Freeze;
+  const pins = [
+    freeze.targetBook,
+    freeze.report,
+    freeze.extendedDataset,
+    ...freeze.sourceIndexes,
+    ...freeze.supportingRecords,
+    ...freeze.registeredData,
+    ...freeze.operators,
+    ...freeze.verifier,
+  ];
+  writeFixtureFile(root, PHASE8_FREEZE_PATH, freezeBytes);
+  for (const pin of pins) {
+    writeFixtureFile(root, pin.path, historicalGitBytes(pin.path, PHASE8_FREEZE_COMMIT, pin));
+  }
+  execFileSync("git", ["init", "--quiet"], { cwd: root, windowsHide: true });
+  execFileSync("git", ["-c", "core.autocrlf=false", "add", "--force", "--", PHASE8_FREEZE_PATH, ...pins.map((pin) => pin.path)], {
+    cwd: root, windowsHide: true,
+  });
+  return root;
+})();
 
 const SOURCE_A = { path: "research/source-a.md", extractId: "P8X-SOURCE-A-1" } as const;
 const SOURCE_B = { path: "research/source-b.md", extractId: "P8X-SOURCE-B-1" } as const;
@@ -424,12 +454,17 @@ describe("Phase 8 target-book schema", () => {
 
 describe("published Phase 8 freeze", () => {
   it("re-derives the book, pins, and split from published bytes", () => {
-    const { book, freeze } = verifyPhase8FreezeFile(REPOSITORY_ROOT);
+    const { book, freeze } = verifyPhase8FreezeFile(PHASE8_HISTORICAL_ROOT);
     expect(book.status).toMatchObject({ entryCount: 18, targetCount: 16, inputCount: 2 });
     expect(freeze.split.heldOutIds).toHaveLength(7);
     expect(freeze.supportingRecords).toHaveLength(3);
     expect(freeze.verifier.map((pin) => pin.path)).toContain("runner/src/gate4-evidence.ts");
     expect(freeze.scope).toMatchObject({ grantsValidationClaim: false, permitsSolverRun: false });
+  });
+
+  it("refuses present source drift without changing the published pins", () => {
+    expect(() => verifyPhase8FreezeFile(REPOSITORY_ROOT))
+      .toThrow(/differs from independently re-derived bytes and split/);
   });
 
   it.each([
@@ -460,10 +495,10 @@ describe("published Phase 8 freeze", () => {
         : pin),
     })],
   ] as const)("rejects a mutated %s", (_name, mutate) => {
-    const path = resolve(REPOSITORY_ROOT, PHASE8_FREEZE_PATH);
+    const path = resolve(PHASE8_HISTORICAL_ROOT, PHASE8_FREEZE_PATH);
     const freeze = JSON.parse(readFileSync(path, "utf8")) as Phase8Freeze;
     const bytes = new TextEncoder().encode(`${canonicalJson(mutate(freeze))}\n`);
-    expect(() => verifyPhase8FreezeBytes(bytes, REPOSITORY_ROOT))
+    expect(() => verifyPhase8FreezeBytes(bytes, PHASE8_HISTORICAL_ROOT))
       .toThrow(/differs from independently re-derived bytes and split/);
   });
 });
