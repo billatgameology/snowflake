@@ -1,8 +1,8 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** cavity/grid and early/late history wave complete and reviewed (2026-10-01); paused for three-machine consolidation
-**Worktree:** `G:\Code Files\snowflake-science-exploration`
-**Branch:** `explore/post-phase10-discovery`
+**Status:** cavity/grid and early/late history wave complete and reviewed (2026-10-01); science paused, next experiment unselected
+**Former execution worktree:** `G:\Code Files\snowflake-science-exploration` (reconciled in October consolidation)
+**Former branch:** `explore/post-phase10-discovery` (merged and removed after preservation)
 **Base:** `ba99d81`
 **Claim level:** exploratory model-development evidence only
 
@@ -35,10 +35,12 @@ bytes, all fresh-restored and compared byte-for-byte by length/SHA-256. Existing
 remain in place. Older adaptive collections outside this bundle still require retention review
 before deleting any worktree; no collection is declared disposable.
 
-Next: converge the 32-logical-processor PC, 24-core PC and Mac story/website changes to one
-baseline. Then propose a finite physically matched grid/width and initialization check of the
-early-history lead, split across both PCs, with demonstrated pause/resume before launch.
-The present cap is 28 workers; the other PC's runtime and available budget remain unknown.
+Current next step (2026-10-07): Windows consolidation and the new 24-core computer's readiness
+are complete; the other computer's film branch remains untouched. Finish the separately planned
+repository housekeeping, then select a new finite experiment before launching any wave. A physically
+matched grid/width and initialization check of the early-history lead is a proposal, not a registered
+run queue. Measure the current host's worker budget and prove representative pause/resume first.
+The 28-worker cap belongs to the former 32-logical-processor execution host, not this computer.
 Other parked lead families remain open. No Phase 7 or C0V/S6 work is reopened.
 
 Local reconciliation before push: the science worktree was clean at 9658cd3 before this closure;

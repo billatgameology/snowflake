@@ -1,11 +1,11 @@
 # Plan — named snow-crystal animation catalog
 
 - **Phase:** Pre-Phase 7 product/catalog work; no charter phase or scientific gate is reopened
-- **Status:** in progress — final-resolution Fleets A/B complete and visually reviewed; Fleet C is
-  21/24 complete pending a three-job cadence-only repair; final acceptance remains, with 0/99
-  final-resolution slots accepted
+- **Status:** complete — 99 accepted animations / zero remaining (completion record below).
+  Catalog work merged; former worktree/branch reconciled. Historical tranche instructions below
+  record the executed sequence and are not a new production queue.
 - **Started:** 2026-08-29
-- **Last touched:** 2026-08-31 by OpenAI Codex (GPT-5)
+- **Last touched:** 2026-10-07 by Codex (status reconciliation only; completion evidence unchanged)
 
 ## Goal
 
@@ -1157,7 +1157,10 @@ not run because this closing transaction is isolated catalog, composition and pr
   control's existing seed attachment and boundary rebuild path, then inherits all evolution methods;
   an exact parity regression makes that compatibility seam visible.
 
-## Open questions
+## Historical open questions
+
+These were registration-time questions. Catalog type acceptance and repository gallery integration
+are complete as recorded above; separate website-repository changes still require their own task.
 
 - The four GG+ probe types may expose a representational limit of the fixed lattice. A failed probe
   does not authorize new physics; it returns to the maker with the measured visual failure and the
@@ -1166,7 +1169,12 @@ not run because this closing transaction is isolated catalog, composition and pr
   repository. Any separate-repository edits use their own branch and checks while preserving this
   manifest as the producer contract.
 
-## Worktree registration
+## Historical worktree registration — reconciled
+
+The registration below describes the original isolated production worktree. Its completed work
+merged through PR #10; the October local consolidation removed the reconciled worktree and branch
+while retaining the original output trees. Use the current task worktree from PROGRESS, not these
+former paths. Output custody and any later prune decision remain in the closeout/consolidation plans.
 
 - Branch: `feature/named-crystal-catalog`
 - Worktree: `C:/Users/HIL_ADMIN/Documents/GitHub/snowflake-named-catalog`

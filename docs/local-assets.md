@@ -9,6 +9,29 @@ destroyed in a machine transfer when they were simply in a sibling worktree, and
 
 Read this before concluding that something is lost.
 
+Current-host state is in [PROGRESS](PROGRESS.md) and the
+[2026-10-07 readiness record](plans/local-consolidation-2026-10-01.md#new-windows-computer-readiness--2026-10-07).
+The current Windows primary uses `VCC_NAS_ROOT=Z:/` and has all 151 registered compact gallery inputs
+available. The dated inventories and Mac restore examples below are collection/provenance records,
+not claims that their entire bulk trees exist in every checkout. Full original-output restoration
+and pruning remain distinct from compact product recovery.
+
+Recover a fresh checkout's compact gallery inputs with the tracked command:
+
+```sh
+npm run gallery:restore
+npm run gallery:restore -- --check
+```
+
+The command resolves the marked NAS through `scripts/nas-root.ts`, reads the exact registered
+sources from `render-worktrees-closeout@2026-09-04`, and recovers the deployed original Run B
+only when its registered digest and size match. Its preferred Run B destination is
+`out/growth-assets/run-b-growth-v1.bin`; the older sibling website input remains a reader fallback.
+Existing mismatched bytes are refused rather than overwritten. `--check` verifies availability
+without copying; `--root <worktree>` selects an explicit destination checkout. The receipt is
+`out/growth-gallery/restore.json`. This is compact product recovery, not full collection restoration
+or source-prune authority; keep the restored inputs while using the gallery.
+
 ## The trees
 
 | Tree | Size | In git? | Where it comes from |
@@ -103,8 +126,10 @@ earn a preservation or deletion claim.
   19 are hand-authored, and records capture runtime facts (stop reason, tick, mesh stats)
   no rerun is guaranteed to reproduce bit-for-bit. Every mesh, render and timeline
   regenerates FROM them. They lived in gitignored `out/` (force-added) until 2026-08-12;
-  nothing under `out/` is tracked anymore, making ADR 0038's "out/ may be deleted at any
-  time" literally true.
+  nothing under `out/` is tracked anymore. That relocation closes this subtree's tracked-evidence
+  gap; it does not make every current ignored output disposable. Before local cleanup, classify
+  and preserve useful staging bytes under AGENTS Rule 15, then use a separately reviewed exact
+  prune list. Generated gallery inputs and current recovery receipts also live under `out/`.
 - **`research/media-inventory.json`** — per-file manifest of the media cache. Paths, sizes and
   hashes only, no third-party content.
 - **`research/*.md`** — the provenance prose: sources, licences, crop rectangles.

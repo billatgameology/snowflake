@@ -232,9 +232,12 @@ Decision 0011 resolves the timeline seam left open by decision 0005 D5:
 
 ### Local execution host and operator preference
 
-- The primary Windows execution host has an AMD Ryzen 9 5900XT (16 physical cores / 32 logical
-  processors), 64 GB RAM (63.8 GB usable), an NVIDIA GeForce RTX 3080 with 10 GB dedicated VRAM,
-  and multiple NVMe SSDs. Prefer an NVMe-backed workspace for long evidence runs.
+- The current primary Windows host (2026-10-07) has an Intel Core Ultra 9 285K (24 physical cores /
+  24 logical processors), 64 GB RAM and an NVIDIA GeForce RTX 5080. Its checkout is
+  `C:/Users/biao3/Documents/GitHub/snowflake`. The former Windows evidence host had a Ryzen 9
+  5900XT (16 cores / 32 logical processors), 64 GB RAM and an RTX 3080; its recorded launch counts
+  and 28-worker cap are historical measurements, not this host's budget. Measure the new host's
+  available process budget before a scientific campaign. Prefer an NVMe-backed workspace.
 - Run independent cases, temperature points, sweeps, and other scientifically separable jobs in
   parallel processes whenever the registered protocol and available memory allow it. Preserve
   deterministic per-case semantics and never alter a pre-registered protocol merely to increase
@@ -301,8 +304,9 @@ node runner/src/main.ts gate2b
   `os.tmpdir()` returns `/var/folders/…`, which `realpathSync.native` resolves through the
   macOS `/var` → `/private/var` symlink, tripping the evidence guard in
   `runner/src/gate5-evidence.ts`. The guard is correct; set `TMPDIR`, never relax it.
-- The NAS share `\\GameStation\snowcrystal` is mounted `S:` on Windows and
-  `/Volumes/snowcrystal` on macOS. Never hardcode a mount: resolve it via
+- The NAS share `\\GameStation\snowcrystal` is mapped `Z:` on the current Windows host through
+  persistent `VCC_NAS_ROOT=Z:/`; the former Windows host used `S:`, and macOS used
+  `/Volumes/snowcrystal`. Never hardcode a mount: resolve it via
   `scripts/nas-root.ts` and address share files by share-relative path (the dev server's
   `/nas/<path>` route). That route authorizes only the exact public generated prefixes in
   `docs/nas-assets.json`; share containment alone is not permission to serve a file. Emitted URLs

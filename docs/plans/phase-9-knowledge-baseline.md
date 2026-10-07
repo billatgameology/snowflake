@@ -1,7 +1,8 @@
 # Plan — Pre-adoption Phase 9 knowledge baseline
 
 - **Phase:** Research preparation for proposed Phase 9 — no implementation or experiment authority
-- **Status:** complete — research baseline published; Phase 9 remains unadopted
+- **Status:** complete — research baseline published. Its pre-adoption decision queue below is
+  historical; Phase 9 was subsequently adopted and completed in the [execution plan](phase-9-execution.md).
 - **Started:** 2026-08-12
 - **Last touched:** 2026-08-12 by OpenAI Codex
 

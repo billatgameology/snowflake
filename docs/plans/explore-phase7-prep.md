@@ -1,6 +1,12 @@
 # Phase 7 preparation spike (maker-approved, 2026-08-05)
 
-**Status: active. This is NOT Phase 7.** Charter v1.18 (decision 0029) defines Phase 7
+**Current status (2026-10-07): historical preparation spike, not an active Phase 7 execution plan.**
+The original branch is merged/reconciled; Phase 7 remains unstarted and independently eligible
+under its current charter and maker hold. The prototype limitations and incomplete review lanes
+below remain recorded; they are not authorization to restart this old branch or a new phase.
+See [PROGRESS](../PROGRESS.md) for actual active work.
+
+The following records the original 2026-08-05 preparation contract. Charter v1.18 (decision 0029) defines Phase 7
 pre-solidification "while Phase 6 remains in flight," and states plainly that Phase 7 still
 begins after Phase 6. This plan continues that pre-solidification on the
 `explore/gg-realism-gutcheck` branch: machinery and prototypes only, no phase-gate claim, no
@@ -17,7 +23,7 @@ Maker directives captured verbatim-in-substance:
   build, static `dist/`, relative paths); do not contort assets to fit Pages-style limits,
   but bandwidth still matters, so sizes are measured and minimized.
 
-## Inherited constraints (unchanged from the gut-check plan)
+## Historical inherited constraints (2026-08-05)
 
 No `LibbrechtKinetics` runs; no edits to `core/`, `solver-cpu/`, `runner/`, `evidence/`,
 charter, ADRs, education, or main's `PROGRESS.md`; seeded counter-based PRNG only; Rule 7

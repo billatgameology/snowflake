@@ -1,9 +1,12 @@
 # Local consolidation — 2026-10-01
 
-Status: complete. Integration `f54cb7c` is pushed to main; only the primary worktree and local main
-branch remain. All three original output trees are retained locally and the useful new snapshots
-are verified on NAS. One unregistered empty directory remains Windows-locked (details below).
-The website/film branch on the other computer is excluded and unchanged.
+Status: complete. Former Windows primary `G:/Code Files/snowflake` integrated and pushed
+`f54cb7c` to main, reconciled its extra worktrees/branches, and retained all three original output
+trees. Its empty Windows-locked residual directory is an old-host observation, not a directory on
+the new computer. The 2026-10-07 readiness record below completes setup of current primary
+`C:/Users/biao3/Documents/GitHub/snowflake` with selected verified restorations, not all original
+bulk outputs. The other computer's website/film branch remains excluded and unchanged.
+The current housekeeping task uses one additional isolated worktree; see PROGRESS for live refs.
 
 ## Scope and approach
 
@@ -123,9 +126,10 @@ The education and evidence worktrees are unregistered, their merged local refs r
 entire output trees retained in primary as specified above. Git's Windows removal left residual
 tracked/dependency files, which were removed only from the reviewed exact directories. The evidence
 checkout's now-empty root is held open by another process; leave it rather than killing that process.
-After fast-forwarding primary, run the catalogued closeout restore verification there, push main,
-move the final science output, and unregister that checkout. Remove the local retired checkpoint
-ref only while it exactly matches its existing remote ref; never merge it or delete that remote.
+The remaining closure instructions at this checkpoint were to verify the catalogued restore,
+push main, retain the final science output, unregister its checkout and reconcile the exact
+retired checkpoint ref. The completed closure and later separately authorized remote deletion
+below supersede that checkpoint's instructions; never merge the retired implementation.
 
 ## Completed local closure
 
@@ -170,11 +174,12 @@ lease. `plan/phase10-options` is absent from local and remote branch listings, s
 needed; its planning commit `bc75831` is an ancestor of main. Final `git ls-remote --heads origin`
 lists only main and the other computer's untouched `explore/film-part1-plan`. Backups are retained.
 
-Next: remain paused. Use pushed main as the common grounding point; reconcile the other machines'
-active branches there when ready. A later experiment wave should start in fresh task worktrees,
-partition independent cases across the two PCs, retain the 28-worker cap here, and demonstrate
-pause/resume before a long launch. Raw prior science is in the retained science-out tree or its
-catalogued NAS snapshot; restore only the needed campaign to the new task's expected output path.
+Next: science remains paused. Windows consolidation and the new computer's setup are complete;
+reconcile the other computer's film work only within its authorized task. A later experiment wave
+starts in a fresh task worktree with a measured host budget and demonstrated pause/resume.
+The 28-worker cap belongs to the former 32-logical-processor evidence host; do not transfer it to
+the current 24-core host. Raw prior science is in the former primary's retained science-out tree
+or its catalogued NAS snapshot; restore only needed inputs to the new task's expected path.
 
 ## New Windows computer readiness — 2026-10-07
 

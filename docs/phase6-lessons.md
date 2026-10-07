@@ -24,8 +24,11 @@ failure repeated in the cross-platform control: Tier 2 arm64 logs and exit recor
 gitignored `out/`, were never promoted, and are now unavailable. Only a prose table survives, so the
 reported end-to-end match is not independently rederivable.
 
-**Rule — DISCIPLINE.** Anything that backs a published claim lives in the **tracked** `evidence/`
-tree with a digest in `evidence/MANIFEST.json`. `out/` is scratch and may be deleted at any time.
+**Rule — DISCIPLINE.** Claim-bearing project-owned bytes that fit Git live in the **tracked**
+`evidence/` tree with a digest in `evidence/MANIFEST.json`; other retained classes follow the
+governed NAS contract and explicit charter/ADR exceptions. `out/` is local staging, not a deletion
+class. AGENTS Rule 15 requires classification, preservation and a separately reviewed exact prune
+list before useful local bytes are removed; declared scratch has an explicit disposition.
 Before publishing, audit claim-to-artifact coverage explicitly: a file-tree test cannot discover a
 claim-backing artifact that the producer omitted from both the tree and manifest. See ADR 0038.
 

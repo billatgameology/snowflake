@@ -1,9 +1,10 @@
 # Plan — preserve generated worktree output and open the closeout PR
 
 - **Phase:** Pre-Phase 7 product retention; no charter phase or gate is reopened
-- **Status:** active — PR #10 merged 2026-09-04 (`4cc1cb3`); Mac-side verification 2026-09-09; full cross-machine restore still pending
+- **Status:** publication and Git consolidation complete — PR #10 merged 2026-09-04 (`4cc1cb3`);
+  full cross-machine restore and any retained-original-output pruning remain pending separately.
 - **Started:** 2026-09-04
-- **Last touched:** 2026-09-09 by Claude Fable 5.1 (Anthropic)
+- **Last touched:** 2026-10-07 by Codex (status reconciliation only)
 
 ## Goal
 
@@ -11,9 +12,17 @@ Copy the generated product output that exists in the named-catalog, animation, a
 worktrees to the governed `snowcrystal` NAS; commit the locator, owner manifest, simple execution
 record, and restore command; then open a pull request to `main`.
 
-Maker direction on 2026-09-04 supersedes the original same-machine restore-and-cleanup closeout.
+Historical maker direction on 2026-09-04 superseded the original same-machine restore-and-cleanup closeout.
 Do not merge the pull request, delete local output, remove a worktree, or delete a branch. The maker
-will merge and test restoration on another computer, then explicitly authorize cleanup later.
+would merge and test restoration on another computer, then explicitly authorize cleanup later.
+
+Current boundary: PR #10 is merged. Later maker-authorized October consolidation reconciled the
+worktrees/branches and retained every original output tree on the former Windows primary; see
+[local consolidation](local-consolidation-2026-10-01.md). New-host readiness restored only the
+compact gallery subset plus the original deployed Run B asset. That is not the full roughly
+215 GB render/scientific restore pair and does not authorize pruning retained original output.
+The old worktree/branch retention instruction is historical; the remaining source-output
+retention decision stays explicit. Nothing in this reconciliation deletes or republishes bytes.
 
 ## Collection contract
 
@@ -74,8 +83,10 @@ is added.
 - [x] Publish to the NAS and register the owner manifest and catalogue result.
 - [x] Run the required repository checks and record exact results.
 - [x] Push the feature branch and open a pull request to `main`.
-- [ ] After the maker later confirms a restore on another computer, make a separate authorized
-      cleanup pass for local output, worktrees, and branches.
+- [x] Reconcile merged worktrees and branches through the later authorized October consolidation;
+      retain their original output trees on the former Windows primary.
+- [ ] Record full cross-machine restore confirmation for the render/scientific collection pair,
+      then decide any separately authorized exact prune list for retained original output.
 
 ## Execution record
 

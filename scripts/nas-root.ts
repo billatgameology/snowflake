@@ -1,16 +1,16 @@
 // Where the bulk gut-check artifacts are attached on *this* machine.
 //
 // They live on the NAS share \\GameStation\snowcrystal (docs/nas-ledger.md) under canonical
-// collection locators. The repo is worked from two hosts that mount that same share differently —
-// Windows maps it to the persistent drive S:, while macOS mounts SMB
+// collection locators. Host mounts differ: the current Windows computer maps Z: through
+// VCC_NAS_ROOT=Z:/; the former Windows evidence host used S:, while macOS mounts SMB
 // (smb://GameStation/snowcrystal) under /Volumes/. The dev server addresses assets by canonical
 // share-relative path (/nas/<path>) and resolves only the host prefix here.
 //
 // Detect rather than persist a host path: emitted URLs carry no mount prefix, and a detached
 // checkout fails or enters an explicitly requested metadata-only mode. VCC_NAS_ROOT is canonical;
 // accepted only when it does not conflict with the canonical setting. The construction is
-// mount-agnostic; end-to-end index/streaming behavior was measured on macOS, while the current
-// Windows S:/ path remains unexecuted.
+// mount-agnostic. macOS index/streaming, the former Windows S:/ write lane, and current Windows
+// Z:/ verification/restore have executed; dated results live in PROGRESS and the NAS/readiness plans.
 
 import {
   closeSync,

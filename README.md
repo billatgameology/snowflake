@@ -5,10 +5,11 @@ crystals. Its eventual product is a desktop-browser instrument where a user desi
 temperature and humidity history, watches the crystal grow in 3D, and inspects the vapor field
 that explains why it grew that way.
 
-This repository is currently the model and evidence layer, not the finished application. It has
-a tested TypeScript CPU reference solver, a command-line runner, checkpoint and image output,
-scientific specifications, and a frozen 2D interaction prototype. The WebGPU solver and polished
-3D app are later phases and do not exist yet.
+This repository contains the TypeScript CPU oracle, command-line evidence tooling, a Three.js
+development instrument, the Phase 5 WebGPU solver, and replay/catalog presentation tools.
+Phases 0–6 and 8–10 are complete with their recorded outcomes; Phase 7 remains unstarted.
+The completed scientific comparisons have not earned a quantitative-validation label.
+Read [docs/PROGRESS.md](docs/PROGRESS.md) for current work and the remaining product decisions.
 
 ## What the software does
 
@@ -73,10 +74,10 @@ process APIs.
 | `app/` | Phase 3–4 Three.js instrument, browser-worker CPU solver, scientific overlays, timeline UI, and deterministic visual harness. |
 | `solver-gpu/` | Phase 5 WebGPU compute implementation and CPU-comparison machinery; v6/M1 GPU support is Phase 7 property (decision 0044). |
 | `spike/` | Frozen Phase 1 2D UX prototype. It tested the editable journey/timeline idea and must not become the production architecture. |
-| `scripts/` | Repository linting plus research-PDF bundle generation and integrity verification tools. |
+| `scripts/` | Research intake, evidence and NAS tooling, generated replay/catalog production, publication, and repository checks. |
 | `research/` | Source indexes and local scientific source material. Large third-party media is intentionally ignored by Git; tracked indexes preserve URLs and hashes. |
 | `evidence/` | Tracked claim-backing scientific artifacts with byte identities in `evidence/MANIFEST.json`. |
-| `out/` | Disposable scratch outputs such as checkpoints, logs, probes, and PGM images. Ignored by Git and never sufficient by itself for a published claim. |
+| `out/` | Ignored local staging for runs, logs, replays and restores. Classify and preserve useful bytes before separately reviewed cleanup; see Rule 15 and `docs/local-assets.md`. |
 | `package.json` | npm workspace definition and the main lint, typecheck, test, and runner scripts. |
 | `tsconfig*.json`, `vitest.config.ts` | Strict TypeScript and test configuration shared by the workspace. |
 
@@ -108,7 +109,7 @@ per-cell fractional fill value that reaches one before a new cell attaches.
 |---|---|
 | `src/operator.ts` | Defines the common `SurfaceOperator` interface and its relaxation, surface, and ledger reports. |
 | `src/gg-solver.ts` | Implements diffusion, freezing, threshold attachment, melting, stopping conditions, and mass accounting for `GGSolver`. |
-| `src/lk-solver.ts` | Implements iterative vapor-field relaxation, the coupled surface boundary, per-face fill, temperature-dependent growth, and convergence diagnostics for `LKSolver`. |
+| `src/lk-solver.ts` | Implements iterative vapor-field relaxation, the policy-versioned coupled surface boundary and fill, temperature-dependent growth, and convergence diagnostics for `LKSolver`. |
 | `src/index.ts` | Public export surface for the package. |
 
 The CPU solver is deliberately clear and testable rather than optimized. It is the oracle that the
@@ -121,12 +122,18 @@ float32 WebGPU implementation must match within a declared tolerance.
 | `src/main.ts` | Parses commands, constructs solvers, runs growth loops, prints metrics, enforces phase gates, and reads/writes checkpoints. |
 | `src/pgm.ts` | Converts vapor slices, surface propensity, and top-down occupancy into grayscale PGM images. |
 
-The runner exposes three commands:
+The main runner includes observational growth commands, registered phase gates and Phase 6 tooling:
 
 - `grow` runs the G-G solver with a named preset.
 - `grow-lk` runs one temperature-dependent Libbrecht simulation.
-- `gate2b` runs the fixed, pre-registered two-temperature Phase 2b protocol. It accepts no
-  flags so the comparison cannot be silently changed after seeing a result.
+- `gate2b`, `gate3`, `gate4a`/`gate4b`/`gate4`, `gate5-lane`/`gate5`, `gate6` and `gate10`
+  execute or re-derive their own registered protocols.
+  Consult `docs/PROGRESS.md` and the relevant plan before running one; a gate is not a setup check.
+- `phase6-fixture` and the three `phase6-sweep*` entry points belong to their registered
+  scientific protocols, not routine setup.
+
+The dispatch and usage in [runner/src/main.ts](runner/src/main.ts) list the current main commands.
+Additional evidence executors and NAS/product tools have their own entry points and governing plans.
 
 ### Tests
 
@@ -144,12 +151,22 @@ See `spike/README.md` before running or inspecting it.
 
 ## Common commands
 
-Install dependencies and run all verification:
+Use the development Node version in [.nvmrc](.nvmrc) (24.13.1); the workspace support floor is
+Node 23.6. Historical bitwise evidence retains the Node/V8 engine named in its own receipt.
+Install the locked dependencies and run the checks required for the changed surface:
 
 ```sh
-npm install
+npm ci
 npm test
 ```
+
+Exact `npm test` covers scientific, evidence and cross-cutting changes. Isolated presentation
+work uses focused tests, typecheck, app build and a representative browser check under AGENTS Rule 6.
+See `docs/PROGRESS.md` for the current verification state and full-suite debt.
+
+To recover the registered compact gallery inputs on a fresh checkout with the marked NAS attached,
+run `npm run gallery:restore` (or `npm run gallery:restore -- --check` for read-only availability).
+See [docs/local-assets.md](docs/local-assets.md) for exact recovery and retention boundaries.
 
 Run a G-G plate and save a checkpoint:
 
@@ -205,9 +222,10 @@ Then open `http://localhost:8321` in a browser.
   passed gate; canonical gate commands explicitly enforce all registered preconditions and
   thresholds.
 
-Disposable generated outputs belong in `out/`. Any generated bytes that support a scientific claim
-must instead be promoted to tracked `evidence/` and registered in `evidence/MANIFEST.json`; a hash
-without the artifact is not a preserved result.
+Generated staging belongs in `out/`. Claim-bearing project-owned bytes that fit Git must be
+promoted to tracked `evidence/` and registered in `evidence/MANIFEST.json`; other retained classes
+follow the governed NAS contract and its explicit exceptions. A hash without the artifact is not
+a preserved result. Ignored paths grant no blanket deletion authority; follow AGENTS Rule 15.
 
 ## Current project status
 
@@ -225,7 +243,8 @@ without the artifact is not a preserved result.
 - Phase 7: not started, but independently eligible under decision 0046; its own committed plan
   and isolated worktree are required before work begins.
 - Phase 8: complete (Phase 8A 2026-08-10; Phase 8B 2026-08-12). Phase 9: complete
-  (development-only, 2026-08-13). Phase 10 remains proposed and uncharted.
+  (development-only, 2026-08-13). Phase 10: complete-negative (2026-08-25), retaining B refusal,
+  C0 criterion NO-PASS, C0V incomplete/non-PASS and zero S6 execution credit.
 
 For the live status, trust the compact `docs/PROGRESS.md` index over this summary. Its linked
 pre-compaction archive is historical, not current authority. For intended behavior, the authority
