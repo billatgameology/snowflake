@@ -88,12 +88,13 @@ scientific calculation/readout/claim logic, and removes the active glass/camera 
 full-suite criterion. Historical test records remain intact. The complete education verifier runs
 scientific models and negative controls as well as browser checks; it is not a default layout smoke.
 
-This focused prose correction uses task branch `chore/product-check-scope-2026-10-07` in
-`C:/Users/biao3/Documents/GitHub/snowflake-product-checks`. Its scope is AGENTS, the active glass
+This focused prose correction used task branch `chore/product-check-scope-2026-10-07` in the former
+`C:/Users/biao3/Documents/GitHub/snowflake-product-checks` worktree. Its scope is AGENTS, the active glass
 plan, this record and progress. Verify with Rule 7, `git diff --check` and scope/wording inspection;
 no full suite, app build or scientific campaign is required for this rules-only edit. Scientific
-requirements, accepted ADRs/charter, test scripts and code remain unchanged. Local integration and
-non-force worktree/ref closeout are pending; do not push.
+requirements, accepted ADRs/charter, test scripts and code remain unchanged. Main fast-forwarded to
+`91c0684`; the clean task worktree/ref were removed without force. Primary
+`out/product-check-scope-2026-10-07/closeout.json` records the disposition. Nothing was pushed.
 
 Checks passed: `npm.cmd run lint:rule7` and `git diff --check`; primary
 `out/product-check-scope-2026-10-07/rule7.log`, `rule7.error.log` and `rule7.exit` record the scan.

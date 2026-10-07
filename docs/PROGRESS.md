@@ -5,9 +5,10 @@ including **Tried and rejected**. The charter defines intended behavior; this in
 The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
 
 - **Last updated:** 2026-10-07 by Codex
-- **Verification scope:** maker clarification is being recorded in `snowflake-product-checks`,
-  branch `chore/product-check-scope-2026-10-07`: website/education presentation uses focused
-  product/content checks; executable science and evidence retain rigorous requirements.
+- **Verification scope:** maker clarification is recorded through local `91c0684`: website/education
+  presentation uses focused product/content checks; executable science and evidence retain rigorous
+  requirements. The active glass/camera plan's inherited full-suite criterion is removed; historical
+  test records remain. Its task worktree/ref are reconciled and removed; nothing was pushed.
 - **Agent-rules cleanup:** [complete](plans/repository-housekeeping-2026-10-07.md#agent-rules-follow-up--2026-10-07),
   integrated into local main through `23de3a8`; its task worktree/ref are removed without force.
   Repeated detail now links to its authority while explicit learned warnings, required reading and
