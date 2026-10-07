@@ -5,9 +5,9 @@ including **Tried and rejected**. The charter defines intended behavior; this in
 The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
 
 - **Last updated:** 2026-10-07 by Codex
-- **Current task:** [repository housekeeping](plans/repository-housekeeping-2026-10-07.md), in progress
-  in `C:/Users/biao3/Documents/GitHub/snowflake-housekeeping` on
-  `chore/repository-housekeeping-2026-10-07`, from primary main `7c58f8b`.
+- **Repository housekeeping:** [complete](plans/repository-housekeeping-2026-10-07.md), integrated
+  into local `main` through `6f4e050`; its reconciled task worktree and branch are removed.
+  Changes remain local and unpushed. The primary checkout is the sole local worktree.
 
 ## Historical records
 
@@ -58,8 +58,9 @@ checkout; `-- --check` verifies them without copying. See [local assets](local-a
 main, removed reconciled extra worktrees/branches, and retained its original output trees under
 its `G:/Code Files/snowflake/out/`. This new computer holds the selected restorations above;
 original-output custody is not inferred from a fresh checkout. The other computer's film branch
-remains untouched. During housekeeping the primary main checkout remains the immutable baseline;
-there is one additional task worktree. See [consolidation](plans/local-consolidation-2026-10-01.md).
+remains untouched. Housekeeping fast-forwarded local primary main and removed its reconciled task
+worktree/ref without force. See [consolidation](plans/local-consolidation-2026-10-01.md) and primary
+`out/housekeeping-2026-10-07/worktree-closeout.json` for the source/check/disposition record.
 
 **Science is paused after completed exploratory work.** The cavity/grid and early/late history
 wave is complete in the [adaptive discovery plan](plans/post-phase10-adaptive-discovery.md).
@@ -150,9 +151,8 @@ availability confirmation. Primary `nas-retention-review.json` records the dispo
 
 ## Active plan
 
-- [Repository housekeeping](plans/repository-housekeeping-2026-10-07.md) is the current implementation
-  task: implementation, required verification and approved local cleanup are complete; finish local
-  fast-forward and non-force removal of the reconciled task worktree/ref. No automatic push.
+- [Repository housekeeping](plans/repository-housekeeping-2026-10-07.md) is complete. Its required
+  checks, approved cleanup, local fast-forward and non-force worktree/ref closeout are recorded.
 - [Adaptive discovery](plans/post-phase10-adaptive-discovery.md) is paused after its completed closing
   wave. The next scientific experiment is not selected; completed campaign rows are not a resume queue.
 - [Glass/camera follow-up](plans/explore-gutcheck-growth-glass-camera.md) has an implementation candidate
@@ -172,13 +172,12 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-Complete the [housekeeping checklist](plans/repository-housekeeping-2026-10-07.md) in the existing task
-worktree: fast-forward local primary main and remove only the reconciled task worktree/ref after its
-ignored-output disposition audit. Preserve current gallery inputs and recovery receipts.
+The next product task is [glass/camera acceptance](plans/explore-gutcheck-growth-glass-camera.md):
+recover its separately required comparison bundle, then execute its browser and visual acceptance
+in a new isolated task worktree. The 151-input gallery is ready to use in the primary checkout.
 
-After housekeeping, choose one actual pending deliverable: glass/camera acceptance, the separate
-large-output restore/retention decision, education/film work on its owning computer, or a newly planned
-scientific experiment. For science, establish this host's runtime/concurrency and representative
+The large-output restore/retention decision, education/film work on its owning computer, and a newly
+planned scientific experiment remain separate choices. For science, establish this host's runtime/concurrency and representative
 pause/resume before launch. Phase 7 and retired Phase 10 S6 do not start as a consequence of cleanup.
 
 Ignored `out/` and research payloads are staging, not blanket deletion targets. Classify useful bytes,

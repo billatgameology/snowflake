@@ -1,11 +1,11 @@
 # Plan — Repository housekeeping
 
 - **Phase:** cross-cutting maintenance; no scientific phase reopened
-- **Status:** verification and approved local cleanup complete; local consolidation in progress
+- **Status:** complete; integrated locally, unpushed
 - **Started:** 2026-10-07
 - **Last touched:** 2026-10-07 by Codex
-- **Worktree:** `C:/Users/biao3/Documents/GitHub/snowflake-housekeeping`
-- **Branch:** `chore/repository-housekeeping-2026-10-07`, from `7c58f8b`
+- **Worktree:** former `C:/Users/biao3/Documents/GitHub/snowflake-housekeeping`; removed after reconciliation
+- **Branch:** former `chore/repository-housekeeping-2026-10-07`, from `7c58f8b`; merged and deleted
 
 ## Goal
 
@@ -52,7 +52,7 @@ and optional verified packed restore; execute only those exact targets after fin
 - [x] Review NAS collection/custody inventories and record bounded dispositions.
 - [x] Verify and remove `app/dist/`, the downloaded Node ZIP, duplicate Run B download, and the
       packed readiness science restore. Retain canonical assets, logs, scripts and receipts.
-- [ ] Run final required checks, record results, reconcile task state into local primary main,
+- [x] Run final required checks, record results, reconcile task state into local primary main,
       remove the empty task worktree/ref. Do not push automatically.
 
 ## Out of scope
@@ -170,7 +170,17 @@ primary dependencies, all 151 registered gallery inputs, original output custody
 registered SHA; the 15 retained browser/restore reports and screenshots also match their task copies.
 `worktree-disposition.json` classifies all ignored task outputs as retained duplicates, generated
 dependencies/build output or synthetic regression scratch. Local fast-forward and non-force
-task worktree/ref removal remain the final consolidation step.
+task worktree/ref removal completed without force. Primary main fast-forwarded through `6f4e050`;
+the registered task worktree and merged branch are removed. `worktree-closeout.json` records that
+step; only primary `main` remains locally, and no push executed. The separate remote film branch
+was untouched. The final documentation checkpoint follows that integrated source, with only
+proportionate prose/closure checks required.
+
+Final primary documentation checks passed: `npx.cmd vitest run runner/test/gate6-aggregate.test.ts
+runner/test/progress-index.test.ts` (32 tests; `final-docs-focused.log`) and `npm.cmd run lint:rule7`
+(`final-docs-rule7.log`). `npm.cmd run gallery:restore -- --check` verified all 151 / 380,366,718 bytes
+on integrated primary (`primary-gallery-check.log`). The final prose checkpoint changes only this
+plan and PROGRESS relative to the fully checked source; completed scientific records stay intact.
 
 ## Open questions
 
