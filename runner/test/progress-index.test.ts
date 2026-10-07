@@ -9,6 +9,10 @@ const REPO = fileURLToPath(new URL("../..", import.meta.url));
 const PROGRESS = resolve(REPO, "docs", "PROGRESS.md");
 const HANDOFF = resolve(REPO, "docs", "HANDOFF.md");
 const ARCHIVE = resolve(REPO, "docs", "progress-history-through-2026-08-02.md");
+const HOUSEKEEPING_HISTORY = resolve(REPO, "docs", "progress-history-through-2026-10-07.md");
+const HOUSEKEEPING_MARKER = "<!-- BEGIN EXACT PRE-HOUSEKEEPING PROGRESS BODY -->\n";
+const HOUSEKEEPING_BODY_BYTES = 156_106;
+const HOUSEKEEPING_BODY_SHA256 = "9ae658394425a8e04caeb8509b01319f8400d10dde79a76c72fa05088b134340";
 const PHASE_HISTORY = resolve(REPO, "docs", "progress-history-phases-6-8-9.md");
 const STATE_PLANS = [
   resolve(REPO, "docs", "plans", "phase-6-science-first-completion.md"),
@@ -77,7 +81,63 @@ function countExactLine(text: string, heading: string): number {
   return text.split(/\r?\n/u).filter((line) => line === heading).length;
 }
 
+function housekeepingBody(): Buffer {
+  const archive = readFileSync(HOUSEKEEPING_HISTORY);
+  const marker = Buffer.from(HOUSEKEEPING_MARKER);
+  const offset = archive.indexOf(marker);
+  if (offset < 0 || archive.indexOf(marker, offset + marker.length) !== -1) {
+    throw new Error("housekeeping archive marker is missing or duplicated");
+  }
+  return archive.subarray(offset + marker.length);
+}
+
 function currentIndexErrors(text: string): string[] {
+  const errors: string[] = [];
+  const lines = text.split(/\r?\n/u);
+  const updatedLines = lines.filter((line) => line.startsWith("- **Last updated:**"));
+  const updatedDate = updatedLines[0]?.match(/^- \*\*Last updated:\*\* (\d{4}-\d{2}-\d{2})(?:\s|$)/u)?.[1];
+  const parsedDate = updatedDate === undefined ? NaN : Date.parse(`${updatedDate}T00:00:00Z`);
+  if (updatedLines.length !== 1 || !Number.isFinite(parsedDate)
+    || new Date(parsedDate).toISOString().slice(0, 10) !== updatedDate) {
+    errors.push("expected exactly one valid ISO Last updated date");
+  }
+  for (const phrase of [
+    "Phase 6 is COMPLETE (2026-08-20)",
+    "Phase 8 is COMPLETE (Phase 8A 2026-08-10; Phase 8B 2026-08-12)",
+    "Phase 9 is COMPLETE (development-only, 2026-08-13)",
+    "Phase 10 is COMPLETE (complete-negative, 2026-08-25)",
+    "Phase 7 remains unstarted and independently eligible",
+    "No C1–C5 row, habit row, validation claim or downstream authorization was earned.",
+    "Do not resume retired S6 execution or reuse refused attempts.",
+    "(plans/repository-housekeeping-2026-10-07.md)",
+    "(plans/post-phase10-adaptive-discovery.md)",
+    "(progress-history-through-2026-10-07.md)",
+    "## Next step",
+    "representative",
+    "pause/resume before launch",
+  ]) {
+    if (!text.includes(phrase)) errors.push(`missing current-state phrase: ${phrase}`);
+  }
+  for (const heading of ["## Phase gates", "## Active plan", "## Next step"]) {
+    if (countExactLine(text, heading) !== 1) errors.push(`expected exactly one ${heading}`);
+  }
+  for (const [phase, prefix] of [[7, PHASE7_GATE_PREFIX], [8, PHASE8_GATE_PREFIX],
+    [9, PHASE9_GATE_PREFIX], [10, PHASE10_GATE_PREFIX]] as const) {
+    const rows = lines.filter((line) => line.startsWith(`| ${phase} |`));
+    if (rows.length !== 1 || !rows[0]?.startsWith(prefix)) errors.push(`ambiguous Phase ${phase} gate row`);
+  }
+  for (const line of text.split(/\r?\n/u)) {
+    if (CONTRADICTORY_STATE_PATTERNS.some((pattern) => pattern.test(line))) {
+      errors.push(`contradictory current-state claim: ${line.trim()}`);
+    }
+  }
+  if (text.includes(HOUSEKEEPING_MARKER.trim()) || text.includes(ARCHIVE_MARKER.trim())) {
+    errors.push("byte archive was embedded in current index");
+  }
+  return errors;
+}
+
+function historicalIndexErrors(text: string): string[] {
   const errors: string[] = [];
   const required = [
     "Phase 6 is COMPLETE (2026-08-20)",
@@ -235,6 +295,47 @@ function localMarkdownTargets(markdown: string, sourcePath: string): string[] {
 }
 
 describe("compact progress index and byte-exact historical record", () => {
+  it("preserves and labels the exact pre-housekeeping body without making it current authority", () => {
+    const body = housekeepingBody();
+    expect(body.byteLength).toBe(HOUSEKEEPING_BODY_BYTES);
+    expect(sha256(body)).toBe(HOUSEKEEPING_BODY_SHA256);
+    expect(historicalIndexErrors(body.toString("utf8"))).toEqual([]);
+    const banner = readFileSync(HOUSEKEEPING_HISTORY, "utf8").split(HOUSEKEEPING_MARKER)[0]!;
+    expect(banner).toContain("Historical snapshot — not current authority");
+    expect(banner).toContain("[PROGRESS.md](PROGRESS.md)");
+    const relativeArchive = "docs/progress-history-through-2026-10-07.md";
+    expect(execFileSync("git", ["check-attr", "text", "whitespace", "--", relativeArchive], {
+      cwd: REPO, encoding: "utf8",
+    })).toBe(`${relativeArchive}: text: unset\n${relativeArchive}: whitespace: -trailing-space\n`);
+    const mutated = Buffer.from(body);
+    mutated[mutated.length - 1] ^= 1;
+    expect(sha256(mutated)).not.toBe(HOUSEKEEPING_BODY_SHA256);
+  });
+
+  it("rejects loss of current closed-phase, hold, history and actual next-step boundaries", () => {
+    const text = readFileSync(PROGRESS, "utf8");
+    expect(currentIndexErrors(text)).toEqual([]);
+    for (const phrase of [
+      "Phase 6 is COMPLETE (2026-08-20)",
+      "Phase 7 remains unstarted and independently eligible",
+      "Do not resume retired S6 execution or reuse refused attempts.",
+      "(progress-history-through-2026-10-07.md)",
+      "(plans/repository-housekeeping-2026-10-07.md)",
+      "pause/resume before launch",
+    ]) {
+      expect(currentIndexErrors(text.replaceAll(phrase, "removed boundary")))
+        .toContain(`missing current-state phrase: ${phrase}`);
+    }
+    expect(currentIndexErrors(`${text}\nPhase 9 may grant quantitative validation.\n`))
+      .toContain("contradictory current-state claim: Phase 9 may grant quantitative validation.");
+    const updatedLine = /^- \*\*Last updated:\*\*[^\r\n]*/mu;
+    expect(currentIndexErrors(text.replace(updatedLine, "- **Last updated:** 2026-11-01"))).toEqual([]);
+    expect(currentIndexErrors(text.replace(updatedLine, "- **Last updated:** 2026-02-30")))
+      .toContain("expected exactly one valid ISO Last updated date");
+    expect(currentIndexErrors(`${text}\n${PHASE10_GATE_PREFIX} contradictory |\n`))
+      .toContain("ambiguous Phase 10 gate row");
+  });
+
   it("preserves the complete pre-compaction body byte-for-byte", () => {
     const archive = readFileSync(ARCHIVE);
     const marker = Buffer.from(ARCHIVE_MARKER, "utf8");
@@ -274,10 +375,10 @@ describe("compact progress index and byte-exact historical record", () => {
   });
 
   it("keeps the live authority complete and unambiguous", () => {
-    // Compactness is a manual prune discipline (maker direction 2026-08-16), not an enforced
-    // ceiling: prune stale entries as work lands; do not reintroduce a byte or line cap here.
+    // The maker-authorized housekeeping plan restores a compact current authority.
     const text = readFileSync(PROGRESS, "utf8");
     expect(currentIndexErrors(text)).toEqual([]);
+    expect(text.split(/\r?\n/u).length).toBeLessThanOrEqual(250);
 
     // The handoff mechanism is retired (maker direction 2026-08-20). docs/HANDOFF.md remains
     // only as a tombstone so the byte-frozen archive's HANDOFF.md links keep resolving; it
@@ -291,7 +392,7 @@ describe("compact progress index and byte-exact historical record", () => {
 
   it("keeps every local Markdown target in the current index and archive resolvable", () => {
     const repoPrefix = `${resolve(REPO)}${sep}`;
-    for (const sourcePath of [PROGRESS, ARCHIVE]) {
+    for (const sourcePath of [PROGRESS, ARCHIVE, HOUSEKEEPING_HISTORY]) {
       const targets = localMarkdownTargets(readFileSync(sourcePath, "utf8"), sourcePath);
       expect(targets.length, `${sourcePath} should contain checked local links`).toBeGreaterThan(0);
       for (const target of targets) {
@@ -317,29 +418,29 @@ describe("compact progress index and byte-exact historical record", () => {
   });
 
   it("allows session dates to advance while rejecting missing, duplicate or invalid dates", () => {
-    const current = readFileSync(PROGRESS, "utf8");
+    const current = housekeepingBody().toString("utf8");
     const updatedLine = /^- \*\*Last updated:\*\*[^\r\n]*/mu;
     const advanced = current.replace(updatedLine, "- **Last updated:** 2026-09-05");
     expect(advanced).not.toBe(current);
-    expect(currentIndexErrors(advanced)).toEqual([]);
+    expect(historicalIndexErrors(advanced)).toEqual([]);
     for (const replacement of ["", "- **Last updated:** tomorrow", "- **Last updated:** 2026-02-30"]) {
-      expect(currentIndexErrors(current.replace(updatedLine, replacement)))
+      expect(historicalIndexErrors(current.replace(updatedLine, replacement)))
         .toContain("expected exactly one valid ISO Last updated date");
     }
-    expect(currentIndexErrors(`${current}\n- **Last updated:** 2026-09-05\n`))
+    expect(historicalIndexErrors(`${current}\n- **Last updated:** 2026-09-05\n`))
       .toContain("expected exactly one valid ISO Last updated date");
   });
 
-  it("rejects named current-index state-loss mutations", () => {
-    const current = readFileSync(PROGRESS, "utf8");
-    expect(currentIndexErrors(current.replace("Phase 6 is COMPLETE (2026-08-20)", "Phase 6 is ACTIVE AND INCOMPLETE")))
+  it("preserves historical state-loss mutation coverage against its dated snapshot", () => {
+    const current = housekeepingBody().toString("utf8");
+    expect(historicalIndexErrors(current.replace("Phase 6 is COMPLETE (2026-08-20)", "Phase 6 is ACTIVE AND INCOMPLETE")))
       .toContain("missing current-state phrase: Phase 6 is COMPLETE (2026-08-20)");
     const phase8StatusMutation = current.replace(
       "Phase 8 is COMPLETE (Phase 8A 2026-08-10; Phase 8B 2026-08-12)",
       "Phase 8 is inactive",
     );
     expect(phase8StatusMutation).not.toBe(current);
-    expect(currentIndexErrors(phase8StatusMutation))
+    expect(historicalIndexErrors(phase8StatusMutation))
       .toContain(
         "missing current-state phrase: "
           + "Phase 8 is COMPLETE (Phase 8A 2026-08-10; Phase 8B 2026-08-12)",
@@ -349,7 +450,7 @@ describe("compact progress index and byte-exact historical record", () => {
       "07a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec",
     );
     expect(phase8IdentityMutation).not.toBe(current);
-    expect(currentIndexErrors(phase8IdentityMutation))
+    expect(historicalIndexErrors(phase8IdentityMutation))
       .toContain(
         "missing current-state phrase: "
           + "47a75f3fcc499d74d36cd08eeaed7f4e839bf991deb179fa19ce809d57e171ec",
@@ -361,9 +462,9 @@ describe("compact progress index and byte-exact historical record", () => {
         "Revise `evidence/phase8-target-book/` in place",
       );
     expect(phase8BoundaryMutation).not.toBe(current);
-    expect(currentIndexErrors(phase8BoundaryMutation))
+    expect(historicalIndexErrors(phase8BoundaryMutation))
       .toContain("missing current-state phrase: Phase 8B writes separate artifacts");
-    expect(currentIndexErrors(phase8BoundaryMutation))
+    expect(historicalIndexErrors(phase8BoundaryMutation))
       .toContain(
         "missing current-state phrase: Preserve `evidence/phase8-target-book/`",
       );
@@ -372,58 +473,58 @@ describe("compact progress index and byte-exact historical record", () => {
       .replace("Phase 7 is completely", "Phase 7 waits for Phase 6 and is not completely")
       .replace("standalone, unstarted", "dependent, unstarted");
     expect(phase7StatusMutation).not.toBe(current);
-    expect(currentIndexErrors(phase7StatusMutation))
+    expect(historicalIndexErrors(phase7StatusMutation))
       .toContain("missing current-state phrase: Phase 7 is completely");
     const phase9StatusMutation = current.replace(
       PHASE9_STATUS_LINE,
       "- **Phase 9 is ACTIVE AND INCOMPLETE.**",
     );
     expect(phase9StatusMutation).not.toBe(current);
-    expect(currentIndexErrors(phase9StatusMutation))
+    expect(historicalIndexErrors(phase9StatusMutation))
       .toContain("missing current-state phrase: Phase 9 is COMPLETE (development-only, 2026-08-13)");
     const phase9CompletionMutation = current
       .replace("The all-no-pass branch closed:", "The Phase 9 branch remains open:")
       .replaceAll("Exact `TMPDIR=/private/tmp npm test` passed", "The final suite remains pending");
     expect(phase9CompletionMutation).not.toBe(current);
-    expect(currentIndexErrors(phase9CompletionMutation))
+    expect(historicalIndexErrors(phase9CompletionMutation))
       .toContain("missing current-state phrase: The all-no-pass branch closed:");
-    expect(currentIndexErrors(phase9CompletionMutation))
+    expect(historicalIndexErrors(phase9CompletionMutation))
       .toContain("missing current-state phrase: Exact `TMPDIR=/private/tmp npm test` passed");
-    expect(currentIndexErrors(`${current}\nPhase 8B is ACTIVE AND INCOMPLETE.\n`))
+    expect(historicalIndexErrors(`${current}\nPhase 8B is ACTIVE AND INCOMPLETE.\n`))
       .toContain("contradictory current-state claim: Phase 8B is ACTIVE AND INCOMPLETE.");
-    expect(currentIndexErrors(`${current}\nPhase 8B may rewrite target-book v1 artifacts in place.\n`))
+    expect(historicalIndexErrors(`${current}\nPhase 8B may rewrite target-book v1 artifacts in place.\n`))
       .toContain(
         "contradictory current-state claim: Phase 8B may rewrite target-book v1 artifacts in place.",
       );
-    expect(currentIndexErrors(`${current}\nPhase 7 is ACTIVE.\n`))
+    expect(historicalIndexErrors(`${current}\nPhase 7 is ACTIVE.\n`))
       .toContain("contradictory current-state claim: Phase 7 is ACTIVE.");
-    expect(currentIndexErrors(`${current}\nPhase 9 is ACTIVE AND INCOMPLETE.\n`))
+    expect(historicalIndexErrors(`${current}\nPhase 9 is ACTIVE AND INCOMPLETE.\n`))
       .toContain("contradictory current-state claim: Phase 9 is ACTIVE AND INCOMPLETE.");
-    expect(currentIndexErrors(`${current}\nPhase 9 may grant quantitative validation.\n`))
+    expect(historicalIndexErrors(`${current}\nPhase 9 may grant quantitative validation.\n`))
       .toContain("contradictory current-state claim: Phase 9 may grant quantitative validation.");
-    expect(currentIndexErrors(`${current}\nPhase 9 has 1 held-out row.\n`))
+    expect(historicalIndexErrors(`${current}\nPhase 9 has 1 held-out row.\n`))
       .toContain("contradictory current-state claim: Phase 9 has 1 held-out row.");
-    expect(currentIndexErrors(`${current}\nPhase 9 may run on the live Windows Phase 6 evidence host.\n`))
+    expect(historicalIndexErrors(`${current}\nPhase 9 may run on the live Windows Phase 6 evidence host.\n`))
       .toContain(
         "contradictory current-state claim: "
           + "Phase 9 may run on the live Windows Phase 6 evidence host.",
       );
-    expect(currentIndexErrors(`${current}\nPhase 9 may score models before S0B.\n`))
+    expect(historicalIndexErrors(`${current}\nPhase 9 may score models before S0B.\n`))
       .toContain("contradictory current-state claim: Phase 9 may score models before S0B.");
-    expect(currentIndexErrors(`${current}\n${PHASE8_STATUS_LINE}\n`))
+    expect(historicalIndexErrors(`${current}\n${PHASE8_STATUS_LINE}\n`))
       .toContain("expected exactly one structured Phase 8A/8B status line");
-    expect(currentIndexErrors(`${current}\n${PHASE8_GATE_PREFIX} contradictory |\n`))
+    expect(historicalIndexErrors(`${current}\n${PHASE8_GATE_PREFIX} contradictory |\n`))
       .toContain("expected exactly one completed Phase 8 gate row");
-    expect(currentIndexErrors(`${current}\n${PHASE9_STATUS_LINE}\n`))
+    expect(historicalIndexErrors(`${current}\n${PHASE9_STATUS_LINE}\n`))
       .toContain("expected exactly one structured Phase 9 status line");
-    expect(currentIndexErrors(`${current}\n${PHASE9_GATE_PREFIX} contradictory |\n`))
+    expect(historicalIndexErrors(`${current}\n${PHASE9_GATE_PREFIX} contradictory |\n`))
       .toContain("expected exactly one completed Phase 9 gate row");
-    expect(currentIndexErrors(`${current}\n${PHASE10_STATUS_LINE}\n`))
+    expect(historicalIndexErrors(`${current}\n${PHASE10_STATUS_LINE}\n`))
       .toContain("expected exactly one structured Phase 10 status line");
-    expect(currentIndexErrors(`${current}\n${PHASE10_GATE_PREFIX} contradictory |\n`))
+    expect(historicalIndexErrors(`${current}\n${PHASE10_GATE_PREFIX} contradictory |\n`))
       .toContain("expected exactly one completed Phase 10 gate row");
     for (const phrase of FORBIDDEN_SEQUENCING) {
-      expect(currentIndexErrors(`${current}\n${phrase}\n`))
+      expect(historicalIndexErrors(`${current}\n${phrase}\n`))
         .toContain(`stale sequencing phrase: ${phrase}`);
     }
 
@@ -432,32 +533,32 @@ describe("compact progress index and byte-exact historical record", () => {
       "(plans/missing-phase-8-plan.md)",
     );
     expect(phase8LinkMutation).not.toBe(current);
-    expect(currentIndexErrors(phase8LinkMutation))
+    expect(historicalIndexErrors(phase8LinkMutation))
       .toContain("missing current-state phrase: (plans/phase-8-measurement-corpus.md)");
     const phase9LinkMutation = current.replaceAll(
       "(plans/phase-9-execution.md)",
       "(plans/missing-phase-9-plan.md)",
     );
     expect(phase9LinkMutation).not.toBe(current);
-    expect(currentIndexErrors(phase9LinkMutation))
+    expect(historicalIndexErrors(phase9LinkMutation))
       .toContain("missing current-state phrase: (plans/phase-9-execution.md)");
     const phase10DecisionMutation = current.replace(
       "selected no Phase 10 package (2026-08-20)",
       "maker selected Options A + B (2026-08-20)",
     );
     expect(phase10DecisionMutation).not.toBe(current);
-    expect(currentIndexErrors(phase10DecisionMutation))
+    expect(historicalIndexErrors(phase10DecisionMutation))
       .toContain("missing current-state phrase: selected no Phase 10 package (2026-08-20)");
     const phase10SelectionMutation = current.replace(
       "Phase 10 is COMPLETE (complete-negative, 2026-08-25)",
       "Phase 10 remains unselected",
     );
     expect(phase10SelectionMutation).not.toBe(current);
-    expect(currentIndexErrors(phase10SelectionMutation))
+    expect(historicalIndexErrors(phase10SelectionMutation))
       .toContain("missing current-state phrase: Phase 10 is COMPLETE (complete-negative, 2026-08-25)");
-    expect(currentIndexErrors(`${current}\n## Next step\n`))
+    expect(historicalIndexErrors(`${current}\n## Next step\n`))
       .toContain("expected exactly one ## Next step");
-    expect(currentIndexErrors(`${current}\n${ARCHIVE_MARKER}`))
+    expect(historicalIndexErrors(`${current}\n${ARCHIVE_MARKER}`))
       .toContain("byte archive was embedded in current index");
   });
 

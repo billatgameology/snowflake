@@ -6,12 +6,15 @@ import { join, resolve } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 
 import {
-  loadDirectProductionPlan2,
+  loadDirectProductionPlan2 as sourceLoadDirectProductionPlan2,
   scaleSpecRho,
 } from "../../scripts/named-crystal-direct-production-2.ts";
 import { buildProductionArgv } from "../../scripts/named-crystal-direct-production.ts";
 
-const REPO = resolve(import.meta.dirname, "../..");
+import { namedCrystalPlanningFixture } from "./historical-fixture.ts";
+
+const REPO = namedCrystalPlanningFixture();
+const loadDirectProductionPlan2 = (manifest = join(REPO, "docs", "named-snow-crystal-direct-production-2.json"), out?: string) => sourceLoadDirectProductionPlan2(manifest, out, REPO);
 const SCRIPT = join(REPO, "scripts", "named-crystal-direct-production-2.ts");
 const roots: string[] = [];
 

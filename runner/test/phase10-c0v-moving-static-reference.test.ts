@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { dirname, relative, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
+import { historicalGitBytes } from "./historical-fixture.ts";
 import { sha256Bytes } from "../src/gate4-evidence.ts";
 import {
   type Phase10C0VArtifactIdentity,
@@ -657,15 +658,15 @@ describe("Phase 10 C0V static scoped reference refusal", () => {
     );
   });
 
-  it("matches the frozen current solver/spec source shape without reading a layer protocol", () => {
+  it("matches the registered solver/spec source shape without reading a layer protocol", () => {
     const solverPath = "solver-cpu/src/lk-solver.ts";
     const specificationPath = "docs/attachment-kinetics.md";
     const protocol = syntheticStaticProtocol();
     const artifacts = Object.freeze([
-      staticSourceArtifact(solverPath, readFileSync(resolve(REPOSITORY_ROOT, solverPath))),
+      staticSourceArtifact(solverPath, historicalGitBytes(solverPath, "cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9")),
       staticSourceArtifact(
         specificationPath,
-        readFileSync(resolve(REPOSITORY_ROOT, specificationPath)),
+        historicalGitBytes(specificationPath, "cf0bd8b6ad12c79e38cb30ca0e50bcadab9cc6d9"),
       ),
     ]);
     const audit = sourceAudit(protocol, artifacts);
@@ -673,6 +674,24 @@ describe("Phase 10 C0V static scoped reference refusal", () => {
     const check = independentlyCheckPhase10C0VStaticRefusal(protocol, candidate, audit, artifacts);
     expect(check.errors).toEqual([]);
     expect(check.verdict).toBe("pass");
+  });
+
+  it("does not apply the frozen static source refusal to changed current solver shape", () => {
+    const protocol = syntheticStaticProtocol();
+    const artifacts = Object.freeze(["solver-cpu/src/lk-solver.ts", "docs/attachment-kinetics.md"]
+      .map((path) => staticSourceArtifact(path, readFileSync(resolve(REPOSITORY_ROOT, path)))));
+    const audit = sourceAudit(protocol, artifacts);
+    const candidate = derivePhase10C0VStaticRefusal(protocol, audit);
+    const check = independentlyCheckPhase10C0VStaticRefusal(protocol, candidate, audit, artifacts);
+    expect(check.verdict).toBe("fail");
+    expect(check.groundChecks.passed).toBe(false);
+    expect(check.errors).toEqual([
+      "public boundaryState does not return sigmaOpp",
+      "public boundaryState does not return sigmaBoundary",
+      "public boundaryState does not return alphaHKBoundary",
+      "public boundaryState does not return robinGeometry",
+      "public boundaryState does not return fillGeometry",
+    ]);
   });
 
   it("rejects changed grounds and fails a nonzero or universal candidate", () => {

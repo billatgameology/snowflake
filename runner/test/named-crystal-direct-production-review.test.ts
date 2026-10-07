@@ -7,7 +7,7 @@ import { parseNamedCrystalCatalog } from "../../scripts/named-crystal-catalog.ts
 
 const REPO = resolve(import.meta.dirname, "../..");
 const REVIEW = resolve(REPO, "docs", "named-snow-crystal-direct-production-review.json");
-const CATALOG = resolve(REPO, "docs", "named-snow-crystal-catalog.json");
+import { historicalGitBytes } from "./historical-fixture.ts";
 const SUPERSESSION = resolve(REPO, "docs", "named-snow-crystal-resolution-supersession.json");
 
 interface ReviewWire {
@@ -88,7 +88,7 @@ describe("named crystal direct-production review", () => {
 
   it("preserves the reviewed 24 identities while the later resolution decision resets completion credit", () => {
     const review = JSON.parse(readFileSync(REVIEW, "utf8")) as ReviewWire;
-    const catalog = parseNamedCrystalCatalog(JSON.parse(readFileSync(CATALOG, "utf8")) as unknown);
+    const catalog = parseNamedCrystalCatalog(JSON.parse(historicalGitBytes("docs/named-snow-crystal-catalog.json", "674bf15").toString("utf8")) as unknown);
     const supersession = JSON.parse(readFileSync(SUPERSESSION, "utf8")) as {
       readonly format: string;
       readonly firstProductionReview: {

@@ -1,3 +1,4 @@
+import { phase10RetiredFixture } from "./historical-fixture.ts";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
@@ -9,7 +10,7 @@ import {
   independentlyReopenPhase10C0VS6AcceptedHistoricalApPacket,
 } from "../src/phase10-c0v-s6-published-packet.ts";
 
-const ROOT = resolve(import.meta.dirname, "../..");
+const ROOT = phase10RetiredFixture();
 
 describe("Phase 10 C0V S6 accepted historical A-P reopen", () => {
   it("reopens the complete accepted prefix through its retained V5 protocol and exact 15 paths", () => {

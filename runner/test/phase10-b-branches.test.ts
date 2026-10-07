@@ -1,3 +1,4 @@
+import { historicalCheckout } from "./historical-fixture.ts";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -14,7 +15,7 @@ import {
 } from "../src/phase10-b-branches.ts";
 import { phase10ObligationRunPreflight } from "../src/phase10-obligation-preflight.ts";
 
-const ROOT = process.cwd();
+const ROOT = historicalCheckout("7c58f8b", "phase10-b-history-");
 const MATRIX_PATH = "research/phase10-obligation-matrix-v1.json";
 const PREDECESSOR_REGISTRY_PATH = "research/phase10-b-artifact-schema-registry-v1.json";
 const SUCCESSOR_REGISTRY_PATH = "research/phase10-b-branch-artifact-schema-registry-v1.json";

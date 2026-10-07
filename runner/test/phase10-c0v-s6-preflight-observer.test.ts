@@ -1,3 +1,4 @@
+import { phase10RetiredFixture } from "./historical-fixture.ts";
 import {
   existsSync,
   linkSync,
@@ -53,7 +54,7 @@ import {
 } from "../src/phase10-c0v-s6-publication-semantic.ts";
 import { phase10C0VS6WithOuterInfrastructureWatchdog } from "../src/phase10-c0v-s6-watchdog.ts";
 
-const ROOT = resolve(import.meta.dirname, "../..");
+const ROOT = phase10RetiredFixture();
 const temporaryRoots: string[] = [];
 
 function packet(packetId: Phase10C0VS6PacketProtocol["packetId"]): Phase10C0VS6PacketProtocol {

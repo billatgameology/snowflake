@@ -2,6 +2,7 @@ import { deepStrictEqual } from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import { historicalGitBytes, PHASE9_FREEZE_COMMIT } from "./historical-fixture.ts";
 
 import {
   evaluatePhase9PermanentControlReadiness,
@@ -134,12 +135,15 @@ function arrayField(value: MutableJsonObject, key: string): MutableJson[] {
 }
 
 function inputs(): Phase9PermanentControlReadinessInputs {
-  return Object.fromEntries(Object.entries(PATHS).map(([name, path]) =>
-    [name, new Uint8Array(readFileSync(path))])) as unknown as Phase9PermanentControlReadinessInputs;
+  return Object.fromEntries(Object.entries(PATHS).map(([name, path]) => {
+    const identity = Object.values(EXPECTED_PROTOCOL.inputs).find((entry) => entry.path === path);
+    if (identity === undefined) throw new Error(`missing registered identity: ${path}`);
+    return [name, new Uint8Array(historicalGitBytes(path, PHASE9_FREEZE_COMMIT, identity))];
+  })) as unknown as Phase9PermanentControlReadinessInputs;
 }
 
 function fileIdentity(identity: { readonly path: string; readonly byteLength: number; readonly sha256: string }): void {
-  const bytes = readFileSync(identity.path);
+  const bytes = historicalGitBytes(identity.path, PHASE9_FREEZE_COMMIT, identity);
   expect(bytes.byteLength, identity.path).toBe(identity.byteLength);
   expect(createHash("sha256").update(bytes).digest("hex"), identity.path).toBe(identity.sha256);
 }
@@ -192,6 +196,15 @@ describe("Phase 9 S2 permanent-control readiness", () => {
       const bytes = changed[field].slice();
       bytes[0] = (bytes[0] ?? 0) ^ 1;
       expect(() => evaluatePhase9PermanentControlReadiness({ ...changed, [field]: bytes }), field)
+        .toThrow(/identity/u);
+    }
+  });
+
+  it("refuses present-day source drift rather than re-pinning the historical protocol", () => {
+    for (const field of ["attachmentKineticsSpecBytes", "lkSolverSourceBytes"] as const) {
+      const bytes = new Uint8Array(readFileSync(PATHS[field]));
+      expect(bytes).not.toEqual(inputs()[field]);
+      expect(() => evaluatePhase9PermanentControlReadiness({ ...inputs(), [field]: bytes }))
         .toThrow(/identity/u);
     }
   });

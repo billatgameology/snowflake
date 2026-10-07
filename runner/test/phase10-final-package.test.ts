@@ -5,6 +5,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { derivePhase10FinalPackageReport } from "../src/phase10-final-package.ts";
+import { historicalGitBytes, temporaryFixture, writeFixtureFile } from "./historical-fixture.ts";
 
 const ROOT = process.cwd();
 const COMMIT = "1".repeat(40);
@@ -52,6 +53,10 @@ describe("Phase 10 final package", () => {
 
   it("matches the published report to its bound producer commit", () => {
     const published = JSON.parse(readFileSync(join(ROOT, "evidence/phase10-closure-v1/report.json"), "utf8")) as Record<string, any>;
-    expect(published).toEqual(derivePhase10FinalPackageReport(ROOT, published.producerCommit, published.closedOn));
+    const fixture = temporaryFixture("phase10-final-package-history-");
+    for (const identity of published.inputs) {
+      writeFixtureFile(fixture, identity.path, historicalGitBytes(identity.path, published.producerCommit, identity));
+    }
+    expect(published).toEqual(derivePhase10FinalPackageReport(fixture, published.producerCommit, published.closedOn));
   });
 });

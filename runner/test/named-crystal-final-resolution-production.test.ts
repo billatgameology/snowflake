@@ -6,12 +6,16 @@ import { join, resolve } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 
 import {
-  loadFinalResolutionPlan,
+  loadFinalResolutionPlan as sourceLoadFinalResolutionPlan,
   verifyFinalResolutionVerticalClearance,
 } from "../../scripts/named-crystal-final-resolution-production.ts";
-import { loadDirectProductionPlan } from "../../scripts/named-crystal-direct-production.ts";
+import { loadDirectProductionPlan as sourceLoadDirectProductionPlan } from "../../scripts/named-crystal-direct-production.ts";
 
-const REPO = resolve(import.meta.dirname, "../..");
+import { namedCrystalPlanningFixture } from "./historical-fixture.ts";
+
+const REPO = namedCrystalPlanningFixture();
+const loadDirectProductionPlan = (manifest = join(REPO, "docs", "named-snow-crystal-direct-production.json"), out?: string) => sourceLoadDirectProductionPlan(manifest, out, REPO);
+const loadFinalResolutionPlan = (fleet: "a" | "b", manifest = join(REPO, "docs", "named-snow-crystal-final-resolution-production.json"), out?: string) => sourceLoadFinalResolutionPlan(fleet, manifest, out, REPO);
 const SCRIPT = join(REPO, "scripts", "named-crystal-final-resolution-production.ts");
 const roots: string[] = [];
 

@@ -3,7 +3,9 @@ import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { loadEarlyStopPlan } from "../../scripts/named-crystal-early-stop-probes.ts";
 
-const REPO = resolve(import.meta.dirname, "../..");
+import { namedCrystalPlanningFixture } from "./historical-fixture.ts";
+
+const REPO = namedCrystalPlanningFixture();
 const MANIFEST = resolve(REPO, "docs/named-snow-crystal-early-stop-probes.json");
 const REVIEW = resolve(REPO, "docs/named-snow-crystal-early-stop-probe-review.json");
 const EXPECTED_TYPES = ["cups", "scrolls-on-plates", "triangular-forms"];

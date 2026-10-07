@@ -1,3 +1,4 @@
+import { phase10RetiredFixture } from "./historical-fixture.ts";
 import { createHash } from "node:crypto";
 import { execFileSync, spawnSync } from "node:child_process";
 import { mkdtempSync, readFileSync, rmSync, symlinkSync } from "node:fs";
@@ -103,7 +104,7 @@ import {
   phase10C0VS6AssertRuntimeEntrypointRegistration,
 } from "../src/phase10-c0v-s6-import-audit.ts";
 
-const ROOT = resolve(import.meta.dirname, "../..");
+const ROOT = phase10RetiredFixture();
 const AUTHORITY_PATHS = Object.freeze([
   "research/phase10-c0v-s6-obligation-matrix-v1.json",
   "research/phase10-c0v-s6-schema-contracts-v1.json",

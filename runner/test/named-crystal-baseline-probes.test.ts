@@ -7,7 +7,9 @@ import {
   seedGeometryForProfile,
 } from "../../scripts/named-crystal-baseline-probes.ts";
 
-const REPO = resolve(import.meta.dirname, "../..");
+import { namedCrystalPlanningFixture } from "./historical-fixture.ts";
+
+const REPO = namedCrystalPlanningFixture();
 const MANIFEST = resolve(REPO, "docs/named-snow-crystal-baseline-probes.json");
 
 describe("named-crystal baseline probe tranche", () => {

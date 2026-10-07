@@ -8,7 +8,9 @@ import {
   seedGeometryForHardForm,
 } from "../../scripts/named-crystal-hard-form-probes.ts";
 
-const REPO = resolve(import.meta.dirname, "../..");
+import { namedCrystalPlanningFixture } from "./historical-fixture.ts";
+
+const REPO = namedCrystalPlanningFixture();
 const MANIFEST = resolve(REPO, "docs/named-snow-crystal-hard-form-probes.json");
 const REVIEW = resolve(REPO, "docs/named-snow-crystal-hard-form-probe-review.json");
 const EXPECTED_TYPES = [

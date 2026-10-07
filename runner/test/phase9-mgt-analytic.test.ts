@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { isDeepStrictEqual } from "node:util";
 import { describe, expect, it } from "vitest";
+import { historicalGitBytes, PHASE9_FREEZE_COMMIT } from "./historical-fixture.ts";
 import {
   PHASE9_MGT_CLAIM_BOUNDARY,
   PHASE9_MGT_FUTURE_3D_BLOCKERS,
@@ -235,7 +236,7 @@ function readJsonl<T>(path: string): T[] {
 }
 
 function fileIdentity(path: string): Omit<ArtifactIdentity, "path"> {
-  const bytes = readFileSync(resolve(ROOT, path));
+  const bytes = historicalGitBytes(path, PHASE9_FREEZE_COMMIT);
   return {
     byteLength: bytes.byteLength,
     sha256: createHash("sha256").update(bytes).digest("hex"),

@@ -11,9 +11,12 @@ import {
   materializeFleetCCadenceRepairJobs,
   requireFleetCRepairFileIdentity,
 } from "../../scripts/named-crystal-final-resolution-c-cadence-repair.ts";
-import { loadFinalResolutionPlanC } from "../../scripts/named-crystal-final-resolution-production-c.ts";
+import { loadFinalResolutionPlanC as sourceLoadFinalResolutionPlanC } from "../../scripts/named-crystal-final-resolution-production-c.ts";
 
-const REPO = resolve(import.meta.dirname, "../..");
+import { namedCrystalPlanningFixture } from "./historical-fixture.ts";
+
+const REPO = namedCrystalPlanningFixture();
+const loadFinalResolutionPlanC = (manifest = join(REPO, "docs", "named-snow-crystal-final-resolution-production-c.json"), out?: string) => sourceLoadFinalResolutionPlanC(manifest, out, REPO);
 const MANIFEST = join(
   REPO,
   "docs",

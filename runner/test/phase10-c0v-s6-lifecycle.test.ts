@@ -1,3 +1,4 @@
+import { phase10RetiredFixture } from "./historical-fixture.ts";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -53,7 +54,7 @@ const AP_OVERLAY_ROWS = Object.freeze([
     currentPath: "evidence/phase10-obligation-preflight-v6/verification.json",
   }),
 ] as const);
-const ROOT = resolve(import.meta.dirname, "../..");
+const ROOT = phase10RetiredFixture();
 
 function packet(
   packetId: ResolverPacket["packetId"],

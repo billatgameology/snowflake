@@ -1,3 +1,4 @@
+import { historicalCheckout } from "./historical-fixture.ts";
 import { createHash } from "node:crypto";
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -11,7 +12,7 @@ import {
 import { phase10BAcquisitionVerify } from "../src/phase10-b-acquisition-verify.ts";
 import { phase10ObligationRunPreflight } from "../src/phase10-obligation-preflight.ts";
 
-const ROOT = process.cwd();
+const ROOT = historicalCheckout("7c58f8b", "phase10-b-history-");
 const MATRIX_PATH = "research/phase10-obligation-matrix-v1.json";
 const PROTOCOL_PATH = "research/phase10-execution-v1/packets/b-acquisition/protocol.json";
 const CALLABLE_REGISTRY_PATH = "research/phase10-execution-v1/packets/b-acquisition/callable-registry.json";

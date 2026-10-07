@@ -50,7 +50,10 @@ function cloneFrozenExecutorFixture(): string {
   const parent = mkdtempSync(join(tmpdir(), "phase10-executor-fixture-"));
   tempDirectories.push(parent);
   const root = join(parent, "repo");
-  execFileSync("git", ["clone", "--quiet", "--branch", "phase10/evidence-verification", SOURCE_ROOT, root], { windowsHide: true });
+  execFileSync("git", ["clone", "--quiet", "--shared", "--no-checkout", "--config", "core.autocrlf=false", SOURCE_ROOT, root], { windowsHide: true });
+  // The frozen protocol still requires this branch name inside the disposable fixture.
+  // The source repository no longer needs to retain a historical execution branch.
+  git(root, ["checkout", "--quiet", "-b", "phase10/evidence-verification", "7c58f8b"]);
   const runnerSource = join(root, "runner/src");
   for (const name of readdirSync(join(SOURCE_ROOT, "runner/src"))) {
     if (name.startsWith("phase10-c0") && name.endsWith(".ts")) cpSync(join(SOURCE_ROOT, "runner/src", name), join(runnerSource, name));

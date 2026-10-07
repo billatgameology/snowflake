@@ -7,10 +7,13 @@ import { afterEach, describe, expect, it } from "vitest";
 
 import {
   buildProductionArgv,
-  loadDirectProductionPlan,
+  loadDirectProductionPlan as sourceLoadDirectProductionPlan,
 } from "../../scripts/named-crystal-direct-production.ts";
 
-const REPO = resolve(import.meta.dirname, "../..");
+import { namedCrystalPlanningFixture } from "./historical-fixture.ts";
+
+const REPO = namedCrystalPlanningFixture();
+const loadDirectProductionPlan = (manifest = join(REPO, "docs", "named-snow-crystal-direct-production.json"), out?: string) => sourceLoadDirectProductionPlan(manifest, out, REPO);
 const SCRIPT = join(REPO, "scripts", "named-crystal-direct-production.ts");
 const roots: string[] = [];
 

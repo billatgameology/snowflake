@@ -15,7 +15,7 @@ import { parseNamedCrystalCatalog, summarizeNamedCrystalCatalog } from "../../sc
 import { acceptFinalDirectCatalog } from "../../scripts/named-crystal-final-direct-accept.ts";
 
 const REPO = resolve(import.meta.dirname, "../..");
-const SOURCE_CATALOG = join(REPO, "docs", "named-snow-crystal-catalog.json");
+import { historicalGitBytes } from "./historical-fixture.ts";
 const roots: string[] = [];
 const SLOTS = ["lower", "baseline", "upper"] as const;
 const TYPES = {
@@ -87,7 +87,7 @@ const fixture = (options: FixtureOptions = {}): Fixture => {
   const catalog = join(root, "catalog.json");
   const table = join(root, "catalog.md");
   const review = join(root, "direct-review.json");
-  const preAcceptanceCatalog = JSON.parse(readFileSync(SOURCE_CATALOG, "utf8")) as {
+  const preAcceptanceCatalog = JSON.parse(historicalGitBytes("docs/named-snow-crystal-catalog.json", "674bf15").toString("utf8")) as {
     readonly entries: Array<{
       readonly id: string;
       variants: Record<(typeof SLOTS)[number], unknown>;
