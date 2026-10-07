@@ -5,6 +5,9 @@ including **Tried and rejected**. The charter defines intended behavior; this in
 The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
 
 - **Last updated:** 2026-10-07 by Codex
+- **New-host follow-up:** [in progress](plans/new-host-acceptance-and-capacity-2026-10-07.md) in
+  `snowflake-resume-readiness`, branch `chore/resume-readiness-2026-10-07`: glass/camera acceptance,
+  bounded NAS recovery/custody checks and measured worker capacity. Scientific campaigns remain paused.
 - **Verification scope:** maker clarification is recorded through local `91c0684`: website/education
   presentation uses focused product/content checks; executable science and evidence retain rigorous
   requirements. The active glass/camera plan's inherited full-suite criterion is removed; historical
@@ -166,6 +169,8 @@ availability confirmation. Primary `nas-retention-review.json` records the dispo
 
 ## Active plan
 
+- [New-host acceptance and capacity](plans/new-host-acceptance-and-capacity-2026-10-07.md) coordinates
+  the maker-authorized three work blocks; benchmark protocol is committed before its launch.
 - [Agent-rules follow-up](plans/repository-housekeeping-2026-10-07.md#agent-rules-follow-up--2026-10-07)
   is complete and locally integrated; accepted ADRs, science and evidence remain unchanged.
   Relevant failure/lesson/check references now belong in each existing
@@ -190,6 +195,10 @@ full comparison-bundle NAS publication remains deferred. Recovering the deployed
 publish that bundle. Completed catalog/gallery/phase plans are references, not active launch instructions.
 
 ## Next step
+
+Execute the [new-host follow-up](plans/new-host-acceptance-and-capacity-2026-10-07.md): recover the
+exact comparison inputs, accept the implemented glass/camera behavior, check known NAS custody,
+then measure the registered short-row worker ladder and prove its scoped core resume witness.
 
 The next product task is [glass/camera acceptance](plans/explore-gutcheck-growth-glass-camera.md):
 recover its separately required comparison bundle, then execute its browser and visual acceptance
