@@ -153,8 +153,8 @@ pulled published main `f4ca38a` into BLD's primary checkout and requested integr
 That main version is now merged into this branch, preserving the local setup notes and all
 upstream source/evidence bytes. The [first-batch plan](hil-bld-first-batch.md) supplies the finite
 BLD queue and supersedes the pending-design next action. Locked dependencies are installed with
-`npm.cmd ci`. The maker holds all BLD probes/campaigns until after an OS update and explicit
-resume; run a fresh BLD probe then. Commit integration before probing;
+`npm.cmd ci`. After the OS restart the maker explicitly resumed BLD's experiment; execute the
+fresh probe and qualified finite batch under the first-batch execution record. Commit state before probing;
 the receipt binds the exact clean head, so no source or documentation commit may intervene
 between probe and launch. The 28-worker figure remains a ceiling pending BLD measurement.
 This integration runs no scientific probe or campaign; primary outputs remain in place.

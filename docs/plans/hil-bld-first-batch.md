@@ -1,7 +1,7 @@
 # HIL / BLD first exploration batch
 
 - **Scope:** executable first stage of the maker-approved post-Phase-10 portfolio; development evidence only.
-- **Status:** implemented, verified and published through `f4ca38a`, 2026-10-07; integrated into BLD's task worktree. Dependencies are installed; BLD probe and campaign are on maker hold pending an OS update and explicit resume.
+- **Status:** implemented, verified and published through `f4ca38a`, 2026-10-07; integrated into BLD's task worktree. Dependencies are installed; after the OS restart the maker authorized the BLD probe and finite campaign. Live execution is recorded below.
 - **Branch / destination:** `science/hil-bld-first-batch` -> `origin/main`.
 - **Authority:** [adaptive discovery](post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld), accepted ADRs 0055-0059, attachment-kinetics specification. No phase gate changes.
 
@@ -207,3 +207,34 @@ Exact BLD integration check commands (all exited zero): `npm.cmd run lint:rule7`
 `node runner/src/hil-bld-batch-main.ts list BLD`, and
 `git -c core.whitespace=cr-at-eol diff --cached main --check`. Source comparison
 `git diff --cached main --name-only` lists only the three edited plan/state documents.
+
+## BLD execution after OS restart — 2026-10-07
+
+The maker reports the computer restarted and authorizes proceeding with the experiment, ending
+the OS-update hold. The end-to-end deliverable is the registered BLD queue with terminal
+classifications and preserved raw events; begin with the unchanged host-capacity probe.
+This is solo scientific research; hostile actors remain outside scope. Relevant failure lessons
+are Phase 6 A3/D2 (separate writers/logs), C2 (non-transferable capacity/configuration), and B1/B2
+(actual producer/check execution). Existing probe receipt validation, resource monitoring and
+terminal summary are the checks; no additional assurance machinery or science changes.
+
+Launch from `G:/Code Files/snowflake-bld-exploration` after committing this release:
+
+- `node runner/src/hil-bld-batch-main.ts probe BLD out/batch1-bld-probe`
+- On a completed successful probe, `node runner/src/hil-bld-batch-main.ts launch BLD out/batch1-bld out/batch1-bld-probe/probe.json`.
+- After terminal completion, `node runner/src/hil-bld-batch-main.ts summarize out/batch1-bld`.
+
+Use `out/batch1-bld-control/run-stage.ps1` only to invoke these existing commands with a hidden
+PowerShell process and retain stage start/exit records. Separate logs are
+`out/batch1-bld-control/{probe,launch}.stdout.log` and matching `.stderr.log`; the corresponding
+`.exit.json` records actual completion/exit. This wrapper does not select rows, change budgets or
+queue experiments. `preflight.json` records post-restart host/runtime, memory and storage.
+Probe state and actual concurrency are in `out/batch1-bld-probe/probe.json`; campaign state is in
+`out/batch1-bld/first-batch-BLD-status.json`, `first-batch-BLD-resources.jsonl` and the terminal
+`first-batch-BLD-complete.json`. Read those records before any restart or duplicate launch; an
+authorized command is not a completed result. Keep the producer commit unchanged through both
+stages and the running queue; update terminal state after it finishes.
+
+All row outputs and operational logs remain local staging for this active task and are retained
+for joint review; promote fitting claim-bearing results under the existing evidence/asset rules
+at closeout. No local output is disposable or pruned. Capped cases remain unresolved.

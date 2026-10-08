@@ -11,7 +11,7 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   HIL coordinates shared code and joint review; BLD leads cavity and cold core/tip comparisons.
   BLD checkout: `G:/Code Files/snowflake-bld-exploration`, branch `codex/bld-exploration`.
   Published main `f4ca38a` is integrated; the [first batch](plans/hil-bld-first-batch.md) has HIL 56 rows and BLD 42.
-  BLD probe and campaign are on maker hold for an OS update; [setup](plans/post-phase10-adaptive-discovery.md#bld-worktree-setup--2026-10-07) retains its original base.
+  Maker resumed BLD after the OS restart; probe then campaign authorized; [setup](plans/post-phase10-adaptive-discovery.md#bld-worktree-setup--2026-10-07) retains its original base.
 - **New-host follow-up:** [complete](plans/new-host-acceptance-and-capacity-2026-10-07.md),
   locally integrated through `cf1386e`. Glass/camera browser and direct visual acceptance pass;
   the six comparison inputs and both small independent C-drive backups are restored and verified.
@@ -233,10 +233,10 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 ## Next step
 
 BLD setup and locked dependency installation are complete in `G:/Code Files/snowflake-bld-exploration`.
-Wait for the maker's OS update and explicit resume before any probe or campaign. Then follow the
+Maker resumed after the OS restart: execute the registered probe, then its qualified BLD queue. Follow the
 [first-batch commands](plans/hil-bld-first-batch.md#commands-after-publication):
 `node runner/src/hil-bld-batch-main.ts probe BLD out/batch1-bld-probe`; use a fresh output directory.
-The probe binds the exact clean commit: do not pull or commit between probe and launch. Full campaigns await maker dispatch.
+Keep one clean commit through probe/launch. Live records: `out/batch1-bld-control/`, `out/batch1-bld-probe/`, `out/batch1-bld/`.
 Exact `npm.cmd test` at `ad990ac` passed 230 files / 2,981 tests, 23 skipped;
 [verification](../evidence/hil-bld-first-batch-2026-10-07/verification.json) also records both actual N64 prefix witnesses.
 Longer work still needs representative pause/resume before launch or short terminal stages; this batch
