@@ -1,0 +1,651 @@
+{
+  "schema": "post-phase10-discovery-launch-complete-v1",
+  "experimentalRows": [
+    {
+      "rowId": "batch1-bld-cold-t12-f0p1-both",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both"
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p1-neither",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither"
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p1-basal-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only"
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p1-prism-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only"
+    },
+    {
+      "rowId": "batch1-bld-warm-t4p5-full",
+      "experimentId": "post-phase10-local-basal-width-v1",
+      "experimentalBasalWidthCells": 3
+    },
+    {
+      "rowId": "batch1-bld-warm-t4p5-early",
+      "experimentId": "post-phase10-basal-width-history-v1",
+      "experimentalBasalWidthCells": 3,
+      "experimentalBasalWidthHistory": {
+        "mode": "early-only",
+        "cutoffSeconds": 20
+      }
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p15-both",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both"
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p15-neither",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither"
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p15-basal-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only"
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p15-prism-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only"
+    },
+    {
+      "rowId": "batch1-bld-warm-t5-full",
+      "experimentId": "post-phase10-local-basal-width-v1",
+      "experimentalBasalWidthCells": 3
+    },
+    {
+      "rowId": "batch1-bld-warm-t5-early",
+      "experimentId": "post-phase10-basal-width-history-v1",
+      "experimentalBasalWidthCells": 3,
+      "experimentalBasalWidthHistory": {
+        "mode": "early-only",
+        "cutoffSeconds": 20
+      }
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p2-both",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both"
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p2-neither",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither"
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p2-basal-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only"
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p2-prism-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p1-both",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p1-neither",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p1-basal-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p1-prism-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p15-both",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p15-neither",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p15-basal-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p15-prism-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p2-both",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p2-neither",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p2-basal-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p2-prism-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p1-both",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p1-neither",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p1-basal-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p1-prism-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p15-both",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p15-neither",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p15-basal-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p15-prism-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p2-both",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p2-neither",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p2-basal-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p2-prism-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only"
+    }
+  ],
+  "launchName": "attempt-0001",
+  "gitHead": "d7ff3e1fb122ecbf8994539d3623928cbe5a9c6b",
+  "node": "v24.13.1",
+  "requestedConcurrency": 16,
+  "actualMaximumConcurrency": 16,
+  "launchedAt": "2026-10-08T14:11:54.584Z",
+  "finishedAt": "2026-10-08T21:04:10.949Z",
+  "exits": [
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only",
+      "rowId": "batch1-bld-cold-t12-f0p1-basal-only",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T14:11:56.911Z",
+      "finishedAt": "2026-10-08T17:22:20.802Z",
+      "wallSeconds": 11423.891
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both",
+      "rowId": "batch1-bld-cold-t12-f0p1-both",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T14:11:56.889Z",
+      "finishedAt": "2026-10-08T15:27:35.339Z",
+      "wallSeconds": 4538.45
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither",
+      "rowId": "batch1-bld-cold-t12-f0p1-neither",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T14:11:56.900Z",
+      "finishedAt": "2026-10-08T17:44:21.536Z",
+      "wallSeconds": 12744.636
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only",
+      "rowId": "batch1-bld-cold-t12-f0p1-prism-only",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T14:11:56.922Z",
+      "finishedAt": "2026-10-08T15:26:49.436Z",
+      "wallSeconds": 4492.514
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only",
+      "rowId": "batch1-bld-cold-t12-f0p15-basal-only",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T14:11:57.004Z",
+      "finishedAt": "2026-10-08T17:53:00.858Z",
+      "wallSeconds": 13263.854
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both",
+      "rowId": "batch1-bld-cold-t12-f0p15-both",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T14:11:56.971Z",
+      "finishedAt": "2026-10-08T15:30:54.405Z",
+      "wallSeconds": 4737.434
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither",
+      "rowId": "batch1-bld-cold-t12-f0p15-neither",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T14:11:56.989Z",
+      "finishedAt": "2026-10-08T17:34:50.133Z",
+      "wallSeconds": 12173.144
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only",
+      "rowId": "batch1-bld-cold-t12-f0p15-prism-only",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T14:11:57.020Z",
+      "finishedAt": "2026-10-08T15:24:21.922Z",
+      "wallSeconds": 4344.902
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only",
+      "rowId": "batch1-bld-cold-t12-f0p2-basal-only",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T15:24:21.927Z",
+      "finishedAt": "2026-10-08T18:42:16.606Z",
+      "wallSeconds": 11874.679
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both",
+      "rowId": "batch1-bld-cold-t12-f0p2-both",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T14:11:57.091Z",
+      "finishedAt": "2026-10-08T15:26:35.832Z",
+      "wallSeconds": 4478.741
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither",
+      "rowId": "batch1-bld-cold-t12-f0p2-neither",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T14:11:57.111Z",
+      "finishedAt": "2026-10-08T17:23:14.911Z",
+      "wallSeconds": 11477.8
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only",
+      "rowId": "batch1-bld-cold-t12-f0p2-prism-only",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T15:26:35.848Z",
+      "finishedAt": "2026-10-08T16:36:37.530Z",
+      "wallSeconds": 4201.682
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only",
+      "rowId": "batch1-bld-cold-t14p4-f0p1-basal-only",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T15:30:54.413Z",
+      "finishedAt": "2026-10-08T18:44:48.583Z",
+      "wallSeconds": 11634.17
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both",
+      "rowId": "batch1-bld-cold-t14p4-f0p1-both",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T15:26:49.442Z",
+      "finishedAt": "2026-10-08T16:18:23.774Z",
+      "wallSeconds": 3094.332
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither",
+      "rowId": "batch1-bld-cold-t14p4-f0p1-neither",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T15:27:35.347Z",
+      "finishedAt": "2026-10-08T18:45:06.853Z",
+      "wallSeconds": 11851.506
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only",
+      "rowId": "batch1-bld-cold-t14p4-f0p1-prism-only",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T16:01:51.827Z",
+      "finishedAt": "2026-10-08T16:55:36.334Z",
+      "wallSeconds": 3224.507
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only",
+      "rowId": "batch1-bld-cold-t14p4-f0p15-basal-only",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T16:19:46.962Z",
+      "finishedAt": "2026-10-08T19:29:57.482Z",
+      "wallSeconds": 11410.52
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both",
+      "rowId": "batch1-bld-cold-t14p4-f0p15-both",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T16:10:48.251Z",
+      "finishedAt": "2026-10-08T17:13:42.313Z",
+      "wallSeconds": 3774.062
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither",
+      "rowId": "batch1-bld-cold-t14p4-f0p15-neither",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T16:18:23.780Z",
+      "finishedAt": "2026-10-08T19:35:57.426Z",
+      "wallSeconds": 11853.646
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only",
+      "rowId": "batch1-bld-cold-t14p4-f0p15-prism-only",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T16:24:02.151Z",
+      "finishedAt": "2026-10-08T17:24:09.010Z",
+      "wallSeconds": 3606.859
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only",
+      "rowId": "batch1-bld-cold-t14p4-f0p2-basal-only",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T17:13:42.318Z",
+      "finishedAt": "2026-10-08T20:09:01.590Z",
+      "wallSeconds": 10519.272
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both",
+      "rowId": "batch1-bld-cold-t14p4-f0p2-both",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T16:36:37.534Z",
+      "finishedAt": "2026-10-08T17:42:43.363Z",
+      "wallSeconds": 3965.829
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither",
+      "rowId": "batch1-bld-cold-t14p4-f0p2-neither",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T16:55:36.340Z",
+      "finishedAt": "2026-10-08T19:55:34.121Z",
+      "wallSeconds": 10797.781
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only",
+      "rowId": "batch1-bld-cold-t14p4-f0p2-prism-only",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T17:22:20.807Z",
+      "finishedAt": "2026-10-08T18:28:12.262Z",
+      "wallSeconds": 3951.455
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only",
+      "rowId": "batch1-bld-cold-t18-f0p1-basal-only",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T17:34:50.139Z",
+      "finishedAt": "2026-10-08T19:53:35.302Z",
+      "wallSeconds": 8325.163
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both",
+      "rowId": "batch1-bld-cold-t18-f0p1-both",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T17:23:14.915Z",
+      "finishedAt": "2026-10-08T18:46:17.665Z",
+      "wallSeconds": 4982.75
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither",
+      "rowId": "batch1-bld-cold-t18-f0p1-neither",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T17:24:09.014Z",
+      "finishedAt": "2026-10-08T19:53:38.416Z",
+      "wallSeconds": 8969.402
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only",
+      "rowId": "batch1-bld-cold-t18-f0p1-prism-only",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T17:36:19.657Z",
+      "finishedAt": "2026-10-08T19:06:45.739Z",
+      "wallSeconds": 5426.082
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only",
+      "rowId": "batch1-bld-cold-t18-f0p15-basal-only",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T17:51:49.974Z",
+      "finishedAt": "2026-10-08T20:33:14.073Z",
+      "wallSeconds": 9684.099
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both",
+      "rowId": "batch1-bld-cold-t18-f0p15-both",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T17:42:43.368Z",
+      "finishedAt": "2026-10-08T19:05:46.671Z",
+      "wallSeconds": 4983.303
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither",
+      "rowId": "batch1-bld-cold-t18-f0p15-neither",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T17:44:21.541Z",
+      "finishedAt": "2026-10-08T20:16:17.221Z",
+      "wallSeconds": 9115.68
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only",
+      "rowId": "batch1-bld-cold-t18-f0p15-prism-only",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T17:53:00.863Z",
+      "finishedAt": "2026-10-08T19:14:07.959Z",
+      "wallSeconds": 4867.096
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only",
+      "rowId": "batch1-bld-cold-t18-f0p2-basal-only",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T18:44:48.588Z",
+      "finishedAt": "2026-10-08T21:04:10.203Z",
+      "wallSeconds": 8361.615
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both",
+      "rowId": "batch1-bld-cold-t18-f0p2-both",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T18:28:12.267Z",
+      "finishedAt": "2026-10-08T19:39:48.520Z",
+      "wallSeconds": 4296.253
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither",
+      "rowId": "batch1-bld-cold-t18-f0p2-neither",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T18:42:16.611Z",
+      "finishedAt": "2026-10-08T21:01:48.991Z",
+      "wallSeconds": 8372.38
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only",
+      "rowId": "batch1-bld-cold-t18-f0p2-prism-only",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T18:45:06.859Z",
+      "finishedAt": "2026-10-08T19:51:46.543Z",
+      "wallSeconds": 3999.684
+    },
+    {
+      "rowId": "batch1-bld-warm-t4p5-broad",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T14:11:56.934Z",
+      "finishedAt": "2026-10-08T16:01:51.821Z",
+      "wallSeconds": 6594.887
+    },
+    {
+      "experimentId": "post-phase10-basal-width-history-v1",
+      "experimentalBasalWidthCells": 3,
+      "experimentalBasalWidthHistory": {
+        "mode": "early-only",
+        "cutoffSeconds": 20
+      },
+      "rowId": "batch1-bld-warm-t4p5-early",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T14:11:56.957Z",
+      "finishedAt": "2026-10-08T17:51:49.969Z",
+      "wallSeconds": 13193.012
+    },
+    {
+      "experimentId": "post-phase10-local-basal-width-v1",
+      "experimentalBasalWidthCells": 3,
+      "rowId": "batch1-bld-warm-t4p5-full",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T14:11:56.945Z",
+      "finishedAt": "2026-10-08T16:19:46.956Z",
+      "wallSeconds": 7670.011
+    },
+    {
+      "rowId": "batch1-bld-warm-t5-broad",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T14:11:57.036Z",
+      "finishedAt": "2026-10-08T16:10:48.245Z",
+      "wallSeconds": 7131.209
+    },
+    {
+      "experimentId": "post-phase10-basal-width-history-v1",
+      "experimentalBasalWidthCells": 3,
+      "experimentalBasalWidthHistory": {
+        "mode": "early-only",
+        "cutoffSeconds": 20
+      },
+      "rowId": "batch1-bld-warm-t5-early",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T14:11:57.072Z",
+      "finishedAt": "2026-10-08T17:36:19.653Z",
+      "wallSeconds": 12262.581
+    },
+    {
+      "experimentId": "post-phase10-local-basal-width-v1",
+      "experimentalBasalWidthCells": 3,
+      "rowId": "batch1-bld-warm-t5-full",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T14:11:57.053Z",
+      "finishedAt": "2026-10-08T16:24:02.147Z",
+      "wallSeconds": 7925.094
+    }
+  ],
+  "abortReason": null,
+  "unstartedRowIds": [],
+  "minimumAvailablePhysicalBytes": 48468979712,
+  "minimumCommitHeadroomBytes": 69524295680,
+  "maxSampledChildRssBytes": 314888192
+}

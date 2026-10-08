@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 870,
- "totalBytes": 68832864,
+ "fileCount": 888,
+ "totalBytes": 136177749,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -3485,6 +3485,78 @@
   "bld-resume-2026-10-07/verification.json": {
    "bytes": 1702,
    "sha256": "4aa6b1a847013707327d5cb8f89e9a6ed55e7950b63697d52640b80894b92820"
+  },
+  "bld-first-batch-2026-10-08/archive-evidence.py": {
+   "bytes": 2834,
+   "sha256": "ca8774338648daf96426518211026f5d70ba4d68115c213df675887ef451ebff"
+  },
+  "bld-first-batch-2026-10-08/archive-verification.json": {
+   "bytes": 1040,
+   "sha256": "383071c43a956aff457b2800fbad4ec7a8c714e40e003ea6c27f9ea4d1117e50"
+  },
+  "bld-first-batch-2026-10-08/batch1-bld-resumable-control.tar.gz": {
+   "bytes": 10195,
+   "sha256": "cb81f02f3c6364891b871f4633c39ec7a9fe9d4b8d6ab8ec860cdec29e4fa637"
+  },
+  "bld-first-batch-2026-10-08/batch1-bld-resumable-probe.tar.gz": {
+   "bytes": 30745416,
+   "sha256": "e7ac71ca1cc5cf53343a367c77e9ea5af5cbbabde2920647860d84484f803478"
+  },
+  "bld-first-batch-2026-10-08/batch1-bld-resumable.tar.gz": {
+   "bytes": 35928670,
+   "sha256": "0fcb5a73aacec9756624f2a45d0a1bd65a09dacde9f02e84f870ddba4cb0edfb"
+  },
+  "bld-first-batch-2026-10-08/campaign.json": {
+   "bytes": 52850,
+   "sha256": "830ae829c4135171a24ed6e3c5f2ab316697a2b448cc0425aff71bd77de2a547"
+  },
+  "bld-first-batch-2026-10-08/launch-complete.json": {
+   "bytes": 21285,
+   "sha256": "6a2d6098b305ab5037c3259e9a5b85a091ed62dee31b7c2a34c7442a10480709"
+  },
+  "bld-first-batch-2026-10-08/launch-exit.json": {
+   "bytes": 602,
+   "sha256": "ab5e44df1576d19b539d2f557f01d647a83406f534f00a3fb14792d25cc6c9fc"
+  },
+  "bld-first-batch-2026-10-08/payload-members.json": {
+   "bytes": 471471,
+   "sha256": "9c55e74641a0ef00846e7cdc47c9475691c74608e46ddfa49e973d551388f921"
+  },
+  "bld-first-batch-2026-10-08/prepared.json": {
+   "bytes": 893,
+   "sha256": "f6b27828f1ac0e79daf304f0bf03e565552805ed958be6a731f22d1a52133d75"
+  },
+  "bld-first-batch-2026-10-08/preservation-invocation.mjs": {
+   "bytes": 6255,
+   "sha256": "d9cf96e5f43df1d17c432735e22bd10aad1b7be4ce9baecdeeb6b5e1b2872d91"
+  },
+  "bld-first-batch-2026-10-08/probe.json": {
+   "bytes": 47033,
+   "sha256": "ca31e12bc92fa9a6dcc57252fa66b0d45e1bc1933d9d408c2e0474bcb692b32b"
+  },
+  "bld-first-batch-2026-10-08/README.md": {
+   "bytes": 3634,
+   "sha256": "2cefb10dfe2ad6a5413b5828959a874661ba09785bb310ca88af053e18ddfcd7"
+  },
+  "bld-first-batch-2026-10-08/summary.json": {
+   "bytes": 48040,
+   "sha256": "bdfe494a142e16b6637b9e282ca3bb905d8595f3959c564294d73c9a63f6f18c"
+  },
+  "bld-first-batch-2026-10-08/metadata-first-attempt.stderr.log": {
+   "bytes": 990,
+   "sha256": "e7db511ffc759299d627aa7447d141e4f91b5bd834a5ee288b835c971df1194e"
+  },
+  "bld-first-batch-2026-10-08/metadata-first-attempt.stdout.log": {
+   "bytes": 1650,
+   "sha256": "fa97a9c63930b01eb8756fc98549e5c440328393c1c7caf11c591d898b86ad49"
+  },
+  "bld-first-batch-2026-10-08/nas-publication.json": {
+   "bytes": 985,
+   "sha256": "21159f82053d9e4ea7ef4366db0a51313c5a11b7f1c6c1b2976e3bc9269e01c3"
+  },
+  "bld-first-batch-2026-10-08/preservation-review.json": {
+   "bytes": 1042,
+   "sha256": "26eab37b85660bc61c837e27b83c9d2edfb176d00080c1786b58ba6b18fd29e6"
   }
  }
 }

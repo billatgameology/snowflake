@@ -232,7 +232,7 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-BLD finished all 42 registered rows at size endpoints, with 16 maximum concurrent workers and no wall deadline.
+BLD finished all 42 size endpoints; [NAS preservation](plans/hil-bld-first-batch.md#bld-result-preservation--2026-10-08) is in progress with originals retained.
 Execution at d7ff3e1 ended 2026-10-08 21:04:12 UTC, exit 0; [completion record](plans/hil-bld-first-batch.md#bld-execution-complete--2026-10-08).
 Existing result checker classified 42/42 size endpoints with zero errors in task out/batch1-bld-resumable/summary.json.
 Next: analyze that summary and row snapshots/events in G:/Code Files/snowflake-bld-exploration against the registered cold/warm comparisons,

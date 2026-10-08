@@ -1,0 +1,16 @@
+﻿{
+    "stage":  "launch",
+    "gitHead":  "d7ff3e1fb122ecbf8994539d3623928cbe5a9c6b",
+    "startedUtc":  "2026-10-08T14:11:54.1674111Z",
+    "finishedUtc":  "2026-10-08T21:04:12.1478650Z",
+    "exactCommand":  [
+                         "C:\\nvm4w\\nodejs\\node.exe",
+                         "runner/src/hil-bld-batch-main.ts",
+                         "launch",
+                         "BLD",
+                         "out/batch1-bld-resumable",
+                         "out/batch1-bld-resumable-probe/probe.json"
+                     ],
+    "exitCode":  0,
+    "error":  null
+}

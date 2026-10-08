@@ -1,0 +1,1645 @@
+{
+  "schema": "hil-bld-first-batch-summary-v1",
+  "generatedAt": "2026-10-08T23:05:29.933Z",
+  "interpretation": "Operational coverage only; paused, capped or unobserved contrasts remain unresolved. Compare physical-time brackets in subsequent track analysis.",
+  "rows": [
+    {
+      "rowId": "batch1-bld-cold-t12-f0p1-basal-only",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t12-f0p1-basal-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 554,
+      "exitCode": 0,
+      "completedUpdates": 554,
+      "physicalTimeSeconds": 32.984622980562996,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.08626896075435925
+        },
+        {
+          "extent": 9,
+          "cycle": 95,
+          "physicalTimeSeconds": 5.618593930192461
+        },
+        {
+          "extent": 13,
+          "cycle": 264,
+          "physicalTimeSeconds": 14.698147676723789
+        },
+        {
+          "extent": 17,
+          "cycle": 426,
+          "physicalTimeSeconds": 24.91127925784459
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p1-both",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t12-f0p1-both",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 255,
+      "exitCode": 0,
+      "completedUpdates": 255,
+      "physicalTimeSeconds": 9.370831657649733,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.03655742020737788
+        },
+        {
+          "extent": 9,
+          "cycle": 45,
+          "physicalTimeSeconds": 1.5203287421511007
+        },
+        {
+          "extent": 13,
+          "cycle": 115,
+          "physicalTimeSeconds": 3.891381354275941
+        },
+        {
+          "extent": 17,
+          "cycle": 185,
+          "physicalTimeSeconds": 6.528995370029985
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p1-neither",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t12-f0p1-neither",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 591,
+      "exitCode": 0,
+      "completedUpdates": 591,
+      "physicalTimeSeconds": 36.70690946485078,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.09142891214243604
+        },
+        {
+          "extent": 9,
+          "cycle": 91,
+          "physicalTimeSeconds": 5.489328219078453
+        },
+        {
+          "extent": 13,
+          "cycle": 246,
+          "physicalTimeSeconds": 14.252184114489499
+        },
+        {
+          "extent": 17,
+          "cycle": 423,
+          "physicalTimeSeconds": 25.569967218729914
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p1-prism-only",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t12-f0p1-prism-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 254,
+      "exitCode": 0,
+      "completedUpdates": 254,
+      "physicalTimeSeconds": 9.157351327250982,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.03625917138633841
+        },
+        {
+          "extent": 9,
+          "cycle": 45,
+          "physicalTimeSeconds": 1.506052896218409
+        },
+        {
+          "extent": 13,
+          "cycle": 114,
+          "physicalTimeSeconds": 3.7507972716688154
+        },
+        {
+          "extent": 17,
+          "cycle": 184,
+          "physicalTimeSeconds": 6.439604543160512
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p15-basal-only",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t12-f0p15-basal-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 622,
+      "exitCode": 0,
+      "completedUpdates": 622,
+      "physicalTimeSeconds": 19.98868260176727,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.045627362282179805
+        },
+        {
+          "extent": 9,
+          "cycle": 82,
+          "physicalTimeSeconds": 2.526479319339918
+        },
+        {
+          "extent": 13,
+          "cycle": 246,
+          "physicalTimeSeconds": 6.776243396910713
+        },
+        {
+          "extent": 17,
+          "cycle": 426,
+          "physicalTimeSeconds": 12.709630605296953
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p15-both",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t12-f0p15-both",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 241,
+      "exitCode": 0,
+      "completedUpdates": 241,
+      "physicalTimeSeconds": 6.342263544560636,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.02379697184758472
+        },
+        {
+          "extent": 9,
+          "cycle": 43,
+          "physicalTimeSeconds": 0.9739625326153522
+        },
+        {
+          "extent": 13,
+          "cycle": 111,
+          "physicalTimeSeconds": 2.6352056209072376
+        },
+        {
+          "extent": 17,
+          "cycle": 177,
+          "physicalTimeSeconds": 4.4261867589939206
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p15-neither",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t12-f0p15-neither",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 583,
+      "exitCode": 0,
+      "completedUpdates": 583,
+      "physicalTimeSeconds": 19.463724952312646,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.04744776467875615
+        },
+        {
+          "extent": 9,
+          "cycle": 76,
+          "physicalTimeSeconds": 2.4861107414692003
+        },
+        {
+          "extent": 13,
+          "cycle": 235,
+          "physicalTimeSeconds": 6.684606871923416
+        },
+        {
+          "extent": 17,
+          "cycle": 409,
+          "physicalTimeSeconds": 12.402853533233513
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p15-prism-only",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t12-f0p15-prism-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 241,
+      "exitCode": 0,
+      "completedUpdates": 241,
+      "physicalTimeSeconds": 6.267804079110448,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.023629341452826042
+        },
+        {
+          "extent": 9,
+          "cycle": 43,
+          "physicalTimeSeconds": 0.9658919632506803
+        },
+        {
+          "extent": 13,
+          "cycle": 111,
+          "physicalTimeSeconds": 2.6163198092413538
+        },
+        {
+          "extent": 17,
+          "cycle": 177,
+          "physicalTimeSeconds": 4.349657812010449
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p2-basal-only",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t12-f0p2-basal-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 572,
+      "exitCode": 0,
+      "completedUpdates": 572,
+      "physicalTimeSeconds": 12.480628598515073,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.030496349636686314
+        },
+        {
+          "extent": 9,
+          "cycle": 69,
+          "physicalTimeSeconds": 1.5304223979247331
+        },
+        {
+          "extent": 13,
+          "cycle": 207,
+          "physicalTimeSeconds": 4.123338599818572
+        },
+        {
+          "extent": 17,
+          "cycle": 379,
+          "physicalTimeSeconds": 7.79735243777299
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p2-both",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t12-f0p2-both",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 234,
+      "exitCode": 0,
+      "completedUpdates": 234,
+      "physicalTimeSeconds": 4.797764197079814,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.017668026784404357
+        },
+        {
+          "extent": 9,
+          "cycle": 42,
+          "physicalTimeSeconds": 0.7202106826865029
+        },
+        {
+          "extent": 13,
+          "cycle": 107,
+          "physicalTimeSeconds": 1.9473794936061186
+        },
+        {
+          "extent": 17,
+          "cycle": 171,
+          "physicalTimeSeconds": 3.309844868195431
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p2-neither",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t12-f0p2-neither",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 566,
+      "exitCode": 0,
+      "completedUpdates": 566,
+      "physicalTimeSeconds": 12.25123926516752,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.03143055545608766
+        },
+        {
+          "extent": 9,
+          "cycle": 66,
+          "physicalTimeSeconds": 1.5109951857943325
+        },
+        {
+          "extent": 13,
+          "cycle": 203,
+          "physicalTimeSeconds": 4.075367628136471
+        },
+        {
+          "extent": 17,
+          "cycle": 375,
+          "physicalTimeSeconds": 7.6909840082598935
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p2-prism-only",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t12-f0p2-prism-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 234,
+      "exitCode": 0,
+      "completedUpdates": 234,
+      "physicalTimeSeconds": 4.761374655498014,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.01755945522942342
+        },
+        {
+          "extent": 9,
+          "cycle": 42,
+          "physicalTimeSeconds": 0.7149147854451805
+        },
+        {
+          "extent": 13,
+          "cycle": 107,
+          "physicalTimeSeconds": 1.936357335215009
+        },
+        {
+          "extent": 17,
+          "cycle": 171,
+          "physicalTimeSeconds": 3.2937427781115374
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p1-basal-only",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-basal-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 545,
+      "exitCode": 0,
+      "completedUpdates": 545,
+      "physicalTimeSeconds": 34.39340113159449,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.09606443537506461
+        },
+        {
+          "extent": 9,
+          "cycle": 104,
+          "physicalTimeSeconds": 6.944368815188805
+        },
+        {
+          "extent": 13,
+          "cycle": 280,
+          "physicalTimeSeconds": 17.776401148325416
+        },
+        {
+          "extent": 17,
+          "cycle": 416,
+          "physicalTimeSeconds": 25.76804669189413
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p1-both",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-both",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 229,
+      "exitCode": 0,
+      "completedUpdates": 229,
+      "physicalTimeSeconds": 8.035204230365338,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.03235439556635457
+        },
+        {
+          "extent": 9,
+          "cycle": 42,
+          "physicalTimeSeconds": 1.311015834577079
+        },
+        {
+          "extent": 13,
+          "cycle": 105,
+          "physicalTimeSeconds": 3.244869595372771
+        },
+        {
+          "extent": 17,
+          "cycle": 165,
+          "physicalTimeSeconds": 5.507723284800483
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p1-neither",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-neither",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 542,
+      "exitCode": 0,
+      "completedUpdates": 542,
+      "physicalTimeSeconds": 35.51395673710966,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.09819727910067208
+        },
+        {
+          "extent": 9,
+          "cycle": 101,
+          "physicalTimeSeconds": 6.884682640608459
+        },
+        {
+          "extent": 13,
+          "cycle": 273,
+          "physicalTimeSeconds": 17.766325712460052
+        },
+        {
+          "extent": 17,
+          "cycle": 417,
+          "physicalTimeSeconds": 26.66861045650169
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p1-prism-only",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-prism-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 229,
+      "exitCode": 0,
+      "completedUpdates": 229,
+      "physicalTimeSeconds": 7.9889614307199235,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.03227294027038766
+        },
+        {
+          "extent": 9,
+          "cycle": 42,
+          "physicalTimeSeconds": 1.307038289550249
+        },
+        {
+          "extent": 13,
+          "cycle": 105,
+          "physicalTimeSeconds": 3.2331983523333334
+        },
+        {
+          "extent": 17,
+          "cycle": 165,
+          "physicalTimeSeconds": 5.435891665340465
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p15-basal-only",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p15-basal-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 583,
+      "exitCode": 0,
+      "completedUpdates": 583,
+      "physicalTimeSeconds": 20.31729215145106,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.04915759413592491
+        },
+        {
+          "extent": 9,
+          "cycle": 90,
+          "physicalTimeSeconds": 3.0538742110251382
+        },
+        {
+          "extent": 13,
+          "cycle": 254,
+          "physicalTimeSeconds": 8.089447585216107
+        },
+        {
+          "extent": 17,
+          "cycle": 438,
+          "physicalTimeSeconds": 14.92551855457074
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p15-both",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p15-both",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 227,
+      "exitCode": 0,
+      "completedUpdates": 227,
+      "physicalTimeSeconds": 5.77621085840327,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.021792420141493962
+        },
+        {
+          "extent": 9,
+          "cycle": 41,
+          "physicalTimeSeconds": 0.8819240968932396
+        },
+        {
+          "extent": 13,
+          "cycle": 103,
+          "physicalTimeSeconds": 2.363062492453862
+        },
+        {
+          "extent": 17,
+          "cycle": 165,
+          "physicalTimeSeconds": 3.9624710688371767
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p15-neither",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p15-neither",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 594,
+      "exitCode": 0,
+      "completedUpdates": 594,
+      "physicalTimeSeconds": 20.760921388287166,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.04988253670277868
+        },
+        {
+          "extent": 9,
+          "cycle": 88,
+          "physicalTimeSeconds": 2.9555082168442954
+        },
+        {
+          "extent": 13,
+          "cycle": 250,
+          "physicalTimeSeconds": 7.903951858488716
+        },
+        {
+          "extent": 17,
+          "cycle": 436,
+          "physicalTimeSeconds": 14.630889293973128
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p15-prism-only",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p15-prism-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 227,
+      "exitCode": 0,
+      "completedUpdates": 227,
+      "physicalTimeSeconds": 5.736418816837393,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.021742460885319143
+        },
+        {
+          "extent": 9,
+          "cycle": 41,
+          "physicalTimeSeconds": 0.87944481757614
+        },
+        {
+          "extent": 13,
+          "cycle": 103,
+          "physicalTimeSeconds": 2.3420687239168134
+        },
+        {
+          "extent": 17,
+          "cycle": 165,
+          "physicalTimeSeconds": 3.943536436542601
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p2-basal-only",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p2-basal-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 614,
+      "exitCode": 0,
+      "completedUpdates": 614,
+      "physicalTimeSeconds": 14.278472864508705,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.032380669928470704
+        },
+        {
+          "extent": 9,
+          "cycle": 78,
+          "physicalTimeSeconds": 1.7701180506380267
+        },
+        {
+          "extent": 13,
+          "cycle": 238,
+          "physicalTimeSeconds": 4.790201031726582
+        },
+        {
+          "extent": 17,
+          "cycle": 416,
+          "physicalTimeSeconds": 8.98523389672156
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p2-both",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p2-both",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 224,
+      "exitCode": 0,
+      "completedUpdates": 224,
+      "physicalTimeSeconds": 4.439052516613874,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.01650076869245723
+        },
+        {
+          "extent": 9,
+          "cycle": 40,
+          "physicalTimeSeconds": 0.6528691603657153
+        },
+        {
+          "extent": 13,
+          "cycle": 101,
+          "physicalTimeSeconds": 1.796326135121349
+        },
+        {
+          "extent": 17,
+          "cycle": 162,
+          "physicalTimeSeconds": 3.0371122637597248
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p2-neither",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p2-neither",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 613,
+      "exitCode": 0,
+      "completedUpdates": 613,
+      "physicalTimeSeconds": 14.146805550270747,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.032746671836665096
+        },
+        {
+          "extent": 9,
+          "cycle": 78,
+          "physicalTimeSeconds": 1.7763148770892834
+        },
+        {
+          "extent": 13,
+          "cycle": 237,
+          "physicalTimeSeconds": 4.736629933168028
+        },
+        {
+          "extent": 17,
+          "cycle": 416,
+          "physicalTimeSeconds": 8.915686847701917
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p2-prism-only",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p2-prism-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 224,
+      "exitCode": 0,
+      "completedUpdates": 224,
+      "physicalTimeSeconds": 4.428252850945575,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.0164669227823028
+        },
+        {
+          "extent": 9,
+          "cycle": 40,
+          "physicalTimeSeconds": 0.6513383511776656
+        },
+        {
+          "extent": 13,
+          "cycle": 101,
+          "physicalTimeSeconds": 1.793322660430039
+        },
+        {
+          "extent": 17,
+          "cycle": 162,
+          "physicalTimeSeconds": 3.0264965956612038
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p1-basal-only",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t18-f0p1-basal-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 481,
+      "exitCode": 0,
+      "completedUpdates": 481,
+      "physicalTimeSeconds": 36.35100925657958,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.11511843807348246
+        },
+        {
+          "extent": 9,
+          "cycle": 126,
+          "physicalTimeSeconds": 10.444410641385577
+        },
+        {
+          "extent": 13,
+          "cycle": 268,
+          "physicalTimeSeconds": 19.26986531060377
+        },
+        {
+          "extent": 17,
+          "cycle": 376,
+          "physicalTimeSeconds": 27.664137767876145
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p1-both",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t18-f0p1-both",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 308,
+      "exitCode": 0,
+      "completedUpdates": 308,
+      "physicalTimeSeconds": 12.158778506767396,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.04579310573426285
+        },
+        {
+          "extent": 9,
+          "cycle": 48,
+          "physicalTimeSeconds": 1.9328058995902038
+        },
+        {
+          "extent": 13,
+          "cycle": 124,
+          "physicalTimeSeconds": 4.654404426023643
+        },
+        {
+          "extent": 17,
+          "cycle": 213,
+          "physicalTimeSeconds": 8.266138649865052
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p1-neither",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t18-f0p1-neither",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 498,
+      "exitCode": 0,
+      "completedUpdates": 498,
+      "physicalTimeSeconds": 36.973535594364606,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.11572929797202093
+        },
+        {
+          "extent": 9,
+          "cycle": 125,
+          "physicalTimeSeconds": 10.309118079773631
+        },
+        {
+          "extent": 13,
+          "cycle": 270,
+          "physicalTimeSeconds": 19.52229245213599
+        },
+        {
+          "extent": 17,
+          "cycle": 379,
+          "physicalTimeSeconds": 27.899343215852724
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p1-prism-only",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t18-f0p1-prism-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 307,
+      "exitCode": 0,
+      "completedUpdates": 307,
+      "physicalTimeSeconds": 12.101408426136079,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.04576180092630658
+        },
+        {
+          "extent": 9,
+          "cycle": 48,
+          "physicalTimeSeconds": 1.9313297217690422
+        },
+        {
+          "extent": 13,
+          "cycle": 124,
+          "physicalTimeSeconds": 4.645726309520304
+        },
+        {
+          "extent": 17,
+          "cycle": 212,
+          "physicalTimeSeconds": 8.224703623815381
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p15-basal-only",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t18-f0p15-basal-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 543,
+      "exitCode": 0,
+      "completedUpdates": 543,
+      "physicalTimeSeconds": 21.395326900077514,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.056619301186167266
+        },
+        {
+          "extent": 9,
+          "cycle": 100,
+          "physicalTimeSeconds": 4.03704388739809
+        },
+        {
+          "extent": 13,
+          "cycle": 278,
+          "physicalTimeSeconds": 10.613178927524922
+        },
+        {
+          "extent": 17,
+          "cycle": 422,
+          "physicalTimeSeconds": 15.905277718737754
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p15-both",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t18-f0p15-both",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 272,
+      "exitCode": 0,
+      "completedUpdates": 272,
+      "physicalTimeSeconds": 7.714983903885914,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.028686436253783656
+        },
+        {
+          "extent": 9,
+          "cycle": 46,
+          "physicalTimeSeconds": 1.2052508827269959
+        },
+        {
+          "extent": 13,
+          "cycle": 122,
+          "physicalTimeSeconds": 3.1801242189435945
+        },
+        {
+          "extent": 17,
+          "cycle": 195,
+          "physicalTimeSeconds": 5.235787936351629
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p15-neither",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t18-f0p15-neither",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 542,
+      "exitCode": 0,
+      "completedUpdates": 542,
+      "physicalTimeSeconds": 21.39465616878593,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.05681674261660732
+        },
+        {
+          "extent": 9,
+          "cycle": 100,
+          "physicalTimeSeconds": 4.045819022678156
+        },
+        {
+          "extent": 13,
+          "cycle": 277,
+          "physicalTimeSeconds": 10.610932786921108
+        },
+        {
+          "extent": 17,
+          "cycle": 422,
+          "physicalTimeSeconds": 15.929994939250312
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p15-prism-only",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t18-f0p15-prism-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 273,
+      "exitCode": 0,
+      "completedUpdates": 273,
+      "physicalTimeSeconds": 7.736397690136301,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.028669175979132436
+        },
+        {
+          "extent": 9,
+          "cycle": 46,
+          "physicalTimeSeconds": 1.2044244240436544
+        },
+        {
+          "extent": 13,
+          "cycle": 122,
+          "physicalTimeSeconds": 3.1782465866605167
+        },
+        {
+          "extent": 17,
+          "cycle": 195,
+          "physicalTimeSeconds": 5.228525321067878
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p2-basal-only",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t18-f0p2-basal-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 579,
+      "exitCode": 0,
+      "completedUpdates": 579,
+      "physicalTimeSeconds": 15.204999514527072,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.036676928604706824
+        },
+        {
+          "extent": 9,
+          "cycle": 89,
+          "physicalTimeSeconds": 2.2888742289972006
+        },
+        {
+          "extent": 13,
+          "cycle": 255,
+          "physicalTimeSeconds": 6.126502405006902
+        },
+        {
+          "extent": 17,
+          "cycle": 440,
+          "physicalTimeSeconds": 11.226962626286479
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p2-both",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t18-f0p2-both",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 255,
+      "exitCode": 0,
+      "completedUpdates": 255,
+      "physicalTimeSeconds": 5.65172946686101,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.02088388416561707
+        },
+        {
+          "extent": 9,
+          "cycle": 44,
+          "physicalTimeSeconds": 0.8568497330064555
+        },
+        {
+          "extent": 13,
+          "cycle": 116,
+          "physicalTimeSeconds": 2.3136068843917323
+        },
+        {
+          "extent": 17,
+          "cycle": 185,
+          "physicalTimeSeconds": 3.8915790589829626
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p2-neither",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t18-f0p2-neither",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 579,
+      "exitCode": 0,
+      "completedUpdates": 579,
+      "physicalTimeSeconds": 15.289858797799193,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.036774508696879406
+        },
+        {
+          "extent": 9,
+          "cycle": 89,
+          "physicalTimeSeconds": 2.294758490444735
+        },
+        {
+          "extent": 13,
+          "cycle": 255,
+          "physicalTimeSeconds": 6.134296632346859
+        },
+        {
+          "extent": 17,
+          "cycle": 439,
+          "physicalTimeSeconds": 11.299525899208213
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p2-prism-only",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-cold-t18-f0p2-prism-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 255,
+      "exitCode": 0,
+      "completedUpdates": 255,
+      "physicalTimeSeconds": 5.639124642619627,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.020872865907441855
+        },
+        {
+          "extent": 9,
+          "cycle": 44,
+          "physicalTimeSeconds": 0.8563273377048117
+        },
+        {
+          "extent": 13,
+          "cycle": 116,
+          "physicalTimeSeconds": 2.3090674266676876
+        },
+        {
+          "extent": 17,
+          "cycle": 185,
+          "physicalTimeSeconds": 3.8851877330327245
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-warm-t4p5-broad",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-warm-t4p5-broad",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 382,
+      "exitCode": 0,
+      "completedUpdates": 382,
+      "physicalTimeSeconds": 38.83414842532963,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.11831123858010793
+        },
+        {
+          "extent": 9,
+          "cycle": 53,
+          "physicalTimeSeconds": 5.17119420335817
+        },
+        {
+          "extent": 13,
+          "cycle": 157,
+          "physicalTimeSeconds": 13.988473296326928
+        },
+        {
+          "extent": 17,
+          "cycle": 275,
+          "physicalTimeSeconds": 25.621152441163467
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-warm-t4p5-early",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-warm-t4p5-early",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 594,
+      "exitCode": 0,
+      "completedUpdates": 594,
+      "physicalTimeSeconds": 53.40036774566774,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": true,
+      "postCutoffUpdateObserved": true,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.07775859572137508
+        },
+        {
+          "extent": 9,
+          "cycle": 102,
+          "physicalTimeSeconds": 7.639595125761588
+        },
+        {
+          "extent": 13,
+          "cycle": 183,
+          "physicalTimeSeconds": 13.60046906504216
+        },
+        {
+          "extent": 17,
+          "cycle": 299,
+          "physicalTimeSeconds": 22.693624437575895
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-warm-t4p5-full",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-warm-t4p5-full",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 359,
+      "exitCode": 0,
+      "completedUpdates": 359,
+      "physicalTimeSeconds": 27.99271590091247,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.07775859572137508
+        },
+        {
+          "extent": 9,
+          "cycle": 102,
+          "physicalTimeSeconds": 7.639595125761588
+        },
+        {
+          "extent": 13,
+          "cycle": 183,
+          "physicalTimeSeconds": 13.60046906504216
+        },
+        {
+          "extent": 17,
+          "cycle": 273,
+          "physicalTimeSeconds": 20.78790768983441
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-warm-t5-broad",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-warm-t5-broad",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 429,
+      "exitCode": 0,
+      "completedUpdates": 429,
+      "physicalTimeSeconds": 39.96843479367688,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.11835350729655617
+        },
+        {
+          "extent": 9,
+          "cycle": 60,
+          "physicalTimeSeconds": 5.343567229244469
+        },
+        {
+          "extent": 13,
+          "cycle": 183,
+          "physicalTimeSeconds": 14.515260188310489
+        },
+        {
+          "extent": 17,
+          "cycle": 313,
+          "physicalTimeSeconds": 26.32338502473938
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-warm-t5-early",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-warm-t5-early",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 558,
+      "exitCode": 0,
+      "completedUpdates": 558,
+      "physicalTimeSeconds": 44.86770273376511,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": true,
+      "postCutoffUpdateObserved": true,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.07481540472918764
+        },
+        {
+          "extent": 9,
+          "cycle": 107,
+          "physicalTimeSeconds": 7.5319439777273764
+        },
+        {
+          "extent": 13,
+          "cycle": 188,
+          "physicalTimeSeconds": 13.007289697893507
+        },
+        {
+          "extent": 17,
+          "cycle": 281,
+          "physicalTimeSeconds": 19.81013753121314
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "batch1-bld-warm-t5-full",
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable\\rows\\batch1-bld-warm-t5-full",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "resumableState": "terminal",
+      "checkpointCycle": 368,
+      "exitCode": 0,
+      "completedUpdates": 368,
+      "physicalTimeSeconds": 26.39896679741717,
+      "extent": 21,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.07481540472918764
+        },
+        {
+          "extent": 9,
+          "cycle": 107,
+          "physicalTimeSeconds": 7.5319439777273764
+        },
+        {
+          "extent": 13,
+          "cycle": 188,
+          "physicalTimeSeconds": 13.007289697893507
+        },
+        {
+          "extent": 17,
+          "cycle": 281,
+          "physicalTimeSeconds": 19.81013753121314
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

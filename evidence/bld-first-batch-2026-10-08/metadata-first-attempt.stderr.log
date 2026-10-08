@@ -1,0 +1,32 @@
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  runner/test/nas-assets-catalog.test.ts > tracked NAS asset catalogue > loads the strict real catalogue and pins the read-only census dispositions
+AssertionError: expected { …(36) } to deeply equal { …(35) }
+
+- Expected
++ Received
+
+@@ -1,6 +1,11 @@
+  {
++   "bld-first-batch-output@2026-10-08": [
++     "provisional",
++     0,
++     0,
++   ],
+    "earlier-phase2b@2026-08-01": [
+      "active",
+      11,
+      60438811,
+    ],
+
+ ❯ runner/test/nas-assets-catalog.test.ts:194:10
+    192|       `${collection.assetId}@${collection.version}`,
+    193|       [collection.state, collection.aggregate.files, collection.aggreg…
+    194|     ]))).toEqual(expected);
+       |          ^
+    195|     expect(CATALOG.overlays.map((overlay) => overlay.overlayId)).toEqu…
+    196|       "research-media-subset",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
