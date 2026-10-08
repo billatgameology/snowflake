@@ -1,8 +1,9 @@
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { appendFileSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { POST_PHASE10_SMOKE_ROWS, runPostPhase10DiscoveryRow } from "../src/post-phase10-discovery.ts";
+import { runResumableDiscoveryRow } from "../src/post-phase10-discovery-resume.ts";
 import { summarizeFirstBatch, summarizeFirstBatchRow } from "../src/hil-bld-batch-summary.ts";
 
 const directories: string[] = [];
@@ -14,6 +15,24 @@ function directory() {
 afterEach(() => { for (const path of directories.splice(0)) rmSync(path, { recursive: true, force: true }); });
 
 describe("first-batch coverage inventory", () => {
+
+  it("shows a paused checkpoint prefix without treating an uncommitted tail as science", async () => {
+    const path = directory();
+    const row = { ...POST_PHASE10_SMOKE_ROWS[1], targetExtent: 100, maxSteps: 1 };
+    await runResumableDiscoveryRow(row, path);
+    appendFileSync(join(path, "events.jsonl"), '{"cycle":2');
+    expect(summarizeFirstBatchRow(path)).toMatchObject({
+      disposition: "unresolved-prefix", stopReason: "step-review", completedUpdates: 1,
+      resumableState: "paused", checkpointCycle: 1, errors: [],
+    });
+    const pointer = JSON.parse(readFileSync(join(path, "resume-current.json"), "utf8"));
+    const checkpoint = join(path, "resume", "slot-" + pointer.slot + ".bin");
+    const bytes = readFileSync(checkpoint); bytes[bytes.length - 1] ^= 1; writeFileSync(checkpoint, bytes);
+    const failed = summarizeFirstBatchRow(path);
+    expect(failed.disposition).toBe("invalid");
+    expect(failed.errors.join(" ")).toContain("resume bytes mismatch");
+  });
+
   it("rederives endpoint coverage from real events and refuses a forged success flag", () => {
     const path = directory();
     const result = runPostPhase10DiscoveryRow(POST_PHASE10_SMOKE_ROWS[0], path);

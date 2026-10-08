@@ -263,3 +263,42 @@ Known failures: reread lessons on paid-for non-resumable runs, insertion-order c
 
 - Merely deleting the four-hour cutoff leaves purchased progress vulnerable; stopped before extending that run.
 - Historical checkpoint exclusions are preserved; new experiment identity is required.
+
+### Implemented continuation and launch instructions
+
+The implementation now uses a distinct experimental codec/solver API, shared discovery generator,
+two rolling row checkpoints, committed event-prefix recovery and per-attempt process logs.
+The BLD probe also executes this checkpoint-writing path; its three-minute operational child limit
+remains separate from the campaign, which has no wall deadline. A 20,000-update review pause retains
+state and receives another allowance on resume. Scientific endpoint/failure guards remain explicit.
+Full verification and the representative actual process interruption witness are next.
+
+After a clean tested source checkpoint, use fresh directories:
+
+```powershell
+node runner/src/hil-bld-batch-main.ts probe BLD out/batch1-bld-resumable-probe
+node runner/src/hil-bld-batch-main.ts launch BLD out/batch1-bld-resumable out/batch1-bld-resumable-probe/probe.json
+node runner/src/hil-bld-batch-main.ts pause out/batch1-bld-resumable
+node runner/src/hil-bld-batch-main.ts resume out/batch1-bld-resumable
+node runner/src/hil-bld-batch-main.ts summarize out/batch1-bld-resumable
+```
+
+Pause waits for the current coupled update, which can take time; do not assume the request file is
+a completed stop. Read the attempt completion and row resume-status records. An abrupt shutdown
+uses the last published checkpoint and recomputes the interrupted update. An interruption before
+the initial save preserves unfinished files and reconstructs the seed, with no recovered-growth
+claim. Resume refuses an active launcher/worker and mismatched source/runtime/host/roster.
+No automatic Windows-login restart is installed. Keep this worktree and source unchanged while
+the campaign is active; resuming is the explicit command above.
+
+Live campaign attempts write `attempt-NNNN-{launch,status,resources,complete}` records at the campaign
+root; row logs/exits live in `rows/<id>/attempts/attempt-NNNN/`. Row `resume-current.json` points
+to the published slot, `resume-status.json` distinguishes running/paused/terminal, and `recovery/`
+retains abandoned output tails. The summary validates completed scientific reports and uses only
+the committed prefix for nonterminal rows. Final endpoint coverage still requires the ordinary
+independent checks; a saved checkpoint is not a scientific finding.
+
+Verification evidence is project-owned tracked evidence, permanently retained under
+`evidence/bld-resume-2026-10-07/` with manifest pins; local verification staging and old campaign
+outputs remain intact. Large live scientific outputs remain task staging until separately
+classified at scientific closeout. No NAS transfer or local prune is part of this change.

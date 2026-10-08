@@ -629,11 +629,55 @@ export interface RunDiscoveryRowOptions {
 
 class DiscoveryWallBudgetReached extends Error {}
 
+export interface DiscoveryContinuationMeasurements {
+  readonly startedAt: string;
+  readonly peakRssBytes: number;
+  readonly totalSweeps: number;
+  readonly completedCycleRecords: number;
+  readonly allAttachmentEventsD6h: boolean;
+  readonly allRelaxationsConverged: boolean;
+  readonly maxKineticFillIncrement: number;
+  readonly maxDivergenceResidual: number;
+  readonly maxAbsSmootherDrift: number;
+  readonly minShellInjection: number | null;
+  readonly minSurfaceExchange: number | null;
+  readonly integrityErrors: readonly string[];
+  readonly seedSites: number;
+  readonly spatialSnapshots: readonly DiscoverySpatialSnapshotRecord[];
+  readonly pendingSpatialExtents: readonly number[];
+  readonly currentSmootherDriftAbsLimit: number;
+  readonly maximumSmootherDriftAbsLimit: number;
+  readonly terminalStopReason: DiscoveryStopReason | null;
+}
+
+export interface DiscoveryContinuationBoundary {
+  readonly solver: LKSolver;
+  readonly measurements: DiscoveryContinuationMeasurements;
+}
+
+/** Shared evolution: the legacy synchronous caller ignores save boundaries. */
 export function runPostPhase10DiscoveryRow(
   candidate: DiscoveryRow,
   outputDirectory: string,
   options: RunDiscoveryRowOptions = {},
 ): DiscoveryTerminalResult {
+  const evolution = discoveryRowEvolution(candidate, outputDirectory, options);
+  for (;;) {
+    const next = evolution.next();
+    if (next.done) return next.value;
+  }
+}
+
+/** The async recovery driver saves only the yielded complete interface boundaries. */
+export function* discoveryRowEvolution(
+  candidate: DiscoveryRow,
+  outputDirectory: string,
+  options: RunDiscoveryRowOptions = {},
+  continuation?: DiscoveryContinuationBoundary,
+): Generator<DiscoveryContinuationBoundary, DiscoveryTerminalResult, void> {
+  if (continuation !== undefined && candidate.timelineEvent !== undefined) {
+    throw new Error("experimental continuation refuses environment timelines");
+  }
   if (options.maxWallSeconds !== undefined &&
     (!Number.isFinite(options.maxWallSeconds) || options.maxWallSeconds <= 0)) {
     throw new Error("maxWallSeconds must be finite and positive");
@@ -660,14 +704,14 @@ export function runPostPhase10DiscoveryRow(
       ` cutoffSeconds=${candidate.experimentalBasalWidthHistory.cutoffSeconds}`);
   const output = resolve(outputDirectory);
   mkdirSync(output, { recursive: true });
-  for (const leaf of ["spec.json", "events.jsonl", "result.json"] as const) {
+  if (continuation === undefined) for (const leaf of ["spec.json", "events.jsonl", "result.json"] as const) {
     if (existsSync(resolve(output, leaf))) {
       throw new Error(`discovery row output already exists: ${resolve(output, leaf)}`);
     }
   }
 
   const head = gitHead();
-  writeJson(resolve(output, "spec.json"), {
+  if (continuation === undefined) writeJson(resolve(output, "spec.json"), {
     schema: "post-phase10-discovery-row-v1",
     ...experimentIdentity,
     row: candidate,
@@ -677,9 +721,10 @@ export function runPostPhase10DiscoveryRow(
       executionBudget: { maxWallSeconds: options.maxWallSeconds },
     }),
   });
-  writeJson(resolve(output, "host.json"), { ...hostRecord(head), ...experimentIdentity });
+  if (continuation === undefined) writeJson(resolve(output, "host.json"), { ...hostRecord(head), ...experimentIdentity });
+  const prior = continuation?.measurements;
 
-  const startedAt = new Date();
+  const startedAt = prior === undefined ? new Date() : new Date(prior.startedAt);
   const budgetClock = options.budgetClockMilliseconds ?? (() => performance.now());
   const budgetStart = options.maxWallSeconds === undefined ? 0 : budgetClock();
   if (!Number.isFinite(budgetStart)) throw new Error("budget clock must be finite");
@@ -707,21 +752,21 @@ export function runPostPhase10DiscoveryRow(
   if (options.maxWallSeconds !== undefined) {
     writeFileSync(resolve(output, "events.jsonl"), "", { flag: "wx" });
   }
-  let peakRssBytes = process.memoryUsage().rss;
-  let totalSweeps = 0;
-  let completedCycleRecords = 0;
-  let allAttachmentEventsD6h = true;
-  let allRelaxationsConverged = true;
-  let maxKineticFillIncrement = 0;
-  let maxDivergenceResidual = 0;
-  let maxAbsSmootherDrift = 0;
-  let minShellInjection = Infinity;
-  let minSurfaceExchange = Infinity;
-  let stopReason: DiscoveryStopReason = "step-cap";
-  const integrityErrors: string[] = [];
+  let peakRssBytes = prior?.peakRssBytes ?? process.memoryUsage().rss;
+  let totalSweeps = prior?.totalSweeps ?? 0;
+  let completedCycleRecords = prior?.completedCycleRecords ?? 0;
+  let allAttachmentEventsD6h = prior?.allAttachmentEventsD6h ?? true;
+  let allRelaxationsConverged = prior?.allRelaxationsConverged ?? true;
+  let maxKineticFillIncrement = prior?.maxKineticFillIncrement ?? 0;
+  let maxDivergenceResidual = prior?.maxDivergenceResidual ?? 0;
+  let maxAbsSmootherDrift = prior?.maxAbsSmootherDrift ?? 0;
+  let minShellInjection = prior?.minShellInjection ?? Infinity;
+  let minSurfaceExchange = prior?.minSurfaceExchange ?? Infinity;
+  let stopReason: DiscoveryStopReason = prior?.terminalStopReason ?? "step-cap";
+  const integrityErrors: string[] = [...(prior?.integrityErrors ?? [])];
   const dims = { nx: candidate.dimsN, ny: candidate.dimsN, nz: candidate.dimsN };
   const center = domainCenter(dims);
-  const solver = new LKSolver({
+  const solver = continuation?.solver ?? new LKSolver({
     surfacePolicy: FIXED.surfacePolicy,
     dims,
     tempC: candidate.tempC,
@@ -753,14 +798,14 @@ export function runPostPhase10DiscoveryRow(
     seedThickness: candidate.seedThickness,
     center,
   });
-  const seedSites = solver.attachedCount;
-  const spatialSnapshots: DiscoverySpatialSnapshotRecord[] = [];
-  const pendingSpatialExtents = new Set(candidate.spatialSampleExtents ?? []);
-  let currentSmootherDriftAbsLimit = float64SmootherDriftAbsLimit(
+  const seedSites = prior?.seedSites ?? solver.attachedCount;
+  const spatialSnapshots: DiscoverySpatialSnapshotRecord[] = [...(prior?.spatialSnapshots ?? [])];
+  const pendingSpatialExtents = new Set(prior?.pendingSpatialExtents ?? candidate.spatialSampleExtents ?? []);
+  let currentSmootherDriftAbsLimit = prior?.currentSmootherDriftAbsLimit ?? float64SmootherDriftAbsLimit(
     solver.activeCellCount,
     candidate.sigmaInfinity,
   );
-  let maximumSmootherDriftAbsLimit = currentSmootherDriftAbsLimit;
+  let maximumSmootherDriftAbsLimit = prior?.maximumSmootherDriftAbsLimit ?? currentSmootherDriftAbsLimit;
   const timelineSchedule: LKTimelineSchedule | null =
     candidate.timelineEvent === undefined
       ? null
@@ -812,8 +857,19 @@ export function runPostPhase10DiscoveryRow(
       `target=${candidate.targetExtent}`,
   );
 
+  const saveBoundary = (): DiscoveryContinuationBoundary => ({ solver, measurements: {
+    startedAt: startedAt.toISOString(), peakRssBytes, totalSweeps, completedCycleRecords,
+    allAttachmentEventsD6h, allRelaxationsConverged, maxKineticFillIncrement,
+    maxDivergenceResidual, maxAbsSmootherDrift,
+    minShellInjection: finiteMinimum(minShellInjection), minSurfaceExchange: finiteMinimum(minSurfaceExchange),
+    integrityErrors: [...integrityErrors], seedSites, spatialSnapshots: [...spatialSnapshots],
+    pendingSpatialExtents: [...pendingSpatialExtents], currentSmootherDriftAbsLimit, maximumSmootherDriftAbsLimit,
+    terminalStopReason: stopReason === "step-cap" ? null : stopReason,
+  } });
+  yield saveBoundary();
+  const finalAllowedCycle = solver.tick + candidate.maxSteps;
   try {
-    for (let cycle = 1; cycle <= candidate.maxSteps; cycle++) {
+    for (let cycle = solver.tick + 1; stopReason === "step-cap" && cycle <= finalAllowedCycle; cycle++) {
       checkBudget("cycle-boundary");
       const relaxation = solver.relaxField((progress) => {
         checkBudget("relaxation", { cycle, sweeps: progress.sweeps });
@@ -1044,15 +1100,10 @@ export function runPostPhase10DiscoveryRow(
         );
         lastHeartbeat = now;
       }
-      if (surface.stalled) break;
-      if (solver.domainContact()) {
-        stopReason = "domain-contact";
-        break;
-      }
-      if (extent >= candidate.targetExtent) {
-        stopReason = "size-target";
-        break;
-      }
+      if (!surface.stalled && solver.domainContact()) stopReason = "domain-contact";
+      if (stopReason === "step-cap" && extent >= candidate.targetExtent) stopReason = "size-target";
+      yield saveBoundary();
+      if (stopReason !== "step-cap") break;
       checkBudget("cycle-boundary");
     }
   } catch (error) {

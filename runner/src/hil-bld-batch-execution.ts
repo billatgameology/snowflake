@@ -86,6 +86,9 @@ export interface DiscoveryLaunchOptions {
   readonly experimentId?: DiscoveryExperimentIdentity["experimentId"];
   readonly entryPath?: string;
   readonly workerArguments?: (row: DiscoveryRow, directory: string) => readonly string[];
+  /** Reuse row state while keeping each invocation in a distinct attempt log directory. */
+  readonly resumeRows?: boolean;
+  readonly pauseRequested?: () => boolean;
   readonly hardWallSeconds?: number;
   readonly stopOnWorkerFailure?: boolean;
   readonly monitor?: {
@@ -107,7 +110,7 @@ export async function launchDiscoveryRows(options: DiscoveryLaunchOptions): Prom
   const launchPath = resolve(options.campaignDirectory, `${options.launchName}-launch.json`);
   if (existsSync(launchPath)) throw new Error(`launch record already exists: ${launchPath}`);
   for (const row of options.rows) {
-    if (existsSync(resolve(rowsRoot, row.id))) throw new Error(`row directory already exists: ${resolve(rowsRoot, row.id)}`);
+    if (!options.resumeRows && existsSync(resolve(rowsRoot, row.id))) throw new Error(`row directory already exists: ${resolve(rowsRoot, row.id)}`);
   }
   const launchedAt = new Date();
   const head = batchGitHead();
@@ -139,13 +142,22 @@ export async function launchDiscoveryRows(options: DiscoveryLaunchOptions): Prom
   let maxSampledChildRssBytes = 0;
   let finished = false;
   const stop = (reason: string, termination: DiscoveryRowExit["termination"]): void => {
-    abortReason ??= reason;
+    if (abortReason === null || abortReason === "operator-pause") abortReason = reason;
     for (const [child, state] of children) { state.termination ??= termination; child.kill(); }
   };
+  const writeStatus = (): void => writeBatchJson(resolve(options.campaignDirectory, options.launchName + "-status.json"), {
+    schema: "post-phase10-discovery-launch-status-v1", ...experimentMetadata, launchName: options.launchName,
+    total: options.rows.length, completed: exits.length, active, maxActive,
+    exits: [...exits].sort((a, b) => a.rowId.localeCompare(b.rowId)), updatedAt: new Date().toISOString(), abortReason,
+  });
   const onInterrupt = (): void => stop("batch-interrupted", "batch-interrupted");
   const onExit = (): void => { for (const child of children.keys()) child.kill(); };
   // New bounded routes own cleanup. Preserve legacy process lifecycle otherwise.
-  const bounded = options.monitor !== undefined || options.hardWallSeconds !== undefined;
+  const bounded = options.monitor !== undefined || options.hardWallSeconds !== undefined || options.pauseRequested !== undefined;
+  const checkPause = (): boolean => {
+    if (options.pauseRequested?.()) abortReason ??= "operator-pause";
+    return abortReason === "operator-pause";
+  };
   if (bounded) { process.on("SIGINT", onInterrupt); process.on("SIGTERM", onInterrupt); process.on("exit", onExit); }
   const recordSample = async (): Promise<void> => {
     if (options.monitor === undefined) return;
@@ -159,31 +171,39 @@ export async function launchDiscoveryRows(options: DiscoveryLaunchOptions): Prom
       if (failure !== null) stop(failure, "resource-stop");
     } catch (error) { stop(`host-monitor-failure: ${error instanceof Error ? error.message : String(error)}`, "resource-stop"); }
   };
-  await recordSample();
-  const monitorLoop = options.monitor === undefined ? Promise.resolve() : (async () => {
-    while (!finished && abortReason === null) {
+  checkPause();
+  if (abortReason === null) await recordSample();
+  const monitorLoop = options.monitor === undefined && options.pauseRequested === undefined ? Promise.resolve() : (async () => {
+    while (!finished && (abortReason === null || abortReason === "operator-pause")) {
       await new Promise<void>((done) => setTimeout(done, options.monitor?.cadenceMs ?? 2000));
-      if (!finished) await recordSample();
+      if (!finished) { checkPause(); await recordSample(); }
     }
   })();
 
   const runOne = async (row: DiscoveryRow): Promise<void> => {
     const identity = discoveryExperimentIdentity(row);
     const directory = resolve(rowsRoot, row.id);
-    mkdirSync(directory);
+    mkdirSync(directory, { recursive: options.resumeRows ?? false });
+    const logDirectory = options.resumeRows ? resolve(directory, "attempts", options.launchName) : directory;
+    if (options.resumeRows) mkdirSync(logDirectory, { recursive: true });
     const args = [entryPath, ...(options.workerArguments?.(row, directory) ?? ["run-row", row.id, directory])];
-    writeBatchJson(resolve(directory, "process.json"), { schema: "post-phase10-discovery-process-v1", ...identity,
-      rowId: row.id, gitHead: head, command: [process.execPath, ...args] });
-    const stdoutFd = openSync(resolve(directory, "stdout.log"), "wx");
-    const stderrFd = openSync(resolve(directory, "stderr.log"), "wx");
+    const processRecord = { schema: "post-phase10-discovery-process-v1", ...identity,
+      rowId: row.id, gitHead: head, command: [process.execPath, ...args] };
+    writeBatchJson(resolve(logDirectory, "process.json"), processRecord);
+    const stdoutFd = openSync(resolve(logDirectory, "stdout.log"), "wx");
+    const stderrFd = openSync(resolve(logDirectory, "stderr.log"), "wx");
     const startedAt = new Date();
     active++;
     maxActive = Math.max(maxActive, active);
     console.log(`launch row=${row.id} active=${active} remaining=${Math.max(0, options.rows.length - next)}`);
     const child = spawn(process.execPath, args, { cwd: process.cwd(), windowsHide: true, stdio: ["ignore", stdoutFd, stderrFd] });
     closeSync(stdoutFd); closeSync(stderrFd);
+    const liveProcessRecord = { ...processRecord, pid: child.pid ?? null, startedAt: startedAt.toISOString(), logDirectory };
+    writeBatchJson(resolve(logDirectory, "process.json"), liveProcessRecord);
+    if (options.resumeRows) writeBatchJson(resolve(directory, "process.json"), liveProcessRecord);
     const state: { termination?: DiscoveryRowExit["termination"]; error?: string } = {};
     children.set(child, state);
+    writeStatus();
     const timer = options.hardWallSeconds === undefined ? undefined : setTimeout(() => {
       state.termination = "hard-wall-budget";
       child.kill();
@@ -202,7 +222,8 @@ export async function launchDiscoveryRows(options: DiscoveryLaunchOptions): Prom
       ...(state.termination === undefined ? {} : { termination: state.termination }),
       ...(state.error === undefined ? {} : { error: state.error }) };
     exits.push(exit);
-    writeBatchJson(resolve(directory, "exit.json"), { schema: "post-phase10-discovery-exit-v1", ...exit });
+    writeBatchJson(resolve(logDirectory, "exit.json"), { schema: "post-phase10-discovery-exit-v1", ...exit });
+    if (options.resumeRows) writeBatchJson(resolve(directory, "exit.json"), { schema: "post-phase10-discovery-exit-v1", ...exit });
     if (options.stopOnWorkerFailure && (exit.exitCode !== 0 || exit.signal !== null || exit.termination !== undefined)) {
       stop(`worker-failure:${row.id}`, "batch-interrupted");
     }
@@ -216,6 +237,7 @@ export async function launchDiscoveryRows(options: DiscoveryLaunchOptions): Prom
   try {
     const settlements = await Promise.allSettled(Array.from({ length: Math.min(options.concurrency, options.rows.length) }, async () => {
       while (abortReason === null) {
+        if (checkPause()) return;
         const index = next++;
         if (index >= options.rows.length) return;
         try { await runOne(options.rows[index]); }

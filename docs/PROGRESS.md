@@ -235,7 +235,8 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 BLD's legacy campaign is stopped; partial outputs remain in `out/batch1-bld/`.
 Implement [the resumability amendment](plans/hil-bld-first-batch.md#bld-resumability-amendment--2026-10-07)
 in `G:/Code Files/snowflake-bld-exploration`, branch `codex/bld-exploration`, under ADR 0060.
-Next: distinct experimental checkpoint codec, shared row-loop continuation and BLD pause/resume CLI.
+Checkpoint codec, shared row continuation and BLD pause/resume CLI are implemented.
+Next: exact full check and actual N64 interrupted/restored witness, then fresh qualification.
 The maker removed the four-hour experiment cutoff; do not relaunch the old non-resumable producer.
 Require exact `npm.cmd test` and a representative pause/resume before launch, then a fresh host probe.
 Stop receipt: `out/batch1-bld-control/operator-stop.json`; original probe: `out/batch1-bld-probe/probe.json`.

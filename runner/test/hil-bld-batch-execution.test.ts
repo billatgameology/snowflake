@@ -1,12 +1,12 @@
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { batchGitHead, batchHostIdentity, batchMemoryFailure, launchDiscoveryRows,
   type BatchHostSample } from "../src/hil-bld-batch-execution.ts";
 import { firstBatchProbeRows, firstBatchRosterSha256, parseFirstBatchHost,
-  validateFirstBatchProbeReceipt, type FirstBatchProbeReceipt } from "../src/hil-bld-batch-main.ts";
-import { FIRST_BATCH_ID, firstBatchRepresentativeRows } from "../src/hil-bld-batch-roster.ts";
+  validateFirstBatchProbeReceipt, acquireBldCampaignLock, validateResumableBldCampaign, requestBldPause, type FirstBatchProbeReceipt } from "../src/hil-bld-batch-main.ts";
+import { FIRST_BATCH_ID, firstBatchRows, firstBatchRepresentativeRows } from "../src/hil-bld-batch-roster.ts";
 import { POST_PHASE10_SMOKE_ROWS } from "../src/post-phase10-discovery.ts";
 
 const temporary: string[] = [];
@@ -30,6 +30,43 @@ function fixture() {
 }
 
 describe("named batch execution", () => {
+
+  it("pauses dispatch without killing the active update, then keeps a distinct retry log", async () => {
+    const { directory, entryPath } = fixture();
+    const rows = ["first", "queued"].map((id) => ({ ...POST_PHASE10_SMOKE_ROWS[0], id }));
+    let pause = false;
+    const exits = await launchDiscoveryRows({ campaignDirectory: directory, launchName: "attempt-0001", rows,
+      concurrency: 1, entryPath, resumeRows: true, workerArguments: (row) => [row.id],
+      pauseRequested: () => pause,
+      monitor: { cadenceMs: 20, sample: async (pids) => { if (pids.length > 0) pause = true; return safeSample(); } } });
+    expect(exits).toHaveLength(1);
+    expect(exits[0]).toMatchObject({ rowId: "first", exitCode: 0, signal: null });
+    expect(exits[0].termination).toBeUndefined();
+    expect(read(join(directory, "attempt-0001-complete.json"))).toMatchObject({
+      abortReason: "operator-pause", unstartedRowIds: ["queued"] });
+    const rowDirectory = join(directory, "rows", "first");
+    writeFileSync(join(rowDirectory, "checkpoint-witness"), "retained-state");
+    const second = await launchDiscoveryRows({ campaignDirectory: directory, launchName: "attempt-0002",
+      rows: [rows[0]], concurrency: 1, entryPath, resumeRows: true, workerArguments: (row) => [row.id] });
+    expect(second[0].exitCode).toBe(0);
+    expect(readFileSync(join(rowDirectory, "checkpoint-witness"), "utf8")).toBe("retained-state");
+    for (const attempt of ["attempt-0001", "attempt-0002"]) {
+      expect(readFileSync(join(rowDirectory, "attempts", attempt, "stdout.log"), "utf8")).toContain("stdout:first");
+      expect(read(join(rowDirectory, "attempts", attempt, "process.json")).pid).toBeGreaterThan(0);
+      expect(read(join(rowDirectory, "attempts", attempt, "exit.json")).exitCode).toBe(0);
+    }
+    expect(read(join(directory, "attempt-0002-launch.json")).hardWallSeconds).toBeUndefined();
+  });
+
+  it("dispatches nothing when an operator pause is already pending", async () => {
+    const { directory, entryPath } = fixture();
+    const exits = await launchDiscoveryRows({ campaignDirectory: directory, launchName: "prepaused",
+      rows: [POST_PHASE10_SMOKE_ROWS[0]], concurrency: 1, entryPath, pauseRequested: () => true });
+    expect(exits).toEqual([]);
+    expect(read(join(directory, "prepaused-complete.json"))).toMatchObject({
+      actualMaximumConcurrency: 0, abortReason: "operator-pause" });
+  });
+
   it("executes independent processes at the requested overlap and retains each exact command/log/exit", async () => {
     const { directory, entryPath } = fixture();
     const rows = [0, 1, 2, 3, 4].map((index) => ({ ...POST_PHASE10_SMOKE_ROWS[0], id: `fixture-${index}` }));
@@ -128,5 +165,46 @@ describe("probe selection and binding", () => {
       expect(() => validateFirstBatchProbeReceipt({ ...receipt, ...mutation }, "HIL")).toThrow();
     }
     expect(batchMemoryFailure({ ...safeSample(), availablePhysicalBytes: NaN })).toBe("invalid-host-memory-sample");
+  });
+});
+
+describe("resumable campaign ownership", () => {
+  it("refuses duplicate live ownership and releases only its local lock", () => {
+    const { directory } = fixture();
+    const release = acquireBldCampaignLock(directory);
+    expect(() => acquireBldCampaignLock(directory)).toThrow("already running");
+    release();
+    acquireBldCampaignLock(directory)();
+  });
+
+  it("refuses a live orphan worker even without a parent lock", () => {
+    const { directory } = fixture();
+    const rowDirectory = join(directory, "rows", "orphan");
+    const logDirectory = join(rowDirectory, "attempts", "attempt-0001");
+    mkdirSync(logDirectory, { recursive: true });
+    writeFileSync(join(rowDirectory, "process.json"), JSON.stringify({ pid: process.pid, logDirectory }));
+    expect(() => acquireBldCampaignLock(directory)).toThrow("worker still running");
+    writeFileSync(join(logDirectory, "exit.json"), "{}");
+    acquireBldCampaignLock(directory)();
+  });
+
+  it("rejects legacy campaigns and stale immutable source before resume", () => {
+    const { directory } = fixture();
+    expect(() => validateResumableBldCampaign({ schema: "hil-bld-first-batch-campaign-v1" } as any))
+      .toThrow("legacy prefixes have no restart state");
+    writeFileSync(join(directory, "campaign.json"), JSON.stringify({ schema: "hil-bld-first-batch-campaign-v1", host: "BLD" }));
+    expect(() => requestBldPause(directory)).toThrow("not a resumable BLD campaign");
+    const campaign = { schema: "hil-bld-first-batch-campaign-v2", executionMode: "bld-experimental-resume-v1",
+      host: "BLD", batchId: FIRST_BATCH_ID, gitHead: batchGitHead(), node: process.version,
+      v8: process.versions.v8, rosterSha256: firstBatchRosterSha256("BLD"),
+      requestedConcurrency: 16, hostIdentity: batchHostIdentity(), rows: firstBatchRows("BLD").map((entry) => entry.row) };
+    expect(() => validateResumableBldCampaign(campaign as any)).not.toThrow();
+    for (const mutation of [{ gitHead: "stale" }, { node: "other-runtime" }, { rows: campaign.rows.slice(1) },
+      { requestedConcurrency: 29 }, { hostIdentity: { ...campaign.hostIdentity, hostname: "elsewhere" } }]) {
+      expect(() => validateResumableBldCampaign({ ...campaign, ...mutation } as any)).toThrow();
+    }
+    writeFileSync(join(directory, "campaign.json"), JSON.stringify(campaign));
+    requestBldPause(directory);
+    expect(read(join(directory, "pause-request.json")).reason).toBe("operator-pause");
   });
 });

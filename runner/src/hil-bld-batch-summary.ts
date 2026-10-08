@@ -2,6 +2,7 @@ import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { float64SmootherDriftAbsLimit, type RelaxationReport, type SurfaceReport } from "@vcc/solver-cpu";
 import { validateLKStepEvidence } from "./gate2b-validation.ts";
+import { readResumableDiscoveryStatus } from "./post-phase10-discovery-resume.ts";
 import type { DiscoveryRow, DiscoveryTerminalResult } from "./post-phase10-discovery.ts";
 
 interface Cycle {
@@ -23,7 +24,11 @@ export function summarizeFirstBatchRow(directory: string) {
   const spec = JSON.parse(readFileSync(resolve(directory, "spec.json"), "utf8")) as { row: DiscoveryRow };
   const row = spec.row;
   const errors: string[] = [];
-  const result = existsSync(resolve(directory, "result.json"))
+  const resumable = existsSync(resolve(directory, "resume-current.json")) || existsSync(resolve(directory, "resume-status.json"));
+  let resumeStatus: ReturnType<typeof readResumableDiscoveryStatus> = null;
+  try { if (resumable) resumeStatus = readResumableDiscoveryStatus(directory); }
+  catch (error) { errors.push(error instanceof Error ? error.message : String(error)); }
+  const result = (!resumable || resumeStatus?.state === "terminal") && existsSync(resolve(directory, "result.json"))
     ? JSON.parse(readFileSync(resolve(directory, "result.json"), "utf8")) as DiscoveryTerminalResult : null;
   const exit = existsSync(resolve(directory, "exit.json"))
     ? JSON.parse(readFileSync(resolve(directory, "exit.json"), "utf8")) as { exitCode: number | null; signal: string | null } : null;
@@ -34,7 +39,10 @@ export function summarizeFirstBatchRow(directory: string) {
   let sigmaInfinity = row.sigmaInfinity;
   const eventsPath = resolve(directory, "events.jsonl");
   if (existsSync(eventsPath)) {
-    for (const line of readFileSync(eventsPath, "utf8").split(/\r?\n/).filter(Boolean)) {
+    const rawEvents = readFileSync(eventsPath);
+    const committed = resumable && resumeStatus?.state !== "terminal"
+      ? rawEvents.subarray(0, resumeStatus?.eventsBytes ?? 0) : rawEvents;
+    for (const line of committed.toString("utf8").split(/\r?\n/).filter(Boolean)) {
       try {
         const event = JSON.parse(line) as Cycle;
         if (event.rowId !== row.id || event.cycle !== events.length + 1) throw new Error("event identity/order mismatch");
@@ -74,7 +82,9 @@ export function summarizeFirstBatchRow(directory: string) {
     rowId: row.id,
     directory,
     disposition: endpoint ? "size-endpoint" : errors.length > 0 ? "invalid" : censored ? "unresolved-prefix" : "failed",
-    stopReason: result?.stopReason ?? "no-terminal-result",
+    stopReason: result?.stopReason ?? resumeStatus?.reason ?? "no-terminal-result",
+    ...(resumable ? { resumableState: resumeStatus?.state ?? "unknown",
+      checkpointCycle: resumeStatus?.cycle ?? null } : {}),
     exitCode: exit?.exitCode ?? null,
     completedUpdates: events.length,
     physicalTimeSeconds: last?.simTimeSeconds ?? 0,
@@ -111,7 +121,7 @@ export function summarizeFirstBatch(directory: string) {
   const summary = {
     schema: "hil-bld-first-batch-summary-v1",
     generatedAt: new Date().toISOString(),
-    interpretation: "Operational coverage only; capped or unobserved contrasts remain unresolved. Compare physical-time brackets in subsequent track analysis.",
+    interpretation: "Operational coverage only; paused, capped or unobserved contrasts remain unresolved. Compare physical-time brackets in subsequent track analysis.",
     rows,
   };
   writeFileSync(resolve(root, "summary.json"), `${JSON.stringify(summary, null, 2)}\n`);

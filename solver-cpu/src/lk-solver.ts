@@ -42,6 +42,8 @@ import {
   prepareAlphaHK,
   randomBit,
   takeDecodedLKResumeCheckpointV3,
+  takeDecodedLKExperimentalResumeCheckpointV1,
+  validateLKExperimentalResumeDescriptorV1,
   usesCanonicalOpposingOrder,
   validateTimelineSchedule,
   vKin,
@@ -54,6 +56,9 @@ import {
   type LKSurfacePolicy,
   type LKTimelineEnvironment,
   type DecodedLKResumeCheckpointV3,
+  type DecodedLKExperimentalResumeCheckpointV1,
+  type LKExperimentalResumeDescriptorV1,
+  type LKExperimentalResumeStateV1,
   type LKResumeAdoptedStateV3,
   type LKResumeRelaxationReportV3,
   type LKResumeStateV3,
@@ -334,7 +339,10 @@ export type LKCycleState =
  * object identity without invoking Proxy traps, so only the exact fresh token created below can
  * select the internal constructor path.
  */
-const LK_RESUME_ADOPTIONS = new WeakMap<object, LKResumeAdoptedStateV3>();
+const LK_RESUME_ADOPTIONS = new WeakMap<object, {
+  readonly common: LKResumeAdoptedStateV3;
+  readonly experiment?: LKExperimentalResumeDescriptorV1;
+}>();
 
 export class LKSolver implements SurfaceOperator {
   readonly surfacePolicy: LKSurfacePolicy;
@@ -485,12 +493,24 @@ export class LKSolver implements SurfaceOperator {
       );
     }
     const constructionToken = Object.create(null) as object;
-    LK_RESUME_ADOPTIONS.set(constructionToken, adopted);
+    LK_RESUME_ADOPTIONS.set(constructionToken, { common: adopted });
     try {
       return Reflect.construct(LKSolver, [constructionToken]) as LKSolver;
     } finally {
       // The constructor takes/deletes before initialization. This cleanup covers an unexpected
       // failure before that take and makes the capability one-shot on every path.
+      LK_RESUME_ADOPTIONS.delete(constructionToken);
+    }
+  }
+
+  /** ADR 0060: consume the separately identified experimental ownership envelope. */
+  static fromExperimentalResumeStateV1(decoded: DecodedLKExperimentalResumeCheckpointV1): LKSolver {
+    const adopted = takeDecodedLKExperimentalResumeCheckpointV1(decoded);
+    const constructionToken = Object.create(null) as object;
+    LK_RESUME_ADOPTIONS.set(constructionToken, adopted);
+    try {
+      return Reflect.construct(LKSolver, [constructionToken]) as LKSolver;
+    } finally {
       LK_RESUME_ADOPTIONS.delete(constructionToken);
     }
   }
@@ -505,11 +525,12 @@ export class LKSolver implements SurfaceOperator {
       if (!LK_RESUME_ADOPTIONS.delete(input)) {
         throw new Error("LK resume construction capability was already consumed");
       }
-      const state = adopted;
-      // The core wire reserves the matched no-dip spelling, but its kinetics do not exist yet.
-      // Consuming such an envelope must fail here instead of silently substituting M1 or widening
-      // the shared parameter-set enum.
-      if (state.paramSet !== "CAK" && state.paramSet !== "M1") {
+      const state = adopted.common;
+      const experiment = adopted.experiment;
+      // Ordinary v3 retains its historical no-dip restore refusal. ADR 0060 admits that
+      // control only through the separately decoded experimental descriptor.
+      if (state.paramSet !== "CAK" && state.paramSet !== "M1" &&
+        !(experiment?.kind === "ordinary-no-dip" && state.paramSet === "M1_NO_DIP_ABLATION")) {
         throw new Error(
           `LK resume paramSet ${state.paramSet} is schema-reserved but solver-ineligible`,
         );
@@ -548,7 +569,16 @@ export class LKSolver implements SurfaceOperator {
       this._maximumKineticVelocityScaleMS = resumedScales.maximumKineticVelocityScaleMS;
       this._maximumKineticFillRateScalePerSecond =
         resumedScales.maximumKineticFillRateScalePerSecond;
-      this.preparedAlphaHK = prepareAlphaHK(this.tempC, this.paramSet);
+      if (experiment?.kind === "facet-dips") this.experimentalFacetDips = experiment.arm;
+      if (experiment?.kind === "basal-width") {
+        this.experimentalBasalWidthCells = experiment.widthCells;
+        if (experiment.history !== null) this.experimentalBasalWidthHistory = experiment.history;
+        this.basalWidthDippedPreparation = prepareAlphaHK(this.tempC, "M1");
+      }
+      this.preparedAlphaHK = experiment?.kind === "basal-width"
+        ? prepareAlphaHK(this.tempC, "M1_NO_DIP_ABLATION")
+        : experiment?.kind === "facet-dips" ? prepareFacetDipExperiment(this.tempC, experiment.arm)
+        : prepareAlphaHK(this.tempC, this.paramSet);
 
       // These are the decoder's final owned arrays. Do not call the ordinary constructor, seed
       // initializer, topology scan, or `.set`: restore must never hold a second complete copy.
@@ -576,6 +606,10 @@ export class LKSolver implements SurfaceOperator {
       this.kMax = state.topology.kMax;
 
       const n = state.a.length;
+      if (experiment?.kind === "basal-width") {
+        this.basalWidthCache = new Uint32Array(n);
+        this.basalWidthCacheDirty = true;
+      }
       this.scratch1 = new Float64Array(n);
       this.scratch2 = new Float64Array(n);
       this.sEff = new Float64Array(n);
@@ -975,6 +1009,33 @@ export class LKSolver implements SurfaceOperator {
       this.experimentalBasalWidthCells !== undefined) {
       throw new Error("experimental LK modes are not represented by ordinary LK checkpoints");
     }
+    if (this.paramSet !== "CAK" && this.paramSet !== "M1") {
+      throw new Error(`LK resume export rejects production-ineligible paramSet ${this.paramSet}`);
+    }
+    return this.commonResumeStateV3();
+  }
+
+  /** The bounded ADR 0060 modes always carry their effective kinetics beside common state. */
+  experimentalResumeStateV1(): LKExperimentalResumeStateV1 {
+    if (this.experimentalHoleFilling !== undefined) {
+      throw new Error("experimental resume rejects hole-filling overrides");
+    }
+    let descriptor: unknown;
+    if (this.experimentalBasalWidthCells !== undefined) {
+      descriptor = { kind: "basal-width", widthCells: this.experimentalBasalWidthCells,
+        history: this.experimentalBasalWidthHistory ?? null };
+    } else if (this.experimentalFacetDips !== undefined) {
+      descriptor = { kind: "facet-dips", arm: this.experimentalFacetDips };
+    } else if (this.paramSet === "M1_NO_DIP_ABLATION") {
+      descriptor = { kind: "ordinary-no-dip" };
+    } else {
+      throw new Error("experimental resume supports only the registered BLD preparations");
+    }
+    return { experiment: validateLKExperimentalResumeDescriptorV1(descriptor), common: this.commonResumeStateV3() };
+  }
+
+  /** Shared structural state; public export methods retain their separate eligibility guards. */
+  private commonResumeStateV3(): LKResumeStateV3 {
     if (this.cycleState !== "boundary") {
       throw new Error(
         `LK resume export requires cycle-boundary state (state=${this.cycleState})`,
@@ -989,8 +1050,8 @@ export class LKSolver implements SurfaceOperator {
     if (this.domain !== "hexPrism") {
       throw new Error(`LK resume export requires hexPrism domain, got ${this.domain}`);
     }
-    if (this.paramSet !== "CAK" && this.paramSet !== "M1") {
-      throw new Error(`LK resume export rejects production-ineligible paramSet ${this.paramSet}`);
+    if (this.paramSet !== "CAK" && this.paramSet !== "M1" && this.paramSet !== "M1_NO_DIP_ABLATION") {
+      throw new Error(`LK resume export rejects unsupported common paramSet ${this.paramSet}`);
     }
     if (this.testHookEverUsed) {
       throw new Error("LK resume export rejects every solver that has ever used a test hook");
