@@ -1,0 +1,14 @@
+{
+  "schema": "post-phase10-discovery-status-v1",
+  "experimentId": "post-phase10-facet-isolation-v1",
+  "experimentalFacetDips": "basal-only",
+  "rowId": "batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0",
+  "cycle": 3,
+  "attachedCount": 37,
+  "extent": 7,
+  "totalSweeps": 19082,
+  "simTimeSeconds": 0.13727761069619038,
+  "wallSeconds": 42.81,
+  "peakRssBytes": 92065792,
+  "updatedAt": "2026-10-08T03:12:44.568Z"
+}

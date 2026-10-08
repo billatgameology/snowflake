@@ -1,0 +1,57 @@
+{
+  "schema": "post-phase10-discovery-result-v1",
+  "experimentId": "post-phase10-basal-width-history-v1",
+  "experimentalBasalWidthCells": 3,
+  "experimentalBasalWidthHistory": {
+    "mode": "early-only",
+    "cutoffSeconds": 20
+  },
+  "rowId": "batch1-bld-warm-t5-early--probe-1",
+  "lane": "cavity-mechanism",
+  "stopReason": "step-cap",
+  "admissible": false,
+  "habitClass": "plate",
+  "cycles": 3,
+  "totalSweeps": 19568,
+  "attachedCount": 19,
+  "seedSites": 19,
+  "extent": 5,
+  "aspectRatio": 0.2,
+  "symmetryError": 0,
+  "allAttachmentEventsD6h": true,
+  "allRelaxationsConverged": true,
+  "simTimeSeconds": 0.22801097607962867,
+  "wallSeconds": 43.953,
+  "peakRssBytes": 91742208,
+  "maxKineticFillIncrement": 0.05,
+  "maxDivergenceResidual": 9.997151428908321e-8,
+  "maxAbsSmootherDrift": 4.049885427015454e-14,
+  "smootherDriftAbsLimit": 1.5991560076145105e-10,
+  "minShellInjection": 0.01383453471104799,
+  "minSurfaceExchange": 0.013834536094067689,
+  "fillLedger": 4.789987316080592,
+  "saturationClippedFill": 0,
+  "holeFillDeficit": 0,
+  "holeFillCountTotal": 0,
+  "integrityErrors": [],
+  "startedAt": "2026-10-08T03:12:01.774Z",
+  "finishedAt": "2026-10-08T03:12:45.727Z",
+  "gitHead": "ad990acddd3968d471562ec9c9109a77b8041d59",
+  "node": "v24.13.1",
+  "executionBudget": {
+    "maxWallSeconds": 180,
+    "stoppedAt": null,
+    "completedCycles": 3,
+    "interruptedRelaxation": null,
+    "timelineEventReached": null
+  },
+  "spatialSnapshots": [
+    {
+      "path": "boundary-e5.json",
+      "triggerExtent": 5,
+      "actualExtent": 5,
+      "completedCycles": 0,
+      "simTimeSeconds": 0
+    }
+  ]
+}

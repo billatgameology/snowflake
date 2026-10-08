@@ -9,9 +9,9 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   The [approved portfolio](plans/post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld)
   covers cavities, cold core/tip structure, seed memory, pressure/transport and environment history.
   HIL coordinates shared code and joint review; BLD leads cavity and cold core/tip comparisons.
-  BLD checkout: `G:/Code Files/snowflake-bld-exploration`, branch `codex/bld-exploration`,
-  based on `f92bf5f`; [setup and next action](plans/post-phase10-adaptive-discovery.md#bld-worktree-setup--2026-10-07).
-  Exact batches, shared tested code and measured experimental budgets remain pending; no new run has started.
+  BLD checkout: `G:/Code Files/snowflake-bld-exploration`, branch `codex/bld-exploration`.
+  Published main `f4ca38a` is integrated; the [first batch](plans/hil-bld-first-batch.md) has HIL 56 rows and BLD 42.
+  BLD probe and campaign are on maker hold for an OS update; [setup](plans/post-phase10-adaptive-discovery.md#bld-worktree-setup--2026-10-07) retains its original base.
 - **New-host follow-up:** [complete](plans/new-host-acceptance-and-capacity-2026-10-07.md),
   locally integrated through `cf1386e`. Glass/camera browser and direct visual acceptance pass;
   the six comparison inputs and both small independent C-drive backups are restored and verified.
@@ -90,7 +90,7 @@ remains untouched. Housekeeping fast-forwarded local primary main and removed it
 worktree/ref without force. See [consolidation](plans/local-consolidation-2026-10-01.md) and primary
 `out/housekeeping-2026-10-07/worktree-closeout.json` for the source/check/disposition record.
 
-**Science is ready for result review and next-experiment planning.** The cavity/grid and early/late history
+**Science is ready for first-batch host qualification and bounded exploration.** The cavity/grid and early/late history
 wave is complete in the [adaptive discovery plan](plans/post-phase10-adaptive-discovery.md).
 Its closing findings, raw inventory and verification are recorded in
 [the completed wave bundle](../evidence/post-phase10-wave-2026-10-01/README.md); exact retained
@@ -211,8 +211,8 @@ custody remain retained. Primary `nas-retention-review.json` records the disposi
 - [Repository housekeeping](plans/repository-housekeeping-2026-10-07.md) is complete. Its required
   checks, approved cleanup, local fast-forward and non-force worktree/ref closeout are recorded.
 - [Adaptive discovery](plans/post-phase10-adaptive-discovery.md) is reviewing its completed wave and
-  proceeding from the approved scientific portfolio and HIL/BLD work queues. Exact rows,
-  actual worker budgets and launch commands remain to be designed; completed campaign rows stay closed.
+  proceeding with the tested [first batch](plans/hil-bld-first-batch.md): exact HIL/BLD queues and
+  probe/launch commands are implemented; each host measures its own worker budget before dispatch.
 - [Glass/camera follow-up](plans/explore-gutcheck-growth-glass-camera.md) has an implementation candidate
   with completed local browser/visual acceptance: current tracked glass record SHA-256
   `052b4c0f92fc1f8ea9b5c88219322c4fd3ceaba4db79051a93b587d6bd4c51c8`.
@@ -232,16 +232,16 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-Define exact first-batch comparisons under the [approved portfolio](plans/post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld).
-HIL leads seed, pressure and environment-history work; BLD leads cavity and cold core/tip work.
-Both receive queues of independent matched blocks. Define controls, readouts and stop budgets,
-then allocate by measured cost and memory. HIL commits the finite execution protocol before
-implementation and publishes shared tested code. BLD continues in `codex/bld-exploration`:
-run `git fetch origin`, inspect the new protocol/code, then integrate it and select the maker's named load.
-Named load selection and narrow analyzer changes remain. Require representative pause/resume before launch
-through the actual experimental runner, or demonstrably short independently terminal stages.
-Use physical-time comparisons: old Wave 2 plateau age used cycle offsets. Phase 7 stays on maker
-hold and retired Phase 10 S6 stays closed.
+BLD setup and locked dependency installation are complete in `G:/Code Files/snowflake-bld-exploration`.
+Wait for the maker's OS update and explicit resume before any probe or campaign. Then follow the
+[first-batch commands](plans/hil-bld-first-batch.md#commands-after-publication):
+`node runner/src/hil-bld-batch-main.ts probe BLD out/batch1-bld-probe`; use a fresh output directory.
+The probe binds the exact clean commit: do not pull or commit between probe and launch. Full campaigns await maker dispatch.
+Exact `npm.cmd test` at `ad990ac` passed 230 files / 2,981 tests, 23 skipped;
+[verification](../evidence/hil-bld-first-batch-2026-10-07/verification.json) also records both actual N64 prefix witnesses.
+Longer work still needs representative pause/resume before launch or short terminal stages; this batch
+uses four-hour capped stages. Incomplete prefixes remain unresolved; neither full experimental resume
+nor BLD worker capacity is claimed. Compare physical-time brackets; Phase 7 stays on maker hold and S6 closed.
 
 Education proceeds separately with the maker. The readiness/cleanup work is complete. Full large
 NAS restoration and unresolved custody/pruning remain separate decisions; retained source bytes

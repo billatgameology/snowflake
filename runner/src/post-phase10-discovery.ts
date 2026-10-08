@@ -2,6 +2,7 @@ import { execFileSync } from "node:child_process";
 import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { cpus, totalmem, arch, platform, release } from "node:os";
 import { resolve } from "node:path";
+import { performance } from "node:perf_hooks";
 import {
   aspectRatio,
   coordsOf,
@@ -154,9 +155,19 @@ export type DiscoveryStopReason =
   | "unconverged"
   | "stalled"
   | "step-cap"
+  | "wall-budget"
   | "solver-error";
 
 export type DiscoveryHabitClass = "plate" | "neutral" | "column" | "invalid";
+
+/** Budget stops preserve completed observations, not a resumable solver state. */
+export interface DiscoveryExecutionBudget {
+  readonly maxWallSeconds: number;
+  readonly stoppedAt: "cycle-boundary" | "relaxation" | null;
+  readonly completedCycles: number;
+  readonly interruptedRelaxation: { readonly cycle: number; readonly sweeps: number } | null;
+  readonly timelineEventReached: boolean | null;
+}
 
 export interface DiscoveryTerminalResult extends DiscoveryExperimentIdentity {
   readonly schema: "post-phase10-discovery-result-v1";
@@ -194,6 +205,8 @@ export interface DiscoveryTerminalResult extends DiscoveryExperimentIdentity {
   readonly node: string;
   readonly timeline?: DiscoveryTimelineResult;
   readonly spatialSnapshots?: readonly DiscoverySpatialSnapshotRecord[];
+  /** Absent for legacy unbudgeted invocations. */
+  readonly executionBudget?: DiscoveryExecutionBudget;
 }
 
 export interface DiscoverySpatialSnapshotRecord {
@@ -608,13 +621,23 @@ function eventFacets(
 
 export interface RunDiscoveryRowOptions {
   readonly heartbeat?: (message: string) => void;
+  /** Cooperative terminal observation limit; never implies checkpoint continuation. */
+  readonly maxWallSeconds?: number;
+  /** Monotonic elapsed-time source, injectable for deterministic budget-boundary tests. */
+  readonly budgetClockMilliseconds?: () => number;
 }
+
+class DiscoveryWallBudgetReached extends Error {}
 
 export function runPostPhase10DiscoveryRow(
   candidate: DiscoveryRow,
   outputDirectory: string,
   options: RunDiscoveryRowOptions = {},
 ): DiscoveryTerminalResult {
+  if (options.maxWallSeconds !== undefined &&
+    (!Number.isFinite(options.maxWallSeconds) || options.maxWallSeconds <= 0)) {
+    throw new Error("maxWallSeconds must be finite and positive");
+  }
   if (candidate.experimentalFacetDips !== undefined &&
     (candidate.paramSet !== "M1" || candidate.timelineEvent !== undefined)) {
     throw new Error("facet-isolation rows require the M1 base and a constant environment");
@@ -650,12 +673,43 @@ export function runPostPhase10DiscoveryRow(
     row: candidate,
     fixed: FIXED,
     effectivePressurePa: candidate.pressurePa ?? FIXED.pressurePa,
+    ...(options.maxWallSeconds === undefined ? {} : {
+      executionBudget: { maxWallSeconds: options.maxWallSeconds },
+    }),
   });
   writeJson(resolve(output, "host.json"), { ...hostRecord(head), ...experimentIdentity });
 
   const startedAt = new Date();
+  const budgetClock = options.budgetClockMilliseconds ?? (() => performance.now());
+  const budgetStart = options.maxWallSeconds === undefined ? 0 : budgetClock();
+  if (!Number.isFinite(budgetStart)) throw new Error("budget clock must be finite");
+  let previousBudgetClock = budgetStart;
+  let budgetStoppedAt: DiscoveryExecutionBudget["stoppedAt"] = null;
+  let interruptedRelaxation: DiscoveryExecutionBudget["interruptedRelaxation"] = null;
+  const checkBudget = (
+    phase: Exclude<DiscoveryExecutionBudget["stoppedAt"], null>,
+    interrupted: DiscoveryExecutionBudget["interruptedRelaxation"] = null,
+  ): void => {
+    if (options.maxWallSeconds === undefined) return;
+    const currentBudgetClock = budgetClock();
+    if (!Number.isFinite(currentBudgetClock) || currentBudgetClock < previousBudgetClock) {
+      throw new Error("budget clock must remain finite and monotonic");
+    }
+    previousBudgetClock = currentBudgetClock;
+    const elapsedMilliseconds = currentBudgetClock - budgetStart;
+    if (elapsedMilliseconds / 1000 >= options.maxWallSeconds) {
+      budgetStoppedAt = phase;
+      interruptedRelaxation = interrupted;
+      throw new DiscoveryWallBudgetReached("registered wall budget reached");
+    }
+  };
+  // A stop before the first update still supplies an explicit, empty completed prefix.
+  if (options.maxWallSeconds !== undefined) {
+    writeFileSync(resolve(output, "events.jsonl"), "", { flag: "wx" });
+  }
   let peakRssBytes = process.memoryUsage().rss;
   let totalSweeps = 0;
+  let completedCycleRecords = 0;
   let allAttachmentEventsD6h = true;
   let allRelaxationsConverged = true;
   let maxKineticFillIncrement = 0;
@@ -760,7 +814,9 @@ export function runPostPhase10DiscoveryRow(
 
   try {
     for (let cycle = 1; cycle <= candidate.maxSteps; cycle++) {
+      checkBudget("cycle-boundary");
       const relaxation = solver.relaxField((progress) => {
+        checkBudget("relaxation", { cycle, sweeps: progress.sweeps });
         const now = Date.now();
         if (now - lastHeartbeat < 60_000) return;
         options.heartbeat?.(
@@ -965,6 +1021,7 @@ export function runPostPhase10DiscoveryRow(
         `${JSON.stringify(cycleRecord)}\n`,
         "utf8",
       );
+      completedCycleRecords = solver.tick;
       writeJson(resolve(output, "status.json"), {
         schema: "post-phase10-discovery-status-v1",
         ...experimentIdentity,
@@ -996,17 +1053,27 @@ export function runPostPhase10DiscoveryRow(
         stopReason = "size-target";
         break;
       }
+      checkBudget("cycle-boundary");
     }
   } catch (error) {
-    stopReason = "solver-error";
-    integrityErrors.push(error instanceof Error ? error.stack ?? error.message : String(error));
+    if (error instanceof DiscoveryWallBudgetReached) {
+      stopReason = "wall-budget";
+    } else {
+      stopReason = "solver-error";
+      integrityErrors.push(error instanceof Error ? error.stack ?? error.message : String(error));
+    }
   }
 
-  if (timelineSchedule !== null && timelineTransition === undefined) {
+  const cappedBudgetPrefix = options.maxWallSeconds !== undefined &&
+    (stopReason === "wall-budget" || stopReason === "step-cap");
+  if (timelineSchedule !== null && timelineTransition === undefined && !cappedBudgetPrefix) {
     integrityErrors.push(`row ${candidate.id} did not reach its registered timeline event`);
   }
 
   const finishedAt = new Date();
+  if (options.maxWallSeconds !== undefined) {
+    peakRssBytes = Math.max(peakRssBytes, process.memoryUsage().rss);
+  }
   const finalAspectRatio = aspectRatio(solver.a, dims);
   const finalSymmetryError = symmetryError(solver.a, dims, center);
   const admissible =
@@ -1050,6 +1117,15 @@ export function runPostPhase10DiscoveryRow(
     finishedAt: finishedAt.toISOString(),
     gitHead: head,
     node: process.version,
+    ...(options.maxWallSeconds === undefined ? {} : {
+      executionBudget: {
+        maxWallSeconds: options.maxWallSeconds,
+        stoppedAt: budgetStoppedAt,
+        completedCycles: completedCycleRecords,
+        interruptedRelaxation,
+        timelineEventReached: timelineSchedule === null ? null : timelineTransition !== undefined,
+      },
+    }),
     ...(candidate.spatialSampleExtents === undefined ? {} : { spatialSnapshots }),
     ...(timelineSchedule === null || timelineCursor === null || timelineTransition === undefined
       ? {}

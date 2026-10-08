@@ -1,0 +1,12 @@
+﻿import { spawn, execFileSync } from 'node:child_process';
+import { openSync, closeSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+const dir=resolve('out/first-batch-verification');
+const receipt={command:'npm.cmd test',head:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),node:process.version,v8:process.versions.v8,startedAt:new Date().toISOString()};
+writeFileSync(resolve(dir,'full-check-invocation.json'),JSON.stringify(receipt,null,2)+'\n');
+const stdout=openSync(resolve(dir,'full-check.stdout.log'),'wx');
+const stderr=openSync(resolve(dir,'full-check.stderr.log'),'wx');
+const child=spawn(process.env.ComSpec,['/d','/s','/c','npm.cmd test'],{windowsHide:true,stdio:['ignore',stdout,stderr]});
+closeSync(stdout);closeSync(stderr);
+child.on('error',error=>console.error(error));
+child.on('close',(code,signal)=>{writeFileSync(resolve(dir,'full-check-result.json'),JSON.stringify({...receipt,finishedAt:new Date().toISOString(),exitCode:code,signal},null,2)+'\n');process.exitCode=code??1;console.log('full check exit '+code);});

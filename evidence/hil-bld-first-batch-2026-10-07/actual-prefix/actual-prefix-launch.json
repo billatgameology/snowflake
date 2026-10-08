@@ -1,0 +1,30 @@
+{
+  "schema": "post-phase10-discovery-launch-v1",
+  "experimentalRows": [
+    {
+      "rowId": "batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only"
+    },
+    {
+      "rowId": "batch1-bld-warm-t5-early--probe-1",
+      "experimentId": "post-phase10-basal-width-history-v1",
+      "experimentalBasalWidthCells": 3,
+      "experimentalBasalWidthHistory": {
+        "mode": "early-only",
+        "cutoffSeconds": 20
+      }
+    }
+  ],
+  "launchName": "actual-prefix",
+  "gitHead": "ad990acddd3968d471562ec9c9109a77b8041d59",
+  "node": "v24.13.1",
+  "requestedConcurrency": 2,
+  "rowIds": [
+    "batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0",
+    "batch1-bld-warm-t5-early--probe-1"
+  ],
+  "exactWorkerCommandTemplate": "Exact row-specific command is recorded in each rows/<row-id>/process.json",
+  "hardWallSeconds": 180,
+  "launchedAt": "2026-10-08T03:12:00.344Z"
+}

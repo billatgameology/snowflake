@@ -1,13 +1,12 @@
-import { spawn, execFileSync } from "node:child_process";
+import { execFileSync } from "node:child_process";
 import {
-  createWriteStream,
   existsSync,
   mkdirSync,
   writeFileSync,
 } from "node:fs";
 import { cpus, totalmem } from "node:os";
 import { basename, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { launchDiscoveryRows as launchRows } from "./hil-bld-batch-execution.ts";
 import {
   POST_PHASE10_DISCOVERY_ROWS,
   POST_PHASE10_INITIAL_ROWS,
@@ -21,9 +20,6 @@ import {
   DISCOVERY_PRISM_HOLEFILL_INTERACTION_ID,
   DISCOVERY_BASAL_WIDTH_EXPERIMENT_ID,
   DISCOVERY_BASAL_WIDTH_HISTORY_EXPERIMENT_ID,
-  discoveryExperimentIdentity,
-  type DiscoveryExperimentIdentity,
-  type DiscoveryRow,
 } from "./post-phase10-discovery.ts";
 import { analyzePostPhase10Discovery } from "./post-phase10-discovery-analysis.ts";
 import {
@@ -108,167 +104,6 @@ function parseConcurrency(raw: string | undefined, fallback: number): number {
     throw new Error(`concurrency must be an integer in [1, 28], got ${String(raw)}`);
   }
   return value;
-}
-
-interface RowExit extends DiscoveryExperimentIdentity {
-  readonly rowId: string;
-  readonly exitCode: number | null;
-  readonly signal: NodeJS.Signals | null;
-  readonly startedAt: string;
-  readonly finishedAt: string;
-  readonly wallSeconds: number;
-}
-
-async function launchRows(options: {
-  readonly campaignDirectory: string;
-  readonly launchName: string;
-  readonly rows: readonly DiscoveryRow[];
-  readonly concurrency: number;
-  /** Explicit campaign label for a matched roster containing distinct intervention identities. */
-  readonly experimentId?: DiscoveryExperimentIdentity["experimentId"];
-}): Promise<readonly RowExit[]> {
-  const entryPath = fileURLToPath(import.meta.url);
-  const rowsRoot = resolve(options.campaignDirectory, "rows");
-  mkdirSync(rowsRoot, { recursive: true });
-  const launchPath = resolve(options.campaignDirectory, `${options.launchName}-launch.json`);
-  if (existsSync(launchPath)) throw new Error(`launch record already exists: ${launchPath}`);
-
-  const launchedAt = new Date();
-  const head = git(["rev-parse", "HEAD"]);
-  const experimentalRows = options.rows.filter((row) =>
-    row.experimentalFacetDips !== undefined || row.experimentalHoleFilling !== undefined ||
-    row.experimentalBasalWidthCells !== undefined);
-  const experimentMetadata = experimentalRows.length === 0 ? {} : {
-    experimentId: options.experimentId ?? discoveryExperimentIdentity(experimentalRows[0]).experimentId,
-    experimentalRows: experimentalRows.map((row) => ({ rowId: row.id, ...discoveryExperimentIdentity(row) })),
-  };
-  writeJson(launchPath, {
-    schema: "post-phase10-discovery-launch-v1",
-    ...experimentMetadata,
-    launchName: options.launchName,
-    gitHead: head,
-    node: process.version,
-    requestedConcurrency: options.concurrency,
-    rowIds: options.rows.map((row) => row.id),
-    exactWorkerCommandTemplate: [
-      process.execPath,
-      entryPath,
-      "run-row",
-      "<row-id>",
-      "<absolute-row-directory>",
-    ],
-    launchedAt: launchedAt.toISOString(),
-  });
-
-  const exits: RowExit[] = [];
-  let next = 0;
-  let active = 0;
-  let maxActive = 0;
-  const runOne = async (row: DiscoveryRow): Promise<void> => {
-    const experimentIdentity = discoveryExperimentIdentity(row);
-    const experimentLabel = experimentIdentity.experimentId === undefined ? "" :
-      ` experimentId=${experimentIdentity.experimentId}` +
-      (row.experimentalFacetDips === undefined ? "" : ` experimentalFacetDips=${row.experimentalFacetDips}`) +
-      (row.experimentalHoleFilling === undefined ? "" : ` experimentalHoleFilling=${row.experimentalHoleFilling}`) +
-      (row.experimentalBasalWidthCells === undefined ? "" : ` experimentalBasalWidthCells=${row.experimentalBasalWidthCells}`) +
-      (row.experimentalBasalWidthHistory === undefined ? "" :
-        ` experimentalBasalWidthHistory=${row.experimentalBasalWidthHistory.mode}` +
-        ` cutoffSeconds=${row.experimentalBasalWidthHistory.cutoffSeconds}`);
-    const rowDirectory = resolve(rowsRoot, row.id);
-    if (existsSync(rowDirectory)) throw new Error(`row directory already exists: ${rowDirectory}`);
-    mkdirSync(rowDirectory, { recursive: false });
-    const args = [entryPath, "run-row", row.id, rowDirectory];
-    const command = [process.execPath, ...args];
-    writeJson(resolve(rowDirectory, "process.json"), {
-      schema: "post-phase10-discovery-process-v1",
-      ...experimentIdentity,
-      rowId: row.id,
-      gitHead: head,
-      command,
-    });
-    const stdout = createWriteStream(resolve(rowDirectory, "stdout.log"), {
-      flags: "wx",
-      encoding: "utf8",
-    });
-    const stderr = createWriteStream(resolve(rowDirectory, "stderr.log"), {
-      flags: "wx",
-      encoding: "utf8",
-    });
-    const startedAt = new Date();
-    active++;
-    maxActive = Math.max(maxActive, active);
-    console.log(
-      `launch row=${row.id}${experimentLabel} active=${active} remaining=${options.rows.length - next}`,
-    );
-    const child = spawn(process.execPath, args, {
-      cwd: process.cwd(),
-      stdio: ["ignore", "pipe", "pipe"],
-      windowsHide: true,
-    });
-    child.stdout.pipe(stdout);
-    child.stderr.pipe(stderr);
-    const completion = await new Promise<{ code: number | null; signal: NodeJS.Signals | null }>(
-      (resolveCompletion) => {
-        child.once("close", (code, signal) => resolveCompletion({ code, signal }));
-      },
-    );
-    active--;
-    const finishedAt = new Date();
-    const exit: RowExit = {
-      ...experimentIdentity,
-      rowId: row.id,
-      exitCode: completion.code,
-      signal: completion.signal,
-      startedAt: startedAt.toISOString(),
-      finishedAt: finishedAt.toISOString(),
-      wallSeconds: (finishedAt.getTime() - startedAt.getTime()) / 1000,
-    };
-    exits.push(exit);
-    writeJson(resolve(rowDirectory, "exit.json"), {
-      schema: "post-phase10-discovery-exit-v1",
-      ...exit,
-    });
-    writeJson(resolve(options.campaignDirectory, `${options.launchName}-status.json`), {
-      schema: "post-phase10-discovery-launch-status-v1",
-      ...experimentMetadata,
-      launchName: options.launchName,
-      total: options.rows.length,
-      completed: exits.length,
-      active,
-      maxActive,
-      exits: [...exits].sort((a, b) => a.rowId.localeCompare(b.rowId)),
-      updatedAt: new Date().toISOString(),
-    });
-    console.log(
-      `finish row=${row.id}${experimentLabel} code=${String(completion.code)} signal=${String(completion.signal)} ` +
-        `active=${active} completed=${exits.length}/${options.rows.length}`,
-    );
-  };
-
-  const workers = Array.from(
-    { length: Math.min(options.concurrency, options.rows.length) },
-    async () => {
-      while (true) {
-        const index = next++;
-        if (index >= options.rows.length) return;
-        await runOne(options.rows[index]);
-      }
-    },
-  );
-  await Promise.all(workers);
-  writeJson(resolve(options.campaignDirectory, `${options.launchName}-complete.json`), {
-    schema: "post-phase10-discovery-launch-complete-v1",
-    ...experimentMetadata,
-    launchName: options.launchName,
-    gitHead: head,
-    node: process.version,
-    requestedConcurrency: options.concurrency,
-    actualMaximumConcurrency: maxActive,
-    launchedAt: launchedAt.toISOString(),
-    finishedAt: new Date().toISOString(),
-    exits: [...exits].sort((a, b) => a.rowId.localeCompare(b.rowId)),
-  });
-  return exits;
 }
 
 async function launchInitial(campaignDirectory: string, concurrency: number): Promise<void> {

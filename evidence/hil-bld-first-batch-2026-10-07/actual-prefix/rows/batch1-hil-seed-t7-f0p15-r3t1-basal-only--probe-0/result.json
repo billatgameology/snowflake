@@ -1,0 +1,53 @@
+{
+  "schema": "post-phase10-discovery-result-v1",
+  "experimentId": "post-phase10-facet-isolation-v1",
+  "experimentalFacetDips": "basal-only",
+  "rowId": "batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0",
+  "lane": "adaptive-seed",
+  "stopReason": "step-cap",
+  "admissible": false,
+  "habitClass": "plate",
+  "cycles": 3,
+  "totalSweeps": 19082,
+  "attachedCount": 37,
+  "seedSites": 37,
+  "extent": 7,
+  "aspectRatio": 0.14285714285714285,
+  "symmetryError": 0,
+  "allAttachmentEventsD6h": true,
+  "allRelaxationsConverged": true,
+  "simTimeSeconds": 0.13727761069619038,
+  "wallSeconds": 42.811,
+  "peakRssBytes": 92065792,
+  "maxKineticFillIncrement": 0.05,
+  "maxDivergenceResidual": 9.991940573220722e-8,
+  "maxAbsSmootherDrift": 1.2085037831566225e-13,
+  "smootherDriftAbsLimit": 4.528809813564294e-10,
+  "minShellInjection": 0.059037092720395555,
+  "minSurfaceExchange": 0.0590370986147737,
+  "fillLedger": 11.728469684425704,
+  "saturationClippedFill": 0,
+  "holeFillDeficit": 0,
+  "holeFillCountTotal": 0,
+  "integrityErrors": [],
+  "startedAt": "2026-10-08T03:12:01.758Z",
+  "finishedAt": "2026-10-08T03:12:44.569Z",
+  "gitHead": "ad990acddd3968d471562ec9c9109a77b8041d59",
+  "node": "v24.13.1",
+  "executionBudget": {
+    "maxWallSeconds": 180,
+    "stoppedAt": null,
+    "completedCycles": 3,
+    "interruptedRelaxation": null,
+    "timelineEventReached": null
+  },
+  "spatialSnapshots": [
+    {
+      "path": "boundary-e5.json",
+      "triggerExtent": 5,
+      "actualExtent": 7,
+      "completedCycles": 0,
+      "simTimeSeconds": 0
+    }
+  ]
+}

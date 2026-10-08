@@ -1,0 +1,57 @@
+{
+  "schema": "post-phase10-discovery-launch-complete-v1",
+  "experimentalRows": [
+    {
+      "rowId": "batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only"
+    },
+    {
+      "rowId": "batch1-bld-warm-t5-early--probe-1",
+      "experimentId": "post-phase10-basal-width-history-v1",
+      "experimentalBasalWidthCells": 3,
+      "experimentalBasalWidthHistory": {
+        "mode": "early-only",
+        "cutoffSeconds": 20
+      }
+    }
+  ],
+  "launchName": "actual-prefix",
+  "gitHead": "ad990acddd3968d471562ec9c9109a77b8041d59",
+  "node": "v24.13.1",
+  "requestedConcurrency": 2,
+  "actualMaximumConcurrency": 2,
+  "launchedAt": "2026-10-08T03:12:00.344Z",
+  "finishedAt": "2026-10-08T03:12:46.692Z",
+  "exits": [
+    {
+      "experimentId": "post-phase10-basal-width-history-v1",
+      "experimentalBasalWidthCells": 3,
+      "experimentalBasalWidthHistory": {
+        "mode": "early-only",
+        "cutoffSeconds": 20
+      },
+      "rowId": "batch1-bld-warm-t5-early--probe-1",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T03:12:01.635Z",
+      "finishedAt": "2026-10-08T03:12:45.726Z",
+      "wallSeconds": 44.091
+    },
+    {
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only",
+      "rowId": "batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0",
+      "exitCode": 0,
+      "signal": null,
+      "startedAt": "2026-10-08T03:12:01.630Z",
+      "finishedAt": "2026-10-08T03:12:44.567Z",
+      "wallSeconds": 42.937
+    }
+  ],
+  "abortReason": null,
+  "unstartedRowIds": [],
+  "minimumAvailablePhysicalBytes": 51246825472,
+  "minimumCommitHeadroomBytes": 58444357632,
+  "maxSampledChildRssBytes": 95236096
+}

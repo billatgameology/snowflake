@@ -1,6 +1,6 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** maker-approved HIL/BLD exploration portfolio (2026-10-07); commit and push authorized; exact first-batch design is next; no new campaign launched
+**Status:** maker-approved HIL/BLD exploration portfolio (2026-10-07); commit and push authorized; [first batch](hil-bld-first-batch.md) implemented and verified; each host probes before dispatch; no full campaign launched
 **Publication destination:** `origin/main`
 **Plan authoring branch:** `docs/hil-bld-workload-2026-10-07`, based on `fe15b74`; direct main publication, no PR
 **Former execution worktree:** `G:\Code Files\snowflake-science-exploration` (reconciled in October consolidation)
@@ -148,13 +148,16 @@ on `main`; there was no BLD task checkout to reuse. Creation command:
 This setup's deliverable is one isolated BLD checkout with the assigned warm-cavity/early-memory
 and cold core/tip tracks recorded. Its shortest check is branch/base/status verification plus
 Rule 7, the existing progress-index test and diff checks for these prose changes.
-The shared producer, exact BLD roster and launch command are not yet published in this base.
-Next, from this checkout run `git fetch origin` and
-`git log --oneline HEAD..origin/main -- docs/plans/post-phase10-adaptive-discovery.md runner/src`;
-inspect HIL's committed protocol/tested code before integrating it. Then qualify the named BLD
-load's actual resource/restart limits under the existing execution order. The six-row warm
-candidate is not the whole program, and 28 is a planning ceiling, not a measured worker budget.
-No scientific code or campaign is part of this setup; primary outputs remain in place.
+At initial setup, the shared producer and exact roster were not yet published. The maker later
+pulled published main `f4ca38a` into BLD's primary checkout and requested integration here.
+That main version is now merged into this branch, preserving the local setup notes and all
+upstream source/evidence bytes. The [first-batch plan](hil-bld-first-batch.md) supplies the finite
+BLD queue and supersedes the pending-design next action. Locked dependencies are installed with
+`npm.cmd ci`. The maker holds all BLD probes/campaigns until after an OS update and explicit
+resume; run a fresh BLD probe then. Commit integration before probing;
+the receipt binds the exact clean head, so no source or documentation commit may intervene
+between probe and launch. The 28-worker figure remains a ceiling pending BLD measurement.
+This integration runs no scientific probe or campaign; primary outputs remain in place.
 
 Local runtime checks report Node v24.13.1 (matching `.nvmrc`) and npm 11.8.0.
 Setup verification passed: `npm.cmd run lint:rule7`, the exact progress-index command below,
@@ -165,7 +168,7 @@ and `git -c core.whitespace=cr-at-eol diff --check` (each exited zero).
 These are setup/prose checks; they establish no experimental readiness or scientific result.
 `AGENTS.md` and `CLAUDE.md` have no content changes. Windows refused attempts to materialize
 CLAUDE's tracked symlink, so its original Git placeholder was restored; read `AGENTS.md` directly.
-The maker requested no rules-file changes. All task edits remain in this plan and PROGRESS.
+The maker requested no rules-file changes. BLD-specific edits remain in this plan, the first-batch plan and PROGRESS.
 
 #### Existing execution seams and concrete remaining work
 

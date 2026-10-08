@@ -1,0 +1,1894 @@
+{
+  "schema": "post-phase10-spatial-boundary-v1",
+  "experimentId": "post-phase10-facet-isolation-v1",
+  "experimentalFacetDips": "basal-only",
+  "rowId": "batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0",
+  "timing": "after-converged-relaxation-before-surface-advance",
+  "record": {
+    "path": "boundary-e5.json",
+    "triggerExtent": 5,
+    "actualExtent": 7,
+    "completedCycles": 0,
+    "simTimeSeconds": 0
+  },
+  "dims": {
+    "nx": 64,
+    "ny": 64,
+    "nz": 64
+  },
+  "center": [
+    32,
+    32,
+    32
+  ],
+  "dxUm": 0.35,
+  "tempC": -7,
+  "sigmaInfinity": 0.01062,
+  "seedRadius": 3,
+  "seedThickness": 1,
+  "attachedCount": 37,
+  "cells": [
+    {
+      "index": 132959,
+      "coords": [
+        31,
+        29,
+        32
+      ],
+      "neighborCounts": [
+        2,
+        0
+      ],
+      "facet": "prism",
+      "fill": 0,
+      "sigmaOpp": 0.0065304390409354545,
+      "sigmaBoundary": 0.004578315793629177,
+      "alphaHKBoundary": 0.1745055019902383,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 132896,
+      "coords": [
+        32,
+        28,
+        32
+      ],
+      "neighborCounts": [
+        1,
+        0
+      ],
+      "facet": "inhibited",
+      "fill": 0,
+      "sigmaOpp": 0.007258168279652128,
+      "sigmaBoundary": 0.007258168279652128,
+      "alphaHKBoundary": 0,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 132897,
+      "coords": [
+        33,
+        28,
+        32
+      ],
+      "neighborCounts": [
+        2,
+        0
+      ],
+      "facet": "prism",
+      "fill": 0,
+      "sigmaOpp": 0.0065304390409354545,
+      "sigmaBoundary": 0.004578315793629177,
+      "alphaHKBoundary": 0.1745055019902383,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137056,
+      "coords": [
+        32,
+        29,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.005714617921341801,
+      "sigmaBoundary": 0.003410634953610076,
+      "alphaHKBoundary": 0.276472323192433,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 128864,
+      "coords": [
+        32,
+        29,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.005714617921341801,
+      "sigmaBoundary": 0.003410634953610076,
+      "alphaHKBoundary": 0.276472323192433,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 132898,
+      "coords": [
+        34,
+        28,
+        32
+      ],
+      "neighborCounts": [
+        2,
+        0
+      ],
+      "facet": "prism",
+      "fill": 0,
+      "sigmaOpp": 0.0063056737008567836,
+      "sigmaBoundary": 0.004474056387984724,
+      "alphaHKBoundary": 0.167548646110858,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137057,
+      "coords": [
+        33,
+        29,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 128865,
+      "coords": [
+        33,
+        29,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 132899,
+      "coords": [
+        35,
+        28,
+        32
+      ],
+      "neighborCounts": [
+        2,
+        0
+      ],
+      "facet": "prism",
+      "fill": 0,
+      "sigmaOpp": 0.0065304390409354545,
+      "sigmaBoundary": 0.004578315793629177,
+      "alphaHKBoundary": 0.1745055019902383,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137058,
+      "coords": [
+        34,
+        29,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 128866,
+      "coords": [
+        34,
+        29,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 132964,
+      "coords": [
+        36,
+        29,
+        32
+      ],
+      "neighborCounts": [
+        2,
+        0
+      ],
+      "facet": "prism",
+      "fill": 0,
+      "sigmaOpp": 0.0065304390409354545,
+      "sigmaBoundary": 0.004578315793629177,
+      "alphaHKBoundary": 0.1745055019902383,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 132900,
+      "coords": [
+        36,
+        28,
+        32
+      ],
+      "neighborCounts": [
+        1,
+        0
+      ],
+      "facet": "inhibited",
+      "fill": 0,
+      "sigmaOpp": 0.007258168279652128,
+      "sigmaBoundary": 0.007258168279652128,
+      "alphaHKBoundary": 0,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137059,
+      "coords": [
+        35,
+        29,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.005714617921341801,
+      "sigmaBoundary": 0.003410634953610076,
+      "alphaHKBoundary": 0.276472323192433,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 128867,
+      "coords": [
+        35,
+        29,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.005714617921341801,
+      "sigmaBoundary": 0.003410634953610076,
+      "alphaHKBoundary": 0.276472323192433,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 133022,
+      "coords": [
+        30,
+        30,
+        32
+      ],
+      "neighborCounts": [
+        2,
+        0
+      ],
+      "facet": "prism",
+      "fill": 0,
+      "sigmaOpp": 0.0063056737008567836,
+      "sigmaBoundary": 0.004474056387984724,
+      "alphaHKBoundary": 0.167548646110858,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137119,
+      "coords": [
+        31,
+        30,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 128927,
+      "coords": [
+        31,
+        30,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137120,
+      "coords": [
+        32,
+        30,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004972226136750659,
+      "sigmaBoundary": 0.003112812043752576,
+      "alphaHKBoundary": 0.24447297438350873,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 128928,
+      "coords": [
+        32,
+        30,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004972226136750659,
+      "sigmaBoundary": 0.003112812043752576,
+      "alphaHKBoundary": 0.24447297438350873,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137121,
+      "coords": [
+        33,
+        30,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004863737626167163,
+      "sigmaBoundary": 0.003068170686692837,
+      "alphaHKBoundary": 0.23951334734849739,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 128929,
+      "coords": [
+        33,
+        30,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004863737626167163,
+      "sigmaBoundary": 0.003068170686692837,
+      "alphaHKBoundary": 0.23951334734849739,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137122,
+      "coords": [
+        34,
+        30,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004972226136750659,
+      "sigmaBoundary": 0.003112812043752576,
+      "alphaHKBoundary": 0.24447297438350873,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 128930,
+      "coords": [
+        34,
+        30,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004972226136750659,
+      "sigmaBoundary": 0.003112812043752576,
+      "alphaHKBoundary": 0.24447297438350873,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 133028,
+      "coords": [
+        36,
+        30,
+        32
+      ],
+      "neighborCounts": [
+        2,
+        0
+      ],
+      "facet": "prism",
+      "fill": 0,
+      "sigmaOpp": 0.0063056737008567836,
+      "sigmaBoundary": 0.004474056387984724,
+      "alphaHKBoundary": 0.167548646110858,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137123,
+      "coords": [
+        35,
+        30,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 128931,
+      "coords": [
+        35,
+        30,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 133085,
+      "coords": [
+        29,
+        31,
+        32
+      ],
+      "neighborCounts": [
+        2,
+        0
+      ],
+      "facet": "prism",
+      "fill": 0,
+      "sigmaOpp": 0.0065304390409354545,
+      "sigmaBoundary": 0.004578315793629177,
+      "alphaHKBoundary": 0.1745055019902383,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137182,
+      "coords": [
+        30,
+        31,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 128990,
+      "coords": [
+        30,
+        31,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137183,
+      "coords": [
+        31,
+        31,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004863737626167163,
+      "sigmaBoundary": 0.003068170686692837,
+      "alphaHKBoundary": 0.23951334734849739,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 128991,
+      "coords": [
+        31,
+        31,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004863737626167163,
+      "sigmaBoundary": 0.003068170686692837,
+      "alphaHKBoundary": 0.23951334734849739,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137184,
+      "coords": [
+        32,
+        31,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004662839403968704,
+      "sigmaBoundary": 0.002984640214263765,
+      "alphaHKBoundary": 0.23012253900032414,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 128992,
+      "coords": [
+        32,
+        31,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004662839403968704,
+      "sigmaBoundary": 0.002984640214263765,
+      "alphaHKBoundary": 0.23012253900032414,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137185,
+      "coords": [
+        33,
+        31,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004662839403968704,
+      "sigmaBoundary": 0.002984640214263765,
+      "alphaHKBoundary": 0.23012253900032414,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 128993,
+      "coords": [
+        33,
+        31,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004662839403968704,
+      "sigmaBoundary": 0.002984640214263765,
+      "alphaHKBoundary": 0.23012253900032414,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137186,
+      "coords": [
+        34,
+        31,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004863737626167163,
+      "sigmaBoundary": 0.003068170686692837,
+      "alphaHKBoundary": 0.23951334734849739,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 128994,
+      "coords": [
+        34,
+        31,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004863737626167163,
+      "sigmaBoundary": 0.003068170686692837,
+      "alphaHKBoundary": 0.23951334734849739,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 133092,
+      "coords": [
+        36,
+        31,
+        32
+      ],
+      "neighborCounts": [
+        2,
+        0
+      ],
+      "facet": "prism",
+      "fill": 0,
+      "sigmaOpp": 0.0065304390409354545,
+      "sigmaBoundary": 0.004578315793629177,
+      "alphaHKBoundary": 0.1745055019902383,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137187,
+      "coords": [
+        35,
+        31,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 128995,
+      "coords": [
+        35,
+        31,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 133148,
+      "coords": [
+        28,
+        32,
+        32
+      ],
+      "neighborCounts": [
+        1,
+        0
+      ],
+      "facet": "inhibited",
+      "fill": 0,
+      "sigmaOpp": 0.007258168279652128,
+      "sigmaBoundary": 0.007258168279652128,
+      "alphaHKBoundary": 0,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 133212,
+      "coords": [
+        28,
+        33,
+        32
+      ],
+      "neighborCounts": [
+        2,
+        0
+      ],
+      "facet": "prism",
+      "fill": 0,
+      "sigmaOpp": 0.0065304390409354545,
+      "sigmaBoundary": 0.004578315793629177,
+      "alphaHKBoundary": 0.1745055019902383,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137245,
+      "coords": [
+        29,
+        32,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.005714617921341801,
+      "sigmaBoundary": 0.003410634953610076,
+      "alphaHKBoundary": 0.276472323192433,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129053,
+      "coords": [
+        29,
+        32,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.005714617921341801,
+      "sigmaBoundary": 0.003410634953610076,
+      "alphaHKBoundary": 0.276472323192433,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137246,
+      "coords": [
+        30,
+        32,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004972226136750659,
+      "sigmaBoundary": 0.003112812043752576,
+      "alphaHKBoundary": 0.24447297438350873,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129054,
+      "coords": [
+        30,
+        32,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004972226136750659,
+      "sigmaBoundary": 0.003112812043752576,
+      "alphaHKBoundary": 0.24447297438350873,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137247,
+      "coords": [
+        31,
+        32,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004662839403968704,
+      "sigmaBoundary": 0.002984640214263765,
+      "alphaHKBoundary": 0.23012253900032414,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129055,
+      "coords": [
+        31,
+        32,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004662839403968704,
+      "sigmaBoundary": 0.002984640214263765,
+      "alphaHKBoundary": 0.23012253900032414,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137248,
+      "coords": [
+        32,
+        32,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004575741867788079,
+      "sigmaBoundary": 0.0029480578613602193,
+      "alphaHKBoundary": 0.22596528789035655,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129056,
+      "coords": [
+        32,
+        32,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004575741867788079,
+      "sigmaBoundary": 0.0029480578613602193,
+      "alphaHKBoundary": 0.22596528789035655,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137249,
+      "coords": [
+        33,
+        32,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004662839403968704,
+      "sigmaBoundary": 0.002984640214263765,
+      "alphaHKBoundary": 0.23012253900032414,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129057,
+      "coords": [
+        33,
+        32,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004662839403968704,
+      "sigmaBoundary": 0.002984640214263765,
+      "alphaHKBoundary": 0.23012253900032414,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137250,
+      "coords": [
+        34,
+        32,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004972226136750659,
+      "sigmaBoundary": 0.003112812043752576,
+      "alphaHKBoundary": 0.24447297438350873,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129058,
+      "coords": [
+        34,
+        32,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004972226136750659,
+      "sigmaBoundary": 0.003112812043752576,
+      "alphaHKBoundary": 0.24447297438350873,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 133156,
+      "coords": [
+        36,
+        32,
+        32
+      ],
+      "neighborCounts": [
+        1,
+        0
+      ],
+      "facet": "inhibited",
+      "fill": 0,
+      "sigmaOpp": 0.007258168279652128,
+      "sigmaBoundary": 0.007258168279652128,
+      "alphaHKBoundary": 0,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 133219,
+      "coords": [
+        35,
+        33,
+        32
+      ],
+      "neighborCounts": [
+        2,
+        0
+      ],
+      "facet": "prism",
+      "fill": 0,
+      "sigmaOpp": 0.0065304390409354545,
+      "sigmaBoundary": 0.004578315793629177,
+      "alphaHKBoundary": 0.1745055019902383,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137251,
+      "coords": [
+        35,
+        32,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.005714617921341801,
+      "sigmaBoundary": 0.003410634953610076,
+      "alphaHKBoundary": 0.276472323192433,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129059,
+      "coords": [
+        35,
+        32,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.005714617921341801,
+      "sigmaBoundary": 0.003410634953610076,
+      "alphaHKBoundary": 0.276472323192433,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 133276,
+      "coords": [
+        28,
+        34,
+        32
+      ],
+      "neighborCounts": [
+        2,
+        0
+      ],
+      "facet": "prism",
+      "fill": 0,
+      "sigmaOpp": 0.0063056737008567836,
+      "sigmaBoundary": 0.004474056387984724,
+      "alphaHKBoundary": 0.167548646110858,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137309,
+      "coords": [
+        29,
+        33,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129117,
+      "coords": [
+        29,
+        33,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137310,
+      "coords": [
+        30,
+        33,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004863737626167163,
+      "sigmaBoundary": 0.003068170686692837,
+      "alphaHKBoundary": 0.23951334734849739,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129118,
+      "coords": [
+        30,
+        33,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004863737626167163,
+      "sigmaBoundary": 0.003068170686692837,
+      "alphaHKBoundary": 0.23951334734849739,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137311,
+      "coords": [
+        31,
+        33,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004662839403968704,
+      "sigmaBoundary": 0.002984640214263765,
+      "alphaHKBoundary": 0.23012253900032414,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129119,
+      "coords": [
+        31,
+        33,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004662839403968704,
+      "sigmaBoundary": 0.002984640214263765,
+      "alphaHKBoundary": 0.23012253900032414,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137312,
+      "coords": [
+        32,
+        33,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004662839403968704,
+      "sigmaBoundary": 0.002984640214263765,
+      "alphaHKBoundary": 0.23012253900032414,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129120,
+      "coords": [
+        32,
+        33,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004662839403968704,
+      "sigmaBoundary": 0.002984640214263765,
+      "alphaHKBoundary": 0.23012253900032414,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137313,
+      "coords": [
+        33,
+        33,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004863737626167163,
+      "sigmaBoundary": 0.003068170686692837,
+      "alphaHKBoundary": 0.23951334734849739,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129121,
+      "coords": [
+        33,
+        33,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004863737626167163,
+      "sigmaBoundary": 0.003068170686692837,
+      "alphaHKBoundary": 0.23951334734849739,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 133282,
+      "coords": [
+        34,
+        34,
+        32
+      ],
+      "neighborCounts": [
+        2,
+        0
+      ],
+      "facet": "prism",
+      "fill": 0,
+      "sigmaOpp": 0.0063056737008567836,
+      "sigmaBoundary": 0.004474056387984724,
+      "alphaHKBoundary": 0.167548646110858,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137314,
+      "coords": [
+        34,
+        33,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129122,
+      "coords": [
+        34,
+        33,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 133340,
+      "coords": [
+        28,
+        35,
+        32
+      ],
+      "neighborCounts": [
+        2,
+        0
+      ],
+      "facet": "prism",
+      "fill": 0,
+      "sigmaOpp": 0.0065304390409354545,
+      "sigmaBoundary": 0.004578315793629177,
+      "alphaHKBoundary": 0.1745055019902383,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137373,
+      "coords": [
+        29,
+        34,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129181,
+      "coords": [
+        29,
+        34,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137374,
+      "coords": [
+        30,
+        34,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004972226136750659,
+      "sigmaBoundary": 0.003112812043752576,
+      "alphaHKBoundary": 0.24447297438350873,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129182,
+      "coords": [
+        30,
+        34,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004972226136750659,
+      "sigmaBoundary": 0.003112812043752576,
+      "alphaHKBoundary": 0.24447297438350873,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137375,
+      "coords": [
+        31,
+        34,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004863737626167163,
+      "sigmaBoundary": 0.003068170686692837,
+      "alphaHKBoundary": 0.23951334734849739,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129183,
+      "coords": [
+        31,
+        34,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004863737626167163,
+      "sigmaBoundary": 0.003068170686692837,
+      "alphaHKBoundary": 0.23951334734849739,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137376,
+      "coords": [
+        32,
+        34,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004972226136750659,
+      "sigmaBoundary": 0.003112812043752576,
+      "alphaHKBoundary": 0.24447297438350873,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129184,
+      "coords": [
+        32,
+        34,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.004972226136750659,
+      "sigmaBoundary": 0.003112812043752576,
+      "alphaHKBoundary": 0.24447297438350873,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 133345,
+      "coords": [
+        33,
+        35,
+        32
+      ],
+      "neighborCounts": [
+        2,
+        0
+      ],
+      "facet": "prism",
+      "fill": 0,
+      "sigmaOpp": 0.0065304390409354545,
+      "sigmaBoundary": 0.004578315793629177,
+      "alphaHKBoundary": 0.1745055019902383,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137377,
+      "coords": [
+        33,
+        34,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129185,
+      "coords": [
+        33,
+        34,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 133405,
+      "coords": [
+        29,
+        36,
+        32
+      ],
+      "neighborCounts": [
+        2,
+        0
+      ],
+      "facet": "prism",
+      "fill": 0,
+      "sigmaOpp": 0.0065304390409354545,
+      "sigmaBoundary": 0.004578315793629177,
+      "alphaHKBoundary": 0.1745055019902383,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 133404,
+      "coords": [
+        28,
+        36,
+        32
+      ],
+      "neighborCounts": [
+        1,
+        0
+      ],
+      "facet": "inhibited",
+      "fill": 0,
+      "sigmaOpp": 0.007258168279652128,
+      "sigmaBoundary": 0.007258168279652128,
+      "alphaHKBoundary": 0,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137437,
+      "coords": [
+        29,
+        35,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.005714617921341801,
+      "sigmaBoundary": 0.003410634953610076,
+      "alphaHKBoundary": 0.276472323192433,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129245,
+      "coords": [
+        29,
+        35,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.005714617921341801,
+      "sigmaBoundary": 0.003410634953610076,
+      "alphaHKBoundary": 0.276472323192433,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 133406,
+      "coords": [
+        30,
+        36,
+        32
+      ],
+      "neighborCounts": [
+        2,
+        0
+      ],
+      "facet": "prism",
+      "fill": 0,
+      "sigmaOpp": 0.0063056737008567836,
+      "sigmaBoundary": 0.004474056387984724,
+      "alphaHKBoundary": 0.167548646110858,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137438,
+      "coords": [
+        30,
+        35,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129246,
+      "coords": [
+        30,
+        35,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 133407,
+      "coords": [
+        31,
+        36,
+        32
+      ],
+      "neighborCounts": [
+        2,
+        0
+      ],
+      "facet": "prism",
+      "fill": 0,
+      "sigmaOpp": 0.0065304390409354545,
+      "sigmaBoundary": 0.004578315793629177,
+      "alphaHKBoundary": 0.1745055019902383,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137439,
+      "coords": [
+        31,
+        35,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129247,
+      "coords": [
+        31,
+        35,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.0054190685941682025,
+      "sigmaBoundary": 0.003293561291725381,
+      "alphaHKBoundary": 0.2641219456009482,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 133408,
+      "coords": [
+        32,
+        36,
+        32
+      ],
+      "neighborCounts": [
+        1,
+        0
+      ],
+      "facet": "inhibited",
+      "fill": 0,
+      "sigmaOpp": 0.007258168279652128,
+      "sigmaBoundary": 0.007258168279652128,
+      "alphaHKBoundary": 0,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 137440,
+      "coords": [
+        32,
+        35,
+        33
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.005714617921341801,
+      "sigmaBoundary": 0.003410634953610076,
+      "alphaHKBoundary": 0.276472323192433,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    },
+    {
+      "index": 129248,
+      "coords": [
+        32,
+        35,
+        31
+      ],
+      "neighborCounts": [
+        0,
+        1
+      ],
+      "facet": "basal",
+      "fill": 0,
+      "sigmaOpp": 0.005714617921341801,
+      "sigmaBoundary": 0.003410634953610076,
+      "alphaHKBoundary": 0.276472323192433,
+      "robinGeometry": 1,
+      "fillGeometry": 1
+    }
+  ]
+}
