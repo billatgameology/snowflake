@@ -1,0 +1,14 @@
+﻿import { mkdirSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { firstBatchRepresentativeRows } from '../../runner/src/hil-bld-batch-roster.ts';
+import { launchDiscoveryRows, sampleBatchHost, writeBatchJson } from '../../runner/src/hil-bld-batch-execution.ts';
+import { completedProbePrefix } from '../../runner/src/hil-bld-batch-main.ts';
+const out=resolve('out/first-batch-verification/actual-prefix');
+mkdirSync(out);
+const entries=[firstBatchRepresentativeRows('HIL')[0],firstBatchRepresentativeRows('BLD').find(e=>e.row.experimentalBasalWidthHistory)];
+const rows=entries.map((e,i)=>({...e.row,id:e.row.id+'--probe-'+i,maxSteps:3}));
+const exits=await launchDiscoveryRows({campaignDirectory:out,launchName:'actual-prefix',rows,concurrency:2,entryPath:resolve('runner/src/hil-bld-batch-main.ts'),workerArguments:(row,dir)=>['run-probe-row',row.id,dir],hardWallSeconds:180,monitor:{sample:sampleBatchHost}});
+const receipt={purpose:'Actual N64 facet and early-width operational prefixes on HIL; not a host worker-budget qualification or scientific endpoint',command:process.argv,rows:exits.map(exit=>({rowId:exit.rowId,completedThreeUpdates:completedProbePrefix(resolve(out,'rows',exit.rowId),exit),exit}))};
+writeBatchJson(resolve(out,'receipt.json'),receipt);
+console.log(JSON.stringify(receipt));
+if(receipt.rows.some(row=>!row.completedThreeUpdates))process.exitCode=1;

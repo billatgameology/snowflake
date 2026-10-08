@@ -1,0 +1,3 @@
+2026-10-08T03:12:01.767Z start row=batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0 experimentId=post-phase10-facet-isolation-v1 experimentalFacetDips=basal-only lane=adaptive-seed dims=64 paramSet=M1 pressurePa=101325 target=21
+2026-10-08T03:12:16.987Z cycle row=batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0 experimentId=post-phase10-facet-isolation-v1 experimentalFacetDips=basal-only tick=1 attached=37 extent=7 aspectRatio=0.14285714285714285 sweeps=6849
+2026-10-08T03:12:44.571Z finish row=batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0 experimentId=post-phase10-facet-isolation-v1 experimentalFacetDips=basal-only stop=step-cap cycles=3 attached=37 extent=7 wall=42.811s

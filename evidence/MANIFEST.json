@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 813,
- "totalBytes": 66595912,
+ "fileCount": 849,
+ "totalBytes": 66800397,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -3257,6 +3257,150 @@
   "new-host-readiness-2026-10-07/verification/closeout-rule7.log": {
    "bytes": 226,
    "sha256": "1d96af7fda4a7f809a7aa92ba75e5ea340f928e16a3701362b7567b6d44209c4"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/actual-prefix-complete.json": {
+   "bytes": 1791,
+   "sha256": "920fafd3b9bfc87f17eaffad354e689d94c4f8e2fbeadae422cba19e96d4bee3"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/actual-prefix-launch.json": {
+   "bytes": 970,
+   "sha256": "ca843afab1229c2d1c7202f8df910a61cf7ed86849395d2b5b4591e1d601ab78"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/actual-prefix-resources.jsonl": {
+   "bytes": 3911,
+   "sha256": "568a9be5a8261c7cb3ec9417d02986729fd626e67fd436927d37712ecc962334"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/actual-prefix-status.json": {
+   "bytes": 1511,
+   "sha256": "7ece98177610f7ebfb619f1ca6c9ac09e4b1d8c13fccdda492b6cc912d45c0c6"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/receipt.json": {
+   "bytes": 1464,
+   "sha256": "197a725a9244b4526bc31c64ad3496c9703a9384dc7f2bd3e8cbdc56b7e0d429"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/rows/batch1-bld-warm-t5-early--probe-1/boundary-e5.json": {
+   "bytes": 24119,
+   "sha256": "c1e95462c08ed9a8d52cdcee1c472b0a981f3e0952be26de046a2798d4474f7f"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/rows/batch1-bld-warm-t5-early--probe-1/events.jsonl": {
+   "bytes": 8463,
+   "sha256": "21ba6d057b1e91da66a3aa0ca17cb4b655f158aad7010a6491d12996dc4d457d"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/rows/batch1-bld-warm-t5-early--probe-1/exit.json": {
+   "bytes": 429,
+   "sha256": "f80fdf9d63292430df45726e3ed2566b61f76ee5a789b0ffd5e63e60e5d13e85"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/rows/batch1-bld-warm-t5-early--probe-1/host.json": {
+   "bytes": 532,
+   "sha256": "17169b37fac35bdd66e9205876cccdf85e96bde67c71e558dbbcd784d8f395ca"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/rows/batch1-bld-warm-t5-early--probe-1/process.json": {
+   "bytes": 785,
+   "sha256": "d37dd617be778483cd9a6f089b8eebdc389b4861e72ecd4246ff3775b2bd465a"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/rows/batch1-bld-warm-t5-early--probe-1/result.json": {
+   "bytes": 1625,
+   "sha256": "f7291c0c36a3539ac7e724e2d49065e276b6e97da5bdd372a09579832579e329"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/rows/batch1-bld-warm-t5-early--probe-1/spec.json": {
+   "bytes": 1151,
+   "sha256": "c66db539bde889df303661a57b705aeae6972a0da491e41d1ec4d7dc45aa2b35"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/rows/batch1-bld-warm-t5-early--probe-1/status.json": {
+   "bytes": 497,
+   "sha256": "5ebd9d0648fd82b429cc125b3c2c98a95882205676cd5d5c3f59ed94730032ff"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/rows/batch1-bld-warm-t5-early--probe-1/stderr.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/rows/batch1-bld-warm-t5-early--probe-1/stdout.log": {
+   "bytes": 802,
+   "sha256": "75ac5565652618ced52623ec0ac83c479c442fbf7868b10d6e3e0a2e384ede1e"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/rows/batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0/boundary-e5.json": {
+   "bytes": 37398,
+   "sha256": "e1630caa65b19aaf1db51c59b7da2c2163cb6e089fb7e56f99a908653a79bae4"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/rows/batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0/events.jsonl": {
+   "bytes": 7147,
+   "sha256": "324e7928a55f7e724bb8f5301002128532752c281b1731af34857b5aef1e8d98"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/rows/batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0/exit.json": {
+   "bytes": 354,
+   "sha256": "cbefcab0ff334d638d61f95822373c88b34a2014b58c8e941ed2b7eeebab1cfe"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/rows/batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0/host.json": {
+   "bytes": 441,
+   "sha256": "fb501b5ce6725b343a96cda69422175f4bb753e806640910815c4840a3627cd3"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/rows/batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0/process.json": {
+   "bytes": 742,
+   "sha256": "909120369c31dcf702cc69033ac55ce128ae836e1327394acf006a9ecc6e543f"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/rows/batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0/result.json": {
+   "bytes": 1563,
+   "sha256": "688a91f4fbb703792d134c5c01c058464d99ccf9b90e12cae9d211cbff989a84"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/rows/batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0/spec.json": {
+   "bytes": 977,
+   "sha256": "8d53ed0050ecd2399192b12780146ad90c9cf9e9cc3752842ed53b834db68a2c"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/rows/batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0/status.json": {
+   "bytes": 421,
+   "sha256": "2297ba3358c82c275c19fc9a58e38ec885918c957ad29bf12a0e42d251303864"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/rows/batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0/stderr.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix/rows/batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0/stdout.log": {
+   "bytes": 686,
+   "sha256": "f1961e96784185c2a7962700429b11ef0d2e15d86761bd3f58948f4e2d96cf94"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix.exit.txt": {
+   "bytes": 3,
+   "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix.mjs": {
+   "bytes": 1399,
+   "sha256": "16767b8a7c06f91e1162184b12ea17e236f601c554927385ce66e517efb832f0"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix.stderr.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hil-bld-first-batch-2026-10-07/actual-prefix.stdout.log": {
+   "bytes": 2988,
+   "sha256": "86e089a6f6b03ea4b680604a3b6fe9df8ee0587b94d96f20cab78624e2a45878"
+  },
+  "hil-bld-first-batch-2026-10-07/full-check-invocation.json": {
+   "bytes": 182,
+   "sha256": "14464134371375215825e5db6394335f108966886300c721811a517fbdb7e219"
+  },
+  "hil-bld-first-batch-2026-10-07/full-check-result.json": {
+   "bytes": 261,
+   "sha256": "2d10771b551f066a1549ef8f111a2c5d260cadeb55475b3aa0789d126567ce1f"
+  },
+  "hil-bld-first-batch-2026-10-07/full-check.mjs": {
+   "bytes": 1084,
+   "sha256": "96cfb99d85853c9a8777838a73db6deb165bab97e17843cd586735ca771e40a7"
+  },
+  "hil-bld-first-batch-2026-10-07/full-check.stderr.log": {
+   "bytes": 33067,
+   "sha256": "a2f7a4fc5e739b9f79cf8769c9ed5fed1b86394e1d828c49ef8aa306bbe32dbb"
+  },
+  "hil-bld-first-batch-2026-10-07/full-check.stdout.log": {
+   "bytes": 58082,
+   "sha256": "a5d85666337369f3c8367e4ad0b7c5b06f9931da4699440d47833352f26b4e8c"
+  },
+  "hil-bld-first-batch-2026-10-07/verification.json": {
+   "bytes": 2684,
+   "sha256": "301c4a718b6f47d282c806456942234cb76ce2fe49dff4db9b93a8d1c5ce9ec9"
+  },
+  "hil-bld-first-batch-2026-10-07/custody.json": {
+   "bytes": 6956,
+   "sha256": "2597c7ac884b7725acbfa0049ae7c2f4203f6d4d7a7225479eb54d829b2d4926"
   }
  }
 }

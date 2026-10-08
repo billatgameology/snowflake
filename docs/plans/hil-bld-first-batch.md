@@ -1,7 +1,7 @@
 # HIL / BLD first exploration batch
 
 - **Scope:** executable first stage of the maker-approved post-Phase-10 portfolio; development evidence only.
-- **Status:** protocol registered before implementation, 2026-10-07.
+- **Status:** implemented and verified, 2026-10-07; delivered through main. Host qualification and full campaign dispatch remain local execution steps.
 - **Branch / destination:** `science/hil-bld-first-batch` -> `origin/main`.
 - **Authority:** [adaptive discovery](post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld), accepted ADRs 0055-0059, attachment-kinetics specification. No phase gate changes.
 
@@ -69,6 +69,7 @@ ladder and leaves the largest earlier safe rung available; no completed rung mea
 ### Commands after publication
 
 In the clean task checkout on BLD, pull the published main version and install locked dependencies.
+Use Node v24.13.1 on both hosts to retain the recorded oracle runtime scope.
 List is immediate; probe runs actual bounded numerical work and records its limits. Close other
 heavy compute before qualification. Do not pull a changed source commit between probe and launch.
 
@@ -146,5 +147,38 @@ No new physical parameter extraction, solver-physics change, validation or Phase
 
 ## Implementation record
 
-Pending. Local probe outputs are operational staging, not new scientific conclusions. Preserve
-useful receipts under governed evidence before task closeout; do not delete scientific outputs.
+Protocol committed at `3948c8f` before code; implementation checkpoint `ad990ac` adds the finite
+roster, named CLI, reused queue, optional discovery wall budget and coverage inventory. Ordinary
+solver equations and checkpoint refusals remain unchanged. HIL has 56 rows and BLD 42, directly
+enumerated by `hil-bld-batch-roster.ts`; the roster tests exercise every factorial block.
+
+Exact `npm.cmd test` at clean `ad990ac`, Node v24.13.1, exited zero: 230 files / 2,981 tests passed,
+23 skipped, Vitest duration 819.92 seconds. Source: tracked
+[`verification.json`](../../evidence/hil-bld-first-batch-2026-10-07/verification.json),
+`full-check-result.json` and raw full-check stdout/stderr in the same bundle. Rule 7 and both
+typechecks are included. No implementation changes followed this checkpoint.
+
+The tracked `actual-prefix/receipt.json` records two real N64 three-update cases on HIL: a
+basal-only seed row and an early-width warm row, both completed with exit zero. The queue recorded
+actual maximum concurrency two, child commands/logs/exits and live Windows memory samples.
+These are operational prefix witnesses, not full host budget qualification or scientific endpoints.
+Budget tests also execute real tiny experimental updates and compare interrupted prefixes to
+uninterrupted events; process tests execute child overlap, timeout, memory stop and independent
+row failure continuation. BLD must run its own supplied probe after pulling.
+
+One bounded shared-context Codex/GPT-6 review found missing summary CFL enforcement and weak
+validation when terminal results were absent. Both were corrected and pinned by real-artifact
+mutation tests before the full check. The review did not execute a complete campaign or qualify BLD.
+
+Retention: project-owned operational records fit Git and are copied byte-for-byte into
+`evidence/hil-bld-first-batch-2026-10-07/`, with every file pinned in `evidence/MANIFEST.json`.
+The task's original `out/first-batch-verification/` is copied and byte-verified in primary staging
+`out/hil-bld-first-batch-verification-2026-10-07/`; the tracked `custody.json` records the inventory
+before non-force worktree reconciliation. Dependencies and Vitest cache are reproducible scratch.
+No NAS payload or pre-existing output is pruned; the full scientific queues have not launched.
+
+Closeout checks: `npx.cmd vitest run runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts`
+passed 2 files / 18 tests, and `npm.cmd run lint:rule7` passed. Whitespace checking preserves the
+two exact raw full-check logs, whose terminal blank lines are intentional recorded bytes:
+`git -c core.whitespace=cr-at-eol diff --cached --check -- . ':(exclude)evidence/hil-bld-first-batch-2026-10-07/full-check.stdout.log' ':(exclude)evidence/hil-bld-first-batch-2026-10-07/full-check.stderr.log'`.
+The unexcluded first attempt reported only those raw-log EOF blank lines; no artifact was normalized.

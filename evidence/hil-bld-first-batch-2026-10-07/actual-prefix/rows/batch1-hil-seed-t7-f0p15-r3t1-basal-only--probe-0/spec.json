@@ -1,0 +1,43 @@
+{
+  "schema": "post-phase10-discovery-row-v1",
+  "experimentId": "post-phase10-facet-isolation-v1",
+  "experimentalFacetDips": "basal-only",
+  "row": {
+    "conditional": false,
+    "pressurePa": 101325,
+    "paramSet": "M1",
+    "dimsN": 64,
+    "dxUm": 0.35,
+    "cflFill": 0.05,
+    "seedRadius": 3,
+    "seedThickness": 1,
+    "targetExtent": 21,
+    "maxSteps": 3,
+    "spatialSampleExtents": [
+      5,
+      9,
+      13,
+      17
+    ],
+    "id": "batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0",
+    "lane": "adaptive-seed",
+    "tempC": -7,
+    "fraction": 0.15,
+    "experimentalFacetDips": "basal-only",
+    "sigmaInfinity": 0.01062
+  },
+  "fixed": {
+    "surfacePolicy": "aggregate-hv-g1h1-v6",
+    "farField": "monopole-matched",
+    "pressurePa": 101325,
+    "rngSeed": 1,
+    "noiseEpsilon": 0,
+    "relaxTol": 1e-9,
+    "divTol": 1e-7,
+    "relaxMaxSweeps": 200000
+  },
+  "effectivePressurePa": 101325,
+  "executionBudget": {
+    "maxWallSeconds": 180
+  }
+}

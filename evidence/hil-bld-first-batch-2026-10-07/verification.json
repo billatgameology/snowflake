@@ -1,0 +1,70 @@
+{
+  "schema": "hil-bld-first-batch-verification-v1",
+  "source": "ad990acddd3968d471562ec9c9109a77b8041d59",
+  "fullCheck": {
+    "command": "npm.cmd test",
+    "head": "ad990acddd3968d471562ec9c9109a77b8041d59",
+    "node": "v24.13.1",
+    "v8": "13.6.233.17-node.40",
+    "startedAt": "2026-10-08T03:13:05.621Z",
+    "finishedAt": "2026-10-08T03:26:54.863Z",
+    "exitCode": 0,
+    "signal": null
+  },
+  "testFilesPassed": 230,
+  "testsPassed": 2981,
+  "testsSkipped": 23,
+  "vitestSeconds": 819.92,
+  "actualPrefixes": {
+    "purpose": "Actual N64 facet and early-width operational prefixes on HIL; not a host worker-budget qualification or scientific endpoint",
+    "command": [
+      "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+      "C:\\Users\\biao3\\Documents\\GitHub\\snowflake-hil-bld-first-batch\\out\\first-batch-verification\\actual-prefix.mjs"
+    ],
+    "rows": [
+      {
+        "rowId": "batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0",
+        "completedThreeUpdates": true,
+        "exit": {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "basal-only",
+          "rowId": "batch1-hil-seed-t7-f0p15-r3t1-basal-only--probe-0",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T03:12:01.630Z",
+          "finishedAt": "2026-10-08T03:12:44.567Z",
+          "wallSeconds": 42.937
+        }
+      },
+      {
+        "rowId": "batch1-bld-warm-t5-early--probe-1",
+        "completedThreeUpdates": true,
+        "exit": {
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 3,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          },
+          "rowId": "batch1-bld-warm-t5-early--probe-1",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T03:12:01.635Z",
+          "finishedAt": "2026-10-08T03:12:45.726Z",
+          "wallSeconds": 44.091
+        }
+      }
+    ]
+  },
+  "review": {
+    "model": "Codex/GPT-6",
+    "sharedContext": true,
+    "scope": "Finite roster, bounds, process lifecycle and summary classification; no complete campaign or BLD host capacity audit",
+    "findingsResolved": [
+      "Recompute row CFL limit in summary",
+      "Validate completed event reports even when parent termination loses result.json"
+    ],
+    "negativeControls": "runner/test/hil-bld-batch-summary.test.ts"
+  },
+  "retention": "Project-owned operational evidence retained in Git; no NAS publication or scientific campaign result; copied local staging retained until task reconciliation"
+}

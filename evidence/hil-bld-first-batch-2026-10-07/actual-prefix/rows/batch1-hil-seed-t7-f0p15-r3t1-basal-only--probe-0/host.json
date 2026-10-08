@@ -1,0 +1,16 @@
+{
+  "schema": "post-phase10-discovery-host-v1",
+  "gitHead": "ad990acddd3968d471562ec9c9109a77b8041d59",
+  "node": "v24.13.1",
+  "v8": "13.6.233.17-node.40",
+  "platform": "win32",
+  "release": "10.0.26200",
+  "arch": "x64",
+  "logicalProcessors": 24,
+  "cpuModels": [
+    "Intel(R) Core(TM) Ultra 9 285K"
+  ],
+  "totalMemoryBytes": 68023050240,
+  "experimentId": "post-phase10-facet-isolation-v1",
+  "experimentalFacetDips": "basal-only"
+}

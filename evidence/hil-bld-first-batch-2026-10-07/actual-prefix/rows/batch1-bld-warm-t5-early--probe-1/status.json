@@ -1,0 +1,18 @@
+{
+  "schema": "post-phase10-discovery-status-v1",
+  "experimentId": "post-phase10-basal-width-history-v1",
+  "experimentalBasalWidthCells": 3,
+  "experimentalBasalWidthHistory": {
+    "mode": "early-only",
+    "cutoffSeconds": 20
+  },
+  "rowId": "batch1-bld-warm-t5-early--probe-1",
+  "cycle": 3,
+  "attachedCount": 19,
+  "extent": 5,
+  "totalSweeps": 19568,
+  "simTimeSeconds": 0.22801097607962867,
+  "wallSeconds": 43.953,
+  "peakRssBytes": 91742208,
+  "updatedAt": "2026-10-08T03:12:45.727Z"
+}
