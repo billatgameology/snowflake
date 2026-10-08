@@ -112,7 +112,7 @@ outputs and add runs only for a new contrast, observation or necessary numerical
 
 #### Host queues and planning capacity
 
-The maker names this PC **HIL, 20 cores**, and the other **BLD, 32 cores**. Under the approved desktop
+The maker names the coordinating PC **HIL, 20 cores**, and the second PC **BLD, 32 cores**. Under the approved desktop
 headroom policy, reserve four declared execution slots on each: planning ceilings are
 `HIL: 20 - 4 = 16` and `BLD: 32 - 4 = 28` simultaneous single-threaded case processes.
 These ceilings are design choices derived from the maker's stated capacities, not measured
@@ -134,6 +134,38 @@ executed command, producer/runtime, process logs, actual concurrency, exit and s
 HIL collects completed bundles and combines the track reports for joint review. Reallocate the
 next finite batch toward informative, unresolved or surprising results; no track must wait for
 the warm cavity result unless it actually depends on it.
+
+#### BLD worktree setup — 2026-10-07
+
+The maker identifies the current `G:/Code Files/snowflake` PC as **BLD** and requests its
+isolated task checkout. The preceding HIL readiness measurements remain HIL-specific.
+BLD now owns `G:/Code Files/snowflake-bld-exploration` on `codex/bld-exploration`, based on
+`f92bf5f2becca8f8253a9e9ad7c2f22011fad7be` (the approved portfolio). Before creation,
+`git worktree list --porcelain` and `git branch -vv` showed only the clean primary checkout
+on `main`; there was no BLD task checkout to reuse. Creation command:
+`git worktree add -b codex/bld-exploration 'G:/Code Files/snowflake-bld-exploration' f92bf5f2becca8f8253a9e9ad7c2f22011fad7be`.
+
+This setup's deliverable is one isolated BLD checkout with the assigned warm-cavity/early-memory
+and cold core/tip tracks recorded. Its shortest check is branch/base/status verification plus
+Rule 7, the existing progress-index test and diff checks for these prose changes.
+The shared producer, exact BLD roster and launch command are not yet published in this base.
+Next, from this checkout run `git fetch origin` and
+`git log --oneline HEAD..origin/main -- docs/plans/post-phase10-adaptive-discovery.md runner/src`;
+inspect HIL's committed protocol/tested code before integrating it. Then qualify the named BLD
+load's actual resource/restart limits under the existing execution order. The six-row warm
+candidate is not the whole program, and 28 is a planning ceiling, not a measured worker budget.
+No scientific code or campaign is part of this setup; primary outputs remain in place.
+
+Local runtime checks report Node v24.13.1 (matching `.nvmrc`) and npm 11.8.0.
+Setup verification passed: `npm.cmd run lint:rule7`, the exact progress-index command below,
+and `git -c core.whitespace=cr-at-eol diff --check` (each exited zero).
+
+`node 'G:/Code Files/snowflake/node_modules/vitest/vitest.mjs' run runner/test/progress-index.test.ts --config 'G:/Code Files/snowflake/vitest.config.ts' --root 'G:/Code Files/snowflake-bld-exploration' --no-cache`
+
+These are setup/prose checks; they establish no experimental readiness or scientific result.
+`AGENTS.md` and `CLAUDE.md` have no content changes. Windows refused attempts to materialize
+CLAUDE's tracked symlink, so its original Git placeholder was restored; read `AGENTS.md` directly.
+The maker requested no rules-file changes. All task edits remain in this plan and PROGRESS.
 
 #### Existing execution seams and concrete remaining work
 

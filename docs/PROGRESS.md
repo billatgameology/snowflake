@@ -8,9 +8,10 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
 - **Parallel exploration:** maker-approved for HIL and BLD; commit and push authorized on 2026-10-07.
   The [approved portfolio](plans/post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld)
   covers cavities, cold core/tip structure, seed memory, pressure/transport and environment history.
-  HIL coordinates shared code and joint review; each PC receives a queue of comparisons.
-  Planning ceilings retain desktop headroom; actual experimental limits remain unmeasured.
-  Exact first-batch design is next; no new scientific implementation or run has started.
+  HIL coordinates shared code and joint review; BLD leads cavity and cold core/tip comparisons.
+  BLD checkout: `G:/Code Files/snowflake-bld-exploration`, branch `codex/bld-exploration`,
+  based on `f92bf5f`; [setup and next action](plans/post-phase10-adaptive-discovery.md#bld-worktree-setup--2026-10-07).
+  Exact batches, shared tested code and measured experimental budgets remain pending; no new run has started.
 - **New-host follow-up:** [complete](plans/new-host-acceptance-and-capacity-2026-10-07.md),
   locally integrated through `cf1386e`. Glass/camera browser and direct visual acceptance pass;
   the six comparison inputs and both small independent C-drive backups are restored and verified.
@@ -48,9 +49,9 @@ Completed chronology and failed attempts are retained, not live instructions:
 
 ## Current state
 
-**This Windows computer is ready to continue.** The primary checkout is
+**HIL is ready to continue.** Its primary checkout is
 `C:/Users/biao3/Documents/GitHub/snowflake`; the marked NAS resolves at `Z:/` through persistent
-`VCC_NAS_ROOT=Z:/`. The current host is Intel Core Ultra 9 285K (24 cores / 24 logical processors),
+`VCC_NAS_ROOT=Z:/`. HIL is Intel Core Ultra 9 285K (24 cores / 24 logical processors),
 64 GB RAM and RTX 5080. The former Ryzen/RTX 3080 host's measurements do not establish this host's
 scientific worker budget. The [current measurement](plans/new-host-acceptance-and-capacity-2026-10-07.md#measured-host-budget--2026-10-07)
 recommends 16 workers for its ordinary N64 three-cycle workload; it does not qualify larger domains
@@ -83,7 +84,7 @@ checkout; `-- --check` verifies them without copying. See [local assets](local-a
 
 **Local consolidation is complete.** The former Windows host integrated and pushed `f54cb7c` to
 main, removed reconciled extra worktrees/branches, and retained its original output trees under
-its `G:/Code Files/snowflake/out/`. This new computer holds the selected restorations above;
+its `G:/Code Files/snowflake/out/`. HIL holds the selected restorations above;
 original-output custody is not inferred from a fresh checkout. The other computer's film branch
 remains untouched. Housekeeping fast-forwarded local primary main and removed its reconciled task
 worktree/ref without force. See [consolidation](plans/local-consolidation-2026-10-01.md) and primary
@@ -160,13 +161,11 @@ Local closeout metadata checks passed: `npx.cmd vitest run runner/test/evidence-
 The [closeout result](../evidence/new-host-readiness-2026-10-07/verification/closeout-checks.json)
 binds commands, exits and exact logs; no implementation changes followed the full-check checkpoint.
 
-
 New-host acceptance/evidence exact `npm.cmd test` at clean `cbe2542`, Node v24.13.1, exited zero:
 **226 files / 2,950 tests passed, 23 skipped**, 803.18 seconds.
 The tracked [full-check result](../evidence/new-host-readiness-2026-10-07/verification/full-check-result.json)
 binds source, command, raw logs and exit; Rule 7 and both typechecks are included. Product acceptance
 separately used five focused files / 59 tests, app build and the live browser/visual boundary.
-
 
 The agent-rules cleanup's `npm.cmd run lint:rule7`, `git diff --check` and bounded text review
 passed. Primary `out/agent-rules-cleanup-2026-10-07/document-checks-final.json` records 717 → 415
@@ -237,7 +236,8 @@ Define exact first-batch comparisons under the [approved portfolio](plans/post-p
 HIL leads seed, pressure and environment-history work; BLD leads cavity and cold core/tip work.
 Both receive queues of independent matched blocks. Define controls, readouts and stop budgets,
 then allocate by measured cost and memory. HIL commits the finite execution protocol before
-implementation and publishes shared tested code; BLD pulls it and the maker specifies its load.
+implementation and publishes shared tested code. BLD continues in `codex/bld-exploration`:
+run `git fetch origin`, inspect the new protocol/code, then integrate it and select the maker's named load.
 Named load selection and narrow analyzer changes remain. Require representative pause/resume before launch
 through the actual experimental runner, or demonstrably short independently terminal stages.
 Use physical-time comparisons: old Wave 2 plateau age used cycle offsets. Phase 7 stays on maker
