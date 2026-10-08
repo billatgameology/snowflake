@@ -1,6 +1,6 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** maker-approved HIL/BLD exploration portfolio (2026-10-07); commit and push authorized; exact first-batch design is next; no new campaign launched
+**Status:** maker-approved HIL/BLD exploration portfolio (2026-10-07); commit and push authorized; [exact first-batch protocol](hil-bld-first-batch.md) registered; implementation in progress; no new campaign launched
 **Publication destination:** `origin/main`
 **Plan authoring branch:** `docs/hil-bld-workload-2026-10-07`, based on `fe15b74`; direct main publication, no PR
 **Former execution worktree:** `G:\Code Files\snowflake-science-exploration` (reconciled in October consolidation)

@@ -10,7 +10,7 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   covers cavities, cold core/tip structure, seed memory, pressure/transport and environment history.
   HIL coordinates shared code and joint review; each PC receives a queue of comparisons.
   Planning ceilings retain desktop headroom; actual experimental limits remain unmeasured.
-  Exact first-batch design is next; no new scientific implementation or run has started.
+  The [first-batch protocol](plans/hil-bld-first-batch.md) is registered; shared implementation is in progress.
 - **New-host follow-up:** [complete](plans/new-host-acceptance-and-capacity-2026-10-07.md),
   locally integrated through `cf1386e`. Glass/camera browser and direct visual acceptance pass;
   the six comparison inputs and both small independent C-drive backups are restored and verified.
@@ -213,7 +213,7 @@ custody remain retained. Primary `nas-retention-review.json` records the disposi
   checks, approved cleanup, local fast-forward and non-force worktree/ref closeout are recorded.
 - [Adaptive discovery](plans/post-phase10-adaptive-discovery.md) is reviewing its completed wave and
   proceeding from the approved scientific portfolio and HIL/BLD work queues. Exact rows,
-  actual worker budgets and launch commands remain to be designed; completed campaign rows stay closed.
+  local worker budgets and launch commands are being implemented in the [first batch](plans/hil-bld-first-batch.md).
 - [Glass/camera follow-up](plans/explore-gutcheck-growth-glass-camera.md) has an implementation candidate
   with completed local browser/visual acceptance: current tracked glass record SHA-256
   `052b4c0f92fc1f8ea9b5c88219322c4fd3ceaba4db79051a93b587d6bd4c51c8`.
@@ -233,7 +233,7 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-Define exact first-batch comparisons under the [approved portfolio](plans/post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld).
+Implement the committed [first-batch protocol](plans/hil-bld-first-batch.md) and publish tested HIL/BLD commands.
 HIL leads seed, pressure and environment-history work; BLD leads cavity and cold core/tip work.
 Both receive queues of independent matched blocks. Define controls, readouts and stop budgets,
 then allocate by measured cost and memory. HIL commits the finite execution protocol before
