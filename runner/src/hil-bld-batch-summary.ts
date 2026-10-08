@@ -69,7 +69,7 @@ export function summarizeFirstBatchRow(directory: string) {
   const endpoint = result?.stopReason === "size-target" && last !== undefined &&
     last.extent >= row.targetExtent && errors.length === 0 && exit?.exitCode === 0 && exit.signal === null &&
     (row.timelineEvent === undefined || event !== undefined);
-  const censored = result === null || result.stopReason === "wall-budget" || result.stopReason === "step-cap";
+  const censored = result === null || result.stopReason === "wall-budget" || result.stopReason === "step-cap" || result.stopReason === "checkpoint-pause";
   return {
     rowId: row.id,
     directory,

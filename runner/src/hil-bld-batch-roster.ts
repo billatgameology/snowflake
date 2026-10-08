@@ -13,10 +13,8 @@ export interface FirstBatchEntry {
 
 export const FIRST_BATCH_ID = "hil-bld-first-batch-2026-10-07" as const;
 export const FIRST_BATCH_WORKER_CEILINGS = Object.freeze({ HIL: 16, BLD: 28 });
-export const FIRST_BATCH_WALL_SECONDS = 4 * 60 * 60;
 export const FIRST_BATCH_PROBE_WALL_SECONDS = 3 * 60;
 export const FIRST_BATCH_PROBE_STEPS = 3;
-export const FIRST_BATCH_KILL_GRACE_SECONDS = 60;
 
 const SPATIAL_SAMPLE_EXTENTS = Object.freeze([5, 9, 13, 17]);
 const FACET_ARMS: readonly LKFacetDipArm[] = Object.freeze(["both", "neither", "basal-only", "prism-only"]);

@@ -83,6 +83,40 @@ Out of scope: recovering absent state from the stopped original processes; chang
 solver equations, scientific targets or held-out/phase status; experimental facet/width plus environment
 events; geometric-completion ablations; GPU resume; remote control of BLD; generic scheduling services.
 
+Implementation checkpoint: the separate core codec and solver adoption, row generation publication,
+observation-tail recovery and explicit batch resume are implemented. The initial synchronous format
+is bounded to 64^3 cells / 64 MiB encoded bytes, covering this entire N64 roster; larger-domain
+continuation requires its own measured extension. Old v3 eligibility and numerical evolution remain
+unchanged. Resource probes now exercise checkpoint creation too, with only their parent watchdog.
+
+Commands for the replacement campaign (from its clean, fixed execution checkout):
+
+```powershell
+node runner/src/hil-bld-batch-main.ts probe HIL out/batch1-hil-resumable-probe
+node runner/src/hil-bld-batch-main.ts launch HIL out/batch1-hil-resumable out/batch1-hil-resumable-probe/probe.json
+node runner/src/hil-bld-batch-main.ts resume HIL out/batch1-hil-resumable out/batch1-hil-resumable-probe/probe.json
+```
+
+BLD substitutes its host and `batch1-bld-resumable` paths after pulling the published producer.
+Resume uses the original directory, source/runtime and probe; it does not change a row's scientific
+target or update limit. Use Ctrl+C in a visible launch terminal to stop the coordinator and its owned
+workers. Detached operation records its exact owned-process stop command with the launch controls;
+an OS termination can lose the current unfinished cycle, while completed checkpoint generations remain.
+Each checkpoint publishes after a complete cycle, including a just-fired history event. The two
+referenced generations are retained; a third superseded generation is reproducible recovery scratch.
+Uncommitted observation tails and partial generations are preserved for diagnosis. Resume wallSeconds
+sums checkpointed active intervals and the current attempt; lost in-flight time is separately visible
+in process-attempt receipts and is not recovered by inventing elapsed time from a dead process.
+
+One bounded non-author Codex/GPT-6 review, with inherited shared context, independently reproduced
+partial-result recovery failure using a real checkpoint. It also traced a stale-owner takeover race
+between simultaneous resume commands. Repairs route partial result/exit receipts into validated
+checkpoint recovery, atomically publish batch receipts and serialize stale-owner replacement with
+an exclusive acquisition guard. Real competing worker tests exercise the row boundary. An interrupted
+acquisition guard fails closed for explicit owner inspection; no automatic takeover-of-takeover is
+introduced. The reviewer did not run the full suite, a campaign, or the N64 interruption witness.
+The author verified these repairs with targeted checks; required full-suite and N64 receipts follow.
+
 ## Registered original first stage (elapsed-time policy superseded above)
 
 The following are design choices, not measured outcomes. All rows use N64, dx 0.35 um,

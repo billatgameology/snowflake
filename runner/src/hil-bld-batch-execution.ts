@@ -1,5 +1,6 @@
 import { spawn, execFile, execFileSync, type ChildProcess } from "node:child_process";
-import { appendFileSync, closeSync, existsSync, mkdirSync, openSync, writeFileSync } from "node:fs";
+import { randomUUID } from "node:crypto";
+import { appendFileSync, closeSync, existsSync, mkdirSync, openSync, renameSync, unlinkSync, writeFileSync } from "node:fs";
 import { arch, cpus, hostname, platform, totalmem } from "node:os";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -7,7 +8,14 @@ import { promisify } from "node:util";
 import { discoveryExperimentIdentity, type DiscoveryExperimentIdentity, type DiscoveryRow } from "./post-phase10-discovery.ts";
 
 export function writeBatchJson(path: string, value: unknown): void {
-  writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`, "utf8");
+  const bytes = `${JSON.stringify(value, null, 2)}\n`;
+  const staged = `${path}.tmp-${randomUUID()}`;
+  try {
+    writeFileSync(staged, bytes, { encoding: "utf8", flag: "wx" });
+    renameSync(staged, path);
+  } finally {
+    if (existsSync(staged)) unlinkSync(staged);
+  }
 }
 
 export function batchGitHead(): string {
@@ -86,6 +94,10 @@ export interface DiscoveryLaunchOptions {
   readonly experimentId?: DiscoveryExperimentIdentity["experimentId"];
   readonly entryPath?: string;
   readonly workerArguments?: (row: DiscoveryRow, directory: string) => readonly string[];
+  /** Explicit continuation only. Legacy launches still refuse every existing row directory. */
+  readonly resumeExistingRows?: boolean;
+  /** Preserve command/log/exit files independently for each checkpointed attempt. */
+  readonly attemptName?: string;
   readonly hardWallSeconds?: number;
   readonly stopOnWorkerFailure?: boolean;
   readonly monitor?: {
@@ -101,13 +113,24 @@ export async function launchDiscoveryRows(options: DiscoveryLaunchOptions): Prom
     throw new Error("hardWallSeconds must be finite and positive");
   }
   if (new Set(options.rows.map((row) => row.id)).size !== options.rows.length) throw new Error("duplicate launch row IDs");
+  if (options.attemptName !== undefined && !/^[a-zA-Z0-9_-]+$/.test(options.attemptName)) {
+    throw new Error("attemptName must be a simple directory name");
+  }
+  if (options.resumeExistingRows && options.attemptName === undefined) {
+    throw new Error("resuming rows requires separate attempt logs");
+  }
   const entryPath = options.entryPath ?? fileURLToPath(new URL("./post-phase10-discovery-main.ts", import.meta.url));
   const rowsRoot = resolve(options.campaignDirectory, "rows");
   mkdirSync(rowsRoot, { recursive: true });
   const launchPath = resolve(options.campaignDirectory, `${options.launchName}-launch.json`);
   if (existsSync(launchPath)) throw new Error(`launch record already exists: ${launchPath}`);
   for (const row of options.rows) {
-    if (existsSync(resolve(rowsRoot, row.id))) throw new Error(`row directory already exists: ${resolve(rowsRoot, row.id)}`);
+    if (!options.resumeExistingRows && existsSync(resolve(rowsRoot, row.id))) {
+      throw new Error(`row directory already exists: ${resolve(rowsRoot, row.id)}`);
+    }
+    if (options.attemptName !== undefined && existsSync(resolve(rowsRoot, row.id, "attempts", options.attemptName))) {
+      throw new Error(`row attempt already exists: ${row.id}/${options.attemptName}`);
+    }
   }
   const launchedAt = new Date();
   const head = batchGitHead();
@@ -121,10 +144,12 @@ export async function launchDiscoveryRows(options: DiscoveryLaunchOptions): Prom
   };
   writeBatchJson(launchPath, { schema: "post-phase10-discovery-launch-v1", ...experimentMetadata,
     launchName: options.launchName, gitHead: head, node: process.version,
+    ...(options.attemptName === undefined ? {} : { attemptName: options.attemptName,
+      resumeExistingRows: options.resumeExistingRows === true }),
     requestedConcurrency: options.concurrency, rowIds: options.rows.map((row) => row.id),
     exactWorkerCommandTemplate: options.workerArguments === undefined
       ? [process.execPath, entryPath, "run-row", "<row-id>", "<absolute-row-directory>"]
-      : "Exact row-specific command is recorded in each rows/<row-id>/process.json",
+      : "Exact row-specific command is recorded in each rows/<row-id>/process.json and its named attempt",
     ...(options.hardWallSeconds === undefined ? {} : { hardWallSeconds: options.hardWallSeconds }),
     launchedAt: launchedAt.toISOString() });
 
@@ -170,18 +195,33 @@ export async function launchDiscoveryRows(options: DiscoveryLaunchOptions): Prom
   const runOne = async (row: DiscoveryRow): Promise<void> => {
     const identity = discoveryExperimentIdentity(row);
     const directory = resolve(rowsRoot, row.id);
-    mkdirSync(directory);
+    if (!existsSync(directory)) mkdirSync(directory);
+    const attemptDirectory = options.attemptName === undefined ? directory
+      : resolve(directory, "attempts", options.attemptName);
+    if (attemptDirectory !== directory) {
+      mkdirSync(resolve(directory, "attempts"), { recursive: true });
+      mkdirSync(attemptDirectory);
+    }
     const args = [entryPath, ...(options.workerArguments?.(row, directory) ?? ["run-row", row.id, directory])];
-    writeBatchJson(resolve(directory, "process.json"), { schema: "post-phase10-discovery-process-v1", ...identity,
-      rowId: row.id, gitHead: head, command: [process.execPath, ...args] });
-    const stdoutFd = openSync(resolve(directory, "stdout.log"), "wx");
-    const stderrFd = openSync(resolve(directory, "stderr.log"), "wx");
+    const processRecord = { schema: "post-phase10-discovery-process-v1", ...identity,
+      rowId: row.id, gitHead: head, command: [process.execPath, ...args],
+      ...(options.attemptName === undefined ? {} : { attemptName: options.attemptName, attemptDirectory,
+        launcherPid: process.pid }) };
+    writeBatchJson(resolve(attemptDirectory, "process.json"), processRecord);
+    if (attemptDirectory !== directory) writeBatchJson(resolve(directory, "process.json"), processRecord);
+    const stdoutFd = openSync(resolve(attemptDirectory, "stdout.log"), "wx");
+    const stderrFd = openSync(resolve(attemptDirectory, "stderr.log"), "wx");
     const startedAt = new Date();
     active++;
     maxActive = Math.max(maxActive, active);
     console.log(`launch row=${row.id} active=${active} remaining=${Math.max(0, options.rows.length - next)}`);
     const child = spawn(process.execPath, args, { cwd: process.cwd(), windowsHide: true, stdio: ["ignore", stdoutFd, stderrFd] });
     closeSync(stdoutFd); closeSync(stderrFd);
+    if (options.attemptName !== undefined) {
+      const liveRecord = { ...processRecord, pid: child.pid ?? null, startedAt: startedAt.toISOString() };
+      writeBatchJson(resolve(attemptDirectory, "process.json"), liveRecord);
+      writeBatchJson(resolve(directory, "process.json"), liveRecord);
+    }
     const state: { termination?: DiscoveryRowExit["termination"]; error?: string } = {};
     children.set(child, state);
     const timer = options.hardWallSeconds === undefined ? undefined : setTimeout(() => {
@@ -202,7 +242,10 @@ export async function launchDiscoveryRows(options: DiscoveryLaunchOptions): Prom
       ...(state.termination === undefined ? {} : { termination: state.termination }),
       ...(state.error === undefined ? {} : { error: state.error }) };
     exits.push(exit);
-    writeBatchJson(resolve(directory, "exit.json"), { schema: "post-phase10-discovery-exit-v1", ...exit });
+    const exitRecord = { schema: "post-phase10-discovery-exit-v1", ...exit,
+      ...(options.attemptName === undefined ? {} : { attemptName: options.attemptName }) };
+    writeBatchJson(resolve(attemptDirectory, "exit.json"), exitRecord);
+    if (attemptDirectory !== directory) writeBatchJson(resolve(directory, "exit.json"), exitRecord);
     if (options.stopOnWorkerFailure && (exit.exitCode !== 0 || exit.signal !== null || exit.termination !== undefined)) {
       stop(`worker-failure:${row.id}`, "batch-interrupted");
     }

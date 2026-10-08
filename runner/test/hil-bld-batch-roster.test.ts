@@ -1,11 +1,9 @@
 import { describe, expect, it } from "vitest";
 import {
   FIRST_BATCH_ID,
-  FIRST_BATCH_KILL_GRACE_SECONDS,
   FIRST_BATCH_PROBE_STEPS,
   FIRST_BATCH_PROBE_WALL_SECONDS,
   FIRST_BATCH_ROWS,
-  FIRST_BATCH_WALL_SECONDS,
   FIRST_BATCH_WORKER_CEILINGS,
   firstBatchRepresentativeRows,
   firstBatchRows,
@@ -31,12 +29,10 @@ describe("registered HIL/BLD first-batch roster", () => {
     expect(() => firstBatchRepresentativeRows("hil" as FirstBatchHost)).toThrow("unknown first-batch host");
   });
 
-  it("keeps the common scientific stage, exact forcing arithmetic and loss limits", () => {
+  it("keeps the common scientific stage and bounded operational probes", () => {
     expect(FIRST_BATCH_WORKER_CEILINGS).toEqual({ HIL: 16, BLD: 28 });
-    expect(FIRST_BATCH_WALL_SECONDS).toBe(14_400);
     expect(FIRST_BATCH_PROBE_WALL_SECONDS).toBe(180);
     expect(FIRST_BATCH_PROBE_STEPS).toBe(3);
-    expect(FIRST_BATCH_KILL_GRACE_SECONDS).toBe(60);
     for (const { track, row } of FIRST_BATCH_ROWS) {
       expect(row).toMatchObject({ conditional: false, dimsN: 64, dxUm: 0.35, cflFill: 0.05,
         targetExtent: 21, maxSteps: 20_000, spatialSampleExtents: [5, 9, 13, 17] });

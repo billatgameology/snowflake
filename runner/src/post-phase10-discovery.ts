@@ -12,6 +12,7 @@ import {
   isD6hInvariantSet,
   latticeExtents,
   symmetryError,
+  validateTimelineCursor,
   type FacetClass,
   type LKTimelineSchedule,
   type NucleationParamSet,
@@ -27,6 +28,7 @@ import {
   type LKEnvironmentTransitionReport,
 } from "@vcc/solver-cpu";
 import { validateLKStepEvidence } from "./gate2b-validation.ts";
+import { acquireDiscoveryRowLease, DiscoveryCheckpointStore, type DiscoveryRunnerResumeState } from "./discovery-resume-io.ts";
 
 export type DiscoveryLane =
   | "A"
@@ -156,6 +158,7 @@ export type DiscoveryStopReason =
   | "stalled"
   | "step-cap"
   | "wall-budget"
+  | "checkpoint-pause"
   | "solver-error";
 
 export type DiscoveryHabitClass = "plate" | "neutral" | "column" | "invalid";
@@ -620,6 +623,10 @@ function eventFacets(
 }
 
 export interface RunDiscoveryRowOptions {
+  /** Separate identified continuation; legacy row callers remain unchanged. */
+  readonly checkpoint?: "create" | "resume";
+  /** Operational pause at an absolute completed cycle, after publishing its checkpoint. */
+  readonly pauseAfterCycles?: number;
   readonly heartbeat?: (message: string) => void;
   /** Cooperative terminal observation limit; never implies checkpoint continuation. */
   readonly maxWallSeconds?: number;
@@ -634,6 +641,16 @@ export function runPostPhase10DiscoveryRow(
   outputDirectory: string,
   options: RunDiscoveryRowOptions = {},
 ): DiscoveryTerminalResult {
+  if (options.checkpoint === undefined) return runDiscoveryRow(candidate, outputDirectory, options);
+  const release = acquireDiscoveryRowLease(resolve(outputDirectory));
+  try { return runDiscoveryRow(candidate, outputDirectory, options); } finally { release(); }
+}
+
+function runDiscoveryRow(candidate: DiscoveryRow, outputDirectory: string, options: RunDiscoveryRowOptions): DiscoveryTerminalResult {
+  if (options.pauseAfterCycles !== undefined && (options.checkpoint === undefined || !Number.isSafeInteger(options.pauseAfterCycles) || options.pauseAfterCycles < 1)) {
+    throw new Error("pauseAfterCycles requires checkpointing and a positive integer cycle");
+  }
+  if (options.checkpoint !== undefined && options.maxWallSeconds !== undefined) throw new Error("resumable science has no wall budget");
   if (options.maxWallSeconds !== undefined &&
     (!Number.isFinite(options.maxWallSeconds) || options.maxWallSeconds <= 0)) {
     throw new Error("maxWallSeconds must be finite and positive");
@@ -661,13 +678,13 @@ export function runPostPhase10DiscoveryRow(
   const output = resolve(outputDirectory);
   mkdirSync(output, { recursive: true });
   for (const leaf of ["spec.json", "events.jsonl", "result.json"] as const) {
-    if (existsSync(resolve(output, leaf))) {
+    if (existsSync(resolve(output, leaf)) && options.checkpoint !== "resume") {
       throw new Error(`discovery row output already exists: ${resolve(output, leaf)}`);
     }
   }
 
   const head = gitHead();
-  writeJson(resolve(output, "spec.json"), {
+  const expectedSpec = {
     schema: "post-phase10-discovery-row-v1",
     ...experimentIdentity,
     row: candidate,
@@ -676,10 +693,24 @@ export function runPostPhase10DiscoveryRow(
     ...(options.maxWallSeconds === undefined ? {} : {
       executionBudget: { maxWallSeconds: options.maxWallSeconds },
     }),
-  });
-  writeJson(resolve(output, "host.json"), { ...hostRecord(head), ...experimentIdentity });
-
-  const startedAt = new Date();
+    ...(options.checkpoint === undefined ? {} : { checkpointFormat: "discovery-resume-v1" }),
+  };
+  if (options.checkpoint === "resume" && existsSync(resolve(output, "spec.json"))) {
+    if (JSON.stringify(JSON.parse(readFileSync(resolve(output, "spec.json"), "utf8"))) !== JSON.stringify(expectedSpec)) throw new Error("resume row spec mismatch");
+    if (existsSync(resolve(output, "host.json"))) {
+      const previousHost = JSON.parse(readFileSync(resolve(output, "host.json"), "utf8"));
+      if (previousHost.gitHead !== head || previousHost.node !== process.version || previousHost.v8 !== process.versions.v8) throw new Error("resume source/runtime mismatch");
+    }
+  } else {
+    writeJson(resolve(output, "spec.json"), expectedSpec);
+    writeJson(resolve(output, "host.json"), { ...hostRecord(head), ...experimentIdentity });
+  }
+  const checkpointStore = options.checkpoint === undefined ? null : new DiscoveryCheckpointStore(output, candidate, head);
+  const restored = options.checkpoint === "resume" ? checkpointStore!.load() : null;
+  const attemptStartedAt = new Date();
+  const startedAt = restored === null ? attemptStartedAt : new Date(restored.runner.startedAt);
+  const priorWallSeconds = restored?.runner.activeWallSeconds ?? 0;
+  const activeWallSeconds = (): number => priorWallSeconds + (Date.now() - attemptStartedAt.getTime()) / 1000;
   const budgetClock = options.budgetClockMilliseconds ?? (() => performance.now());
   const budgetStart = options.maxWallSeconds === undefined ? 0 : budgetClock();
   if (!Number.isFinite(budgetStart)) throw new Error("budget clock must be finite");
@@ -721,7 +752,7 @@ export function runPostPhase10DiscoveryRow(
   const integrityErrors: string[] = [];
   const dims = { nx: candidate.dimsN, ny: candidate.dimsN, nz: candidate.dimsN };
   const center = domainCenter(dims);
-  const solver = new LKSolver({
+  let solver = new LKSolver({
     surfacePolicy: FIXED.surfacePolicy,
     dims,
     tempC: candidate.tempC,
@@ -753,7 +784,7 @@ export function runPostPhase10DiscoveryRow(
     seedThickness: candidate.seedThickness,
     center,
   });
-  const seedSites = solver.attachedCount;
+  let seedSites = solver.attachedCount;
   const spatialSnapshots: DiscoverySpatialSnapshotRecord[] = [];
   const pendingSpatialExtents = new Set(candidate.spatialSampleExtents ?? []);
   let currentSmootherDriftAbsLimit = float64SmootherDriftAbsLimit(
@@ -805,6 +836,57 @@ export function runPostPhase10DiscoveryRow(
     }
     timelineCursor = initialDecision.cursor;
   }
+  let terminalStopReason: DiscoveryStopReason | null = null;
+  if (restored !== null) {
+    const initialControls = solver.exportDiscoveryResumeState();
+    solver = LKSolver.restoreDiscovery(restored.decoded);
+    const state = solver.exportDiscoveryResumeState();
+    const restoredRunner = restored.runner;
+    const controls = ["dxUm", "pressurePa", "paramSet", "cflFill", "relaxTol", "divTol", "relaxMaxSweeps", "rngSeed", "noiseEpsilon", "domain", "farField", "surfacePolicy", "experimentalFacetDips", "experimentalBasalWidthCells"] as const;
+    if (controls.some((key) => !Object.is(state[key], initialControls[key])) ||
+        JSON.stringify(state.dims) !== JSON.stringify(dims) || JSON.stringify(state.center) !== JSON.stringify(center) ||
+        JSON.stringify(state.experimentalBasalWidthHistory) !== JSON.stringify(initialControls.experimentalBasalWidthHistory)) throw new Error("resume solver controls disagree with row");
+    if (timelineSchedule === null) {
+      if (restoredRunner.timelineCursor !== null || restoredRunner.timelineTransition !== null || state.acceptedEnvironmentEventCount !== 0) throw new Error("unexpected resume timeline state");
+    } else {
+      if (restoredRunner.timelineCursor === null) throw new Error("missing resume timeline cursor");
+      validateTimelineCursor(timelineSchedule, restoredRunner.timelineCursor);
+      if (restoredRunner.timelineCursor.lastBoundary?.completedCycles !== solver.tick || restoredRunner.timelineCursor.nextEventIndex !== state.acceptedEnvironmentEventCount ||
+          (restoredRunner.timelineCursor.nextEventIndex === 0) !== (restoredRunner.timelineTransition === null) ||
+          (restoredRunner.timelineTransition !== null && restoredRunner.timelineTransition.eventCycle !== restoredRunner.timelineCursor.eventLog[0]?.crossingBoundary.completedCycles)) throw new Error("resume timeline/solver boundary mismatch");
+    }
+    const expectedEnvironment = restoredRunner.timelineTransition === null ? candidate : candidate.timelineEvent!;
+    if (!Object.is(solver.tempC, expectedEnvironment.tempC) || !Object.is(solver.sigmaInfinity, expectedEnvironment.sigmaInfinity)) throw new Error("resume environment disagrees with timeline");
+    const sampled = restoredRunner.spatialSnapshots.map((x) => x.triggerExtent);
+    const pending = restoredRunner.pendingSpatialExtents;
+    const expectedExtents = [...(candidate.spatialSampleExtents ?? [])].sort((a,b) => a-b);
+    if (new Set([...sampled, ...pending]).size !== sampled.length + pending.length || JSON.stringify([...sampled,...pending].sort((a,b) => a-b)) !== JSON.stringify(expectedExtents) ||
+        restoredRunner.spatialSnapshots.some((x) => x.path !== `boundary-e${x.triggerExtent}.json` || x.completedCycles > solver.tick)) throw new Error("resume spatial sampling state mismatch");
+    totalSweeps = restoredRunner.totalSweeps; completedCycleRecords = restoredRunner.completedCycleRecords;
+    peakRssBytes = Math.max(peakRssBytes, restoredRunner.peakRssBytes);
+    allAttachmentEventsD6h = restoredRunner.allAttachmentEventsD6h; allRelaxationsConverged = restoredRunner.allRelaxationsConverged;
+    maxKineticFillIncrement = restoredRunner.maxKineticFillIncrement; maxDivergenceResidual = restoredRunner.maxDivergenceResidual;
+    maxAbsSmootherDrift = restoredRunner.maxAbsSmootherDrift; minShellInjection = restoredRunner.minShellInjection ?? Infinity;
+    minSurfaceExchange = restoredRunner.minSurfaceExchange ?? Infinity; seedSites = restoredRunner.seedSites;
+    spatialSnapshots.push(...restoredRunner.spatialSnapshots); pendingSpatialExtents.clear(); for (const x of pending) pendingSpatialExtents.add(x);
+    currentSmootherDriftAbsLimit = restoredRunner.currentSmootherDriftAbsLimit; maximumSmootherDriftAbsLimit = restoredRunner.maximumSmootherDriftAbsLimit;
+    timelineCursor = restoredRunner.timelineCursor; timelineTransition = restoredRunner.timelineTransition ?? undefined;
+    integrityErrors.push(...restoredRunner.integrityErrors); terminalStopReason = restoredRunner.terminalStopReason;
+    if (terminalStopReason === "size-target" && solver.largestExtent() < candidate.targetExtent ||
+        terminalStopReason === "step-cap" && solver.tick < candidate.maxSteps ||
+        terminalStopReason === "domain-contact" && !solver.domainContact()) throw new Error("resume terminal condition mismatch");
+    restored.recover();
+  }
+  const checkpoint = (): void => {
+    if (checkpointStore === null) return;
+    const runnerState: DiscoveryRunnerResumeState = { startedAt: startedAt.toISOString(), activeWallSeconds: activeWallSeconds(), peakRssBytes,
+      totalSweeps, completedCycleRecords, allAttachmentEventsD6h, allRelaxationsConverged, maxKineticFillIncrement, maxDivergenceResidual,
+      maxAbsSmootherDrift, minShellInjection: finiteMinimum(minShellInjection), minSurfaceExchange: finiteMinimum(minSurfaceExchange), seedSites,
+      spatialSnapshots, pendingSpatialExtents: [...pendingSpatialExtents], currentSmootherDriftAbsLimit, maximumSmootherDriftAbsLimit,
+      timelineCursor, timelineTransition: timelineTransition ?? null, integrityErrors, terminalStopReason };
+    checkpointStore.save(solver.exportDiscoveryResumeState(), runnerState);
+  };
+  if (checkpointStore !== null && restored === null) checkpoint();
   let lastHeartbeat = Date.now();
   options.heartbeat?.(
     `start row=${candidate.id}${experimentLabel} lane=${candidate.lane} dims=${candidate.dimsN} ` +
@@ -813,7 +895,8 @@ export function runPostPhase10DiscoveryRow(
   );
 
   try {
-    for (let cycle = 1; cycle <= candidate.maxSteps; cycle++) {
+    if (terminalStopReason !== null) stopReason = terminalStopReason;
+    for (let cycle = solver.tick + 1; terminalStopReason === null && cycle <= candidate.maxSteps; cycle++) {
       checkBudget("cycle-boundary");
       const relaxation = solver.relaxField((progress) => {
         checkBudget("relaxation", { cycle, sweeps: progress.sweeps });
@@ -1031,7 +1114,7 @@ export function runPostPhase10DiscoveryRow(
         extent,
         totalSweeps,
         simTimeSeconds: solver.simTimeSeconds,
-        wallSeconds: (Date.now() - startedAt.getTime()) / 1000,
+        wallSeconds: activeWallSeconds(),
         peakRssBytes,
         updatedAt: new Date().toISOString(),
       });
@@ -1044,15 +1127,13 @@ export function runPostPhase10DiscoveryRow(
         );
         lastHeartbeat = now;
       }
-      if (surface.stalled) break;
-      if (solver.domainContact()) {
-        stopReason = "domain-contact";
-        break;
-      }
-      if (extent >= candidate.targetExtent) {
-        stopReason = "size-target";
-        break;
-      }
+      if (surface.stalled) terminalStopReason = "stalled";
+      else if (solver.domainContact()) terminalStopReason = "domain-contact";
+      else if (extent >= candidate.targetExtent) terminalStopReason = "size-target";
+      else if (cycle === candidate.maxSteps) terminalStopReason = "step-cap";
+      checkpoint();
+      if (terminalStopReason !== null) { stopReason = terminalStopReason; break; }
+      if (options.pauseAfterCycles !== undefined && solver.tick >= options.pauseAfterCycles) { stopReason = "checkpoint-pause"; break; }
       checkBudget("cycle-boundary");
     }
   } catch (error) {
@@ -1064,8 +1145,8 @@ export function runPostPhase10DiscoveryRow(
     }
   }
 
-  const cappedBudgetPrefix = options.maxWallSeconds !== undefined &&
-    (stopReason === "wall-budget" || stopReason === "step-cap");
+  const cappedBudgetPrefix = (options.maxWallSeconds !== undefined || options.checkpoint !== undefined) &&
+    (stopReason === "wall-budget" || stopReason === "step-cap" || stopReason === "checkpoint-pause");
   if (timelineSchedule !== null && timelineTransition === undefined && !cappedBudgetPrefix) {
     integrityErrors.push(`row ${candidate.id} did not reach its registered timeline event`);
   }
@@ -1100,7 +1181,7 @@ export function runPostPhase10DiscoveryRow(
     allAttachmentEventsD6h,
     allRelaxationsConverged,
     simTimeSeconds: solver.simTimeSeconds,
-    wallSeconds: (finishedAt.getTime() - startedAt.getTime()) / 1000,
+    wallSeconds: activeWallSeconds(),
     peakRssBytes,
     maxKineticFillIncrement,
     maxDivergenceResidual,

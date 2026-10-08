@@ -643,7 +643,7 @@ interface DynamicStateInput {
   readonly lastRelaxation: LKResumeRelaxationReportV3 | null;
 }
 
-function validateDynamicState(state: DynamicStateInput): Float64Array {
+function validateDynamicState(state: DynamicStateInput, afterEnvironmentEvent = false): Float64Array {
   const values = [
     state.simTimeSeconds,
     state.volumeRateM3PerS,
@@ -685,6 +685,13 @@ function validateDynamicState(state: DynamicStateInput): Float64Array {
   }
 
   const report = state.lastRelaxation;
+  // The separately versioned discovery format preserves ADR 0011's reachable state just
+  // after an environment event. V3 callers never opt into this branch.
+  if (afterEnvironmentEvent && report === null && state.tick > 0) {
+    requireCanonicalZero(state.volumeRateM3PerS, "post-event volumeRateM3PerS");
+    requireCanonicalZero(state.lastMaxFillVelocityMS, "post-event lastMaxFillVelocityMS");
+    return scalars;
+  }
   if ((state.tick === 0) !== (report === null)) {
     fail("last relaxation must be absent if and only if tick is zero");
   }
@@ -1672,6 +1679,14 @@ async function readU32List(
 }
 
 const decodedBrands = new WeakSet<object>();
+
+// Shared numerical validation only. The separately identified discovery codec does not
+// call the V3 encoder/decoder or widen their constant-environment eligibility.
+export {
+  validateControls as validateLKResumeNumericalControls,
+  validateDynamicState as validateLKResumeDynamicState,
+  validateTopology as validateLKResumeTopology,
+};
 const consumedDecoded = new WeakSet<object>();
 const decodedOwnership = new WeakMap<object, LKResumeAdoptedStateV3>();
 

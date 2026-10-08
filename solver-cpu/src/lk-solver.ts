@@ -42,6 +42,7 @@ import {
   prepareAlphaHK,
   randomBit,
   takeDecodedLKResumeCheckpointV3,
+  takeDecodedDiscoveryResumeCheckpoint,
   usesCanonicalOpposingOrder,
   validateTimelineSchedule,
   vKin,
@@ -54,6 +55,9 @@ import {
   type LKSurfacePolicy,
   type LKTimelineEnvironment,
   type DecodedLKResumeCheckpointV3,
+  type DecodedDiscoveryResumeCheckpoint,
+  type AdoptedDiscoveryResumeState,
+  type DiscoveryResumeState,
   type LKResumeAdoptedStateV3,
   type LKResumeRelaxationReportV3,
   type LKResumeStateV3,
@@ -334,7 +338,7 @@ export type LKCycleState =
  * object identity without invoking Proxy traps, so only the exact fresh token created below can
  * select the internal constructor path.
  */
-const LK_RESUME_ADOPTIONS = new WeakMap<object, LKResumeAdoptedStateV3>();
+const LK_RESUME_ADOPTIONS = new WeakMap<object, LKResumeAdoptedStateV3 | AdoptedDiscoveryResumeState>();
 
 export class LKSolver implements SurfaceOperator {
   readonly surfacePolicy: LKSurfacePolicy;
@@ -495,6 +499,18 @@ export class LKSolver implements SurfaceOperator {
     }
   }
 
+  /** ADR 0060 development-only continuation; ordinary checkpoint eligibility is unchanged. */
+  static restoreDiscovery(decoded: DecodedDiscoveryResumeCheckpoint): LKSolver {
+    const adopted = takeDecodedDiscoveryResumeCheckpoint(decoded);
+    const constructionToken = Object.create(null) as object;
+    LK_RESUME_ADOPTIONS.set(constructionToken, adopted);
+    try {
+      return Reflect.construct(LKSolver, [constructionToken]) as LKSolver;
+    } finally {
+      LK_RESUME_ADOPTIONS.delete(constructionToken);
+    }
+  }
+
   constructor(options: LKSolverOptions);
   constructor(input: LKSolverOptions | object) {
     const adopted =
@@ -506,10 +522,11 @@ export class LKSolver implements SurfaceOperator {
         throw new Error("LK resume construction capability was already consumed");
       }
       const state = adopted;
+      const discovery = "schema" in state ? state : null;
       // The core wire reserves the matched no-dip spelling, but its kinetics do not exist yet.
       // Consuming such an envelope must fail here instead of silently substituting M1 or widening
       // the shared parameter-set enum.
-      if (state.paramSet !== "CAK" && state.paramSet !== "M1") {
+      if (discovery === null && state.paramSet !== "CAK" && state.paramSet !== "M1") {
         throw new Error(
           `LK resume paramSet ${state.paramSet} is schema-reserved but solver-ineligible`,
         );
@@ -524,6 +541,13 @@ export class LKSolver implements SurfaceOperator {
       this.dxM = this.dxUmInput * 1e-6;
       this.pressurePa = state.pressurePa;
       this.paramSet = state.paramSet;
+      if (discovery !== null) {
+        this.experimentalFacetDips = discovery.experimentalFacetDips ?? undefined;
+        this.experimentalBasalWidthCells = discovery.experimentalBasalWidthCells ?? undefined;
+        if (discovery.experimentalBasalWidthHistory !== null) {
+          this.experimentalBasalWidthHistory = Object.freeze({ ...discovery.experimentalBasalWidthHistory });
+        }
+      }
       this.cflFill = state.cflFill;
       this.relaxTol = state.relaxTol;
       this.divTol = state.divTol;
@@ -548,7 +572,16 @@ export class LKSolver implements SurfaceOperator {
       this._maximumKineticVelocityScaleMS = resumedScales.maximumKineticVelocityScaleMS;
       this._maximumKineticFillRateScalePerSecond =
         resumedScales.maximumKineticFillRateScalePerSecond;
-      this.preparedAlphaHK = prepareAlphaHK(this.tempC, this.paramSet);
+      if (this.experimentalBasalWidthCells !== undefined) {
+        this.preparedAlphaHK = prepareAlphaHK(this.tempC, "M1_NO_DIP_ABLATION");
+        this.basalWidthDippedPreparation = prepareAlphaHK(this.tempC, "M1");
+        this.basalWidthCache = new Uint32Array(state.a.length);
+        this.basalWidthCacheDirty = true;
+      } else {
+        this.preparedAlphaHK = this.experimentalFacetDips === undefined
+          ? prepareAlphaHK(this.tempC, this.paramSet)
+          : prepareFacetDipExperiment(this.tempC, this.experimentalFacetDips);
+      }
 
       // These are the decoder's final owned arrays. Do not call the ordinary constructor, seed
       // initializer, topology scan, or `.set`: restore must never hold a second complete copy.
@@ -962,6 +995,60 @@ export class LKSolver implements SurfaceOperator {
    */
   cyclePhase(): LKCycleState {
     return this.cycleState;
+  }
+
+  /** Complete completed-cycle state for the separately identified discovery runner. */
+  exportDiscoveryResumeState(): DiscoveryResumeState {
+    if (this.cycleState !== "boundary") {
+      throw new Error(`discovery resume requires cycle-boundary state (state=${this.cycleState})`);
+    }
+    if (this.surfacePolicy !== "aggregate-hv-g1h1-v6" || this.farField !== "monopole-matched" ||
+      this.domain !== "hexPrism") throw new Error("discovery resume requires v6 monopole hexPrism");
+    if (this.paramSet !== "M1" && this.paramSet !== "M1_NO_DIP_ABLATION") {
+      throw new Error("discovery resume requires M1 or matched no-dip");
+    }
+    if (this.experimentalHoleFilling !== undefined) throw new Error("discovery resume excludes hole-filling experiments");
+    if (this.testHookEverUsed) throw new Error("discovery resume rejects every solver that has ever used a test hook");
+    if (this.acceptedEnvironmentEventCount > 1) throw new Error("discovery resume supports one environment event");
+    let lastRelaxation: LKResumeRelaxationReportV3 | null = null;
+    if (this.lastRelaxation !== null) {
+      const report = this.lastRelaxation;
+      if (report.residual === null || report.divergenceResidual === null || report.shellClampDiagnostic === null ||
+        report.surfaceExchangeDiagnostic === null || report.smootherDriftDiagnostic === null ||
+        report.minLocalSurfaceExchangeDiagnostic === null) throw new Error("discovery resume requires complete v6 diagnostics");
+      lastRelaxation = {
+        sweeps: report.sweeps, converged: report.converged, residual: report.residual,
+        divergenceResidual: report.divergenceResidual, shellClampDiagnostic: report.shellClampDiagnostic,
+        surfaceExchangeDiagnostic: report.surfaceExchangeDiagnostic, smootherDriftDiagnostic: report.smootherDriftDiagnostic,
+        minLocalSurfaceExchangeDiagnostic: report.minLocalSurfaceExchangeDiagnostic,
+      };
+    }
+    const epoch = this.mutationEpoch;
+    return {
+      numericEngine: "float64-cpu", resumePhase: "cycle-boundary", cycleState: "boundary",
+      dims: this.dims, tick: this.tick, rngSeed: this.rngSeed, noiseEpsilon: this.noiseEpsilon,
+      domain: "hexPrism", center: this.center, tempC: this.tempC, sigmaInfinity: this.sigmaInfinity,
+      dxUm: this.dxUmInput, pressurePa: this.pressurePa, paramSet: this.paramSet,
+      cflFill: this.cflFill, relaxTol: this.relaxTol, divTol: this.divTol,
+      relaxMaxSweeps: this.relaxMaxSweeps, surfacePolicy: "aggregate-hv-g1h1-v6", farField: "monopole-matched",
+      activeCellCount: this.activeCellCount, shellCellCount: this.dirichletCells.length,
+      hexRadius: this.hexRadius, zHalfExtent: this.zHalfExtent, attachedCount: this.attachedCount,
+      holeFillCountTotal: this.holeFillCountTotal, a: this.a, f: this.f, sigma: this.sigma,
+      boundaryOrder: this.boundaryList, lastAttached: this.lastAttached, simTimeSeconds: this.simTimeSeconds,
+      volumeRateM3PerS: this.volumeRateM3PerS, lastMaxFillVelocityMS: this.lastMaxFillVelocityMS,
+      fillLedger: this.fillLedger, holeFillDeficit: this.holeFillDeficit,
+      saturationClippedFill: this.saturationClippedFill, lastRelaxation,
+      acceptedEnvironmentEventCount: this.acceptedEnvironmentEventCount,
+      closedPlacedFillVaporUnits: this.closedPlacedFillVaporUnits,
+      currentTemperatureSegmentStartFill: this.currentTemperatureSegmentStartFill,
+      testHookEverUsed: false, experimentalFacetDips: this.experimentalFacetDips ?? null,
+      experimentalBasalWidthCells: this.experimentalBasalWidthCells ?? null,
+      experimentalBasalWidthHistory: this.experimentalBasalWidthHistory ?? null,
+      mutationEpoch: () => {
+        if (this.mutationEpoch !== epoch) throw new Error("discovery resume snapshot is stale");
+        return epoch;
+      },
+    };
   }
 
   /**

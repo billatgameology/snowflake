@@ -541,7 +541,7 @@ function environmentBefore(schedule: TimelineSchedule, eventIndex: number): Time
     : schedule.events[eventIndex - 1].environment;
 }
 
-function validateCursor(schedule: TimelineSchedule, cursor: TimelineCursor): void {
+export function validateTimelineCursor(schedule: TimelineSchedule, cursor: TimelineCursor): void {
   const raw = cursor as unknown;
   if (!isObject(raw) || raw.operator !== schedule.operator) {
     throw new Error("timeline cursor operator does not match schedule operator");
@@ -737,7 +737,7 @@ export function evaluateTimelineBoundary(
   boundary: TimelineBoundary,
 ): TimelineDecision {
   validateTimelineSchedule(schedule);
-  validateCursor(schedule, cursor);
+  validateTimelineCursor(schedule, cursor);
   validateBoundary(boundary);
   const previousBoundary = cursor.lastBoundary;
   if (previousBoundary === null) {

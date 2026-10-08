@@ -4,10 +4,10 @@ import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { batchGitHead, batchHostIdentity, batchMemoryFailure, launchDiscoveryRows,
   type BatchHostSample } from "../src/hil-bld-batch-execution.ts";
-import { firstBatchProbeRows, firstBatchRosterSha256, parseFirstBatchHost,
+import { completedProbePrefix, firstBatchProbeRows, firstBatchRosterSha256, parseFirstBatchHost,
   validateFirstBatchProbeReceipt, type FirstBatchProbeReceipt } from "../src/hil-bld-batch-main.ts";
 import { FIRST_BATCH_ID, firstBatchRepresentativeRows } from "../src/hil-bld-batch-roster.ts";
-import { POST_PHASE10_SMOKE_ROWS } from "../src/post-phase10-discovery.ts";
+import { POST_PHASE10_SMOKE_ROWS, runPostPhase10DiscoveryRow } from "../src/post-phase10-discovery.ts";
 
 const temporary: string[] = [];
 afterEach(() => { for (const directory of temporary.splice(0)) rmSync(directory, { recursive: true, force: true }); });
@@ -98,7 +98,43 @@ describe("named batch execution", () => {
   });
 });
 
+describe("checkpointed attempt records", () => {
+  it("preserves each resumed process attempt and refuses accidental reuse of its logs", async () => {
+    const { directory, entryPath } = fixture();
+    const rows = [{ ...POST_PHASE10_SMOKE_ROWS[0], id: "checkpointed" }];
+    const common = { campaignDirectory: directory, rows, concurrency: 1, entryPath,
+      workerArguments: (row: typeof rows[number]) => [row.id] };
+    await launchDiscoveryRows({ ...common, launchName: "initial", attemptName: "initial" });
+    const initialPath = join(directory, "rows", rows[0].id, "attempts", "initial");
+    const original = ["process.json", "stdout.log", "stderr.log", "exit.json"]
+      .map((leaf) => readFileSync(join(initialPath, leaf)));
+    await expect(launchDiscoveryRows({ ...common, launchName: "accidental" })).rejects.toThrow("row directory already exists");
+    const exits = await launchDiscoveryRows({ ...common, launchName: "resume-one",
+      attemptName: "resume-one", resumeExistingRows: true });
+    expect(exits[0].exitCode).toBe(0);
+    expect(read(join(directory, "resume-one-launch.json"))).not.toHaveProperty("hardWallSeconds");
+    expect(read(join(directory, "rows", rows[0].id, "process.json"))).toMatchObject({ attemptName: "resume-one" });
+    expect(read(join(directory, "rows", rows[0].id, "exit.json"))).toMatchObject({ attemptName: "resume-one", exitCode: 0 });
+    ["process.json", "stdout.log", "stderr.log", "exit.json"].forEach((leaf, index) =>
+      expect(readFileSync(join(initialPath, leaf))).toEqual(original[index]));
+    await expect(launchDiscoveryRows({ ...common, launchName: "duplicate-attempt",
+      attemptName: "resume-one", resumeExistingRows: true })).rejects.toThrow("row attempt already exists");
+  });
+});
+
 describe("probe selection and binding", () => {
+  it("qualifies actual completed prefixes only when the checkpointed producer wrote its restart pointer", () => {
+    const { directory } = fixture();
+    const row = { ...POST_PHASE10_SMOKE_ROWS[0], id: "checkpoint-probe", maxSteps: 3, targetExtent: 100 };
+    const result = runPostPhase10DiscoveryRow(row, directory, { checkpoint: "create" });
+    expect(result.stopReason).toBe("step-cap");
+    const exit = { rowId: row.id, exitCode: 0, signal: null,
+      startedAt: result.startedAt, finishedAt: result.finishedAt, wallSeconds: result.wallSeconds };
+    expect(completedProbePrefix(directory, exit)).toBe(true);
+    rmSync(join(directory, "resume", "latest.json"));
+    expect(completedProbePrefix(directory, exit)).toBe(false);
+  });
+
   it("retains actual representative scientific inputs and enough independent jobs for each rung", () => {
     for (const host of ["HIL", "BLD"] as const) {
       const representatives = firstBatchRepresentativeRows(host);
