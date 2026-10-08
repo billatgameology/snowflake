@@ -1,6 +1,8 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** completed wave reviewed; next scientific stage selected for design (2026-10-07); no new campaign launched
+**Status:** maker-approved HIL/BLD exploration portfolio (2026-10-07); commit and push authorized; exact first-batch design is next; no new campaign launched
+**Publication destination:** `origin/main`
+**Plan authoring branch:** `docs/hil-bld-workload-2026-10-07`, based on `fe15b74`; direct main publication, no PR
 **Former execution worktree:** `G:\Code Files\snowflake-science-exploration` (reconciled in October consolidation)
 **Former branch:** `explore/post-phase10-discovery` (merged and removed after preservation)
 **Base:** `ba99d81`
@@ -36,8 +38,9 @@ remain in place. Older adaptive collections outside this bundle still require re
 before deleting any worktree; no collection is declared disposable.
 
 Current next step (2026-10-07): consolidation and operational readiness are complete. The maker
-resumes scientific result review and next-experiment planning; education is separate. The selected
-next-stage candidate and remaining launch design are recorded below. The new host's scoped
+resumes scientific result review and next-experiment planning; education is separate. The approved
+exploration portfolio and HIL/BLD queue responsibilities are recorded below. The earlier single-question
+allocation is superseded. HIL's scoped
 16-process/core continuation measurements remain operational inputs. The old 28-worker cap is
 historical. No Phase 7 or C0V/S6 work is reopened.
 
@@ -81,13 +84,102 @@ qualitative cavity persistence to a resolved physical length. That campaign did 
 later temporal width rule. Source report and existing independent raw-event review retain their
 limits: finite deterministic model evidence, no physical SDAK identification or validation.
 
-### Selected next question
+### Exploration portfolio for HIL and BLD
+
+Maker clarification, 2026-10-07: there is no single established destination. Use the available
+resources for useful exploration, tests and evidence in different directions, then regroup around
+what is learned. This supersedes the choice between a six-case pilot and a larger version of the
+same warm-history question. Warm cavities remain one track; other leads can proceed independently.
+
+The approved portfolio draws on the completed-wave report and this plan's Wave 2 findings plus
+its subsequent interpretation corrections. Those earlier findings are leads for design; their
+raw trajectories must be recovered and checked before selecting exact successor comparisons.
+
+| Track | Scientific question | Informative first work | Decision the evidence supports | Initial lead host |
+|---|---|---|---|---|
+| Warm cavities and early-growth memory | Does advancing hollow growth after the early intervention survive changed grid and seed representation? | Physically matched early-only/broad comparisons; use full-history controls where needed to interpret a lost effect. Inspect depth, waist and new post-switch openings in physical units. | Continue a persistent mechanism lead, or investigate its dependence on discrete geometry/width selection. | BLD, with HIL coordinating analysis |
+| Cold core/tip structure | Which facet preparation contributes to the radial separation between the core and tips? | Add basal-only and prism-only comparisons at the existing cold topology configurations, with matched both/neither controls and spatial field observations. | Distinguish basal, prism and coupled effects; select a subsequent field/width or refinement test. | BLD |
+| Starting-shape memory | Which facet response carries the seed-shape interaction on either side of its crossover? | Use the existing near-volume-matched seed pair at the stable flanks under the separate facet preparations. Preserve the geometry/volume differences explicitly. | Identify a facet-sensitive lead or a coupled geometry/transport interaction before finer crossover localization. | HIL |
+| Pressure and vapor transport | Does the pressure interaction survive comparison at common physical age and shape size, and what changes its sign? | Reanalyze retained trajectories with physical-time/event brackets, then select an intermediate-pressure or facet-isolated pressure comparison that separates the surviving explanations. | Retire an alignment artifact or identify a pressure/forcing regime worth expanding. | HIL |
+| Environmental growth history | How does the stage of an environment change affect later growth? | Vary the existing extent-triggered switch stage for a selected warm/cold pair using ordinary M1/no-dip and compatible static controls. Consider a return history only after the first comparisons. | Identify persistent versus narrowly stage-dependent memory and decide whether a multi-event history adds information. | HIL |
+
+Each track has a finite first comparison block, followed by its own evidence review and next
+batch. A coherent weak or unexpected result may merit more exploration; a dramatic endpoint is
+not required. Grid, domain, timestep and observation-window checks accompany the effects they
+bear on. Breadth comes from independent questions, with targeted checks around each question.
+Already completed matrices and stationary-pit extensions stay closed; reuse their compatible
+outputs and add runs only for a new contrast, observation or necessary numerical qualification.
+
+#### Host queues and planning capacity
+
+The maker names this PC **HIL, 20 cores**, and the other **BLD, 32 cores**. Under the approved desktop
+headroom policy, reserve four declared execution slots on each: planning ceilings are
+`HIL: 20 - 4 = 16` and `BLD: 32 - 4 = 28` simultaneous single-threaded case processes.
+These ceilings are design choices derived from the maker's stated capacities, not measured
+experimental budgets or promises of CPU utilization. The earlier HIL hardware inventory records
+24 cores / 24 logical processors; preserve that measured record separately. The existing ordinary
+N64 16-worker measurement and the launcher's legacy maximum of 28 do not qualify these workloads.
+
+HIL prepares the common producer/protocol and coordinates all analysis. Its initial queue
+emphasizes seed, pressure and environment-history comparisons. BLD's queue emphasizes cavity and
+cold morphology comparisons, including costly refinement blocks. Both receive several independent
+comparisons; lead ownership does not restrict execution to that host. After representative cost
+and memory measurements, distribute whole unstarted comparison blocks to keep both measured
+worker pools supplied. Queue length may exceed active process count; completed jobs free slots
+for the next registered jobs. Do not equate a track with one process or assign by row count alone.
+
+HIL publishes the tested common code after the exact execution design is ready, BLD pulls that version and
+the maker specifies its named load. Each host writes separate local NVMe row bundles with the
+executed command, producer/runtime, process logs, actual concurrency, exit and scientific outputs.
+HIL collects completed bundles and combines the track reports for joint review. Reallocate the
+next finite batch toward informative, unresolved or surprising results; no track must wait for
+the warm cavity result unless it actually depends on it.
+
+#### Existing execution seams and concrete remaining work
+
+Reuse the independent-process launcher and a finite successor roster with named HIL/BLD subsets.
+The track definitions need exact controls, observations, stop limits and matching rules before
+implementation. The charter permits separate constant-environment facet experiments; register
+new cold/seed comparisons as a plan amendment rather than implying they were part of the original
+warm-only experiment. Ordinary timeline histories remain separate from experimental width/facet
+arms, which reject environment events.
+
+The cavity analyzer reconstructs rows, but its history comparison currently hardcodes the original
+width-three, five-arm, twenty-second design and groups by temperature/supersaturation/pressure.
+Fine thresholds, other cutoffs or reduced rosters need a narrowly updated comparison definition;
+heterogeneous configurations need separate matched groups. The older Wave 2 equal-plateau-age
+calculation used interface-cycle offset, so it cannot stand in for common physical time.
+A temperature-return history also needs an explicit multi-event runner extension; current rows
+support one extent-triggered event. These are bounded implementation gaps, not new infrastructure.
+
+Before a long campaign, demonstrate actual experimental pause/resume or use demonstrably short
+independently terminal stages. The ordinary core witness does not make the discovery runner
+resumable. Qualify representative mature/experimental rows on each host before setting actual
+worker limits. Reuse the existing logs, analyzers and governed output-preservation path.
+
+The maker approved this portfolio and directed commit and push on 2026-10-07. Exact track rows,
+controls, observations and batch sizes remain the next design work; implementation and scientific
+launches have not begun. The approved process ceilings still require workload qualification.
+
+Publication scope: fast-forward the plan into local main and publish to origin/main, including the
+already integrated cleanup/readiness history through `fe15b74`. The task checkout contains only
+this plan and PROGRESS changes, with no untracked or ignored payload to preserve. The primary
+checkout's ignored dependencies and output custody are retained. Reconcile the task checkout/ref
+without force after integration. `npm.cmd run lint:rule7` and `git diff --check` passed.
+The focused progress check passed using the primary checkout's installed Vitest against the task:
+`node C:/Users/biao3/Documents/GitHub/snowflake/node_modules/vitest/vitest.mjs run runner/test/progress-index.test.ts --config C:/Users/biao3/Documents/GitHub/snowflake/vitest.config.ts --root C:/Users/biao3/Documents/GitHub/snowflake-hil-bld-workload --no-cache`.
+It first rejected the overlong progress index; the summary was compacted and the guard passed
+unchanged. Shared-context Codex/GPT-6 review checked approval state and portfolio consistency;
+it did not re-audit or rerun the scientific evidence.
+
+### Warm cavity track: retained candidate comparison
 
 **Does early-growth memory survive physically matched width selection and changed grid/seed
 representation, or does it depend on the grid-sized neck inherited during early growth?**
 
 Begin at the -4.5 C anchor with an early-only versus broad pair. The first candidate is six
-rows, staged by configuration rather than a new temperature/threshold sweep:
+rows, grouped by configuration. This is one starter block within the portfolio, not the total
+workload or a prerequisite for the other tracks:
 
 | Candidate configuration | N | dx (um) | Seed radius / thickness (cells) | Early width cutoff (cells) | Arms |
 |---|---:|---:|---|---:|---|
@@ -120,34 +212,28 @@ stay unchanged. Current experimental export exclusions remain in force.
 
 ### Execution and decision order
 
-1. Finalize physical matching and the finite roster from this candidate; keep initialization
-   brackets and domain sensitivity explicit. Do not rerun the completed long histories.
-2. Resolve representative pause/resume through the actual experimental runner, or a demonstrably
-   short independently terminal design, then measure its real per-case resource use. The core
-   ordinary witness and N64 short-row 16-process measurement are operational inputs, not evidence
-   that these experimental/fine rows can restart or use that concurrency.
-3. Run the coarse pair first. If it does not retain a meaningful post-switch lead, analyze that
-   changed-domain/shorter-window contrast before spending the fine-grid budget. Otherwise run
-   both fine seed brackets, keeping the registered physical threshold unchanged.
-4. Reuse cavity intervals, physical depth/waist, tip advance, actual cutoff and zero post-off
-   selected demand. Compare common physical ages and spans with event brackets. A stored pocket
-   without advancing new openings does not establish sustained hollow growth.
-5. If the lead persists across these conditions, plan colder-anchor replication or further
-   initialization qualification. If depth/neck scales stay tied to cells or the lead disappears,
-   retain it as numerically/initialization-sensitive and investigate the numerical mechanism.
-   A failure of convergence, contact, restart or observation window stays a named gap.
+1. Define the first finite comparison block and decision value for each approved track, retaining
+   the agreed host responsibilities and planning ceilings. The cavity block above is one option.
+2. Recover relevant earlier trajectories, verify controls and demonstrate each readout on existing
+   data. Select exact new rows without repeating completed questions. Record known measurement gaps.
+3. Commit the agreed protocol before implementation; prepare the shared roster, named subsets and
+   required narrow readout/restart work. Run the checks required by the actual scientific changes.
+4. Qualify per-family process cost, memory and restart/terminal duration; set the actual HIL/BLD
+   limits, publish the shared tested version and execute only the maker-dispatched loads.
+5. Review completed matched blocks as they finish, then regroup across tracks. Preserve positive,
+   null, sensitive and unresolved outcomes. Give the next batch to questions whose possible answers
+   would change the scientific understanding; allow low-probability leads a bounded useful test.
 
-Done for this planning block: existing results are reviewed, this finite next question is chosen
-and launch-dependent details are named. A launch protocol is the next deliverable, not another
-housekeeping phase. No new simulations, parameter/source updates, solver edits, phase gate,
-external scientific claim, Phase 7 or retired S6 execution are part of this review.
+Current planning state: the maker approved exploration across these directions, host responsibilities
+and planning ceilings, and authorized plan publication. Next define the exact first comparison batches.
+Education proceeds separately. Closed Phase 10 and held Phase 7 remain outside this workstream.
 
 Known lessons: read Phase 6 C2/C3/C6 and E5 before freezing changed grids/controls/outcomes;
 do not confuse shell matching with domain independence, an endpoint with a time comparison,
-or a code intervention with physical causality. The existing cavity analyzer supplies the
-readouts; no new assurance framework is needed. Read-only collaborator extraction used shared
+or a code intervention with physical causality. Existing analyzers supply reusable row readouts;
+new matched-group semantics need the bounded changes named above. No new assurance framework is needed. Read-only collaborator extraction used shared
 context and report JSON, not raw-event reconstruction or simulation reruns.
-Verification for this prose/design block: named report-field extraction, width/shell contract
+Prior local design/check record (before portfolio approval and publication): named report-field extraction, width/shell contract
 inspection, npm.cmd run lint:rule7 and git diff --check passed. No solver or gate run was needed.
 The existing runner/test/progress-index.test.ts also passed after local integration via
 node node_modules/vitest/vitest.mjs run runner/test/progress-index.test.ts.
@@ -2429,6 +2515,14 @@ row ceiling.
 - no fitted dip location, pressure law, or parameter optimization against a target habit.
 
 ## Tried and rejected
+
+- Splitting the six-case candidate as two coarse HIL cases and four fine BLD cases solely to use
+  both computers (2026-10-07): the current single-threaded-per-case path supplies only six main
+  solver threads, inferred from the draft roster and independent-process launcher. It leaves most
+  stated capacity unused and adds coordination. The maker rejected that allocation; scientific
+  scope is reopened rather than increasing case count for utilization alone. The maker subsequently
+  clarified that independent exploration tracks should proceed in parallel; this supersedes
+  organizing all available work around one warm cavity question.
 
 - Expanding the new width lead into a radius-two/radius-three seed matrix before separating
   early and late feedback: changing radius changes volume, perimeter and diffusion as well as

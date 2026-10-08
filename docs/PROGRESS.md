@@ -5,12 +5,18 @@ including **Tried and rejected**. The charter defines intended behavior; this in
 The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
 
 - **Last updated:** 2026-10-07 by Codex
+- **Parallel exploration:** maker-approved for HIL and BLD; commit and push authorized on 2026-10-07.
+  The [approved portfolio](plans/post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld)
+  covers cavities, cold core/tip structure, seed memory, pressure/transport and environment history.
+  HIL coordinates shared code and joint review; each PC receives a queue of comparisons.
+  Planning ceilings retain desktop headroom; actual experimental limits remain unmeasured.
+  Exact first-batch design is next; no new scientific implementation or run has started.
 - **New-host follow-up:** [complete](plans/new-host-acceptance-and-capacity-2026-10-07.md),
   locally integrated through `cf1386e`. Glass/camera browser and direct visual acceptance pass;
   the six comparison inputs and both small independent C-drive backups are restored and verified.
   The scoped core continuation matches uninterrupted bytes. Durable results and full-check receipts
   live in `evidence/new-host-readiness-2026-10-07/`. The single task checkout/ref are reconciled
-  and removed; only the primary checkout/local main remain. Nothing was pushed.
+  and removed at readiness closeout. Publication was deferred then and is included in the approved main update.
   The short-row ladder recommends 16 workers for its ordinary N64 workload (capacity receipt
   SHA-256 `eb79aa6ddcaddaf79c2ec45aa919e0a6e7363674bfe0dcfcb83dcb0b33b4936b`);
   larger/experimental rows remain unqualified and discovery-runner restart support remains absent.
@@ -18,15 +24,15 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
 - **Verification scope:** maker clarification is recorded through local `91c0684`: website/education
   presentation uses focused product/content checks; executable science and evidence retain rigorous
   requirements. The active glass/camera plan's inherited full-suite criterion is removed; historical
-  test records remain. Its task worktree/ref are reconciled and removed; nothing was pushed.
+  test records remain. Its task worktree/ref are reconciled and removed; publication was deferred at that milestone.
 - **Agent-rules cleanup:** [complete](plans/repository-housekeeping-2026-10-07.md#agent-rules-follow-up--2026-10-07),
   integrated into local main through `23de3a8`; its task worktree/ref are removed without force.
   Repeated detail now links to its authority while explicit learned warnings, required reading and
-  existing enforcement remain. Changes are local and unpushed.
+  existing enforcement remain. This integrated work is included in the approved main publication.
   Bounded text review has no unresolved finding (primary `out/agent-rules-cleanup-2026-10-07/review.json`).
 - **Repository housekeeping:** [complete](plans/repository-housekeeping-2026-10-07.md), integrated
   into local `main` through `6f4e050`; its reconciled task worktree and branch are removed.
-  Changes remain local and unpushed. The primary checkout is the sole local worktree.
+  This integrated work is included in the approved main publication. At housekeeping closeout, only the primary worktree remained.
 
 ## Historical records
 
@@ -89,10 +95,10 @@ Its closing findings, raw inventory and verification are recorded in
 [the completed wave bundle](../evidence/post-phase10-wave-2026-10-01/README.md); exact retained
 outputs are in `post-phase10-science-output@2026-10-01`. No replacement campaign has launched during this review.
 The maker resumed science planning after consolidation, with education handled separately. The
-[next-stage design](plans/post-phase10-adaptive-discovery.md#resumed-scientific-review-and-next-stage-design--2026-10-07)
-qualifies the early-growth memory lead using physically matched coarse/fine width thresholds and
-seed-thickness brackets at the warm anchor. Resource/restart decisions belong to its launch design;
-they do not block analyzing the completed results.
+[approved portfolio](plans/post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld)
+covers several independent exploration tracks. The earlier cavity grid/seed comparison becomes
+one block within that program. Resource/restart qualification belongs to launch preparation;
+reviewing existing results and designing other tracks can proceed now.
 
 - **Phase 6 is COMPLETE (2026-08-20).** The accepted negative finding remains measured-only:
   no quantitative-validation label was earned. `gate6` exit 0 at `44488ab` re-derived the amended
@@ -206,8 +212,8 @@ custody remain retained. Primary `nas-retention-review.json` records the disposi
 - [Repository housekeeping](plans/repository-housekeeping-2026-10-07.md) is complete. Its required
   checks, approved cleanup, local fast-forward and non-force worktree/ref closeout are recorded.
 - [Adaptive discovery](plans/post-phase10-adaptive-discovery.md) is reviewing its completed wave and
-  designing the selected early-history grid/initialization qualification. The candidate is not a
-  frozen launch queue; completed campaign rows remain closed.
+  proceeding from the approved scientific portfolio and HIL/BLD work queues. Exact rows,
+  actual worker budgets and launch commands remain to be designed; completed campaign rows stay closed.
 - [Glass/camera follow-up](plans/explore-gutcheck-growth-glass-camera.md) has an implementation candidate
   with completed local browser/visual acceptance: current tracked glass record SHA-256
   `052b4c0f92fc1f8ea9b5c88219322c4fd3ceaba4db79051a93b587d6bd4c51c8`.
@@ -227,17 +233,15 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-Finalize the [selected scientific-stage candidate](plans/post-phase10-adaptive-discovery.md#resumed-scientific-review-and-next-stage-design--2026-10-07):
-a staged warm-anchor broad/early-only comparison with physically matched coarse/fine width
-thresholds and explicit fine-seed thickness brackets. Reuse the completed run's cavity/temporal
-readouts, with common physical-age/span comparisons. The key trap is that the older fine-grid
-campaign tested original M1/no-dip, not this early-history intervention.
-
-Turn that candidate into a committed execution protocol before launching. Require representative
-pause/resume before launch through the actual experimental runner, or a demonstrably short
-independently terminal design; qualify its actual resource budget then. These are launch controls,
-not a reason to pause scientific review/design. Do not rerun completed long histories or begin
-another broad map. Phase 7 remains on maker hold and retired Phase 10 S6 stays closed.
+Define exact first-batch comparisons under the [approved portfolio](plans/post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld).
+HIL leads seed, pressure and environment-history work; BLD leads cavity and cold core/tip work.
+Both receive queues of independent matched blocks. Define controls, readouts and stop budgets,
+then allocate by measured cost and memory. HIL commits the finite execution protocol before
+implementation and publishes shared tested code; BLD pulls it and the maker specifies its load.
+Named load selection and narrow analyzer changes remain. Require representative pause/resume before launch
+through the actual experimental runner, or demonstrably short independently terminal stages.
+Use physical-time comparisons: old Wave 2 plateau age used cycle offsets. Phase 7 stays on maker
+hold and retired Phase 10 S6 stays closed.
 
 Education proceeds separately with the maker. The readiness/cleanup work is complete. Full large
 NAS restoration and unresolved custody/pruning remain separate decisions; retained source bytes
