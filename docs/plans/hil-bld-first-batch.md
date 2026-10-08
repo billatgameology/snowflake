@@ -1,7 +1,7 @@
 # HIL / BLD first exploration batch
 
 - **Scope:** executable first stage of the maker-approved post-Phase-10 portfolio; development evidence only.
-- **Status:** BLD continuation is implemented and verified under ADR 0060; the staged wrapper runs fresh qualification then the authorized queue. Its amendment supersedes the four-hour limit and seed-rerun recovery. HIL remains on the published original path.
+- **Status:** BLD execution is complete: all 42 rows reached checked size endpoints under ADR 0060 continuation, with no wall deadline. Track interpretation and retained-result closeout remain pending. HIL status is not inferred from BLD.
 - **Branch / destination:** original shared producer `science/hil-bld-first-batch` -> `origin/main`; current BLD task is `codex/bld-exploration`.
 - **Authority:** [adaptive discovery](post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld), accepted ADRs 0055-0060, attachment-kinetics specification. No phase gate changes.
 
@@ -323,6 +323,17 @@ The actual N64 early-width witness at 9e0986e was killed after its first saved u
 One bounded Codex/GPT-6 shared-context non-author review found no blocker; review.json states its commands and limits. The original stopped run, probe and control records are permanently retained in the verified legacy archive; their summary remains unresolved. No source output was pruned.
 
 The maker's proceeding authorization now applies to the repaired path. From the clean task checkout, start out/batch1-bld-resumable-control/run-stages.ps1 hidden with -Mode auto: it runs the fresh registered probe, then launches only with its successful receipt. Separate probe/launch stdout, stderr, start and exit records retain actual outcomes. The CLI enforces source/runtime/host/roster and memory limits. Read those records, out/batch1-bld-resumable-probe/probe.json and campaign attempt/row status before duplicate work. No measured concurrency is asserted until the new probe records it. Keep this commit unchanged through qualification, launch and resume. The wrapper accepts -Mode resume; the direct pause/resume commands above remain authoritative. A deliberate exit-7 wrapper smoke verified child exit capture and is retained locally.
+
+## BLD execution complete — 2026-10-08
+
+Producer d7ff3e1fb122ecbf8994539d3623928cbe5a9c6b ran on BLD with Node v24.13.1. The qualified and actual maximum concurrency was 16. Campaign maxWallSeconds is null; the original four-hour experiment deadline did not apply. The launch wrapper started 2026-10-08T14:11:54.1674111Z and ended 2026-10-08T21:04:12.1478650Z with exit 0. Source records are task out/batch1-bld-resumable/campaign.json, attempt-0001-complete.json and out/batch1-bld-resumable-control/launch-direct-20261008-071154.exit.json.
+
+Executed `node runner/src/hil-bld-batch-main.ts summarize out/batch1-bld-resumable` at the same source checkpoint. The existing checker re-read consecutive update evidence, numerical tolerances/ledger/CFL/symmetry fields, terminal agreement and exit status: 42/42 rows are size-endpoint with 0 errors. Task out/batch1-bld-resumable/summary.json and out/batch1-bld-resumable-control/summary-20261008-160529.exit.json retain the output and exit-zero receipt. All workers are terminal; no row awaits resume. This is operational coverage, not track morphology interpretation or physical validation.
+
+The original automatic wrapper stopped after qualification because its long-running process ExitCode was null. It did not dispatch a campaign. Preserve that receipt; the local out/batch1-bld-resumable-control/run-direct.ps1 uses direct native invocation and LASTEXITCODE, checked with exit 7, and launched the same qualified source. Its launch-controller-20261008-071153.start.json records the recovery. The old run-stages.ps1 auto path is historical, not the next launch instruction. The probe selected 16 because 28 hit its 180-second operational cutoff with ample memory; that does not establish optimal throughput.
+
+Next deliverable: compare the registered cold facet arms and warm histories using their saved snapshots/events and physical-time brackets, then reconcile with HIL results. Preserve the campaign, probe, checkpoints and control logs as active analysis staging; classify/promote retained evidence under Rule 15 before scientific closeout. No NAS publication, cleanup or new run was performed for this status update.
+A bounded Codex/GPT-6 shared-context read-only completion review independently checked every registered row result, event sequence, status, exit and checkpoint metadata, finding no completion mismatch. It did not rerun the numerical simulation or interpret morphology.
 
 ### Tried and rejected at closeout
 

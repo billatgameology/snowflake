@@ -4,14 +4,14 @@ This is the compact **current-state index**. Read it completely, then the affect
 including **Tried and rejected**. The charter defines intended behavior; this index records state.
 The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
 
-- **Last updated:** 2026-10-07 by Codex
+- **Last updated:** 2026-10-08 by Codex
 - **Parallel exploration:** maker-approved for HIL and BLD; commit and push authorized on 2026-10-07.
   The [approved portfolio](plans/post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld)
   covers cavities, cold core/tip structure, seed memory, pressure/transport and environment history.
   HIL coordinates shared code and joint review; BLD leads cavity and cold core/tip comparisons.
   BLD checkout: `G:/Code Files/snowflake-bld-exploration`, branch `codex/bld-exploration`.
   Published main `f4ca38a` is integrated; the [first batch](plans/hil-bld-first-batch.md) has HIL 56 rows and BLD 42.
-  Legacy run stopped; uncapped checkpoint continuation is verified under ADR 0060; [setup](plans/post-phase10-adaptive-discovery.md#bld-worktree-setup--2026-10-07) retains its original base.
+  BLD replacement finished all 42 size endpoints; continuation is verified under ADR 0060; [setup](plans/post-phase10-adaptive-discovery.md#bld-worktree-setup--2026-10-07) retains its original base.
 - **New-host follow-up:** [complete](plans/new-host-acceptance-and-capacity-2026-10-07.md),
   locally integrated through `cf1386e`. Glass/camera browser and direct visual acceptance pass;
   the six comparison inputs and both small independent C-drive backups are restored and verified.
@@ -90,7 +90,7 @@ remains untouched. Housekeeping fast-forwarded local primary main and removed it
 worktree/ref without force. See [consolidation](plans/local-consolidation-2026-10-01.md) and primary
 `out/housekeeping-2026-10-07/worktree-closeout.json` for the source/check/disposition record.
 
-**Science is ready for first-batch host qualification and bounded exploration.** The cavity/grid and early/late history
+**BLD first-batch execution is complete; joint scientific interpretation is pending.** The cavity/grid and early/late history
 wave is complete in the [adaptive discovery plan](plans/post-phase10-adaptive-discovery.md).
 Its closing findings, raw inventory and verification are recorded in
 [the completed wave bundle](../evidence/post-phase10-wave-2026-10-01/README.md); exact retained
@@ -232,15 +232,15 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-BLD continuation is verified in G:/Code Files/snowflake-bld-exploration, branch codex/bld-exploration.
-Exact npm.cmd test at a507a01: 233 files / 2990 tests passed, 55 skipped; [receipt](../evidence/bld-resume-2026-10-07/verification.json).
-Actual N64 interrupted/restored state and events match; representative pause/resume before launch is satisfied.
-Follow [the runbook](plans/hil-bld-first-batch.md#verified-bld-recovery-and-resumed-dispatch): the hidden
-out/batch1-bld-resumable-control/run-stages.ps1 -Mode auto runs fresh qualification, then the authorized resumable queue.
-Next: inspect its stage logs/exits and out/batch1-bld-resumable-probe/probe.json before duplicate work; rows carry checkpoint/attempt status.
-Pause/resume: node runner/src/hil-bld-batch-main.ts pause out/batch1-bld-resumable / replace pause with resume.
-Keep this source/worktree unchanged while active. Every completed update saves; no four-hour cap; step-review pauses retain state.
-Old output is preserved in the tracked legacy archive. Scientific interpretation is pending; Phase 7 stays on hold and S6 closed.
+BLD finished all 42 registered rows at size endpoints, with 16 maximum concurrent workers and no wall deadline.
+Execution at d7ff3e1 ended 2026-10-08 21:04:12 UTC, exit 0; [completion record](plans/hil-bld-first-batch.md#bld-execution-complete--2026-10-08).
+Existing result checker classified 42/42 size endpoints with zero errors in task out/batch1-bld-resumable/summary.json.
+Next: analyze that summary and row snapshots/events in G:/Code Files/snowflake-bld-exploration against the registered cold/warm comparisons,
+using physical-time brackets; then reconcile with HIL when its results are available. Completion alone is not a morphology or validation finding.
+Recompute coverage: node runner/src/hil-bld-batch-main.ts summarize out/batch1-bld-resumable. Do not launch the completed queue again.
+Outputs, checkpoints and control logs remain active analysis staging; retain them until evidence/asset closeout under Rule 15.
+Exact npm.cmd test at a507a01: 233 files / 2990 passed, 55 skipped; [receipt](../evidence/bld-resume-2026-10-07/verification.json).
+The representative pause/resume before launch matched state/events; no scientific source changed during execution. Phase 7 stays on hold and S6 closed.
 
 Education proceeds separately with the maker. The readiness/cleanup work is complete. Full large
 NAS restoration and unresolved custody/pruning remain separate decisions; retained source bytes
