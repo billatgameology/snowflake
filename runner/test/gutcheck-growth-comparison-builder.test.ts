@@ -64,6 +64,24 @@ function temporaryRoot(label: string): string {
   return root;
 }
 
+// Windows may lack file/directory symlink privileges; skip only those setup-dependent cases.
+function canCreateSymbolicLink(type: "file" | "dir"): boolean {
+  const root = temporaryRoot(`symlink-capability-${type}`);
+  const target = join(root, "target");
+  if (type === "dir") mkdirSync(target);
+  else writeFileSync(target, "target");
+  try {
+    symlinkSync(target, join(root, "link"), type);
+    return true;
+  } catch (error) {
+    const code = (error as NodeJS.ErrnoException).code;
+    if (process.platform === "win32" && (code === "EPERM" || code === "EACCES")) return false;
+    throw error;
+  }
+}
+const CAN_CREATE_FILE_SYMLINK = canCreateSymbolicLink("file");
+const CAN_CREATE_DIRECTORY_SYMLINK = canCreateSymbolicLink("dir");
+
 function withGutcheckNasRoot<T>(root: string, action: () => T): T {
   const previous = process.env.GUTCHECK_NAS_ROOT;
   const previousCanonical = process.env.VCC_NAS_ROOT;
@@ -556,7 +574,7 @@ describe("comparison record derivation", () => {
     });
   });
 
-  it("requires collection manifests to share one real root and contain no symlink", () => {
+  it("requires collection manifests to share one real root", () => {
     const first = collectionManifestPair("collection-first");
     const second = collectionManifestPair("collection-second");
     withGutcheckNasRoot(first.share, () => {
@@ -565,6 +583,9 @@ describe("comparison record derivation", () => {
       );
     });
 
+  });
+
+  it.skipIf(!CAN_CREATE_DIRECTORY_SYMLINK)("rejects symlinked collection manifest paths", () => {
     const linked = collectionManifestPair("collection-link");
     const rawDirectory = join(
       linked.share,
@@ -633,10 +654,8 @@ describe("comparison record derivation", () => {
     expect(() => parseLegacyComparisonManifest(wrongCount, growth)).toThrow(/differs from compact event count/);
   });
 
-  it("rejects a frame symlink and binary headers that disagree with the manifest", () => {
+  it.skipIf(!CAN_CREATE_FILE_SYMLINK)("rejects a frame symlink", () => {
     const escape = makeFixture("frame-escape");
-    const growth = decodeGrowthAsset(readFileSync(escape.growthAsset));
-    const parsed = parseLegacyComparisonManifest(escape.manifestValue, growth);
     const target = join(escape.root, "outside.bin");
     writeFileSync(target, "outside");
     const frame = join(escape.root, "raw", "mesh-t000000.bin");
@@ -644,6 +663,9 @@ describe("comparison record derivation", () => {
     symlinkSync(target, frame);
     expect(() => measureRegularFile(frame, "escaped frame")).toThrow(/symbolic link/);
 
+  });
+
+  it("rejects binary headers that disagree with the manifest", () => {
     const mismatch = makeFixture("binary-header-mismatch");
     const mismatchGrowth = decodeGrowthAsset(readFileSync(mismatch.growthAsset));
     const mismatchParsed = parseLegacyComparisonManifest(mismatch.manifestValue, mismatchGrowth);

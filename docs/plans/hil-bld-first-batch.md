@@ -302,3 +302,14 @@ Verification evidence is project-owned tracked evidence, permanently retained un
 `evidence/bld-resume-2026-10-07/` with manifest pins; local verification staging and old campaign
 outputs remain intact. Large live scientific outputs remain task staging until separately
 classified at scientific closeout. No NAS transfer or local prune is part of this change.
+
+Verification interruption: exact `npm.cmd test` at `9e0986e` completed with exit 1. Its retained local `out/bld-resume-verification/full-check-result.json` and stdout report:
+
+```text
+Test Files  1 failed | 232 passed (233)
+      Tests  2 failed | 2988 passed | 53 skipped (3043)
+   Start at  21:47:33
+   Duration  1474.11s (transform 4.02s, setup 0ms, collect 43.48s, tests 1394.33s, environment 31ms, prepare 15.50s)
+```
+
+The only failures are unchanged asset-comparison fixtures attempting Windows file/directory symlinks without permission. The test and production builder match main; no scientific assertion failed. Split the mixed fixtures so mismatched-root and binary-header controls always run; only capability-unavailable symlink cases skip, matching the existing nearest test pattern. Production guards and experiment code are unchanged. The focused repaired file and both typechecks pass; a second exact full check at the repaired stable checkpoint follows. The first failure log is retained, not relabeled green.
