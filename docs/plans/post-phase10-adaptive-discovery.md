@@ -1,6 +1,6 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** cavity/grid and early/late history wave complete and reviewed (2026-10-01); science paused, next experiment unselected
+**Status:** completed wave reviewed; next scientific stage selected for design (2026-10-07); no new campaign launched
 **Former execution worktree:** `G:\Code Files\snowflake-science-exploration` (reconciled in October consolidation)
 **Former branch:** `explore/post-phase10-discovery` (merged and removed after preservation)
 **Base:** `ba99d81`
@@ -35,18 +35,120 @@ bytes, all fresh-restored and compared byte-for-byte by length/SHA-256. Existing
 remain in place. Older adaptive collections outside this bundle still require retention review
 before deleting any worktree; no collection is declared disposable.
 
-Current next step (2026-10-07): Windows consolidation, repository housekeeping and the new
-24-core computer's operational readiness are complete; the other computer's film branch remains
-untouched. Select a new finite experiment before launching any wave. A physically
-matched grid/width and initialization check of the early-history lead is a proposal, not a registered
-run queue. The [current-host readiness task](new-host-acceptance-and-capacity-2026-10-07.md)
-measured a 16-process recommendation for its ordinary N64 three-cycle workload and proved one
-strict core disk continuation. Source artifacts are its tracked capacity result and resume receipt;
-this does not qualify N112/N126/experimental rows or make the discovery runner resumable. Register
-matched capacity/memory checks and short independently terminal stages, or a separately authorized
-production resume path, before another campaign. The 28-worker cap belongs to the former
-32-logical-processor execution host, not this computer.
-Other parked lead families remain open. No Phase 7 or C0V/S6 work is reopened.
+Current next step (2026-10-07): consolidation and operational readiness are complete. The maker
+resumes scientific result review and next-experiment planning; education is separate. The selected
+next-stage candidate and remaining launch design are recorded below. The new host's scoped
+16-process/core continuation measurements remain operational inputs. The old 28-worker cap is
+historical. No Phase 7 or C0V/S6 work is reopened.
+
+## Resumed scientific review and next-stage design — 2026-10-07
+
+The maker is handling education separately and directs this workstream to review the completed
+long run and plan the next science stage. Consolidation and host readiness are complete. Science
+can proceed with analysis and design now; restart/resource qualification belongs to execution
+planning and does not invalidate the completed results or block reviewing them. This section
+supersedes the unselected/pause next action above; completed protocols and artifacts remain frozen.
+
+### What the completed run settled
+
+| Measured outcome | -4.5 C | -5 C |
+|---|---:|---:|
+| Original open axial planes surviving after switch-off | 14 | 14 |
+| New post-switch open planes surviving to termination | 18 | 22 |
+| Axial tip advance after switch-off (um) | 3.5 | 3.5 |
+| Early-only terminal maximum open depth (um, rounded) | 5.60 | 5.95 |
+| Late-only terminal maximum open depth (um) | 0.35 | 0.35 |
+
+Source values were read at write time from `history-t4p5.json` (1,739,472 bytes, SHA-256
+`de94a90dd8b128d40d57c2b65c8003c9bef53466d97e278514b5eafb68c55b54`) and `history-t5.json`
+(1,781,909 bytes, SHA-256 `a45e0122b4be850c7ae5e46d5b835277c5dac8aabd7c6064d5fdf4efbf5841b5`),
+under `evidence/post-phase10-wave-2026-10-01/`. Fields: `rows[].analysis.basalWidthHistory`
+(count surviving original/new intervals; take original intervals' post-cutoff tip advance),
+`frames.at(-1).enclosureWitnesses` and `basalWidthObservation.cutoffExposure.after`.
+Plane counts are signed axial layers, not independent cavities. Early-only has zero recorded
+selected-cell updates and selected demand after switch-off. It keeps creating advancing open
+layers under the broad preparation; this is growth-history dependence within this implementation.
+Late-only has appreciable selected demand but does not recreate that deepening over its window.
+Continued enhancement still changes the matched-age outcome; it is not irrelevant.
+
+The grid/seed report `cavity-comparison.json` (5,298,918 bytes, SHA-256
+`fa10b16b17b1eedc29139cad85acf4fa32f0fb223de680ccc3f47d5a0c12c0b5`) has all requested rows admissible. The original M1/no-dip
+persistent-depth contrast survives its tested seeds/resolutions, but the M1 waist adds 4
+layers on both grids: added inclusive thickness halves with spacing (added probe-full layers
+multiplied by that row's dx). Read
+`rows[].analysis.frames[].geometry.waist` against the seeded frame, rather than promoting
+qualitative cavity persistence to a resolved physical length. That campaign did not run the
+later temporal width rule. Source report and existing independent raw-event review retain their
+limits: finite deterministic model evidence, no physical SDAK identification or validation.
+
+### Selected next question
+
+**Does early-growth memory survive physically matched width selection and changed grid/seed
+representation, or does it depend on the grid-sized neck inherited during early growth?**
+
+Begin at the -4.5 C anchor with an early-only versus broad pair. The first candidate is six
+rows, staged by configuration rather than a new temperature/threshold sweep:
+
+| Candidate configuration | N | dx (um) | Seed radius / thickness (cells) | Early width cutoff (cells) | Arms |
+|---|---:|---:|---|---:|---|
+| Coarse reference | 64 | 0.35 | 2 / 1 | 3 | broad, early-only |
+| Fine thin seed | 126 | 0.175 | 4 / 1 | 6 | broad, early-only |
+| Fine thick seed | 126 | 0.175 | 4 / 3 | 6 | broad, early-only |
+
+This is a design candidate, not an already frozen roster or a launch. Nominal inclusive threshold
+is `L * dx` under the existing width contract: `3 * 0.35 = 6 * 0.175 = 1.05 um`.
+It is a P4 mesoscopic threshold, not a measured molecular width. Seed radius uses matched
+lattice-coordinate radius; the fine thicknesses bracket the coarse inclusive thickness but do
+not recreate identical seed geometry/volume or bound nonlinear outputs.
+
+Proposed largest center-span stop is 9.8 um: coarse extent 29 and fine extent 57, from
+`(extent - 1) * dx`. For cubic hexPrism storage the existing mask gives radius/axial
+half-extent 31 for N64 and 62 for N126, so those shell coordinate lengths both equal 10.85 um
+(`solver-cpu/src/lk-solver.ts` active mask: minimum distance from center to storage edge).
+Matching those lengths is not proof of boundary independence or identical discrete shells.
+The retained N112 early/broad states at this size are separate same-spacing domain references,
+not matched controls for N64. Warm N112 early-only reaches this span at 92.45933650456303 s
+(history report `sizeSelections` / selected frame), after its cutoff; a new row stopping
+before meaningful post-switch growth is an unresolved window, not a negative memory result.
+
+Keep the recorded -4.5 C / sigmaInfinity 0.003375, pressure 101325 Pa, cutoff 20 s, noise zero,
+seed one, fill CFL 0.05, aggregate-v6, monopole shell and residual/divergence controls. These
+operands come from the warm report's embedded row and registered existing history protocol.
+Freeze exact successor row IDs, common producer/runtime, sampling/stop limits and reporting
+before implementation. Reuse accepted 0058/0059 behavior; ordinary operators and old identities
+stay unchanged. Current experimental export exclusions remain in force.
+
+### Execution and decision order
+
+1. Finalize physical matching and the finite roster from this candidate; keep initialization
+   brackets and domain sensitivity explicit. Do not rerun the completed long histories.
+2. Resolve representative pause/resume through the actual experimental runner, or a demonstrably
+   short independently terminal design, then measure its real per-case resource use. The core
+   ordinary witness and N64 short-row 16-process measurement are operational inputs, not evidence
+   that these experimental/fine rows can restart or use that concurrency.
+3. Run the coarse pair first. If it does not retain a meaningful post-switch lead, analyze that
+   changed-domain/shorter-window contrast before spending the fine-grid budget. Otherwise run
+   both fine seed brackets, keeping the registered physical threshold unchanged.
+4. Reuse cavity intervals, physical depth/waist, tip advance, actual cutoff and zero post-off
+   selected demand. Compare common physical ages and spans with event brackets. A stored pocket
+   without advancing new openings does not establish sustained hollow growth.
+5. If the lead persists across these conditions, plan colder-anchor replication or further
+   initialization qualification. If depth/neck scales stay tied to cells or the lead disappears,
+   retain it as numerically/initialization-sensitive and investigate the numerical mechanism.
+   A failure of convergence, contact, restart or observation window stays a named gap.
+
+Done for this planning block: existing results are reviewed, this finite next question is chosen
+and launch-dependent details are named. A launch protocol is the next deliverable, not another
+housekeeping phase. No new simulations, parameter/source updates, solver edits, phase gate,
+external scientific claim, Phase 7 or retired S6 execution are part of this review.
+
+Known lessons: read Phase 6 C2/C3/C6 and E5 before freezing changed grids/controls/outcomes;
+do not confuse shell matching with domain independence, an endpoint with a time comparison,
+or a code intervention with physical causality. The existing cavity analyzer supplies the
+readouts; no new assurance framework is needed. Read-only collaborator extraction used shared
+context and report JSON, not raw-event reconstruction or simulation reruns.
+Verification for this prose/design block: named report-field extraction, width/shell contract
+inspection, npm.cmd run lint:rule7 and git diff --check passed. No solver or gate run was needed.
 
 Local reconciliation before push: the science worktree was clean at 9658cd3 before this closure;
 the refreshed origin science branch is its ancestor (61 local commits ahead, zero behind).

@@ -14,7 +14,7 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   The short-row ladder recommends 16 workers for its ordinary N64 workload (capacity receipt
   SHA-256 `eb79aa6ddcaddaf79c2ec45aa919e0a6e7363674bfe0dcfcb83dcb0b33b4936b`);
   larger/experimental rows remain unqualified and discovery-runner restart support remains absent.
-  Scientific campaigns remain paused.
+  Completed campaigns are closed; scientific result review and next-stage planning are active.
 - **Verification scope:** maker clarification is recorded through local `91c0684`: website/education
   presentation uses focused product/content checks; executable science and evidence retain rigorous
   requirements. The active glass/camera plan's inherited full-suite criterion is removed; historical
@@ -83,14 +83,16 @@ remains untouched. Housekeeping fast-forwarded local primary main and removed it
 worktree/ref without force. See [consolidation](plans/local-consolidation-2026-10-01.md) and primary
 `out/housekeeping-2026-10-07/worktree-closeout.json` for the source/check/disposition record.
 
-**Science is paused after completed exploratory work.** The cavity/grid and early/late history
+**Science is ready for result review and next-experiment planning.** The cavity/grid and early/late history
 wave is complete in the [adaptive discovery plan](plans/post-phase10-adaptive-discovery.md).
 Its closing findings, raw inventory and verification are recorded in
 [the completed wave bundle](../evidence/post-phase10-wave-2026-10-01/README.md); exact retained
-outputs are in `post-phase10-science-output@2026-10-01`. No replacement campaign is authorized here.
-Before another nontrivial campaign, choose one new experiment and qualify its workload against the
-measured host budget. Prove representative continuation through the actual runner or register short
-independently terminal stages; the existing core witness alone is not production restart support.
+outputs are in `post-phase10-science-output@2026-10-01`. No replacement campaign has launched during this review.
+The maker resumed science planning after consolidation, with education handled separately. The
+[next-stage design](plans/post-phase10-adaptive-discovery.md#resumed-scientific-review-and-next-stage-design--2026-10-07)
+qualifies the early-growth memory lead using physically matched coarse/fine width thresholds and
+seed-thickness brackets at the warm anchor. Resource/restart decisions belong to its launch design;
+they do not block analyzing the completed results.
 
 - **Phase 6 is COMPLETE (2026-08-20).** The accepted negative finding remains measured-only:
   no quantitative-validation label was earned. `gate6` exit 0 at `44488ab` re-derived the amended
@@ -203,8 +205,9 @@ custody remain retained. Primary `nas-retention-review.json` records the disposi
   work plan before its risky action; agent discipline is distinguished from automated enforcement.
 - [Repository housekeeping](plans/repository-housekeeping-2026-10-07.md) is complete. Its required
   checks, approved cleanup, local fast-forward and non-force worktree/ref closeout are recorded.
-- [Adaptive discovery](plans/post-phase10-adaptive-discovery.md) is paused after its completed closing
-  wave. The next scientific experiment is not selected; completed campaign rows are not a resume queue.
+- [Adaptive discovery](plans/post-phase10-adaptive-discovery.md) is reviewing its completed wave and
+  designing the selected early-history grid/initialization qualification. The candidate is not a
+  frozen launch queue; completed campaign rows remain closed.
 - [Glass/camera follow-up](plans/explore-gutcheck-growth-glass-camera.md) has an implementation candidate
   with completed local browser/visual acceptance: current tracked glass record SHA-256
   `052b4c0f92fc1f8ea9b5c88219322c4fd3ceaba4db79051a93b587d6bd4c51c8`.
@@ -224,17 +227,18 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-The [new-host acceptance/NAS/capacity follow-up](plans/new-host-acceptance-and-capacity-2026-10-07.md)
-is complete. Continue the unfinished education/product work, or separately select and register one
-new finite scientific experiment. The 151-input gallery and accepted glass/camera comparison are
-ready in the primary checkout; presentation work uses focused product checks.
+Finalize the [selected scientific-stage candidate](plans/post-phase10-adaptive-discovery.md#resumed-scientific-review-and-next-stage-design--2026-10-07):
+a staged warm-anchor broad/early-only comparison with physically matched coarse/fine width
+thresholds and explicit fine-seed thickness brackets. Reuse the completed run's cavity/temporal
+readouts, with common physical-age/span comparisons. The key trap is that the older fine-grid
+campaign tested original M1/no-dip, not this early-history intervention.
 
-For science, larger/experimental rows need matched capacity qualification. Require representative
-pause/resume before launch through the actual runner, or use short independently terminal stages.
-The ordinary core witness passed, but the discovery runner has no restart writer. Phase 7 remains
-on maker hold, and retired Phase 10 S6 stays closed.
+Turn that candidate into a committed execution protocol before launching. Require representative
+pause/resume before launch through the actual experimental runner, or a demonstrably short
+independently terminal design; qualify its actual resource budget then. These are launch controls,
+not a reason to pause scientific review/design. Do not rerun completed long histories or begin
+another broad map. Phase 7 remains on maker hold and retired Phase 10 S6 stays closed.
 
-The full roughly 215 GB restoration and retained NAS custody/pruning remain separate decisions.
-Ignored output/research payloads are staging, not blanket deletion targets. Preserve unresolved
-NAS material, private/unique sources, original workstation outputs and irreplaceable masters.
-Same-NAS archives, quarantine and loose copies are one failure domain, not independent backup.
+Education proceeds separately with the maker. The readiness/cleanup work is complete. Full large
+NAS restoration and unresolved custody/pruning remain separate decisions; retained source bytes
+and the other computer's film branch stay intact.
