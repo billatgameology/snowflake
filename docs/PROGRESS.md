@@ -232,13 +232,13 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-BLD finished all 42 size endpoints; [NAS preservation](plans/hil-bld-first-batch.md#bld-result-preservation--2026-10-08) is in progress with originals retained.
+BLD finished all 42 size endpoints; [results and verified NAS recovery](../evidence/bld-first-batch-2026-10-08/README.md) are preserved, with originals retained.
 Execution at d7ff3e1 ended 2026-10-08 21:04:12 UTC, exit 0; [completion record](plans/hil-bld-first-batch.md#bld-execution-complete--2026-10-08).
 Existing result checker classified 42/42 size endpoints with zero errors in task out/batch1-bld-resumable/summary.json.
 Next: analyze that summary and row snapshots/events in G:/Code Files/snowflake-bld-exploration against the registered cold/warm comparisons,
 using physical-time brackets; then reconcile with HIL when its results are available. Completion alone is not a morphology or validation finding.
-Recompute coverage: node runner/src/hil-bld-batch-main.ts summarize out/batch1-bld-resumable. Do not launch the completed queue again.
-Outputs, checkpoints and control logs remain active analysis staging; retain them until evidence/asset closeout under Rule 15.
+Recheck without rewriting preserved output: node evidence/bld-first-batch-2026-10-08/verify-science.mjs. Do not launch the completed queue again.
+All 2061 files / 1050129781 bytes are preserved in Git archives and NAS bld-first-batch-output@2026-10-08; fresh restore and coverage checks pass.
 Exact npm.cmd test at a507a01: 233 files / 2990 passed, 55 skipped; [receipt](../evidence/bld-resume-2026-10-07/verification.json).
 The representative pause/resume before launch matched state/events; no scientific source changed during execution. Phase 7 stays on hold and S6 closed.
 

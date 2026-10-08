@@ -356,7 +356,19 @@ Known failures / Rule 14A: lessons A1/A2 require real preserved bytes and -text 
 
 Done when Git claim inputs are preserved and pinned; source, final NAS and fresh restore sets/hashes agree; restored coverage is still 42 size endpoints; and owner manifest, catalogue, publication/restore receipts and recovery procedure are committed. All originals remain.
 
+### Completed preservation
+
+Git raw evidence is committed at 7e2383a. The [archive verification](../../evidence/bld-first-batch-2026-10-08/archive-verification.json) preserves all 2061 original files / 1050129781 bytes in three archives totaling 66684281 bytes; all decompressed member hashes match. This includes every checkpoint, event, spatial snapshot and operational record in the declared roots.
+
+NAS publication and fresh restore passed with identical tree SHA-256 2c77efcd57f7586c68af44a1da257385f97333aec6487cbdf8c6aeb17e8585b0. The [owner manifest](../nas-assets/manifests/bld-first-batch-output/2026-10-08.json) and [verification record](../nas-assets/manifests/bld-first-batch-output/2026-10-08-verification.json) bind the canonical publication and restore receipts. Both independent assets commands above exited zero. A read-only invocation, node out/nas-save-bld-2026-10-08/verify-science.mjs, reused summarizeFirstBatchRow on the restored rows: all 42 size endpoints and every scientific summary field match, excluding only the directory location. It leaves restored summary.json byte-unchanged; no CLI rewrite was needed.
+
+Final share-relative locator: collections/bld-first-batch-output/2026-10-08/payload/. BLD resolved the marked share as S:/; the catalogue uses no drive-letter locator. Original campaign/probe/control files and all local staging remain. Restore commands are in the catalogue and [evidence README](../../evidence/bld-first-batch-2026-10-08/README.md#recovery). Numerical and storage implementations are unchanged; the existing static catalogue census expectation adds only this measured collection. Track interpretation is still pending.
+
+One bounded Codex/GPT-6 shared-context preservation review found no blocking omission or restore-path mismatch; [review scope](../../evidence/bld-first-batch-2026-10-08/preservation-review.json) states what was independently inspected and excludes large-payload rehash, test reruns and scientific interpretation. Final payload and fresh-restore verifications were executed separately by the operator.
+Final metadata verification: the existing catalogue, evidence-integrity and progress-index suites passed 3 files / 27 tests (metadata-final.stdout.log and metadata-final.exit.json in the evidence bundle). Rule 7 and scoped whitespace checks passed; raw log bytes were retained unchanged. No new full-suite or scientific gate claim is made.
+
 ### Tried and rejected for preservation
 
 - Summary-only Git retention would omit practical claim-bearing events/snapshots; preserve the raw bytes.
 - An unregistered raw NAS copy or hash-only record cannot establish preservation; reuse the existing transaction and restore seams.
+- The first metadata check retained a static census for 35 collections and rejected the new entry. Add its exact measured active counts; retain the strict census and all integrity assertions. The original failed logs remain in the evidence bundle.

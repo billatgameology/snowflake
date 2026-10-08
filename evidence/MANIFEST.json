@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 888,
- "totalBytes": 136177749,
+ "fileCount": 901,
+ "totalBytes": 136190972,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -3557,6 +3557,58 @@
   "bld-first-batch-2026-10-08/preservation-review.json": {
    "bytes": 1042,
    "sha256": "26eab37b85660bc61c837e27b83c9d2edfb176d00080c1786b58ba6b18fd29e6"
+  },
+  "bld-first-batch-2026-10-08/nas-restore.json": {
+   "bytes": 955,
+   "sha256": "e9dee6188dd2548cb8611aaf49e6f91dd89582e37c6192d7cc66365f67406cd1"
+  },
+  "bld-first-batch-2026-10-08/nas-verification.json": {
+   "bytes": 7003,
+   "sha256": "26048a4289df8dd91023f30d118b50e33c307612eb7467595bd46e48ad1e7bda"
+  },
+  "bld-first-batch-2026-10-08/restored-science-verification.json": {
+   "bytes": 606,
+   "sha256": "54ed5ee9b8171346601b179cf6eaeb4a7f98e22957f2ba1582e9e013d50aa36b"
+  },
+  "bld-first-batch-2026-10-08/verify-nas.exit.json": {
+   "bytes": 222,
+   "sha256": "e02209ffc8444c93aaef462e55b48b162bc04d928d0ecc0175e5f2737bc75777"
+  },
+  "bld-first-batch-2026-10-08/verify-nas.stderr.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "bld-first-batch-2026-10-08/verify-nas.stdout.log": {
+   "bytes": 747,
+   "sha256": "b508ba28e39948dc4c85003d8fbf27b12f3e320ee5db65c3673ee0f74a47df37"
+  },
+  "bld-first-batch-2026-10-08/verify-restored.exit.json": {
+   "bytes": 278,
+   "sha256": "a17960f4e6b67c8453153697b6ff2091c27843bd3625d73ff764b1116e936044"
+  },
+  "bld-first-batch-2026-10-08/verify-restored.stderr.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "bld-first-batch-2026-10-08/verify-restored.stdout.log": {
+   "bytes": 706,
+   "sha256": "006137d2788b23cb373b53fade920b9349a7ca0e51bb6191b6b33c6566d1bac0"
+  },
+  "bld-first-batch-2026-10-08/verify-science.mjs": {
+   "bytes": 1688,
+   "sha256": "e0404ac9997e9774b1ccad5a163bbcef1671bebc7d222be8f466a3958fc354ad"
+  },
+  "bld-first-batch-2026-10-08/metadata-final.exit.json": {
+   "bytes": 271,
+   "sha256": "90912019ef081642f8464513c2c6570264f91f3a657353e805c1c110880d4e7c"
+  },
+  "bld-first-batch-2026-10-08/metadata-final.stderr.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "bld-first-batch-2026-10-08/metadata-final.stdout.log": {
+   "bytes": 747,
+   "sha256": "bb423bba6657270ffad3e3bf5acc6693c293581c693e53f2334c138c3646d237"
   }
  }
 }

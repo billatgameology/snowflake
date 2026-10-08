@@ -1,0 +1,17 @@
+{
+  "checkedUtc": "2026-10-08T23:35:22.854Z",
+  "command": [
+    "C:\\nvm4w\\nodejs\\node.exe",
+    "G:\\Code Files\\snowflake-bld-exploration\\evidence\\bld-first-batch-2026-10-08\\verify-science.mjs"
+  ],
+  "verifier": "runner/src/hil-bld-batch-summary.ts summarizeFirstBatchRow",
+  "rows": 42,
+  "sizeEndpoints": 42,
+  "errors": [],
+  "allScientificSummaryFieldsMatch": true,
+  "comparisonExcludes": [
+    "directory (restore location)"
+  ],
+  "restoredPayloadChanged": false,
+  "limits": "Existing evidence checks and equality to retained source summary; no numerical rerun or track interpretation."
+}

@@ -1,0 +1,5 @@
+
+> virtual-cloud-chamber@0.0.0 assets:verify
+> node scripts/nas-assets.ts verify --collection bld-first-batch-output@2026-10-08 --full
+
+{"format":"snowflake-nas-assets-readonly-report-v1","command":"verify","ok":true,"scope":"explicit-single-collection-full-hash","mount":"attached","collections":[{"identity":"bld-first-batch-output@2026-10-08","state":"active","manifest":"verified","aggregate":"verified","payload":"verified-full"}],"overlays":[],"defects":[],"limitations":[],"fullPayloadTotals":{"files":2061,"bytes":1050129781},"limits":["Payload hashing was limited to the one explicitly selected collection and its registered selector rows.","No publication, restoration, movement, quarantine, or deletion is available in this command."]}
