@@ -3009,6 +3009,76 @@
       },
       "supersedes": [],
       "unresolved": []
+    },
+    {
+      "assetId": "bld-first-batch-output",
+      "version": "2026-10-08",
+      "state": "provisional",
+      "ownerWorkstream": "hil-bld-first-batch",
+      "locator": "collections/bld-first-batch-output/2026-10-08/payload",
+      "historicalRepoPath": "out",
+      "legacyAliases": [],
+      "storageClass": "generated-cache",
+      "aggregate": {
+        "files": 0,
+        "bytes": 0
+      },
+      "ownerManifest": null,
+      "rights": {
+        "kind": "project-owned",
+        "redistribution": "allowed"
+      },
+      "privacy": "public",
+      "serve": {
+        "policy": "deny",
+        "prefixes": []
+      },
+      "retention": {
+        "policy": "maker-approved-delete-only",
+        "garbageCollection": {
+          "policy": "plan-only",
+          "graceDays": null,
+          "approver": "maker"
+        }
+      },
+      "mutability": "immutable",
+      "externalEvidenceAuthority": null,
+      "provenance": {
+        "record": "docs/plans/hil-bld-first-batch.md",
+        "producerCommit": "d7ff3e1fb122ecbf8994539d3623928cbe5a9c6b",
+        "command": "node runner/src/hil-bld-batch-main.ts launch BLD out/batch1-bld-resumable out/batch1-bld-resumable-probe/probe.json"
+      },
+      "reproducibility": {
+        "kind": "exact-recipe",
+        "record": "docs/plans/hil-bld-first-batch.md"
+      },
+      "restore": {
+        "status": "documented",
+        "command": "npm run assets:restore -- --collection bld-first-batch-output@2026-10-08 --to out/restores/bld-first-batch-output-2026-10-08",
+        "verifyCommand": "npm run assets:verify-restored -- --collection bld-first-batch-output@2026-10-08 --from out/restores/bld-first-batch-output-2026-10-08",
+        "record": "docs/plans/hil-bld-first-batch.md"
+      },
+      "verification": {
+        "status": "unavailable",
+        "at": null,
+        "host": null,
+        "receipt": null,
+        "limits": [
+          "Publication and fresh restore pending; no preservation or deletion claim."
+        ]
+      },
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
+      "backup": {
+        "status": "not-required",
+        "independentDomains": [],
+        "receipts": []
+      },
+      "supersedes": [],
+      "unresolved": [
+        "Pending copy-first publication, full-hash verification and fresh restore."
+      ]
     }
   ],
   "overlays": [
