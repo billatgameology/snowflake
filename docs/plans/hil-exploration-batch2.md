@@ -1,7 +1,7 @@
 # Plan — HIL second exploration batch
 
 - **Phase:** post-Phase-10 development exploration under the approved HIL/BLD portfolio.
-- **Status:** implemented and verified; publication, local capacity probe and launch pending.
+- **Status:** execution complete on fixed `4322807`; all sixteen rows reached extent 21 and pass the existing operational summary checks. Comparative scientific analysis remains.
 - **Started / last touched:** 2026-10-08 by Codex/GPT-6.
 - **Branch / checkout:** `codex/hil-exploration-batch2`, `C:/Users/biao3/.codex/worktrees/hil-exploration-batch2/snowflake`.
 - **Authority:** current charter section 2.5, accepted decisions 0055 and 0060; [portfolio](post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld).
@@ -154,8 +154,8 @@ operator and provenance limitations.
 - [x] Commit protocol and correct stale first-batch live state (`164384a`).
 - [x] Implement bounded checkpoint publication retry and sixteen-row batch selection.
 - [x] Verify fault handling, first-batch compatibility, selection and exact full check; preserve receipts.
-- [ ] Reconcile task worktrees/branches, commit and publish shared source.
-- [ ] Measure HIL capacity, launch new queue and record live checkpoints/commands.
+- [x] Reconcile task worktrees/branches, commit and publish shared source.
+- [x] Measure HIL capacity, launch new queue and record live checkpoints/commands.
 
 ## Out of scope
 
@@ -195,6 +195,71 @@ real result and raw stdout/stderr retain the evidence. No executable source chan
 These are regression results, not a new scientific gate. Focused and initially failed fixture
 logs are retained alongside them. Publication and a fresh new-roster HIL capacity probe are next.
 
+## Publication and HIL execution 2026-10-08
+
+Shared main was pushed and remotely verified at `43228078308cc089b9da8c6240975b267d7d74cb`
+at `2026-10-08T14:57:31.7029379Z`. Primary's two former live startup prose files were first
+copied and hash-verified in `out/hil-batch2-primary-reconciliation-20261008/`, then only those
+included duplicates were reconciled before main fast-forward. All four worktrees were clean;
+both original HIL output owners remain at their frozen sources. Execution
+`out/batch2-verification/publication-inventory.json` and `publication.json` retain the exact audit.
+No PR, temporary review checkout, branch deletion or output pruning occurred.
+
+Hidden wrapper 27012 started at `2026-10-08T14:57:58.4239805Z` from the batch2 execution checkout.
+`out/batch2-hil-control-20261008/invocation.json` records exact arguments, source, pause and resume
+commands. No scientific or Vitest worker was present before launch. The wrapper performs the
+registered resource probe, then dispatches only on successful qualification. Inspect `state.json`,
+probe stdout/stderr and its real exit receipt before interpreting a phase as complete. Keep this
+execution HEAD fixed; live prose is updated in primary only.
+
+Probe exit zero is recorded at `2026-10-08T15:03:36.0825605Z`. Its `probe.json` qualifies
+actual concurrency 1/4/8/16 and recommends sixteen. The sixteen-worker rung took 61.962 seconds;
+minimum available physical memory was 50842497024 bytes and minimum commit headroom 58947198976
+bytes. These are short-prefix measurements, not mature-geometry capacity claims.
+
+Production launched at `2026-10-08T15:03:36.313Z` (08:03 PDT), recorded by
+`out/batch2-hil/batch2-HIL-launch.json` and `campaign.json`, with all sixteen registered rows
+and requested concurrency sixteen. Control `startup-check.json` at `2026-10-08T15:06:16.9700384Z`
+observed sixteen live workers and sixteen advanced committed checkpoints, ticks 24 through 40.
+Each observed solver payload matched its generation's recorded SHA-256. The retained resource
+sample at `2026-10-08T15:06:13.5598886Z` contains sixteen children, 49997115392 available physical
+bytes and 58137948160 bytes of commit headroom. Campaign stderr was empty at that inspection.
+This establishes operational startup and checkpoint publication, not completed science.
+
+Historical status at 08:42 PDT: all sixteen workers were active, with zero terminal results.
+`out/batch2-hil-control-20261008/status-20261008T084236.json` records all sixteen rows at
+extents 13 through 17 against target 21 and committed checkpoint ticks 217 through 277,
+advanced from the startup observation. No campaign failure is recorded. The separate 08:43
+read-only inspection found all sixteen attempt stderr logs empty and no result/exit receipts.
+The resource log retains its timestamped samples; no memory stop was recorded. These are live
+progress observations, not a completion percentage, endpoint verdict or morphology conclusion.
+
+Live control/state/logs: `out/batch2-hil-control-20261008/`. Row commands, separate attempt
+stdout/stderr/exits and checkpoints: `out/batch2-hil/rows/<row-id>/`. Production has no elapsed-time
+deadline; scientific target extent 21 and the registered controls remain. Exact pause and resume
+commands are above and in `invocation.json`. Preserve the entire execution checkout and output.
+
+## Completion 2026-10-08
+
+`out/batch2-hil/batch2-HIL-complete.json` records completion at `2026-10-08T16:31:15.776Z`
+(09:31 PDT): all sixteen worker exits are zero, no abort and no unstarted row. Control
+`campaign-exit.json` independently records wrapper exit zero at `2026-10-08T16:31:16.1412329Z`.
+The existing `node runner/src/hil-batch2-main.ts summarize out/batch2-hil` command was executed
+after completion. All sixteen rows are `size-endpoint`, all final extents are 21, and every
+summary error list is empty. This checker reads the persisted event sequences and numerical
+diagnostics rather than inheriting endpoint status from a process exit alone.
+
+The complete result census is `out/batch2-hil/summary.json`, with a dated copy in control
+`completion-summary-20261008.json`. Primary
+`out/hil-status-20261008T160558/completion-status.json` retains its full record and hash alongside
+the completion receipt. At `2026-10-08T23:05:59.0079544Z` no matching HIL worker or coordinator
+was present. Outputs, checkpoint generations and the fixed execution source remain retained.
+
+Next: apply the registered seed/pressure readout using all first-batch controls, including the
+six now-recovered endpoints, and gather BLD's separate results for joint review. This operational
+completion does not supply a morphology conclusion, physical-validation claim or authority for
+another campaign. No BLD process was inspected, stopped or launched.
+
 ## Tried and rejected
 
 - The first publication-fault fixture replaced an old committed event prefix with an independently
@@ -203,8 +268,8 @@ logs are retained alongside them. Publication and a fresh new-roster HIL capacit
   and append only the third observation. Ten fault tests then pass; no I/O behavior was changed
   to accommodate the faulty fixture. Original focused logs remain in verification staging.
 
-- Calling all 56 rows successfully complete: six operational failures remain unresolved. Distinguish
-  a finished coordinator from successful scientific endpoints.
+- Calling the original 56-row attempt fully successful: six operational failures were unresolved
+  then and only reached endpoints in the separate recovery. Distinguish an attempt from its recovery.
 - Repeating the full deterministic first batch would duplicate fifty useful endpoints. New conditions
   answer the selected follow-up questions; retain failures for explicit recovery.
 - Adding fraction .15 at the pressure midpoint solely to fill workers adds no necessary comparison
@@ -214,6 +279,10 @@ logs are retained alongside them. Publication and a fresh new-roster HIL capacit
 
 ## Open questions
 
-Persistent operating-system rename locks may still fail visibly after the bounded retry. The old
-six source-bound checkpoints need an explicit recovery task; no scientific outcome is inferred
-from them. Joint HIL/BLD endpoint review will determine any subsequent larger-growth question.
+Persistent operating-system rename locks may still fail visibly after the bounded retry. Joint
+HIL/BLD endpoint review will determine any subsequent larger-growth question.
+
+The maker separately requested that recovery on 2026-10-08. The
+[first-batch recovery record](hil-bld-first-batch.md#explicit-six-row-recovery--2026-10-08)
+owns the completed six-row continuation. It left this execution source unchanged and waited for
+released slots under the combined HIL ceiling of sixteen. All six now have checked size endpoints.

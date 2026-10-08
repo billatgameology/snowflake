@@ -9,8 +9,8 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   The [approved portfolio](plans/post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld)
   covers cavities, cold core/tip structure, seed memory, pressure/transport and environment history.
   HIL coordinates shared code and joint review; each PC receives a queue of comparisons.
-  Publication is complete through `b9cf7ed`; BLD's original run was reported by the maker and is not inspected from HIL.
-  The [resumable HIL batch](plans/hil-bld-first-batch.md#hil-completion-2026-10-08) finished: 50 size endpoints and six checkpoint I/O failures. The [next HIL batch](plans/hil-exploration-batch2.md) implements sixteen new seed/pressure comparisons and bounded publication retry; full verification passed at `b9d7eb0`.
+  Publication is complete through `4322807`; BLD's run is not inspected from HIL.
+  The [first resumable HIL batch](plans/hil-bld-first-batch.md#recovery-completion-2026-10-08) now has 56 size endpoints, including all six recovered I/O failures. The [second HIL batch](plans/hil-exploration-batch2.md#completion-2026-10-08) has 16 size endpoints. No HIL worker remains active; comparative scientific analysis is next.
 - **New-host follow-up:** [complete](plans/new-host-acceptance-and-capacity-2026-10-07.md),
   locally integrated through `cf1386e`. Glass/camera browser and direct visual acceptance pass;
   the six comparison inputs and both small independent C-drive backups are restored and verified.
@@ -20,7 +20,7 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   The short-row ladder recommends 16 workers for its ordinary N64 workload (capacity receipt
   SHA-256 `eb79aa6ddcaddaf79c2ec45aa919e0a6e7363674bfe0dcfcb83dcb0b33b4936b`);
   this batch separately qualifies its registered experimental prefixes. Larger/mature configurations
-  remain unqualified. Discovery-runner restart is verified; the first HIL batch used a qualified maximum of 16 workers. The second batch needs its own probe.
+  remain unqualified. Discovery-runner restart is verified; the completed second HIL batch independently qualified 1/4/8/16 and used sixteen workers.
 - **Verification scope:** maker clarification is recorded through local `91c0684`: website/education
   presentation uses focused product/content checks; executable science and evidence retain rigorous
   requirements. The active glass/camera plan's inherited full-suite criterion is removed; historical
@@ -213,7 +213,9 @@ custody remain retained. Primary `nas-retention-review.json` records the disposi
   checks, approved cleanup, local fast-forward and non-force worktree/ref closeout are recorded.
 - [Adaptive discovery](plans/post-phase10-adaptive-discovery.md) continues through the
   [second HIL batch](plans/hil-exploration-batch2.md); first-batch BLD results await joint review.
-  The old HIL six operational failures retain valid source-bound checkpoints; no endpoint is imputed.
+  All six old HIL operational failures reached size endpoints through
+  [same-source recovery](plans/hil-bld-first-batch.md#recovery-completion-2026-10-08).
+  All 72 HIL rows across both batches pass the existing operational summary checks; track analysis remains.
 - [Glass/camera follow-up](plans/explore-gutcheck-growth-glass-camera.md) has an implementation candidate
   with completed local browser/visual acceptance: current tracked glass record SHA-256
   `052b4c0f92fc1f8ea9b5c88219322c4fd3ceaba4db79051a93b587d6bd4c51c8`.
@@ -233,14 +235,19 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-Publish the [verified second HIL batch](plans/hil-exploration-batch2.md) from `C:/Users/biao3/.codex/worktrees/hil-exploration-batch2/snowflake`.
-Exact `npm.cmd test` at clean `b9d7eb0` passed 235 files / 3045 tests, 23 skipped ([receipt](../evidence/hil-exploration-batch2-2026-10-08/verification.json)); run the plan's `hil-batch2-main.ts probe HIL` and launch commands. Old HIL is stopped.
-Exact `npm.cmd test` at clean `a879029` passed 233 files / 3031 tests, 23 skipped; the
-[receipt](../evidence/discovery-resume-2026-10-07/verification.json) also preserves the representative real N64 pause/resume before launch witness.
+Review the completed HIL results before selecting more runs: first-batch 56/56 and second-batch 16/16 reached extent 21, with zero operational-summary errors.
+The new batch finished at 09:31 PDT; the six recovery attempts finished by 10:28 PDT. The 16:05 PDT inspection found no matching live worker/coordinator.
+Primary `out/hil-status-20261008T160558/completion-status.json` retains both complete summary censuses, source hashes and actual completion receipts.
+Read the [second-batch registered readout](plans/hil-exploration-batch2.md#frozen-roster-and-stopping-rules), compare against first-batch controls at actual physical-time brackets, and gather BLD's separate results for joint review.
+The existing `summarize` commands have run in each fixed execution checkout; their `out/batch2-hil/summary.json` and `out/batch1-hil-resumable/summary.json` establish operational coverage, not morphology findings or validation.
+Current producer: exact `npm.cmd test` at clean `b9d7eb0` passed 235 files / 3045 tests, 23 skipped ([receipt](../evidence/hil-exploration-batch2-2026-10-08/verification.json)).
+The earlier [resume receipt](../evidence/discovery-resume-2026-10-07/verification.json) preserves the representative real N64 pause/resume before launch witness.
 Checkpoints publish after each complete cycle; production has no wall-clock deadline. Resume uses the same directory/source/runtime.
 Preserve stopped `C:/Users/biao3/.codex/worktrees/hil-first-batch/snowflake` at `f4ca38a`; its observations are not restart state.
-BLD must pull the shared producer, qualify locally and use new paths; its active processes are not inspected or controlled from HIL.
-Keep the execution HEAD fixed and write live progress in primary. Compare physical-time brackets; Phase 7 stays on hold and S6 closed.
+The [six recovery attempts](plans/hil-bld-first-batch.md#recovery-completion-2026-10-08) retain original failed tails and separate successful exits at `b9cf7ed` in `.tmp-discovery-resume`.
+Its PowerShell wrapper exit field is null; completion is supported by six actual worker exit-zero receipts, checked row evidence and the coordinator completion record. Do not recast that missing wrapper observation as a measured OS exit.
+BLD's active processes are not inspected or controlled from HIL; gather its results for joint review.
+Retain both fixed execution checkouts, controls, checkpoints and outputs for analysis and governed preservation. No new campaign is launched. Phase 7 stays on hold and S6 closed.
 
 Education proceeds separately with the maker. The readiness/cleanup work is complete. Full large
 NAS restoration and unresolved custody/pruning remain separate decisions; retained source bytes

@@ -1,11 +1,55 @@
 # HIL / BLD first exploration batch
 
 - **Scope:** executable first stage of the maker-approved post-Phase-10 portfolio; development evidence only.
-- **Status:** resumable producer published at `b9cf7ed`; HIL's replacement queue ended with 50 size endpoints and six checkpoint I/O failures. Original HIL is stopped and preserved at `f4ca38a`. BLD state requires inspection on that computer.
+- **Status:** HIL complete after same-source recovery at `b9cf7ed`: 56 checked size endpoints, including the original six checkpoint I/O failures. Original HIL is stopped and preserved at `f4ca38a`. BLD state requires inspection on that computer.
 - **Implementation branch / destination:** `codex/discovery-resume` -> `origin/main`; original `science/hil-bld-first-batch` is reconciled.
 - **Authority:** [adaptive discovery](post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld), accepted ADRs 0055-0059, attachment-kinetics specification. No phase gate changes.
 
 ## Goal and done when
+
+### HIL pickup of BLD results — 2026-10-08
+
+Goal: make the published BLD results discoverable and verified on HIL, alongside HIL's completed
+56-row first batch and sixteen-row successor, for the next joint scientific review. Use isolated
+`codex/hil-bld-results-integration` at
+`C:/Users/biao3/.codex/worktrees/hil-bld-results-integration/snowflake`; preserve the three
+task-owned primary live documents and all fixed execution checkouts/output. No simulation or
+new scientific interpretation is part of this import.
+
+Incoming `origin/codex/bld-exploration` is `b333782`, based on common ancestor `f4ca38a`.
+It includes a separate resume implementation and a branch-local decision also numbered 0060.
+Import exact BLD result/recovery evidence and pins, its one NAS catalogue entry/manifests,
+the existing catalogue census row, and attributed completed-execution/preservation prose.
+Keep current HIL solver, codecs, runner, charter and accepted decisions unchanged. The incoming
+branch and producer `d7ff3e1` remain the authority for reproducing BLD execution; do not imply
+checkpoint compatibility or identical producer behavior. Full code/authority reconciliation
+is a separate decision, not a prerequisite for reading completed BLD observations.
+
+Sequence: commit this bounded pickup plan; preserve imported files byte-for-byte; reconcile
+current progress without losing either host; resolve the marked NAS via HIL's mount; verify
+the complete collection, restore to fresh local staging and independently verify the restored
+set. Reuse the existing per-row summary for all 42 terminal rows. Explicitly inspect BLD's
+`resumableState`/`checkpointCycle` metadata before comparing the shared scientific fields;
+do not silently drop unknown status fields or run its producer-specific verifier unchanged.
+Retain originals and verification logs. No new verifier framework or storage implementation.
+
+Done when imported pins/catalogue/progress checks pass, all restored bytes match the committed
+owner manifest, existing row checks rederive 42 endpoints, and the next joint-review landing
+spot names both sources and remaining interpretation limits. This is not a charter milestone.
+Nearest-boundary verification: existing catalogue/evidence-integrity/progress-index suites,
+Rule 7 and scoped diff checks, plus the actual NAS/restore and row readout checks. Importing
+already produced evidence with unchanged executable machinery does not rerun simulations or
+the full scientific suite. A later executable scientific change would require exact `npm test`.
+
+Relevant lessons: A1/A2 require real bytes and digest-safe checkout; C4/E1 forbid turning
+completed coverage into an unsupported scientific conclusion; E6 requires preserving each
+producer's actual bindings. Rules 14A–14B: solo research, hostile actors excluded, one end-to-end
+deliverable is usable BLD observations on HIL. Existing loaders and summaries address accidental
+wrong collection, partial restore and status misinterpretation; no added assurance machinery.
+
+Tried and rejected for pickup: a whole-branch merge would collide with independently developed
+resume code and duplicate decision numbering. Import completed evidence and preserve source
+provenance instead of silently replacing the tested HIL implementation.
 
 BLD can pull one tested producer, select its named workload, measure its local resource budget,
 and launch a finite queue without needing HIL to design another protocol. HIL has the equivalent
@@ -194,6 +238,110 @@ The maker selected the [next HIL exploration batch](hil-exploration-batch2.md). 
 seed/pressure rows use the measured first-batch leads; the six missing endpoints remain unresolved.
 The old run and its source/runtime, logs, checkpoints and failed tails remain retained. Do not
 silently consume these checkpoints under a newer producer or repeat all fifty completed endpoints.
+
+## Explicit six-row recovery — 2026-10-08
+
+The maker requested recovery of the failed batch. Resume exactly the six checkpoint-publication
+failures in the original clean `b9cf7ed` checkout, using their committed states and unchanged
+scientific targets. This is operational reuse of accepted decision 0060 and the existing tested
+row launcher, not a new scientific implementation. The deliverable is six explicit continuation
+attempts with separate logs, real exits, and preserved failed observations. The fifty successful
+endpoints are excluded. Solo scientific research; hostile actors remain outside scope.
+
+The campaign selector correctly requires review of `solver-error` results. A bounded non-author
+Codex/GPT-6 review with shared context traced the existing explicit `resume-row` route: it validates
+source/runtime/spec, checkpoint payload and event-prefix digests, solver controls and history before
+archiving failed result/status/exit files and excess events under `resume/recovery-*`. No failed
+result is erased or relabeled to satisfy the campaign selector. The reviewer inspected code and
+retained triage; it did not rerun the solver or independently reload checkpoints. The launch
+preflight freshly loads each checkpoint, with the unchanged worker performing complete row/control
+checks before recovery. Existing full-suite and actual N64 interruption receipts remain applicable.
+
+Use existing `launchDiscoveryRows` with six named rows, `resumeExistingRows: true`, a unique
+attempt name, explicit `resume-row` worker arguments and `sampleBatchHost` memory monitoring.
+No production wall deadline or automatic failed-worker retry is added. HIL batch 2 currently
+owns sixteen workers; wait until at least six slots are available under the combined ceiling
+of sixteen. The batch-2 finite queue has already started all sixteen rows, so its running count
+can only decrease unless separately resumed. Recheck live processes and memory before dispatch.
+Leave the active batch and both fixed execution sources unchanged.
+
+The operational command and receipts live in original execution
+`out/batch1-hil-recovery-control-20261008/`; the recovery attempts remain inside the original row
+directories. Lesson C1 applies: recover intact scientific state after an I/O failure instead of
+recomputing fifty successful endpoints. Lesson A3 requires one campaign/row writer and preserved
+committed prefixes. The existing coordinator/row leases and checkpoint loader cover these boundaries.
+Original source still has one-shot checkpoint publication: a repeated EPERM must remain visible,
+and the newer retry implementation cannot be silently substituted into source-bound continuation.
+No new numerical tests or full scientific suite are needed for this dispatch-only work.
+
+Fresh preflight at the original source loaded and restored all six saved solver states without
+evolving or recovering them. In the command's registered order their checkpoint ticks are
+256, 46, 85, 93, 170 and 170; each is one cycle before its failed publication. The full row
+identities, original failed results, initial exits and checkpoint manifest hashes are retained in
+`out/batch1-hil-recovery-control-20261008/preflight.json`. Node syntax and both PowerShell control
+scripts' syntax checks pass. No tracked executable source is changed.
+
+The hidden wrapper started at `2026-10-08T16:04:00.8892844Z` (09:04 PDT), PID 18740;
+coordinator PID 22120 owns the original campaign lease. `wrapper.json` and `invocation.json`
+record exact commands. Attempt name is `recovery-io-1791475441339`; launch name is
+`first-batch-HIL-recovery-io-1791475441339`. At `2026-10-08T16:04:04.075Z`, `state.json` records
+`waiting-for-six-worker-slots`: fourteen other scientific workers are active. No recovery worker
+has started at that observation. The memory sample has 48392634368 available physical bytes and
+56379691008 bytes of commit headroom. The queue starts the six continuations once at most ten
+other scientific workers remain and the memory check passes. There is no waiting deadline.
+
+Exact one-time coordinator command, from the fixed original checkout:
+
+```powershell
+node out/batch1-hil-recovery-control-20261008/recover-six.mjs
+```
+
+This one-time coordinator has finished; do not invoke it again. Its retained pause command:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File out/batch1-hil-recovery-control-20261008/stop-recovery.ps1
+```
+
+Coordinator logs are `recovery.stdout.log` / `recovery.stderr.log`; the wrapper writes
+`recovery-exit.json` on actual exit. Each row retains `attempts/recovery-io-1791475441339/`
+command/stdout/stderr/exit files. Existing checkpoint cadence remains every complete cycle with
+two generations. After dispatch verify advancement beyond the six ticks above. After completion
+inspect the recovery-specific completion receipt and run the existing first-batch `summarize`
+command against `out/batch1-hil-resumable`. Its original failed queue receipt is historical and
+must not be overwritten. If interrupted after dispatch, inspect terminal failures first, then
+use the registered campaign resume command for unfinished rows; repeated solver-error requires
+explicit review, never erasure. Keep this control directory, all failed tails and row outputs.
+
+## Recovery completion 2026-10-08
+
+The six-row continuation launched at `2026-10-08T16:07:48.188Z` and finished at
+`2026-10-08T17:28:03.672Z` (09:07 to 10:28 PDT), with six actual workers, six exit-zero
+receipts, no abort and no unstarted row. Source is unchanged `b9cf7ed`. The exact completion
+record is `out/batch1-hil-resumable/first-batch-HIL-recovery-io-1791475441339-complete.json`;
+the row-level attempt logs remain under `attempts/recovery-io-1791475441339/`.
+
+The existing `node runner/src/hil-bld-batch-main.ts summarize out/batch1-hil-resumable` now
+rederives 56 `size-endpoint` rows, all at extent 21, with zero summary errors. The complete
+census is campaign `summary.json`, copied to recovery control `completion-summary-20261008.json`.
+Primary `out/hil-status-20261008T160558/completion-status.json` retains that census, its source
+hash and the actual completion record. The original 50-success/six-failure queue receipt remains
+unchanged as the historical initial attempt.
+
+The same bounded shared-context Codex/GPT-6 reviewer independently re-executed the existing
+per-row summary and read-only checkpoint load for all six: each final checkpoint agrees with
+its terminal result, each attempt has exit zero and empty stderr, and each recovery archive
+preserves its original failure and one excess event record. In the registered recovery order,
+final cycle counts are 601, 529, 433, 423, 343 and 594. The reviewer did not evolve the solver,
+run a test suite or derive a morphology interpretation.
+
+Operational limitation: PowerShell `recovery-exit.json` recorded `exitCode: null`; that is an
+unavailable wrapper observation, not an observed zero. Six actual worker-close receipts, checked
+row evidence and the coordinator's completion/state records support completion independently.
+Do not rewrite the null receipt or treat it as a new scientific failure. At the 16:05 PDT process
+inspection no matching HIL worker/coordinator remained. Keep both initial and recovery records.
+
+Next: use all 56 endpoints with the completed sixteen-row successor in the registered comparison
+readout; gather BLD's separate results. No further HIL retry or scientific run is pending here.
 
 ## Registered original first stage (elapsed-time policy superseded above)
 
