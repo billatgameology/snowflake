@@ -1,0 +1,26 @@
+{
+  "schema": "hil-batch2-verification-v1",
+  "source": "b9d7eb0d6d40a248fb36cf9621e411d3444ff681",
+  "command": "npm.cmd test",
+  "exitCode": 0,
+  "testFilesPassed": 235,
+  "testsPassed": 3045,
+  "testsSkipped": 23,
+  "vitestSeconds": 947.51,
+  "invocation": "full-check-invocation.json",
+  "result": "full-check-result.json",
+  "stdout": "full-check.stdout.log",
+  "stderr": "full-check.stderr.log",
+  "review": {
+    "reviewer": "Non-author Codex/GPT-6",
+    "sharedContext": "inherited",
+    "independentlyExecuted": [
+      "npx.cmd vitest run runner/test/hil-batch2.test.ts: 4 passed",
+      "npx.cmd vitest run runner/test/discovery-resume-publication.test.ts: 10 passed after fixture repair"
+    ],
+    "verdict": "No unresolved blocking findings in the reviewed roster, dispatch, binding and checkpoint-publication changes",
+    "limits": "No full suite, N64 capacity probe, full campaign or old-failure recovery executed by reviewer"
+  },
+  "continuationContract": "Unchanged discovery-resume-v1 complete-cycle state; existing real N64 witness retained in evidence/discovery-resume-2026-10-07. New fault tests compare actual saved/restored state at both I/O publication boundaries.",
+  "scope": "Internal model-development execution readiness, not a scientific endpoint or phase gate."
+}

@@ -10,7 +10,7 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   covers cavities, cold core/tip structure, seed memory, pressure/transport and environment history.
   HIL coordinates shared code and joint review; each PC receives a queue of comparisons.
   Publication is complete through `b9cf7ed`; BLD's original run was reported by the maker and is not inspected from HIL.
-  The [resumable HIL batch](plans/hil-bld-first-batch.md#hil-completion-2026-10-08) finished: 50 size endpoints and six checkpoint I/O failures. The [next HIL batch](plans/hil-exploration-batch2.md) registers sixteen new seed/pressure comparisons plus the publication repair.
+  The [resumable HIL batch](plans/hil-bld-first-batch.md#hil-completion-2026-10-08) finished: 50 size endpoints and six checkpoint I/O failures. The [next HIL batch](plans/hil-exploration-batch2.md) implements sixteen new seed/pressure comparisons and bounded publication retry; full verification passed at `b9d7eb0`.
 - **New-host follow-up:** [complete](plans/new-host-acceptance-and-capacity-2026-10-07.md),
   locally integrated through `cf1386e`. Glass/camera browser and direct visual acceptance pass;
   the six comparison inputs and both small independent C-drive backups are restored and verified.
@@ -233,8 +233,8 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-Implement the [registered second HIL batch](plans/hil-exploration-batch2.md) in `C:/Users/biao3/.codex/worktrees/hil-exploration-batch2/snowflake`.
-Repair checkpoint publication at the I/O boundary, verify, publish, then run the plan's `hil-batch2-main.ts probe HIL` and launch commands. Old HIL is stopped.
+Publish the [verified second HIL batch](plans/hil-exploration-batch2.md) from `C:/Users/biao3/.codex/worktrees/hil-exploration-batch2/snowflake`.
+Exact `npm.cmd test` at clean `b9d7eb0` passed 235 files / 3045 tests, 23 skipped ([receipt](../evidence/hil-exploration-batch2-2026-10-08/verification.json)); run the plan's `hil-batch2-main.ts probe HIL` and launch commands. Old HIL is stopped.
 Exact `npm.cmd test` at clean `a879029` passed 233 files / 3031 tests, 23 skipped; the
 [receipt](../evidence/discovery-resume-2026-10-07/verification.json) also preserves the representative real N64 pause/resume before launch witness.
 Checkpoints publish after each complete cycle; production has no wall-clock deadline. Resume uses the same directory/source/runtime.

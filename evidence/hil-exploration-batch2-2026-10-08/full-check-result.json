@@ -1,0 +1,9 @@
+{
+  "command": "npm.cmd test",
+  "gitHead": "b9d7eb0d6d40a248fb36cf9621e411d3444ff681",
+  "startedUtc": "2026-10-08T14:39:20.0328321Z",
+  "finishedUtc": "2026-10-08T14:55:17.4428281Z",
+  "exitCode": 0,
+  "stdout": "out/batch2-verification/full-check.stdout.log",
+  "stderr": "out/batch2-verification/full-check.stderr.log"
+}

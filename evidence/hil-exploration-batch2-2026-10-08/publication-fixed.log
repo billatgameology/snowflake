@@ -1,0 +1,11 @@
+
+ RUN  v3.2.7 C:/Users/biao3/.codex/worktrees/hil-exploration-batch2/snowflake
+
+ ✓ runner/test/discovery-resume-publication.test.ts (10 tests) 2709ms
+   ✓ bounded checkpoint publication retries > generation: transient EPERM publishes the exact new state once  317ms
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  07:37:05
+   Duration  3.00s (transform 143ms, setup 0ms, collect 170ms, tests 2.71s, environment 0ms, prepare 42ms)
+

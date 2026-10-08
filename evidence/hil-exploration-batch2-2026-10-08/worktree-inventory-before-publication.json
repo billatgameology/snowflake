@@ -1,0 +1,139 @@
+{
+  "capturedUtc": "2026-10-08T14:33:15.7564857Z",
+  "worktrees": [
+    "worktree C:/Users/biao3/Documents/GitHub/snowflake",
+    "HEAD b9cf7ed72c82e350b93570fafd8e45afa0b95d53",
+    "branch refs/heads/main",
+    "",
+    "worktree C:/Users/biao3/.codex/worktrees/hil-exploration-batch2/snowflake",
+    "HEAD 164384a069feabef98f86f0bccb522048b42a546",
+    "branch refs/heads/codex/hil-exploration-batch2",
+    "",
+    "worktree C:/Users/biao3/.codex/worktrees/hil-first-batch/snowflake",
+    "HEAD f4ca38a44fefda0de514491bd5ce3044479829ec",
+    "branch refs/heads/codex/hil-first-batch",
+    "",
+    "worktree C:/Users/biao3/Documents/GitHub/snowflake/.tmp-discovery-resume",
+    "HEAD b9cf7ed72c82e350b93570fafd8e45afa0b95d53",
+    "branch refs/heads/codex/discovery-resume",
+    ""
+  ],
+  "branches": [
+    "+ codex/discovery-resume       b9cf7ed (C:/Users/biao3/Documents/GitHub/snowflake/.tmp-discovery-resume) Preserve verified discovery continuation and rerun instructions",
+    "* codex/hil-exploration-batch2 164384a Register second HIL exploration and checkpoint publication repair",
+    "+ codex/hil-first-batch        f4ca38a (C:/Users/biao3/.codex/worktrees/hil-first-batch/snowflake) Record pending GitHub authentication for batch publication",
+    "+ main                         b9cf7ed (C:/Users/biao3/Documents/GitHub/snowflake) [origin/main] Preserve verified discovery continuation and rerun instructions"
+  ],
+  "entries": [
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake",
+      "head": "b9cf7ed72c82e350b93570fafd8e45afa0b95d53",
+      "branch": "main",
+      "status": [
+        " M docs/PROGRESS.md",
+        " M docs/plans/hil-bld-first-batch.md"
+      ],
+      "ignored": [
+        ".tmp-discovery-resume/",
+        "app/node_modules/",
+        "node_modules/",
+        "out/",
+        "out/agent-rules-cleanup-2026-10-07/",
+        "out/dendrite-styles/",
+        "out/growth-assets/",
+        "out/growth-gallery/",
+        "out/hil-bld-first-batch-verification-2026-10-07/",
+        "out/hil-manual-stop-20261007T212733/",
+        "out/hil-resume-reconciliation-b9cf7ed/",
+        "out/host-readiness-2026-10-07/",
+        "out/housekeeping-2026-10-07/",
+        "out/named-crystal-catalog/",
+        "out/new-host-readiness-2026-10-07/",
+        "out/phase10-c0v-s6-preflight-observer-tests/",
+        "out/phase10-c0v-s6-synthetic-tests/",
+        "out/phase10-c0v-s6-worker-progress-tests/",
+        "out/product-check-scope-2026-10-07/",
+        "out/restores/"
+      ],
+      "staged": [],
+      "unstaged": [
+        "docs/PROGRESS.md",
+        "docs/plans/hil-bld-first-batch.md"
+      ]
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake",
+      "head": "f4ca38a44fefda0de514491bd5ce3044479829ec",
+      "branch": "codex/hil-first-batch",
+      "status": [],
+      "ignored": [
+        "node_modules/",
+        "out/",
+        "out/batch1-hil-control-20261007T210807/",
+        "out/batch1-hil-probe/",
+        "out/batch1-hil/"
+      ],
+      "staged": [],
+      "unstaged": []
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume",
+      "head": "b9cf7ed72c82e350b93570fafd8e45afa0b95d53",
+      "branch": "codex/discovery-resume",
+      "status": [],
+      "ignored": [
+        "app/dist/",
+        "node_modules/",
+        "out/",
+        "out/batch1-hil-resumable-control-20261007/",
+        "out/batch1-hil-resumable-probe/",
+        "out/batch1-hil-resumable/",
+        "out/discovery-resume-verification-2026-10-07/",
+        "out/phase10-c0v-s6-worker-progress-tests/",
+        "out/restores/",
+        "out/resume-fixture-inspect-1791434697867/"
+      ],
+      "staged": [],
+      "unstaged": []
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake",
+      "head": "164384a069feabef98f86f0bccb522048b42a546",
+      "branch": "codex/hil-exploration-batch2",
+      "status": [
+        " M docs/plans/hil-exploration-batch2.md",
+        "M  evidence/MANIFEST.json",
+        "A  evidence/hil-exploration-batch2-2026-10-08/README.md",
+        "A  evidence/hil-exploration-batch2-2026-10-08/batch1-hil-triage-evidence-20261008.inventory.json",
+        "A  evidence/hil-exploration-batch2-2026-10-08/batch1-hil-triage-evidence-20261008.tar.gz",
+        "A  evidence/hil-exploration-batch2-2026-10-08/completion-triage-20261008.json",
+        "A  evidence/hil-exploration-batch2-2026-10-08/science-triage-20261008.json",
+        " M runner/src/hil-bld-batch-main.ts",
+        " M runner/src/hil-bld-batch-roster.ts",
+        "?? runner/src/hil-batch2-main.ts",
+        "?? runner/src/hil-batch2-roster.ts",
+        "?? runner/test/hil-batch2.test.ts"
+      ],
+      "ignored": [
+        "node_modules/",
+        "out/",
+        "out/batch2-hil-control-20261008/",
+        "out/batch2-verification/"
+      ],
+      "staged": [
+        "evidence/MANIFEST.json",
+        "evidence/hil-exploration-batch2-2026-10-08/README.md",
+        "evidence/hil-exploration-batch2-2026-10-08/batch1-hil-triage-evidence-20261008.inventory.json",
+        "evidence/hil-exploration-batch2-2026-10-08/batch1-hil-triage-evidence-20261008.tar.gz",
+        "evidence/hil-exploration-batch2-2026-10-08/completion-triage-20261008.json",
+        "evidence/hil-exploration-batch2-2026-10-08/science-triage-20261008.json"
+      ],
+      "unstaged": [
+        "docs/plans/hil-exploration-batch2.md",
+        "runner/src/hil-bld-batch-main.ts",
+        "runner/src/hil-bld-batch-roster.ts"
+      ]
+    }
+  ],
+  "disposition": "Primary two task-owned live-prose copies are included by the new plan commit, with completion correction. Old original and resumable worktrees are retained at fixed source with all outputs/checkpoints; no source delta. New batch2 checkout is the only implementation branch. No unrelated source changes or temporary review checkout."
+}

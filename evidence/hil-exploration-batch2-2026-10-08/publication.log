@@ -1,0 +1,53 @@
+
+ RUN  v3.2.7 C:/Users/biao3/.codex/worktrees/hil-exploration-batch2/snowflake
+
+ ✓ runner/test/discovery-resume.test.ts (18 tests) 10018ms
+   ✓ discovery row continuation > serializes stale-owner replacement and admits only one of two real worker contenders  617ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: ordinary  610ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: no-dip  525ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: both  545ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: neither  520ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: basal-only  532ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: prism-only  509ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: width  537ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: early width  560ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: warm to cold  571ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: cold to warm no-dip  1844ms
+   ✓ discovery row continuation > preserves and removes uncommitted event/snapshot tails, ignoring an incomplete generation  386ms
+   ✓ discovery row continuation > continues an actually killed worker in a fresh process with identical scientific output  1314ms
+ ❯ runner/test/discovery-resume-publication.test.ts (10 tests | 2 failed) 2591ms
+   ✓ bounded checkpoint publication retries > generation: transient EPERM publishes the exact new state once  303ms
+   ✓ bounded checkpoint publication retries > generation: transient EACCES publishes the exact new state once 280ms
+   ✓ bounded checkpoint publication retries > generation: transient EBUSY publishes the exact new state once 271ms
+   × bounded checkpoint publication retries > generation: persistent EPERM preserves the prior valid checkpoint 209ms
+     → checkpoint event prefix digest mismatch
+   × bounded checkpoint publication retries > generation: persistent EIO preserves the prior valid checkpoint 205ms
+     → checkpoint event prefix digest mismatch
+   ✓ bounded checkpoint publication retries > pointer: transient EPERM publishes the exact new state once 261ms
+   ✓ bounded checkpoint publication retries > pointer: transient EACCES publishes the exact new state once 263ms
+   ✓ bounded checkpoint publication retries > pointer: transient EBUSY publishes the exact new state once 270ms
+   ✓ bounded checkpoint publication retries > pointer: persistent EPERM preserves the prior valid checkpoint 263ms
+   ✓ bounded checkpoint publication retries > pointer: persistent EIO preserves the prior valid checkpoint 266ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  runner/test/discovery-resume-publication.test.ts > bounded checkpoint publication retries > generation: persistent EPERM preserves the prior valid checkpoint
+ FAIL  runner/test/discovery-resume-publication.test.ts > bounded checkpoint publication retries > generation: persistent EIO preserves the prior valid checkpoint
+Error: checkpoint event prefix digest mismatch
+ ❯ DiscoveryCheckpointStore.load runner/src/discovery-resume-io.ts:186:68
+    184|     const prefix = generation.eventPrefix;
+    185|     const verifiedHash = filePrefix(this.eventsPath, prefix.bytes);
+    186|     if (verifiedHash.copy().digest("hex") !== prefix.sha256) throw new…
+       |                                                                    ^
+    187|     const snapshotPaths = new Set<string>();
+    188|     if (!Array.isArray(generation.snapshots) || generation.snapshots.l…
+ ❯ runner/test/discovery-resume-publication.test.ts:82:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  2 failed | 26 passed (28)
+   Start at  07:35:50
+   Duration  13.03s (transform 157ms, setup 0ms, collect 208ms, tests 12.61s, environment 0ms, prepare 78ms)
+

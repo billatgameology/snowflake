@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 874,
- "totalBytes": 81671047,
+ "fileCount": 885,
+ "totalBytes": 81787935,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -3501,6 +3501,50 @@
   "hil-exploration-batch2-2026-10-08/first-batch-fresh-restore.json": {
    "bytes": 1165,
    "sha256": "41b987ccf6e6a0bfc878d89679bc2fc2d22bb6d2a1faa89dac56b92edd1c8319"
+  },
+  "hil-exploration-batch2-2026-10-08/focused-result.json": {
+   "bytes": 99,
+   "sha256": "22eda90b79eb60ee1c0b7740919d29ad0ad0f0082301c8bc63b330d616ea7e5b"
+  },
+  "hil-exploration-batch2-2026-10-08/focused.log": {
+   "bytes": 6258,
+   "sha256": "c178272f583cb8b40e4637d810e184fda42c5f2e31fef8470ab0f34ffd8c02c0"
+  },
+  "hil-exploration-batch2-2026-10-08/full-check-invocation.json": {
+   "bytes": 432,
+   "sha256": "01c596e7570a462aa58e2ea7b55bf10332d6242599a6a4a027c9983fcef07c9f"
+  },
+  "hil-exploration-batch2-2026-10-08/full-check-result.json": {
+   "bytes": 334,
+   "sha256": "e8d4fd8bbfd2b065ba8a73553e9a97a14c014bd987dfd9dca345274dae8c9b81"
+  },
+  "hil-exploration-batch2-2026-10-08/full-check.stderr.log": {
+   "bytes": 33325,
+   "sha256": "bface20158656c05fedc6343388be853def6c337d7c129cfe7f7767ea989ad2f"
+  },
+  "hil-exploration-batch2-2026-10-08/full-check.stdout.log": {
+   "bytes": 64148,
+   "sha256": "f06872a34f1cd858b0824f2c4bc41dcdb9a27302a6039d060272953b88649b29"
+  },
+  "hil-exploration-batch2-2026-10-08/publication-fixed.log": {
+   "bytes": 466,
+   "sha256": "16eaa84da1b9ee12d44bd81ac939302d46a1c54c78d364c323aba372e9189838"
+  },
+  "hil-exploration-batch2-2026-10-08/publication.log": {
+   "bytes": 4356,
+   "sha256": "2ea09fbfcaa5ceb387ded6edebf6ddd4333398f5cef6872652a3877a7d9453f3"
+  },
+  "hil-exploration-batch2-2026-10-08/typecheck.log": {
+   "bytes": 84,
+   "sha256": "51bcdf34980a17f4afbc6fa075186ba067a673569bc37098441f73a31b975087"
+  },
+  "hil-exploration-batch2-2026-10-08/verification.json": {
+   "bytes": 1324,
+   "sha256": "6ae527afaa3868a3f01f2a62bcf250a7996d251f678d672e301b8bbd7dcf98a9"
+  },
+  "hil-exploration-batch2-2026-10-08/worktree-inventory-before-publication.json": {
+   "bytes": 6062,
+   "sha256": "2f21bc5b18f0989604018a86338d0d5bc2cac27f2136cdc97ea68ff4ff855192"
   }
  }
 }

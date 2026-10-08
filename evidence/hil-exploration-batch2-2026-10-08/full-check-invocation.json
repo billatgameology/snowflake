@@ -1,0 +1,11 @@
+{
+  "command": "npm.cmd test",
+  "gitHead": "b9d7eb0d6d40a248fb36cf9621e411d3444ff681",
+  "startedUtc": "2026-10-08T14:39:20.0328321Z",
+  "node": "v24.13.1",
+  "workingDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake",
+  "sourceClean": true,
+  "staleWorkers": 0,
+  "stdout": "out/batch2-verification/full-check.stdout.log",
+  "stderr": "out/batch2-verification/full-check.stderr.log"
+}

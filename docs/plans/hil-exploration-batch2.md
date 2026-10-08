@@ -1,7 +1,7 @@
 # Plan — HIL second exploration batch
 
 - **Phase:** post-Phase-10 development exploration under the approved HIL/BLD portfolio.
-- **Status:** registered; implementation and launch pending.
+- **Status:** implemented and verified; publication, local capacity probe and launch pending.
 - **Started / last touched:** 2026-10-08 by Codex/GPT-6.
 - **Branch / checkout:** `codex/hil-exploration-batch2`, `C:/Users/biao3/.codex/worktrees/hil-exploration-batch2/snowflake`.
 - **Authority:** current charter section 2.5, accepted decisions 0055 and 0060; [portfolio](post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld).
@@ -153,7 +153,7 @@ operator and provenance limitations.
 
 - [x] Commit protocol and correct stale first-batch live state (`164384a`).
 - [x] Implement bounded checkpoint publication retry and sixteen-row batch selection.
-- [ ] Verify fault handling, first-batch compatibility, selection and exact full check; preserve receipts.
+- [x] Verify fault handling, first-batch compatibility, selection and exact full check; preserve receipts.
 - [ ] Reconcile task worktrees/branches, commit and publish shared source.
 - [ ] Measure HIL capacity, launch new queue and record live checkpoints/commands.
 
@@ -187,6 +187,13 @@ All original bytes remain. Rule 16's `out/batch2-verification/worktree-inventory
 classifies four checkouts: primary's two task-owned live prose copies are included and corrected;
 both old execution sources/outputs remain retained; batch2 is the sole implementation branch.
 There is no temporary review checkout, unrelated source delta, PR or deletion.
+
+Exact `npm.cmd test` at clean `b9d7eb0d6d40a248fb36cf9621e411d3444ff681`, Node v24.13.1,
+exited zero: 235 files / 3045 tests passed, 23 skipped; Vitest duration 947.51 seconds. Rule 7
+and both typechecks are included. The tracked bundle's `verification.json`, exact invocation,
+real result and raw stdout/stderr retain the evidence. No executable source changed afterward.
+These are regression results, not a new scientific gate. Focused and initially failed fixture
+logs are retained alongside them. Publication and a fresh new-roster HIL capacity probe are next.
 
 ## Tried and rejected
 
