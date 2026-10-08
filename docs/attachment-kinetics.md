@@ -159,6 +159,17 @@ The finite twenty-second early/late protocol is an early-growth-history counterf
 measured timescale or physical SDAK claim. All earlier opt-in, timeline and export exclusions
 remain in force except this named temporal extension of local width selection.
 
+Decision 0060 adds one export exception through the separate `discovery-resume-v1` format;
+ordinary checkpoint APIs and their refusals remain unchanged. It admits the four facet arms,
+full-width selection and the early/late width family above only at completed cycle boundaries
+under aggregate-v6, monopole matching and hexPrism float64 CPU execution. Exact experiment
+identity, width threshold and cutoff travel with the complete solver and observation state.
+Restore rebuilds geometry-only caches and reevaluates cutoff eligibility before the next
+relaxation, retaining the existing coupled-update timing without resetting fields, physical
+time, monopole lag or ledgers. Experimental modes still reject environment events. The format
+also admits ordinary M1/no-dip rows with the registered single abrupt event under decision 0011;
+it does not admit either geometric-closure opt-in or their combined experiment.
+
 Decision 0056 separately permits `experimentalHoleFilling: "enabled" | "disabled"` for
 constant-environment aggregate-v6 with ordinary M1/no-dip preparations. Absent or enabled retains
 the geometric completion loop in component 4; disabled skips only that loop after kinetic fill.
@@ -442,10 +453,24 @@ must omit the field and decode as implicit `legacy-v3`; version 2 requires a rec
 `surfacePolicy` and remains the current final-state format. Existing solver writes are still v2,
 and v1/v2 are not resumable. Proposed decision 0039 defines a candidate separate v3 resume-only
 format at completed, constant-environment interface-cycle boundaries. Its corrected core design has
-a clean non-author review, but the decision remains proposed; implementation, negative controls,
-separate code/evidence review and the WP3-dependent runner review are pending, so no current production
-resume path exists. The v4 pre-registration was committed before each historical two-temperature morphology
-probe.
+a clean non-author review and an implemented core codec/restore path, but the decision remains
+proposed and its WP3-dependent production runner remains unauthorized. Decision 0060 authorizes
+a distinct discovery-only resume format without widening that v3 contract or making final
+snapshots resumable. Its production eligibility requires the active discovery plan's executed
+continuation and interruption checks. The v4 surface-policy pre-registration was committed
+before each historical two-temperature morphology probe.
+
+Discovery resume preserves field bits, historical boundary and attachment ordering, monopole
+volume-rate lag, physical time, kinetic and geometric ledgers, counters, controls and observable
+reports. Ordinary history rows additionally retain the accepted-event count, closed prior-
+temperature vapor-unit total, current temperature-segment fill origin, schedule, complete cursor
+and transition log. A checkpoint immediately after a valid environment event can have positive
+tick with no last relaxation report and zero last velocity/monopole lag; the new format must
+preserve that reachable state rather than impose v3's constant-environment report invariant.
+The active shell remains transformed until the next ordinary reclamp, and transformed negative
+supersaturation is retained. Checkpoints are taken only after a complete interface update and
+any event at that boundary; an interrupted relaxation resumes from the preceding committed
+boundary. No cached relaxed Robin/fill pair is reused across that restart.
 
 Decision 0009 also resolves the adjacent geometry conflict by replacing the forward
 per-contact rule with the source's aggregate `G_b = H_b = 1` primary-facet convention

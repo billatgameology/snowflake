@@ -9,8 +9,8 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   The [approved portfolio](plans/post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld)
   covers cavities, cold core/tip structure, seed memory, pressure/transport and environment history.
   HIL coordinates shared code and joint review; each PC receives a queue of comparisons.
-  Local main includes tested code through `60b55e9`; Git push awaits GitHub sign-in (origin remains `f92bf5f`).
-  The [first batch](plans/hil-bld-first-batch.md) is implemented and verified: HIL 56 rows, BLD 42; local probes precede launch.
+  Publication is complete through `f4ca38a`; BLD is running per the maker (not inspected from HIL).
+  The [first batch](plans/hil-bld-first-batch.md#resumable-rerun-maker-direction-2026-10-07) is stopped on HIL at maker direction; implement actual resume and remove the four-hour cutoff before rerunning.
 - **New-host follow-up:** [complete](plans/new-host-acceptance-and-capacity-2026-10-07.md),
   locally integrated through `cf1386e`. Glass/camera browser and direct visual acceptance pass;
   the six comparison inputs and both small independent C-drive backups are restored and verified.
@@ -19,8 +19,8 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   and removed at readiness closeout. Publication was deferred then and is included in the approved main update.
   The short-row ladder recommends 16 workers for its ordinary N64 workload (capacity receipt
   SHA-256 `eb79aa6ddcaddaf79c2ec45aa919e0a6e7363674bfe0dcfcb83dcb0b33b4936b`);
-  larger/experimental rows remain unqualified and discovery-runner restart support remains absent.
-  Completed campaigns are closed; scientific result review and next-stage planning are active.
+  this batch separately qualifies its registered experimental prefixes. Larger/mature configurations
+  remain unqualified; discovery-runner restart is the current deliverable. Earlier campaigns are closed; HIL rerun awaits it.
 - **Verification scope:** maker clarification is recorded through local `91c0684`: website/education
   presentation uses focused product/content checks; executable science and evidence retain rigorous
   requirements. The active glass/camera plan's inherited full-suite criterion is removed; historical
@@ -53,8 +53,8 @@ Completed chronology and failed attempts are retained, not live instructions:
 `VCC_NAS_ROOT=Z:/`. The current host is Intel Core Ultra 9 285K (24 cores / 24 logical processors),
 64 GB RAM and RTX 5080. The former Ryzen/RTX 3080 host's measurements do not establish this host's
 scientific worker budget. The [current measurement](plans/new-host-acceptance-and-capacity-2026-10-07.md#measured-host-budget--2026-10-07)
-recommends 16 workers for its ordinary N64 three-cycle workload; it does not qualify larger domains
-or experimental rows. Restart older terminals/Codex to inherit the installed PATH/settings.
+recommends 16 workers for its ordinary N64 three-cycle workload; the first batch has its own experimental
+prefix qualification above. Larger domains/mature geometry remain outside both measured scopes.
 
 The [completed readiness record](plans/local-consolidation-2026-10-01.md#new-windows-computer-readiness--2026-10-07)
 and primary `out/host-readiness-2026-10-07/` receipts record Node v24.13.1, npm 11.8.0, Python
@@ -233,14 +233,14 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-Complete the pending GitHub sign-in/push on HIL first. Then pull main in BLD's clean worktree, run `npm.cmd ci`, and follow the
-[first-batch commands](plans/hil-bld-first-batch.md#commands-after-publication). Run
-`node runner/src/hil-bld-batch-main.ts probe BLD out/batch1-bld-probe`, then launch BLD using
-that directory's `probe.json`. HIL uses the corresponding HIL commands. Full campaigns await maker dispatch.
+Implement the [resumable rerun](plans/hil-bld-first-batch.md#resumable-rerun-maker-direction-2026-10-07): real state restore,
+cycle checkpoints and no production wall-clock cutoff; prove interrupted/uninterrupted agreement before rerunning HIL.
+Preserve stopped `C:/Users/biao3/.codex/worktrees/hil-first-batch/snowflake` and its original outputs at `f4ca38a`;
+they are observations, not restart state. BLD stop/adoption requires action on that computer; no remote access is claimed.
 Exact `npm.cmd test` at `ad990ac` passed 230 files / 2,981 tests, 23 skipped;
 [verification](../evidence/hil-bld-first-batch-2026-10-07/verification.json) also records both actual N64 prefix witnesses.
-Longer work still needs representative pause/resume before launch or short terminal stages; this batch
-uses four-hour capped stages, with unresolved prefixes preserved. Neither full experimental resume
+The maker now requires representative experimental pause/resume before relaunch; the four-hour terminal-stage
+alternative is superseded for this batch. Neither full experimental resume
 nor BLD worker capacity is claimed. Compare physical-time brackets; Phase 7 stays on maker hold and S6 closed.
 
 Education proceeds separately with the maker. The readiness/cleanup work is complete. Full large

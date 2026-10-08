@@ -1,8 +1,8 @@
 # HIL / BLD first exploration batch
 
 - **Scope:** executable first stage of the maker-approved post-Phase-10 portfolio; development evidence only.
-- **Status:** implemented and verified, 2026-10-07; integrated into local main; publication awaits GitHub authentication. Host qualification and full campaign dispatch remain local execution steps.
-- **Branch / destination:** `science/hil-bld-first-batch` -> `origin/main`.
+- **Status:** HIL stopped at maker direction on 2026-10-07; resumable rerun is the active implementation. Original producer through `f4ca38a` and its observations remain preserved. BLD stop/adoption requires action on that computer.
+- **Implementation branch (reconciled) / destination:** `science/hil-bld-first-batch` -> `origin/main`.
 - **Authority:** [adaptive discovery](post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld), accepted ADRs 0055-0059, attachment-kinetics specification. No phase gate changes.
 
 ## Goal and done when
@@ -14,7 +14,76 @@ all named rows selectable, bounded execution and resource checks exercised, focu
 controls and exact `npm test` passing, and shared code published. Scientific results follow the
 maker's dispatch; this implementation session does not start the full campaign.
 
-## Registered first stage
+## Resumable rerun: maker direction 2026-10-07
+
+Implementation: `codex/discovery-resume` in primary's `.tmp-discovery-resume/` worktree.
+The retained original execution checkout is separate and receives no source edits.
+
+The maker explicitly requires: stop the current run, make it resumable without the four-hour
+limit, then rerun. This supersedes the non-resumable terminal-stage choice below, not the
+registered scientific rows, observations, numerical controls or scientific endpoint/adequacy rules.
+There is no charter phase done-when for this operational extension. The concrete deliverable is
+HIL executing the same named workload with working fresh-process continuation and no elapsed-time
+termination; BLD receives the same tested source and explicit commands.
+
+**Done when:** all registered row families support checkpoint/restore with unchanged scientific
+state and continuation; interrupted and uninterrupted witnesses agree in fields, ordered topology,
+events, snapshots, timeline transitions and numerical metrics (excluding declared operational time,
+RSS and process metadata); corruption and incompatible row/source/runtime are refused; a real N64
+worker is interrupted and continued in a fresh process; exact `npm.cmd test` passes at a stable
+checkpoint; shared code is published and HIL is rerun from its seeds under the new protocol.
+
+Approach and sequence:
+
+1. Preserve the original execution worktree and observations. HIL was stopped at
+   `2026-10-08T04:27:33.5093531Z`; primary
+   `out/hil-manual-stop-20261007T212733/stop-receipt.json` and `owned-processes-before.json`
+   record the exact owned processes. The post-stop process query found no matching launcher or
+   workers. Abruptly stopped observations are not checkpoint state and cannot be upgraded retroactively.
+2. Commit this amendment and decision 0060 before implementation in one isolated implementation
+   checkout. The new discovery-only format supports ordinary M1/no-dip including the registered
+   single environment event, the four facet arms, and full/early width modes. Preserve all historical
+   formats/refusals and experiment identities; proposed 0039's Phase 6 production machinery stays deferred.
+3. Reuse the existing complete-cycle solver state and row producer. Publish a checkpoint initially
+   and after every completed cycle (including any just-fired environment event), using temporary
+   files and atomic publication of a complete generation; retain the previous complete generation.
+   Bind exact row/source/Node/V8, solver state, runner accumulators, event-prefix bytes and snapshots.
+   Resume rolls observations back to that committed boundary, preserving discarded tails separately,
+   and repeats only unfinished work. A partial relaxation never becomes a completed event.
+4. Add explicit batch/row resume commands using the original campaign directory; retain attempt-specific
+   process logs/exits. Completed valid rows are skipped, unfinished rows restore their latest complete
+   checkpoint, and an unstarted row begins from its seed. A partial checkpoint never replaces the last
+   good generation. No automatic restart loop hides solver or evidence failures.
+5. Remove the production four-hour worker/parent timers. Keep the short resource-probe timeout and
+   live memory protection. Retain scientific size/contact/convergence/stall and existing update-cap
+   meanings; a step cap remains unresolved. Checkpointing makes subsequent continuation possible,
+   while extending a registered scientific observation window remains an explicit protocol decision.
+6. Use focused differential/negative controls while implementing; then one bounded review after the
+   interfaces stabilize, exact `npm.cmd test`, and a real N64 process interruption/continuation witness.
+   Requalify the changed producer on HIL and rerun into a new output directory. Record exact launch,
+   checkpoint cadence and resume command before dispatch. Publish instructions for BLD to perform its
+   own qualification and restart with the same producer.
+
+Rule 14A scope: plausible failures are interruption during checkpoint publication, stale observation
+tails, missing experimental/history state, wrong-row continuation and duplicate event application.
+These can change scientific trajectories or corrupt their evidence. Existing v3 rejects these rows,
+and observations omit evolution fields; nearest-boundary state/row tests and atomic checkpoint I/O
+address those gaps directly. Their cost is lower than rerunning long experiments. This is solo
+scientific research; hostile repository/runtime control stays excluded. No new transport, dashboard,
+registry, gate framework or Phase 6 evidence machinery is needed.
+
+Relevant lessons: A3 (concurrent writers overwrite evidence) requires one row writer and an explicit
+committed prefix; E4 (reachable boundary fill exactly one) requires the existing state witness and
+history-aware report absence after an environment event; F1/F2 require returning to the usable
+pause/continue path before expanding process. Existing core/solver resume and timeline tests are
+the starting seams. New tests cover first-batch modes and actual subprocess recovery. Bitwise
+continuation is scoped to the pinned Node/V8 oracle; operational time and RSS are not deterministic.
+
+Out of scope: recovering absent state from the stopped original processes; changing physical inputs,
+solver equations, scientific targets or held-out/phase status; experimental facet/width plus environment
+events; geometric-completion ablations; GPU resume; remote control of BLD; generic scheduling services.
+
+## Registered original first stage (elapsed-time policy superseded above)
 
 The following are design choices, not measured outcomes. All rows use N64, dx 0.35 um,
 fill CFL 0.05, largest extent target 21, spatial samples at pre-update extent crossings
@@ -134,7 +203,61 @@ Bounded Rule 12 check on 2026-10-07 inspected submission histories for
 No superseding snow-growth entry was found there after TAX2; this is not an exhaustive review.
 No new physical parameter extraction, solver-physics change, validation or Phase 7/S6 work occurs.
 
+## HIL execution 2026-10-07
+
+The maker requested a new HIL execution worktree after reporting BLD started. Git remote
+`refs/heads/main` was verified at `f4ca38a44fefda0de514491bd5ce3044479829ec` on this host.
+Managed worktree `C:/Users/biao3/.codex/worktrees/hil-first-batch/snowflake`, branch
+`codex/hil-first-batch`, is clean at that source commit with locked dependencies installed and
+Node v24.13.1. Keep this execution HEAD and source fixed through campaign completion: the
+probe binds the source and each queued row records HEAD when it starts. Maintain live prose
+in the primary checkout; this separation avoids changing the running source identity.
+
+The hidden detached wrapper started at `2026-10-08T04:08:07.3893597Z`, PID 8344, recorded in
+execution-worktree `out/batch1-hil-control-20261007T210807/invocation.json`. Commands below are
+readable equivalents; exact absolute arguments are in probe `invocation.json` and `campaign.json`:
+
+```powershell
+node runner/src/hil-bld-batch-main.ts probe HIL out/batch1-hil-probe
+node runner/src/hil-bld-batch-main.ts launch HIL out/batch1-hil out/batch1-hil-probe/probe.json
+```
+
+The probe exited zero at `2026-10-08T04:15:46.1940360Z` (`probe-exit.json`). All four rungs
+qualified with actual concurrency 1/4/8/16, and `out/batch1-hil-probe/probe.json` recommends 16.
+The 16-worker rung took 61.395 seconds; its minimum available physical memory was 52,265,893,888
+bytes and minimum commit headroom 60,545,335,296 bytes. These figures are from that receipt's
+16-worker rung, not a mature-geometry capacity claim.
+
+The campaign launched at `2026-10-08T04:15:46.437Z` (21:15 PDT on October 7), recorded in
+`out/batch1-hil/first-batch-HIL-launch.json`; `campaign.json` binds 56 rows and concurrency 16
+to frozen `f4ca38a`. The resource sample at `2026-10-08T04:16:45.1080189Z` records 16 live
+children. Initial row status/events show completed updates in all 16 launched rows; their
+stderr files were empty at this startup inspection. This establishes operational startup only.
+
+Control `state.json`, separate `probe.stdout.log` / `probe.stderr.log`, `probe-exit.json`,
+`campaign.stdout.log` / `campaign.stderr.log` and eventual `campaign-exit.json` live under
+the control directory above. Per-row logs, commands, exit receipts and resource samples live
+under the probe/campaign directories. These are active local staging: retain the worktree and
+all outputs until joint review and the applicable evidence/asset preservation step.
+
+This is solo scientific exploration with hostile actors excluded. The immediate deliverable,
+the registered HIL queue running at locally qualified concurrency, is established by those
+receipts and live workers. No scientific code or protocol changed, so the existing full-check receipt remains
+the implementation check. These short prefixes qualify only their measured workload; live
+memory limits and four-hour terminal stages still apply. No experimental resume is claimed.
+
+Next: inspect resource samples and `rows/<row-id>/status.json` / logs; the aggregate status file
+appears after the first row finishes. Once `first-batch-HIL-complete.json` and the control
+`campaign-exit.json` exist, run `node runner/src/hil-bld-batch-main.ts summarize out/batch1-hil`
+from the execution worktree. Preserve capped prefixes as unresolved, gather BLD's receipts and
+jointly review before selecting follow-up work. Do not pull, edit or commit in the execution
+worktree, start a duplicate queue, or remove it while it owns these active output bytes.
+
 ## Tried and rejected
+
+- Four-hour terminal stages without restart (maker rejected 2026-10-07): the time budget was not
+  measured to reach every scientific event and could lose informative later behavior. HIL's original
+  run is stopped and retained; implement real continuation before rerunning without that cutoff.
 
 - Portfolio-only publication left BLD without executable work. This slice supplies named commands.
 - Reusing ordinary three-cycle host capacity as experimental qualification would cross the
@@ -183,4 +306,4 @@ two exact raw full-check logs, whose terminal blank lines are intentional record
 `git -c core.whitespace=cr-at-eol diff --cached --check -- . ':(exclude)evidence/hil-bld-first-batch-2026-10-07/full-check.stdout.log' ':(exclude)evidence/hil-bld-first-batch-2026-10-07/full-check.stderr.log'`.
 The unexcluded first attempt reported only those raw-log EOF blank lines; no artifact was normalized.
 
-Publication closeout: local main contains `3948c8f`, `ad990ac` and `60b55e9`. The original task worktree/ref were reconciled and removed without force after byte-verified custody. Command-line Git has no saved GitHub login; its push opened a Connect to GitHub window and remains pending. Last remote check still returned `f92bf5f`. Complete that sign-in or push main through the signed-in GitHub Desktop before asking BLD to pull. Source tests are complete; do not repeat the science suite merely to finish authentication.
+Publication closeout: main includes `3948c8f`, `ad990ac`, `60b55e9` and `f4ca38a`. The original implementation worktree/ref were reconciled and removed without force after byte-verified custody. The earlier authentication wait is resolved: `git ls-remote origin refs/heads/main` now returns `f4ca38a44fefda0de514491bd5ce3044479829ec`. Current host execution is recorded above; source tests are complete and are not repeated for dispatch.

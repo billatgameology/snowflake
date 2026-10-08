@@ -152,10 +152,11 @@ calculation used interface-cycle offset, so it cannot stand in for common physic
 A temperature-return history also needs an explicit multi-event runner extension; current rows
 support one extent-triggered event. These are bounded implementation gaps, not new infrastructure.
 
-Before a long campaign, demonstrate actual experimental pause/resume or use demonstrably short
-independently terminal stages. The ordinary core witness does not make the discovery runner
-resumable. Qualify representative mature/experimental rows on each host before setting actual
-worker limits. Reuse the existing logs, analyzers and governed output-preservation path.
+Maker correction, 2026-10-07: actual experimental pause/resume is mandatory before the next launch;
+the four-hour terminal-stage alternative is superseded for this portfolio's first batch. HIL is stopped
+and will rerun after the [resume amendment](hil-bld-first-batch.md#resumable-rerun-maker-direction-2026-10-07)
+is implemented and tested. The ordinary core witness does not make this runner resumable. Qualify
+each host's workload budget and reuse existing logs, analyzers and governed preservation paths.
 
 The maker approved this portfolio and directed commit and push on 2026-10-07. Exact track rows,
 controls, observations and batch sizes remain the next design work; implementation and scientific
