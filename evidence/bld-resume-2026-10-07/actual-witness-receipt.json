@@ -1,0 +1,87 @@
+{
+  "purpose": "Actual N64 early-width BLD family process interruption and restore. Three-cycle prefix only; not endpoint/cutoff evidence or host capacity.",
+  "source": {
+    "head": "9e0986e2aab1613d499e445117f932c2defbb2fd",
+    "node": "v24.13.1",
+    "v8": "13.6.233.17-node.40"
+  },
+  "row": {
+    "conditional": false,
+    "pressurePa": 101325,
+    "paramSet": "M1",
+    "dimsN": 64,
+    "dxUm": 0.35,
+    "cflFill": 0.05,
+    "seedRadius": 2,
+    "seedThickness": 1,
+    "targetExtent": 21,
+    "maxSteps": 3,
+    "spatialSampleExtents": [
+      5,
+      9,
+      13,
+      17
+    ],
+    "id": "bld-n64-early-recovery-witness",
+    "lane": "cavity-mechanism",
+    "tempC": -5,
+    "fraction": 0.075,
+    "experimentalBasalWidthCells": 3,
+    "experimentalBasalWidthHistory": {
+      "mode": "early-only",
+      "cutoffSeconds": 20
+    },
+    "sigmaInfinity": 0.00375
+  },
+  "receipts": [
+    {
+      "name": "interrupted",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "G:\\Code Files\\snowflake-bld-exploration\\out\\bld-resume-verification\\actual-witness.mjs",
+        "worker",
+        "G:\\Code Files\\snowflake-bld-exploration\\out\\bld-resume-verification\\actual-witness\\resumed"
+      ],
+      "start": "2026-10-08T04:47:41.908Z",
+      "finished": "2026-10-08T04:48:07.643Z",
+      "killed": true,
+      "code": null,
+      "signal": "SIGTERM"
+    },
+    {
+      "name": "restored",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "G:\\Code Files\\snowflake-bld-exploration\\out\\bld-resume-verification\\actual-witness.mjs",
+        "worker",
+        "G:\\Code Files\\snowflake-bld-exploration\\out\\bld-resume-verification\\actual-witness\\resumed"
+      ],
+      "start": "2026-10-08T04:48:07.643Z",
+      "finished": "2026-10-08T04:48:51.840Z",
+      "killed": false,
+      "code": 0,
+      "signal": null
+    },
+    {
+      "name": "direct",
+      "command": [
+        "C:\\nvm4w\\nodejs\\node.exe",
+        "G:\\Code Files\\snowflake-bld-exploration\\out\\bld-resume-verification\\actual-witness.mjs",
+        "worker",
+        "G:\\Code Files\\snowflake-bld-exploration\\out\\bld-resume-verification\\actual-witness\\direct"
+      ],
+      "start": "2026-10-08T04:48:51.840Z",
+      "finished": "2026-10-08T04:50:01.521Z",
+      "killed": false,
+      "code": 0,
+      "signal": null
+    }
+  ],
+  "interruptedCheckpointGeneration": 1,
+  "checkpointBytes": 4458203,
+  "directSha256": "1e3b246d92a2f067fbe47c7b6ac9d4b7b6f58146dcb6bc905453e7ed518d661b",
+  "resumedSha256": "1e3b246d92a2f067fbe47c7b6ac9d4b7b6f58146dcb6bc905453e7ed518d661b",
+  "exactState": true,
+  "exactScientificEvents": true,
+  "updates": 3
+}

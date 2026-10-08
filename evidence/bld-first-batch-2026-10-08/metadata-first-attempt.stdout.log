@@ -1,0 +1,23 @@
+
+ RUN  v3.2.7 G:/Code Files/snowflake-bld-exploration
+
+ ❯ runner/test/nas-assets-catalog.test.ts (9 tests | 1 failed) 2042ms
+   × tracked NAS asset catalogue > loads the strict real catalogue and pins the read-only census dispositions 9ms
+     → expected { …(36) } to deeply equal { …(35) }
+   ✓ tracked NAS asset catalogue > recomputes every tracked manifest byte length and digest 12ms
+   ✓ tracked NAS asset catalogue > keeps public owner-manifest checkout bytes independent of line-ending settings 30ms
+   ✓ tracked NAS asset catalogue > binds every active restore declaration to the real destination-aware commands 1ms
+   ✓ tracked NAS asset catalogue > re-derives every machine-readable tracked owner selection  660ms
+   ✓ tracked NAS asset catalogue > assigns every live ledger row to exactly one collection owner  1317ms
+   ✓ tracked NAS asset catalogue > checks machine-readable overlay scopes without turning them into competing owners 4ms
+   ✓ tracked NAS asset catalogue > binds each retained private collection to its standard private owner manifest 2ms
+   ✓ tracked NAS asset catalogue > resolves every external-evidence authority and requires accepted decisions 6ms
+ ✓ runner/test/evidence-integrity.test.ts (7 tests) 629ms
+   ✓ evidence integrity (Phase 6 lessons, enforced) > every file in the manifest exists and matches its digest  515ms
+ ✓ runner/test/progress-index.test.ts (11 tests) 439ms
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  1 failed | 26 passed (27)
+   Start at  16:22:13
+   Duration  3.74s (transform 78ms, setup 0ms, collect 104ms, tests 3.11s, environment 1ms, prepare 229ms)
+

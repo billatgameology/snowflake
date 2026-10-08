@@ -1,0 +1,23 @@
+[
+  {
+    "source": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\docs\\PROGRESS.md",
+    "copy": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-bld-pickup-primary-reconciliation-20261008\\PROGRESS.md",
+    "bytes": 23654,
+    "sha256": "e74b215d49bf4c43532b7db94b3cf5d61b08b7f83568bd73d2c07733ca99cbaa",
+    "disposition": "task-owned live prose preserved in plan commit a834d08 and reconciled current documents; raw local bytes retained"
+  },
+  {
+    "source": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\docs\\plans\\hil-bld-first-batch.md",
+    "copy": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-bld-pickup-primary-reconciliation-20261008\\hil-bld-first-batch.md",
+    "bytes": 42503,
+    "sha256": "8c1086f1c5ef4e63ddc781a0abdfdc9142ceae75519339f05744933456c68f17",
+    "disposition": "task-owned live prose preserved in plan commit a834d08 and reconciled current documents; raw local bytes retained"
+  },
+  {
+    "source": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\docs\\plans\\hil-exploration-batch2.md",
+    "copy": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-bld-pickup-primary-reconciliation-20261008\\hil-exploration-batch2.md",
+    "bytes": 20500,
+    "sha256": "9e551a39911b41b92aa3b80c497d212ba9123ac3009b7ed3a3749e7da990dbdf",
+    "disposition": "task-owned live prose preserved in plan commit a834d08 and reconciled current documents; raw local bytes retained"
+  }
+]

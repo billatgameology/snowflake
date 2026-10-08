@@ -1,0 +1,15 @@
+
+ RUN  v3.2.7 G:/Code Files/snowflake-bld-exploration
+
+ ✓ runner/test/nas-assets-catalog.test.ts (9 tests) 1948ms
+   ✓ tracked NAS asset catalogue > re-derives every machine-readable tracked owner selection  630ms
+   ✓ tracked NAS asset catalogue > assigns every live ledger row to exactly one collection owner  1260ms
+ ✓ runner/test/evidence-integrity.test.ts (7 tests) 572ms
+   ✓ evidence integrity (Phase 6 lessons, enforced) > every file in the manifest exists and matches its digest  466ms
+ ✓ runner/test/progress-index.test.ts (11 tests) 395ms
+
+ Test Files  3 passed (3)
+      Tests  27 passed (27)
+   Start at  16:34:16
+   Duration  3.53s (transform 75ms, setup 0ms, collect 101ms, tests 2.91s, environment 0ms, prepare 220ms)
+

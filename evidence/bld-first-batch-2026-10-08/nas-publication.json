@@ -1,0 +1,26 @@
+{
+  "format": "snowflake-nas-publication-receipt-v1",
+  "transactionId": "bld-first-batch-20261008-publish",
+  "identity": "bld-first-batch-output@2026-10-08",
+  "locator": "collections/bld-first-batch-output/2026-10-08/payload",
+  "source": {
+    "fileCount": 2061,
+    "totalBytes": 1050129781,
+    "treeSha256": "2c77efcd57f7586c68af44a1da257385f97333aec6487cbdf8c6aeb17e8585b0"
+  },
+  "staged": {
+    "fileCount": 2061,
+    "totalBytes": 1050129781,
+    "treeSha256": "2c77efcd57f7586c68af44a1da257385f97333aec6487cbdf8c6aeb17e8585b0"
+  },
+  "final": {
+    "fileCount": 2061,
+    "totalBytes": 1050129781,
+    "treeSha256": "2c77efcd57f7586c68af44a1da257385f97333aec6487cbdf8c6aeb17e8585b0"
+  },
+  "verifiedAt": "2026-10-08T23:24:21.838Z",
+  "limits": [
+    "This receipt contains aggregate digests only; private filenames and host paths are intentionally omitted.",
+    "Tracked catalogue registration and a committed Git binding are outside this fixture transaction core."
+  ]
+}

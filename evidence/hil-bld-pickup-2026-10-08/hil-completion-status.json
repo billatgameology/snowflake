@@ -1,0 +1,3061 @@
+{
+  "capturedUtc": "2026-10-08T23:05:59.0079544Z",
+  "scope": "Operational endpoint census from existing summary checks and actual worker exit receipts; no new trajectory or morphology interpretation",
+  "matchingLiveProcesses": [],
+  "sources": [
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\summary.json",
+      "bytes": 63028,
+      "sha256": "8dd8fbfc0f831333bf002a71790e5f3c2bce5ad777a4199bd214de95ef54e3b9",
+      "record": {
+        "schema": "hil-bld-first-batch-summary-v1",
+        "generatedAt": "2026-10-08T23:05:24.012Z",
+        "interpretation": "Operational coverage only; capped or unobserved contrasts remain unresolved. Compare physical-time brackets in subsequent track analysis.",
+        "rows": [
+          {
+            "rowId": "batch1-hil-history-static-t14p4-m1",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-history-static-t14p4-m1",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 227,
+            "physicalTimeSeconds": 5.77621085840327,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.021792420141493962
+              },
+              {
+                "extent": 9,
+                "cycle": 41,
+                "physicalTimeSeconds": 0.8819240968932396
+              },
+              {
+                "extent": 13,
+                "cycle": 103,
+                "physicalTimeSeconds": 2.363062492453862
+              },
+              {
+                "extent": 17,
+                "cycle": 165,
+                "physicalTimeSeconds": 3.9624710688371767
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-history-static-t14p4-nodip",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-history-static-t14p4-nodip",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 594,
+            "physicalTimeSeconds": 20.760921388287166,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.04988253670277868
+              },
+              {
+                "extent": 9,
+                "cycle": 88,
+                "physicalTimeSeconds": 2.9555082168442954
+              },
+              {
+                "extent": 13,
+                "cycle": 250,
+                "physicalTimeSeconds": 7.903951858488716
+              },
+              {
+                "extent": 17,
+                "cycle": 436,
+                "physicalTimeSeconds": 14.630889293973128
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-history-static-t6-m1",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-history-static-t6-m1",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 435,
+            "physicalTimeSeconds": 16.64067228764492,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.038653561408357545
+              },
+              {
+                "extent": 9,
+                "cycle": 64,
+                "physicalTimeSeconds": 2.1435435156112987
+              },
+              {
+                "extent": 13,
+                "cycle": 166,
+                "physicalTimeSeconds": 5.493469915749053
+              },
+              {
+                "extent": 17,
+                "cycle": 288,
+                "physicalTimeSeconds": 10.18768490546604
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-history-static-t6-nodip",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-history-static-t6-nodip",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 435,
+            "physicalTimeSeconds": 15.174959235070709,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.042909367798887973
+              },
+              {
+                "extent": 9,
+                "cycle": 60,
+                "physicalTimeSeconds": 1.978091623522678
+              },
+              {
+                "extent": 13,
+                "cycle": 165,
+                "physicalTimeSeconds": 5.179158429776186
+              },
+              {
+                "extent": 17,
+                "cycle": 288,
+                "physicalTimeSeconds": 9.495884677151512
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-history-t14p4-to-t6-e11-m1",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-history-t14p4-to-t6-e11-m1",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 382,
+            "physicalTimeSeconds": 13.553861086723156,
+            "extent": 21,
+            "timelineEventTimeSeconds": 1.8088598679191978,
+            "postEventSeconds": 11.745001218803958,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.021792420141493962
+              },
+              {
+                "extent": 9,
+                "cycle": 41,
+                "physicalTimeSeconds": 0.8819240968932396
+              },
+              {
+                "extent": 13,
+                "cycle": 125,
+                "physicalTimeSeconds": 3.28595313873158
+              },
+              {
+                "extent": 17,
+                "cycle": 242,
+                "physicalTimeSeconds": 7.627600572132634
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-history-t14p4-to-t6-e11-nodip",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-history-t14p4-to-t6-e11-nodip",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 514,
+            "physicalTimeSeconds": 19.172425352359646,
+            "extent": 21,
+            "timelineEventTimeSeconds": 5.208384149283955,
+            "postEventSeconds": 13.964041203075691,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.04988253670277868
+              },
+              {
+                "extent": 9,
+                "cycle": 88,
+                "physicalTimeSeconds": 2.9555082168442954
+              },
+              {
+                "extent": 13,
+                "cycle": 227,
+                "physicalTimeSeconds": 7.251853296037835
+              },
+              {
+                "extent": 17,
+                "cycle": 368,
+                "physicalTimeSeconds": 12.540983390260587
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-history-t14p4-to-t6-e15-m1",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-history-t14p4-to-t6-e15-m1",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 313,
+            "physicalTimeSeconds": 9.99608139513565,
+            "extent": 21,
+            "timelineEventTimeSeconds": 3.399187788896831,
+            "postEventSeconds": 6.59689360623882,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.021792420141493962
+              },
+              {
+                "extent": 9,
+                "cycle": 41,
+                "physicalTimeSeconds": 0.8819240968932396
+              },
+              {
+                "extent": 13,
+                "cycle": 103,
+                "physicalTimeSeconds": 2.363062492453862
+              },
+              {
+                "extent": 17,
+                "cycle": 189,
+                "physicalTimeSeconds": 5.04645981653435
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-history-t14p4-to-t6-e15-nodip",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-history-t14p4-to-t6-e15-nodip",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 544,
+            "physicalTimeSeconds": 20.475147761605967,
+            "extent": 21,
+            "timelineEventTimeSeconds": 11.102570715632055,
+            "postEventSeconds": 9.372577045973912,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.04988253670277868
+              },
+              {
+                "extent": 9,
+                "cycle": 88,
+                "physicalTimeSeconds": 2.9555082168442954
+              },
+              {
+                "extent": 13,
+                "cycle": 250,
+                "physicalTimeSeconds": 7.903951858488716
+              },
+              {
+                "extent": 17,
+                "cycle": 411,
+                "physicalTimeSeconds": 13.953534106790302
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-history-t14p4-to-t6-e7-m1",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-history-t14p4-to-t6-e7-m1",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 422,
+            "physicalTimeSeconds": 15.686413001912959,
+            "extent": 21,
+            "timelineEventTimeSeconds": 0.4446086199646937,
+            "postEventSeconds": 15.241804381948265,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.021792420141493962
+              },
+              {
+                "extent": 9,
+                "cycle": 56,
+                "physicalTimeSeconds": 1.5518848673318288
+              },
+              {
+                "extent": 13,
+                "cycle": 159,
+                "physicalTimeSeconds": 4.936788250498285
+              },
+              {
+                "extent": 17,
+                "cycle": 276,
+                "physicalTimeSeconds": 9.371763783264845
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-history-t14p4-to-t6-e7-nodip",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-history-t14p4-to-t6-e7-nodip",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 443,
+            "physicalTimeSeconds": 15.83552742525497,
+            "extent": 21,
+            "timelineEventTimeSeconds": 1.224508147792581,
+            "postEventSeconds": 14.61101927746239,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.04988253670277868
+              },
+              {
+                "extent": 9,
+                "cycle": 65,
+                "physicalTimeSeconds": 2.33499758835011
+              },
+              {
+                "extent": 13,
+                "cycle": 171,
+                "physicalTimeSeconds": 5.637082221923572
+              },
+              {
+                "extent": 17,
+                "cycle": 294,
+                "physicalTimeSeconds": 9.96689483172983
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-history-t6-to-t14p4-e11-m1",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-history-t6-to-t14p4-e11-m1",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 253,
+            "physicalTimeSeconds": 7.969663592540011,
+            "extent": 21,
+            "timelineEventTimeSeconds": 3.8084952332525965,
+            "postEventSeconds": 4.161168359287415,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.038653561408357545
+              },
+              {
+                "extent": 9,
+                "cycle": 64,
+                "physicalTimeSeconds": 2.1435435156112987
+              },
+              {
+                "extent": 13,
+                "cycle": 141,
+                "physicalTimeSeconds": 4.5253694265370275
+              },
+              {
+                "extent": 17,
+                "cycle": 194,
+                "physicalTimeSeconds": 6.137978702197987
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-history-t6-to-t14p4-e11-nodip",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-history-t6-to-t14p4-e11-nodip",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 594,
+            "physicalTimeSeconds": 20.150630902117896,
+            "extent": 21,
+            "timelineEventTimeSeconds": 3.6023315550821486,
+            "postEventSeconds": 16.548299347035748,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.042909367798887973
+              },
+              {
+                "extent": 9,
+                "cycle": 60,
+                "physicalTimeSeconds": 1.978091623522678
+              },
+              {
+                "extent": 13,
+                "cycle": 210,
+                "physicalTimeSeconds": 6.058425340538629
+              },
+              {
+                "extent": 17,
+                "cycle": 388,
+                "physicalTimeSeconds": 12.330472746089168
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-history-t6-to-t14p4-e15-m1",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-history-t6-to-t14p4-e15-m1",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 320,
+            "physicalTimeSeconds": 11.13184986362301,
+            "extent": 21,
+            "timelineEventTimeSeconds": 7.677196268337838,
+            "postEventSeconds": 3.4546535952851727,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.038653561408357545
+              },
+              {
+                "extent": 9,
+                "cycle": 64,
+                "physicalTimeSeconds": 2.1435435156112987
+              },
+              {
+                "extent": 13,
+                "cycle": 166,
+                "physicalTimeSeconds": 5.493469915749053
+              },
+              {
+                "extent": 17,
+                "cycle": 256,
+                "physicalTimeSeconds": 8.780976854611751
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-history-t6-to-t14p4-e15-nodip",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-history-t6-to-t14p4-e15-nodip",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 542,
+            "physicalTimeSeconds": 17.973298360343993,
+            "extent": 21,
+            "timelineEventTimeSeconds": 7.218465040772232,
+            "postEventSeconds": 10.75483331957176,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.042909367798887973
+              },
+              {
+                "extent": 9,
+                "cycle": 60,
+                "physicalTimeSeconds": 1.978091623522678
+              },
+              {
+                "extent": 13,
+                "cycle": 165,
+                "physicalTimeSeconds": 5.179158429776186
+              },
+              {
+                "extent": 17,
+                "cycle": 338,
+                "physicalTimeSeconds": 10.51537566118797
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-history-t6-to-t14p4-e7-m1",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-history-t6-to-t14p4-e7-m1",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 233,
+            "physicalTimeSeconds": 6.600927969139904,
+            "extent": 21,
+            "timelineEventTimeSeconds": 0.9856098357808614,
+            "postEventSeconds": 5.615318133359042,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.038653561408357545
+              },
+              {
+                "extent": 9,
+                "cycle": 46,
+                "physicalTimeSeconds": 1.4699591309547513
+              },
+              {
+                "extent": 13,
+                "cycle": 108,
+                "physicalTimeSeconds": 2.9787639143126388
+              },
+              {
+                "extent": 17,
+                "cycle": 171,
+                "physicalTimeSeconds": 4.7005441670386
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-history-t6-to-t14p4-e7-nodip",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-history-t6-to-t14p4-e7-nodip",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 601,
+            "physicalTimeSeconds": 21.516727543459726,
+            "extent": 21,
+            "timelineEventTimeSeconds": 0.881217560981281,
+            "postEventSeconds": 20.635509982478446,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.042909367798887973
+              },
+              {
+                "extent": 9,
+                "cycle": 74,
+                "physicalTimeSeconds": 2.565764379487277
+              },
+              {
+                "extent": 13,
+                "cycle": 232,
+                "physicalTimeSeconds": 7.4664421575897775
+              },
+              {
+                "extent": 17,
+                "cycle": 410,
+                "physicalTimeSeconds": 14.045407909770542
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p1-p202650-basal-only",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p1-p202650-basal-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 475,
+            "physicalTimeSeconds": 46.71737271294491,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.11048642738029275
+              },
+              {
+                "extent": 9,
+                "cycle": 81,
+                "physicalTimeSeconds": 7.450388207061461
+              },
+              {
+                "extent": 13,
+                "cycle": 224,
+                "physicalTimeSeconds": 20.33501103748408
+              },
+              {
+                "extent": 17,
+                "cycle": 353,
+                "physicalTimeSeconds": 33.36264690368924
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p1-p202650-both",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p1-p202650-both",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 482,
+            "physicalTimeSeconds": 48.56134494896844,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.11124403398505144
+              },
+              {
+                "extent": 9,
+                "cycle": 75,
+                "physicalTimeSeconds": 6.947575354150016
+              },
+              {
+                "extent": 13,
+                "cycle": 205,
+                "physicalTimeSeconds": 18.661318540615696
+              },
+              {
+                "extent": 17,
+                "cycle": 364,
+                "physicalTimeSeconds": 35.160414880818536
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p1-p202650-neither",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p1-p202650-neither",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 476,
+            "physicalTimeSeconds": 49.755321988633256,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.12872498696401408
+              },
+              {
+                "extent": 9,
+                "cycle": 64,
+                "physicalTimeSeconds": 6.196268968638062
+              },
+              {
+                "extent": 13,
+                "cycle": 184,
+                "physicalTimeSeconds": 16.762784127765496
+              },
+              {
+                "extent": 17,
+                "cycle": 336,
+                "physicalTimeSeconds": 31.430110368793724
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p1-p202650-prism-only",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p1-p202650-prism-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 470,
+            "physicalTimeSeconds": 46.1046361373537,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.12237818639891339
+              },
+              {
+                "extent": 9,
+                "cycle": 62,
+                "physicalTimeSeconds": 5.775097513083235
+              },
+              {
+                "extent": 13,
+                "cycle": 176,
+                "physicalTimeSeconds": 15.540806800624683
+              },
+              {
+                "extent": 17,
+                "cycle": 316,
+                "physicalTimeSeconds": 28.961808301237333
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p1-p50662p5-basal-only",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p1-p50662p5-basal-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 445,
+            "physicalTimeSeconds": 12.915404185703476,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.03598368969086211
+              },
+              {
+                "extent": 9,
+                "cycle": 95,
+                "physicalTimeSeconds": 2.7597164210525627
+              },
+              {
+                "extent": 13,
+                "cycle": 226,
+                "physicalTimeSeconds": 6.269726516733215
+              },
+              {
+                "extent": 17,
+                "cycle": 333,
+                "physicalTimeSeconds": 9.417914336010627
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p1-p50662p5-both",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p1-p50662p5-both",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 456,
+            "physicalTimeSeconds": 13.566573307401567,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.036197284768974665
+              },
+              {
+                "extent": 9,
+                "cycle": 88,
+                "physicalTimeSeconds": 2.5797396942501587
+              },
+              {
+                "extent": 13,
+                "cycle": 233,
+                "physicalTimeSeconds": 6.5600160345571625
+              },
+              {
+                "extent": 17,
+                "cycle": 341,
+                "physicalTimeSeconds": 9.834208566024133
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p1-p50662p5-neither",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p1-p50662p5-neither",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 462,
+            "physicalTimeSeconds": 16.08148442226548,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.048377454137625044
+              },
+              {
+                "extent": 9,
+                "cycle": 66,
+                "physicalTimeSeconds": 2.2694945007314558
+              },
+              {
+                "extent": 13,
+                "cycle": 185,
+                "physicalTimeSeconds": 5.763427243590144
+              },
+              {
+                "extent": 17,
+                "cycle": 332,
+                "physicalTimeSeconds": 10.461889081968298
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p1-p50662p5-prism-only",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p1-p50662p5-prism-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 463,
+            "physicalTimeSeconds": 14.85446320087555,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.04531782498310822
+              },
+              {
+                "extent": 9,
+                "cycle": 64,
+                "physicalTimeSeconds": 2.0873505403894663
+              },
+              {
+                "extent": 13,
+                "cycle": 179,
+                "physicalTimeSeconds": 5.335019806841741
+              },
+              {
+                "extent": 17,
+                "cycle": 321,
+                "physicalTimeSeconds": 9.597474630765442
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p15-p202650-basal-only",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p15-p202650-basal-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 423,
+            "physicalTimeSeconds": 30.208885810293033,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.07022130751762794
+              },
+              {
+                "extent": 9,
+                "cycle": 63,
+                "physicalTimeSeconds": 3.882689493863644
+              },
+              {
+                "extent": 13,
+                "cycle": 164,
+                "physicalTimeSeconds": 10.061314904675159
+              },
+              {
+                "extent": 17,
+                "cycle": 288,
+                "physicalTimeSeconds": 19.07098222163133
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p15-p202650-both",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p15-p202650-both",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 404,
+            "physicalTimeSeconds": 29.11865169173244,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.07060139675254881
+              },
+              {
+                "extent": 9,
+                "cycle": 60,
+                "physicalTimeSeconds": 3.720785264880056
+              },
+              {
+                "extent": 13,
+                "cycle": 155,
+                "physicalTimeSeconds": 9.526151856079274
+              },
+              {
+                "extent": 17,
+                "cycle": 268,
+                "physicalTimeSeconds": 17.736345301481165
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p15-p202650-neither",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p15-p202650-neither",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 408,
+            "physicalTimeSeconds": 26.930662050166042,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.074539063557241
+              },
+              {
+                "extent": 9,
+                "cycle": 57,
+                "physicalTimeSeconds": 3.4349269340526147
+              },
+              {
+                "extent": 13,
+                "cycle": 156,
+                "physicalTimeSeconds": 9.10567610481746
+              },
+              {
+                "extent": 17,
+                "cycle": 270,
+                "physicalTimeSeconds": 16.624676896906863
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p15-p202650-prism-only",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p15-p202650-prism-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 381,
+            "physicalTimeSeconds": 25.183878573176443,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.07195038784374867
+              },
+              {
+                "extent": 9,
+                "cycle": 55,
+                "physicalTimeSeconds": 3.286266444108943
+              },
+              {
+                "extent": 13,
+                "cycle": 150,
+                "physicalTimeSeconds": 8.734816041223995
+              },
+              {
+                "extent": 17,
+                "cycle": 255,
+                "physicalTimeSeconds": 15.673713898496212
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p15-p50662p5-basal-only",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p15-p50662p5-basal-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 404,
+            "physicalTimeSeconds": 8.420509885409926,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.02227983951951456
+              },
+              {
+                "extent": 9,
+                "cycle": 72,
+                "physicalTimeSeconds": 1.3918454445753945
+              },
+              {
+                "extent": 13,
+                "cycle": 185,
+                "physicalTimeSeconds": 3.5087134977836567
+              },
+              {
+                "extent": 17,
+                "cycle": 303,
+                "physicalTimeSeconds": 6.026368811794548
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p15-p50662p5-both",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p15-p50662p5-both",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 411,
+            "physicalTimeSeconds": 8.711069705145054,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.022389162590983055
+              },
+              {
+                "extent": 9,
+                "cycle": 66,
+                "physicalTimeSeconds": 1.275598665995837
+              },
+              {
+                "extent": 13,
+                "cycle": 172,
+                "physicalTimeSeconds": 3.2570109304413712
+              },
+              {
+                "extent": 17,
+                "cycle": 293,
+                "physicalTimeSeconds": 5.867011723049626
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p15-p50662p5-neither",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p15-p50662p5-neither",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 444,
+            "physicalTimeSeconds": 8.781844672493223,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.02636803212646092
+              },
+              {
+                "extent": 9,
+                "cycle": 61,
+                "physicalTimeSeconds": 1.2013107113869235
+              },
+              {
+                "extent": 13,
+                "cycle": 170,
+                "physicalTimeSeconds": 3.0931802666052453
+              },
+              {
+                "extent": 17,
+                "cycle": 295,
+                "physicalTimeSeconds": 5.569249606789491
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p15-p50662p5-prism-only",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p15-p50662p5-prism-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 411,
+            "physicalTimeSeconds": 8.132779906088068,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.025191139380938348
+              },
+              {
+                "extent": 9,
+                "cycle": 60,
+                "physicalTimeSeconds": 1.1478198784640035
+              },
+              {
+                "extent": 13,
+                "cycle": 161,
+                "physicalTimeSeconds": 2.9089362664450005
+              },
+              {
+                "extent": 17,
+                "cycle": 274,
+                "physicalTimeSeconds": 5.127424896959227
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p2-p202650-basal-only",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p2-p202650-basal-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 343,
+            "physicalTimeSeconds": 18.455048050250277,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.051371796554417835
+              },
+              {
+                "extent": 9,
+                "cycle": 55,
+                "physicalTimeSeconds": 2.5528171581957224
+              },
+              {
+                "extent": 13,
+                "cycle": 142,
+                "physicalTimeSeconds": 6.578953631227145
+              },
+              {
+                "extent": 17,
+                "cycle": 237,
+                "physicalTimeSeconds": 11.790473719041112
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p2-p202650-both",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p2-p202650-both",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 334,
+            "physicalTimeSeconds": 18.16963660620104,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.05160394970477968
+              },
+              {
+                "extent": 9,
+                "cycle": 53,
+                "physicalTimeSeconds": 2.4702317811928958
+              },
+              {
+                "extent": 13,
+                "cycle": 137,
+                "physicalTimeSeconds": 6.372162456305441
+              },
+              {
+                "extent": 17,
+                "cycle": 228,
+                "physicalTimeSeconds": 11.40298116192251
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p2-p202650-neither",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p2-p202650-neither",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 340,
+            "physicalTimeSeconds": 17.31859649288039,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.052009558026577
+              },
+              {
+                "extent": 9,
+                "cycle": 52,
+                "physicalTimeSeconds": 2.353475816751418
+              },
+              {
+                "extent": 13,
+                "cycle": 138,
+                "physicalTimeSeconds": 6.161522337246002
+              },
+              {
+                "extent": 17,
+                "cycle": 230,
+                "physicalTimeSeconds": 10.863200311723816
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p2-p202650-prism-only",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p2-p202650-prism-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 320,
+            "physicalTimeSeconds": 16.194824176401607,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.05058596952236126
+              },
+              {
+                "extent": 9,
+                "cycle": 51,
+                "physicalTimeSeconds": 2.2879844089165706
+              },
+              {
+                "extent": 13,
+                "cycle": 133,
+                "physicalTimeSeconds": 5.904307597028762
+              },
+              {
+                "extent": 17,
+                "cycle": 220,
+                "physicalTimeSeconds": 10.3181759588532
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p2-p50662p5-basal-only",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p2-p50662p5-basal-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 373,
+            "physicalTimeSeconds": 6.002087143941912,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.016087248979804514
+              },
+              {
+                "extent": 9,
+                "cycle": 61,
+                "physicalTimeSeconds": 0.8781539532498337
+              },
+              {
+                "extent": 13,
+                "cycle": 154,
+                "physicalTimeSeconds": 2.1853921762596538
+              },
+              {
+                "extent": 17,
+                "cycle": 257,
+                "physicalTimeSeconds": 3.857935501323388
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p2-p50662p5-both",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p2-p50662p5-both",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 358,
+            "physicalTimeSeconds": 5.783881122200879,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.016154511914498945
+              },
+              {
+                "extent": 9,
+                "cycle": 58,
+                "physicalTimeSeconds": 0.8378549385998589
+              },
+              {
+                "extent": 13,
+                "cycle": 147,
+                "physicalTimeSeconds": 2.0852656364553144
+              },
+              {
+                "extent": 17,
+                "cycle": 244,
+                "physicalTimeSeconds": 3.6622243225614044
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p2-p50662p5-neither",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p2-p50662p5-neither",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 360,
+            "physicalTimeSeconds": 5.485118672063714,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.01784551228773384
+              },
+              {
+                "extent": 9,
+                "cycle": 55,
+                "physicalTimeSeconds": 0.7932917887312455
+              },
+              {
+                "extent": 13,
+                "cycle": 146,
+                "physicalTimeSeconds": 2.0127769942645473
+              },
+              {
+                "extent": 17,
+                "cycle": 246,
+                "physicalTimeSeconds": 3.5410353312668756
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p2-p50662p5-prism-only",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p2-p50662p5-prism-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 338,
+            "physicalTimeSeconds": 5.118885665018906,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.017218346063802178
+              },
+              {
+                "extent": 9,
+                "cycle": 54,
+                "physicalTimeSeconds": 0.7697557404352905
+              },
+              {
+                "extent": 13,
+                "cycle": 141,
+                "physicalTimeSeconds": 1.9358496656470205
+              },
+              {
+                "extent": 17,
+                "cycle": 232,
+                "physicalTimeSeconds": 3.309734292607566
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-seed-t7-f0p15-r1t5-basal-only",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-seed-t7-f0p15-r1t5-basal-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 331,
+            "physicalTimeSeconds": 10.345231927753495,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.033708455483643616
+              },
+              {
+                "extent": 9,
+                "cycle": 53,
+                "physicalTimeSeconds": 1.502883660461236
+              },
+              {
+                "extent": 13,
+                "cycle": 128,
+                "physicalTimeSeconds": 3.619644302495349
+              },
+              {
+                "extent": 17,
+                "cycle": 222,
+                "physicalTimeSeconds": 6.556515917478063
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-seed-t7-f0p15-r1t5-both",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-seed-t7-f0p15-r1t5-both",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 342,
+            "physicalTimeSeconds": 11.122706328046448,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.034260568266644115
+              },
+              {
+                "extent": 9,
+                "cycle": 55,
+                "physicalTimeSeconds": 1.543929179888785
+              },
+              {
+                "extent": 13,
+                "cycle": 133,
+                "physicalTimeSeconds": 3.7806832030222424
+              },
+              {
+                "extent": 17,
+                "cycle": 231,
+                "physicalTimeSeconds": 6.981208811790455
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-seed-t7-f0p15-r1t5-neither",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-seed-t7-f0p15-r1t5-neither",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 559,
+            "physicalTimeSeconds": 18.848645260209302,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.038931853911087576
+              },
+              {
+                "extent": 9,
+                "cycle": 71,
+                "physicalTimeSeconds": 2.264476716360479
+              },
+              {
+                "extent": 13,
+                "cycle": 206,
+                "physicalTimeSeconds": 6.16031285336572
+              },
+              {
+                "extent": 17,
+                "cycle": 377,
+                "physicalTimeSeconds": 11.89110096191677
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-seed-t7-f0p15-r1t5-prism-only",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-seed-t7-f0p15-r1t5-prism-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 529,
+            "physicalTimeSeconds": 18.307234300979996,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.03564005403490872
+              },
+              {
+                "extent": 9,
+                "cycle": 78,
+                "physicalTimeSeconds": 2.3894270744710915
+              },
+              {
+                "extent": 13,
+                "cycle": 219,
+                "physicalTimeSeconds": 6.720512358528087
+              },
+              {
+                "extent": 17,
+                "cycle": 370,
+                "physicalTimeSeconds": 12.120410555311294
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-seed-t7-f0p15-r3t1-basal-only",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-seed-t7-f0p15-r3t1-basal-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 454,
+            "physicalTimeSeconds": 16.04184615996116,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.0443942327869821
+              },
+              {
+                "extent": 9,
+                "cycle": 25,
+                "physicalTimeSeconds": 1.1487889762285166
+              },
+              {
+                "extent": 13,
+                "cycle": 137,
+                "physicalTimeSeconds": 4.548166373545278
+              },
+              {
+                "extent": 17,
+                "cycle": 284,
+                "physicalTimeSeconds": 9.57000105420511
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-seed-t7-f0p15-r3t1-both",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-seed-t7-f0p15-r3t1-both",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 380,
+            "physicalTimeSeconds": 13.64401956909668,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.04510764563910847
+              },
+              {
+                "extent": 9,
+                "cycle": 22,
+                "physicalTimeSeconds": 1.020280625062698
+              },
+              {
+                "extent": 13,
+                "cycle": 116,
+                "physicalTimeSeconds": 3.885454557783086
+              },
+              {
+                "extent": 17,
+                "cycle": 236,
+                "physicalTimeSeconds": 8.038343798394118
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-seed-t7-f0p15-r3t1-neither",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-seed-t7-f0p15-r3t1-neither",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 416,
+            "physicalTimeSeconds": 13.843308386759047,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.04713109704201662
+              },
+              {
+                "extent": 9,
+                "cycle": 20,
+                "physicalTimeSeconds": 0.9821619448356678
+              },
+              {
+                "extent": 13,
+                "cycle": 121,
+                "physicalTimeSeconds": 4.007948984282394
+              },
+              {
+                "extent": 17,
+                "cycle": 257,
+                "physicalTimeSeconds": 8.32857644570578
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-seed-t7-f0p15-r3t1-prism-only",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-seed-t7-f0p15-r3t1-prism-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 356,
+            "physicalTimeSeconds": 11.811189586338942,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.042511467978236676
+              },
+              {
+                "extent": 9,
+                "cycle": 20,
+                "physicalTimeSeconds": 0.8840619099047217
+              },
+              {
+                "extent": 13,
+                "cycle": 108,
+                "physicalTimeSeconds": 3.4028627995669174
+              },
+              {
+                "extent": 17,
+                "cycle": 221,
+                "physicalTimeSeconds": 7.037322080707161
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-seed-t9-f0p15-r1t5-basal-only",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-seed-t9-f0p15-r1t5-basal-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 433,
+            "physicalTimeSeconds": 12.34954636614134,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.036292227042996304
+              },
+              {
+                "extent": 9,
+                "cycle": 63,
+                "physicalTimeSeconds": 1.676999386121443
+              },
+              {
+                "extent": 13,
+                "cycle": 160,
+                "physicalTimeSeconds": 4.2546905389115
+              },
+              {
+                "extent": 17,
+                "cycle": 291,
+                "physicalTimeSeconds": 7.9066787005852115
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-seed-t9-f0p15-r1t5-both",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-seed-t9-f0p15-r1t5-both",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 471,
+            "physicalTimeSeconds": 15.530745568358746,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.030514993091707132
+              },
+              {
+                "extent": 9,
+                "cycle": 71,
+                "physicalTimeSeconds": 1.942560151919874
+              },
+              {
+                "extent": 13,
+                "cycle": 189,
+                "physicalTimeSeconds": 5.280533247535333
+              },
+              {
+                "extent": 17,
+                "cycle": 332,
+                "physicalTimeSeconds": 10.176439782046293
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-seed-t9-f0p15-r1t5-neither",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-seed-t9-f0p15-r1t5-neither",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 522,
+            "physicalTimeSeconds": 15.903287986823242,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.03987818237611351
+              },
+              {
+                "extent": 9,
+                "cycle": 69,
+                "physicalTimeSeconds": 2.0696256417324372
+              },
+              {
+                "extent": 13,
+                "cycle": 204,
+                "physicalTimeSeconds": 5.579892988502786
+              },
+              {
+                "extent": 17,
+                "cycle": 365,
+                "physicalTimeSeconds": 10.31850669045193
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-seed-t9-f0p15-r1t5-prism-only",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-seed-t9-f0p15-r1t5-prism-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 462,
+            "physicalTimeSeconds": 14.695649315014897,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.030074479834784826
+              },
+              {
+                "extent": 9,
+                "cycle": 92,
+                "physicalTimeSeconds": 2.439555756793817
+              },
+              {
+                "extent": 13,
+                "cycle": 211,
+                "physicalTimeSeconds": 5.896970616144661
+              },
+              {
+                "extent": 17,
+                "cycle": 327,
+                "physicalTimeSeconds": 9.765716470723957
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-seed-t9-f0p15-r3t1-basal-only",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-seed-t9-f0p15-r3t1-basal-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 509,
+            "physicalTimeSeconds": 16.03717481921358,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.04741234935497409
+              },
+              {
+                "extent": 9,
+                "cycle": 23,
+                "physicalTimeSeconds": 1.1011189810004416
+              },
+              {
+                "extent": 13,
+                "cycle": 151,
+                "physicalTimeSeconds": 4.593103009900638
+              },
+              {
+                "extent": 17,
+                "cycle": 322,
+                "physicalTimeSeconds": 9.631743158424918
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-seed-t9-f0p15-r3t1-both",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-seed-t9-f0p15-r3t1-both",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 310,
+            "physicalTimeSeconds": 9.61818728116476,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.03664232701712183
+              },
+              {
+                "extent": 9,
+                "cycle": 20,
+                "physicalTimeSeconds": 0.7629822203978524
+              },
+              {
+                "extent": 13,
+                "cycle": 99,
+                "physicalTimeSeconds": 2.8299618471888004
+              },
+              {
+                "extent": 17,
+                "cycle": 195,
+                "physicalTimeSeconds": 5.7186274913767186
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-seed-t9-f0p15-r3t1-neither",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-seed-t9-f0p15-r3t1-neither",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 432,
+            "physicalTimeSeconds": 15.186040169293387,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.048948335529675084
+              },
+              {
+                "extent": 9,
+                "cycle": 20,
+                "physicalTimeSeconds": 1.0218913477434342
+              },
+              {
+                "extent": 13,
+                "cycle": 131,
+                "physicalTimeSeconds": 4.411889767013148
+              },
+              {
+                "extent": 17,
+                "cycle": 278,
+                "physicalTimeSeconds": 9.205669958544119
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch1-hil-seed-t9-f0p15-r3t1-prism-only",
+            "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\rows\\batch1-hil-seed-t9-f0p15-r3t1-prism-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 297,
+            "physicalTimeSeconds": 8.881102108875853,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.03524067331968269
+              },
+              {
+                "extent": 9,
+                "cycle": 20,
+                "physicalTimeSeconds": 0.7309916710369064
+              },
+              {
+                "extent": 13,
+                "cycle": 96,
+                "physicalTimeSeconds": 2.714583877094548
+              },
+              {
+                "extent": 17,
+                "cycle": 189,
+                "physicalTimeSeconds": 5.401507895698116
+              }
+            ],
+            "errors": []
+          }
+        ]
+      }
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\batch1-hil-resumable\\first-batch-HIL-recovery-io-1791475441339-complete.json",
+      "bytes": 3191,
+      "sha256": "387a764b79c3163a22bd7b1e645d3bf7640b05070db72601adcdee8760e164a0",
+      "record": {
+        "schema": "post-phase10-discovery-launch-complete-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalRows": [
+          {
+            "rowId": "batch1-hil-seed-t7-f0p15-r1t5-prism-only",
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "prism-only"
+          },
+          {
+            "rowId": "batch1-hil-seed-t9-f0p15-r1t5-basal-only",
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "basal-only"
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p15-p202650-basal-only",
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "basal-only"
+          },
+          {
+            "rowId": "batch1-hil-pressure-t6-f0p2-p202650-basal-only",
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "basal-only"
+          }
+        ],
+        "launchName": "first-batch-HIL-recovery-io-1791475441339",
+        "gitHead": "b9cf7ed72c82e350b93570fafd8e45afa0b95d53",
+        "node": "v24.13.1",
+        "requestedConcurrency": 6,
+        "actualMaximumConcurrency": 6,
+        "launchedAt": "2026-10-08T16:07:48.188Z",
+        "finishedAt": "2026-10-08T17:28:03.672Z",
+        "exits": [
+          {
+            "rowId": "batch1-hil-history-static-t14p4-nodip",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T16:07:49.719Z",
+            "finishedAt": "2026-10-08T17:16:37.383Z",
+            "wallSeconds": 4127.664
+          },
+          {
+            "rowId": "batch1-hil-history-t6-to-t14p4-e7-nodip",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T16:07:49.654Z",
+            "finishedAt": "2026-10-08T17:02:45.618Z",
+            "wallSeconds": 3295.964
+          },
+          {
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "basal-only",
+            "rowId": "batch1-hil-pressure-t6-f0p15-p202650-basal-only",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T16:07:49.696Z",
+            "finishedAt": "2026-10-08T17:02:05.739Z",
+            "wallSeconds": 3256.043
+          },
+          {
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "basal-only",
+            "rowId": "batch1-hil-pressure-t6-f0p2-p202650-basal-only",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T16:07:49.708Z",
+            "finishedAt": "2026-10-08T16:37:36.232Z",
+            "wallSeconds": 1786.524
+          },
+          {
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "prism-only",
+            "rowId": "batch1-hil-seed-t7-f0p15-r1t5-prism-only",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T16:07:49.666Z",
+            "finishedAt": "2026-10-08T17:28:02.549Z",
+            "wallSeconds": 4812.883
+          },
+          {
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "basal-only",
+            "rowId": "batch1-hil-seed-t9-f0p15-r1t5-basal-only",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T16:07:49.684Z",
+            "finishedAt": "2026-10-08T17:00:20.345Z",
+            "wallSeconds": 3150.661
+          }
+        ],
+        "abortReason": null,
+        "unstartedRowIds": [],
+        "minimumAvailablePhysicalBytes": 48598573056,
+        "minimumCommitHeadroomBytes": 56584261632,
+        "maxSampledChildRssBytes": 314015744
+      }
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out\\batch2-hil\\summary.json",
+      "bytes": 17983,
+      "sha256": "dae74d6ffd45ddaadc8fca31455f8e1cfaa5704b79d830382db003ff2cdcf6de",
+      "record": {
+        "schema": "hil-bld-first-batch-summary-v1",
+        "generatedAt": "2026-10-08T23:05:23.645Z",
+        "interpretation": "Operational coverage only; capped or unobserved contrasts remain unresolved. Compare physical-time brackets in subsequent track analysis.",
+        "rows": [
+          {
+            "rowId": "batch2-hil-pressure-t6-f0p1-p101325-basal-only",
+            "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out\\batch2-hil\\rows\\batch2-hil-pressure-t6-f0p1-p101325-basal-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 466,
+            "physicalTimeSeconds": 23.999488079111792,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.061226933143848104
+              },
+              {
+                "extent": 9,
+                "cycle": 89,
+                "physicalTimeSeconds": 4.423409584839548
+              },
+              {
+                "extent": 13,
+                "cycle": 237,
+                "physicalTimeSeconds": 11.463315976198272
+              },
+              {
+                "extent": 17,
+                "cycle": 349,
+                "physicalTimeSeconds": 17.393104017819386
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch2-hil-pressure-t6-f0p1-p101325-both",
+            "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out\\batch2-hil\\rows\\batch2-hil-pressure-t6-f0p1-p101325-both",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 477,
+            "physicalTimeSeconds": 25.190106020003217,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.06163387963448641
+              },
+              {
+                "extent": 9,
+                "cycle": 82,
+                "physicalTimeSeconds": 4.111058139402377
+              },
+              {
+                "extent": 13,
+                "cycle": 225,
+                "physicalTimeSeconds": 11.023138842585686
+              },
+              {
+                "extent": 17,
+                "cycle": 358,
+                "physicalTimeSeconds": 18.22734941536108
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch2-hil-pressure-t6-f0p1-p101325-neither",
+            "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out\\batch2-hil\\rows\\batch2-hil-pressure-t6-f0p1-p101325-neither",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 460,
+            "physicalTimeSeconds": 27.92249533930943,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.07621190869374203
+              },
+              {
+                "extent": 9,
+                "cycle": 65,
+                "physicalTimeSeconds": 3.634053506488722
+              },
+              {
+                "extent": 13,
+                "cycle": 185,
+                "physicalTimeSeconds": 9.70145252705041
+              },
+              {
+                "extent": 17,
+                "cycle": 330,
+                "physicalTimeSeconds": 17.93155744472188
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch2-hil-pressure-t6-f0p1-p101325-prism-only",
+            "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out\\batch2-hil\\rows\\batch2-hil-pressure-t6-f0p1-p101325-prism-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 462,
+            "physicalTimeSeconds": 25.924667560621764,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.07192524198549377
+              },
+              {
+                "extent": 9,
+                "cycle": 64,
+                "physicalTimeSeconds": 3.413360130512316
+              },
+              {
+                "extent": 13,
+                "cycle": 179,
+                "physicalTimeSeconds": 9.043999551122585
+              },
+              {
+                "extent": 17,
+                "cycle": 320,
+                "physicalTimeSeconds": 16.570506747524288
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch2-hil-pressure-t6-f0p2-p101325-basal-only",
+            "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out\\batch2-hil\\rows\\batch2-hil-pressure-t6-f0p2-p101325-basal-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 377,
+            "physicalTimeSeconds": 10.913073972965854,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.02795522902206088
+              },
+              {
+                "extent": 9,
+                "cycle": 59,
+                "physicalTimeSeconds": 1.477511593207849
+              },
+              {
+                "extent": 13,
+                "cycle": 150,
+                "physicalTimeSeconds": 3.742394913745436
+              },
+              {
+                "extent": 17,
+                "cycle": 253,
+                "physicalTimeSeconds": 6.740298277577774
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch2-hil-pressure-t6-f0p2-p101325-both",
+            "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out\\batch2-hil\\rows\\batch2-hil-pressure-t6-f0p2-p101325-both",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 354,
+            "physicalTimeSeconds": 10.215325875723408,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.02808225463916567
+              },
+              {
+                "extent": 9,
+                "cycle": 56,
+                "physicalTimeSeconds": 1.4068041461774194
+              },
+              {
+                "extent": 13,
+                "cycle": 144,
+                "physicalTimeSeconds": 3.5972983925995137
+              },
+              {
+                "extent": 17,
+                "cycle": 241,
+                "physicalTimeSeconds": 6.426484785488137
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch2-hil-pressure-t6-f0p2-p101325-neither",
+            "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out\\batch2-hil\\rows\\batch2-hil-pressure-t6-f0p2-p101325-neither",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 358,
+            "physicalTimeSeconds": 9.710454939951408,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.029516148028356726
+              },
+              {
+                "extent": 9,
+                "cycle": 54,
+                "physicalTimeSeconds": 1.3331656631426558
+              },
+              {
+                "extent": 13,
+                "cycle": 144,
+                "physicalTimeSeconds": 3.4616073887376237
+              },
+              {
+                "extent": 17,
+                "cycle": 242,
+                "physicalTimeSeconds": 6.12632229695269
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch2-hil-pressure-t6-f0p2-p101325-prism-only",
+            "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out\\batch2-hil\\rows\\batch2-hil-pressure-t6-f0p2-p101325-prism-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 338,
+            "physicalTimeSeconds": 9.125672438962068,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.028590744004719584
+              },
+              {
+                "extent": 9,
+                "cycle": 53,
+                "physicalTimeSeconds": 1.2968824648079376
+              },
+              {
+                "extent": 13,
+                "cycle": 139,
+                "physicalTimeSeconds": 3.333613512412243
+              },
+              {
+                "extent": 17,
+                "cycle": 231,
+                "physicalTimeSeconds": 5.826634323566682
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch2-hil-seed-t8-f0p15-r1t5-basal-only",
+            "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out\\batch2-hil\\rows\\batch2-hil-seed-t8-f0p15-r1t5-basal-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 388,
+            "physicalTimeSeconds": 11.522352574075239,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.034999904903212635
+              },
+              {
+                "extent": 9,
+                "cycle": 58,
+                "physicalTimeSeconds": 1.5937245932239106
+              },
+              {
+                "extent": 13,
+                "cycle": 144,
+                "physicalTimeSeconds": 3.9575104764099875
+              },
+              {
+                "extent": 17,
+                "cycle": 259,
+                "physicalTimeSeconds": 7.351283906716542
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch2-hil-seed-t8-f0p15-r1t5-both",
+            "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out\\batch2-hil\\rows\\batch2-hil-seed-t8-f0p15-r1t5-both",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 424,
+            "physicalTimeSeconds": 13.825224386595027,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.033687617729154566
+              },
+              {
+                "extent": 9,
+                "cycle": 64,
+                "physicalTimeSeconds": 1.7388415186378885
+              },
+              {
+                "extent": 13,
+                "cycle": 162,
+                "physicalTimeSeconds": 4.4992192389737875
+              },
+              {
+                "extent": 17,
+                "cycle": 286,
+                "physicalTimeSeconds": 8.619362115437907
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch2-hil-seed-t8-f0p15-r1t5-neither",
+            "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out\\batch2-hil\\rows\\batch2-hil-seed-t8-f0p15-r1t5-neither",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 506,
+            "physicalTimeSeconds": 16.987811568571498,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.039071504277398826
+              },
+              {
+                "extent": 9,
+                "cycle": 70,
+                "physicalTimeSeconds": 2.1483931297686985
+              },
+              {
+                "extent": 13,
+                "cycle": 201,
+                "physicalTimeSeconds": 5.812693737307246
+              },
+              {
+                "extent": 17,
+                "cycle": 355,
+                "physicalTimeSeconds": 10.923497313467424
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch2-hil-seed-t8-f0p15-r1t5-prism-only",
+            "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out\\batch2-hil\\rows\\batch2-hil-seed-t8-f0p15-r1t5-prism-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 510,
+            "physicalTimeSeconds": 16.806181262761413,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.032911528230023586
+              },
+              {
+                "extent": 9,
+                "cycle": 84,
+                "physicalTimeSeconds": 2.3908799653263872
+              },
+              {
+                "extent": 13,
+                "cycle": 226,
+                "physicalTimeSeconds": 6.598824490508755
+              },
+              {
+                "extent": 17,
+                "cycle": 358,
+                "physicalTimeSeconds": 11.145865031654923
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch2-hil-seed-t8-f0p15-r3t1-basal-only",
+            "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out\\batch2-hil\\rows\\batch2-hil-seed-t8-f0p15-r3t1-basal-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 489,
+            "physicalTimeSeconds": 15.904251969383358,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.0458960722935678
+              },
+              {
+                "extent": 9,
+                "cycle": 24,
+                "physicalTimeSeconds": 1.1288306203542962
+              },
+              {
+                "extent": 13,
+                "cycle": 144,
+                "physicalTimeSeconds": 4.514200067622888
+              },
+              {
+                "extent": 17,
+                "cycle": 304,
+                "physicalTimeSeconds": 9.526743773672013
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch2-hil-seed-t8-f0p15-r3t1-both",
+            "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out\\batch2-hil\\rows\\batch2-hil-seed-t8-f0p15-r3t1-both",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 351,
+            "physicalTimeSeconds": 11.687289234922202,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.04154085352449641
+              },
+              {
+                "extent": 9,
+                "cycle": 20,
+                "physicalTimeSeconds": 0.8685418622591455
+              },
+              {
+                "extent": 13,
+                "cycle": 108,
+                "physicalTimeSeconds": 3.4096843442051825
+              },
+              {
+                "extent": 17,
+                "cycle": 217,
+                "physicalTimeSeconds": 6.87599232179165
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch2-hil-seed-t8-f0p15-r3t1-neither",
+            "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out\\batch2-hil\\rows\\batch2-hil-seed-t8-f0p15-r3t1-neither",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 443,
+            "physicalTimeSeconds": 14.436798456176808,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.047646600743470685
+              },
+              {
+                "extent": 9,
+                "cycle": 20,
+                "physicalTimeSeconds": 0.9938714506213246
+              },
+              {
+                "extent": 13,
+                "cycle": 128,
+                "physicalTimeSeconds": 4.2010955365584906
+              },
+              {
+                "extent": 17,
+                "cycle": 280,
+                "physicalTimeSeconds": 8.73609790684576
+              }
+            ],
+            "errors": []
+          },
+          {
+            "rowId": "batch2-hil-seed-t8-f0p15-r3t1-prism-only",
+            "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out\\batch2-hil\\rows\\batch2-hil-seed-t8-f0p15-r3t1-prism-only",
+            "disposition": "size-endpoint",
+            "stopReason": "size-target",
+            "exitCode": 0,
+            "completedUpdates": 335,
+            "physicalTimeSeconds": 10.444709545878831,
+            "extent": 21,
+            "timelineEventTimeSeconds": null,
+            "postEventSeconds": null,
+            "cutoffReached": null,
+            "postCutoffUpdateObserved": null,
+            "postUpdateSizeCrossings": [
+              {
+                "extent": 5,
+                "cycle": 1,
+                "physicalTimeSeconds": 0.03900123348092458
+              },
+              {
+                "extent": 9,
+                "cycle": 20,
+                "physicalTimeSeconds": 0.8102915929398521
+              },
+              {
+                "extent": 13,
+                "cycle": 104,
+                "physicalTimeSeconds": 3.0452813066834703
+              },
+              {
+                "extent": 17,
+                "cycle": 209,
+                "physicalTimeSeconds": 6.181803113150663
+              }
+            ],
+            "errors": []
+          }
+        ]
+      }
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out\\batch2-hil\\batch2-HIL-complete.json",
+      "bytes": 8791,
+      "sha256": "1bde43e7ce29bb0896380a474e9f1af088bc2199b954697b55119223d57770dd",
+      "record": {
+        "schema": "post-phase10-discovery-launch-complete-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalRows": [
+          {
+            "rowId": "batch2-hil-seed-t8-f0p15-r3t1-both",
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "both"
+          },
+          {
+            "rowId": "batch2-hil-seed-t8-f0p15-r3t1-neither",
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "neither"
+          },
+          {
+            "rowId": "batch2-hil-seed-t8-f0p15-r3t1-basal-only",
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "basal-only"
+          },
+          {
+            "rowId": "batch2-hil-seed-t8-f0p15-r3t1-prism-only",
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "prism-only"
+          },
+          {
+            "rowId": "batch2-hil-pressure-t6-f0p1-p101325-both",
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "both"
+          },
+          {
+            "rowId": "batch2-hil-pressure-t6-f0p1-p101325-neither",
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "neither"
+          },
+          {
+            "rowId": "batch2-hil-pressure-t6-f0p1-p101325-basal-only",
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "basal-only"
+          },
+          {
+            "rowId": "batch2-hil-pressure-t6-f0p1-p101325-prism-only",
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "prism-only"
+          },
+          {
+            "rowId": "batch2-hil-seed-t8-f0p15-r1t5-both",
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "both"
+          },
+          {
+            "rowId": "batch2-hil-seed-t8-f0p15-r1t5-neither",
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "neither"
+          },
+          {
+            "rowId": "batch2-hil-seed-t8-f0p15-r1t5-basal-only",
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "basal-only"
+          },
+          {
+            "rowId": "batch2-hil-seed-t8-f0p15-r1t5-prism-only",
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "prism-only"
+          },
+          {
+            "rowId": "batch2-hil-pressure-t6-f0p2-p101325-both",
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "both"
+          },
+          {
+            "rowId": "batch2-hil-pressure-t6-f0p2-p101325-neither",
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "neither"
+          },
+          {
+            "rowId": "batch2-hil-pressure-t6-f0p2-p101325-basal-only",
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "basal-only"
+          },
+          {
+            "rowId": "batch2-hil-pressure-t6-f0p2-p101325-prism-only",
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "prism-only"
+          }
+        ],
+        "launchName": "batch2-HIL",
+        "gitHead": "43228078308cc089b9da8c6240975b267d7d74cb",
+        "node": "v24.13.1",
+        "requestedConcurrency": 16,
+        "actualMaximumConcurrency": 16,
+        "launchedAt": "2026-10-08T15:03:36.313Z",
+        "finishedAt": "2026-10-08T16:31:15.776Z",
+        "exits": [
+          {
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "basal-only",
+            "rowId": "batch2-hil-pressure-t6-f0p1-p101325-basal-only",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T15:03:37.675Z",
+            "finishedAt": "2026-10-08T16:24:25.736Z",
+            "wallSeconds": 4848.061
+          },
+          {
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "both",
+            "rowId": "batch2-hil-pressure-t6-f0p1-p101325-both",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T15:03:37.658Z",
+            "finishedAt": "2026-10-08T16:31:14.007Z",
+            "wallSeconds": 5256.349
+          },
+          {
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "neither",
+            "rowId": "batch2-hil-pressure-t6-f0p1-p101325-neither",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T15:03:37.666Z",
+            "finishedAt": "2026-10-08T16:13:49.41Z",
+            "wallSeconds": 4211.744
+          },
+          {
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "prism-only",
+            "rowId": "batch2-hil-pressure-t6-f0p1-p101325-prism-only",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T15:03:37.683Z",
+            "finishedAt": "2026-10-08T16:16:24.01Z",
+            "wallSeconds": 4366.327
+          },
+          {
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "basal-only",
+            "rowId": "batch2-hil-pressure-t6-f0p2-p101325-basal-only",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T15:03:37.735Z",
+            "finishedAt": "2026-10-08T16:12:39.946Z",
+            "wallSeconds": 4142.211
+          },
+          {
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "both",
+            "rowId": "batch2-hil-pressure-t6-f0p2-p101325-both",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T15:03:37.72Z",
+            "finishedAt": "2026-10-08T16:07:37.611Z",
+            "wallSeconds": 3839.891
+          },
+          {
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "neither",
+            "rowId": "batch2-hil-pressure-t6-f0p2-p101325-neither",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T15:03:37.727Z",
+            "finishedAt": "2026-10-08T16:07:21.537Z",
+            "wallSeconds": 3823.81
+          },
+          {
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "prism-only",
+            "rowId": "batch2-hil-pressure-t6-f0p2-p101325-prism-only",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T15:03:37.742Z",
+            "finishedAt": "2026-10-08T16:01:53.559Z",
+            "wallSeconds": 3495.817
+          },
+          {
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "basal-only",
+            "rowId": "batch2-hil-seed-t8-f0p15-r1t5-basal-only",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T15:03:37.706Z",
+            "finishedAt": "2026-10-08T16:06:07.665Z",
+            "wallSeconds": 3749.959
+          },
+          {
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "both",
+            "rowId": "batch2-hil-seed-t8-f0p15-r1t5-both",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T15:03:37.691Z",
+            "finishedAt": "2026-10-08T16:19:11.007Z",
+            "wallSeconds": 4533.316
+          },
+          {
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "neither",
+            "rowId": "batch2-hil-seed-t8-f0p15-r1t5-neither",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T15:03:37.698Z",
+            "finishedAt": "2026-10-08T16:18:46.191Z",
+            "wallSeconds": 4508.493
+          },
+          {
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "prism-only",
+            "rowId": "batch2-hil-seed-t8-f0p15-r1t5-prism-only",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T15:03:37.713Z",
+            "finishedAt": "2026-10-08T16:31:12.214Z",
+            "wallSeconds": 5254.501
+          },
+          {
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "basal-only",
+            "rowId": "batch2-hil-seed-t8-f0p15-r3t1-basal-only",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T15:03:37.641Z",
+            "finishedAt": "2026-10-08T16:26:51.784Z",
+            "wallSeconds": 4994.143
+          },
+          {
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "both",
+            "rowId": "batch2-hil-seed-t8-f0p15-r3t1-both",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T15:03:37.625Z",
+            "finishedAt": "2026-10-08T16:06:10.437Z",
+            "wallSeconds": 3752.812
+          },
+          {
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "neither",
+            "rowId": "batch2-hil-seed-t8-f0p15-r3t1-neither",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T15:03:37.634Z",
+            "finishedAt": "2026-10-08T16:18:25.973Z",
+            "wallSeconds": 4488.339
+          },
+          {
+            "experimentId": "post-phase10-facet-isolation-v1",
+            "experimentalFacetDips": "prism-only",
+            "rowId": "batch2-hil-seed-t8-f0p15-r3t1-prism-only",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-10-08T15:03:37.648Z",
+            "finishedAt": "2026-10-08T15:59:19.354Z",
+            "wallSeconds": 3341.706
+          }
+        ],
+        "abortReason": null,
+        "unstartedRowIds": [],
+        "minimumAvailablePhysicalBytes": 47817433088,
+        "minimumCommitHeadroomBytes": 55813787648,
+        "maxSampledChildRssBytes": 314753024
+      }
+    }
+  ]
+}

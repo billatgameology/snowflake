@@ -1,0 +1,18 @@
+{
+  "reviewer": "Codex/GPT-6",
+  "sharedContext": true,
+  "reviewedUtc": "2026-10-08T23:53:15.953Z",
+  "scope": "Result-only import staged on codex/hil-bld-results-integration",
+  "independentlyChecked": [
+    "Imported BLD evidence and NAS manifest blob equality to b333782",
+    "All 52 incoming evidence pins and unchanged pre-existing pins",
+    "Exactly one catalogue addition with existing entries unchanged",
+    "No scientific implementation, charter, current decision or solver-spec changes",
+    "HIL completion retained; BLD sources and interpretation limits explicit"
+  ],
+  "findings": [],
+  "limits": [
+    "No test rerun, NAS payload rehash, copy or numerical simulation by reviewer",
+    "Operator NAS/restore/row checks recorded separately"
+  ]
+}

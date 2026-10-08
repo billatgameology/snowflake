@@ -1,0 +1,6 @@
+{
+  "command": "npm.cmd run assets:verify -- --collection bld-first-batch-output@2026-10-08 --full",
+  "startedUtc": "2026-10-08T23:31:36.7001727Z",
+  "finishedUtc": "2026-10-08T23:32:38.1585475Z",
+  "exitCode": 0
+}

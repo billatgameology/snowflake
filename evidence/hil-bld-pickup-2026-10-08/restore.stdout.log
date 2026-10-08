@@ -1,0 +1,5 @@
+
+> virtual-cloud-chamber@0.0.0 assets:restore
+> node scripts/nas-asset-restore.ts restore --collection bld-first-batch-output@2026-10-08 --to out/restores/bld-first-batch-output-2026-10-08
+
+{"format":"snowflake-nas-legacy-restore-report-v1","command":"restore","ok":true,"collection":"bld-first-batch-output@2026-10-08","destinationScope":"repo-out-restores","fileCount":2061,"totalBytes":1050129781,"treeSha256":"2c77efcd57f7586c68af44a1da257385f97333aec6487cbdf8c6aeb17e8585b0","durableReceiptWritten":false,"pruneAuthorized":false,"limits":["This result verifies one fresh local staging tree and is not a durable publication receipt.","This command never grants local or NAS prune authority."]}

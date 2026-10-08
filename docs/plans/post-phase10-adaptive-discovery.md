@@ -137,6 +137,15 @@ the warm cavity result unless it actually depends on it.
 
 #### Existing execution seams and concrete remaining work
 
+Result pickup, 2026-10-08: HIL's first batch and successor have 56 and 16 checked size endpoints;
+BLD has 42. Its published `b333782` branch supplies preserved raw evidence and NAS collection
+`bld-first-batch-output@2026-10-08`, now freshly restored and rechecked on HIL. The
+[pickup record](hil-bld-first-batch.md#hil-pickup-of-bld-results--2026-10-08) preserves separate
+producer identities: BLD implemented resumability independently from an older shared base.
+The evidence import does not merge that execution code or its branch-local decision numbering.
+Next is joint cold/warm, seed, pressure and environment-history review using actual age brackets;
+consider source differences before attributing an inter-host contrast. No new campaign is selected.
+
 Reuse the independent-process launcher and a finite successor roster with named HIL/BLD subsets.
 The track definitions need exact controls, observations, stop limits and matching rules before
 implementation. The charter permits separate constant-environment facet experiments; register

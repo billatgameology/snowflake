@@ -1,7 +1,7 @@
 # HIL / BLD first exploration batch
 
 - **Scope:** executable first stage of the maker-approved post-Phase-10 portfolio; development evidence only.
-- **Status:** HIL complete after same-source recovery at `b9cf7ed`: 56 checked size endpoints, including the original six checkpoint I/O failures. Original HIL is stopped and preserved at `f4ca38a`. BLD state requires inspection on that computer.
+- **Status:** first-batch execution complete: HIL has 56 checked endpoints after recovery; BLD has 42, restored and rechecked on HIL. Sources remain distinct. Original stopped HIL is preserved at `f4ca38a`; comparative interpretation is next.
 - **Implementation branch / destination:** `codex/discovery-resume` -> `origin/main`; original `science/hil-bld-first-batch` is reconciled.
 - **Authority:** [adaptive discovery](post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld), accepted ADRs 0055-0059, attachment-kinetics specification. No phase gate changes.
 
@@ -50,6 +50,38 @@ wrong collection, partial restore and status misinterpretation; no added assuran
 Tried and rejected for pickup: a whole-branch merge would collide with independently developed
 resume code and duplicate decision numbering. Import completed evidence and preserve source
 provenance instead of silently replacing the tested HIL implementation.
+
+Pickup verification: the existing full-hash NAS command, fresh restore and independent restored
+set check all passed on HIL for 2061 files / 1050129781 bytes, tree SHA-256
+`2c77efcd57f7586c68af44a1da257385f97333aec6487cbdf8c6aeb17e8585b0`. The restored payload is
+`out/restores/bld-first-batch-output-2026-10-08/` in this integration worktree. HIL's existing
+per-row summary rederived all 42 size endpoints and exactly matched the shared scientific fields;
+BLD terminal/status-cycle metadata was checked separately rather than silently omitted.
+The restored summary was not rewritten. The [pickup bundle](../../evidence/hil-bld-pickup-2026-10-08/README.md)
+retains exact logs/exits, both source identities, original BLD authority/plan records and checked
+rows. These establish usable saved observations; no checkpoint migration, trajectory-equivalence
+claim, numerical rerun or morphology interpretation occurred.
+
+The first pickup metadata check passed catalogue/evidence integrity but rejected the live progress
+index at 258 lines (limit 250). Compact current next steps and retain dated details in their
+existing plans; the limit and test remain unchanged. Keep the failed receipt with the final check.
+
+Final pickup metadata verification passed three files / 27 tests (catalogue, evidence integrity
+and progress index), Rule 7 and scoped whitespace checks. Exact imported raw logs and the historical
+portability patch remain byte-frozen and are excluded only from whitespace normalization checks.
+One bounded non-author Codex/GPT-6 shared-context review independently compared imported Git blobs,
+all 52 BLD pins, preservation of existing pins/catalogue entries and the staged scope/claims.
+It found no blocking issue; it did not rehash NAS, rerun tests or evolve simulations. The operator's
+actual NAS/restore/row checks are recorded separately in the pickup bundle.
+
+Rule 16 disposition: the five registered worktrees are primary, the original stopped HIL checkout,
+both completed HIL execution checkouts and this one result-integration branch. The three old
+execution heads and all ignored output remain fixed/retained. Primary's three task-owned live
+documents are included by plan commit `a834d08` and reconciled here; exact pre-integration local
+bytes are hash-verified in primary `out/hil-bld-pickup-primary-reconciliation-20261008/`.
+The integration checkout retains the verified BLD restore as the next joint-analysis staging area.
+No temporary review checkout, redundant recovery ref, PR or deletion is introduced. Preserve the
+remote BLD and unrelated film branches; this import does not declare their code merged.
 
 BLD can pull one tested producer, select its named workload, measure its local resource budget,
 and launch a finite queue without needing HIL to design another protocol. HIL has the equivalent
@@ -579,3 +611,60 @@ two exact raw full-check logs, whose terminal blank lines are intentional record
 The unexcluded first attempt reported only those raw-log EOF blank lines; no artifact was normalized.
 
 Publication closeout: main includes `3948c8f`, `ad990ac`, `60b55e9` and `f4ca38a`. The original implementation worktree/ref were reconciled and removed without force after byte-verified custody. The earlier authentication wait is resolved: `git ls-remote origin refs/heads/main` now returns `f4ca38a44fefda0de514491bd5ce3044479829ec`. Current host execution is recorded above; source tests are complete and are not repeated for dispatch.
+
+
+## Imported BLD producer records
+
+The following completed-execution and preservation records are imported from `b333782`, whose
+producer is `d7ff3e1`. Embedded source-specific commands describe BLD history. HIL keeps its own
+runner and decision 0060; BLD used a separately numbered branch-local decision. Do not use HIL
+code to resume BLD checkpoints or treat these records as a code/charter merge.
+
+## BLD execution complete — 2026-10-08
+
+Producer d7ff3e1fb122ecbf8994539d3623928cbe5a9c6b ran on BLD with Node v24.13.1. The qualified and actual maximum concurrency was 16. Campaign maxWallSeconds is null; the original four-hour experiment deadline did not apply. The launch wrapper started 2026-10-08T14:11:54.1674111Z and ended 2026-10-08T21:04:12.1478650Z with exit 0. Source records are task out/batch1-bld-resumable/campaign.json, attempt-0001-complete.json and out/batch1-bld-resumable-control/launch-direct-20261008-071154.exit.json.
+
+Executed `node runner/src/hil-bld-batch-main.ts summarize out/batch1-bld-resumable` at the same source checkpoint. The existing checker re-read consecutive update evidence, numerical tolerances/ledger/CFL/symmetry fields, terminal agreement and exit status: 42/42 rows are size-endpoint with 0 errors. Task out/batch1-bld-resumable/summary.json and out/batch1-bld-resumable-control/summary-20261008-160529.exit.json retain the output and exit-zero receipt. All workers are terminal; no row awaits resume. This is operational coverage, not track morphology interpretation or physical validation.
+
+The original automatic wrapper stopped after qualification because its long-running process ExitCode was null. It did not dispatch a campaign. Preserve that receipt; the local out/batch1-bld-resumable-control/run-direct.ps1 uses direct native invocation and LASTEXITCODE, checked with exit 7, and launched the same qualified source. Its launch-controller-20261008-071153.start.json records the recovery. The old run-stages.ps1 auto path is historical, not the next launch instruction. The probe selected 16 because 28 hit its 180-second operational cutoff with ample memory; that does not establish optimal throughput.
+
+Next deliverable: compare the registered cold facet arms and warm histories using their saved snapshots/events and physical-time brackets, then reconcile with HIL results. Preserve the campaign, probe, checkpoints and control logs as active analysis staging; classify/promote retained evidence under Rule 15 before scientific closeout. No NAS publication, cleanup or new run was performed for this status update.
+A bounded Codex/GPT-6 shared-context read-only completion review independently checked every registered row result, event sequence, status, exit and checkpoint metadata, finding no completion mismatch. It did not rerun the numerical simulation or interpret morphology.
+
+### Tried and rejected at closeout
+
+- Unconditional symlink fixture construction failed on BLD before its guard assertion. Split mixed controls and skip only known Windows capability failures; retain production checks and the unrelated root/header controls.
+- The legacy four-hour campaign remains an interrupted historical prefix. Its output is preserved, but it cannot be retroactively resumed. New rows use separate checkpoint state/output.
+
+Metadata closeout: evidence-integrity/progress-index, Rule 7 and the staged whitespace check passed after evidence promotion. The whitespace check preserves the four exact raw full-check logs and the retained portability patch by excluding only those five artifact paths; no recorded bytes were normalized. Numerical and runner source remains the tested implementation.
+
+## BLD result preservation — 2026-10-08
+
+Maker direction: save, commit and upload the completed results to NAS. Deliver an immutable, verified and freshly restorable BLD collection plus self-contained tracked claim evidence. Solo scientific research; hostile actors excluded. No new simulation, scientific interpretation, local deletion, branch integration or public serving.
+
+Scope: exactly out/batch1-bld-resumable, out/batch1-bld-resumable-probe and out/batch1-bld-resumable-control. Inventory and preserve all regular files. Project-owned claim bytes that fit compressed Git, including events, snapshots and provenance, remain permanent evidence under evidence/bld-first-batch-2026-10-08/. Checkpoint samples compress enough to try complete archives of all three roots, retaining restart bytes too. The complete raw copy is generated-cache collection bld-first-batch-output@2026-10-08, immutable, project-owned/redistribution allowed, public metadata, serve denied, maker-approved deletion only. The NAS copy is operational recovery context and does not externalize tracked evidence. Node v24.13.1, producer d7ff3e1 and retained specs/commands are the regeneration recipe; historical clocks/PIDs are provenance. Keep workstation originals; no off-site or prune claim.
+
+Steps, committed before publication: register provisional intent; inventory stable trees and stage a complete local copy; pack Git evidence with Python tarfile and verify exact decompressed member paths/lengths/hashes; call unchanged publishCollectionFixture via out/nas-save-bld-2026-10-08/run.mjs publish; bind the standard owner manifest and publication receipt; call restoreCollectionFixture into fresh out/restores/bld-first-batch-output-2026-10-08; run the independent collection verifiers and existing scientific summary on the restored campaign; commit catalogue, evidence pins, receipts and recovery instructions. NAS payload keeps the three directory names directly beneath payload/. Resolve the marked share with detectNasMount; immutable final target must be absent. Catalogue writes acquire an exclusive sibling lock, re-read/parse, update this one entry and use existing writeJsonAtomic. No shared library changes.
+
+Commands: npm.cmd run assets:verify -- --collection bld-first-batch-output@2026-10-08 --full; npm.cmd run assets:verify-restored -- --collection bld-first-batch-output@2026-10-08 --from out/restores/bld-first-batch-output-2026-10-08. Recover later with the catalogue assets:restore command into a fresh target. After byte verification run node runner/src/hil-bld-batch-main.ts summarize out/restores/bld-first-batch-output-2026-10-08/batch1-bld-resumable; compare scientific fields excluding location/generation time and preserve the original summary before regeneration. Save check logs outside the restored payload. Metadata checks: existing catalogue/evidence-integrity/progress-index suites, Rule 7 and whitespace. This invokes unchanged transport/verifier machinery like the October 1 backup precedent, so actual copy/restore plus metadata checks suffice; no redundant scientific full-suite rerun.
+
+Known failures / Rule 14A: lessons A1/A2 require real preserved bytes and -text for digest-bound Git files. Partial copy or wrong selection can lose results; existing stable inventory, no-replace transaction and exact-set restore cover that boundary. Previous Windows tar skipped inputs as self-archives; use Python tarfile and exact decompressed hashes. Lost catalogue updates are accidental in-scope; the bounded lock/re-read/atomic-write seam suffices. Windows SMB durability remains reopen/hash verified, not hardware crash certified. No new generic publisher, registry or validator.
+
+Done when Git claim inputs are preserved and pinned; source, final NAS and fresh restore sets/hashes agree; restored coverage is still 42 size endpoints; and owner manifest, catalogue, publication/restore receipts and recovery procedure are committed. All originals remain.
+
+### Completed preservation
+
+Git raw evidence is committed at 7e2383a. The [archive verification](../../evidence/bld-first-batch-2026-10-08/archive-verification.json) preserves all 2061 original files / 1050129781 bytes in three archives totaling 66684281 bytes; all decompressed member hashes match. This includes every checkpoint, event, spatial snapshot and operational record in the declared roots.
+
+NAS publication and fresh restore passed with identical tree SHA-256 2c77efcd57f7586c68af44a1da257385f97333aec6487cbdf8c6aeb17e8585b0. The [owner manifest](../nas-assets/manifests/bld-first-batch-output/2026-10-08.json) and [verification record](../nas-assets/manifests/bld-first-batch-output/2026-10-08-verification.json) bind the canonical publication and restore receipts. Both independent assets commands above exited zero. A read-only invocation, node out/nas-save-bld-2026-10-08/verify-science.mjs, reused summarizeFirstBatchRow on the restored rows: all 42 size endpoints and every scientific summary field match, excluding only the directory location. It leaves restored summary.json byte-unchanged; no CLI rewrite was needed.
+
+Final share-relative locator: collections/bld-first-batch-output/2026-10-08/payload/. BLD resolved the marked share as S:/; the catalogue uses no drive-letter locator. Original campaign/probe/control files and all local staging remain. Restore commands are in the catalogue and [evidence README](../../evidence/bld-first-batch-2026-10-08/README.md#recovery). Numerical and storage implementations are unchanged; the existing static catalogue census expectation adds only this measured collection. Track interpretation is still pending.
+
+One bounded Codex/GPT-6 shared-context preservation review found no blocking omission or restore-path mismatch; [review scope](../../evidence/bld-first-batch-2026-10-08/preservation-review.json) states what was independently inspected and excludes large-payload rehash, test reruns and scientific interpretation. Final payload and fresh-restore verifications were executed separately by the operator.
+Final metadata verification: the existing catalogue, evidence-integrity and progress-index suites passed 3 files / 27 tests (metadata-final.stdout.log and metadata-final.exit.json in the evidence bundle). Rule 7 and scoped whitespace checks passed; raw log bytes were retained unchanged. No new full-suite or scientific gate claim is made.
+
+### Tried and rejected for preservation
+
+- Summary-only Git retention would omit practical claim-bearing events/snapshots; preserve the raw bytes.
+- An unregistered raw NAS copy or hash-only record cannot establish preservation; reuse the existing transaction and restore seams.
+- The first metadata check retained a static census for 35 collections and rejected the new entry. Add its exact measured active counts; retain the strict census and all integrity assertions. The original failed logs remain in the evidence bundle.

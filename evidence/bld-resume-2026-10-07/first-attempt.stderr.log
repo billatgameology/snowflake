@@ -1,0 +1,534 @@
+From C:\Users\biao3\AppData\Local\Temp\phase10-retired-history-t5JRj1
+ * branch            e092259b8d4c3099b569febc08944bf99bfef31a -> FETCH_HEAD
+Switched to a new branch 'phase10/evidence-verification'
+warning: LF will be replaced by CRLF in .gitignore.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/gate2b-validation.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/gate3.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/gate4-aggregate.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/gate4-protocol.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/gate4a-reference.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/gate4a.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/gate4b.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/gate5-aggregate.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/gate5-comparison.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/gate5-evidence.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/gate5-lane.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/gate5-negative-controls.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/gate5-protocol.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/gate5-readback-attribution.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/gate6-aggregate.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/grow-lk-defaults.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/main.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/pgm.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/phase5-lk-reduction-shadow.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/phase5-protocol.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/phase5-shadow.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/phase6-arm2-protocol.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/phase6-arm3-protocol.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/phase6-crossplatform.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/phase6-diagram.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/phase6-heldout-source-lock.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/phase6-protocol.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/phase6-sdak-m1.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/phase6-size-strata.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/phase6-sweep.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/phase8-corpus-local.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/phase8-focused-discovery.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/phase8-search-protocol-successor-verify.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/phase8-search-protocol-successor.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/phase8-search-protocol-verify.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/phase8-search-protocol.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-cpu/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-cpu/src/operator.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-gpu/src/device.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-gpu/src/diffusion-shaders.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-gpu/src/diffusion.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-gpu/src/gg-solver.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-gpu/src/gg-surface-shaders.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-gpu/src/gg-surface.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-gpu/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-gpu/src/layout.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-gpu/src/lk-conversion.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-gpu/src/lk-shaders.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-gpu/src/lk-solver.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-gpu/src/readback.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-gpu/src/resources.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-gpu/src/shaders.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-gpu/src/submission.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in node_modules/typescript/lib/typescript.js.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in node_modules/typescript/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/locks/a-p-c0v-s6.lock.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/locks/package.lock.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/exit-status.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/freeze-evaluation.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/stderr.log.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/worker-invocations.jsonl.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v1/locks/a-p-c0v-s6.lock.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v1/locks/package.lock.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/candidate/artifact-index.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/candidate/missing-producer.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/candidate/uncalled-check.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/exit-status.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/freeze-evaluation.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/stdout.log.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/worker-invocations.jsonl.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v2/locks/a-p-c0v-s6.lock.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v2/locks/package.lock.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/candidate/artifact-index.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/candidate/missing-producer.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/candidate/uncalled-check.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/exit-status.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/freeze-evaluation.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/stdout.log.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/worker-invocations.jsonl.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v3/locks/a-p-c0v-s6.lock.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v3/locks/package.lock.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/candidate/artifact-index.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/candidate/missing-producer.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/candidate/uncalled-check.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/exit-status.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/freeze-evaluation.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/stdout.log.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/worker-invocations.jsonl.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v4/locks/a-p-c0v-s6.lock.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v4/locks/package.lock.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/candidate/artifact-index.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/candidate/missing-producer.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/candidate/uncalled-check.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/exit-status.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/freeze-evaluation.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/stdout.log.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/terminal-success-candidate.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/worker-invocations.jsonl.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v5/locks/c0v-moving-produce.lock.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v5/locks/package.lock.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v6/locks/c0v-moving-produce.lock.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v6/locks/package.lock.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v7/locks/c0v-moving-produce.lock.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v7/locks/package.lock.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/cause-evaluation.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/exit-status.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/freeze-evaluation.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/stdout.log.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/worker-invocations.jsonl.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v8/locks/c0v-moving-produce.lock.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in out/phase10-execution-v2/recovery-v8/locks/package.lock.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/gate10.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/post-phase10-adaptive.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/post-phase10-basal-history.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/post-phase10-basal-width.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/post-phase10-cavity-analysis.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/post-phase10-cavity-geometry.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/post-phase10-cavity-spatial.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/post-phase10-cavity.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/post-phase10-confirm.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/post-phase10-discovery-analysis.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/post-phase10-discovery-main.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/post-phase10-discovery.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/post-phase10-facet-factorial.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/post-phase10-followup.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/post-phase10-holefill.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/src/post-phase10-long.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-cpu/src/gg-plus-solver.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-cpu/src/lk-facet-dips.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in baseline.txt.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in evidence/MANIFEST.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in evidence/item.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in evidence/MANIFEST.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in evidence/first.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in evidence/MANIFEST.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in evidence/second.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in evidence/MANIFEST.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package-lock.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/package.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in pkg/src/index.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in runner/root.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.base.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in tsconfig.json.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-cpu/src/spherical-reference.ts.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in solver-cpu/src/spherical-reference.ts.
+The file will have its original line endings in your working directory
+stderr | runner/test/gutcheck-hardening.test.ts > evidence manifest pinning > recovers a lock owned by a process that has exited
+evidence-pin: recovering lock C:\Users\biao3\AppData\Local\Temp\gutcheck-manifest-p3EjXC\MANIFEST.json.lock left by dead pid 10236
+
+stderr | runner/test/gutcheck-hardening.test.ts > evidence manifest pinning > recovers an ownerless lock only after its grace period
+evidence-pin: recovering an ownerless lock at C:\Users\biao3\AppData\Local\Temp\gutcheck-manifest-aAkXnL\MANIFEST.json.lock
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  runner/test/gutcheck-growth-comparison-builder.test.ts > comparison record derivation > requires collection manifests to share one real root and contain no symlink
+Error: EPERM: operation not permitted, symlink 'C:\Users\biao3\AppData\Local\Temp\gutcheck-comparison-collection-link-target-QGJ8Fh' -> 'C:\Users\biao3\AppData\Local\Temp\gutcheck-comparison-collection-link-69vD9y\collections\gutcheck-generated-public\2026-08-15\payload\large\anim-B'
+ ❯ runner/test/gutcheck-growth-comparison-builder.test.ts:581:5
+    579|     writeFileSync(join(outside, "manifest.json"), "raw-manifest");
+    580|     rmSync(rawDirectory, { recursive: true });
+    581|     symlinkSync(outside, rawDirectory, "dir");
+       |     ^
+    582|     withGutcheckNasRoot(linked.share, () => {
+    583|       expect(() => assertRunBManifestPairOnGovernedShare(linked.raw, l…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  runner/test/gutcheck-growth-comparison-builder.test.ts > comparison record derivation > rejects a frame symlink and binary headers that disagree with the manifest
+Error: EPERM: operation not permitted, symlink 'C:\Users\biao3\AppData\Local\Temp\gutcheck-comparison-frame-escape-iackpV\outside.bin' -> 'C:\Users\biao3\AppData\Local\Temp\gutcheck-comparison-frame-escape-iackpV\raw\mesh-t000000.bin'
+ ❯ runner/test/gutcheck-growth-comparison-builder.test.ts:644:5
+    642|     const frame = join(escape.root, "raw", "mesh-t000000.bin");
+    643|     rmSync(frame);
+    644|     symlinkSync(target, frame);
+       |     ^
+    645|     expect(() => measureRegularFile(frame, "escaped frame")).toThrow(/…
+    646| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+

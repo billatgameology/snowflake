@@ -3009,6 +3009,91 @@
       },
       "supersedes": [],
       "unresolved": []
+    },
+    {
+      "assetId": "bld-first-batch-output",
+      "version": "2026-10-08",
+      "state": "active",
+      "ownerWorkstream": "hil-bld-first-batch",
+      "locator": "collections/bld-first-batch-output/2026-10-08/payload",
+      "historicalRepoPath": "out",
+      "legacyAliases": [],
+      "storageClass": "generated-cache",
+      "aggregate": {
+        "files": 2061,
+        "bytes": 1050129781
+      },
+      "ownerManifest": {
+        "storage": "tracked",
+        "path": "docs/nas-assets/manifests/bld-first-batch-output/2026-10-08.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 572526,
+        "sha256": "774e4300a758728f8b04e7f7ae7e1b3ce5afb07f942c729b367dc40069af6508",
+        "selector": {
+          "kind": "path-prefixes",
+          "include": [
+            "collections/bld-first-batch-output/2026-10-08/payload"
+          ],
+          "exclude": []
+        }
+      },
+      "rights": {
+        "kind": "project-owned",
+        "redistribution": "allowed"
+      },
+      "privacy": "public",
+      "serve": {
+        "policy": "deny",
+        "prefixes": []
+      },
+      "retention": {
+        "policy": "maker-approved-delete-only",
+        "garbageCollection": {
+          "policy": "plan-only",
+          "graceDays": null,
+          "approver": "maker"
+        }
+      },
+      "mutability": "immutable",
+      "externalEvidenceAuthority": null,
+      "provenance": {
+        "record": "docs/plans/hil-bld-first-batch.md",
+        "producerCommit": "d7ff3e1fb122ecbf8994539d3623928cbe5a9c6b",
+        "command": "node runner/src/hil-bld-batch-main.ts launch BLD out/batch1-bld-resumable out/batch1-bld-resumable-probe/probe.json"
+      },
+      "reproducibility": {
+        "kind": "exact-recipe",
+        "record": "docs/plans/hil-bld-first-batch.md"
+      },
+      "restore": {
+        "status": "tested",
+        "command": "npm run assets:restore -- --collection bld-first-batch-output@2026-10-08 --to out/restores/bld-first-batch-output-2026-10-08",
+        "verifyCommand": "npm run assets:verify-restored -- --collection bld-first-batch-output@2026-10-08 --from out/restores/bld-first-batch-output-2026-10-08",
+        "record": "docs/plans/hil-bld-first-batch.md"
+      },
+      "verification": {
+        "status": "full-hash",
+        "at": "2026-10-08",
+        "host": "BLD",
+        "receipt": "_control/receipts/publication/bld-first-batch-output/2026-10-08/bld-first-batch-20261008-publish.json",
+        "limits": [
+          "Publication receipt SHA-256 21159f82053d9e4ea7ef4366db0a51313c5a11b7f1c6c1b2976e3bc9269e01c3.",
+          "Restore receipt _control/receipts/restore/bld-first-batch-output/2026-10-08/bld-first-batch-20261008-restore.json SHA-256 e9dee6188dd2548cb8611aaf49e6f91dd89582e37c6192d7cc66365f67406cd1.",
+          "Detailed checks: docs/nas-assets/manifests/bld-first-batch-output/2026-10-08-verification.json.",
+          "Windows SMB durability is verification-based. Original workstation files remain; no pruning or off-site recovery claim.",
+          "Complete operational recovery copy; tracked claim archives remain Git authority."
+        ]
+      },
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
+      "backup": {
+        "status": "not-required",
+        "independentDomains": [],
+        "receipts": []
+      },
+      "supersedes": [],
+      "unresolved": []
     }
   ],
   "overlays": [

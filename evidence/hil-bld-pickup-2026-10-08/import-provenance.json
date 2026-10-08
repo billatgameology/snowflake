@@ -1,0 +1,29 @@
+{
+  "importedAt": "2026-10-08T23:47:26.846Z",
+  "sourceBranch": "origin/codex/bld-exploration",
+  "sourceHead": "b3337825182d4d90bb63abad2cd0bedd673db320",
+  "commonAncestor": "f4ca38a44fefda0de514491bd5ce3044479829ec",
+  "bldProducer": "d7ff3e1fb122ecbf8994539d3623928cbe5a9c6b",
+  "hilFirstProducer": "b9cf7ed72c82e350b93570fafd8e45afa0b95d53",
+  "hilSecondProducer": "43228078308cc089b9da8c6240975b267d7d74cb",
+  "scope": "Exact result and recovery evidence plus one NAS collection; no scientific executable or governing charter/ADR integration.",
+  "preservedProducerRecords": [
+    {
+      "path": "docs/decisions/0060-resume-bld-development-experiments.md",
+      "retainedAs": "bld-producer-decision0060.md",
+      "bytes": 6859,
+      "sha256": "b37bc05af0ee424fd27c9d2a6ec25bb7dd9ab4a6b7bc7db56d065bd069797a57"
+    },
+    {
+      "path": "docs/plans/hil-bld-first-batch.md",
+      "retainedAs": "bld-producer-plan.md",
+      "bytes": 38414,
+      "sha256": "0d4f3ca04f591ca4c58133839ca5c288d51f30fcfd0acfefdd3a9e496bd2d261"
+    }
+  ],
+  "limits": [
+    "Independent BLD and HIL resume implementations; incompatible checkpoint formats are not migrated.",
+    "Branch-local ADR number 0060 is preserved as historical producer provenance, not adopted as a second current decision.",
+    "No cross-producer trajectory equivalence or morphology conclusion claimed."
+  ]
+}

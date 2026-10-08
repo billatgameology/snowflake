@@ -1,0 +1,175 @@
+{
+  "identity": "bld-first-batch-output@2026-10-08",
+  "producerCommit": "d7ff3e1fb122ecbf8994539d3623928cbe5a9c6b",
+  "raw": {
+    "fileCount": 2061,
+    "totalBytes": 1050129781,
+    "treeSha256": "2c77efcd57f7586c68af44a1da257385f97333aec6487cbdf8c6aeb17e8585b0"
+  },
+  "publication": {
+    "path": "_control/receipts/publication/bld-first-batch-output/2026-10-08/bld-first-batch-20261008-publish.json",
+    "sha256": "21159f82053d9e4ea7ef4366db0a51313c5a11b7f1c6c1b2976e3bc9269e01c3",
+    "receipt": {
+      "format": "snowflake-nas-publication-receipt-v1",
+      "transactionId": "bld-first-batch-20261008-publish",
+      "identity": "bld-first-batch-output@2026-10-08",
+      "locator": "collections/bld-first-batch-output/2026-10-08/payload",
+      "source": {
+        "fileCount": 2061,
+        "totalBytes": 1050129781,
+        "treeSha256": "2c77efcd57f7586c68af44a1da257385f97333aec6487cbdf8c6aeb17e8585b0"
+      },
+      "staged": {
+        "fileCount": 2061,
+        "totalBytes": 1050129781,
+        "treeSha256": "2c77efcd57f7586c68af44a1da257385f97333aec6487cbdf8c6aeb17e8585b0"
+      },
+      "final": {
+        "fileCount": 2061,
+        "totalBytes": 1050129781,
+        "treeSha256": "2c77efcd57f7586c68af44a1da257385f97333aec6487cbdf8c6aeb17e8585b0"
+      },
+      "verifiedAt": "2026-10-08T23:24:21.838Z",
+      "limits": [
+        "This receipt contains aggregate digests only; private filenames and host paths are intentionally omitted.",
+        "Tracked catalogue registration and a committed Git binding are outside this fixture transaction core."
+      ]
+    }
+  },
+  "restore": {
+    "path": "_control/receipts/restore/bld-first-batch-output/2026-10-08/bld-first-batch-20261008-restore.json",
+    "sha256": "e9dee6188dd2548cb8611aaf49e6f91dd89582e37c6192d7cc66365f67406cd1",
+    "receipt": {
+      "format": "snowflake-nas-restore-receipt-v1",
+      "transactionId": "bld-first-batch-20261008-restore",
+      "identity": "bld-first-batch-output@2026-10-08",
+      "locator": "collections/bld-first-batch-output/2026-10-08/payload",
+      "publicationTransactionId": "bld-first-batch-20261008-publish",
+      "publicationReceiptPath": "_control/receipts/publication/bld-first-batch-output/2026-10-08/bld-first-batch-20261008-publish.json",
+      "publicationReceiptSha256": "21159f82053d9e4ea7ef4366db0a51313c5a11b7f1c6c1b2976e3bc9269e01c3",
+      "restored": {
+        "fileCount": 2061,
+        "totalBytes": 1050129781,
+        "treeSha256": "2c77efcd57f7586c68af44a1da257385f97333aec6487cbdf8c6aeb17e8585b0"
+      },
+      "verifiedAt": "2026-10-08T23:30:22.638Z",
+      "limits": [
+        "The receipt binds exact restored bytes but omits the host destination and all private filenames.",
+        "Claim-specific verifier adapters and tracked catalogue registration are outside this fixture core."
+      ]
+    }
+  },
+  "independentChecks": [
+    {
+      "command": "npm.cmd run assets:verify -- --collection bld-first-batch-output@2026-10-08 --full",
+      "startedUtc": "2026-10-08T23:31:36.7001727Z",
+      "finishedUtc": "2026-10-08T23:32:38.1585475Z",
+      "exitCode": 0,
+      "result": {
+        "format": "snowflake-nas-assets-readonly-report-v1",
+        "command": "verify",
+        "ok": true,
+        "scope": "explicit-single-collection-full-hash",
+        "mount": "attached",
+        "collections": [
+          {
+            "identity": "bld-first-batch-output@2026-10-08",
+            "state": "active",
+            "manifest": "verified",
+            "aggregate": "verified",
+            "payload": "verified-full"
+          }
+        ],
+        "overlays": [],
+        "defects": [],
+        "limitations": [],
+        "fullPayloadTotals": {
+          "files": 2061,
+          "bytes": 1050129781
+        },
+        "limits": [
+          "Payload hashing was limited to the one explicitly selected collection and its registered selector rows.",
+          "No publication, restoration, movement, quarantine, or deletion is available in this command."
+        ]
+      }
+    },
+    {
+      "command": "npm.cmd run assets:verify-restored -- --collection bld-first-batch-output@2026-10-08 --from out/restores/bld-first-batch-output-2026-10-08",
+      "startedUtc": "2026-10-08T23:31:37.0278994Z",
+      "finishedUtc": "2026-10-08T23:31:40.7345015Z",
+      "exitCode": 0,
+      "result": {
+        "format": "snowflake-nas-legacy-restore-report-v1",
+        "command": "verify",
+        "ok": true,
+        "collection": "bld-first-batch-output@2026-10-08",
+        "destinationScope": "repo-out-restores",
+        "fileCount": 2061,
+        "totalBytes": 1050129781,
+        "treeSha256": "2c77efcd57f7586c68af44a1da257385f97333aec6487cbdf8c6aeb17e8585b0",
+        "durableReceiptWritten": false,
+        "pruneAuthorized": false,
+        "limits": [
+          "This result verifies one fresh local staging tree and is not a durable publication receipt.",
+          "This command never grants local or NAS prune authority."
+        ]
+      }
+    }
+  ],
+  "science": {
+    "checkedUtc": "2026-10-08T23:35:22.854Z",
+    "command": [
+      "C:\\nvm4w\\nodejs\\node.exe",
+      "G:\\Code Files\\snowflake-bld-exploration\\evidence\\bld-first-batch-2026-10-08\\verify-science.mjs"
+    ],
+    "verifier": "runner/src/hil-bld-batch-summary.ts summarizeFirstBatchRow",
+    "rows": 42,
+    "sizeEndpoints": 42,
+    "errors": [],
+    "allScientificSummaryFieldsMatch": true,
+    "comparisonExcludes": [
+      "directory (restore location)"
+    ],
+    "restoredPayloadChanged": false,
+    "limits": "Existing evidence checks and equality to retained source summary; no numerical rerun or track interpretation."
+  },
+  "archives": {
+    "checkedUtc": "2026-10-08T23:18:34.672743+00:00",
+    "archives": [
+      {
+        "archive": "batch1-bld-resumable.tar.gz",
+        "files": 931,
+        "rawBytes": 458983406,
+        "archiveBytes": 35928670,
+        "archiveSha256": "0fcb5a73aacec9756624f2a45d0a1bd65a09dacde9f02e84f870ddba4cb0edfb",
+        "allDecompressedMembersMatch": true
+      },
+      {
+        "archive": "batch1-bld-resumable-probe.tar.gz",
+        "files": 1106,
+        "rawBytes": 591069857,
+        "archiveBytes": 30745416,
+        "archiveSha256": "e7ac71ca1cc5cf53343a367c77e9ea5af5cbbabde2920647860d84484f803478",
+        "allDecompressedMembersMatch": true
+      },
+      {
+        "archive": "batch1-bld-resumable-control.tar.gz",
+        "files": 24,
+        "rawBytes": 76518,
+        "archiveBytes": 10195,
+        "archiveSha256": "cb81f02f3c6364891b871f4633c39ec7a9fe9d4b8d6ab8ec860cdec29e4fa637",
+        "allDecompressedMembersMatch": true
+      }
+    ],
+    "files": 2061,
+    "rawBytes": 1050129781,
+    "archiveBytes": 66684281,
+    "originalsRetained": true
+  },
+  "originalsRetained": true,
+  "limits": [
+    "Operational preservation and restored coverage, not new scientific interpretation.",
+    "Windows SMB durability is verified by byte hashes and fresh restore.",
+    "No local deletion or off-site backup claim."
+  ]
+}

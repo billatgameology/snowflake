@@ -1,0 +1,434 @@
+{
+  "checkedUtc": "2026-10-08T23:48:27.570Z",
+  "bldProducer": "d7ff3e1fb122ecbf8994539d3623928cbe5a9c6b",
+  "hilChecker": "runner/src/hil-bld-batch-summary.ts summarizeFirstBatchRow",
+  "hilCheckerSha256": "ed9211818dff80426fd8fd889abe0ad6ab27437ef780b33b28f38854527f296a",
+  "originalSummarySha256": "bdfe494a142e16b6637b9e282ca3bb905d8595f3959c564294d73c9a63f6f18c",
+  "restoredSummaryUnchangedSha256": "bdfe494a142e16b6637b9e282ca3bb905d8595f3959c564294d73c9a63f6f18c",
+  "rows": [
+    {
+      "rowId": "batch1-bld-cold-t12-f0p1-basal-only",
+      "completedUpdates": 554,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 554,
+      "resultSha256": "1d1c807dea07244ae965a1d62bc7c0428160915396238b3ded1b601be4f1eb61"
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p1-both",
+      "completedUpdates": 255,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 255,
+      "resultSha256": "8c75965c15a08424a526ebb0f37da22edd50b8cd46b467290405016a014912d5"
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p1-neither",
+      "completedUpdates": 591,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 591,
+      "resultSha256": "0bf8ae942213a40bac96e7d101c21d7fb199b6e067dbb2dad72518a5d2314083"
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p1-prism-only",
+      "completedUpdates": 254,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 254,
+      "resultSha256": "950294cfc034e286725b871212d60cb565530b14fa3004c63b8ce33aa5c0c8e6"
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p15-basal-only",
+      "completedUpdates": 622,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 622,
+      "resultSha256": "48ca9de41c96d7cb6f6e229fa8895b8bf3e9aa60a89d8d56ee4e3217ef5209b6"
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p15-both",
+      "completedUpdates": 241,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 241,
+      "resultSha256": "01942235f6d15e4dcb7c4aaca0ff8bc61633d819226f16c8a6b3b19ba6d4d9fe"
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p15-neither",
+      "completedUpdates": 583,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 583,
+      "resultSha256": "bfd03329cad469be8291debd15b6d974409a845a2ff8d191ebf0685a773739cc"
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p15-prism-only",
+      "completedUpdates": 241,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 241,
+      "resultSha256": "cc76a4af44a8d127abaf14236b409cc60b4931158233bbfb01120c5abda84183"
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p2-basal-only",
+      "completedUpdates": 572,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 572,
+      "resultSha256": "4e4bf116316dbede91a896130d929ecef803c55d76077b00ae7bca13e2b1e748"
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p2-both",
+      "completedUpdates": 234,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 234,
+      "resultSha256": "5ca076213f574bd44c6e5cbc4e08b32ab0251e50e43bfe158ae8ce1ec7ec9842"
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p2-neither",
+      "completedUpdates": 566,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 566,
+      "resultSha256": "dce274b716076311d6c49e9f4b1d82e14589e0e575195581c6217295c73726e5"
+    },
+    {
+      "rowId": "batch1-bld-cold-t12-f0p2-prism-only",
+      "completedUpdates": 234,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 234,
+      "resultSha256": "5a2716fb57f5e04edad39706962e6953842c10ec71738c0345e4a85074a7ab9d"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p1-basal-only",
+      "completedUpdates": 545,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 545,
+      "resultSha256": "e4342c808b71dc69082f69b2be6f09419f5375c4412f34cd233fc244593f8b59"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p1-both",
+      "completedUpdates": 229,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 229,
+      "resultSha256": "7ce1d2d028faa3da8d03f82a0cbb3f1467d687d9dafad4bf4fbbe166cf8c39bd"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p1-neither",
+      "completedUpdates": 542,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 542,
+      "resultSha256": "6331198a3a9c0be42b5adfb4a4b92c5e3f6f19a2d68cc4a6c34ba94650ea9cbe"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p1-prism-only",
+      "completedUpdates": 229,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 229,
+      "resultSha256": "4a7fc76a9dcf99afa16806cae759b4be056e419c49280877fc6e14d6ed0508ba"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p15-basal-only",
+      "completedUpdates": 583,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 583,
+      "resultSha256": "f79e40edcb4a8f1f982a13778c85cf7a05e00420c587d479a3698e3ca1778fc5"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p15-both",
+      "completedUpdates": 227,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 227,
+      "resultSha256": "2282aa92316a9bfe4ba99e437c81b8922ea05b0519e789ab5f72f70a9d88f0ac"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p15-neither",
+      "completedUpdates": 594,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 594,
+      "resultSha256": "3a15b3404b50e13f0acef86ab746bb3b6e603c4042f1915e82b7700e630e91a4"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p15-prism-only",
+      "completedUpdates": 227,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 227,
+      "resultSha256": "437f9f9c9a1d1f5ffe0dca8fdea63b010af4864289fbc17086ab370b9e3d4b2e"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p2-basal-only",
+      "completedUpdates": 614,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 614,
+      "resultSha256": "fbae2df9390a25f8a53752e9e899f674a4483f71bd4f085e5504002b4b7e6e72"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p2-both",
+      "completedUpdates": 224,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 224,
+      "resultSha256": "555ad0057a1c5e936ef989070deb5bb5df99a6502233a6e1244c99ccca475e63"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p2-neither",
+      "completedUpdates": 613,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 613,
+      "resultSha256": "61b0b6d65d077ce4a7f02e08bdea3194d6c8ad865babd8df39a6e2adcd27f74b"
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p2-prism-only",
+      "completedUpdates": 224,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 224,
+      "resultSha256": "43dfe1c6adaaeb1d6568aab86369fcf193ea0f5bf9a471ff73ba8ff700517f8e"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p1-basal-only",
+      "completedUpdates": 481,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 481,
+      "resultSha256": "b910cfa2be6008367537a4c263e2f1fcd8b0383b7705180cb87867623d0a281a"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p1-both",
+      "completedUpdates": 308,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 308,
+      "resultSha256": "169523f8f949f4646ea0f3055227ac04fb112d003ae37d2da05db445e4e5f333"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p1-neither",
+      "completedUpdates": 498,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 498,
+      "resultSha256": "b8c443ec00343f269456f4a074bb7557296ba979a1a53c3533a149d381d2b715"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p1-prism-only",
+      "completedUpdates": 307,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 307,
+      "resultSha256": "659660ad8c6697ffae4bc6c11694651c530eef5f4791dbdf3f831a0a0e853151"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p15-basal-only",
+      "completedUpdates": 543,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 543,
+      "resultSha256": "8213a3970cccd67533ba9b0dcd4a33f2eb26d067ba3f4531714fe2cafddfcbfa"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p15-both",
+      "completedUpdates": 272,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 272,
+      "resultSha256": "e431044820a1cd217fa235f223f4dd01a6cb8496dd350825a2dc1763487b4690"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p15-neither",
+      "completedUpdates": 542,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 542,
+      "resultSha256": "c6df3a5439ec584fd44736f975fc1554185ca715c8d22ba2d8abfb7fc6b88974"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p15-prism-only",
+      "completedUpdates": 273,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 273,
+      "resultSha256": "2120244d61f453e98711acb97cf6e2e8b995e16f85500f77633017de6419070f"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p2-basal-only",
+      "completedUpdates": 579,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 579,
+      "resultSha256": "c3cbee6fa825c335b29fc0b5f5acc5b445f59c75daa57a46282828247ac4e26d"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p2-both",
+      "completedUpdates": 255,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 255,
+      "resultSha256": "cd2f277dd7766425c2c8e381637e4b3bfcaae0374a9f83fad84c6b9a1f5d54ac"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p2-neither",
+      "completedUpdates": 579,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 579,
+      "resultSha256": "558f0ad3885b97bc81cb436751e885e8249c333447f2a403b2d787001dfa4696"
+    },
+    {
+      "rowId": "batch1-bld-cold-t18-f0p2-prism-only",
+      "completedUpdates": 255,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 255,
+      "resultSha256": "3d1ce8db77f1e82046b754cbda2370d8de46b84f0627938951d23c54fcf3019e"
+    },
+    {
+      "rowId": "batch1-bld-warm-t4p5-broad",
+      "completedUpdates": 382,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 382,
+      "resultSha256": "de17e5392ca8547d60a538fc6f5e75a85ed06ff3725d7ab4e8a4141f74ec59b8"
+    },
+    {
+      "rowId": "batch1-bld-warm-t4p5-early",
+      "completedUpdates": 594,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 594,
+      "resultSha256": "bc1646a8906b27915fd455c3421322e64032c69927e282d6a8bd760c3a034672"
+    },
+    {
+      "rowId": "batch1-bld-warm-t4p5-full",
+      "completedUpdates": 359,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 359,
+      "resultSha256": "954d017808cce37644c9d619ca89a3dbd4949e90c91afe068892dd44c5e8df06"
+    },
+    {
+      "rowId": "batch1-bld-warm-t5-broad",
+      "completedUpdates": 429,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 429,
+      "resultSha256": "abeec0dfab4455615e804cd61f9eecc521db1aa5e9fbe4555c814eaf6aa56b65"
+    },
+    {
+      "rowId": "batch1-bld-warm-t5-early",
+      "completedUpdates": 558,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 558,
+      "resultSha256": "4be23246c106c77faafde010a3ba7add68f140dada7884f936754b13e6e48e1f"
+    },
+    {
+      "rowId": "batch1-bld-warm-t5-full",
+      "completedUpdates": 368,
+      "extent": 21,
+      "disposition": "size-endpoint",
+      "errors": [],
+      "checkedBldState": "terminal",
+      "checkpointCycle": 368,
+      "resultSha256": "571a51dc370df3f3ad289c4f087f819fb6128684f8d3bd784a74add7b764b3e3"
+    }
+  ],
+  "sizeEndpoints": 42,
+  "errors": [],
+  "comparison": "All shared summary fields match exactly excluding only directory. BLD resumableState and checkpointCycle are independently checked against terminal status, result digest, pointer and committed metadata/event prefix.",
+  "limits": "No simulation, BLD checkpoint decode/adoption, cross-producer trajectory equality or track morphology interpretation. Whole restored set was independently byte-verified first."
+}

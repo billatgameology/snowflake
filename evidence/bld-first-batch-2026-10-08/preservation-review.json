@@ -1,0 +1,20 @@
+{
+  "reviewer": "Codex/GPT-6; exact model variant not exposed",
+  "sharedContext": true,
+  "scope": "One bounded read-only preservation review",
+  "independentlyChecked": [
+    "Inventory group totals and unique paths: 2061 files / 1050129781 bytes",
+    "Required result, event, spec, exit and restart metadata for every registered campaign row",
+    "Archive recipe exact-member and decompressed-byte checks; local/tracked recipe agreement",
+    "Catalogue classification, restore destination/layout and Git text=unset attributes",
+    "Publication source/stage/final aggregate matches prepared inventory",
+    "Only new measured collection added to static catalogue census expectation"
+  ],
+  "finding": "No blocking omission or wrong-restore issue found",
+  "limits": [
+    "No large-payload rehash by reviewer",
+    "No tests or numerical simulations rerun by reviewer",
+    "No scientific interpretation",
+    "Fresh restore and independent verification still pending at review; operator must finish them before completion claim"
+  ]
+}

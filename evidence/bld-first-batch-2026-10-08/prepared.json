@@ -1,0 +1,30 @@
+{
+  "preparedAt": "2026-10-08T23:17:24.327Z",
+  "identity": "bld-first-batch-output@2026-10-08",
+  "sources": [
+    {
+      "name": "batch1-bld-resumable",
+      "fileCount": 931,
+      "totalBytes": 458983406,
+      "treeSha256": "b78f6f1028e2b5414ac7e48c668f842a458dd24c0acfcb3657a4a02d25e3033a"
+    },
+    {
+      "name": "batch1-bld-resumable-probe",
+      "fileCount": 1106,
+      "totalBytes": 591069857,
+      "treeSha256": "ef61988212e3c0ab6330081266871064461eda35601b627467b4bb19712973ef"
+    },
+    {
+      "name": "batch1-bld-resumable-control",
+      "fileCount": 24,
+      "totalBytes": 76518,
+      "treeSha256": "6bb7ba7da7b30e2ee7c7a1c0845cbe5ebe0bfbe3c53a3cc7292e9a2d9b878627"
+    }
+  ],
+  "payload": {
+    "fileCount": 2061,
+    "totalBytes": 1050129781,
+    "treeSha256": "2c77efcd57f7586c68af44a1da257385f97333aec6487cbdf8c6aeb17e8585b0"
+  },
+  "originalsRetained": true
+}

@@ -1,0 +1,6 @@
+{
+  "exitCode": 0,
+  "startedUtc": "2026-10-08T23:46:39.6333675Z",
+  "command": "npm.cmd run assets:restore -- --collection bld-first-batch-output@2026-10-08 --to out/restores/bld-first-batch-output-2026-10-08",
+  "finishedUtc": "2026-10-08T23:47:31.2527159Z"
+}

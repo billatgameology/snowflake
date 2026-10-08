@@ -1,0 +1,33 @@
+{
+  "checkedUtc": "2026-10-08T23:18:34.672743+00:00",
+  "archives": [
+    {
+      "archive": "batch1-bld-resumable.tar.gz",
+      "files": 931,
+      "rawBytes": 458983406,
+      "archiveBytes": 35928670,
+      "archiveSha256": "0fcb5a73aacec9756624f2a45d0a1bd65a09dacde9f02e84f870ddba4cb0edfb",
+      "allDecompressedMembersMatch": true
+    },
+    {
+      "archive": "batch1-bld-resumable-probe.tar.gz",
+      "files": 1106,
+      "rawBytes": 591069857,
+      "archiveBytes": 30745416,
+      "archiveSha256": "e7ac71ca1cc5cf53343a367c77e9ea5af5cbbabde2920647860d84484f803478",
+      "allDecompressedMembersMatch": true
+    },
+    {
+      "archive": "batch1-bld-resumable-control.tar.gz",
+      "files": 24,
+      "rawBytes": 76518,
+      "archiveBytes": 10195,
+      "archiveSha256": "cb81f02f3c6364891b871f4633c39ec7a9fe9d4b8d6ab8ec860cdec29e4fa637",
+      "allDecompressedMembersMatch": true
+    }
+  ],
+  "files": 2061,
+  "rawBytes": 1050129781,
+  "archiveBytes": 66684281,
+  "originalsRetained": true
+}

@@ -1,0 +1,6 @@
+{
+  "startedUtc": "2026-10-08T23:47:46.4379113Z",
+  "command": "npm.cmd run assets:verify-restored -- --collection bld-first-batch-output@2026-10-08 --from out/restores/bld-first-batch-output-2026-10-08",
+  "finishedUtc": "2026-10-08T23:47:48.4774050Z",
+  "exitCode": 0
+}

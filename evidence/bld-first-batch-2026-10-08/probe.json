@@ -1,0 +1,1246 @@
+{
+  "schema": "hil-bld-first-batch-probe-v1",
+  "batchId": "hil-bld-first-batch-2026-10-07",
+  "host": "BLD",
+  "gitHead": "d7ff3e1fb122ecbf8994539d3623928cbe5a9c6b",
+  "node": "v24.13.1",
+  "v8": "13.6.233.17-node.40",
+  "hostIdentity": {
+    "hostname": "BLD",
+    "platform": "win32",
+    "arch": "x64",
+    "cpuModels": [
+      "AMD Ryzen 9 5900XT 16-Core Processor           "
+    ],
+    "logicalProcessors": 32,
+    "totalMemoryBytes": 68602580992
+  },
+  "rosterSha256": "866adbd2c6534efa4ec1ca5659fc46d2f2d765c9d662e057862f4f77024912be",
+  "limit": "Three-update exact-family prefixes only; not mature-geometry capacity, checkpoint continuation or scientific endpoints. Live memory monitoring remains required; BLD writes every-update restart state and HIL uses four-hour terminal stages.",
+  "rungs": [
+    {
+      "concurrency": 1,
+      "qualified": true,
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable-probe\\concurrency-1",
+      "schema": "post-phase10-discovery-launch-complete-v1",
+      "experimentalRows": [
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-0",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-neither--probe-1",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "neither"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-basal-only--probe-2",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "basal-only"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-prism-only--probe-3",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "prism-only"
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-full--probe-5",
+          "experimentId": "post-phase10-local-basal-width-v1",
+          "experimentalBasalWidthCells": 3
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-early--probe-6",
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 3,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          }
+        }
+      ],
+      "launchName": "probe",
+      "gitHead": "d7ff3e1fb122ecbf8994539d3623928cbe5a9c6b",
+      "node": "v24.13.1",
+      "requestedConcurrency": 1,
+      "actualMaximumConcurrency": 1,
+      "launchedAt": "2026-10-08T05:42:41.929Z",
+      "finishedAt": "2026-10-08T05:50:47.495Z",
+      "exits": [
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "basal-only",
+          "rowId": "batch1-bld-cold-t18-f0p2-basal-only--probe-2",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:45:00.964Z",
+          "finishedAt": "2026-10-08T05:46:09.561Z",
+          "wallSeconds": 68.597
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both",
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-0",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:42:44.240Z",
+          "finishedAt": "2026-10-08T05:43:52.449Z",
+          "wallSeconds": 68.209
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "neither",
+          "rowId": "batch1-bld-cold-t18-f0p2-neither--probe-1",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:43:52.452Z",
+          "finishedAt": "2026-10-08T05:45:00.955Z",
+          "wallSeconds": 68.503
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "prism-only",
+          "rowId": "batch1-bld-cold-t18-f0p2-prism-only--probe-3",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:46:09.563Z",
+          "finishedAt": "2026-10-08T05:47:17.601Z",
+          "wallSeconds": 68.038
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-broad--probe-4",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:47:17.604Z",
+          "finishedAt": "2026-10-08T05:48:26.285Z",
+          "wallSeconds": 68.681
+        },
+        {
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 3,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          },
+          "rowId": "batch1-bld-warm-t5-early--probe-6",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:49:34.462Z",
+          "finishedAt": "2026-10-08T05:50:46.833Z",
+          "wallSeconds": 72.371
+        },
+        {
+          "experimentId": "post-phase10-local-basal-width-v1",
+          "experimentalBasalWidthCells": 3,
+          "rowId": "batch1-bld-warm-t5-full--probe-5",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:48:26.286Z",
+          "finishedAt": "2026-10-08T05:49:34.460Z",
+          "wallSeconds": 68.174
+        }
+      ],
+      "abortReason": null,
+      "unstartedRowIds": [],
+      "minimumAvailablePhysicalBytes": 53409476608,
+      "minimumCommitHeadroomBytes": 74397609984,
+      "maxSampledChildRssBytes": 109633536,
+      "wallSeconds": 484.904,
+      "rowsPerSecond": 0.014435847095507565,
+      "rowIds": [
+        "batch1-bld-cold-t18-f0p2-both--probe-0",
+        "batch1-bld-cold-t18-f0p2-neither--probe-1",
+        "batch1-bld-cold-t18-f0p2-basal-only--probe-2",
+        "batch1-bld-cold-t18-f0p2-prism-only--probe-3",
+        "batch1-bld-warm-t5-broad--probe-4",
+        "batch1-bld-warm-t5-full--probe-5",
+        "batch1-bld-warm-t5-early--probe-6"
+      ]
+    },
+    {
+      "concurrency": 4,
+      "qualified": true,
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable-probe\\concurrency-4",
+      "schema": "post-phase10-discovery-launch-complete-v1",
+      "experimentalRows": [
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-0",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-neither--probe-1",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "neither"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-basal-only--probe-2",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "basal-only"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-prism-only--probe-3",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "prism-only"
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-full--probe-5",
+          "experimentId": "post-phase10-local-basal-width-v1",
+          "experimentalBasalWidthCells": 3
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-early--probe-6",
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 3,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          }
+        }
+      ],
+      "launchName": "probe",
+      "gitHead": "d7ff3e1fb122ecbf8994539d3623928cbe5a9c6b",
+      "node": "v24.13.1",
+      "requestedConcurrency": 4,
+      "actualMaximumConcurrency": 4,
+      "launchedAt": "2026-10-08T05:50:47.530Z",
+      "finishedAt": "2026-10-08T05:53:21.627Z",
+      "exits": [
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "basal-only",
+          "rowId": "batch1-bld-cold-t18-f0p2-basal-only--probe-2",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:50:49.794Z",
+          "finishedAt": "2026-10-08T05:52:02.128Z",
+          "wallSeconds": 72.334
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both",
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-0",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:50:49.777Z",
+          "finishedAt": "2026-10-08T05:52:01.671Z",
+          "wallSeconds": 71.894
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "neither",
+          "rowId": "batch1-bld-cold-t18-f0p2-neither--probe-1",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:50:49.786Z",
+          "finishedAt": "2026-10-08T05:52:05.014Z",
+          "wallSeconds": 75.228
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "prism-only",
+          "rowId": "batch1-bld-cold-t18-f0p2-prism-only--probe-3",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:50:49.803Z",
+          "finishedAt": "2026-10-08T05:52:18.042Z",
+          "wallSeconds": 88.239
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-broad--probe-4",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:52:01.673Z",
+          "finishedAt": "2026-10-08T05:53:13.035Z",
+          "wallSeconds": 71.362
+        },
+        {
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 3,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          },
+          "rowId": "batch1-bld-warm-t5-early--probe-6",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:52:05.016Z",
+          "finishedAt": "2026-10-08T05:53:19.739Z",
+          "wallSeconds": 74.723
+        },
+        {
+          "experimentId": "post-phase10-local-basal-width-v1",
+          "experimentalBasalWidthCells": 3,
+          "rowId": "batch1-bld-warm-t5-full--probe-5",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:52:02.130Z",
+          "finishedAt": "2026-10-08T05:53:13.673Z",
+          "wallSeconds": 71.543
+        }
+      ],
+      "abortReason": null,
+      "unstartedRowIds": [],
+      "minimumAvailablePhysicalBytes": 53154033664,
+      "minimumCommitHeadroomBytes": 74116796416,
+      "maxSampledChildRssBytes": 109817856,
+      "wallSeconds": 152.209,
+      "rowsPerSecond": 0.04598939615922843,
+      "rowIds": [
+        "batch1-bld-cold-t18-f0p2-both--probe-0",
+        "batch1-bld-cold-t18-f0p2-neither--probe-1",
+        "batch1-bld-cold-t18-f0p2-basal-only--probe-2",
+        "batch1-bld-cold-t18-f0p2-prism-only--probe-3",
+        "batch1-bld-warm-t5-broad--probe-4",
+        "batch1-bld-warm-t5-full--probe-5",
+        "batch1-bld-warm-t5-early--probe-6"
+      ]
+    },
+    {
+      "concurrency": 8,
+      "qualified": true,
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable-probe\\concurrency-8",
+      "schema": "post-phase10-discovery-launch-complete-v1",
+      "experimentalRows": [
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-0",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-neither--probe-1",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "neither"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-basal-only--probe-2",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "basal-only"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-prism-only--probe-3",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "prism-only"
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-full--probe-5",
+          "experimentId": "post-phase10-local-basal-width-v1",
+          "experimentalBasalWidthCells": 3
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-early--probe-6",
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 3,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          }
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-7",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both"
+        }
+      ],
+      "launchName": "probe",
+      "gitHead": "d7ff3e1fb122ecbf8994539d3623928cbe5a9c6b",
+      "node": "v24.13.1",
+      "requestedConcurrency": 8,
+      "actualMaximumConcurrency": 8,
+      "launchedAt": "2026-10-08T05:53:21.661Z",
+      "finishedAt": "2026-10-08T05:54:56.383Z",
+      "exits": [
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "basal-only",
+          "rowId": "batch1-bld-cold-t18-f0p2-basal-only--probe-2",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:53:23.927Z",
+          "finishedAt": "2026-10-08T05:54:43.832Z",
+          "wallSeconds": 79.905
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both",
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-0",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:53:23.910Z",
+          "finishedAt": "2026-10-08T05:54:55.209Z",
+          "wallSeconds": 91.299
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both",
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-7",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:53:23.975Z",
+          "finishedAt": "2026-10-08T05:54:46.076Z",
+          "wallSeconds": 82.101
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "neither",
+          "rowId": "batch1-bld-cold-t18-f0p2-neither--probe-1",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:53:23.919Z",
+          "finishedAt": "2026-10-08T05:54:48.918Z",
+          "wallSeconds": 84.999
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "prism-only",
+          "rowId": "batch1-bld-cold-t18-f0p2-prism-only--probe-3",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:53:23.936Z",
+          "finishedAt": "2026-10-08T05:54:43.075Z",
+          "wallSeconds": 79.139
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-broad--probe-4",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:53:23.945Z",
+          "finishedAt": "2026-10-08T05:54:49.087Z",
+          "wallSeconds": 85.142
+        },
+        {
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 3,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          },
+          "rowId": "batch1-bld-warm-t5-early--probe-6",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:53:23.965Z",
+          "finishedAt": "2026-10-08T05:54:48.721Z",
+          "wallSeconds": 84.756
+        },
+        {
+          "experimentId": "post-phase10-local-basal-width-v1",
+          "experimentalBasalWidthCells": 3,
+          "rowId": "batch1-bld-warm-t5-full--probe-5",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:53:23.955Z",
+          "finishedAt": "2026-10-08T05:54:43.764Z",
+          "wallSeconds": 79.809
+        }
+      ],
+      "abortReason": null,
+      "unstartedRowIds": [],
+      "minimumAvailablePhysicalBytes": 52806766592,
+      "minimumCommitHeadroomBytes": 73722462208,
+      "maxSampledChildRssBytes": 110075904,
+      "wallSeconds": 93.548,
+      "rowsPerSecond": 0.0855175952452217,
+      "rowIds": [
+        "batch1-bld-cold-t18-f0p2-both--probe-0",
+        "batch1-bld-cold-t18-f0p2-neither--probe-1",
+        "batch1-bld-cold-t18-f0p2-basal-only--probe-2",
+        "batch1-bld-cold-t18-f0p2-prism-only--probe-3",
+        "batch1-bld-warm-t5-broad--probe-4",
+        "batch1-bld-warm-t5-full--probe-5",
+        "batch1-bld-warm-t5-early--probe-6",
+        "batch1-bld-cold-t18-f0p2-both--probe-7"
+      ]
+    },
+    {
+      "concurrency": 16,
+      "qualified": true,
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable-probe\\concurrency-16",
+      "schema": "post-phase10-discovery-launch-complete-v1",
+      "experimentalRows": [
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-0",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-neither--probe-1",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "neither"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-basal-only--probe-2",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "basal-only"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-prism-only--probe-3",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "prism-only"
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-full--probe-5",
+          "experimentId": "post-phase10-local-basal-width-v1",
+          "experimentalBasalWidthCells": 3
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-early--probe-6",
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 3,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          }
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-7",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-neither--probe-8",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "neither"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-basal-only--probe-9",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "basal-only"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-prism-only--probe-10",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "prism-only"
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-full--probe-12",
+          "experimentId": "post-phase10-local-basal-width-v1",
+          "experimentalBasalWidthCells": 3
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-early--probe-13",
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 3,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          }
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-14",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-neither--probe-15",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "neither"
+        }
+      ],
+      "launchName": "probe",
+      "gitHead": "d7ff3e1fb122ecbf8994539d3623928cbe5a9c6b",
+      "node": "v24.13.1",
+      "requestedConcurrency": 16,
+      "actualMaximumConcurrency": 16,
+      "launchedAt": "2026-10-08T05:54:56.421Z",
+      "finishedAt": "2026-10-08T05:57:02.779Z",
+      "exits": [
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "basal-only",
+          "rowId": "batch1-bld-cold-t18-f0p2-basal-only--probe-2",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:54:58.696Z",
+          "finishedAt": "2026-10-08T05:56:53.174Z",
+          "wallSeconds": 114.478
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "basal-only",
+          "rowId": "batch1-bld-cold-t18-f0p2-basal-only--probe-9",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:54:58.769Z",
+          "finishedAt": "2026-10-08T05:56:56.139Z",
+          "wallSeconds": 117.37
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both",
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-0",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:54:58.678Z",
+          "finishedAt": "2026-10-08T05:56:51.817Z",
+          "wallSeconds": 113.139
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both",
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-14",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:54:58.850Z",
+          "finishedAt": "2026-10-08T05:56:58.106Z",
+          "wallSeconds": 119.256
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both",
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-7",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:54:58.745Z",
+          "finishedAt": "2026-10-08T05:56:51.236Z",
+          "wallSeconds": 112.491
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "neither",
+          "rowId": "batch1-bld-cold-t18-f0p2-neither--probe-1",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:54:58.687Z",
+          "finishedAt": "2026-10-08T05:57:01.656Z",
+          "wallSeconds": 122.969
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "neither",
+          "rowId": "batch1-bld-cold-t18-f0p2-neither--probe-15",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:54:58.872Z",
+          "finishedAt": "2026-10-08T05:56:51.045Z",
+          "wallSeconds": 112.173
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "neither",
+          "rowId": "batch1-bld-cold-t18-f0p2-neither--probe-8",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:54:58.756Z",
+          "finishedAt": "2026-10-08T05:56:53.962Z",
+          "wallSeconds": 115.206
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "prism-only",
+          "rowId": "batch1-bld-cold-t18-f0p2-prism-only--probe-10",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:54:58.781Z",
+          "finishedAt": "2026-10-08T05:56:53.099Z",
+          "wallSeconds": 114.318
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "prism-only",
+          "rowId": "batch1-bld-cold-t18-f0p2-prism-only--probe-3",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:54:58.704Z",
+          "finishedAt": "2026-10-08T05:56:55.481Z",
+          "wallSeconds": 116.777
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-broad--probe-11",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:54:58.795Z",
+          "finishedAt": "2026-10-08T05:56:55.279Z",
+          "wallSeconds": 116.484
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-broad--probe-4",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:54:58.714Z",
+          "finishedAt": "2026-10-08T05:56:53.851Z",
+          "wallSeconds": 115.137
+        },
+        {
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 3,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          },
+          "rowId": "batch1-bld-warm-t5-early--probe-13",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:54:58.831Z",
+          "finishedAt": "2026-10-08T05:56:57.429Z",
+          "wallSeconds": 118.598
+        },
+        {
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 3,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          },
+          "rowId": "batch1-bld-warm-t5-early--probe-6",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:54:58.734Z",
+          "finishedAt": "2026-10-08T05:56:55.508Z",
+          "wallSeconds": 116.774
+        },
+        {
+          "experimentId": "post-phase10-local-basal-width-v1",
+          "experimentalBasalWidthCells": 3,
+          "rowId": "batch1-bld-warm-t5-full--probe-12",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:54:58.813Z",
+          "finishedAt": "2026-10-08T05:56:55.604Z",
+          "wallSeconds": 116.791
+        },
+        {
+          "experimentId": "post-phase10-local-basal-width-v1",
+          "experimentalBasalWidthCells": 3,
+          "rowId": "batch1-bld-warm-t5-full--probe-5",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-08T05:54:58.723Z",
+          "finishedAt": "2026-10-08T05:56:50.687Z",
+          "wallSeconds": 111.964
+        }
+      ],
+      "abortReason": null,
+      "unstartedRowIds": [],
+      "minimumAvailablePhysicalBytes": 52270432256,
+      "minimumCommitHeadroomBytes": 73099579392,
+      "maxSampledChildRssBytes": 111616000,
+      "wallSeconds": 125.235,
+      "rowsPerSecond": 0.12775981155427796,
+      "rowIds": [
+        "batch1-bld-cold-t18-f0p2-both--probe-0",
+        "batch1-bld-cold-t18-f0p2-neither--probe-1",
+        "batch1-bld-cold-t18-f0p2-basal-only--probe-2",
+        "batch1-bld-cold-t18-f0p2-prism-only--probe-3",
+        "batch1-bld-warm-t5-broad--probe-4",
+        "batch1-bld-warm-t5-full--probe-5",
+        "batch1-bld-warm-t5-early--probe-6",
+        "batch1-bld-cold-t18-f0p2-both--probe-7",
+        "batch1-bld-cold-t18-f0p2-neither--probe-8",
+        "batch1-bld-cold-t18-f0p2-basal-only--probe-9",
+        "batch1-bld-cold-t18-f0p2-prism-only--probe-10",
+        "batch1-bld-warm-t5-broad--probe-11",
+        "batch1-bld-warm-t5-full--probe-12",
+        "batch1-bld-warm-t5-early--probe-13",
+        "batch1-bld-cold-t18-f0p2-both--probe-14",
+        "batch1-bld-cold-t18-f0p2-neither--probe-15"
+      ]
+    },
+    {
+      "concurrency": 28,
+      "qualified": false,
+      "directory": "G:\\Code Files\\snowflake-bld-exploration\\out\\batch1-bld-resumable-probe\\concurrency-28",
+      "schema": "post-phase10-discovery-launch-complete-v1",
+      "experimentalRows": [
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-0",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-neither--probe-1",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "neither"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-basal-only--probe-2",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "basal-only"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-prism-only--probe-3",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "prism-only"
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-full--probe-5",
+          "experimentId": "post-phase10-local-basal-width-v1",
+          "experimentalBasalWidthCells": 3
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-early--probe-6",
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 3,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          }
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-7",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-neither--probe-8",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "neither"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-basal-only--probe-9",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "basal-only"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-prism-only--probe-10",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "prism-only"
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-full--probe-12",
+          "experimentId": "post-phase10-local-basal-width-v1",
+          "experimentalBasalWidthCells": 3
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-early--probe-13",
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 3,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          }
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-14",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-neither--probe-15",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "neither"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-basal-only--probe-16",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "basal-only"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-prism-only--probe-17",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "prism-only"
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-full--probe-19",
+          "experimentId": "post-phase10-local-basal-width-v1",
+          "experimentalBasalWidthCells": 3
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-early--probe-20",
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 3,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          }
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-21",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-neither--probe-22",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "neither"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-basal-only--probe-23",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "basal-only"
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p2-prism-only--probe-24",
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "prism-only"
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-full--probe-26",
+          "experimentId": "post-phase10-local-basal-width-v1",
+          "experimentalBasalWidthCells": 3
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-early--probe-27",
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 3,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          }
+        }
+      ],
+      "launchName": "probe",
+      "gitHead": "d7ff3e1fb122ecbf8994539d3623928cbe5a9c6b",
+      "node": "v24.13.1",
+      "requestedConcurrency": 28,
+      "actualMaximumConcurrency": 28,
+      "launchedAt": "2026-10-08T05:57:02.848Z",
+      "finishedAt": "2026-10-08T06:00:07.380Z",
+      "exits": [
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "basal-only",
+          "rowId": "batch1-bld-cold-t18-f0p2-basal-only--probe-16",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.314Z",
+          "finishedAt": "2026-10-08T06:00:05.274Z",
+          "wallSeconds": 179.96,
+          "termination": "batch-interrupted"
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "basal-only",
+          "rowId": "batch1-bld-cold-t18-f0p2-basal-only--probe-2",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.123Z",
+          "finishedAt": "2026-10-08T06:00:05.170Z",
+          "wallSeconds": 180.047,
+          "termination": "hard-wall-budget"
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "basal-only",
+          "rowId": "batch1-bld-cold-t18-f0p2-basal-only--probe-23",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.461Z",
+          "finishedAt": "2026-10-08T06:00:05.263Z",
+          "wallSeconds": 179.802,
+          "termination": "batch-interrupted"
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "basal-only",
+          "rowId": "batch1-bld-cold-t18-f0p2-basal-only--probe-9",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.195Z",
+          "finishedAt": "2026-10-08T06:00:05.215Z",
+          "wallSeconds": 180.02,
+          "termination": "batch-interrupted"
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both",
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-0",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.105Z",
+          "finishedAt": "2026-10-08T06:00:05.161Z",
+          "wallSeconds": 180.056,
+          "termination": "hard-wall-budget"
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both",
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-14",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.277Z",
+          "finishedAt": "2026-10-08T06:00:05.258Z",
+          "wallSeconds": 179.981,
+          "termination": "batch-interrupted"
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both",
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-21",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.416Z",
+          "finishedAt": "2026-10-08T06:00:05.279Z",
+          "wallSeconds": 179.863,
+          "termination": "batch-interrupted"
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "both",
+          "rowId": "batch1-bld-cold-t18-f0p2-both--probe-7",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.171Z",
+          "finishedAt": "2026-10-08T06:00:05.200Z",
+          "wallSeconds": 180.029,
+          "termination": "batch-interrupted"
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "neither",
+          "rowId": "batch1-bld-cold-t18-f0p2-neither--probe-1",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.114Z",
+          "finishedAt": "2026-10-08T06:00:05.153Z",
+          "wallSeconds": 180.039,
+          "termination": "hard-wall-budget"
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "neither",
+          "rowId": "batch1-bld-cold-t18-f0p2-neither--probe-15",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.297Z",
+          "finishedAt": "2026-10-08T06:00:05.237Z",
+          "wallSeconds": 179.94,
+          "termination": "batch-interrupted"
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "neither",
+          "rowId": "batch1-bld-cold-t18-f0p2-neither--probe-22",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.440Z",
+          "finishedAt": "2026-10-08T06:00:05.304Z",
+          "wallSeconds": 179.864,
+          "termination": "batch-interrupted"
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "neither",
+          "rowId": "batch1-bld-cold-t18-f0p2-neither--probe-8",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.183Z",
+          "finishedAt": "2026-10-08T06:00:05.210Z",
+          "wallSeconds": 180.027,
+          "termination": "batch-interrupted"
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "prism-only",
+          "rowId": "batch1-bld-cold-t18-f0p2-prism-only--probe-10",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.212Z",
+          "finishedAt": "2026-10-08T06:00:05.231Z",
+          "wallSeconds": 180.019,
+          "termination": "batch-interrupted"
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "prism-only",
+          "rowId": "batch1-bld-cold-t18-f0p2-prism-only--probe-17",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.334Z",
+          "finishedAt": "2026-10-08T06:00:05.284Z",
+          "wallSeconds": 179.95,
+          "termination": "batch-interrupted"
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "prism-only",
+          "rowId": "batch1-bld-cold-t18-f0p2-prism-only--probe-24",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.494Z",
+          "finishedAt": "2026-10-08T06:00:05.269Z",
+          "wallSeconds": 179.775,
+          "termination": "batch-interrupted"
+        },
+        {
+          "experimentId": "post-phase10-facet-isolation-v1",
+          "experimentalFacetDips": "prism-only",
+          "rowId": "batch1-bld-cold-t18-f0p2-prism-only--probe-3",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.132Z",
+          "finishedAt": "2026-10-08T06:00:05.184Z",
+          "wallSeconds": 180.052,
+          "termination": "hard-wall-budget"
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-broad--probe-11",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.226Z",
+          "finishedAt": "2026-10-08T06:00:05.226Z",
+          "wallSeconds": 180,
+          "termination": "batch-interrupted"
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-broad--probe-18",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.352Z",
+          "finishedAt": "2026-10-08T06:00:05.243Z",
+          "wallSeconds": 179.891,
+          "termination": "batch-interrupted"
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-broad--probe-25",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.524Z",
+          "finishedAt": "2026-10-08T06:00:05.299Z",
+          "wallSeconds": 179.775,
+          "termination": "batch-interrupted"
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-broad--probe-4",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.141Z",
+          "finishedAt": "2026-10-08T06:00:05.178Z",
+          "wallSeconds": 180.037,
+          "termination": "hard-wall-budget"
+        },
+        {
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 3,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          },
+          "rowId": "batch1-bld-warm-t5-early--probe-13",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.260Z",
+          "finishedAt": "2026-10-08T06:00:05.205Z",
+          "wallSeconds": 179.945,
+          "termination": "batch-interrupted"
+        },
+        {
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 3,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          },
+          "rowId": "batch1-bld-warm-t5-early--probe-20",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.391Z",
+          "finishedAt": "2026-10-08T06:00:05.294Z",
+          "wallSeconds": 179.903,
+          "termination": "batch-interrupted"
+        },
+        {
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 3,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          },
+          "rowId": "batch1-bld-warm-t5-early--probe-27",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.566Z",
+          "finishedAt": "2026-10-08T06:00:05.289Z",
+          "wallSeconds": 179.723,
+          "termination": "batch-interrupted"
+        },
+        {
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 3,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          },
+          "rowId": "batch1-bld-warm-t5-early--probe-6",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.161Z",
+          "finishedAt": "2026-10-08T06:00:05.189Z",
+          "wallSeconds": 180.028,
+          "termination": "hard-wall-budget"
+        },
+        {
+          "experimentId": "post-phase10-local-basal-width-v1",
+          "experimentalBasalWidthCells": 3,
+          "rowId": "batch1-bld-warm-t5-full--probe-12",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.244Z",
+          "finishedAt": "2026-10-08T06:00:05.220Z",
+          "wallSeconds": 179.976,
+          "termination": "batch-interrupted"
+        },
+        {
+          "experimentId": "post-phase10-local-basal-width-v1",
+          "experimentalBasalWidthCells": 3,
+          "rowId": "batch1-bld-warm-t5-full--probe-19",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.371Z",
+          "finishedAt": "2026-10-08T06:00:05.253Z",
+          "wallSeconds": 179.882,
+          "termination": "batch-interrupted"
+        },
+        {
+          "experimentId": "post-phase10-local-basal-width-v1",
+          "experimentalBasalWidthCells": 3,
+          "rowId": "batch1-bld-warm-t5-full--probe-26",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.545Z",
+          "finishedAt": "2026-10-08T06:00:05.247Z",
+          "wallSeconds": 179.702,
+          "termination": "batch-interrupted"
+        },
+        {
+          "experimentId": "post-phase10-local-basal-width-v1",
+          "experimentalBasalWidthCells": 3,
+          "rowId": "batch1-bld-warm-t5-full--probe-5",
+          "exitCode": null,
+          "signal": "SIGTERM",
+          "startedAt": "2026-10-08T05:57:05.151Z",
+          "finishedAt": "2026-10-08T06:00:05.195Z",
+          "wallSeconds": 180.044,
+          "termination": "hard-wall-budget"
+        }
+      ],
+      "abortReason": "worker-failure:batch1-bld-cold-t18-f0p2-neither--probe-1",
+      "unstartedRowIds": [],
+      "minimumAvailablePhysicalBytes": 51441373184,
+      "minimumCommitHeadroomBytes": 72135483392,
+      "maxSampledChildRssBytes": 110915584,
+      "wallSeconds": 182.456,
+      "rowsPerSecond": null,
+      "rowIds": [
+        "batch1-bld-cold-t18-f0p2-both--probe-0",
+        "batch1-bld-cold-t18-f0p2-neither--probe-1",
+        "batch1-bld-cold-t18-f0p2-basal-only--probe-2",
+        "batch1-bld-cold-t18-f0p2-prism-only--probe-3",
+        "batch1-bld-warm-t5-broad--probe-4",
+        "batch1-bld-warm-t5-full--probe-5",
+        "batch1-bld-warm-t5-early--probe-6",
+        "batch1-bld-cold-t18-f0p2-both--probe-7",
+        "batch1-bld-cold-t18-f0p2-neither--probe-8",
+        "batch1-bld-cold-t18-f0p2-basal-only--probe-9",
+        "batch1-bld-cold-t18-f0p2-prism-only--probe-10",
+        "batch1-bld-warm-t5-broad--probe-11",
+        "batch1-bld-warm-t5-full--probe-12",
+        "batch1-bld-warm-t5-early--probe-13",
+        "batch1-bld-cold-t18-f0p2-both--probe-14",
+        "batch1-bld-cold-t18-f0p2-neither--probe-15",
+        "batch1-bld-cold-t18-f0p2-basal-only--probe-16",
+        "batch1-bld-cold-t18-f0p2-prism-only--probe-17",
+        "batch1-bld-warm-t5-broad--probe-18",
+        "batch1-bld-warm-t5-full--probe-19",
+        "batch1-bld-warm-t5-early--probe-20",
+        "batch1-bld-cold-t18-f0p2-both--probe-21",
+        "batch1-bld-cold-t18-f0p2-neither--probe-22",
+        "batch1-bld-cold-t18-f0p2-basal-only--probe-23",
+        "batch1-bld-cold-t18-f0p2-prism-only--probe-24",
+        "batch1-bld-warm-t5-broad--probe-25",
+        "batch1-bld-warm-t5-full--probe-26",
+        "batch1-bld-warm-t5-early--probe-27"
+      ]
+    }
+  ],
+  "recommendedConcurrency": 16
+}

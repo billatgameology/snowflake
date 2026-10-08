@@ -1,0 +1,26 @@
+
+ RUN  v3.2.7 C:/Users/biao3/.codex/worktrees/hil-bld-results-integration/snowflake
+
+ ❯ runner/test/progress-index.test.ts (11 tests | 1 failed) 312ms
+   ✓ compact progress index and byte-exact historical record > preserves and labels the exact pre-housekeeping body without making it current authority 38ms
+   ✓ compact progress index and byte-exact historical record > rejects loss of current closed-phase, hold, history and actual next-step boundaries 4ms
+   ✓ compact progress index and byte-exact historical record > preserves the complete pre-compaction body byte-for-byte 1ms
+   ✓ compact progress index and byte-exact historical record > disables Git line-ending conversion for the byte-exact mixed-ending archive 86ms
+   × compact progress index and byte-exact historical record > keeps the live authority complete and unambiguous 4ms
+     → expected 258 to be less than or equal to 250
+   ✓ compact progress index and byte-exact historical record > keeps every local Markdown target in the current index and archive resolvable 12ms
+   ✓ compact progress index and byte-exact historical record > labels the archive as historical rather than a second current authority 8ms
+   ✓ compact progress index and byte-exact historical record > labels the phase 6/8/9 history file as historical rather than a second current authority 0ms
+   ✓ compact progress index and byte-exact historical record > allows session dates to advance while rejecting missing, duplicate or invalid dates 16ms
+   ✓ compact progress index and byte-exact historical record > preserves historical state-loss mutation coverage against its dated snapshot 142ms
+   ✓ compact progress index and byte-exact historical record > rejects a one-byte archived-body mutation independently of the archive producer 0ms
+ ✓ runner/test/nas-assets-catalog.test.ts (9 tests) 1311ms
+   ✓ tracked NAS asset catalogue > re-derives every machine-readable tracked owner selection  487ms
+   ✓ tracked NAS asset catalogue > assigns every live ledger row to exactly one collection owner  767ms
+ ✓ runner/test/evidence-integrity.test.ts (7 tests) 364ms
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  1 failed | 26 passed (27)
+   Start at  16:49:40
+   Duration  2.38s (transform 57ms, setup 0ms, collect 75ms, tests 1.99s, environment 0ms, prepare 117ms)
+

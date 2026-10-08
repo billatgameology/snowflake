@@ -1,0 +1,19 @@
+{
+  "format": "snowflake-nas-restore-receipt-v1",
+  "transactionId": "bld-first-batch-20261008-restore",
+  "identity": "bld-first-batch-output@2026-10-08",
+  "locator": "collections/bld-first-batch-output/2026-10-08/payload",
+  "publicationTransactionId": "bld-first-batch-20261008-publish",
+  "publicationReceiptPath": "_control/receipts/publication/bld-first-batch-output/2026-10-08/bld-first-batch-20261008-publish.json",
+  "publicationReceiptSha256": "21159f82053d9e4ea7ef4366db0a51313c5a11b7f1c6c1b2976e3bc9269e01c3",
+  "restored": {
+    "fileCount": 2061,
+    "totalBytes": 1050129781,
+    "treeSha256": "2c77efcd57f7586c68af44a1da257385f97333aec6487cbdf8c6aeb17e8585b0"
+  },
+  "verifiedAt": "2026-10-08T23:30:22.638Z",
+  "limits": [
+    "The receipt binds exact restored bytes but omits the host destination and all private filenames.",
+    "Claim-specific verifier adapters and tracked catalogue registration are outside this fixture core."
+  ]
+}
