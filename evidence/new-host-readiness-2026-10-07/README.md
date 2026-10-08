@@ -60,3 +60,11 @@ destinations; the current C backups are useful retained data, never cleanup scra
 Duplicate fresh-restore probes, build output and intermediate screenshots are working scratch.
 Their cited failure records and final accepted views are preserved here; existing source owners and
 the retained C backups remain the recovery authority for payloads omitted from this bundle.
+
+## Repository verification
+
+`verification/full-check-result.json` records exact `npm.cmd test` at stable source
+`cbe2542eef93aaee9a310e50e81aa06b1afed23b`: **226 files / 2,950 tests passed, 23 skipped**, 803.18 seconds.
+Original Windows PowerShell logs are byte-preserved UTF-16LE; the JSON result is the readable summary.
+Receipt/pin/closeout additions after this source checkpoint are metadata only and receive focused
+integrity/progress and prose checks, not another full run.

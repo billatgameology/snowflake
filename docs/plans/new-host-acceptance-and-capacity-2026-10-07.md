@@ -253,5 +253,20 @@ The durable receipt root is now
 NAS, capacity and resume paths above are byte-identical copies under that root; final product
 capture/images and exact product-check receipts also live there. Absolute execution paths inside
 JSON identify the original task checkout. Intermediate attempts are explicitly not final acceptance.
-Scientific source, accepted historical evidence and NAS source bytes remain unchanged. The combined
-integrity/full check and local ref/worktree reconciliation are the remaining closeout work.
+Scientific source, accepted historical evidence and NAS source bytes remain unchanged. The combined full check has passed; local ref/worktree reconciliation remains.
+
+## Final verification checkpoint
+
+Exact `npm.cmd test` at clean `cbe2542`, Node v24.13.1, exited zero:
+**226 files / 2,950 tests passed, 23 skipped**, 803.18 seconds.
+Rule 7 and both typechecks are included. Source: tracked
+`evidence/new-host-readiness-2026-10-07/verification/full-check-result.json`, 1,284 bytes,
+SHA-256 `251a251a57791da6bc05c50fa8756ffc30194234782a7c712c6569025f98cb46`; exact stdout, stderr and exit receipt are beside it.
+The expected fixture warnings/recovery diagnostics do not change the zero exit result.
+
+One bounded review of `cbe2542` found no concrete blocker/high finding. It was a non-author review
+of product/capacity changes with inherited shared context; the reviewer authored the NAS lane,
+so NAS conclusions are author reconciliation rather than independent review. It ran no additional
+tests, browser, science or NAS writes. Root's direct visual review remains separately attributed.
+No review-of-review follows. Local integration and disposition/reconciliation of the single
+task checkout/ref are next; no push or scientific campaign is authorized by these checks.

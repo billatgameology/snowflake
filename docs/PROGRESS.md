@@ -11,7 +11,7 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   restored and both small C-drive backups passed fresh-process recovery. Core continuation matched
   uninterrupted bytes in a fresh process. Glass/camera browser and direct visual acceptance pass after
   the framing/layout repairs. Durable receipts are in `evidence/new-host-readiness-2026-10-07/`;
-  the combined integrity check and local reconciliation remain. The short-row ladder recommends 16 workers for its ordinary N64 workload
+  the combined full check passed and local reconciliation remains. The short-row ladder recommends 16 workers for its ordinary N64 workload
   (task capacity receipt SHA-256 `eb79aa6ddcaddaf79c2ec45aa919e0a6e7363674bfe0dcfcb83dcb0b33b4936b`);
   larger/experimental rows remain unqualified. Scientific campaigns remain paused.
 - **Verification scope:** maker clarification is recorded through local `91c0684`: website/education
@@ -145,6 +145,13 @@ protocols; hours-scale gates are not setup smoke tests. Consult each completed p
 
 ## Verification
 
+New-host acceptance/evidence exact `npm.cmd test` at clean `cbe2542`, Node v24.13.1, exited zero:
+**226 files / 2,950 tests passed, 23 skipped**, 803.18 seconds.
+The tracked [full-check result](../evidence/new-host-readiness-2026-10-07/verification/full-check-result.json)
+binds source, command, raw logs and exit; Rule 7 and both typechecks are included. Product acceptance
+separately used five focused files / 59 tests, app build and the live browser/visual boundary.
+
+
 The agent-rules cleanup's `npm.cmd run lint:rule7`, `git diff --check` and bounded text review
 passed. Primary `out/agent-rules-cleanup-2026-10-07/document-checks-final.json` records 717 → 415
 AGENTS lines, all 18 unchanged rule headings, resolved links/anchors and the actual CLAUDE symlink;
@@ -210,7 +217,7 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 ## Next step
 
 Finish the [new-host follow-up](plans/new-host-acceptance-and-capacity-2026-10-07.md)'s remaining
-closeout: complete its combined integrity check and reconcile local main/worktree/ref.
+closeout: reconcile local main/worktree/ref after its passing combined full check.
 Comparison recovery, local glass/camera acceptance, both small independent backups, the measured
 N64 worker ladder and the scoped core continuation witness are done. The 151-input gallery remains
 ready to use in the primary checkout.

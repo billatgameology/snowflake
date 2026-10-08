@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 801,
- "totalBytes": 66337732,
+ "fileCount": 805,
+ "totalBytes": 66513400,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -3123,8 +3123,8 @@
    "sha256": "a792873184eb3b22b82ba2cfb770d7953d9beddaa5f3be4de10d73b33f3f679c"
   },
   "new-host-readiness-2026-10-07/README.md": {
-   "bytes": 4305,
-   "sha256": "68e90b16123125f07625d5e499878edc0327f8167c101e69d721c2dd183b8f27"
+   "bytes": 4786,
+   "sha256": "64ca245f1dca8339dc68921e044799b3d4d55801fa9690bd0221cd30b8faba8c"
   },
   "new-host-readiness-2026-10-07/resume/invocation-20261007T232906.exit.json": {
    "bytes": 206,
@@ -3209,6 +3209,22 @@
   "new-host-readiness-2026-10-07/resume/worker.mjs": {
    "bytes": 5157,
    "sha256": "e4cf60aa0a45ff8f33faa46cd5f78e4a7ca7293d0742d6c69a2c828711d51b10"
+  },
+  "new-host-readiness-2026-10-07/verification/full-check-result.json": {
+   "bytes": 1284,
+   "sha256": "251a251a57791da6bc05c50fa8756ffc30194234782a7c712c6569025f98cb46"
+  },
+  "new-host-readiness-2026-10-07/verification/npm-test-exit.json": {
+   "bytes": 231,
+   "sha256": "9805c1e8c7aac975cb50ecba72414fd2c0e8fb42c7aa99e519bed7965489ac1d"
+  },
+  "new-host-readiness-2026-10-07/verification/npm-test.error.log": {
+   "bytes": 67948,
+   "sha256": "af7ba91655a1e297519032d691921e464b001cc6ac96f600ec117767cde895e0"
+  },
+  "new-host-readiness-2026-10-07/verification/npm-test.log": {
+   "bytes": 105724,
+   "sha256": "aaf5c71b2cafdff9d9862c69f8d088a072bebcc8ace98761e187095d5a7ffb5a"
   }
  }
 }

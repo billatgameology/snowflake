@@ -1,0 +1,33 @@
+{
+  "schema": "new-host-full-check-result-v1",
+  "command": "npm.cmd test",
+  "sourceHead": "cbe2542eef93aaee9a310e50e81aa06b1afed23b",
+  "startedUtc": "2026-10-07T23:59:47.1828175Z",
+  "finishedUtc": "2026-10-08T00:13:19.5281396Z",
+  "exitCode": 0,
+  "node": "v24.13.1",
+  "testFilesPassed": 226,
+  "testsPassed": 2950,
+  "testsSkipped": 23,
+  "testsTotal": 2973,
+  "vitestDurationSeconds": 803.18,
+  "rule7": "passed",
+  "bothTypechecks": "passed",
+  "stdoutEncoding": "UTF-16LE with BOM (Windows PowerShell 5.1 redirection)",
+  "stderrScope": "Fixture Git line-ending warnings and expected lock-recovery diagnostics; check exited zero.",
+  "artifacts": {
+    "npm-test.log": {
+      "bytes": 105724,
+      "sha256": "aaf5c71b2cafdff9d9862c69f8d088a072bebcc8ace98761e187095d5a7ffb5a"
+    },
+    "npm-test.error.log": {
+      "bytes": 67948,
+      "sha256": "af7ba91655a1e297519032d691921e464b001cc6ac96f600ec117767cde895e0"
+    },
+    "npm-test-exit.json": {
+      "bytes": 231,
+      "sha256": "9805c1e8c7aac975cb50ecba72414fd2c0e8fb42c7aa99e519bed7965489ac1d"
+    }
+  },
+  "scope": "Stable implementation and 338 new evidence artifacts at sourceHead. Subsequent changes are verification receipts, pins and closeout prose only; focused integrity/progress and Rule 7 cover them."
+}
