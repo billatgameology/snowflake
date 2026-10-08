@@ -5,15 +5,16 @@ including **Tried and rejected**. The charter defines intended behavior; this in
 The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
 
 - **Last updated:** 2026-10-07 by Codex
-- **New-host follow-up:** [in progress](plans/new-host-acceptance-and-capacity-2026-10-07.md) in
-  `snowflake-resume-readiness`, branch `chore/resume-readiness-2026-10-07`: glass/camera acceptance,
-  bounded NAS recovery/custody checks and measured worker capacity. The six comparison inputs are
-  restored and both small C-drive backups passed fresh-process recovery. Core continuation matched
-  uninterrupted bytes in a fresh process. Glass/camera browser and direct visual acceptance pass after
-  the framing/layout repairs. Durable receipts are in `evidence/new-host-readiness-2026-10-07/`;
-  the combined full check passed and local reconciliation remains. The short-row ladder recommends 16 workers for its ordinary N64 workload
-  (task capacity receipt SHA-256 `eb79aa6ddcaddaf79c2ec45aa919e0a6e7363674bfe0dcfcb83dcb0b33b4936b`);
-  larger/experimental rows remain unqualified. Scientific campaigns remain paused.
+- **New-host follow-up:** [complete](plans/new-host-acceptance-and-capacity-2026-10-07.md),
+  locally integrated through `cf1386e`. Glass/camera browser and direct visual acceptance pass;
+  the six comparison inputs and both small independent C-drive backups are restored and verified.
+  The scoped core continuation matches uninterrupted bytes. Durable results and full-check receipts
+  live in `evidence/new-host-readiness-2026-10-07/`. The single task checkout/ref are reconciled
+  and removed; only the primary checkout/local main remain. Nothing was pushed.
+  The short-row ladder recommends 16 workers for its ordinary N64 workload (capacity receipt
+  SHA-256 `eb79aa6ddcaddaf79c2ec45aa919e0a6e7363674bfe0dcfcb83dcb0b33b4936b`);
+  larger/experimental rows remain unqualified and discovery-runner restart support remains absent.
+  Scientific campaigns remain paused.
 - **Verification scope:** maker clarification is recorded through local `91c0684`: website/education
   presentation uses focused product/content checks; executable science and evidence retain rigorous
   requirements. The active glass/camera plan's inherited full-suite criterion is removed; historical
@@ -87,8 +88,9 @@ wave is complete in the [adaptive discovery plan](plans/post-phase10-adaptive-di
 Its closing findings, raw inventory and verification are recorded in
 [the completed wave bundle](../evidence/post-phase10-wave-2026-10-01/README.md); exact retained
 outputs are in `post-phase10-science-output@2026-10-01`. No replacement campaign is authorized here.
-Before another nontrivial campaign, choose one new experiment, measure this host's process budget,
-and prove a representative scientific pause/resume path under the registered protocol.
+Before another nontrivial campaign, choose one new experiment and qualify its workload against the
+measured host budget. Prove representative continuation through the actual runner or register short
+independently terminal stages; the existing core witness alone is not production restart support.
 
 - **Phase 6 is COMPLETE (2026-08-20).** The accepted negative finding remains measured-only:
   no quantitative-validation label was earned. `gate6` exit 0 at `44488ab` re-derived the amended
@@ -145,6 +147,12 @@ protocols; hours-scale gates are not setup smoke tests. Consult each completed p
 
 ## Verification
 
+Local closeout metadata checks passed: `npx.cmd vitest run runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts`
+(**2 files / 18 tests**), `npm.cmd run lint:rule7` and `git -c core.whitespace=cr-at-eol diff --cached --check`.
+The [closeout result](../evidence/new-host-readiness-2026-10-07/verification/closeout-checks.json)
+binds commands, exits and exact logs; no implementation changes followed the full-check checkpoint.
+
+
 New-host acceptance/evidence exact `npm.cmd test` at clean `cbe2542`, Node v24.13.1, exited zero:
 **226 files / 2,950 tests passed, 23 skipped**, 803.18 seconds.
 The tracked [full-check result](../evidence/new-host-readiness-2026-10-07/verification/full-check-result.json)
@@ -188,7 +196,7 @@ custody remain retained. Primary `nas-retention-review.json` records the disposi
 ## Active plan
 
 - [New-host acceptance and capacity](plans/new-host-acceptance-and-capacity-2026-10-07.md) coordinates
-  the maker-authorized three work blocks; benchmark protocol is committed before its launch.
+  the completed maker-authorized three work blocks and their preserved protocols/results.
 - [Agent-rules follow-up](plans/repository-housekeeping-2026-10-07.md#agent-rules-follow-up--2026-10-07)
   is complete and locally integrated; accepted ADRs, science and evidence remain unchanged.
   Relevant failure/lesson/check references now belong in each existing
@@ -216,17 +224,17 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-Finish the [new-host follow-up](plans/new-host-acceptance-and-capacity-2026-10-07.md)'s remaining
-closeout: reconcile local main/worktree/ref after its passing combined full check.
-Comparison recovery, local glass/camera acceptance, both small independent backups, the measured
-N64 worker ladder and the scoped core continuation witness are done. The 151-input gallery remains
-ready to use in the primary checkout.
+The [new-host acceptance/NAS/capacity follow-up](plans/new-host-acceptance-and-capacity-2026-10-07.md)
+is complete. Continue the unfinished education/product work, or separately select and register one
+new finite scientific experiment. The 151-input gallery and accepted glass/camera comparison are
+ready in the primary checkout; presentation work uses focused product checks.
 
-The large-output restore/retention decision, education/film work on its owning computer, and a newly
-planned scientific experiment remain separate choices. For science, establish this host's runtime/concurrency and representative
-pause/resume before launch. Phase 7 and retired Phase 10 S6 do not start as a consequence of cleanup.
+For science, larger/experimental rows need matched capacity qualification. Require representative
+pause/resume before launch through the actual runner, or use short independently terminal stages.
+The ordinary core witness passed, but the discovery runner has no restart writer. Phase 7 remains
+on maker hold, and retired Phase 10 S6 stays closed.
 
-Ignored `out/` and research payloads are staging, not blanket deletion targets. Classify useful bytes,
-verify their class-specific recovery and use a separately reviewed exact prune list. Preserve unknown
-NAS material, unique/private sources, original workstation outputs and irreplaceable masters.
-Same-NAS archives, recycle/quarantine and loose copies are one failure domain, not independent backup.
+The full roughly 215 GB restoration and retained NAS custody/pruning remain separate decisions.
+Ignored output/research payloads are staging, not blanket deletion targets. Preserve unresolved
+NAS material, private/unique sources, original workstation outputs and irreplaceable masters.
+Same-NAS archives, quarantine and loose copies are one failure domain, not independent backup.

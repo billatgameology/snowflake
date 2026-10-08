@@ -68,3 +68,7 @@ the retained C backups remain the recovery authority for payloads omitted from t
 Original Windows PowerShell logs are byte-preserved UTF-16LE; the JSON result is the readable summary.
 Receipt/pin/closeout additions after this source checkpoint are metadata only and receive focused
 integrity/progress and prose checks, not another full run.
+
+`local-closeout.json` records exact working-output copy parity, safe scratch disposition,
+local fast-forward and ref/worktree removal. `verification/closeout-checks.json` closes its
+then-pending metadata checks; exact focused/Rule 7 logs and exit receipts are beside it.

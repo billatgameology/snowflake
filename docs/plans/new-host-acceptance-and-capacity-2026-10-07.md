@@ -1,11 +1,11 @@
 # Plan — New-host acceptance, NAS recovery and worker capacity
 
 - **Phase:** product acceptance and operational host readiness; no scientific campaign or gate
-- **Status:** in progress
+- **Status:** complete; locally integrated, no push
 - **Started:** 2026-10-07
 - **Last touched:** 2026-10-07 by Codex
-- **Worktree:** `C:/Users/biao3/Documents/GitHub/snowflake-resume-readiness`
-- **Branch:** `chore/resume-readiness-2026-10-07`, from `27a766b`
+- **Worktree:** former `C:/Users/biao3/Documents/GitHub/snowflake-resume-readiness`; reconciled and removed
+- **Branch:** former `chore/resume-readiness-2026-10-07`, from `27a766b`; merged and removed with `-d`
 
 ## Goal
 
@@ -82,7 +82,7 @@ than a failed acceptance, lost recovery or another interrupted long run. No extr
 - [x] Inspect the required views and close the existing glass plan only when every criterion passes.
 - [x] Commit a bounded current-host workload/concurrency protocol, then execute it with live receipts.
 - [x] Prove representative core pause/resume and record its exact scope/production limitation.
-- [ ] Record findings, review the stable deliverable once as needed, and reconcile local worktree/ref.
+- [x] Record findings, review the stable deliverable once as needed, and reconcile local worktree/ref.
 
 ## Verification
 
@@ -270,3 +270,23 @@ so NAS conclusions are author reconciliation rather than independent review. It 
 tests, browser, science or NAS writes. Root's direct visual review remains separately attributed.
 No review-of-review follows. Local integration and disposition/reconciliation of the single
 task checkout/ref are next; no push or scientific campaign is authorized by these checks.
+
+## Local closeout
+
+Primary `main` fast-forwarded through `cf1386e`. All 389 new-host working
+output files (29,721,213 bytes) copied byte-for-byte to the primary output root before
+non-force task worktree removal; the merged task ref was removed with `git branch -d`.
+Source: `evidence/new-host-readiness-2026-10-07/local-closeout.json`, 79,174 bytes, SHA-256 `f391332d911fd4911a66442a49eedfa2bf62f27b52234efa999474edd3f9634d`.
+The receipt binds the exact inventory and dispositions. Task dependencies/build output and the
+duplicate fresh-restore probe were declared scratch; retained NAS originals and independent C
+backups were untouched. Git left five dangling npm workspace links; their exact targets were
+checked before unlinking and empty-directory removal. Only the primary checkout/local main remain;
+the remote film branch is unchanged and the actual relative CLAUDE symlink is preserved.
+No push or scientific campaign ran. Final metadata checks cover the added receipts/pins and prose.
+
+Metadata verification passed: `npx.cmd vitest run runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts` ? 2 files / 18 tests;
+`npm.cmd run lint:rule7` and `git -c core.whitespace=cr-at-eol diff --cached --check` passed.
+Source: `evidence/new-host-readiness-2026-10-07/verification/closeout-checks.json`,
+1,896 bytes, SHA-256 `a48037150a44c2fbe0d874723719ba02488bd90840615dee28cd6bac0535a073`. The preceding closeout receipt records
+the check as pending at its creation; this result closes it. Only receipt/pin/prose changes followed
+the stable full-suite checkpoint. Implementation, historical scientific pins and NAS sources are unchanged.

@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 805,
- "totalBytes": 66513400,
+ "fileCount": 813,
+ "totalBytes": 66595912,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -3123,8 +3123,8 @@
    "sha256": "a792873184eb3b22b82ba2cfb770d7953d9beddaa5f3be4de10d73b33f3f679c"
   },
   "new-host-readiness-2026-10-07/README.md": {
-   "bytes": 4786,
-   "sha256": "64ca245f1dca8339dc68921e044799b3d4d55801fa9690bd0221cd30b8faba8c"
+   "bytes": 5058,
+   "sha256": "5facc32eb960c3bdeb425cc0bcd8b2467ebdc55dd8e58511599936fe7de799ab"
   },
   "new-host-readiness-2026-10-07/resume/invocation-20261007T232906.exit.json": {
    "bytes": 206,
@@ -3225,6 +3225,38 @@
   "new-host-readiness-2026-10-07/verification/npm-test.log": {
    "bytes": 105724,
    "sha256": "aaf5c71b2cafdff9d9862c69f8d088a072bebcc8ace98761e187095d5a7ffb5a"
+  },
+  "new-host-readiness-2026-10-07/local-closeout.json": {
+   "bytes": 79174,
+   "sha256": "f391332d911fd4911a66442a49eedfa2bf62f27b52234efa999474edd3f9634d"
+  },
+  "new-host-readiness-2026-10-07/verification/closeout-checks.json": {
+   "bytes": 1896,
+   "sha256": "a48037150a44c2fbe0d874723719ba02488bd90840615dee28cd6bac0535a073"
+  },
+  "new-host-readiness-2026-10-07/verification/closeout-focused-exit.json": {
+   "bytes": 142,
+   "sha256": "54c7eec194b924bd2e0579f0c59c73e7b53f4ca1e27549a7a860a65ac2dc9d08"
+  },
+  "new-host-readiness-2026-10-07/verification/closeout-focused.error.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "new-host-readiness-2026-10-07/verification/closeout-focused.log": {
+   "bytes": 730,
+   "sha256": "1546289071d06ba48c6ae5e7f7cb51b34f2d0a3a25f4c628268ca2d687d5bb0d"
+  },
+  "new-host-readiness-2026-10-07/verification/closeout-rule7-exit.json": {
+   "bytes": 72,
+   "sha256": "8a07bb0eabddb403f6543469c35bd89fcfbb70df2e73f6cf3958beb88006cbb0"
+  },
+  "new-host-readiness-2026-10-07/verification/closeout-rule7.error.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "new-host-readiness-2026-10-07/verification/closeout-rule7.log": {
+   "bytes": 226,
+   "sha256": "1d96af7fda4a7f809a7aa92ba75e5ea340f928e16a3701362b7567b6d44209c4"
   }
  }
 }

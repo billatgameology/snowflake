@@ -1,0 +1,4 @@
+﻿{
+    "command":  "npm.cmd run lint:rule7",
+    "exitCode":  0
+}

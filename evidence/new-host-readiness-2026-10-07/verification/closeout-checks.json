@@ -1,0 +1,48 @@
+{
+  "schema": "new-host-closeout-checks-v1",
+  "checkedHead": "cf1386ed37c79b72e42f6775fc27d6154125e413",
+  "stagedScope": "Local closeout receipt, evidence pins and current progress/plan prose only",
+  "focused": {
+    "command": "npx.cmd vitest run runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts",
+    "exitCode": 0,
+    "testFilesPassed": 2,
+    "testsPassed": 18
+  },
+  "rule7": {
+    "command": "npm.cmd run lint:rule7",
+    "exitCode": 0
+  },
+  "gitDiffCheck": "passed",
+  "artifacts": {
+    "closeout-focused.log": {
+      "bytes": 730,
+      "sha256": "1546289071d06ba48c6ae5e7f7cb51b34f2d0a3a25f4c628268ca2d687d5bb0d"
+    },
+    "closeout-focused.error.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "closeout-focused-exit.json": {
+      "bytes": 142,
+      "sha256": "54c7eec194b924bd2e0579f0c59c73e7b53f4ca1e27549a7a860a65ac2dc9d08"
+    },
+    "closeout-rule7.log": {
+      "bytes": 226,
+      "sha256": "1d96af7fda4a7f809a7aa92ba75e5ea340f928e16a3701362b7567b6d44209c4"
+    },
+    "closeout-rule7.error.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "closeout-rule7-exit.json": {
+      "bytes": 72,
+      "sha256": "8a07bb0eabddb403f6543469c35bd89fcfbb70df2e73f6cf3958beb88006cbb0"
+    }
+  },
+  "receiptAdditionScope": "These exact test outputs and this summary are preserved after the checks; their byte hashes and regular tracked modes are mechanically reconciled before commit. No implementation changes follow the full-check source cbe2542.",
+  "finalDiffCheck": {
+    "command": "git -c core.whitespace=cr-at-eol diff --cached --check",
+    "exitCode": 0,
+    "scope": "Preserved Windows PowerShell exit receipts contain CRLF. This command recognizes CR-at-EOL without rewriting their pinned bytes."
+  }
+}
