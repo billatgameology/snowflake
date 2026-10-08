@@ -50,14 +50,43 @@ or cutoff not reached leaves that comparison unresolved; it cannot establish an 
 One finite CLI provides `list HIL|BLD`, `probe HIL|BLD <directory>`,
 `launch HIL|BLD <directory> <probe-receipt>`, and `summarize <directory>`.
 HIL's process ceiling is 16 and BLD's 28, from the approved declared capacity minus four slots.
-Probe each host's actual row families with short three-update prefixes at increasing process
-counts up to its ceiling; bind the measured receipt to host, runtime, source and workload.
+Probe actual row families with short three-update prefixes at process counts 1/4/8/16 for HIL
+and 1/4/8/16/28 for BLD; bind the receipt to host, runtime, source and workload.
 Each probe child has a three-minute budget. A failed rung cannot qualify its worker count.
 Record available memory and commit headroom, per-process memory and actual concurrency/timing.
 Require at least 12 GiB available RAM and 8 GiB commit headroom. At launch, monitor those same
 limits and stop owned children/queue on exhaustion. Short-prefix measurements are explicitly
 non-transferable to mature geometry; live monitoring and bounded terminal stages manage that
 remaining uncertainty. No experimental checkpoint-resume claim is made.
+
+The finite representatives are six HIL paths (two seed geometries, two pressure extremes, and
+ordinary M1/no-dip histories) and seven BLD paths (four cold facet arms and three warm modes).
+`firstBatchRepresentativeRows()` names exact rows. At each rung, cycle these representatives
+through `max(representative count, requested workers)` jobs. These deliberately limited prefixes
+do not qualify every scientific setting or the post-event environment. A failed rung stops the
+ladder and leaves the largest earlier safe rung available; no completed rung means no launch.
+
+### Commands after publication
+
+In the clean task checkout on BLD, pull the published main version and install locked dependencies.
+List is immediate; probe runs actual bounded numerical work and records its limits. Close other
+heavy compute before qualification. Do not pull a changed source commit between probe and launch.
+
+```powershell
+git pull --ff-only origin main
+npm.cmd ci
+node runner/src/hil-bld-batch-main.ts list BLD
+node runner/src/hil-bld-batch-main.ts probe BLD out/batch1-bld-probe
+node runner/src/hil-bld-batch-main.ts launch BLD out/batch1-bld out/batch1-bld-probe/probe.json
+node runner/src/hil-bld-batch-main.ts summarize out/batch1-bld
+```
+
+HIL substitutes `HIL` and `batch1-hil`. The launch command uses the measured recommendation;
+it does not silently assume the planning ceiling. Run it in a persistent local terminal, or
+use PowerShell `Start-Process -WindowStyle Hidden` with separate launcher stdout/stderr paths.
+Per-case logs are already separate under `rows/<row-id>/`; `first-batch-BLD-status.json` records
+active/completed work and `first-batch-BLD-resources.jsonl` records sampled memory. Keep all output
+directories intact for joint review. Existing output paths are refused; repeat probes use new paths.
 
 Every row retains its command, source/runtime, separate stdout/stderr, exit status, spec,
 completed events, spatial snapshots and terminal status. Resume means rerunning an explicitly
