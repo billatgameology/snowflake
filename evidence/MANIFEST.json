@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 868,
- "totalBytes": 68510344,
+ "fileCount": 874,
+ "totalBytes": 81671047,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -3477,6 +3477,30 @@
   "discovery-resume-2026-10-07/closeout-lint.log": {
    "bytes": 112,
    "sha256": "e3595bf13fdc10870c5fe03c5705e46c3a92600ff733efd4e5413c5edaa2a72b"
+  },
+  "hil-exploration-batch2-2026-10-08/batch1-hil-triage-evidence-20261008.inventory.json": {
+   "bytes": 132511,
+   "sha256": "07048f3163b4091232d34e88631e552957ab0bdef8d66c80367bbcd85bf25faf"
+  },
+  "hil-exploration-batch2-2026-10-08/batch1-hil-triage-evidence-20261008.tar.gz": {
+   "bytes": 12600583,
+   "sha256": "4009f87d97d6360cc0cad403265a3ae94d014c6740f8052bb16aee6932d79175"
+  },
+  "hil-exploration-batch2-2026-10-08/completion-triage-20261008.json": {
+   "bytes": 125753,
+   "sha256": "e9faa81854186fd832d405a5747c4d859d8ac67acbbc58f7d313dba266b25b78"
+  },
+  "hil-exploration-batch2-2026-10-08/README.md": {
+   "bytes": 2144,
+   "sha256": "cc904d04ca0971a87e45dc34dbb8b1aac534225b618466019d506c646f3aab92"
+  },
+  "hil-exploration-batch2-2026-10-08/science-triage-20261008.json": {
+   "bytes": 298547,
+   "sha256": "bfd6b3aff529de2aaffac7c318baa43a0f1750b20c85b5d2b9f4e76f2df15034"
+  },
+  "hil-exploration-batch2-2026-10-08/first-batch-fresh-restore.json": {
+   "bytes": 1165,
+   "sha256": "41b987ccf6e6a0bfc878d89679bc2fc2d22bb6d2a1faa89dac56b92edd1c8319"
   }
  }
 }

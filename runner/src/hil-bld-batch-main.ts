@@ -5,10 +5,9 @@ import { resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { batchGitHead, batchHostIdentity, batchMemoryFailure, launchDiscoveryRows,
   sampleBatchHost, writeBatchJson, type DiscoveryRowExit } from "./hil-bld-batch-execution.ts";
-import { FIRST_BATCH_ID, FIRST_BATCH_PROBE_STEPS,
-  FIRST_BATCH_PROBE_WALL_SECONDS, FIRST_BATCH_ROWS,
-  FIRST_BATCH_WORKER_CEILINGS, firstBatchRepresentativeRows, firstBatchRows,
-  type FirstBatchHost } from "./hil-bld-batch-roster.ts";
+import { FIRST_BATCH_DEFINITION, FIRST_BATCH_PROBE_STEPS,
+  FIRST_BATCH_PROBE_WALL_SECONDS, namedBatchRows,
+  type DiscoveryBatchDefinition, type FirstBatchHost } from "./hil-bld-batch-roster.ts";
 import { runPostPhase10DiscoveryRow, type DiscoveryRow, type DiscoveryTerminalResult } from "./post-phase10-discovery.ts";
 import { summarizeFirstBatch, summarizeFirstBatchRow } from "./hil-bld-batch-summary.ts";
 import { withDiscoveryLeaseUpdate } from "./discovery-resume-io.ts";
@@ -22,8 +21,8 @@ export function parseFirstBatchHost(value: string): FirstBatchHost {
   return value;
 }
 
-export function firstBatchRosterSha256(host: FirstBatchHost): string {
-  return sha256(JSON.stringify(firstBatchRows(host)));
+export function firstBatchRosterSha256(host: FirstBatchHost, batch = FIRST_BATCH_DEFINITION): string {
+  return sha256(JSON.stringify(namedBatchRows(batch, host)));
 }
 
 function requireCleanCheckpoint(): void {
@@ -39,8 +38,8 @@ function newDirectory(path: string): string {
   return directory;
 }
 
-export function firstBatchProbeRows(host: FirstBatchHost, concurrency: number): readonly DiscoveryRow[] {
-  const representatives = firstBatchRepresentativeRows(host);
+export function firstBatchProbeRows(host: FirstBatchHost, concurrency: number, batch = FIRST_BATCH_DEFINITION): readonly DiscoveryRow[] {
+  const representatives = batch.representatives(host);
   return Array.from({ length: Math.max(concurrency, representatives.length) }, (_, index) => ({
     ...representatives[index % representatives.length].row,
     id: `${representatives[index % representatives.length].row.id}--probe-${index}`,
@@ -64,7 +63,7 @@ interface ProbeRung {
 
 export interface FirstBatchProbeReceipt {
   readonly schema: "hil-bld-first-batch-probe-v1";
-  readonly batchId: typeof FIRST_BATCH_ID;
+  readonly batchId: string;
   readonly host: FirstBatchHost;
   readonly gitHead: string;
   readonly node: string;
@@ -76,18 +75,19 @@ export interface FirstBatchProbeReceipt {
   readonly limit: string;
 }
 
-export function validateFirstBatchProbeReceipt(receipt: FirstBatchProbeReceipt, host: FirstBatchHost): number {
-  if (receipt.schema !== "hil-bld-first-batch-probe-v1" || receipt.batchId !== FIRST_BATCH_ID || receipt.host !== host) {
+export function validateFirstBatchProbeReceipt(receipt: FirstBatchProbeReceipt, host: FirstBatchHost, batch = FIRST_BATCH_DEFINITION): number {
+  namedBatchRows(batch, host);
+  if (receipt.schema !== "hil-bld-first-batch-probe-v1" || receipt.batchId !== batch.id || receipt.host !== host) {
     throw new Error("probe receipt belongs to a different batch or named host");
   }
   if (receipt.gitHead !== batchGitHead() || receipt.node !== process.version || receipt.v8 !== process.versions.v8 ||
-    receipt.rosterSha256 !== firstBatchRosterSha256(host) ||
+    receipt.rosterSha256 !== firstBatchRosterSha256(host, batch) ||
     JSON.stringify(receipt.hostIdentity) !== JSON.stringify(batchHostIdentity())) {
     throw new Error("probe source, runtime, host or workload does not match this launch; run this host's probe again");
   }
   const concurrency = receipt.recommendedConcurrency;
   if (concurrency === null || !Number.isSafeInteger(concurrency) || concurrency < 1 ||
-    concurrency > FIRST_BATCH_WORKER_CEILINGS[host] || !Array.isArray(receipt.rungs) ||
+    concurrency > batch.workerCeilings[host]! || !Array.isArray(receipt.rungs) ||
     !receipt.rungs.some((rung) => rung.qualified && rung.concurrency === concurrency &&
       rung.actualMaximumConcurrency === concurrency && rung.abortReason === null &&
       rung.minimumAvailablePhysicalBytes !== null && rung.minimumCommitHeadroomBytes !== null &&
@@ -115,23 +115,24 @@ export function completedProbePrefix(directory: string, exit: DiscoveryRowExit):
   } catch { return false; }
 }
 
-async function probe(host: FirstBatchHost, output: string): Promise<void> {
+async function probe(host: FirstBatchHost, output: string, batch: DiscoveryBatchDefinition, entryPath: string): Promise<void> {
   requireCleanCheckpoint();
+  namedBatchRows(batch, host);
   const directory = newDirectory(output);
-  const base = { schema: "hil-bld-first-batch-probe-v1" as const, batchId: FIRST_BATCH_ID, host,
+  const base = { schema: "hil-bld-first-batch-probe-v1" as const, batchId: batch.id, host,
     gitHead: batchGitHead(), node: process.version, v8: process.versions.v8,
-    hostIdentity: batchHostIdentity(), rosterSha256: firstBatchRosterSha256(host),
+    hostIdentity: batchHostIdentity(), rosterSha256: firstBatchRosterSha256(host, batch),
     limit: "Three-update exact-family prefixes only; not mature-geometry capacity, checkpoint continuation or scientific endpoints. Live memory monitoring remains required; scientific rows use checkpoints without a wall deadline." };
-  const ladder = host === "HIL" ? [1, 4, 8, 16] : [1, 4, 8, 16, 28];
+  const ladder = [1, 4, 8, 16, 28].filter((count) => count <= batch.workerCeilings[host]!);
   writeBatchJson(resolve(directory, "invocation.json"), { ...base, exactCommand: process.argv, ladder,
-    representatives: firstBatchRepresentativeRows(host), probeSteps: FIRST_BATCH_PROBE_STEPS,
+    representatives: batch.representatives(host), probeSteps: FIRST_BATCH_PROBE_STEPS,
     childWallSeconds: FIRST_BATCH_PROBE_WALL_SECONDS, startedAt: new Date().toISOString() });
   const rungs: ProbeRung[] = [];
   for (const concurrency of ladder) {
     const rungDirectory = newDirectory(resolve(directory, `concurrency-${concurrency}`));
-    const rows = firstBatchProbeRows(host, concurrency);
+    const rows = firstBatchProbeRows(host, concurrency, batch);
     const exits = await launchDiscoveryRows({ campaignDirectory: rungDirectory, launchName: "probe", rows, concurrency,
-      entryPath: ENTRY, workerArguments: (row, rowDirectory) => ["run-probe-row", row.id, rowDirectory],
+      entryPath, workerArguments: (row, rowDirectory) => ["run-probe-row", row.id, rowDirectory],
       hardWallSeconds: FIRST_BATCH_PROBE_WALL_SECONDS, stopOnWorkerFailure: true,
       monitor: { sample: sampleBatchHost } });
     const completion = readJson<{ actualMaximumConcurrency: number; abortReason: string | null;
@@ -154,7 +155,7 @@ async function probe(host: FirstBatchHost, output: string): Promise<void> {
 
 export interface FirstBatchCampaignReceipt {
   readonly schema: "hil-bld-first-batch-campaign-v2";
-  readonly batchId: typeof FIRST_BATCH_ID;
+  readonly batchId: string;
   readonly checkpointFormat: "discovery-resume-v1";
   readonly host: FirstBatchHost;
   readonly gitHead: string;
@@ -169,18 +170,18 @@ export interface FirstBatchCampaignReceipt {
 
 /** Old non-resumable campaigns cannot silently acquire the new execution contract. */
 export function validateFirstBatchCampaignReceipt(
-  campaign: FirstBatchCampaignReceipt, host: FirstBatchHost, probeReceiptBytes: Buffer,
+  campaign: FirstBatchCampaignReceipt, host: FirstBatchHost, probeReceiptBytes: Buffer, batch = FIRST_BATCH_DEFINITION,
 ): number {
   const concurrency = validateFirstBatchProbeReceipt(
-    JSON.parse(probeReceiptBytes.toString("utf8")) as FirstBatchProbeReceipt, host);
-  if (campaign.schema !== "hil-bld-first-batch-campaign-v2" || campaign.batchId !== FIRST_BATCH_ID ||
+    JSON.parse(probeReceiptBytes.toString("utf8")) as FirstBatchProbeReceipt, host, batch);
+  if (campaign.schema !== "hil-bld-first-batch-campaign-v2" || campaign.batchId !== batch.id ||
     campaign.checkpointFormat !== "discovery-resume-v1" || campaign.host !== host) {
     throw new Error("campaign does not belong to this resumable batch and named host");
   }
   if (campaign.gitHead !== batchGitHead() || campaign.node !== process.version || campaign.v8 !== process.versions.v8 ||
     JSON.stringify(campaign.hostIdentity) !== JSON.stringify(batchHostIdentity()) ||
-    campaign.rosterSha256 !== firstBatchRosterSha256(host) ||
-    JSON.stringify(campaign.rows) !== JSON.stringify(firstBatchRows(host).map((entry) => entry.row)) ||
+    campaign.rosterSha256 !== firstBatchRosterSha256(host, batch) ||
+    JSON.stringify(campaign.rows) !== JSON.stringify(namedBatchRows(batch, host).map((entry) => entry.row)) ||
     campaign.probeReceiptSha256 !== sha256(probeReceiptBytes) || campaign.requestedConcurrency !== concurrency) {
     throw new Error("campaign source, runtime, host, rows or probe binding does not match this resume");
   }
@@ -304,21 +305,22 @@ export function planFirstBatchResume(directory: string, rows: readonly Discovery
   return { pending, skippedRowIds };
 }
 
-async function launch(host: FirstBatchHost, output: string, probeReceiptPath: string, resuming = false): Promise<void> {
+async function launch(host: FirstBatchHost, output: string, probeReceiptPath: string,
+  batch: DiscoveryBatchDefinition, entryPath: string, resuming = false): Promise<void> {
   requireCleanCheckpoint();
   const receiptPath = resolve(probeReceiptPath);
   const receiptBytes = readFileSync(receiptPath);
-  const concurrency = validateFirstBatchProbeReceipt(JSON.parse(receiptBytes.toString("utf8")) as FirstBatchProbeReceipt, host);
+  const concurrency = validateFirstBatchProbeReceipt(JSON.parse(receiptBytes.toString("utf8")) as FirstBatchProbeReceipt, host, batch);
   const directory = resuming ? resolve(output) : newDirectory(output);
-  const entries = firstBatchRows(host);
+  const entries = namedBatchRows(batch, host);
   if (resuming) validateFirstBatchCampaignReceipt(
-    readJson<FirstBatchCampaignReceipt>(resolve(directory, "campaign.json")), host, receiptBytes);
+    readJson<FirstBatchCampaignReceipt>(resolve(directory, "campaign.json")), host, receiptBytes, batch);
   const release = acquireFirstBatchLease(directory);
   try {
     if (!resuming) writeBatchJson(resolve(directory, "campaign.json"), { schema: "hil-bld-first-batch-campaign-v2",
-      batchId: FIRST_BATCH_ID, checkpointFormat: "discovery-resume-v1", host, gitHead: batchGitHead(),
+      batchId: batch.id, checkpointFormat: "discovery-resume-v1", host, gitHead: batchGitHead(),
       node: process.version, v8: process.versions.v8,
-      rosterSha256: firstBatchRosterSha256(host), probeReceiptPath: receiptPath,
+      rosterSha256: firstBatchRosterSha256(host, batch), probeReceiptPath: receiptPath,
       probeReceiptSha256: sha256(receiptBytes), requestedConcurrency: concurrency,
       rows: entries.map((entry) => entry.row), entries, exactLaunchCommand: process.argv,
       createdAt: new Date().toISOString(), hostIdentity: batchHostIdentity() });
@@ -326,12 +328,12 @@ async function launch(host: FirstBatchHost, output: string, probeReceiptPath: st
       : { pending: entries.map(({ row }) => ({ row, command: "run-row" as const })), skippedRowIds: [] };
     const commands = new Map(selected.pending.map(({ row, command }) => [row.id, command]));
     const attemptName = resuming ? `resume-${Date.now()}-${randomUUID()}` : "initial";
-    const launchName = `first-batch-${host}${resuming ? `-${attemptName}` : ""}`;
+    const launchName = `${batch.launchPrefix}-${host}${resuming ? `-${attemptName}` : ""}`;
     writeBatchJson(resolve(directory, `${launchName}-invocation.json`), { host, attemptName,
       command: process.argv, skippedRowIds: selected.skippedRowIds,
       pending: selected.pending.map(({ row, command }) => ({ rowId: row.id, command })) });
     const exits = await launchDiscoveryRows({ campaignDirectory: directory, launchName,
-      rows: selected.pending.map(({ row }) => row), concurrency, entryPath: ENTRY, attemptName,
+      rows: selected.pending.map(({ row }) => row), concurrency, entryPath, attemptName,
       resumeExistingRows: resuming,
       workerArguments: (row, rowDirectory) => [commands.get(row.id)!, row.id, rowDirectory],
       stopOnWorkerFailure: false, monitor: { sample: sampleBatchHost } });
@@ -343,21 +345,21 @@ async function launch(host: FirstBatchHost, output: string, probeReceiptPath: st
     }
     console.log(JSON.stringify({ campaign: directory, attemptName, completionPath,
       skippedRowIds: selected.skippedRowIds,
-      summaryCommand: [process.execPath, ENTRY, "summarize", directory] }));
+      summaryCommand: [process.execPath, entryPath, "summarize", directory] }));
   } finally { release(); }
 }
 
-async function main(): Promise<void> {
+export async function runNamedDiscoveryBatch(batch = FIRST_BATCH_DEFINITION, entryPath = ENTRY): Promise<void> {
   const [command, ...args] = process.argv.slice(2);
   if (command === "list" && args.length === 1) {
     const host = parseFirstBatchHost(args[0]);
-    console.log(JSON.stringify({ batchId: FIRST_BATCH_ID, host, workerCeiling: FIRST_BATCH_WORKER_CEILINGS[host],
-      rosterSha256: firstBatchRosterSha256(host), entries: firstBatchRows(host) }, null, 2));
+    console.log(JSON.stringify({ batchId: batch.id, host, workerCeiling: batch.workerCeilings[host],
+      rosterSha256: firstBatchRosterSha256(host, batch), entries: namedBatchRows(batch, host) }, null, 2));
     return;
   }
-  if (command === "probe" && args.length === 2) return probe(parseFirstBatchHost(args[0]), args[1]);
-  if (command === "launch" && args.length === 3) return launch(parseFirstBatchHost(args[0]), args[1], args[2]);
-  if (command === "resume" && args.length === 3) return launch(parseFirstBatchHost(args[0]), args[1], args[2], true);
+  if (command === "probe" && args.length === 2) return probe(parseFirstBatchHost(args[0]), args[1], batch, entryPath);
+  if (command === "launch" && args.length === 3) return launch(parseFirstBatchHost(args[0]), args[1], args[2], batch, entryPath);
+  if (command === "resume" && args.length === 3) return launch(parseFirstBatchHost(args[0]), args[1], args[2], batch, entryPath, true);
   if (command === "summarize" && args.length === 1) {
     console.log(JSON.stringify(summarizeFirstBatch(resolve(args[0])), null, 2));
     return;
@@ -366,8 +368,8 @@ async function main(): Promise<void> {
     const probing = command === "run-probe-row";
     const sourceId = probing ? args[0].replace(/--probe-\d+$/, "") : args[0];
     if (probing && sourceId === args[0]) throw new Error("probe worker requires its indexed probe row ID");
-    const entry = FIRST_BATCH_ROWS.find((candidate) => candidate.row.id === sourceId);
-    if (entry === undefined) throw new Error(`unknown first-batch row: ${sourceId}`);
+    const entry = batch.rows.find((candidate) => candidate.row.id === sourceId);
+    if (entry === undefined) throw new Error(`unknown ${batch.id} row: ${sourceId}`);
     const row = probing ? { ...entry.row, id: args[0], maxSteps: FIRST_BATCH_PROBE_STEPS } : entry.row;
     const result = runPostPhase10DiscoveryRow(row, args[1], {
       checkpoint: command === "resume-row" ? "resume" : "create",
@@ -377,11 +379,11 @@ async function main(): Promise<void> {
       result.integrityErrors.length !== 0) process.exitCode = 1;
     return;
   }
-  throw new Error("Usage: node runner/src/hil-bld-batch-main.ts list HIL|BLD | probe HIL|BLD <new-directory> | launch HIL|BLD <new-directory> <probe.json> | resume HIL|BLD <campaign-directory> <probe.json> | summarize <campaign-directory>");
+  throw new Error(`Usage: node ${entryPath} list HIL|BLD | probe HIL|BLD <new-directory> | launch HIL|BLD <new-directory> <probe.json> | resume HIL|BLD <campaign-directory> <probe.json> | summarize <campaign-directory>`);
 }
 
 if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
-  main().catch((error: unknown) => {
+  runNamedDiscoveryBatch().catch((error: unknown) => {
     console.error(error instanceof Error ? error.stack ?? error.message : String(error));
     process.exitCode = 1;
   });

@@ -11,6 +11,20 @@ export interface FirstBatchEntry {
   readonly row: DiscoveryRow;
 }
 
+/** Finite registered rosters share the same local probe and resumable queue. */
+export interface DiscoveryBatchDefinition {
+  readonly id: string;
+  readonly launchPrefix: string;
+  readonly rows: readonly FirstBatchEntry[];
+  readonly workerCeilings: Readonly<Partial<Record<FirstBatchHost, number>>>;
+  readonly representatives: (host: FirstBatchHost) => readonly FirstBatchEntry[];
+}
+
+export function namedBatchRows(batch: DiscoveryBatchDefinition, host: FirstBatchHost): readonly FirstBatchEntry[] {
+  if (batch.workerCeilings[host] === undefined) throw new Error(`batch ${batch.id} is not assigned to ${host}`);
+  return batch.rows.filter((entry) => entry.host === host);
+}
+
 export const FIRST_BATCH_ID = "hil-bld-first-batch-2026-10-07" as const;
 export const FIRST_BATCH_WORKER_CEILINGS = Object.freeze({ HIL: 16, BLD: 28 });
 export const FIRST_BATCH_PROBE_WALL_SECONDS = 3 * 60;
@@ -161,3 +175,8 @@ export function firstBatchRepresentativeRows(host: FirstBatchHost): readonly Fir
     return entry;
   }));
 }
+
+export const FIRST_BATCH_DEFINITION: DiscoveryBatchDefinition = Object.freeze({
+  id: FIRST_BATCH_ID, launchPrefix: "first-batch", rows: FIRST_BATCH_ROWS,
+  workerCeilings: FIRST_BATCH_WORKER_CEILINGS, representatives: firstBatchRepresentativeRows,
+});

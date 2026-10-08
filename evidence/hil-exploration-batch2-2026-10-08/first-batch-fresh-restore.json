@@ -1,0 +1,18 @@
+{
+  "schema": "hil-first-batch-triage-fresh-restore-v1",
+  "startedUtc": "2026-10-08T14:37:48.304576+00:00",
+  "finishedUtc": "2026-10-08T14:37:48.995240+00:00",
+  "command": "Python tarfile extraction with data filter; compare exact regular-file set and every byte length/SHA-256 to the archived inventory",
+  "execution": "Root task full-access session, no sandbox override",
+  "python": "3.13.15 (tags/v3.13.15:4061bc4, Aug  5 2026, 13:05:39) [MSC v.1944 64 bit (AMD64)]",
+  "archiveBytes": 12600583,
+  "archiveSha256": "4009f87d97d6360cc0cad403265a3ae94d014c6740f8052bb16aee6932d79175",
+  "inventorySha256": "07048f3163b4091232d34e88631e552957ab0bdef8d66c80367bbcd85bf25faf",
+  "payloadFilesVerified": 456,
+  "payloadBytesVerified": 95965035,
+  "archiveMembersVerified": 457,
+  "freshExtraction": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out\\batch2-verification\\first-batch-fresh-restore",
+  "exactSetAndEveryBindingMatch": true,
+  "originalSourcesRetained": true,
+  "limits": "Local fresh restoration of published claim bytes only; no solver checkpoint migration, scientific rerun or prune authorization."
+}

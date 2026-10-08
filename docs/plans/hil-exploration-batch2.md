@@ -52,6 +52,9 @@ Keep the original outputs, including failed tails and all committed checkpoints.
 checkpoints are one cycle before the failed publication; this task does not migrate their source
 binding or silently relaunch them under changed source.
 
+The [tracked triage bundle](../../evidence/hil-exploration-batch2-2026-10-08/README.md) retains
+the named measurements, complete receipts and exact source-byte archive behind these leads.
+
 ## Frozen roster and stopping rules
 
 | HIL block | Cartesian conditions | Rows |
@@ -130,6 +133,12 @@ owned-process stop script and separate stdout/stderr/exit receipts before dispat
 the same source, runtime, host and output directory. Write live progress in primary after freezing
 the execution HEAD. No timer terminates production. Do not start a duplicate coordinator.
 
+Hidden-run scripts are prepared in `out/batch2-hil-control-20261008/` in the execution checkout.
+Exact pause: `powershell.exe -NoProfile -ExecutionPolicy Bypass -File out/batch2-hil-control-20261008/stop-hil.ps1`.
+The script records and stops only this new entry point's campaign/probe workers and its own wrapper;
+it retains all output. `resume-hil.ps1` runs the registered resume command in a persistent terminal.
+`state.json`, distinct stdout/stderr logs and real exit receipts record qualification and production.
+
 ## Source currency
 
 Bounded check on 2026-10-08 rechecked arXiv submission histories for
@@ -142,8 +151,8 @@ operator and provenance limitations.
 
 ## Steps
 
-- [ ] Commit protocol and correct stale first-batch live state.
-- [ ] Implement bounded checkpoint publication retry and sixteen-row batch selection.
+- [x] Commit protocol and correct stale first-batch live state (`164384a`).
+- [x] Implement bounded checkpoint publication retry and sixteen-row batch selection.
 - [ ] Verify fault handling, first-batch compatibility, selection and exact full check; preserve receipts.
 - [ ] Reconcile task worktrees/branches, commit and publish shared source.
 - [ ] Measure HIL capacity, launch new queue and record live checkpoints/commands.
@@ -153,7 +162,39 @@ operator and provenance limitations.
 Old-checkpoint migration/recovery, BLD process control, larger grids/targets, scientific-law changes,
 new physical validation, Phase 7 (maker hold), S6 (closed), education and asset cleanup.
 
+## Implementation checkpoint
+
+The new entry point reuses the existing runner with an explicit finite batch definition. Original
+HIL/BLD roster SHA-256 values remain `333a1977961ecc7d70161157f8ebad117326e1a46729c1bbbfbf0f590f439f0b`
+and `866adbd2c6534efa4ec1ca5659fc46d2f2d765c9d662e057862f4f77024912be`, independently recomputed
+from retained `b9cf7ed` before the change and checked in `hil-batch2.test.ts`.
+Only generation and pointer publication retry the named error codes; six delays total 1575 ms,
+then the seventh failed rename propagates. Solver evolution and checkpoint state/eligibility do
+not change. Tests save real cycle-two/cycle-three state and verify transient publication equality,
+persistent failure's unchanged old pointer/state and immediate nonretryable failure.
+
+One bounded non-author Codex/GPT-6 review with inherited shared context found no unresolved blocker.
+It independently executed four batch-selection tests and ten publication-fault tests after the
+fixture correction below. It read dispatch/receipt/row and I/O changes; it did not run the full
+suite, an N64 probe, a campaign or recovery of old failures. Root's six-file focused runner/progress
+check passed 47 tests; both typechecks passed before the final I/O addition. Exact full verification
+at the clean combined checkpoint is next.
+
+`first-batch-fresh-restore.json` in the tracked bundle records a successful fresh extraction of
+457 archive members, with all 456 payload files / 95965035 bytes matching the inventory. The
+12600583-byte archive has SHA-256 `4009f87d97d6360cc0cad403265a3ae94d014c6740f8052bb16aee6932d79175`.
+All original bytes remain. Rule 16's `out/batch2-verification/worktree-inventory-before-publication.json`
+classifies four checkouts: primary's two task-owned live prose copies are included and corrected;
+both old execution sources/outputs remain retained; batch2 is the sole implementation branch.
+There is no temporary review checkout, unrelated source delta, PR or deletion.
+
 ## Tried and rejected
+
+- The first publication-fault fixture replaced an old committed event prefix with an independently
+  executed run's RSS-bearing bytes, so persistent-failure loads correctly rejected the digest.
+  Root observed two failures, the reviewer four under different RSS. Preserve the actual old prefix
+  and append only the third observation. Ten fault tests then pass; no I/O behavior was changed
+  to accommodate the faulty fixture. Original focused logs remain in verification staging.
 
 - Calling all 56 rows successfully complete: six operational failures remain unresolved. Distinguish
   a finished coordinator from successful scientific endpoints.

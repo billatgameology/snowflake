@@ -48,6 +48,21 @@ const readJson = <T>(path: string): T => JSON.parse(readFileSync(path, "utf8")) 
 const jsonBytes = (value: unknown): Buffer => Buffer.from(`${JSON.stringify(value, null, 2)}\n`);
 const generationName = /^generation-\d+-[a-f0-9-]{36}$/;
 const snapshotName = /^boundary-e[1-9]\d*\.json$/;
+const publicationRetryDelaysMs = [25, 50, 100, 200, 400, 800] as const;
+const publicationWait = new Int32Array(new SharedArrayBuffer(4));
+
+/** Briefly tolerate a busy publication target without repeating scientific work. */
+function publishRename(source: string, destination: string): void {
+  for (let attempt = 0; ; attempt++) {
+    try { renameSync(source, destination); return; }
+    catch (error) {
+      const code = (error as NodeJS.ErrnoException).code;
+      if (!["EPERM", "EACCES", "EBUSY"].includes(code ?? "") ||
+          attempt === publicationRetryDelaysMs.length) throw error;
+      Atomics.wait(publicationWait, 0, 0, publicationRetryDelaysMs[attempt]);
+    }
+  }
+}
 
 /** Serialize the short stale-owner decision as well as creation, so takeover cannot delete a new owner. */
 export function withDiscoveryLeaseUpdate<T>(leasePath: string, operation: () => T): T {
@@ -124,7 +139,7 @@ function validateRunner(state: DiscoveryRunnerResumeState, tick: number): void {
   }
 }
 
-/** Row-local publication and recovery; no scientific evolution or automatic retry policy. */
+/** Row-local publication and recovery; publication retries never repeat scientific evolution. */
 export class DiscoveryCheckpointStore {
   readonly output: string;
   readonly root: string;
@@ -227,14 +242,14 @@ export class DiscoveryCheckpointStore {
     if (digest(readFileSync(resolve(pending, "solver.bin"))) !== manifest.solver.sha256) throw new Error("checkpoint write verification failed");
     const manifestBytes = jsonBytes(manifest);
     writeFileSync(resolve(pending, "manifest.json"), manifestBytes, { flag: "wx" });
-    renameSync(pending, resolve(this.root, name));
+    publishRename(pending, resolve(this.root, name));
     const pointerPath = resolve(this.root, "latest.json");
     const old = existsSync(pointerPath) ? readJson<Pointer>(pointerPath) : null;
     const pointer: Pointer = { schema: "discovery-row-resume-pointer-v1",
       current: { directory: name, manifestSha256: digest(manifestBytes) }, previous: old?.current ?? null };
     const tempPointer = resolve(this.root, `latest-${randomUUID()}.tmp`);
     writeFileSync(tempPointer, jsonBytes(pointer), { flag: "wx" });
-    renameSync(tempPointer, pointerPath);
+    publishRename(tempPointer, pointerPath);
     // Only this writer's now-superseded third generation is scratch under the two-generation protocol.
     if (old?.previous !== null && old?.previous !== undefined) {
       const obsolete = this.generationPath(old.previous);
