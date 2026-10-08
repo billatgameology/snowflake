@@ -1,9 +1,9 @@
 # HIL / BLD first exploration batch
 
 - **Scope:** executable first stage of the maker-approved post-Phase-10 portfolio; development evidence only.
-- **Status:** BLD legacy run stopped at maker request; implementing checkpoint continuation under ADR 0060. The amendment below supersedes its four-hour limit and seed-rerun recovery. HIL remains on the published original path.
-- **Branch / destination:** `science/hil-bld-first-batch` -> `origin/main`.
-- **Authority:** [adaptive discovery](post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld), accepted ADRs 0055-0059, attachment-kinetics specification. No phase gate changes.
+- **Status:** BLD continuation is implemented and verified under ADR 0060; the staged wrapper runs fresh qualification then the authorized queue. Its amendment supersedes the four-hour limit and seed-rerun recovery. HIL remains on the published original path.
+- **Branch / destination:** original shared producer `science/hil-bld-first-batch` -> `origin/main`; current BLD task is `codex/bld-exploration`.
+- **Authority:** [adaptive discovery](post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld), accepted ADRs 0055-0060, attachment-kinetics specification. No phase gate changes.
 
 ## Goal and done when
 
@@ -313,3 +313,20 @@ Test Files  1 failed | 232 passed (233)
 ```
 
 The only failures are unchanged asset-comparison fixtures attempting Windows file/directory symlinks without permission. The test and production builder match main; no scientific assertion failed. Split the mixed fixtures so mismatched-root and binary-header controls always run; only capability-unavailable symlink cases skip, matching the existing nearest test pattern. Production guards and experiment code are unchanged. The focused repaired file and both typechecks pass; a second exact full check at the repaired stable checkpoint follows. The first failure log is retained, not relabeled green.
+
+## Verified BLD recovery and resumed dispatch
+
+Exact npm.cmd test at a507a01, Node v24.13.1, exited zero: 233 files / 2990 tests passed, 55 skipped; 1429.46 seconds. Source: [verification](../../evidence/bld-resume-2026-10-07/verification.json), final result and raw logs in that bundle. Rule 7 and both typechecks are included. The first attempt's two Windows fixture setup failures remain recorded; only capability-dependent test setup changed, not production checks.
+
+The actual N64 early-width witness at 9e0986e was killed after its first saved update, restored in a new process and compared after 3 updates with an uninterrupted control. Both 4458203-byte checkpoints have SHA-256 1e3b246d92a2f067fbe47c7b6ac9d4b7b6f58146dcb6bc905453e7ed518d661b; scientific events also match. The receipt, archive and exact restore inventory are retained. This short prefix does not establish cutoff behavior or a scientific endpoint; small-grid multiple-resume tests cover those boundaries. Executable core/solver/runner source matches the final-check commit exactly.
+
+One bounded Codex/GPT-6 shared-context non-author review found no blocker; review.json states its commands and limits. The original stopped run, probe and control records are permanently retained in the verified legacy archive; their summary remains unresolved. No source output was pruned.
+
+The maker's proceeding authorization now applies to the repaired path. From the clean task checkout, start out/batch1-bld-resumable-control/run-stages.ps1 hidden with -Mode auto: it runs the fresh registered probe, then launches only with its successful receipt. Separate probe/launch stdout, stderr, start and exit records retain actual outcomes. The CLI enforces source/runtime/host/roster and memory limits. Read those records, out/batch1-bld-resumable-probe/probe.json and campaign attempt/row status before duplicate work. No measured concurrency is asserted until the new probe records it. Keep this commit unchanged through qualification, launch and resume. The wrapper accepts -Mode resume; the direct pause/resume commands above remain authoritative. A deliberate exit-7 wrapper smoke verified child exit capture and is retained locally.
+
+### Tried and rejected at closeout
+
+- Unconditional symlink fixture construction failed on BLD before its guard assertion. Split mixed controls and skip only known Windows capability failures; retain production checks and the unrelated root/header controls.
+- The legacy four-hour campaign remains an interrupted historical prefix. Its output is preserved, but it cannot be retroactively resumed. New rows use separate checkpoint state/output.
+
+Metadata closeout: evidence-integrity/progress-index, Rule 7 and the staged whitespace check passed after evidence promotion. The whitespace check preserves the four exact raw full-check logs and the retained portability patch by excluding only those five artifact paths; no recorded bytes were normalized. Numerical and runner source remains the tested implementation.

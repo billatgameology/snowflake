@@ -1,0 +1,18 @@
+{
+  "schema": "bld-resume-review-v1",
+  "source": "9e0986e",
+  "reviewer": "Codex/GPT-6 (exact variant not exposed)",
+  "sharedContext": true,
+  "scope": "Bounded non-author read-only review of experimental checkpoint identity, complete state restore, ordinary refusals, output continuity, rolling publication, pause ownership and BLD wall-time removal.",
+  "blockingFindings": [],
+  "independentCommand": "npx.cmd vitest run core/test/lk-experimental-resume-checkpoint.test.ts solver-cpu/test/lk-experimental-resume.test.ts runner/test/post-phase10-discovery-resume.test.ts runner/test/hil-bld-batch-execution.test.ts runner/test/hil-bld-batch-summary.test.ts --maxWorkers 2",
+  "reportedResult": {
+    "exitCode": 0,
+    "testFiles": 5,
+    "tests": 53,
+    "seconds": 33.57
+  },
+  "rawOutput": "Tool session 26823; no filesystem transcript retained for this review run. The separately retained exact full suite exercises these tests again.",
+  "limits": "Shared parent context; no full suite, N64 long campaign or actual OS-reboot durability exercise independently run. Root owns full check and N64 interruption witness.",
+  "nonBlockingCorrection": "Accidental Unicode comment drift from an edit tool was restored against HEAD before the stable implementation commit."
+}

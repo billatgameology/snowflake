@@ -1,0 +1,11 @@
+{
+  "command": "npm.cmd test",
+  "head": "a507a01de8bdcc33486ca012b4ee1acd2766384a",
+  "dirty": "",
+  "node": "v24.13.1",
+  "v8": "13.6.233.17-node.40",
+  "startedAt": "2026-10-08T05:14:07.836Z",
+  "finishedAt": "2026-10-08T05:38:12.266Z",
+  "exitCode": 0,
+  "signal": null
+}

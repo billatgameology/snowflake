@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 849,
- "totalBytes": 66800397,
+ "fileCount": 870,
+ "totalBytes": 68832864,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -3401,6 +3401,90 @@
   "hil-bld-first-batch-2026-10-07/custody.json": {
    "bytes": 6956,
    "sha256": "2597c7ac884b7725acbfa0049ae7c2f4203f6d4d7a7225479eb54d829b2d4926"
+  },
+  "bld-resume-2026-10-07/actual-witness-archive.json": {
+   "bytes": 304,
+   "sha256": "556290cea52a70d5add82177e73991f77106310170582da5879b33750d7fa19a"
+  },
+  "bld-resume-2026-10-07/actual-witness-receipt.json": {
+   "bytes": 2674,
+   "sha256": "78e86001f03801e899fb5996937beaf107b9ba46255abd093d31703e7540a747"
+  },
+  "bld-resume-2026-10-07/actual-witness-restore.json": {
+   "bytes": 5191,
+   "sha256": "ad68c67f0c17a7721ff0b7058517b9f4d8f1ae74f8ed5bb86211c39d103d9a58"
+  },
+  "bld-resume-2026-10-07/actual-witness.mjs": {
+   "bytes": 3549,
+   "sha256": "9cd7025ffcb8d50e8b33937ca7de6de55d762264854bd16b5e137cc66a8f0e13"
+  },
+  "bld-resume-2026-10-07/actual-witness.tar.gz": {
+   "bytes": 1179368,
+   "sha256": "b0d141531bd2cf3c4b7c390621a83f7af13e30cac35f5d42875c31c291da37e1"
+  },
+  "bld-resume-2026-10-07/comparison-builder-symlink-portability.patch": {
+   "bytes": 2847,
+   "sha256": "2c89081d6103f1879e6ae3420070997c72a9401b82807f73ae42a7d836c457cf"
+  },
+  "bld-resume-2026-10-07/first-attempt-result.json": {
+   "bytes": 276,
+   "sha256": "9e8cf9b3cedc83ad2daf3bd85925d0696c201e2598ef44f8c4796cdddd1633e3"
+  },
+  "bld-resume-2026-10-07/first-attempt-start.json": {
+   "bytes": 197,
+   "sha256": "7a1f5e5dee3bece69115f61f7fc2fd82829670ff28885cfa1dc51cd27f300abc"
+  },
+  "bld-resume-2026-10-07/first-attempt.stderr.log": {
+   "bytes": 39858,
+   "sha256": "9569c4f2951548240f05f0a224b4273073a676c6ad5240c920e61939cdf9cbf1"
+  },
+  "bld-resume-2026-10-07/first-attempt.stdout.log": {
+   "bytes": 76127,
+   "sha256": "58889da02e2da2f30e03301ea019628e8b6a4b3cd2b6670d291227bc82444d52"
+  },
+  "bld-resume-2026-10-07/full-check-result.json": {
+   "bytes": 276,
+   "sha256": "fe001109d5366d549c9d458fec61570675d550c135cb7b65729d36eae84a5ead"
+  },
+  "bld-resume-2026-10-07/full-check-start.json": {
+   "bytes": 197,
+   "sha256": "a3bf72d65e214edd6b2f222ef66ccbfb84adc5e9456d561c3bb45b2dfc3e94e1"
+  },
+  "bld-resume-2026-10-07/full-check.stderr.log": {
+   "bytes": 38047,
+   "sha256": "bb61d243a41916853a71bb00c4a1418b3e75acab209e215d9fe1e5a3db454ecd"
+  },
+  "bld-resume-2026-10-07/full-check.stdout.log": {
+   "bytes": 73333,
+   "sha256": "b7173e3f099970558a9bf9e751febdc84b4efdd0f4942ed5f9cecfb053e352b9"
+  },
+  "bld-resume-2026-10-07/legacy-interrupted-bld.json": {
+   "bytes": 172120,
+   "sha256": "9ffa83c64fa4edd694350991793bb2e123d29c47bbadc4f8ce81045d2c497fb9"
+  },
+  "bld-resume-2026-10-07/legacy-interrupted-bld.tar.gz": {
+   "bytes": 430131,
+   "sha256": "9103feada53b6bf6faff8cb08acaf639ed31ba313e8234ae8628018a19994665"
+  },
+  "bld-resume-2026-10-07/README.md": {
+   "bytes": 1395,
+   "sha256": "07eee97ad199b87c2d414ebc9238c5acddf83797ec0da10e8b7e691acc67b19c"
+  },
+  "bld-resume-2026-10-07/review.json": {
+   "bytes": 1275,
+   "sha256": "33b789a037ee903e9c0e3c1366f45b2512453788db001fd8a9f34c8fe38c8c87"
+  },
+  "bld-resume-2026-10-07/run-full-check-final.mjs": {
+   "bytes": 1244,
+   "sha256": "17ed9c18e2eca19ec810eee16cc29f970be0de920326058d3acdd0dbfd47c311"
+  },
+  "bld-resume-2026-10-07/run-stages.ps1": {
+   "bytes": 2356,
+   "sha256": "48bc7bbf1302f94456d404dbbf41fc867bdb091103dd2cca15bea498c5898053"
+  },
+  "bld-resume-2026-10-07/verification.json": {
+   "bytes": 1702,
+   "sha256": "4aa6b1a847013707327d5cb8f89e9a6ed55e7950b63697d52640b80894b92820"
   }
  }
 }

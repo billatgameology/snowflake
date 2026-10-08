@@ -1,0 +1,33 @@
+{
+  "schema": "bld-resume-verification-v1",
+  "implementation": "9e0986e2aab1613d499e445117f932c2defbb2fd",
+  "finalCheck": {
+    "command": "npm.cmd test",
+    "head": "a507a01de8bdcc33486ca012b4ee1acd2766384a",
+    "dirty": "",
+    "node": "v24.13.1",
+    "v8": "13.6.233.17-node.40",
+    "startedAt": "2026-10-08T05:14:07.836Z",
+    "finishedAt": "2026-10-08T05:38:12.266Z",
+    "exitCode": 0,
+    "signal": null
+  },
+  "testFilesPassed": 233,
+  "testsPassed": 2990,
+  "testsSkipped": 55,
+  "vitestSeconds": 1429.46,
+  "recovery": {
+    "receipt": "actual-witness-receipt.json",
+    "archive": "actual-witness.tar.gz",
+    "exactState": true,
+    "exactScientificEvents": true,
+    "updates": 3,
+    "checkpointBytes": 4458203,
+    "sha256": "1e3b246d92a2f067fbe47c7b6ac9d4b7b6f58146dcb6bc905453e7ed518d661b"
+  },
+  "sourceContinuity": "git diff --exit-code between witness and final-check heads is empty for core/src, solver-cpu/src and runner/src.",
+  "firstAttempt": "Only two unchanged asset fixture setup failures (Windows EPERM creating file/directory symlinks). Split mixed tests; non-symlink controls now execute and only unsupported symlink controls skip. Production checks unchanged.",
+  "review": "review.json; bounded non-author shared-context review. No blocking finding; raw focused-review output not retained; full check repeats those tests.",
+  "scope": "Operational recovery only, including an actual N64 interrupted process. Not a scientific endpoint, physical validation, mature-geometry capacity or actual OS-reboot test.",
+  "retention": "Permanent project-owned Git evidence; both archives restored byte-for-byte. Original local staging preserved; no NAS action or pruning."
+}

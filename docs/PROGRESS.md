@@ -11,7 +11,7 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   HIL coordinates shared code and joint review; BLD leads cavity and cold core/tip comparisons.
   BLD checkout: `G:/Code Files/snowflake-bld-exploration`, branch `codex/bld-exploration`.
   Published main `f4ca38a` is integrated; the [first batch](plans/hil-bld-first-batch.md) has HIL 56 rows and BLD 42.
-  Maker stopped the legacy run; checkpoint resume without a four-hour cap is in progress; [setup](plans/post-phase10-adaptive-discovery.md#bld-worktree-setup--2026-10-07) retains its original base.
+  Legacy run stopped; uncapped checkpoint continuation is verified under ADR 0060; [setup](plans/post-phase10-adaptive-discovery.md#bld-worktree-setup--2026-10-07) retains its original base.
 - **New-host follow-up:** [complete](plans/new-host-acceptance-and-capacity-2026-10-07.md),
   locally integrated through `cf1386e`. Glass/camera browser and direct visual acceptance pass;
   the six comparison inputs and both small independent C-drive backups are restored and verified.
@@ -20,7 +20,7 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   and removed at readiness closeout. Publication was deferred then and is included in the approved main update.
   The short-row ladder recommends 16 workers for its ordinary N64 workload (capacity receipt
   SHA-256 `eb79aa6ddcaddaf79c2ec45aa919e0a6e7363674bfe0dcfcb83dcb0b33b4936b`);
-  larger/experimental rows remain unqualified and discovery-runner restart support remains absent.
+  larger/experimental rows are unqualified by that ordinary receipt. BLD continuation is now recorded below;
   Completed campaigns are closed; scientific result review and next-stage planning are active.
 - **Verification scope:** maker clarification is recorded through local `91c0684`: website/education
   presentation uses focused product/content checks; executable science and evidence retain rigorous
@@ -94,7 +94,7 @@ worktree/ref without force. See [consolidation](plans/local-consolidation-2026-1
 wave is complete in the [adaptive discovery plan](plans/post-phase10-adaptive-discovery.md).
 Its closing findings, raw inventory and verification are recorded in
 [the completed wave bundle](../evidence/post-phase10-wave-2026-10-01/README.md); exact retained
-outputs are in `post-phase10-science-output@2026-10-01`. No replacement campaign has launched during this review.
+outputs are in `post-phase10-science-output@2026-10-01`. BLD's legacy launch was stopped; its replacement uses the verified ADR 0060 continuation path.
 The maker resumed science planning after consolidation, with education handled separately. The
 [approved portfolio](plans/post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld)
 covers several independent exploration tracks. The earlier cavity grid/seed comparison becomes
@@ -232,17 +232,15 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-BLD's legacy campaign is stopped; partial outputs remain in `out/batch1-bld/`.
-Implement [the resumability amendment](plans/hil-bld-first-batch.md#bld-resumability-amendment--2026-10-07)
-in `G:/Code Files/snowflake-bld-exploration`, branch `codex/bld-exploration`, under ADR 0060.
-Checkpoint codec, shared row continuation and BLD pause/resume CLI are implemented.
-Actual N64 interrupted/restored state and events match. Next: final exact full check after
-repairing two Windows symlink setup fixtures, then fresh qualification.
-The maker removed the four-hour experiment cutoff; do not relaunch the old non-resumable producer.
-Require exact `npm.cmd test` and a representative pause/resume before launch, then a fresh host probe.
-Stop receipt: `out/batch1-bld-control/operator-stop.json`; original probe: `out/batch1-bld-probe/probe.json`.
-Old full-check evidence does not verify this implementation. Preserve ordinary checkpoint refusals
-and scientific classifications; interrupted prefixes are unresolved. Phase 7 stays on hold and S6 closed.
+BLD continuation is verified in G:/Code Files/snowflake-bld-exploration, branch codex/bld-exploration.
+Exact npm.cmd test at a507a01: 233 files / 2990 tests passed, 55 skipped; [receipt](../evidence/bld-resume-2026-10-07/verification.json).
+Actual N64 interrupted/restored state and events match; representative pause/resume before launch is satisfied.
+Follow [the runbook](plans/hil-bld-first-batch.md#verified-bld-recovery-and-resumed-dispatch): the hidden
+out/batch1-bld-resumable-control/run-stages.ps1 -Mode auto runs fresh qualification, then the authorized resumable queue.
+Next: inspect its stage logs/exits and out/batch1-bld-resumable-probe/probe.json before duplicate work; rows carry checkpoint/attempt status.
+Pause/resume: node runner/src/hil-bld-batch-main.ts pause out/batch1-bld-resumable / replace pause with resume.
+Keep this source/worktree unchanged while active. Every completed update saves; no four-hour cap; step-review pauses retain state.
+Old output is preserved in the tracked legacy archive. Scientific interpretation is pending; Phase 7 stays on hold and S6 closed.
 
 Education proceeds separately with the maker. The readiness/cleanup work is complete. Full large
 NAS restoration and unresolved custody/pruning remain separate decisions; retained source bytes
