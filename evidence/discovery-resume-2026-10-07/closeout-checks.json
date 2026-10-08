@@ -1,0 +1,16 @@
+{
+  "source": "a8790299add706e639b3f7ffc4bcbf29ae0f8b2b",
+  "checks": [
+    {
+      "exitCode": 0,
+      "log": "closeout-vitest.log",
+      "command": "npx.cmd vitest run runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts"
+    },
+    {
+      "exitCode": 0,
+      "log": "closeout-lint.log",
+      "command": "npm.cmd run lint:rule7"
+    }
+  ],
+  "observedAt": "2026-10-08T05:29:47.7553333Z"
+}

@@ -1,0 +1,31 @@
+{
+  "reason": "Maker explicitly requested stop current HIL run, implement resume without four-hour cutoff, then rerun",
+  "stoppedAtUtc": "2026-10-08T04:27:33.5093531Z",
+  "worktree": "C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake",
+  "campaign": "C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out\\batch1-hil",
+  "matchedBefore": [
+    8344,
+    5244,
+    12912,
+    16808,
+    19480,
+    23676,
+    3728,
+    25712,
+    17792,
+    7372,
+    22600,
+    15528,
+    7664,
+    2568,
+    3068,
+    23916,
+    25972,
+    9940
+  ],
+  "childStopTargets": [],
+  "remainingMatched": [],
+  "outputsPreserved": true,
+  "note": "Abrupt maker-requested stop; existing observations are retained, not restart state. No files pruned.",
+  "remainingMatchedCount": 0
+}

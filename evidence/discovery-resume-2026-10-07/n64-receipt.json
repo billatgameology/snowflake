@@ -1,0 +1,168 @@
+{
+  "schema": "discovery-real-n64-resume-witness-v1",
+  "passed": true,
+  "source": "0747ea9fbe81faf4a755ca474d29d00b09feac0c",
+  "node": "v24.13.1",
+  "v8": "13.6.233.17-node.40",
+  "hostname": "HIL",
+  "startedAt": "2026-10-08T05:02:49.850Z",
+  "finishedAt": "2026-10-08T05:03:35.005Z",
+  "scriptPath": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\witness.mjs",
+  "scriptSha256": "4e0f36ae42910d862afe9a7df302f5986221dbf1e4b68b91a66992fc9d09308c",
+  "rowPath": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\row.json",
+  "rowSha256": "77298f14a02178d2ae7d965edc236766b4c890da9d4ddbac69b6d6a7750076d7",
+  "row": {
+    "conditional": false,
+    "pressurePa": 101325,
+    "paramSet": "M1",
+    "dimsN": 64,
+    "dxUm": 0.35,
+    "cflFill": 0.05,
+    "seedRadius": 3,
+    "seedThickness": 1,
+    "targetExtent": 21,
+    "maxSteps": 3,
+    "spatialSampleExtents": [
+      5,
+      9,
+      13,
+      17
+    ],
+    "id": "batch1-hil-seed-t7-f0p15-r3t1-basal-only",
+    "lane": "adaptive-seed",
+    "tempC": -7,
+    "fraction": 0.15,
+    "experimentalFacetDips": "basal-only",
+    "sigmaInfinity": 0.01062
+  },
+  "processes": [
+    {
+      "label": "direct",
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\runner\\test\\fixtures\\discovery-resume-worker.ts",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\row.json",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\direct",
+        "create"
+      ],
+      "pid": 21060,
+      "startedAt": "2026-10-08T05:02:49.861Z",
+      "stdout": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\direct.stdout.log",
+      "stderr": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\direct.stderr.log",
+      "output": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\direct",
+      "checkpoint": "create",
+      "exitCode": 0,
+      "signal": null,
+      "finishedAt": "2026-10-08T05:03:34.998Z"
+    },
+    {
+      "label": "interrupted",
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\runner\\test\\fixtures\\discovery-resume-worker.ts",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\row.json",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\interrupted-resumed",
+        "create"
+      ],
+      "pid": 24896,
+      "startedAt": "2026-10-08T05:02:49.868Z",
+      "stdout": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\interrupted.stdout.log",
+      "stderr": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\interrupted.stderr.log",
+      "output": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\interrupted-resumed",
+      "checkpoint": "create",
+      "exitCode": null,
+      "signal": "SIGTERM",
+      "finishedAt": "2026-10-08T05:03:05.606Z"
+    },
+    {
+      "label": "resumed",
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\runner\\test\\fixtures\\discovery-resume-worker.ts",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\row.json",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\interrupted-resumed",
+        "resume"
+      ],
+      "pid": 7704,
+      "startedAt": "2026-10-08T05:03:05.620Z",
+      "stdout": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\resumed.stdout.log",
+      "stderr": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\resumed.stderr.log",
+      "output": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\interrupted-resumed",
+      "checkpoint": "resume",
+      "exitCode": 0,
+      "signal": null,
+      "finishedAt": "2026-10-08T05:03:33.619Z"
+    }
+  ],
+  "interruption": {
+    "observedAt": "2026-10-08T05:03:05.600Z",
+    "pid": 24896,
+    "checkpointTickObservedBeforeKill": 1,
+    "generationObservedBeforeKill": {
+      "directory": "generation-1-ac3178c6-cf8e-4d8d-ac1b-290e2d15c945",
+      "manifestSha256": "7c44c6af816b6cb220f0ad708739fccef8dd18745f2fa88295d15aefdd4fac72"
+    },
+    "killMethod": "ChildProcess.kill() on owned exact child; Windows process termination",
+    "killRequested": true,
+    "retainedTick": 1,
+    "retainedSolverSha256": "20b32b64fd9f4adf8a704255a7d42f9a8565efddfc99fd651bd54436fc01f9e1",
+    "retainedManifestSha256": "7c44c6af816b6cb220f0ad708739fccef8dd18745f2fa88295d15aefdd4fac72",
+    "actualExit": {
+      "label": "interrupted",
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\runner\\test\\fixtures\\discovery-resume-worker.ts",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\row.json",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\interrupted-resumed",
+        "create"
+      ],
+      "pid": 24896,
+      "startedAt": "2026-10-08T05:02:49.868Z",
+      "stdout": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\interrupted.stdout.log",
+      "stderr": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\interrupted.stderr.log",
+      "output": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out\\discovery-resume-verification-2026-10-07\\n64-witness\\interrupted-resumed",
+      "checkpoint": "create",
+      "exitCode": null,
+      "signal": "SIGTERM",
+      "finishedAt": "2026-10-08T05:03:05.606Z"
+    }
+  },
+  "comparison": {
+    "finalSolver": {
+      "exactBytesEqual": true,
+      "bytes": 4459061,
+      "directSha256": "6f320f5971dc3552f79112dde62345100b7a2558f9c0c9811eb65f23cd3fb047",
+      "resumedSha256": "6f320f5971dc3552f79112dde62345100b7a2558f9c0c9811eb65f23cd3fb047"
+    },
+    "scientificResult": {
+      "equal": true,
+      "directSha256": "8652d7b8b2847845f7e1bc3f60ec9cdf0e59da50233cbf19053677291fc89822",
+      "resumedSha256": "8652d7b8b2847845f7e1bc3f60ec9cdf0e59da50233cbf19053677291fc89822",
+      "omittedOperationalFields": [
+        "wallSeconds",
+        "peakRssBytes",
+        "startedAt",
+        "finishedAt"
+      ]
+    },
+    "scientificEvents": {
+      "equal": true,
+      "records": 3,
+      "directSha256": "f02823edfb3e1f5c36f418bd4a3ac2d49152304d206e74b23ba7a16ecd087255",
+      "resumedSha256": "f02823edfb3e1f5c36f418bd4a3ac2d49152304d206e74b23ba7a16ecd087255",
+      "omittedOperationalFields": [
+        "rssBytes"
+      ]
+    },
+    "snapshots": [
+      {
+        "path": "boundary-e5.json",
+        "bytes": 37389,
+        "directSha256": "066f448bff43432c796c5bed9da2b7ecc49148f8accd38f6483f21d41d9c0a44",
+        "resumedSha256": "066f448bff43432c796c5bed9da2b7ecc49148f8accd38f6483f21d41d9c0a44",
+        "exactBytesEqual": true
+      }
+    ]
+  },
+  "scope": "one actual HIL representative at registered N64 physical settings, terminal three-update prefix; not mature geometry capacity or a scientific endpoint"
+}

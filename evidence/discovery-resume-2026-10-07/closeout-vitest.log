@@ -1,0 +1,11 @@
+
+ RUN  v3.2.7 C:/Users/biao3/Documents/GitHub/snowflake/.tmp-discovery-resume
+
+ ✓ runner/test/evidence-integrity.test.ts (7 tests) 327ms
+ ✓ runner/test/progress-index.test.ts (11 tests) 303ms
+
+ Test Files  2 passed (2)
+      Tests  18 passed (18)
+   Start at  22:29:45
+   Duration  896ms (transform 32ms, setup 0ms, collect 37ms, tests 630ms, environment 0ms, prepare 78ms)
+

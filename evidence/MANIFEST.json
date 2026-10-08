@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 849,
- "totalBytes": 66800397,
+ "fileCount": 868,
+ "totalBytes": 68510344,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -3401,6 +3401,82 @@
   "hil-bld-first-batch-2026-10-07/custody.json": {
    "bytes": 6956,
    "sha256": "2597c7ac884b7725acbfa0049ae7c2f4203f6d4d7a7225479eb54d829b2d4926"
+  },
+  "discovery-resume-2026-10-07/first-full-check/full-check-invocation.json": {
+   "bytes": 261,
+   "sha256": "afa8d3ee85aa894d681dbb9150f5a8cbac763cb82dcb677fc3aa6cbff3226f7a"
+  },
+  "discovery-resume-2026-10-07/first-full-check/full-check-result.json": {
+   "bytes": 308,
+   "sha256": "5ace51a6390c139eac973205b805b815abdade83b2a560e9099101ffd63189d7"
+  },
+  "discovery-resume-2026-10-07/first-full-check/full-check.stderr.log": {
+   "bytes": 34712,
+   "sha256": "5804d19822627c06f35df617223966e7ef4da36a96ec6ff38f2a567efbd59800"
+  },
+  "discovery-resume-2026-10-07/first-full-check/full-check.stdout.log": {
+   "bytes": 65996,
+   "sha256": "bad0150c03b6c06ca3d425598fa157ac041af000513f4791535338e40c768a84"
+  },
+  "discovery-resume-2026-10-07/full-check-invocation.json": {
+   "bytes": 261,
+   "sha256": "615e64ba7cbadb184930cbe47e3f1bb993ad454089cc4b8d1dc04a34b96176b4"
+  },
+  "discovery-resume-2026-10-07/full-check-result.json": {
+   "bytes": 308,
+   "sha256": "09a7cc1a550190055bc044fac35c1d059c3b2f0f7c35a3959b9b447471619ce5"
+  },
+  "discovery-resume-2026-10-07/full-check.ps1": {
+   "bytes": 1180,
+   "sha256": "2f439d855414b003d2edefbd3b8b4c03b30290d3480c720244bec46e1f1db12f"
+  },
+  "discovery-resume-2026-10-07/full-check.stderr.log": {
+   "bytes": 33066,
+   "sha256": "e1c22dece42e0a651d963464881e74ea8fce4ddb02381055d61cdbfb3a2a7f88"
+  },
+  "discovery-resume-2026-10-07/full-check.stdout.log": {
+   "bytes": 63273,
+   "sha256": "b37fc84368a818f9064dc79bbb32cbdd901fdc2e4c8aca85aeeca5568f83cea4"
+  },
+  "discovery-resume-2026-10-07/n64-receipt.json": {
+   "bytes": 8733,
+   "sha256": "753c6680e177c2a0ac2c2e00cfa62b98e13b8df5b47557a7809b90b526ec7d38"
+  },
+  "discovery-resume-2026-10-07/n64-witness.mjs": {
+   "bytes": 10361,
+   "sha256": "4e0f36ae42910d862afe9a7df302f5986221dbf1e4b68b91a66992fc9d09308c"
+  },
+  "discovery-resume-2026-10-07/n64-witness.tar.gz": {
+   "bytes": 1457195,
+   "sha256": "9eb0d323768a8f76fee2f6cba794d1d619648cb9cd76142b85ac13873aa417fb"
+  },
+  "discovery-resume-2026-10-07/original-hil-stop/owned-processes-before.json": {
+   "bytes": 8436,
+   "sha256": "6e29a9f6ca8e9c16177270a21d48729ae39779a0a84bdb24a72011347ae767f3"
+  },
+  "discovery-resume-2026-10-07/original-hil-stop/stop-receipt.json": {
+   "bytes": 789,
+   "sha256": "d4b8946cb887cd422b3f669c5c8fc21f08765fc57ee31d2d4691d087cc08ca86"
+  },
+  "discovery-resume-2026-10-07/prepublication-inventory.json": {
+   "bytes": 14399,
+   "sha256": "6ffb63d7a68eed5de5725a3e1b728bab2db68e1cb4853b8564b329930127b31e"
+  },
+  "discovery-resume-2026-10-07/verification.json": {
+   "bytes": 9734,
+   "sha256": "694de39443016bc882f44a87a3ebf2e1d065c341dd56728769c54db53f2275d7"
+  },
+  "discovery-resume-2026-10-07/closeout-checks.json": {
+   "bytes": 433,
+   "sha256": "f96b609b91272984141c0558c902a7cfb23f18f0a4f0d21be873f45a8142b743"
+  },
+  "discovery-resume-2026-10-07/closeout-vitest.log": {
+   "bytes": 390,
+   "sha256": "f5b95aedcf052717bdf5d5b9cfd513f733ee1e02de3eebb0d54853aa8ffee2fb"
+  },
+  "discovery-resume-2026-10-07/closeout-lint.log": {
+   "bytes": 112,
+   "sha256": "e3595bf13fdc10870c5fe03c5705e46c3a92600ff733efd4e5413c5edaa2a72b"
   }
  }
 }

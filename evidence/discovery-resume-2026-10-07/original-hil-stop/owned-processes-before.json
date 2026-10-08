@@ -1,0 +1,110 @@
+[
+  {
+    "ProcessId": 8344,
+    "ParentProcessId": 18508,
+    "Name": "powershell.exe",
+    "CommandLine": "\"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -ExecutionPolicy Bypass -File C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out\\batch1-hil-control-20261007T210807\\start-hil.ps1"
+  },
+  {
+    "ProcessId": 5244,
+    "ParentProcessId": 8344,
+    "Name": "node.exe",
+    "CommandLine": "\"C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe\" C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\runner\\src\\hil-bld-batch-main.ts launch HIL C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out\\batch1-hil C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out\\batch1-hil-probe\\probe.json "
+  },
+  {
+    "ProcessId": 12912,
+    "ParentProcessId": 5244,
+    "Name": "node.exe",
+    "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\runner\\src\\hil-bld-batch-main.ts run-row batch1-hil-seed-t7-f0p15-r3t1-both C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out\\batch1-hil\\rows\\batch1-hil-seed-t7-f0p15-r3t1-both"
+  },
+  {
+    "ProcessId": 16808,
+    "ParentProcessId": 5244,
+    "Name": "node.exe",
+    "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\runner\\src\\hil-bld-batch-main.ts run-row batch1-hil-seed-t7-f0p15-r3t1-neither C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out\\batch1-hil\\rows\\batch1-hil-seed-t7-f0p15-r3t1-neither"
+  },
+  {
+    "ProcessId": 19480,
+    "ParentProcessId": 5244,
+    "Name": "node.exe",
+    "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\runner\\src\\hil-bld-batch-main.ts run-row batch1-hil-seed-t7-f0p15-r3t1-basal-only C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out\\batch1-hil\\rows\\batch1-hil-seed-t7-f0p15-r3t1-basal-only"
+  },
+  {
+    "ProcessId": 23676,
+    "ParentProcessId": 5244,
+    "Name": "node.exe",
+    "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\runner\\src\\hil-bld-batch-main.ts run-row batch1-hil-seed-t7-f0p15-r3t1-prism-only C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out\\batch1-hil\\rows\\batch1-hil-seed-t7-f0p15-r3t1-prism-only"
+  },
+  {
+    "ProcessId": 3728,
+    "ParentProcessId": 5244,
+    "Name": "node.exe",
+    "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\runner\\src\\hil-bld-batch-main.ts run-row batch1-hil-pressure-t6-f0p1-p50662p5-both C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out\\batch1-hil\\rows\\batch1-hil-pressure-t6-f0p1-p50662p5-both"
+  },
+  {
+    "ProcessId": 25712,
+    "ParentProcessId": 5244,
+    "Name": "node.exe",
+    "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\runner\\src\\hil-bld-batch-main.ts run-row batch1-hil-pressure-t6-f0p1-p50662p5-neither C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out\\batch1-hil\\rows\\batch1-hil-pressure-t6-f0p1-p50662p5-neither"
+  },
+  {
+    "ProcessId": 17792,
+    "ParentProcessId": 5244,
+    "Name": "node.exe",
+    "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\runner\\src\\hil-bld-batch-main.ts run-row batch1-hil-pressure-t6-f0p1-p50662p5-basal-only C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out\\batch1-hil\\rows\\batch1-hil-pressure-t6-f0p1-p50662p5-basal-only"
+  },
+  {
+    "ProcessId": 7372,
+    "ParentProcessId": 5244,
+    "Name": "node.exe",
+    "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\runner\\src\\hil-bld-batch-main.ts run-row batch1-hil-pressure-t6-f0p1-p50662p5-prism-only C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out\\batch1-hil\\rows\\batch1-hil-pressure-t6-f0p1-p50662p5-prism-only"
+  },
+  {
+    "ProcessId": 22600,
+    "ParentProcessId": 5244,
+    "Name": "node.exe",
+    "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\runner\\src\\hil-bld-batch-main.ts run-row batch1-hil-history-t6-to-t14p4-e7-m1 C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out\\batch1-hil\\rows\\batch1-hil-history-t6-to-t14p4-e7-m1"
+  },
+  {
+    "ProcessId": 15528,
+    "ParentProcessId": 5244,
+    "Name": "node.exe",
+    "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\runner\\src\\hil-bld-batch-main.ts run-row batch1-hil-history-t6-to-t14p4-e7-nodip C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out\\batch1-hil\\rows\\batch1-hil-history-t6-to-t14p4-e7-nodip"
+  },
+  {
+    "ProcessId": 7664,
+    "ParentProcessId": 5244,
+    "Name": "node.exe",
+    "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\runner\\src\\hil-bld-batch-main.ts run-row batch1-hil-seed-t7-f0p15-r1t5-both C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out\\batch1-hil\\rows\\batch1-hil-seed-t7-f0p15-r1t5-both"
+  },
+  {
+    "ProcessId": 2568,
+    "ParentProcessId": 5244,
+    "Name": "node.exe",
+    "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\runner\\src\\hil-bld-batch-main.ts run-row batch1-hil-seed-t7-f0p15-r1t5-neither C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out\\batch1-hil\\rows\\batch1-hil-seed-t7-f0p15-r1t5-neither"
+  },
+  {
+    "ProcessId": 3068,
+    "ParentProcessId": 5244,
+    "Name": "node.exe",
+    "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\runner\\src\\hil-bld-batch-main.ts run-row batch1-hil-seed-t7-f0p15-r1t5-basal-only C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out\\batch1-hil\\rows\\batch1-hil-seed-t7-f0p15-r1t5-basal-only"
+  },
+  {
+    "ProcessId": 23916,
+    "ParentProcessId": 5244,
+    "Name": "node.exe",
+    "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\runner\\src\\hil-bld-batch-main.ts run-row batch1-hil-seed-t7-f0p15-r1t5-prism-only C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out\\batch1-hil\\rows\\batch1-hil-seed-t7-f0p15-r1t5-prism-only"
+  },
+  {
+    "ProcessId": 25972,
+    "ParentProcessId": 5244,
+    "Name": "node.exe",
+    "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\runner\\src\\hil-bld-batch-main.ts run-row batch1-hil-pressure-t6-f0p1-p202650-both C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out\\batch1-hil\\rows\\batch1-hil-pressure-t6-f0p1-p202650-both"
+  },
+  {
+    "ProcessId": 9940,
+    "ParentProcessId": 5244,
+    "Name": "node.exe",
+    "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\runner\\src\\hil-bld-batch-main.ts run-row batch1-hil-pressure-t6-f0p1-p202650-neither C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out\\batch1-hil\\rows\\batch1-hil-pressure-t6-f0p1-p202650-neither"
+  }
+]

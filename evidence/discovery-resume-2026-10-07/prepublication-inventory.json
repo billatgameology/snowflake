@@ -1,0 +1,331 @@
+{
+  "purpose": "Bounded Rule 16 prepublication inventory requested by root; no source edits or cleanup performed.",
+  "observedAt": "2026-10-08T05:04:01.857Z",
+  "implementationCommit": "0747ea9fbe81faf4a755ca474d29d00b09feac0c",
+  "gitObservationLimit": "Agent git worktree/branch/status observations succeeded for primary and implementation. Old HIL clean staged/unstaged/untracked status and ignored node_modules/out were independently executed and supplied by root after agent sandbox cwd errors. No repository configuration was changed.",
+  "worktrees": [
+    {
+      "path": "C:/Users/biao3/Documents/GitHub/snowflake",
+      "branch": "main",
+      "head": "f4ca38a44fefda0de514491bd5ce3044479829ec",
+      "staged": [],
+      "unstaged": [
+        "docs/PROGRESS.md",
+        "docs/attachment-kinetics.md",
+        "docs/plans/hil-bld-first-batch.md",
+        "docs/plans/post-phase10-adaptive-discovery.md",
+        "project charter.md"
+      ],
+      "untracked": [
+        "docs/decisions/0060-resumable-discovery-experiments.md"
+      ],
+      "classification": "Six task-owned prose copies; no unrelated tracked or untracked delta observed.",
+      "taskRelevantIgnored": [
+        {
+          "relativePath": "out/hil-manual-stop-20261007T212733",
+          "absolutePath": "C:/Users/biao3/Documents/GitHub/snowflake/out/hil-manual-stop-20261007T212733",
+          "exists": true,
+          "classification": "Retain exact manual stop receipt for original HIL campaign.",
+          "live": false,
+          "observedFileCount": 2,
+          "observedBytes": 9225,
+          "observationLimit": "Metadata census only; no payload disposition or prune authorization.",
+          "topLevel": [
+            "owned-processes-before.json",
+            "stop-receipt.json"
+          ],
+          "anomalies": []
+        }
+      ],
+      "otherIgnored": {
+        "worktree": ".tmp-discovery-resume/",
+        "dependencies": [
+          "node_modules/",
+          "app/node_modules/"
+        ],
+        "outDirectories": [
+          "agent-rules-cleanup-2026-10-07",
+          "dendrite-styles",
+          "growth-assets",
+          "growth-gallery",
+          "hil-bld-first-batch-verification-2026-10-07",
+          "host-readiness-2026-10-07",
+          "housekeeping-2026-10-07",
+          "named-crystal-catalog",
+          "new-host-readiness-2026-10-07",
+          "phase10-c0v-s6-preflight-observer-tests",
+          "phase10-c0v-s6-synthetic-tests",
+          "phase10-c0v-s6-worker-progress-tests",
+          "product-check-scope-2026-10-07",
+          "restores"
+        ],
+        "disposition": "Retain all existing collection custody; outside this reconciliation."
+      }
+    },
+    {
+      "path": "C:/Users/biao3/.codex/worktrees/hil-first-batch/snowflake",
+      "branch": "codex/hil-first-batch",
+      "head": "f4ca38a44fefda0de514491bd5ce3044479829ec",
+      "staged": [],
+      "unstaged": [],
+      "untracked": [],
+      "statusProvenance": "Root executed git status --porcelain=v1 --untracked-files=all; git diff --name-only; git diff --cached --name-only: all empty. Ignored only node_modules/ and out/.",
+      "classification": "Original stopped scientific execution; source frozen and output custody remains here.",
+      "taskRelevantIgnored": [
+        {
+          "relativePath": "out/batch1-hil",
+          "absolutePath": "C:/Users/biao3/.codex/worktrees/hil-first-batch/snowflake/out/batch1-hil",
+          "exists": true,
+          "classification": "Retain original-producer scientific prefixes, qualification, process and stop/control records.",
+          "live": false,
+          "observedFileCount": 146,
+          "observedBytes": 5773873,
+          "observationLimit": "Metadata census only; no payload disposition or prune authorization.",
+          "topLevel": [
+            "campaign.json",
+            "first-batch-HIL-launch.json",
+            "first-batch-HIL-resources.jsonl",
+            "rows"
+          ],
+          "anomalies": []
+        },
+        {
+          "relativePath": "out/batch1-hil-control-20261007T210807",
+          "absolutePath": "C:/Users/biao3/.codex/worktrees/hil-first-batch/snowflake/out/batch1-hil-control-20261007T210807",
+          "exists": true,
+          "classification": "Retain original-producer scientific prefixes, qualification, process and stop/control records.",
+          "live": false,
+          "observedFileCount": 8,
+          "observedBytes": 12164,
+          "observationLimit": "Metadata census only; no payload disposition or prune authorization.",
+          "topLevel": [
+            "campaign.stderr.log",
+            "campaign.stdout.log",
+            "invocation.json",
+            "probe-exit.json",
+            "probe.stderr.log",
+            "probe.stdout.log",
+            "start-hil.ps1",
+            "state.json"
+          ],
+          "anomalies": []
+        },
+        {
+          "relativePath": "out/batch1-hil-probe",
+          "absolutePath": "C:/Users/biao3/.codex/worktrees/hil-first-batch/snowflake/out/batch1-hil-probe",
+          "exists": true,
+          "classification": "Retain original-producer scientific prefixes, qualification, process and stop/control records.",
+          "live": false,
+          "observedFileCount": 378,
+          "observedBytes": 1498085,
+          "observationLimit": "Metadata census only; no payload disposition or prune authorization.",
+          "topLevel": [
+            "concurrency-1",
+            "concurrency-16",
+            "concurrency-4",
+            "concurrency-8",
+            "invocation.json",
+            "probe.json"
+          ],
+          "anomalies": []
+        }
+      ],
+      "dependencies": [
+        "node_modules/"
+      ]
+    },
+    {
+      "path": "C:/Users/biao3/Documents/GitHub/snowflake/.tmp-discovery-resume",
+      "branch": "codex/discovery-resume",
+      "head": "0747ea9fbe81faf4a755ca474d29d00b09feac0c",
+      "staged": [],
+      "unstaged": [],
+      "untracked": [],
+      "classification": "Committed implementation and governance; full npm test running. Future new HIL execution checkout.",
+      "taskRelevantIgnored": [
+        {
+          "relativePath": "out/batch1-hil-resumable-control-20261007",
+          "absolutePath": "C:/Users/biao3/Documents/GitHub/snowflake/.tmp-discovery-resume/out/batch1-hil-resumable-control-20261007",
+          "exists": true,
+          "classification": "Prepared HIL probe/launch wrapper; root reports not launched.",
+          "live": false,
+          "observedFileCount": 3,
+          "observedBytes": 5543,
+          "observationLimit": "Metadata census only; no payload disposition or prune authorization.",
+          "topLevel": [
+            "resume-hil.ps1",
+            "start-hil.ps1",
+            "stop-hil.ps1"
+          ],
+          "anomalies": []
+        },
+        {
+          "relativePath": "out/discovery-resume-verification-2026-10-07",
+          "absolutePath": "C:/Users/biao3/Documents/GitHub/snowflake/.tmp-discovery-resume/out/discovery-resume-verification-2026-10-07",
+          "exists": true,
+          "classification": "Current test/review/N64 evidence staging; retain pending publication and preservation.",
+          "live": true,
+          "observedFileCount": 48,
+          "observedBytes": 22499370,
+          "observationLimit": "Files may change while the full test runs; this is inventory, not a completed verification receipt.",
+          "topLevel": [
+            "full-check-invocation.json",
+            "full-check.ps1",
+            "full-check.stderr.log",
+            "full-check.stdout.log",
+            "n64-witness"
+          ],
+          "anomalies": []
+        },
+        {
+          "relativePath": "out/resume-fixture-inspect-1791434697867",
+          "absolutePath": "C:/Users/biao3/Documents/GitHub/snowflake/.tmp-discovery-resume/out/resume-fixture-inspect-1791434697867",
+          "exists": true,
+          "classification": "Unclassified local diagnostic staging; retain, not approved for pruning.",
+          "live": false,
+          "observedFileCount": 10,
+          "observedBytes": 217797,
+          "observationLimit": "Metadata census only; no payload disposition or prune authorization.",
+          "topLevel": [
+            "events.jsonl",
+            "host.json",
+            "result.json",
+            "resume",
+            "spec.json",
+            "status.json"
+          ],
+          "anomalies": []
+        }
+      ],
+      "dependencies": [
+        "node_modules/"
+      ]
+    }
+  ],
+  "branches": [
+    {
+      "name": "main",
+      "head": "f4ca38a44fefda0de514491bd5ce3044479829ec",
+      "upstream": "origin/main"
+    },
+    {
+      "name": "codex/hil-first-batch",
+      "head": "f4ca38a44fefda0de514491bd5ce3044479829ec",
+      "upstream": null
+    },
+    {
+      "name": "codex/discovery-resume",
+      "head": "0747ea9fbe81faf4a755ca474d29d00b09feac0c",
+      "upstream": null
+    }
+  ],
+  "primaryProseComparisons": [
+    {
+      "path": "docs/PROGRESS.md",
+      "primaryBytes": 22132,
+      "primarySha256": "06eabdef65228bcbce78c6fbfa41a14b2b72be1b0b5dafe2b986aff502e74798",
+      "implementationBytes": 22132,
+      "implementationSha256": "06eabdef65228bcbce78c6fbfa41a14b2b72be1b0b5dafe2b986aff502e74798",
+      "byteIdentical": true,
+      "implementationEqualsCommittedAfterCheckoutLineEndingNormalization": true,
+      "primaryLinesPreservedInOrder": true,
+      "classification": "verified duplicate of committed implementation"
+    },
+    {
+      "path": "docs/attachment-kinetics.md",
+      "primaryBytes": 63784,
+      "primarySha256": "9240d816e3f9478c702a114104dd23a3717ac73cfc43b96868e017d7a128f184",
+      "implementationBytes": 63784,
+      "implementationSha256": "9240d816e3f9478c702a114104dd23a3717ac73cfc43b96868e017d7a128f184",
+      "byteIdentical": true,
+      "implementationEqualsCommittedAfterCheckoutLineEndingNormalization": true,
+      "primaryLinesPreservedInOrder": true,
+      "classification": "verified duplicate of committed implementation"
+    },
+    {
+      "path": "docs/plans/hil-bld-first-batch.md",
+      "primaryBytes": 23150,
+      "primarySha256": "957d8264f6ee4d429750355ae98c70bd8ed7dd5434c54e060e76ed444f3ced83",
+      "implementationBytes": 26024,
+      "implementationSha256": "78c4d2f3c7b32766378426d93778c3e3c5fdb3400a5feb200e6f3b8d0b109a67",
+      "byteIdentical": false,
+      "implementationEqualsCommittedAfterCheckoutLineEndingNormalization": true,
+      "primaryLinesPreservedInOrder": true,
+      "classification": "verified superseded: committed implementation retains every primary line and adds implementation/command/review records"
+    },
+    {
+      "path": "docs/plans/post-phase10-adaptive-discovery.md",
+      "primaryBytes": 198059,
+      "primarySha256": "415d6d7d296e887c246003a2d0657d399c637b406e62c02daa2957ee600a426e",
+      "implementationBytes": 198059,
+      "implementationSha256": "415d6d7d296e887c246003a2d0657d399c637b406e62c02daa2957ee600a426e",
+      "byteIdentical": true,
+      "implementationEqualsCommittedAfterCheckoutLineEndingNormalization": true,
+      "primaryLinesPreservedInOrder": true,
+      "classification": "verified duplicate of committed implementation"
+    },
+    {
+      "path": "project charter.md",
+      "primaryBytes": 116098,
+      "primarySha256": "df9222d240e4c54c07289c2b6c5e154691948f0d70890085d14a5375f0bd1703",
+      "implementationBytes": 116098,
+      "implementationSha256": "df9222d240e4c54c07289c2b6c5e154691948f0d70890085d14a5375f0bd1703",
+      "byteIdentical": true,
+      "implementationEqualsCommittedAfterCheckoutLineEndingNormalization": true,
+      "primaryLinesPreservedInOrder": true,
+      "classification": "verified duplicate of committed implementation"
+    },
+    {
+      "path": "docs/decisions/0060-resumable-discovery-experiments.md",
+      "primaryBytes": 16340,
+      "primarySha256": "3e9e6b0af9d30edefca8fc4a661f2094c94f58079d0c196a89bcda310498e82d",
+      "implementationBytes": 16340,
+      "implementationSha256": "3e9e6b0af9d30edefca8fc4a661f2094c94f58079d0c196a89bcda310498e82d",
+      "byteIdentical": true,
+      "implementationEqualsCommittedAfterCheckoutLineEndingNormalization": true,
+      "primaryLinesPreservedInOrder": true,
+      "classification": "verified duplicate of committed implementation"
+    }
+  ],
+  "safeExactReconciliation": [
+    {
+      "action": "Restore only these five task-owned primary tracked copies to primary HEAD before fast-forwarding main, if Git requires a clean tree.",
+      "paths": [
+        "docs/PROGRESS.md",
+        "docs/attachment-kinetics.md",
+        "docs/plans/hil-bld-first-batch.md",
+        "docs/plans/post-phase10-adaptive-discovery.md",
+        "project charter.md"
+      ],
+      "reason": "Their full current content is preserved in committed implementation; one is an earlier subset, with no unique primary lines."
+    },
+    {
+      "action": "Remove only the duplicate primary untracked ADR if Git requires clearing its path before fast-forward.",
+      "paths": [
+        "docs/decisions/0060-resumable-discovery-experiments.md"
+      ],
+      "reason": "Byte-identical copy is committed in implementation; deletion is limited to this exact duplicate path."
+    },
+    {
+      "action": "Fast-forward primary main to the final tested publication commit after recording full-check outcome and evidence closeout.",
+      "paths": [],
+      "reason": "No unrelated primary tracked/untracked changes were observed; recheck immediately before mutation."
+    },
+    {
+      "action": "Preserve both execution worktrees and all ignored output collections.",
+      "paths": [
+        "C:/Users/biao3/.codex/worktrees/hil-first-batch/snowflake",
+        "C:/Users/biao3/Documents/GitHub/snowflake/.tmp-discovery-resume"
+      ],
+      "reason": "Original HIL holds unique retained output; implementation owns active verification and planned replacement execution. No worktree or branch removal is approved by this inventory."
+    }
+  ],
+  "unrelatedChanges": "No unrelated tracked/untracked deltas observed. Existing primary ignored science/product/NAS restoration collections and dependencies remain outside task cleanup.",
+  "checksNotPerformed": [
+    "No scientific output interpretation",
+    "No payload restore or independent-backup verification",
+    "No NAS publication",
+    "No deletion or worktree removal",
+    "No source or test change while full suite runs"
+  ]
+}

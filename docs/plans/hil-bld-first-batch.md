@@ -1,8 +1,8 @@
 # HIL / BLD first exploration batch
 
 - **Scope:** executable first stage of the maker-approved post-Phase-10 portfolio; development evidence only.
-- **Status:** HIL stopped at maker direction on 2026-10-07; resumable rerun is the active implementation. Original producer through `f4ca38a` and its observations remain preserved. BLD stop/adoption requires action on that computer.
-- **Implementation branch (reconciled) / destination:** `science/hil-bld-first-batch` -> `origin/main`.
+- **Status:** resumable producer verified at `0747ea9`; publication, fresh HIL capacity qualification and rerun are next. Original HIL is stopped and preserved at `f4ca38a`. BLD stop/adoption requires action on that computer.
+- **Implementation branch / destination:** `codex/discovery-resume` -> `origin/main`; original `science/hil-bld-first-batch` is reconciled.
 - **Authority:** [adaptive discovery](post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld), accepted ADRs 0055-0059, attachment-kinetics specification. No phase gate changes.
 
 ## Goal and done when
@@ -115,7 +115,25 @@ checkpoint recovery, atomically publish batch receipts and serialize stale-owner
 an exclusive acquisition guard. Real competing worker tests exercise the row boundary. An interrupted
 acquisition guard fails closed for explicit owner inspection; no automatic takeover-of-takeover is
 introduced. The reviewer did not run the full suite, a campaign, or the N64 interruption witness.
-The author verified these repairs with targeted checks; required full-suite and N64 receipts follow.
+The author verified these repairs with targeted checks and the full suite below.
+
+## Resume verification and publication
+
+Exact `npm.cmd test` at clean `a8790299add706e639b3f7ffc4bcbf29ae0f8b2b`, Node v24.13.1, exited zero: 233 files / 3031 tests passed, 23 skipped; Vitest 886.86 seconds. Rule 7 and both typechecks are included.
+The [verification receipt](../../evidence/discovery-resume-2026-10-07/verification.json) binds raw logs, commands, source and exit. No implementation change follows this checkpoint.
+
+The [real N64 witness](../../evidence/discovery-resume-2026-10-07/n64-receipt.json) at `0747ea9` uses the registered HIL basal-only, radius-three/thickness-one, -7 C row with only its maximum updates reduced to three. Worker 24896 was actually terminated after committed tick one; fresh worker 7704 resumed to tick three. Direct worker 21060 and resumed worker both exited zero with three converged updates, step-cap termination and no integrity errors. The complete 4,459,061-byte final solver states match SHA-256 `6f320f5971dc3552f79112dde62345100b7a2558f9c0c9811eb65f23cd3fb047`; scientific results, three event records and the 37,389-byte spatial snapshot match after excluding only declared operational time/RSS fields. This is one short N64 restart witness, not an endpoint or mature-capacity result. Only progress/plan prose changed before the passing full check; the receipt verifies unchanged executable source.
+
+Project-owned verification bytes fit Git and are permanently retained in `evidence/discovery-resume-2026-10-07/`, pinned in the root manifest. `n64-witness.tar.gz` contains the complete raw witness, checkpoint generations, interruption state, observations and process receipts; a fresh extraction was compared with every original file. The bundle also retains the original HIL stop records. All original staging remains.
+
+Rule 16 inventory records exactly the primary main checkout, stopped `codex/hil-first-batch` at `f4ca38a`, and `codex/discovery-resume` implementation checkout. Primary's six task prose copies are preserved by the implementation commits; only those duplicates may be reconciled before fast-forwarding main. The old execution checkout and all outputs remain retained. No unrelated changes or temporary review worktree were found; no PR is used for this maker-authorized main publication. The implementation checkout becomes the fixed-source replacement execution checkout after publication. Keep its HEAD unchanged from capacity qualification through campaign completion; maintain live progress only in primary.
+
+Hidden-run controls are prepared under implementation `out/batch1-hil-resumable-control-20261007/`. Exact pause: `powershell.exe -NoProfile -ExecutionPolicy Bypass -File out/batch1-hil-resumable-control-20261007/stop-hil.ps1`; it records and stops only the matching wrapper/coordinator/workers and retains all output. Resume uses the command above (or `resume-hil.ps1` in a persistent terminal). Launch remains pending until the changed checkpointing producer passes its fresh HIL resource probe.
+
+Closeout metadata checks passed: two files / 18 tests for evidence integrity and the progress index,
+plus Rule 7 lint. `closeout-checks.json` and its two logs in the verification bundle bind the commands
+and exits. Raw full-check log EOF whitespace is retained byte-exact and excluded only from the
+whitespace check; no implementation changed after the full-check checkpoint.
 
 ## Registered original first stage (elapsed-time policy superseded above)
 
@@ -149,6 +167,8 @@ Four hours is a bounded loss limit, not a prediction of endpoint completion. A c
 or cutoff not reached leaves that comparison unresolved; it cannot establish an absent effect.
 
 ## Execution and resource qualification
+
+Historical original protocol: its non-resumable execution and wall budgets are superseded by the resume section above. The finite roster, worker ceilings and memory limits remain.
 
 One finite CLI provides `list HIL|BLD`, `probe HIL|BLD <directory>`,
 `launch HIL|BLD <directory> <probe-receipt>`, and `summarize <directory>`.
@@ -239,6 +259,8 @@ No new physical parameter extraction, solver-physics change, validation or Phase
 
 ## HIL execution 2026-10-07
 
+**Stopped at maker direction; the following is its retained original launch record.** Use the replacement paths and resume protocol above for new execution.
+
 The maker requested a new HIL execution worktree after reporting BLD started. Git remote
 `refs/heads/main` was verified at `f4ca38a44fefda0de514491bd5ce3044479829ec` on this host.
 Managed worktree `C:/Users/biao3/.codex/worktrees/hil-first-batch/snowflake`, branch
@@ -306,8 +328,9 @@ worktree, start a duplicate queue, or remove it while it owns these active outpu
 - Starting full fine-grid histories without restart repeats the paid-for multi-day loss risk.
   Completed-wave artifact `rows[].analysis.result.wallSeconds` records long fine runs; keep them
   out of this bounded coarse first stage.
-- Experimental resume currently conflicts with explicit solver checkpoint exclusions and proposed
-  ADR 0039. Do not bypass them or call observations/replay restart state.
+- Widening ordinary checkpoint eligibility or treating observations as restart state was rejected.
+  Accepted ADR 0060 supplies the separate tested discovery format while preserving ordinary refusals
+  and proposed ADR 0039's production boundary.
 
 ## Implementation record
 

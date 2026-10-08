@@ -1,0 +1,9 @@
+﻿{
+    "exitCode":  0,
+    "gitHead":  "a8790299add706e639b3f7ffc4bcbf29ae0f8b2b",
+    "command":  "npm.cmd test",
+    "startedAt":  "2026-10-08T05:13:44.3546826Z",
+    "stderr":  "full-check.stderr.log",
+    "finishedAt":  "2026-10-08T05:28:42.0002851Z",
+    "stdout":  "full-check.stdout.log"
+}

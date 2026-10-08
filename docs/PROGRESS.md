@@ -10,7 +10,7 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   covers cavities, cold core/tip structure, seed memory, pressure/transport and environment history.
   HIL coordinates shared code and joint review; each PC receives a queue of comparisons.
   Publication is complete through `f4ca38a`; BLD is running per the maker (not inspected from HIL).
-  The [first batch](plans/hil-bld-first-batch.md#resumable-rerun-maker-direction-2026-10-07) is stopped on HIL at maker direction; implement actual resume and remove the four-hour cutoff before rerunning.
+  The [resumable producer](plans/hil-bld-first-batch.md#resume-verification-and-publication) passed full-suite and real N64 restart checks on the unchanged executable source; publish, requalify HIL and rerun without the four-hour cutoff.
 - **New-host follow-up:** [complete](plans/new-host-acceptance-and-capacity-2026-10-07.md),
   locally integrated through `cf1386e`. Glass/camera browser and direct visual acceptance pass;
   the six comparison inputs and both small independent C-drive backups are restored and verified.
@@ -20,7 +20,7 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   The short-row ladder recommends 16 workers for its ordinary N64 workload (capacity receipt
   SHA-256 `eb79aa6ddcaddaf79c2ec45aa919e0a6e7363674bfe0dcfcb83dcb0b33b4936b`);
   this batch separately qualifies its registered experimental prefixes. Larger/mature configurations
-  remain unqualified; discovery-runner restart is the current deliverable. Earlier campaigns are closed; HIL rerun awaits it.
+  remain unqualified. Discovery-runner restart is verified; HIL rerun awaits publication and its fresh workload probe.
 - **Verification scope:** maker clarification is recorded through local `91c0684`: website/education
   presentation uses focused product/content checks; executable science and evidence retain rigorous
   requirements. The active glass/camera plan's inherited full-suite criterion is removed; historical
@@ -233,15 +233,14 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-Implement the [resumable rerun](plans/hil-bld-first-batch.md#resumable-rerun-maker-direction-2026-10-07): real state restore,
-cycle checkpoints and no production wall-clock cutoff; prove interrupted/uninterrupted agreement before rerunning HIL.
-Preserve stopped `C:/Users/biao3/.codex/worktrees/hil-first-batch/snowflake` and its original outputs at `f4ca38a`;
-they are observations, not restart state. BLD stop/adoption requires action on that computer; no remote access is claimed.
-Exact `npm.cmd test` at `ad990ac` passed 230 files / 2,981 tests, 23 skipped;
-[verification](../evidence/hil-bld-first-batch-2026-10-07/verification.json) also records both actual N64 prefix witnesses.
-The maker now requires representative experimental pause/resume before launch; the four-hour terminal-stage
-alternative is superseded for this batch. Neither full experimental resume
-nor BLD worker capacity is claimed. Compare physical-time brackets; Phase 7 stays on maker hold and S6 closed.
+Publish the [verified resume producer](plans/hil-bld-first-batch.md#resume-verification-and-publication), then from fixed `.tmp-discovery-resume/` run
+`node runner/src/hil-bld-batch-main.ts probe HIL out/batch1-hil-resumable-probe` and the registered launch command.
+Exact `npm.cmd test` at clean `a879029` passed 233 files / 3031 tests, 23 skipped; the
+[receipt](../evidence/discovery-resume-2026-10-07/verification.json) also preserves the representative real N64 pause/resume before launch witness.
+Checkpoints publish after each complete cycle; production has no wall-clock deadline. Resume uses the same directory/source/runtime.
+Preserve stopped `C:/Users/biao3/.codex/worktrees/hil-first-batch/snowflake` at `f4ca38a`; its observations are not restart state.
+BLD must pull the shared producer, qualify locally and use new paths; its active processes are not inspected or controlled from HIL.
+Keep the execution HEAD fixed and write live progress in primary. Compare physical-time brackets; Phase 7 stays on hold and S6 closed.
 
 Education proceeds separately with the maker. The readiness/cleanup work is complete. Full large
 NAS restoration and unresolved custody/pruning remain separate decisions; retained source bytes

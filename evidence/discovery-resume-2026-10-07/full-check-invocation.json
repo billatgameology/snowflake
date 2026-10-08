@@ -1,0 +1,8 @@
+﻿{
+    "stderr":  "full-check.stderr.log",
+    "gitHead":  "a8790299add706e639b3f7ffc4bcbf29ae0f8b2b",
+    "node":  "v24.13.1",
+    "command":  "npm.cmd test",
+    "startedAt":  "2026-10-08T05:13:44.3546826Z",
+    "stdout":  "full-check.stdout.log"
+}

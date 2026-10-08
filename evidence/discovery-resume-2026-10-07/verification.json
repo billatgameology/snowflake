@@ -1,0 +1,239 @@
+{
+  "schema": "discovery-resume-verification-v1",
+  "source": "a8790299add706e639b3f7ffc4bcbf29ae0f8b2b",
+  "createdAt": "2026-10-08T05:29:14.429Z",
+  "fullCheck": {
+    "exitCode": 0,
+    "gitHead": "a8790299add706e639b3f7ffc4bcbf29ae0f8b2b",
+    "command": "npm.cmd test",
+    "startedAt": "2026-10-08T05:13:44.3546826Z",
+    "stderr": "full-check.stderr.log",
+    "finishedAt": "2026-10-08T05:28:42.0002851Z",
+    "stdout": "full-check.stdout.log",
+    "filesPassed": 233,
+    "testsPassed": 3031,
+    "testsSkipped": 23,
+    "vitestSeconds": 886.86
+  },
+  "realN64": {
+    "receipt": "n64-receipt.json",
+    "archive": "n64-witness.tar.gz",
+    "passed": true,
+    "scope": "one actual HIL representative at registered N64 physical settings, terminal three-update prefix; not mature geometry capacity or a scientific endpoint",
+    "source": "0747ea9fbe81faf4a755ca474d29d00b09feac0c",
+    "laterChanges": [
+      "docs/PROGRESS.md",
+      "docs/plans/hil-bld-first-batch.md"
+    ],
+    "executableCodeUnchanged": true
+  },
+  "archiveRecovery": {
+    "command": [
+      "tar.exe",
+      "-xzf",
+      "n64-witness.tar.gz",
+      "-C",
+      "<fresh-directory>"
+    ],
+    "verifiedFileCount": 44,
+    "verifiedBytes": 22440139,
+    "allRestoredBytesMatch": true,
+    "members": {
+      "direct.exit.json": {
+        "bytes": 1214,
+        "sha256": "15d71b34a46e99faa65ef78c546aaeace96140e2951b5c31d34394bd7cf2bd56"
+      },
+      "direct.stderr.log": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "direct.stdout.log": {
+        "bytes": 1769,
+        "sha256": "5b66017103706252e7b51c370a1e6bf51ee3d19de75e5031bed117d4bb8ae3f9"
+      },
+      "direct/boundary-e5.json": {
+        "bytes": 37389,
+        "sha256": "066f448bff43432c796c5bed9da2b7ecc49148f8accd38f6483f21d41d9c0a44"
+      },
+      "direct/events.jsonl": {
+        "bytes": 7123,
+        "sha256": "99fb518dffe19f5c0c276017d49086c0fb8c971a779f182649e62bcce2d2c5ef"
+      },
+      "direct/host.json": {
+        "bytes": 441,
+        "sha256": "aa3d17b966e9394053456eeeca44e3a78ff6a456c8ac96ff8196c95a8ded63d1"
+      },
+      "direct/result.json": {
+        "bytes": 1383,
+        "sha256": "8faa0dae6363347d53aa09f1fc05d7942c0a7415c08bb17f392ebb51eba9c610"
+      },
+      "direct/resume/generation-2-8756936f-9da1-4cf0-9f91-e984e24c2bc4/manifest.json": {
+        "bytes": 2196,
+        "sha256": "464dca6fb242ffd241e01b5c622e50235f1ffe0651f09b24c11bab7cb5e02bbc"
+      },
+      "direct/resume/generation-2-8756936f-9da1-4cf0-9f91-e984e24c2bc4/solver.bin": {
+        "bytes": 4459061,
+        "sha256": "a3ed796be33e190ac60a412aeeba196ed92fcf5c7f7e047c883aaa60d57805f1"
+      },
+      "direct/resume/generation-3-1bd94808-9a9e-4952-9c44-dd1d866cfd51/manifest.json": {
+        "bytes": 2202,
+        "sha256": "f1099c76fc2244859df5dc2b51f204dd9a399c95223b3357e7161a29d89e9082"
+      },
+      "direct/resume/generation-3-1bd94808-9a9e-4952-9c44-dd1d866cfd51/solver.bin": {
+        "bytes": 4459061,
+        "sha256": "6f320f5971dc3552f79112dde62345100b7a2558f9c0c9811eb65f23cd3fb047"
+      },
+      "direct/resume/latest.json": {
+        "bytes": 409,
+        "sha256": "9d8f4df93cfe45fec2fe18144888f89503b23f28753465750f3f12c4cec07953"
+      },
+      "direct/spec.json": {
+        "bytes": 959,
+        "sha256": "3bcc622a9f6055dfd87add538c052f61628b1d8a632d6241e691b198e5754164"
+      },
+      "direct/status.json": {
+        "bytes": 413,
+        "sha256": "d1ef8e0096ddf19cea80ece79bfcf28d55990a2524bb7330cc3d1bf31dff0622"
+      },
+      "interrupted-resumed/boundary-e5.json": {
+        "bytes": 37389,
+        "sha256": "066f448bff43432c796c5bed9da2b7ecc49148f8accd38f6483f21d41d9c0a44"
+      },
+      "interrupted-resumed/events.jsonl": {
+        "bytes": 7123,
+        "sha256": "d281af44560d8ccadb72a79e698149af3c1769299fca48ce861f20f73bd317bb"
+      },
+      "interrupted-resumed/host.json": {
+        "bytes": 441,
+        "sha256": "aa3d17b966e9394053456eeeca44e3a78ff6a456c8ac96ff8196c95a8ded63d1"
+      },
+      "interrupted-resumed/result.json": {
+        "bytes": 1383,
+        "sha256": "6d01299afc429181e231ff456c984253c0d1e715bb0836af9ebac7efdd3ba533"
+      },
+      "interrupted-resumed/resume/abandoned-owner-df1c3b5b-fc86-44da-9ef8-9e164b30f224.json": {
+        "bytes": 134,
+        "sha256": "310302d68c4519afaa4e5ced1d884d6c0d6d649dcea182d9064c13bc0b23b4ae"
+      },
+      "interrupted-resumed/resume/generation-2-492873e3-94f3-4d13-ae9b-2499261e1916/manifest.json": {
+        "bytes": 2196,
+        "sha256": "8a7e1684689d0f516a3921191fd2035980f9c16db892b2de50bb39f18164239d"
+      },
+      "interrupted-resumed/resume/generation-2-492873e3-94f3-4d13-ae9b-2499261e1916/solver.bin": {
+        "bytes": 4459061,
+        "sha256": "a3ed796be33e190ac60a412aeeba196ed92fcf5c7f7e047c883aaa60d57805f1"
+      },
+      "interrupted-resumed/resume/generation-3-986dd10c-5a98-4d08-a08e-8bfad367eb0b/manifest.json": {
+        "bytes": 2202,
+        "sha256": "1ddfba10545043992d0d2c5a5a3361c31895af398ff875649f58e0750f41ae11"
+      },
+      "interrupted-resumed/resume/generation-3-986dd10c-5a98-4d08-a08e-8bfad367eb0b/solver.bin": {
+        "bytes": 4459061,
+        "sha256": "6f320f5971dc3552f79112dde62345100b7a2558f9c0c9811eb65f23cd3fb047"
+      },
+      "interrupted-resumed/resume/latest.json": {
+        "bytes": 409,
+        "sha256": "5ae7e71a58a9ed01a488455ccf4e3cb26bef634758cc6417b618693058bf952e"
+      },
+      "interrupted-resumed/resume/recovery-1791435785828-4ebe38c6-1bc4-485d-98df-fd2b5d22f1ef/recovery.json": {
+        "bytes": 332,
+        "sha256": "6b476bc334f17f4cef59ce0a77719b9c72255b185fc5653b9dcec8cc3287f72b"
+      },
+      "interrupted-resumed/resume/recovery-1791435785828-4ebe38c6-1bc4-485d-98df-fd2b5d22f1ef/status.json": {
+        "bytes": 412,
+        "sha256": "7874f46d9423d83f2faa47270a9e5017d4db1c57e11f47697e7f6d85e6f488e5"
+      },
+      "interrupted-resumed/spec.json": {
+        "bytes": 959,
+        "sha256": "3bcc622a9f6055dfd87add538c052f61628b1d8a632d6241e691b198e5754164"
+      },
+      "interrupted-resumed/status.json": {
+        "bytes": 414,
+        "sha256": "004eec0062adcf78867856d84679a750404652e15cf3c52beac5c133e4e2f797"
+      },
+      "interrupted.exit.json": {
+        "bytes": 1263,
+        "sha256": "ed491db7f7446528a6d1872bbe280513fa4d0c52ad9dbfb73f14fd940625ffa9"
+      },
+      "interrupted.stderr.log": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "interrupted.stdout.log": {
+        "bytes": 397,
+        "sha256": "e82e3acd676c0e3f571bb3f31d1de0fd64469bd6193e6185d787c76cd1acd4f7"
+      },
+      "interruption/events.jsonl": {
+        "bytes": 2308,
+        "sha256": "0002188d2b265c39f467b858c4940b4ca8ae4ecfd6695c1d75271b01defdfdde"
+      },
+      "interruption/latest.json": {
+        "bytes": 409,
+        "sha256": "0852cccd2228868517f8c9a604442d9b1199585ed948ba4be183fbacedd5a80b"
+      },
+      "interruption/manifest.json": {
+        "bytes": 2195,
+        "sha256": "7c44c6af816b6cb220f0ad708739fccef8dd18745f2fa88295d15aefdd4fac72"
+      },
+      "interruption/receipt.json": {
+        "bytes": 1945,
+        "sha256": "6946350238df2c982bc626b67419606dc34792d414483a29eaa57a9a1b1905c2"
+      },
+      "interruption/solver.bin": {
+        "bytes": 4459061,
+        "sha256": "20b32b64fd9f4adf8a704255a7d42f9a8565efddfc99fd651bd54436fc01f9e1"
+      },
+      "invocation.json": {
+        "bytes": 1236,
+        "sha256": "98521a221c712f651cd31f69da8a3cf6faace454d3455a60168391f648c06764"
+      },
+      "processes.json": {
+        "bytes": 3839,
+        "sha256": "fe4c975b8ba1042de05473d4ac78d7b775f389302b06f42219b4b20802b4ba1e"
+      },
+      "receipt.json": {
+        "bytes": 8733,
+        "sha256": "753c6680e177c2a0ac2c2e00cfa62b98e13b8df5b47557a7809b90b526ec7d38"
+      },
+      "resumed.exit.json": {
+        "bytes": 1242,
+        "sha256": "98fc16b182a011f0cbba4ae29d226bba70d705243ee26821237828dfcc93d6cd"
+      },
+      "resumed.stderr.log": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "resumed.stdout.log": {
+        "bytes": 1568,
+        "sha256": "e03e764eab56f59fe89497e908862f935c9ec1bbf933cb045bc5c5193eca3690"
+      },
+      "row.json": {
+        "bytes": 446,
+        "sha256": "77298f14a02178d2ae7d965edc236766b4c890da9d4ddbac69b6d6a7750076d7"
+      },
+      "witness.mjs": {
+        "bytes": 10361,
+        "sha256": "4e0f36ae42910d862afe9a7df302f5986221dbf1e4b68b91a66992fc9d09308c"
+      }
+    }
+  },
+  "review": {
+    "reviewer": "non-author Codex/GPT-6",
+    "sharedContext": true,
+    "independentlyExecuted": "Partial terminal-result corruption on a real checkpoint; review traced stale-owner takeover race.",
+    "repairs": "Partial result/exit recovery, atomic batch JSON receipts and exclusive lease-acquisition guard.",
+    "limits": "Reviewer did not execute the full suite, a campaign, the N64 witness, or reproduce the concurrency race. Author tests cover the repairs; full-suite and N64 receipts are separate."
+  },
+  "retention": {
+    "class": "tracked-evidence",
+    "rights": "project-owned operational/scientific verification",
+    "privacy": "no third-party media or credentials",
+    "retention": "permanent in Git under ADR 0038",
+    "sourceDisposition": "all original staging and old HIL observations retained; no cleanup or NAS publication"
+  },
+  "limits": [
+    "One N64 three-update restart witness, not a mature-geometry capacity measurement or scientific endpoint.",
+    "Same source, host and Node/V8 restart scope.",
+    "No physical-validation credit or BLD capacity qualification."
+  ]
+}

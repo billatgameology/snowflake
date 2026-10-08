@@ -154,13 +154,15 @@ support one extent-triggered event. These are bounded implementation gaps, not n
 
 Maker correction, 2026-10-07: actual experimental pause/resume is mandatory before the next launch;
 the four-hour terminal-stage alternative is superseded for this portfolio's first batch. HIL is stopped
-and will rerun after the [resume amendment](hil-bld-first-batch.md#resumable-rerun-maker-direction-2026-10-07)
-is implemented and tested. The ordinary core witness does not make this runner resumable. Qualify
-each host's workload budget and reuse existing logs, analyzers and governed preservation paths.
+and will rerun with the [verified resume amendment](hil-bld-first-batch.md#resumable-rerun-maker-direction-2026-10-07).
+The separate discovery format passed full-suite and real N64 interruption/continuation checks on the unchanged executable source;
+publish it and requalify each host's checkpointing workload before dispatch. Existing
+logs, analyzers and governed preservation paths remain the execution seams.
 
-The maker approved this portfolio and directed commit and push on 2026-10-07. Exact track rows,
-controls, observations and batch sizes remain the next design work; implementation and scientific
-launches have not begun. The approved process ceilings still require workload qualification.
+The maker approved this portfolio and directed commit and push on 2026-10-07. Its
+[first-batch plan](hil-bld-first-batch.md) now owns the exact rows, implementation and execution
+record; this portfolio is no longer a launch-preparation blocker. Process ceilings still require
+qualification for the producer and workload actually launched.
 
 Publication scope: fast-forward the plan into local main and publish to origin/main, including the
 already integrated cleanup/readiness history through `fe15b74`. The task checkout contains only
