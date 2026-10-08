@@ -1,7 +1,7 @@
 # HIL / BLD first exploration batch
 
 - **Scope:** executable first stage of the maker-approved post-Phase-10 portfolio; development evidence only.
-- **Status:** implemented and verified, 2026-10-07; delivered through main. Host qualification and full campaign dispatch remain local execution steps.
+- **Status:** implemented and verified, 2026-10-07; integrated into local main; publication awaits GitHub authentication. Host qualification and full campaign dispatch remain local execution steps.
 - **Branch / destination:** `science/hil-bld-first-batch` -> `origin/main`.
 - **Authority:** [adaptive discovery](post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld), accepted ADRs 0055-0059, attachment-kinetics specification. No phase gate changes.
 
@@ -182,3 +182,5 @@ passed 2 files / 18 tests, and `npm.cmd run lint:rule7` passed. Whitespace check
 two exact raw full-check logs, whose terminal blank lines are intentional recorded bytes:
 `git -c core.whitespace=cr-at-eol diff --cached --check -- . ':(exclude)evidence/hil-bld-first-batch-2026-10-07/full-check.stdout.log' ':(exclude)evidence/hil-bld-first-batch-2026-10-07/full-check.stderr.log'`.
 The unexcluded first attempt reported only those raw-log EOF blank lines; no artifact was normalized.
+
+Publication closeout: local main contains `3948c8f`, `ad990ac` and `60b55e9`. The original task worktree/ref were reconciled and removed without force after byte-verified custody. Command-line Git has no saved GitHub login; its push opened a Connect to GitHub window and remains pending. Last remote check still returned `f92bf5f`. Complete that sign-in or push main through the signed-in GitHub Desktop before asking BLD to pull. Source tests are complete; do not repeat the science suite merely to finish authentication.

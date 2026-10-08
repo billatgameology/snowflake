@@ -9,7 +9,7 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   The [approved portfolio](plans/post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld)
   covers cavities, cold core/tip structure, seed memory, pressure/transport and environment history.
   HIL coordinates shared code and joint review; each PC receives a queue of comparisons.
-  Planning ceilings retain desktop headroom; actual experimental limits remain unmeasured.
+  Local main includes tested code through `60b55e9`; Git push awaits GitHub sign-in (origin remains `f92bf5f`).
   The [first batch](plans/hil-bld-first-batch.md) is implemented and verified: HIL 56 rows, BLD 42; local probes precede launch.
 - **New-host follow-up:** [complete](plans/new-host-acceptance-and-capacity-2026-10-07.md),
   locally integrated through `cf1386e`. Glass/camera browser and direct visual acceptance pass;
@@ -233,7 +233,7 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-Pull published main in BLD's clean worktree, run `npm.cmd ci`, then follow the
+Complete the pending GitHub sign-in/push on HIL first. Then pull main in BLD's clean worktree, run `npm.cmd ci`, and follow the
 [first-batch commands](plans/hil-bld-first-batch.md#commands-after-publication). Run
 `node runner/src/hil-bld-batch-main.ts probe BLD out/batch1-bld-probe`, then launch BLD using
 that directory's `probe.json`. HIL uses the corresponding HIL commands. Full campaigns await maker dispatch.
