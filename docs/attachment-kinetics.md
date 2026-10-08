@@ -159,6 +159,16 @@ The finite twenty-second early/late protocol is an early-growth-history counterf
 measured timescale or physical SDAK claim. All earlier opt-in, timeline and export exclusions
 remain in force except this named temporal extension of local width selection.
 
+Decision 0060 adds a distinct experimental resume-v1 envelope for the BLD constant-environment
+facet arms, ordinary no-dip control and full/early basal-width modes. It binds preparation and
+exact cutoff bits to the complete common cycle-boundary state, using the strict streamed v3
+component internally. Ordinary export/restore exclusions above remain unchanged. Resume restores
+field, fill, insertion order, time, monopole lag and ledgers exactly; derived width geometry is
+rebuilt and activity reevaluated from restored time at the next relaxation. Timeline events,
+late-only mode, hole-fill overrides and test hooks are refused. See
+[0060](decisions/0060-resume-bld-development-experiments.md) and the
+[first-batch recovery protocol](plans/hil-bld-first-batch.md#bld-resumability-amendment--2026-10-07).
+
 Decision 0056 separately permits `experimentalHoleFilling: "enabled" | "disabled"` for
 constant-environment aggregate-v6 with ordinary M1/no-dip preparations. Absent or enabled retains
 the geometric completion loop in component 4; disabled skips only that loop after kinetic fill.
@@ -444,7 +454,8 @@ and v1/v2 are not resumable. Proposed decision 0039 defines a candidate separate
 format at completed, constant-environment interface-cycle boundaries. Its corrected core design has
 a clean non-author review, but the decision remains proposed; implementation, negative controls,
 separate code/evidence review and the WP3-dependent runner review are pending, so no current production
-resume path exists. The v4 pre-registration was committed before each historical two-temperature morphology
+Phase 6 resume path exists. Decision 0060 separately authorizes the bounded experimental
+development continuation described above. The v4 pre-registration was committed before each historical two-temperature morphology
 probe.
 
 Decision 0009 also resolves the adjacent geometry conflict by replacing the forward

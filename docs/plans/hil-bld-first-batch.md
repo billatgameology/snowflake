@@ -1,7 +1,7 @@
 # HIL / BLD first exploration batch
 
 - **Scope:** executable first stage of the maker-approved post-Phase-10 portfolio; development evidence only.
-- **Status:** implemented, verified and published through `f4ca38a`, 2026-10-07; integrated into BLD's task worktree. Dependencies are installed; after the OS restart the maker authorized the BLD probe and finite campaign. Live execution is recorded below.
+- **Status:** BLD legacy run stopped at maker request; implementing checkpoint continuation under ADR 0060. The amendment below supersedes its four-hour limit and seed-rerun recovery. HIL remains on the published original path.
 - **Branch / destination:** `science/hil-bld-first-batch` -> `origin/main`.
 - **Authority:** [adaptive discovery](post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld), accepted ADRs 0055-0059, attachment-kinetics specification. No phase gate changes.
 
@@ -238,3 +238,28 @@ stages and the running queue; update terminal state after it finishes.
 All row outputs and operational logs remain local staging for this active task and are retained
 for joint review; promote fitting claim-bearing results under the existing evidence/asset rules
 at closeout. No local output is disposable or pruned. Capped cases remain unresolved.
+
+## BLD resumability amendment — 2026-10-07
+
+Goal: the same BLD row continues from saved scientific state after a real process interruption, without a four-hour wall cutoff. This is the one end-to-end deliverable. Solo scientific research; hostile actors excluded. ADR [0060](../decisions/0060-resume-bld-development-experiments.md) and amended charter/spec authorize this distinct format; ordinary checkpoint formats and proposed ADR 0039 remain unchanged. This supersedes conflicting BLD instructions above, including seed-only restart; historical records remain history.
+
+The maker explicitly stopped the current run. Local staging `out/batch1-bld-control/operator-stop.json` and `operator-stop-processes-before.json` record the owned launcher stop and no remaining BLD processes. Preserve `out/batch1-bld/` as an interrupted legacy prefix with no restart state. The original probe is `out/batch1-bld-probe/probe.json`; changing the producer requires fresh qualification. No terminal completion is inferred from absent exit files.
+
+Approach and steps, committed before implementation:
+
+1. Add a strict experimental envelope and solver export/restore API for four facet arms, broad/no-dip, full width and early-only width. Reuse v3 streaming and single-consume ownership; preserve ordinary refusals. No timeline, hole-fill, late-only, GPU or scientific equation change.
+2. Share the existing scientific row loop with an asynchronous continuation driver. Save initial state and every completed update, accumulated readouts, pending snapshots and exact committed event prefix. Two rolling slots with flushed files and atomic pointer replacement protect against incomplete writes. Preserve any uncommitted output tail before rollback. Per-attempt logs/exits remain separate.
+3. Extend BLD launch with no wall deadline; add `pause <campaign>` and `resume <campaign>`. Pause stops dispatch and lets workers finish the update. Resume checks immutable source/runtime/row bindings, skips terminal rows and restores unfinished rows. Keep memory monitoring. The existing 20,000-update budget becomes a review pause, with another allowance on resume; scientific endpoint guards remain.
+4. Compare direct and multiply restored continuations across all seven modes: attachments, nonuniform vapor, partial fill, lag/ledgers and early cutoff transitions. Check ordinary refusals, malformed identity and interrupted publication/prefix handling. Execute a real fresh-process pause/resume with matching scientific events and terminal state before launch.
+5. At a stable implementation checkpoint run exact `npm.cmd test` (scientific codec/solver/readout surface), one bounded shared-context review, then fresh BLD probe and the authorized campaign in a new directory. Record exact launch, cadence, resume command and actual concurrency. Do not overwrite old evidence.
+
+Done when: supported cases resume the same numerical and observational state after a process stop, direct/resumed witnesses agree, no BLD four-hour deadline exists, terminal/paused/failure states remain distinct, required checks pass and the actual recovery command is recorded. No charter phase milestone is claimed.
+
+Rule 14A: accidental loss of runtime progress, wrong restored preparation, stale width activity, truncated writes, duplicated observations and simultaneous writers affect scientific state/comparisons. Ordinary resume rejects these modes; logs cannot restore field/fill/order. Reuse the codec and scientific loop, a local atomic save and one campaign ownership lock instead of a new service/registry. Their cost is below rerunning hours/days of computation. Deliberate runtime/repository substitution remains outside scope.
+
+Known failures: reread lessons on paid-for non-resumable runs, insertion-order continuation and configuration transfer before launch. Existing lk-resume, lk-basal-width, discovery and batch suites cover the nearest boundaries; they do not prove arbitrary protocols. Required representative pause/resume before launch uses files and a new process. The fresh probe keeps a short operational timeout, not a mature-geometry capacity claim.
+
+### Tried and rejected for this amendment
+
+- Merely deleting the four-hour cutoff leaves purchased progress vulnerable; stopped before extending that run.
+- Historical checkpoint exclusions are preserved; new experiment identity is required.

@@ -11,7 +11,7 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   HIL coordinates shared code and joint review; BLD leads cavity and cold core/tip comparisons.
   BLD checkout: `G:/Code Files/snowflake-bld-exploration`, branch `codex/bld-exploration`.
   Published main `f4ca38a` is integrated; the [first batch](plans/hil-bld-first-batch.md) has HIL 56 rows and BLD 42.
-  Maker resumed BLD after the OS restart; probe then campaign authorized; [setup](plans/post-phase10-adaptive-discovery.md#bld-worktree-setup--2026-10-07) retains its original base.
+  Maker stopped the legacy run; checkpoint resume without a four-hour cap is in progress; [setup](plans/post-phase10-adaptive-discovery.md#bld-worktree-setup--2026-10-07) retains its original base.
 - **New-host follow-up:** [complete](plans/new-host-acceptance-and-capacity-2026-10-07.md),
   locally integrated through `cf1386e`. Glass/camera browser and direct visual acceptance pass;
   the six comparison inputs and both small independent C-drive backups are restored and verified.
@@ -232,16 +232,15 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-BLD setup and locked dependency installation are complete in `G:/Code Files/snowflake-bld-exploration`.
-Maker resumed after the OS restart: execute the registered probe, then its qualified BLD queue. Follow the
-[first-batch commands](plans/hil-bld-first-batch.md#commands-after-publication):
-`node runner/src/hil-bld-batch-main.ts probe BLD out/batch1-bld-probe`; use a fresh output directory.
-Keep one clean commit through probe/launch. Live records: `out/batch1-bld-control/`, `out/batch1-bld-probe/`, `out/batch1-bld/`.
-Exact `npm.cmd test` at `ad990ac` passed 230 files / 2,981 tests, 23 skipped;
-[verification](../evidence/hil-bld-first-batch-2026-10-07/verification.json) also records both actual N64 prefix witnesses.
-Longer work still needs representative pause/resume before launch or short terminal stages; this batch
-uses four-hour capped stages. Incomplete prefixes remain unresolved; neither full experimental resume
-nor BLD worker capacity is claimed. Compare physical-time brackets; Phase 7 stays on maker hold and S6 closed.
+BLD's legacy campaign is stopped; partial outputs remain in `out/batch1-bld/`.
+Implement [the resumability amendment](plans/hil-bld-first-batch.md#bld-resumability-amendment--2026-10-07)
+in `G:/Code Files/snowflake-bld-exploration`, branch `codex/bld-exploration`, under ADR 0060.
+Next: distinct experimental checkpoint codec, shared row-loop continuation and BLD pause/resume CLI.
+The maker removed the four-hour experiment cutoff; do not relaunch the old non-resumable producer.
+Require exact `npm.cmd test` and a representative pause/resume before launch, then a fresh host probe.
+Stop receipt: `out/batch1-bld-control/operator-stop.json`; original probe: `out/batch1-bld-probe/probe.json`.
+Old full-check evidence does not verify this implementation. Preserve ordinary checkpoint refusals
+and scientific classifications; interrupted prefixes are unresolved. Phase 7 stays on hold and S6 closed.
 
 Education proceeds separately with the maker. The readiness/cleanup work is complete. Full large
 NAS restoration and unresolved custody/pruning remain separate decisions; retained source bytes
