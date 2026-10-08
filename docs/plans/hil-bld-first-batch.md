@@ -1,7 +1,7 @@
 # HIL / BLD first exploration batch
 
 - **Scope:** executable first stage of the maker-approved post-Phase-10 portfolio; development evidence only.
-- **Status:** resumable producer verified at `0747ea9`; publication, fresh HIL capacity qualification and rerun are next. Original HIL is stopped and preserved at `f4ca38a`. BLD stop/adoption requires action on that computer.
+- **Status:** resumable producer published at `b9cf7ed`; HIL's replacement queue ended with 50 size endpoints and six checkpoint I/O failures. Original HIL is stopped and preserved at `f4ca38a`. BLD state requires inspection on that computer.
 - **Implementation branch / destination:** `codex/discovery-resume` -> `origin/main`; original `science/hil-bld-first-batch` is reconciled.
 - **Authority:** [adaptive discovery](post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld), accepted ADRs 0055-0059, attachment-kinetics specification. No phase gate changes.
 
@@ -134,6 +134,66 @@ Closeout metadata checks passed: two files / 18 tests for evidence integrity and
 plus Rule 7 lint. `closeout-checks.json` and its two logs in the verification bundle bind the commands
 and exits. Raw full-check log EOF whitespace is retained byte-exact and excluded only from the
 whitespace check; no implementation changed after the full-check checkpoint.
+
+## HIL resumable execution 2026-10-07
+
+Shared main was pushed and remotely verified at `b9cf7ed72c82e350b93570fafd8e45afa0b95d53`.
+Primary main was fast-forwarded after reconciling only its six task-owned prose copies;
+`out/hil-resume-reconciliation-b9cf7ed/receipt.json` retains their exact local snapshots and
+disposition. Three worktrees remain: primary main, retained original `codex/hil-first-batch` at
+`f4ca38a`, and replacement execution `codex/discovery-resume` in `.tmp-discovery-resume/` at `b9cf7ed`.
+All were tracked/untracked clean at publication; ignored outputs and dependencies are retained.
+No PR or temporary review checkout was created. Do not change the replacement execution HEAD.
+
+Hidden wrapper PID 18404 started at `2026-10-08T05:31:45.1218942Z`, recorded in execution
+`out/batch1-hil-resumable-control-20261007/invocation.json`. No scientific or Vitest worker was
+present before qualification. It executes the registered probe and then the registered launch
+command above only if qualification succeeds. `state.json`, separate probe/campaign stdout and
+stderr, and real exit receipts in that control directory record each phase. Live prose is
+maintained only in primary; this execution record is intentionally not committed in the running checkout.
+
+The probe exited zero at `2026-10-08T05:39:28.4160867Z` (`probe-exit.json`). Its `probe.json`
+qualifies actual maximum concurrency 1/4/8/16 and recommends 16. The 16-worker rung took
+61.593 seconds, with minimum available physical memory 51,306,455,040 bytes and minimum commit
+headroom 59,790,082,048 bytes. These are short-prefix measurements, not mature-geometry capacity.
+
+Replacement production launched at `2026-10-08T05:39:28.651Z` (22:39 PDT), bound by
+`out/batch1-hil-resumable/campaign.json` and `first-batch-HIL-launch.json` to the published source,
+56 registered rows and concurrency 16. At `2026-10-08T05:41:12.986Z`, control `startup-check.json`
+observed all 16 started rows with committed complete-cycle checkpoints (ticks 20–21); the named
+resource sample contains 16 live children, available physical memory 50,624,356,352 bytes and
+commit headroom 59,100,864,512 bytes. This establishes operational startup and ongoing checkpoint
+publication, not completed scientific outcomes. The entire stopped original run remains retained.
+
+Exact production resume, from the fixed execution checkout after its prior processes are stopped:
+
+```powershell
+node runner/src/hil-bld-batch-main.ts resume HIL out/batch1-hil-resumable out/batch1-hil-resumable-probe/probe.json
+```
+
+Use the recorded stop/resume control scripts for this hidden launch; a visible resume terminal
+supports Ctrl+C. Attempt stdout/stderr live under `rows/<row-id>/attempts/<attempt-name>/`, with
+separate real exit receipts. Keep all row/checkpoint generations, probe and control files until
+joint HIL/BLD review and governed preservation. On completion inspect `first-batch-HIL-complete.json`
+and `campaign-exit.json`, then run the existing `summarize` command for `out/batch1-hil-resumable`.
+BLD must stop its old source before updating, pull the shared producer, run its own new probe and
+launch into new paths; old observations cannot be retroactively resumed. No BLD process was controlled.
+
+## HIL completion 2026-10-08
+
+The 56-row queue ended at `2026-10-08T09:57:50.191Z` (02:57 PDT), wrapper exit 2; no row
+remained unstarted and no coordinator abort occurred. Of those rows, 50 reached extent 21
+with exit zero; six stopped on EPERM while renaming a pending checkpoint generation. This is
+not an all-success completion. There was no production wall-time cutoff. The full census is
+execution `out/batch1-hil-resumable-control-20261007/completion-triage-20261008.json`.
+Each failed row has a valid converged checkpoint one cycle before the failed publication; their
+source binding remains `b9cf7ed`. Preserve them for explicit recovery without changing that checkout.
+The cause of the Windows rename denial is unproven; no numerical convergence failure was recorded.
+
+The maker selected the [next HIL exploration batch](hil-exploration-batch2.md). Its sixteen new
+seed/pressure rows use the measured first-batch leads; the six missing endpoints remain unresolved.
+The old run and its source/runtime, logs, checkpoints and failed tails remain retained. Do not
+silently consume these checkpoints under a newer producer or repeat all fifty completed endpoints.
 
 ## Registered original first stage (elapsed-time policy superseded above)
 

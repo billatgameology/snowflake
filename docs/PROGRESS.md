@@ -4,13 +4,13 @@ This is the compact **current-state index**. Read it completely, then the affect
 including **Tried and rejected**. The charter defines intended behavior; this index records state.
 The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
 
-- **Last updated:** 2026-10-07 by Codex
+- **Last updated:** 2026-10-08 by Codex
 - **Parallel exploration:** maker-approved for HIL and BLD; commit and push authorized on 2026-10-07.
   The [approved portfolio](plans/post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld)
   covers cavities, cold core/tip structure, seed memory, pressure/transport and environment history.
   HIL coordinates shared code and joint review; each PC receives a queue of comparisons.
-  Publication is complete through `f4ca38a`; BLD is running per the maker (not inspected from HIL).
-  The [resumable producer](plans/hil-bld-first-batch.md#resume-verification-and-publication) passed full-suite and real N64 restart checks on the unchanged executable source; publish, requalify HIL and rerun without the four-hour cutoff.
+  Publication is complete through `b9cf7ed`; BLD's original run was reported by the maker and is not inspected from HIL.
+  The [resumable HIL batch](plans/hil-bld-first-batch.md#hil-completion-2026-10-08) finished: 50 size endpoints and six checkpoint I/O failures. The [next HIL batch](plans/hil-exploration-batch2.md) registers sixteen new seed/pressure comparisons plus the publication repair.
 - **New-host follow-up:** [complete](plans/new-host-acceptance-and-capacity-2026-10-07.md),
   locally integrated through `cf1386e`. Glass/camera browser and direct visual acceptance pass;
   the six comparison inputs and both small independent C-drive backups are restored and verified.
@@ -20,7 +20,7 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   The short-row ladder recommends 16 workers for its ordinary N64 workload (capacity receipt
   SHA-256 `eb79aa6ddcaddaf79c2ec45aa919e0a6e7363674bfe0dcfcb83dcb0b33b4936b`);
   this batch separately qualifies its registered experimental prefixes. Larger/mature configurations
-  remain unqualified. Discovery-runner restart is verified; HIL rerun awaits publication and its fresh workload probe.
+  remain unqualified. Discovery-runner restart is verified; the first HIL batch used a qualified maximum of 16 workers. The second batch needs its own probe.
 - **Verification scope:** maker clarification is recorded through local `91c0684`: website/education
   presentation uses focused product/content checks; executable science and evidence retain rigorous
   requirements. The active glass/camera plan's inherited full-suite criterion is removed; historical
@@ -89,11 +89,11 @@ remains untouched. Housekeeping fast-forwarded local primary main and removed it
 worktree/ref without force. See [consolidation](plans/local-consolidation-2026-10-01.md) and primary
 `out/housekeeping-2026-10-07/worktree-closeout.json` for the source/check/disposition record.
 
-**Science is ready for first-batch host qualification and bounded exploration.** The cavity/grid and early/late history
+**Science is proceeding with bounded exploration.** The cavity/grid and early/late history
 wave is complete in the [adaptive discovery plan](plans/post-phase10-adaptive-discovery.md).
 Its closing findings, raw inventory and verification are recorded in
 [the completed wave bundle](../evidence/post-phase10-wave-2026-10-01/README.md); exact retained
-outputs are in `post-phase10-science-output@2026-10-01`. No replacement campaign has launched during this review.
+outputs are in `post-phase10-science-output@2026-10-01`. The first HIL replacement batch has finished as recorded above.
 The maker resumed science planning after consolidation, with education handled separately. The
 [approved portfolio](plans/post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld)
 covers several independent exploration tracks. The earlier cavity grid/seed comparison becomes
@@ -211,9 +211,9 @@ custody remain retained. Primary `nas-retention-review.json` records the disposi
   work plan before its risky action; agent discipline is distinguished from automated enforcement.
 - [Repository housekeeping](plans/repository-housekeeping-2026-10-07.md) is complete. Its required
   checks, approved cleanup, local fast-forward and non-force worktree/ref closeout are recorded.
-- [Adaptive discovery](plans/post-phase10-adaptive-discovery.md) is reviewing its completed wave and
-  proceeding with the tested [first batch](plans/hil-bld-first-batch.md): exact HIL/BLD queues and
-  probe/launch commands are implemented; each host measures its own worker budget before dispatch.
+- [Adaptive discovery](plans/post-phase10-adaptive-discovery.md) continues through the
+  [second HIL batch](plans/hil-exploration-batch2.md); first-batch BLD results await joint review.
+  The old HIL six operational failures retain valid source-bound checkpoints; no endpoint is imputed.
 - [Glass/camera follow-up](plans/explore-gutcheck-growth-glass-camera.md) has an implementation candidate
   with completed local browser/visual acceptance: current tracked glass record SHA-256
   `052b4c0f92fc1f8ea9b5c88219322c4fd3ceaba4db79051a93b587d6bd4c51c8`.
@@ -233,8 +233,8 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-Publish the [verified resume producer](plans/hil-bld-first-batch.md#resume-verification-and-publication), then from fixed `.tmp-discovery-resume/` run
-`node runner/src/hil-bld-batch-main.ts probe HIL out/batch1-hil-resumable-probe` and the registered launch command.
+Implement the [registered second HIL batch](plans/hil-exploration-batch2.md) in `C:/Users/biao3/.codex/worktrees/hil-exploration-batch2/snowflake`.
+Repair checkpoint publication at the I/O boundary, verify, publish, then run the plan's `hil-batch2-main.ts probe HIL` and launch commands. Old HIL is stopped.
 Exact `npm.cmd test` at clean `a879029` passed 233 files / 3031 tests, 23 skipped; the
 [receipt](../evidence/discovery-resume-2026-10-07/verification.json) also preserves the representative real N64 pause/resume before launch witness.
 Checkpoints publish after each complete cycle; production has no wall-clock deadline. Resume uses the same directory/source/runtime.
