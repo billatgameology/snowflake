@@ -289,6 +289,13 @@ worktree, start a duplicate queue, or remove it while it owns these active outpu
 
 ## Tried and rejected
 
+- The first resume full check at `0747ea9` exited one solely on two progress-index assertions:
+  the required literal `pause/resume before launch` had been changed to `before relaunch`.
+  Its receipt in `out/discovery-resume-verification-2026-10-07/full-check-result.json` and raw logs
+  record 232 passing files / 3,029 passing tests, 23 skipped and those two failures. Restore the
+  required prose, retain the failed receipt and rerun exact `npm.cmd test`; executable code and
+  the passing N64 interruption witness are unchanged.
+
 - Four-hour terminal stages without restart (maker rejected 2026-10-07): the time budget was not
   measured to reach every scientific event and could lose informative later behavior. HIL's original
   run is stopped and retained; implement real continuation before rerunning without that cutoff.

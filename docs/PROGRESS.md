@@ -239,7 +239,7 @@ Preserve stopped `C:/Users/biao3/.codex/worktrees/hil-first-batch/snowflake` and
 they are observations, not restart state. BLD stop/adoption requires action on that computer; no remote access is claimed.
 Exact `npm.cmd test` at `ad990ac` passed 230 files / 2,981 tests, 23 skipped;
 [verification](../evidence/hil-bld-first-batch-2026-10-07/verification.json) also records both actual N64 prefix witnesses.
-The maker now requires representative experimental pause/resume before relaunch; the four-hour terminal-stage
+The maker now requires representative experimental pause/resume before launch; the four-hour terminal-stage
 alternative is superseded for this batch. Neither full experimental resume
 nor BLD worker capacity is claimed. Compare physical-time brackets; Phase 7 stays on maker hold and S6 closed.
 
