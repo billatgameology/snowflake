@@ -149,6 +149,10 @@ readouts; no new assurance framework is needed. Read-only collaborator extractio
 context and report JSON, not raw-event reconstruction or simulation reruns.
 Verification for this prose/design block: named report-field extraction, width/shell contract
 inspection, npm.cmd run lint:rule7 and git diff --check passed. No solver or gate run was needed.
+The existing runner/test/progress-index.test.ts also passed after local integration via
+node node_modules/vitest/vitest.mjs run runner/test/progress-index.test.ts.
+Prose/design changes integrated into local main through 7322b7b; the clean task worktree/ref
+were removed without force. Only the primary checkout/local main remain; nothing was pushed.
 
 Local reconciliation before push: the science worktree was clean at 9658cd3 before this closure;
 the refreshed origin science branch is its ancestor (61 local commits ahead, zero behind).
