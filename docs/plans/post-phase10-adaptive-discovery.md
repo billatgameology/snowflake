@@ -36,8 +36,10 @@ Sequence and done-when:
    Delete only the four merged local branch refs after exact-head/ancestry checks; keep main,
    the permanent BLD run tag and unrelated film branch. No remote branch deletion is required.
 5. Record current locators and the selected recommendation in PROGRESS and this plan. Use existing
-   evidence-integrity/progress-index checks, Rule 7 and diff checks; no executable scientific
-   implementation changes and no full-suite claim. One bounded review checks the final custody
+   evidence-integrity/progress-index checks, Rule 7 and diff checks for custody metadata. The
+   retained one-off analysis adds executable scientific readout calculations, so run exact
+   `npm.cmd test` once at the stable analysis checkpoint under Rule 6; a passing suite is not
+   validation of an interpretation. One bounded review checks the final custody
    disposition and load-bearing interpretations. Integrate the completed work into primary main.
 
 Relevant lessons: A1/A2 require actual preserved bytes and digest-safe checkout; C3/C4/C5 and
