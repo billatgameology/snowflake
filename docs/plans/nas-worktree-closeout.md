@@ -1,7 +1,7 @@
 # Plan — NAS preservation before worktree closeout
 
 - **Phase:** repository storage and operating policy; no scientific phase change.
-- **Status:** preservation and checks complete; integration/checkout retirement pending.
+- **Status:** complete; integrated into main with verified NAS recovery and task checkout archived.
 - **Started / last touched:** 2026-10-09 by Codex/GPT-6.
 - **Branch / checkout:** `codex/nas-worktree-closeout`, `C:/Users/biao3/.codex/worktrees/nas-worktree-closeout/snowflake`, from `6071640`.
 
@@ -54,8 +54,8 @@ No new verifier/transport framework or assurance layer. The actual copy/restore 
 - [x] Commit this plan before changes; adopt and propagate the storage decision.
 - [x] Register, publish and freshly restore the bounded retired HIL collection.
 - [x] Verify restored archive members and update provenance/recovery records.
-- [ ] Run focused metadata/prose checks, integrate and publish the policy/records.
-- [ ] Account for this task's outputs under the new rule before retiring its checkout.
+- [x] Run required repository/metadata/prose checks and integrate the policy/records for main publication.
+- [x] Account for this task's outputs under the new rule and retire its checkout.
 
 ## Out of scope
 
@@ -117,7 +117,7 @@ A Codex/GPT-6 shared-context policy review checked exact charter quotations, loc
 
 The exact same-volume move retained 31 files / 271121135 bytes with identical before/after tree SHA-256 `087cb0e0ce47bbbad07b7b2b072283789856e8734a4d452d1d2b1f90a573890e`. Primary `out/nas-worktree-closeout-2026-10-09-relocation.json` retains the file inventories. Prepared/restored payload copies are covered by the NAS collection already verified above; the other files are compact operational captures retained locally, with authoritative results in Git/NAS receipts. The checkout has no remaining unique output payload. Its remaining ignored `node_modules/` is reinstallable and `app/dist/` is rebuildable test/build output.
 
-Reconciliation before integration: primary `main` at `6071640` and active `codex/hil-warm-refinement` at `838c294` were clean; this branch owns the listed storage-policy/metadata delta. The active execution checkout, ignored scientific output and source remain independently owned and untouched. Direct fast-forward to primary and main publication are intended; no PR is used.
+Reconciliation before integration: primary `main` at `6071640` and active `codex/hil-warm-refinement` at `838c294` were clean; this branch owns the listed storage-policy/metadata delta. The active execution checkout, ignored scientific output and source remain independently owned and untouched. Primary fast-forwarded to preservation commit `ec470af9de324275cdeb2250e52af3aafe9238a2`. The managed task checkout was then archived, and its merged local branch removed with non-force `git branch -d`. Only primary `main` and the independently owned active warm worktree remain. Publication uses `main`; no PR is used. Final closeout prose receives Rule 7 and whitespace checks; the tested implementation is unchanged.
 
 ## Tried and rejected
 
