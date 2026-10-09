@@ -1672,9 +1672,9 @@
       "ownerManifest": {
         "storage": "nas-private",
         "path": "collections/phase10-source-intake/2026-08-21-v1/manifest.private.jsonl",
+        "format": "snowflake-nas-private-owner-jsonl-v1",
         "bytes": 374,
         "sha256": "fb5a266aade73215097e44b2b5f8b4d340771300c9a9d3ee40318aa8bf9b4e1b",
-        "format": "snowflake-nas-private-owner-jsonl-v1",
         "selector": {
           "kind": "jsonl-field-equals",
           "recordType": "file",
@@ -3098,17 +3098,30 @@
     {
       "assetId": "hil-completed-runs",
       "version": "2026-10-09",
-      "state": "provisional",
+      "state": "active",
       "ownerWorkstream": "nas-worktree-closeout",
       "locator": "collections/hil-completed-runs/2026-10-09/payload",
       "historicalRepoPath": "out/hil-retired-2026-10-08",
       "legacyAliases": [],
       "storageClass": "external-evidence",
       "aggregate": {
-        "files": 0,
-        "bytes": 0
+        "files": 6,
+        "bytes": 135501385
       },
-      "ownerManifest": null,
+      "ownerManifest": {
+        "storage": "tracked",
+        "path": "docs/nas-assets/manifests/hil-completed-runs/2026-10-09.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 1571,
+        "sha256": "873a525a9eaf72276fcb764a674886d77475f84d6ad9e8b4bab2a7493b5e0438",
+        "selector": {
+          "kind": "path-prefixes",
+          "include": [
+            "collections/hil-completed-runs/2026-10-09/payload"
+          ],
+          "exclude": []
+        }
+      },
       "rights": {
         "kind": "project-owned",
         "redistribution": "allowed"
@@ -3151,32 +3164,38 @@
         "record": "docs/plans/nas-worktree-closeout.md"
       },
       "restore": {
-        "status": "documented",
+        "status": "tested",
         "command": "npm run assets:restore -- --collection hil-completed-runs@2026-10-09 --to out/restores/hil-completed-runs-2026-10-09",
         "verifyCommand": "npm run assets:verify-restored -- --collection hil-completed-runs@2026-10-09 --from out/restores/hil-completed-runs-2026-10-09",
         "record": "docs/plans/nas-worktree-closeout.md"
       },
       "verification": {
-        "status": "unavailable",
-        "at": null,
-        "host": null,
-        "receipt": null,
+        "status": "full-hash",
+        "at": "2026-10-09",
+        "host": "HIL",
+        "receipt": "_control/receipts/publication/hil-completed-runs/2026-10-09/hil-completed-runs-20261009-publish.json",
         "limits": [
-          "Publication pending."
+          "Publication receipt SHA-256 0b183f14b2daf7a6066d421720b3b5ff47ee492633efe728337210038379b2c7.",
+          "Restore receipt _control/receipts/restore/hil-completed-runs/2026-10-09/hil-completed-runs-20261009-restore.json SHA-256 fe6c37c1105974c8fa662e681cb303758b4d7fc52e20ee18f6fc7bbfd0ba2216.",
+          "Detailed checks: docs/nas-assets/manifests/hil-completed-runs/2026-10-09-verification.json.",
+          "Windows SMB durability is verification-based. Original workstation files remain; no pruning or off-site recovery claim.",
+          "Retired HIL archives and member inventories; original scientific bytes unchanged. Historical Git copies and primary workstation originals remain."
         ]
       },
       "storageDomains": [
         "snowcrystal-nas"
       ],
       "backup": {
-        "status": "required-missing",
-        "independentDomains": [],
-        "receipts": []
+        "status": "verified",
+        "independentDomains": [
+          "hil-workstation-c"
+        ],
+        "receipts": [
+          "docs/nas-assets/manifests/hil-completed-runs/2026-10-09-verification.json"
+        ]
       },
       "supersedes": [],
-      "unresolved": [
-        "Publish, freshly restore and verify; retain primary C-drive originals."
-      ]
+      "unresolved": []
     }
   ],
   "overlays": [

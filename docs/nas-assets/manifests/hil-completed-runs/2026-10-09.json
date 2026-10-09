@@ -1,0 +1,38 @@
+{
+  "format": "snowflake-nas-ledger-v1",
+  "collection": "hil-completed-runs@2026-10-09",
+  "locator": "collections/hil-completed-runs/2026-10-09/payload",
+  "treeSha256": "287265e35d64cdea177d9793a18a3602928030912f2252aec556cf20ff056a9f",
+  "files": [
+    {
+      "path": "collections/hil-completed-runs/2026-10-09/payload/discovery-resume-archive.json",
+      "bytes": 621458,
+      "sha256": "683e4461bf5a19d3605cc7e44d22470814aaac0b19be91de67a0f7b8a30de612"
+    },
+    {
+      "path": "collections/hil-completed-runs/2026-10-09/payload/discovery-resume-output.tar.gz",
+      "bytes": 87453810,
+      "sha256": "e7e26e345f086fa3549bf81aef4478615def0511685755557a10883d3ff81907"
+    },
+    {
+      "path": "collections/hil-completed-runs/2026-10-09/payload/hil-exploration-batch2-archive.json",
+      "bytes": 428033,
+      "sha256": "9ec38e76ae6cba7206bbe7065d5ed06395aac80ee066054f1cf6b9aa307acf93"
+    },
+    {
+      "path": "collections/hil-completed-runs/2026-10-09/payload/hil-exploration-batch2-output.tar.gz",
+      "bytes": 45892129,
+      "sha256": "8b44121f1bf5f6c6c7fe1f49430ea33e8f75550a9ca73c8cee8f0a8484681eee"
+    },
+    {
+      "path": "collections/hil-completed-runs/2026-10-09/payload/hil-first-batch-archive.json",
+      "bytes": 148498,
+      "sha256": "935d7a1820ba049c16ad1b654de4fe9aeef833088f00ae9ee1a9e4ce8481dddb"
+    },
+    {
+      "path": "collections/hil-completed-runs/2026-10-09/payload/hil-first-batch-output.tar.gz",
+      "bytes": 957457,
+      "sha256": "f1a4ce15832792b3e2c2fd0de3b85d26ce8c5cb4d4090d0a2763c84dbac771dd"
+    }
+  ]
+}

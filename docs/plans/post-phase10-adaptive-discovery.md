@@ -10,6 +10,13 @@
 
 ## Joint October review and HIL retirement — 2026-10-08
 
+Current storage addendum, 2026-10-09: [NAS closeout policy and catch-up](nas-worktree-closeout.md)
+now preserve the three retired HIL execution archives and member inventories in immutable
+`hil-completed-runs@2026-10-09`. Full byte verification and fresh-stage recovery passed, including
+all 3745 archived member files / 1587912611 bytes. Local originals and historical Git archives
+remain. The dated retirement record below truthfully describes the earlier local-only custody;
+its `nasMutation:false` receipt is unchanged. Future bulk payloads go to NAS under ADR 0061.
+
 ### Saved-data follow-up authorized 2026-10-08
 
 The maker accepted the proposed next action: extract spatial structure and growth increments

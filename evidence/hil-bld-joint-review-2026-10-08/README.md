@@ -46,6 +46,12 @@ The approved exploration portfolio remains the context; this review narrows choi
 
 ## Preservation and reproduction
 
+**NAS recovery added 2026-10-09:** collection `hil-completed-runs@2026-10-09` now preserves the
+three HIL archives and their member inventories. The [closeout plan](../../docs/plans/nas-worktree-closeout.md)
+provides exact restore/verification commands; fresh recovery checked every archived member.
+Local originals and the historical Git archives remain unchanged. New bulk run payloads follow
+ADR 0061's NAS policy. The following paragraph records the earlier retirement custody.
+
 The three `*-output.tar.gz` files and their `*-archive.json` inventories retain every original
 HIL execution-worktree output: stopped observations, both completed campaigns, failed tails,
 checkpoints, probes and controls. All decompressed members were compared by path/type/length/hash

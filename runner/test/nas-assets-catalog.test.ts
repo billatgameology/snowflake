@@ -187,6 +187,7 @@ describe("tracked NAS asset catalogue", () => {
       "post-phase10-science-output@2026-10-01": ["active", 15, 304_047_835],
       "local-worktree-closeout@2026-10-01": ["active", 15, 151_154_825],
       "bld-first-batch-output@2026-10-08": ["active", 2_061, 1_050_129_781],
+      "hil-completed-runs@2026-10-09": ["active", 6, 135_501_385],
     } as const;
 
     expect(Object.fromEntries(CATALOG.collections.map((collection) => [

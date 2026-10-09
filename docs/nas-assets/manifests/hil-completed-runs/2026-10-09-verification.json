@@ -1,0 +1,159 @@
+{
+  "identity": "hil-completed-runs@2026-10-09",
+  "verifiedAt": "2026-10-09T15:51:59.837Z",
+  "payload": {
+    "fileCount": 6,
+    "totalBytes": 135501385,
+    "treeSha256": "287265e35d64cdea177d9793a18a3602928030912f2252aec556cf20ff056a9f"
+  },
+  "publicationReceiptPath": "_control/receipts/publication/hil-completed-runs/2026-10-09/hil-completed-runs-20261009-publish.json",
+  "publicationReceiptSha256": "0b183f14b2daf7a6066d421720b3b5ff47ee492633efe728337210038379b2c7",
+  "restoreReceiptPath": "_control/receipts/restore/hil-completed-runs/2026-10-09/hil-completed-runs-20261009-restore.json",
+  "restoreReceiptSha256": "fe6c37c1105974c8fa662e681cb303758b4d7fc52e20ee18f6fc7bbfd0ba2216",
+  "archiveMemberCheck": {
+    "command": "python docs/nas-assets/manifests/hil-completed-runs/2026-10-09-verify-archives.py out/restores/hil-completed-runs-2026-10-09",
+    "exitCode": 0,
+    "restoredPayload": "C:\\Users\\biao3\\.codex\\worktrees\\nas-worktree-closeout\\snowflake\\out\\restores\\hil-completed-runs-2026-10-09",
+    "archives": [
+      {
+        "label": "hil-first-batch",
+        "files": 532,
+        "bytes": 7284122,
+        "archiveSha256": "f1a4ce15832792b3e2c2fd0de3b85d26ce8c5cb4d4090d0a2763c84dbac771dd",
+        "allMembersMatch": true
+      },
+      {
+        "label": "discovery-resume",
+        "files": 1902,
+        "bytes": 1021665177,
+        "archiveSha256": "e7e26e345f086fa3549bf81aef4478615def0511685755557a10883d3ff81907",
+        "allMembersMatch": true
+      },
+      {
+        "label": "hil-exploration-batch2",
+        "files": 1311,
+        "bytes": 558963312,
+        "archiveSha256": "8b44121f1bf5f6c6c7fe1f49430ea33e8f75550a9ca73c8cee8f0a8484681eee",
+        "allMembersMatch": true
+      }
+    ],
+    "files": 3745,
+    "bytes": 1587912611
+  },
+  "checks": [
+    {
+      "exitCode": 0,
+      "command": "npm.cmd run assets:verify -- --collection hil-completed-runs@2026-10-09 --full",
+      "finishedUtc": "2026-10-09T15:51:30.4022468Z",
+      "report": {
+        "format": "snowflake-nas-assets-readonly-report-v1",
+        "command": "verify",
+        "ok": true,
+        "scope": "explicit-single-collection-full-hash",
+        "mount": "attached",
+        "collections": [
+          {
+            "identity": "hil-completed-runs@2026-10-09",
+            "state": "active",
+            "manifest": "verified",
+            "aggregate": "verified",
+            "payload": "verified-full"
+          }
+        ],
+        "overlays": [],
+        "defects": [],
+        "limitations": [],
+        "fullPayloadTotals": {
+          "files": 6,
+          "bytes": 135501385
+        },
+        "limits": [
+          "Payload hashing was limited to the one explicitly selected collection and its registered selector rows.",
+          "No publication, restoration, movement, quarantine, or deletion is available in this command."
+        ]
+      }
+    },
+    {
+      "exitCode": 0,
+      "command": "npm.cmd run assets:verify-restored -- --collection hil-completed-runs@2026-10-09 --from out/restores/hil-completed-runs-2026-10-09",
+      "finishedUtc": "2026-10-09T15:51:29.9534911Z",
+      "report": {
+        "format": "snowflake-nas-legacy-restore-report-v1",
+        "command": "verify",
+        "ok": true,
+        "collection": "hil-completed-runs@2026-10-09",
+        "destinationScope": "repo-out-restores",
+        "fileCount": 6,
+        "totalBytes": 135501385,
+        "treeSha256": "287265e35d64cdea177d9793a18a3602928030912f2252aec556cf20ff056a9f",
+        "durableReceiptWritten": false,
+        "pruneAuthorized": false,
+        "limits": [
+          "This result verifies one fresh local staging tree and is not a durable publication receipt.",
+          "This command never grants local or NAS prune authority."
+        ]
+      }
+    }
+  ],
+  "independentWorkstationCopy": {
+    "domain": "hil-workstation-c",
+    "root": "C:/Users/biao3/Documents/GitHub/snowflake/evidence/hil-bld-joint-review-2026-10-08",
+    "files": [
+      {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\discovery-resume-archive.json",
+        "bytes": 621458,
+        "sha256": "683e4461bf5a19d3605cc7e44d22470814aaac0b19be91de67a0f7b8a30de612"
+      },
+      {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\discovery-resume-output.tar.gz",
+        "bytes": 87453810,
+        "sha256": "e7e26e345f086fa3549bf81aef4478615def0511685755557a10883d3ff81907"
+      },
+      {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\hil-exploration-batch2-archive.json",
+        "bytes": 428033,
+        "sha256": "9ec38e76ae6cba7206bbe7065d5ed06395aac80ee066054f1cf6b9aa307acf93"
+      },
+      {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\hil-exploration-batch2-output.tar.gz",
+        "bytes": 45892129,
+        "sha256": "8b44121f1bf5f6c6c7fe1f49430ea33e8f75550a9ca73c8cee8f0a8484681eee"
+      },
+      {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\hil-first-batch-archive.json",
+        "bytes": 148498,
+        "sha256": "935d7a1820ba049c16ad1b654de4fe9aeef833088f00ae9ee1a9e4ce8481dddb"
+      },
+      {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\hil-first-batch-output.tar.gz",
+        "bytes": 957457,
+        "sha256": "f1a4ce15832792b3e2c2fd0de3b85d26ce8c5cb4d4090d0a2763c84dbac771dd"
+      }
+    ],
+    "allMatch": true
+  },
+  "limits": [
+    "Original raw outputs and historical Git archives remain. No pruning, history rewrite or new scientific result.",
+    "SMB durability is reopen/hash verified, not hardware crash-certified."
+  ],
+  "repositoryVerification": {
+    "fullCheck": {
+      "startedUtc": "2026-10-09T15:56:57.8310435Z",
+      "exitCode": 0,
+      "finishedUtc": "2026-10-09T16:16:16.6697585Z",
+      "command": "npm.cmd test"
+    },
+    "testedTree": "d6afc38cbffb533a0b8d88e89f294d121984bf07",
+    "passedFiles": 236,
+    "passedTests": 3050,
+    "skippedTests": 23,
+    "logAfterCloseout": "out/nas-worktree-closeout-2026-10-09/nas-save-hil-completed-2026-10-09/full-checks.log",
+    "logSha256": "5d9c4aca4de483edcdc632eb336f1b0b45b6223bbadd695ddc157e97b7d2fe2c",
+    "focusedMetadataCheck": {
+      "command": "npx.cmd vitest run runner/test/nas-assets-catalog.test.ts runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts",
+      "exitCode": 0,
+      "finishedUtc": "2026-10-09T15:54:05.2123925Z"
+    },
+    "limits": "Repository checks are regression verification, not a scientific gate or new run result. Subsequent closeout edits change only records."
+  }
+}

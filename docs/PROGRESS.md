@@ -1,10 +1,9 @@
 # Progress — The Virtual Cloud Chamber
 
-This is the compact **current-state index**. Read it completely, then the affected active plan
-including **Tried and rejected**. The charter defines intended behavior; this index records state.
-The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
+This is the compact **current-state index**. Read it completely, then the affected active plan including **Tried and rejected**. The charter defines intended behavior; this index records state. The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
 
 - **Last updated:** 2026-10-09 by Codex
+- **Storage/closeout policy:** [ADR 0061](decisions/0061-nas-backup-before-worktree-closeout.md) requires verified NAS recovery before output-owning worktree closure; new bulk run payloads stay out of Git. [HIL catch-up](plans/nas-worktree-closeout.md) published and freshly restored `hil-completed-runs@2026-10-09`: six archive/inventory payload files, 135501385 bytes, covering all 3745 HIL member files / 1587912611 bytes. Primary workstation copies remain; historical Git archives and active HIL execution are unchanged. The [verification record](nas-assets/manifests/hil-completed-runs/2026-10-09-verification.json) and catalogue supply exact recovery commands. Reuse verified immutable coverage rather than repeat a backup for identical bytes.
 - **Execution policy:** maker direction 2026-10-08 keeps development, tests, analysis and scientific runs on HIL. Split work with BLD only when the work is expected to take multiple days; use representative timing before proposing that split.
   The [approved portfolio](plans/post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld)
   covers cavities, cold core/tip structure, seed memory, pressure/transport and environment history.
@@ -247,6 +246,4 @@ BLD's HIL restore is now primary `out/hil-retired-2026-10-08/hil-bld-results-int
 Use the child HIL/BLD reports' rerun commands with scripts in `evidence/hil-bld-joint-review-2026-10-08/` and fresh output paths. Retain producer-specific source history; do not resume BLD checkpoints with HIL code. Phase 7 stays on hold and S6 closed.
 HIL's exact `npm.cmd test` at `b9d7eb0` passed 235 files / 3045 tests, 23 skipped ([receipt](../evidence/hil-exploration-batch2-2026-10-08/verification.json)); its representative real N64 pause/resume before launch [witness](../evidence/discovery-resume-2026-10-07/verification.json) remains retained. This import changes no scientific producer.
 
-Education proceeds separately with the maker. The readiness/cleanup work is complete. Full large
-NAS restoration and unresolved custody/pruning remain separate decisions; retained source bytes
-and the other computer's film branch stay intact.
+Education proceeds separately with the maker. The readiness/cleanup work is complete. Full large NAS restoration and unresolved custody/pruning remain separate decisions; retained source bytes and the other computer's film branch stay intact.

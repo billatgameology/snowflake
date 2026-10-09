@@ -1,0 +1,19 @@
+{
+  "format": "snowflake-nas-restore-receipt-v1",
+  "transactionId": "hil-completed-runs-20261009-restore",
+  "identity": "hil-completed-runs@2026-10-09",
+  "locator": "collections/hil-completed-runs/2026-10-09/payload",
+  "publicationTransactionId": "hil-completed-runs-20261009-publish",
+  "publicationReceiptPath": "_control/receipts/publication/hil-completed-runs/2026-10-09/hil-completed-runs-20261009-publish.json",
+  "publicationReceiptSha256": "0b183f14b2daf7a6066d421720b3b5ff47ee492633efe728337210038379b2c7",
+  "restored": {
+    "fileCount": 6,
+    "totalBytes": 135501385,
+    "treeSha256": "287265e35d64cdea177d9793a18a3602928030912f2252aec556cf20ff056a9f"
+  },
+  "verifiedAt": "2026-10-09T15:50:22.243Z",
+  "limits": [
+    "The receipt binds exact restored bytes but omits the host destination and all private filenames.",
+    "Claim-specific verifier adapters and tracked catalogue registration are outside this fixture core."
+  ]
+}
