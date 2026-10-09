@@ -5,6 +5,62 @@
 - **Implementation branch / destination:** `codex/discovery-resume` -> `origin/main`; original `science/hil-bld-first-batch` is reconciled.
 - **Authority:** [adaptive discovery](post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld), accepted ADRs 0055-0059, attachment-kinetics specification. No phase gate changes.
 
+## BLD branch retirement — 2026-10-08
+
+The maker requests retirement of `codex/bld-exploration` without merging its duplicate resume
+implementation. HIL's integrated result commit `5c972925326bcbae0597a1c3d0ba86b67fb1ba4a` is now
+published on `origin/main`; BLD's primary checkout fast-forwarded to it. The imported BLD evidence
+bundles and owner manifests compare byte-identically with branch head
+`b3337825182d4d90bb63abad2cd0bedd673db320`.
+
+Permanent annotated tag `run/bld-first-batch-2026-10-08` is pushed. Its tag object is
+`35bb7cfa44aa0224f0bc0ddfd2bb54ddde8e5e10`, and the remote peeled target is exactly `b333782`.
+It retains the distinct implementation and ancestor run producer `d7ff3e1`. Recover that source
+with `git fetch origin tag run/bld-first-batch-2026-10-08`; inspect the tag or create a deliberately
+isolated checkout when needed. Main retains HIL's implementation. Completed rows need no resume.
+
+Rule 16 audit found two local worktrees and branches: clean BLD primary on `main`, and clean
+`G:/Code Files/snowflake-bld-exploration` on the retiring branch. No staged, unstaged or nonignored
+untracked source changes exist. The task's entire `out/` contains 7914 regular files /
+3197028093 bytes, including unpublished tuning and operational intermediates. Moved that complete
+tree, without merging or deleting outputs, into the previously absent primary staging directory
+`G:/Code Files/snowflake/out/bld-exploration-retired-2026-10-08`. Before/after inventories and
+operation receipts live in primary `out/bld-branch-retirement-2026-10-08/`.
+
+The completed campaign/probe/control retain their existing tracked archives and governed NAS
+collection; the old interrupted run and representative recovery witness retain their tracked
+archives. Moving local staging grants no new preservation or pruning claim for uncatalogued
+intermediates. Keep them in the destination. Rebuildable task `node_modules/` and `app/dist/`
+are disposable at retirement; installed workspace junctions must not be followed into source.
+Primary's existing ignored assets, outputs, research custody and the unrelated remote film branch
+remain independently owned and untouched. No HIL-local worktree is removed from BLD.
+
+Before/after inventories agree in exact file set, lengths and SHA-256, with tree digest
+`b112591d27d8aa2d963b87eeaba873522442a16d9c19d7b2665cd8468aba3f82`.
+The task worktree directory and local/remote branch are removed; only BLD primary `main` remains
+registered locally. The permanent tag and unrelated remote film branch remain. The pinned
+[retirement receipt](../../evidence/bld-first-batch-2026-10-08/branch-retirement.json) records
+the exact heads, remote observations, output custody and command outcomes. No PR was used. This is
+solo scientific research, with hostile actors excluded; the deliverable is a retired branch
+with recoverable producer and retained outputs. Lessons A1/A2 and Rules 15/16 govern custody.
+Use the existing stable inventory, Git identity/diff checks, Rule 7 and progress-index check;
+no numerical behavior or claim changes and no scientific full-suite rerun is required.
+
+Tried and rejected: deleting the branch before HIL publication would lose the live result landing
+spot; deleting its unmerged source without a pushed tag would discard distinct producer history.
+Deleting ignored output wholesale would lose unpublished intermediates, so retain all local bytes.
+The initial tag push used a PowerShell-interpolated refspec that Git rejected before transmission;
+the literal refspec succeeded and the remote tag/peeled target were independently checked.
+Non-force `git worktree remove` removed the registration but left part of the directory, including
+two broken dependency junctions. The remaining nondependency files belonged to the tagged source
+tree. Removed only those junction entries, then the resolved exact retired directory with native
+PowerShell; this completed cleanup without following links or removing any output staging.
+
+Closure verification: `npx.cmd vitest run runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts`
+passed 2 files / 18 tests; `npm.cmd run lint:rule7` and scoped staged whitespace checks passed.
+Exact command/exit/log receipts remain in primary `out/bld-branch-retirement-2026-10-08/`.
+These are custody and metadata checks, not a new scientific full-suite result.
+
 ## Goal and done when
 
 ### HIL pickup of BLD results — 2026-10-08

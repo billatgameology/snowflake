@@ -9,7 +9,7 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   The [approved portfolio](plans/post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld)
   covers cavities, cold core/tip structure, seed memory, pressure/transport and environment history.
   HIL coordinates shared code and joint review; each PC receives a queue of comparisons.
-  Shared main publication is through `4322807`; BLD's `b333782` result branch is fetched and its
+  Shared main publication includes `5c97292`; BLD's `b333782` is preserved by pushed tag `run/bld-first-batch-2026-10-08` and its
   [evidence/NAS records are imported](../evidence/hil-bld-pickup-2026-10-08/README.md), with HIL verification complete.
   HIL has [56 first-batch endpoints](plans/hil-bld-first-batch.md#recovery-completion-2026-10-08) and [16 successor endpoints](plans/hil-exploration-batch2.md#completion-2026-10-08). BLD has 42 checked endpoints. All 114 cases are available for comparative analysis; no new run is dispatched.
 - **New-host follow-up:** [complete](plans/new-host-acceptance-and-capacity-2026-10-07.md),
@@ -241,7 +241,7 @@ Read the [second-batch registered readout](plans/hil-exploration-batch2.md#froze
 BLD's 42 endpoints are restored and independently checked on HIL in `C:/Users/biao3/.codex/worktrees/hil-bld-results-integration/snowflake/out/restores/bld-first-batch-output-2026-10-08/`.
 Collection `bld-first-batch-output@2026-10-08` resolves through `Z:/`; all 2061 files / 1050129781 bytes passed fresh-restore checks. Recheck in that checkout: `npm.cmd run assets:verify-restored -- --collection bld-first-batch-output@2026-10-08 --from out/restores/bld-first-batch-output-2026-10-08`.
 BLD producer `d7ff3e1` has separate resume code and branch-local ADR 0060. Only evidence/catalogue/provenance is imported. Inspect source differences before joint interpretation; do not resume BLD checkpoints with HIL code or infer trajectory equivalence from endpoint coverage.
-Retain all fixed execution checkouts and outputs, including the stopped `f4ca38a` observations and the [six recovered failure records](plans/hil-bld-first-batch.md#recovery-completion-2026-10-08). No new campaign is launched; Phase 7 stays on hold and S6 closed.
+Retain HIL's fixed execution checkouts and all outputs, including the stopped `f4ca38a` observations and the [six recovered failure records](plans/hil-bld-first-batch.md#recovery-completion-2026-10-08). BLD [branch retirement](plans/hil-bld-first-batch.md#bld-branch-retirement--2026-10-08) retains its outputs in primary staging. No new campaign is launched; Phase 7 stays on hold and S6 closed.
 HIL's exact `npm.cmd test` at `b9d7eb0` passed 235 files / 3045 tests, 23 skipped ([receipt](../evidence/hil-exploration-batch2-2026-10-08/verification.json)); its representative real N64 pause/resume before launch [witness](../evidence/discovery-resume-2026-10-07/verification.json) remains retained. This import changes no scientific producer.
 
 Education proceeds separately with the maker. The readiness/cleanup work is complete. Full large

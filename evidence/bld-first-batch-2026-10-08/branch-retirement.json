@@ -1,0 +1,59 @@
+{
+  "at": "2026-10-09T00:13:44.572Z",
+  "purpose": "BLD branch retirement without merging its distinct continuation implementation",
+  "publishedIntegration": "5c972925326bcbae0597a1c3d0ba86b67fb1ba4a",
+  "runTag": "run/bld-first-batch-2026-10-08",
+  "preservedHead": "b3337825182d4d90bb63abad2cd0bedd673db320",
+  "producer": "d7ff3e1fb122ecbf8994539d3623928cbe5a9c6b",
+  "remoteTag": "35bb7cfa44aa0224f0bc0ddfd2bb54ddde8e5e10\trefs/tags/run/bld-first-batch-2026-10-08\nb3337825182d4d90bb63abad2cd0bedd673db320\trefs/tags/run/bld-first-batch-2026-10-08^{}",
+  "remoteBranchAbsent": true,
+  "localBranchAbsent": true,
+  "worktreeDirectoryAbsent": true,
+  "remainingWorktrees": "worktree G:/Code Files/snowflake\nHEAD 5c972925326bcbae0597a1c3d0ba86b67fb1ba4a\nbranch refs/heads/main",
+  "remainingBranches": "* main 5c97292 [origin/main] Import and verify BLD results while retaining distinct producer provenance",
+  "unrelatedFilm": "4f7a03207f8e42f650074a1d7601d2f126800320\trefs/heads/explore/film-part1-plan",
+  "relocation": {
+    "at": "2026-10-09T00:10:17.015Z",
+    "source": "G:/Code Files/snowflake-bld-exploration/out",
+    "destination": "G:/Code Files/snowflake/out/bld-exploration-retired-2026-10-08",
+    "method": "PowerShell Move-Item same-volume to absent target",
+    "fileCount": 7914,
+    "totalBytes": 3197028093,
+    "treeSha256": "b112591d27d8aa2d963b87eeaba873522442a16d9c19d7b2665cd8468aba3f82",
+    "exactFileSetAndHashesMatch": true,
+    "outputsPruned": false
+  },
+  "disposition": {
+    "at": "2026-10-09T00:09:08.799Z",
+    "source": "G:/Code Files/snowflake-bld-exploration/out",
+    "destination": "G:/Code Files/snowflake/out/bld-exploration-retired-2026-10-08",
+    "operation": "G:/Code Files/snowflake/out/bld-branch-retirement-2026-10-08",
+    "branch": "codex/bld-exploration",
+    "branchHead": "b3337825182d4d90bb63abad2cd0bedd673db320",
+    "publishedMain": "5c972925326bcbae0597a1c3d0ba86b67fb1ba4a",
+    "permanentTag": "run/bld-first-batch-2026-10-08",
+    "tagObject": "35bb7cfa44aa0224f0bc0ddfd2bb54ddde8e5e10",
+    "outputDisposition": "Move entire out tree within G: into absent primary staging; retain every original, restoration, helper and unpublished tuning byte. No output prune.",
+    "sourceDisposition": "No tracked/untracked source delta; preserve exact historical branch head through permanent pushed tag, retain imported results on main; no duplicate implementation merge.",
+    "scratchDisposition": "Rebuildable node_modules (4509 physical files,116194047 bytes; five workspace junctions) and app/dist (182 files,23645236 bytes) may be discarded with retired checkout. npm ci and npm run build --workspace app reproduce these.",
+    "otherWorkstreams": "Primary ignored .claude,debug.log,app dependencies/build,outputs and research custody are unrelated and retained. Remote film branch is unrelated and retained; HIL remote-local checkouts untouched.",
+    "review": {
+      "model": "Codex/GPT-6",
+      "sharedContext": true,
+      "scope": "Read-only complete task output and ignored-source audit; registered replay/preview identities checked; no scientific interpretation or numerical rerun."
+    },
+    "before": {
+      "fileCount": 7914,
+      "totalBytes": 3197028093,
+      "treeSha256": "b112591d27d8aa2d963b87eeaba873522442a16d9c19d7b2665cd8468aba3f82"
+    }
+  },
+  "removal": {
+    "initialCommand": "git worktree remove G:/Code Files/snowflake-bld-exploration",
+    "initialResult": "Git removed registration but reported directory not empty; residue contained preserved tracked files, dependencies and two broken workspace junctions.",
+    "recovery": "Verified residual nondependency paths belong to the tagged source tree; removed the two junction entries without recursion, then removed the resolved exact retired directory using native PowerShell. No output remained under that target.",
+    "localBranchCommand": "git branch -d codex/bld-exploration",
+    "remoteBranchCommand": "git push --force-with-lease=refs/heads/codex/bld-exploration:b3337825182d4d90bb63abad2cd0bedd673db320 origin :refs/heads/codex/bld-exploration"
+  },
+  "limits": "Operational source/output custody only. No scientific run, morphology interpretation, checkpoint migration, NAS deletion or output prune. Unpublished intermediates stay retained local staging; existing Git/NAS evidence remains authoritative."
+}
