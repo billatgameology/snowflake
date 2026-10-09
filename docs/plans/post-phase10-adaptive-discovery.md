@@ -1,12 +1,55 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** maker-approved HIL/BLD exploration portfolio (2026-10-07); commit and push authorized; [first batch](hil-bld-first-batch.md) implemented and verified; each host probes before dispatch; no full campaign launched
+**Status:** all 114 October HIL/BLD cases completed; joint internal interpretation and maker-requested HIL worktree retirement underway. No successor run selected.
 **Publication destination:** `origin/main`
 **Plan authoring branch:** `docs/hil-bld-workload-2026-10-07`, based on `fe15b74`; direct main publication, no PR
 **Former execution worktree:** `G:\Code Files\snowflake-science-exploration` (reconciled in October consolidation)
 **Former branch:** `explore/post-phase10-discovery` (merged and removed after preservation)
 **Base:** `ba99d81`
 **Claim level:** exploratory model-development evidence only
+
+## Joint October review and HIL retirement — 2026-10-08
+
+Maker direction: continue here, close completed branches/worktrees, inspect the results and
+determine the next step. Reuse `codex/hil-bld-results-integration` and its existing checkout,
+fast-forwarded to `37e4572`; create no additional worktree. The deliverable is a clean primary
+checkout with retained scientific inputs and an evidence-backed internal comparison of all
+114 completed cases, ending in options for discussion. No new campaign is authorized by this review.
+This is solo scientific research; hostile actors are excluded.
+
+Sequence and done-when:
+
+1. Inventory every registered worktree/ref and staged, unstaged, untracked and ignored state;
+   confirm no scientific process remains. All four extra heads are already ancestors of main.
+2. Read saved HIL seed/pressure/history and BLD cold/warm results with the existing readouts;
+   inspect producer differences before combining interpretation. Retain exact input identities,
+   physical-time brackets, comparison denominators and unresolved observations. No numerical run.
+3. Preserve compact claim-bearing HIL observations and analysis in tracked, pinned evidence;
+   BLD's complete tracked archives already preserve its inputs. Retain all checkpoint, failed-tail,
+   probe and control bytes locally. Hash-inventory and move each complete `out/` tree into a unique,
+   previously absent primary `out/hil-retired-2026-10-08/<worktree-name>/` destination, then compare
+   the complete before/after set. This is local staging custody, not NAS publication or prune credit.
+   Any unclassified intermediates remain retained there pending collection-specific disposition.
+4. After readers finish, archive the three managed worktrees using the app's archive operation;
+   remove the ordinary `.tmp-discovery-resume` worktree without force after moving its outputs.
+   Only rebuildable `node_modules/` and `app/dist/` are disposable. Preserve other unexpected bytes.
+   Delete only the four merged local branch refs after exact-head/ancestry checks; keep main,
+   the permanent BLD run tag and unrelated film branch. No remote branch deletion is required.
+5. Record current locators and the selected recommendation in PROGRESS and this plan. Use existing
+   evidence-integrity/progress-index checks, Rule 7 and diff checks; no executable scientific
+   implementation changes and no full-suite claim. One bounded review checks the final custody
+   disposition and load-bearing interpretations. Integrate the completed work into primary main.
+
+Relevant lessons: A1/A2 require actual preserved bytes and digest-safe checkout; C3/C4/C5 and
+E1/E5 require matched controls, complete named sets and conclusions that honor model-only limits.
+Existing raw-event reconstruction and stable file hashes cover accidental wrong-input/copy errors.
+Do not build new evidence machinery, refreeze old protocols, equate endpoint shape with matched-age
+growth, or treat moving local staging as a new durable collection. For scientific claims this is
+internal triage, not a phase gate, public conclusion or validation.
+
+Tried and rejected: keeping completed source checkouts merely to retain ignored outputs leaves
+unnecessary working copies. Removing them before relocating their output would lose useful bytes.
+Retain all output in primary staging and keep producer commits in main's history instead.
 
 ## Completed wave and consolidation pause — 2026-10-01
 
