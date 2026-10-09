@@ -1,7 +1,7 @@
 # Plan — HIL warm-cavity representation qualification
 
 - **Phase:** post-Phase-10 model-development exploration; charter section 2.5 and accepted decisions 0058, 0059 and 0060.
-- **Status:** production running at one worker; both coarse cases complete; parallel qualification limited by the probe watchdog.
+- **Status:** both coarse cases complete; all four fine cases running concurrently from the unchanged scientific producer.
 - **Started / last touched:** 2026-10-08 / 2026-10-09 by Codex/GPT-6.
 - **Branch / checkout:** `codex/hil-warm-refinement`, `C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake`, from `0be1d4e`.
 - **Authority:** maker accepted the saved-data follow-up recommendation and directed proceeding. HIL owns execution; propose BLD only if representative timing supports multiple days.
@@ -184,7 +184,8 @@ its successful exit, then invoke the unchanged qualified launch. It was armed at
 scientific dispatcher independently validates the exact source/runtime/host/roster receipt and
 retains the live memory guard. No BLD process or second-host workload is dispatched.
 
-Execution commands in the fixed checkout (set the process module path above first):
+Original execution commands in the fixed checkout (set the process module path above first).
+The one-worker resume below is superseded by the parallel continuation commands at the end:
 
 ```powershell
 node runner/src/hil-warm-refinement-main.ts probe HIL out/warm-refinement-probe-v2
@@ -278,3 +279,50 @@ four-worker launch with restored cycle/progress and distinct process/log records
 the existing exact full suite and N126 restart differential still govern the unchanged producer.
 Done when all four pending rows are active under one coordinator with memory samples and exact
 pause/resume paths recorded. Preserve every prior output; no NAS move, pruning or BLD dispatch.
+
+## Parallel continuation launched — 2026-10-09
+
+Operational plan commit `803b422` preceded the invocation. No tracked scientific source changed.
+The existing exact-task stop helper stopped the old coordinator and worker; checkpoint 103 was
+preserved. Control `parallel-transition-before.json` / `parallel-transition-after.json` verify
+that the original campaign, probe and both completed coarse `result.json` files are unchanged.
+The resume path verified the retained generation before recovery; its prior status observation
+is preserved in `resume/recovery-1791557573035-c8435190-b76d-49e1-8b13-1032eb8f0fd5/`.
+
+The operational script `out/warm-refinement-control/parallel-resume.mjs` started as coordinator
+PID 25500 at `2026-10-09T14:52:51.0574325Z`. Attempt `parallel-1791557571381` skipped both coarse
+rows and launched four workers: fine-thin broad PID 7944 (`resume-row`, saved cycle 103), fine-thin
+early PID 22716, fine-thick broad PID 27104 and fine-thick early PID 25200 (`run-row`). Their start
+messages and increasing CPU samples confirm four active row processes. The sample at
+`2026-10-09T14:53:12.9404593Z` records 51131916288 available physical bytes and 58751655936 bytes
+of commit headroom; this is a live observation, not a mature-geometry guarantee.
+
+Invocation/launch/resource records are campaign `warm-refinement-HIL-parallel-1791557571381-*`.
+Row logs and eventual real exits are `rows/<row-id>/attempts/parallel-1791557571381/`.
+Coordinator logs are control `parallel-20261009T075251046.{stdout,stderr}.log`;
+`parallel-start.json` records the exact hidden launch, process module path and PID. The original
+dispatcher/one-worker status snapshots remain historical. New attempts generate fresh names.
+
+Checks before switching: `node --check out/warm-refinement-control/parallel-resume.mjs` passed;
+`npx.cmd vitest run runner/test/hil-bld-batch-execution.test.ts runner/test/hil-bld-batch-resume.test.ts`
+passed 19 tests / two files; `npm.cmd run typecheck` exited zero. Logs are control
+`parallel-focused.log` / `parallel-typecheck.log`, with commands/exits in the before receipt.
+This is orchestration verification; the prior full scientific suite and N126 differential remain
+the unchanged producer's checks. The operational helper and all live bytes remain retained in
+this active task checkout; preserve them with the campaign at closure.
+
+Current recovery commands, from the fixed execution checkout:
+
+```powershell
+# Pause only this campaign and retain its checkpoints.
+powershell.exe -NoProfile -File out/warm-refinement-control/stop-parallel.ps1
+# Resume: set this only in the launch process, then run the existing helper.
+$env:PSModulePath=Join-Path $env:SystemRoot 'System32/WindowsPowerShell/v1.0/Modules'
+node out/warm-refinement-control/parallel-resume.mjs
+```
+
+For a background continuation, use `Start-Process -WindowStyle Hidden` with that Node command,
+the fixed working directory and fresh separate stdout/stderr paths as in `parallel-start.json`.
+The helper refuses a live coordinator/worker, skips checked completed rows and resumes remaining
+state. Do not run it alongside the active coordinator. Finite scientific endpoints, every-cycle
+checkpointing, two retained generations and the live memory thresholds remain unchanged.
