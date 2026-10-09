@@ -1,6 +1,6 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** all 114 October HIL/BLD cases reviewed; maker-requested HIL worktree retirement and scientific verification complete. No successor run selected.
+**Status:** all 114 October HIL/BLD cases reviewed; maker-authorized saved-data spatial and incremental-growth analysis in progress. No successor simulation selected.
 **Publication destination:** `origin/main`
 **Plan authoring branch:** `docs/hil-bld-workload-2026-10-07`, based on `fe15b74`; direct main publication, no PR
 **Former execution worktree:** `G:\Code Files\snowflake-science-exploration` (reconciled in October consolidation)
@@ -9,6 +9,36 @@
 **Claim level:** exploratory model-development evidence only
 
 ## Joint October review and HIL retirement — 2026-10-08
+
+### Saved-data follow-up authorized 2026-10-08
+
+The maker accepted the proposed next action: extract spatial structure and growth increments
+from existing HIL/BLD records, then recommend decisive follow-ups for discussion. This is direct
+requested analysis, not a new simulation protocol. Work in `codex/hil-growth-analysis`, checkout
+`C:/Users/biao3/.codex/worktrees/hil-growth-analysis/snowflake`, based on `c25e4fb`.
+Solo scientific research; hostile actors excluded. The deliverable is one reproducible internal
+report that identifies where occupancy differs and whether differences appear in new growth.
+
+Use the retained seed/attachment events and unchanged spatial helpers: (1) pressure .10/.20
+both-arm cross-sections and interior occupancy; (2) post-temperature-switch attachment and
+axial/lateral increments, plus the -8 C seed response over time; (3) cold -14.4 C/.10 and
+-18 C/.10 spatial comparisons, with warm post-cutoff increments as context. Keep matched age,
+matched size and elapsed-since-switch comparisons distinct, with actual event brackets.
+Record input hashes and analysis definitions. Retain small claim-bearing scripts/results in
+the existing joint evidence bundle; leave raw inputs immutable and all staging retained.
+
+Known traps: lessons C3/C5/E1/E2/E5 prohibit unmatched controls, silently changed scoping,
+overstated summaries, occupancy-as-mass and physical-causality claims. Use existing seed/event
+reconstruction checks and explicit occupancy-count/plane-sum reconciliation at the calculation
+boundary; no new verifier or governance framework. Readout changes require one exact
+`npm.cmd test` at the stable checkpoint under Rule 6; interpretation gets a proportionate
+skeptical pass, with a targeted independent calculation only for a load-bearing new input.
+Done when the saved-data report is reproducible, its decision-bearing numbers reconciled,
+required checks complete and PROGRESS points to concrete next options. No new source freeze,
+solver law, resume extension, campaign, NAS operation or pruning is included.
+
+Tried and rejected: expanding temperatures or rerunning the finished cases before locating
+the structural difference would add coverage without resolving the current ambiguity.
 
 **Current allocation — maker correction, 2026-10-08:** keep development, verification tests,
 saved-result analysis and exploratory runs on HIL for now. Split work with BLD only when the
