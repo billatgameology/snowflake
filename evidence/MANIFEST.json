@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1024,
- "totalBytes": 298633750,
+ "fileCount": 1049,
+ "totalBytes": 316568539,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -4101,6 +4101,106 @@
   "hil-warm-refinement-2026-10-08/n126-witness.mjs": {
    "bytes": 10537,
    "sha256": "8d1d34abe3ab22a114e17838f300d47d0d13da87b55fb0a56c67d24d4b8583de"
+  },
+  "hil-warm-refinement-2026-10-08/dispatch-after-probe.ps1": {
+   "bytes": 2386,
+   "sha256": "0d2b9093a4e3f95fdf8cbd5b694c315250c613d3e13b8feaf83a3173efe50b21"
+  },
+  "hil-warm-refinement-2026-10-08/dispatch-invocation.json": {
+   "bytes": 430,
+   "sha256": "adacf9cb6674f58e3e0b89182e70373a50223c33475d8724f8aaf347265bb367"
+  },
+  "hil-warm-refinement-2026-10-08/dispatch-state.json": {
+   "bytes": 208,
+   "sha256": "0cb74a53d2c2ac94424dcb38c0a407a88efd6876b1c5dfa00c21233167fa7aa6"
+  },
+  "hil-warm-refinement-2026-10-08/failed-probe.json": {
+   "bytes": 4376,
+   "sha256": "b94058294e8f6d8c262f6c0731a86d1a4d2a3f54956ccc5ec75519d48cd4f120"
+  },
+  "hil-warm-refinement-2026-10-08/full-test-invocation.json": {
+   "bytes": 180,
+   "sha256": "b4be16f1f162700bc4037ef81ad1576499cc0b38eda985e0d0c823d692bf8f0f"
+  },
+  "hil-warm-refinement-2026-10-08/full-test-result.json": {
+   "bytes": 209,
+   "sha256": "3acc3ce84dde4355d9d030570e70bf0a6347a54a57b82f498b9385f25add76fd"
+  },
+  "hil-warm-refinement-2026-10-08/full-test.ps1": {
+   "bytes": 708,
+   "sha256": "0f654c94c6b76db73710a8995bd66ed84b1f592df52bb12322c32d03089662eb"
+  },
+  "hil-warm-refinement-2026-10-08/full-test.stderr.log": {
+   "bytes": 33325,
+   "sha256": "380542d97c60a8a7bd6cae5b6e9c9d63b37ef262f735ce443a91c8c2a6de98d1"
+  },
+  "hil-warm-refinement-2026-10-08/full-test.stdout.log": {
+   "bytes": 68267,
+   "sha256": "9188eb26811579a63634f608e245b259634fabe4f70f893cab0c4208cbe79b31"
+  },
+  "hil-warm-refinement-2026-10-08/n126-witness-inventory.json": {
+   "bytes": 8018,
+   "sha256": "49631e6cb8b4b18c6a553ea2182c4bdb168fc2f2831d78b75c237069b5840dd2"
+  },
+  "hil-warm-refinement-2026-10-08/n126-witness-receipt.json": {
+   "bytes": 8454,
+   "sha256": "d6759b540a218dd655a1e3609300fc47b599fad9ec2a138aa53ea1547a8d67f9"
+  },
+  "hil-warm-refinement-2026-10-08/n126-witness.tar.gz": {
+   "bytes": 17773204,
+   "sha256": "92586cff33965bed001b79ae07424f9889413e463254ecf590f25904a6f8aa0a"
+  },
+  "hil-warm-refinement-2026-10-08/probe-exit.json": {
+   "bytes": 276,
+   "sha256": "82eeb6d865350fbfd73be1e5af99eb0de781a9e528062483f1c2d310eca5fe81"
+  },
+  "hil-warm-refinement-2026-10-08/probe-invocation.json": {
+   "bytes": 360,
+   "sha256": "07783fe0682e7eb10eab83bae93d7b7a000cb717563a788b4523cca37c99ab44"
+  },
+  "hil-warm-refinement-2026-10-08/probe-v2-invocation.json": {
+   "bytes": 441,
+   "sha256": "d151b3dc0146694029d9579e29977132f2ca4677e918131ef2e3ebb0ef76fb56"
+  },
+  "hil-warm-refinement-2026-10-08/README.md": {
+   "bytes": 4436,
+   "sha256": "63707378a99e4b9284bb630d9ae832563b4c0dca895e879164759be87b59fe6d"
+  },
+  "hil-warm-refinement-2026-10-08/review-calculations.json": {
+   "bytes": 1464,
+   "sha256": "7082553fee2aa767016a9a22e827124afc80e28bd5e1eb801ccdf0f0deaa35e3"
+  },
+  "hil-warm-refinement-2026-10-08/review-focused.json": {
+   "bytes": 9415,
+   "sha256": "40ae2046917fc5df9eb1e166b39d37aaa28ad50197340cc49cfcb12510c80a69"
+  },
+  "hil-warm-refinement-2026-10-08/review-witness.json": {
+   "bytes": 1033,
+   "sha256": "d802694d17c6a94b2950919395a009bf99f614dbb675234dbcdeba2ab9213bfb"
+  },
+  "hil-warm-refinement-2026-10-08/review-witness.mjs": {
+   "bytes": 2576,
+   "sha256": "4ed0c4bb058c7018bc71093828e9ce40d8ee90089959b2211a01c5f1456851f9"
+  },
+  "hil-warm-refinement-2026-10-08/review.json": {
+   "bytes": 7821,
+   "sha256": "b33ef95be25fffa2594b0b643fd004ded1f040efbdac276e9dc8499f094bb2d2"
+  },
+  "hil-warm-refinement-2026-10-08/start-hil.ps1": {
+   "bytes": 1229,
+   "sha256": "6a3791cf6416bd965fb13cbd88853bff4f2ad614f2534d2e97b2b1d8f97ea501"
+  },
+  "hil-warm-refinement-2026-10-08/stop-hil.ps1": {
+   "bytes": 2820,
+   "sha256": "cb3ef65f86b698f07c1a2932e594e3e22ca4e03bc3b84e17613a92e466422243"
+  },
+  "hil-warm-refinement-2026-10-08/stop-selection.json": {
+   "bytes": 1580,
+   "sha256": "a4ef9951107aede29fabe03df0060d46849b9ea17029135051d927bf61b7a84a"
+  },
+  "hil-warm-refinement-2026-10-08/verification.json": {
+   "bytes": 1573,
+   "sha256": "b384c0b8879d74a6f09e15890714fc5d051dfe2df4b9837d4619ec44199eb5c8"
   }
  }
 }

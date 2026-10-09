@@ -1,0 +1,25 @@
+{
+  "method": "Read-only execution of the exact helper selection prefix; no processes stopped",
+  "owned": [
+    {
+      "ProcessId": 11872,
+      "CommandLine": "\"C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe\" runner/src/hil-warm-refinement-main.ts probe HIL out/warm-refinement-probe-v2"
+    },
+    {
+      "ProcessId": 24068,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\runner\\src\\hil-warm-refinement-main.ts run-probe-row warm-refine-fine-thin-t4p5-broad--probe-2 C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-probe-v2\\concurrency-1\\rows\\warm-refine-fine-thin-t4p5-broad--probe-2"
+    }
+  ],
+  "checkedUtc": "2026-10-09T04:39:33.4752449Z",
+  "wrappers": [
+    {
+      "ProcessId": 4676,
+      "CommandLine": "\"C:\\Users\\biao3\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe\" -NoProfile -File out/warm-refinement-control/probe-v2.ps1"
+    },
+    {
+      "ProcessId": 18744,
+      "CommandLine": "\"C:\\Users\\biao3\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe\" -NoProfile -File C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\dispatch-after-probe.ps1"
+    }
+  ],
+  "entry": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\runner\\src\\hil-warm-refinement-main.ts"
+}

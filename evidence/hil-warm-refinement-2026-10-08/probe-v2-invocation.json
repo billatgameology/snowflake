@@ -1,0 +1,8 @@
+{
+  "pid": 4676,
+  "source": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+  "startedUtc": "2026-10-09T04:19:23.6229245Z",
+  "concurrentWork": "N126 interruption differential and single-worker exact full suite may overlap; not an isolated speed benchmark.",
+  "PSModulePath": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+  "command": "node runner/src/hil-warm-refinement-main.ts probe HIL out/warm-refinement-probe-v2"
+}

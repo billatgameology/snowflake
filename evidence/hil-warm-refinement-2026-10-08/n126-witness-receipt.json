@@ -1,0 +1,174 @@
+{
+  "schema": "discovery-real-n126-resume-witness-v1",
+  "passed": true,
+  "source": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+  "node": "v24.13.1",
+  "v8": "13.6.233.17-node.40",
+  "hostname": "HIL",
+  "startedAt": "2026-10-09T04:12:27.992Z",
+  "finishedAt": "2026-10-09T04:38:01.613Z",
+  "scriptPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\evidence\\hil-warm-refinement-2026-10-08\\n126-witness.mjs",
+  "scriptSha256": "8d1d34abe3ab22a114e17838f300d47d0d13da87b55fb0a56c67d24d4b8583de",
+  "rowPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\row.json",
+  "rowSha256": "ed0f98b0702480c233b32c521ba68d6b25d7559f59fe0e3f0134b7952a508017",
+  "row": {
+    "id": "warm-refine-fine-thick-t4p5-early",
+    "lane": "cavity-mechanism",
+    "conditional": false,
+    "tempC": -4.5,
+    "fraction": 0.075,
+    "sigmaInfinity": 0.003375,
+    "pressurePa": 101325,
+    "cflFill": 0.05,
+    "maxSteps": 3,
+    "dimsN": 126,
+    "dxUm": 0.175,
+    "seedRadius": 4,
+    "seedThickness": 3,
+    "targetExtent": 57,
+    "spatialSampleExtents": [
+      9,
+      17,
+      25,
+      33,
+      41,
+      49
+    ],
+    "paramSet": "M1",
+    "experimentalBasalWidthCells": 6,
+    "experimentalBasalWidthHistory": {
+      "mode": "early-only",
+      "cutoffSeconds": 20
+    }
+  },
+  "processes": [
+    {
+      "label": "direct",
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\runner\\test\\fixtures\\discovery-resume-worker.ts",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\row.json",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\direct",
+        "create"
+      ],
+      "pid": 17600,
+      "startedAt": "2026-10-09T04:12:28.001Z",
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\direct.stdout.log",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\direct.stderr.log",
+      "output": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\direct",
+      "checkpoint": "create",
+      "exitCode": 0,
+      "signal": null,
+      "finishedAt": "2026-10-09T04:38:01.574Z"
+    },
+    {
+      "label": "interrupted",
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\runner\\test\\fixtures\\discovery-resume-worker.ts",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\row.json",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\interrupted-resumed",
+        "create"
+      ],
+      "pid": 24648,
+      "startedAt": "2026-10-09T04:12:28.008Z",
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\interrupted.stdout.log",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\interrupted.stderr.log",
+      "output": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\interrupted-resumed",
+      "checkpoint": "create",
+      "exitCode": null,
+      "signal": "SIGTERM",
+      "finishedAt": "2026-10-09T04:20:49.613Z"
+    },
+    {
+      "label": "resumed",
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\runner\\test\\fixtures\\discovery-resume-worker.ts",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\row.json",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\interrupted-resumed",
+        "resume"
+      ],
+      "pid": 26200,
+      "startedAt": "2026-10-09T04:20:49.646Z",
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\resumed.stdout.log",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\resumed.stderr.log",
+      "output": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\interrupted-resumed",
+      "checkpoint": "resume",
+      "exitCode": 0,
+      "signal": null,
+      "finishedAt": "2026-10-09T04:37:43.794Z"
+    }
+  ],
+  "interruption": {
+    "observedAt": "2026-10-09T04:20:49.603Z",
+    "pid": 24648,
+    "checkpointTickObservedBeforeKill": 1,
+    "generationObservedBeforeKill": {
+      "directory": "generation-1-ab301847-dfe0-415b-9f7a-de48aea745f5",
+      "manifestSha256": "497fab2e1bb78468289f05b687e08fcdbf5b919d8cf91d2c4b0347c058ddcc07"
+    },
+    "killMethod": "ChildProcess.kill() on owned exact child; Windows process termination",
+    "killRequested": true,
+    "retainedTick": 1,
+    "retainedSolverSha256": "8addb583bd28e18f4fe4ca61ffb0ce873c6c2c20b0c8462d2eb3f3c6a594125d",
+    "retainedManifestSha256": "497fab2e1bb78468289f05b687e08fcdbf5b919d8cf91d2c4b0347c058ddcc07",
+    "actualExit": {
+      "label": "interrupted",
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\runner\\test\\fixtures\\discovery-resume-worker.ts",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\row.json",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\interrupted-resumed",
+        "create"
+      ],
+      "pid": 24648,
+      "startedAt": "2026-10-09T04:12:28.008Z",
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\interrupted.stdout.log",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\interrupted.stderr.log",
+      "output": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\n126-witness\\interrupted-resumed",
+      "checkpoint": "create",
+      "exitCode": null,
+      "signal": "SIGTERM",
+      "finishedAt": "2026-10-09T04:20:49.613Z"
+    }
+  },
+  "comparison": {
+    "finalSolver": {
+      "exactBytesEqual": true,
+      "bytes": 34009537,
+      "directSha256": "ee2c27cf7a0d613bcd4d275445f127e09422e64458e73b114d25c48215c704dd",
+      "resumedSha256": "ee2c27cf7a0d613bcd4d275445f127e09422e64458e73b114d25c48215c704dd"
+    },
+    "scientificResult": {
+      "equal": true,
+      "directSha256": "ac0b352d5b08c548c139f2e3ada8a04be41291773d20706cdb71cdb9c8b4132a",
+      "resumedSha256": "ac0b352d5b08c548c139f2e3ada8a04be41291773d20706cdb71cdb9c8b4132a",
+      "omittedOperationalFields": [
+        "wallSeconds",
+        "peakRssBytes",
+        "startedAt",
+        "finishedAt"
+      ]
+    },
+    "scientificEvents": {
+      "equal": true,
+      "records": 3,
+      "directSha256": "c26582ad5b36f987d45b3127c5e5f1b2b599c2de3de9f37f135c176a268074fd",
+      "resumedSha256": "c26582ad5b36f987d45b3127c5e5f1b2b599c2de3de9f37f135c176a268074fd",
+      "omittedOperationalFields": [
+        "rssBytes"
+      ]
+    },
+    "snapshots": [
+      {
+        "path": "boundary-e9.json",
+        "bytes": 88184,
+        "directSha256": "908aca146ca997c11d1e044c5e4bfc3e1f4240d2503d538733859301c622b17d",
+        "resumedSha256": "908aca146ca997c11d1e044c5e4bfc3e1f4240d2503d538733859301c622b17d",
+        "exactBytesEqual": true
+      }
+    ]
+  },
+  "scope": "one actual HIL representative at registered N126 physical settings, terminal three-update prefix; not mature geometry capacity or a scientific endpoint"
+}

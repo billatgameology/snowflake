@@ -1,0 +1,50 @@
+{
+  "recomputedAt": "2026-10-09T04:39:21.287Z",
+  "finalCheckpoint": {
+    "equal": true,
+    "bytes": 34009537,
+    "hashes": [
+      "ee2c27cf7a0d613bcd4d275445f127e09422e64458e73b114d25c48215c704dd",
+      "ee2c27cf7a0d613bcd4d275445f127e09422e64458e73b114d25c48215c704dd"
+    ],
+    "decodedTicks": [
+      3,
+      3
+    ]
+  },
+  "interruptedCheckpoint": {
+    "decodedTick": 1,
+    "hash": "8addb583bd28e18f4fe4ca61ffb0ce873c6c2c20b0c8462d2eb3f3c6a594125d"
+  },
+  "scientificResultsEqual": true,
+  "scientificEventsEqual": true,
+  "eventCounts": [
+    3,
+    3
+  ],
+  "cycles": [
+    3,
+    3
+  ],
+  "stopReasons": [
+    "step-cap",
+    "step-cap"
+  ],
+  "allConverged": true,
+  "integrityErrors": [
+    [],
+    []
+  ],
+  "snapshots": [
+    {
+      "path": "boundary-e9.json",
+      "bytes": 88184,
+      "hashes": [
+        "908aca146ca997c11d1e044c5e4bfc3e1f4240d2503d538733859301c622b17d",
+        "908aca146ca997c11d1e044c5e4bfc3e1f4240d2503d538733859301c622b17d"
+      ],
+      "equal": true
+    }
+  ],
+  "passed": true
+}

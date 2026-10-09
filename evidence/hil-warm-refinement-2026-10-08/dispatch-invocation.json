@@ -1,0 +1,11 @@
+{
+  "pid": 18744,
+  "startedUtc": "2026-10-09T04:38:47.1253622Z",
+  "source": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+  "command": [
+    "C:\\Users\\biao3\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+    "-NoProfile",
+    "-File",
+    "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\dispatch-after-probe.ps1"
+  ]
+}

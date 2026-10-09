@@ -1,0 +1,39 @@
+{
+  "fullCheck": {
+    "testFilesPassed": 236,
+    "exitCode": 0,
+    "durationSeconds": 1068.18,
+    "command": "npm.cmd test",
+    "testsSkipped": 23,
+    "receipt": "full-test-result.json",
+    "testsPassed": 3050
+  },
+  "retention": {
+    "serving": "not NAS-served",
+    "originalStaging": "retained, no pruning authorized",
+    "retention": "permanent",
+    "privacy": "ordinary host/source metadata, no credentials",
+    "class": "tracked evidence",
+    "rights": "project-owned generated qualification"
+  },
+  "source": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+  "metadataChecks": {
+    "whitespace": "Raw byte-preserved stdout/stderr logs have terminal blank lines; exclude only those exact logs from the final scoped whitespace check.",
+    "outcome": "2 files / 18 tests passed",
+    "command": "npx.cmd vitest run runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts",
+    "rule7": "npm.cmd run lint:rule7: clean, 2554 files"
+  },
+  "restart": {
+    "scope": "Actual N126 fine-thick early-width three-update prefix; checkpoint tick-one termination and fresh-process resume; no mature/cutoff capacity claim",
+    "receipt": "n126-witness-receipt.json",
+    "passed": true
+  },
+  "review": "review.json",
+  "production": {
+    "snapshot": "dispatch-state.json",
+    "finiteCases": 6,
+    "liveState": "C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake/out/warm-refinement-control/dispatch-state.json",
+    "noProductionWallDeadline": true,
+    "state": "waiting-for-resource-probe"
+  }
+}

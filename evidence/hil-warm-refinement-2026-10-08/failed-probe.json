@@ -1,0 +1,89 @@
+{
+  "schema": "hil-bld-first-batch-probe-v1",
+  "batchId": "hil-warm-refinement-2026-10-08",
+  "host": "HIL",
+  "gitHead": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+  "node": "v24.13.1",
+  "v8": "13.6.233.17-node.40",
+  "hostIdentity": {
+    "hostname": "HIL",
+    "platform": "win32",
+    "arch": "x64",
+    "cpuModels": [
+      "Intel(R) Core(TM) Ultra 9 285K"
+    ],
+    "logicalProcessors": 24,
+    "totalMemoryBytes": 68023050240
+  },
+  "rosterSha256": "2077671eb74f16ec61c2fb9d0c97f094ec522fb1237a2539b2690c58900e7c04",
+  "limit": "Three-update exact-family prefixes only; not mature-geometry capacity, checkpoint continuation or scientific endpoints. Live memory monitoring remains required; scientific rows use checkpoints without a wall deadline.",
+  "rungs": [
+    {
+      "concurrency": 1,
+      "qualified": false,
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-probe\\concurrency-1",
+      "schema": "post-phase10-discovery-launch-complete-v1",
+      "experimentId": "post-phase10-basal-width-history-v1",
+      "experimentalRows": [
+        {
+          "rowId": "warm-refine-coarse-t4p5-early--probe-1",
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 3,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          }
+        },
+        {
+          "rowId": "warm-refine-fine-thin-t4p5-early--probe-3",
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 6,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          }
+        },
+        {
+          "rowId": "warm-refine-fine-thick-t4p5-early--probe-5",
+          "experimentId": "post-phase10-basal-width-history-v1",
+          "experimentalBasalWidthCells": 6,
+          "experimentalBasalWidthHistory": {
+            "mode": "early-only",
+            "cutoffSeconds": 20
+          }
+        }
+      ],
+      "launchName": "probe",
+      "gitHead": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+      "node": "v24.13.1",
+      "requestedConcurrency": 1,
+      "actualMaximumConcurrency": 0,
+      "launchedAt": "2026-10-09T04:16:07.845Z",
+      "finishedAt": "2026-10-09T04:16:37.900Z",
+      "exits": [],
+      "abortReason": "host-monitor-failure: Command failed: powershell.exe -NoProfile -Command \n    $taskPids = @();\n    $taskProcesses = @();\n    if ($taskPids.Count -gt 0) { $taskProcesses = @(Get-Process -Id $taskPids -ErrorAction SilentlyContinue | Select-Object Id,CPU,WorkingSet64,PeakWorkingSet64) };\n    $taskCounters = (Get-Counter -Counter '\\Memory\\Available Bytes','\\Memory\\Committed Bytes','\\Memory\\Commit Limit' -ErrorAction Stop).CounterSamples;\n    $taskAvailable = ($taskCounters | Where-Object { $_.Path -like '*\\memory\\available bytes' }).CookedValue;\n    $taskCommitted = ($taskCounters | Where-Object { $_.Path -like '*\\memory\\committed bytes' }).CookedValue;\n    $taskCommitLimit = ($taskCounters | Where-Object { $_.Path -like '*\\memory\\commit limit' }).CookedValue;\n    [pscustomobject]@{ capturedUtc=(Get-Date).ToUniversalTime().ToString('o');\n      availablePhysicalBytes=[uint64]$taskAvailable;\n      commitHeadroomBytes=[uint64]$taskCommitLimit-[uint64]$taskCommitted;\n      children=$taskProcesses } | ConvertTo-Json -Depth 4 -Compress;\n  \n",
+      "unstartedRowIds": [
+        "warm-refine-coarse-t4p5-broad--probe-0",
+        "warm-refine-coarse-t4p5-early--probe-1",
+        "warm-refine-fine-thin-t4p5-broad--probe-2",
+        "warm-refine-fine-thin-t4p5-early--probe-3",
+        "warm-refine-fine-thick-t4p5-broad--probe-4",
+        "warm-refine-fine-thick-t4p5-early--probe-5"
+      ],
+      "minimumAvailablePhysicalBytes": null,
+      "minimumCommitHeadroomBytes": null,
+      "maxSampledChildRssBytes": 0,
+      "wallSeconds": 0,
+      "rowsPerSecond": null,
+      "rowIds": [
+        "warm-refine-coarse-t4p5-broad--probe-0",
+        "warm-refine-coarse-t4p5-early--probe-1",
+        "warm-refine-fine-thin-t4p5-broad--probe-2",
+        "warm-refine-fine-thin-t4p5-early--probe-3",
+        "warm-refine-fine-thick-t4p5-broad--probe-4",
+        "warm-refine-fine-thick-t4p5-early--probe-5"
+      ]
+    }
+  ],
+  "recommendedConcurrency": null
+}

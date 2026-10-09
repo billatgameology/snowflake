@@ -1,0 +1,7 @@
+{
+  "exitCode": 0,
+  "source": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+  "startedUtc": "2026-10-09T04:13:02.1565920Z",
+  "finishedUtc": "2026-10-09T04:31:03.0137378Z",
+  "command": "npm.cmd test"
+}

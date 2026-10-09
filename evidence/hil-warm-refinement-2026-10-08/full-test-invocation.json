@@ -1,0 +1,7 @@
+{
+  "node": "v24.13.1",
+  "source": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+  "pid": 7244,
+  "startedUtc": "2026-10-09T04:13:02.1565920Z",
+  "command": "npm.cmd test"
+}

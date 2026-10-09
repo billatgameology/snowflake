@@ -1,6 +1,6 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** all 114 October HIL/BLD cases reviewed; maker-authorized saved-data spatial and incremental-growth analysis and required verification complete. No successor simulation selected.
+**Status:** all 114 October HIL/BLD cases and the saved-data follow-up are reviewed. Maker selected the [six-case warm refinement](hil-warm-refinement.md); its resumability and HIL resource qualification are in progress. Historical unselected statements below retain their earlier decision context.
 **Publication destination:** `origin/main`
 **Plan authoring branch:** `docs/hil-bld-workload-2026-10-07`, based on `fe15b74`; direct main publication, no PR
 **Former execution worktree:** `G:\Code Files\snowflake-science-exploration` (reconciled in October consolidation)

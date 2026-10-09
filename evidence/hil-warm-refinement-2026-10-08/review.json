@@ -1,0 +1,117 @@
+{
+  "schema": "warm-refinement-bounded-review-v1",
+  "reviewedAt": "2026-10-09T04:40:10.522Z",
+  "reviewer": {
+    "model": "GPT-6 (Codex; inherited parent model; exact runtime model ID not exposed)",
+    "role": "non-author subagent",
+    "sharedContext": true
+  },
+  "checkedCommit": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+  "diffBase": "66c5799",
+  "workingTreeStatus": "",
+  "verdict": "No actionable findings in reviewed code/protocol or launch helpers. Actual N126 continuation is independently confirmed; full-suite receipt/log passed. Resource qualification remains pending.",
+  "findings": [],
+  "scope": [
+    "Complete implementation diff 66c5799..838c294, including the discovery-only cell-cap extension, unchanged 64 MiB byte cap, N126 positive/refusal tests, all six roster rows, shared probe settings and pinned actual-interruption script.",
+    "Registered plan, ADR 0058/0059/0060, attachment width/cutoff/resume contract, relevant adaptive-plan comparison and rejected attempts.",
+    "Actual LKSolver initialized geometry for all three configurations; ordinary and experimental solver dispatch operands; production path has no watchdog.",
+    "Same bounded engagement completion: inspected actual process interruption receipt and retained bytes; inspected full-test receipt and raw terminal log; read start-hil.ps1, stop-hil.ps1 and dispatch-after-probe.ps1."
+  ],
+  "executedChecks": [
+    {
+      "command": "npx.cmd vitest run runner/test/hil-warm-refinement.test.ts solver-cpu/test/discovery-resume.test.ts --reporter=json --outputFile=out/warm-refinement-control/review-focused.json",
+      "exitCode": 0,
+      "files": 2,
+      "tests": 25,
+      "failed": 0,
+      "skipped": 0,
+      "resultPath": "out/warm-refinement-control/review-focused.json"
+    },
+    {
+      "command": "Node module initialized each registered early row using the same fixed solver controls, independently inspected exported shell geometry and seed site counts, and recomputed capacity/physical design operands.",
+      "exitCode": 0,
+      "resultPath": "out/warm-refinement-control/review-calculations.json"
+    },
+    {
+      "command": "node out/warm-refinement-control/review-witness.mjs",
+      "exitCode": 0,
+      "resultPath": "out/warm-refinement-control/review-witness.json",
+      "scriptPath": "out/warm-refinement-control/review-witness.mjs",
+      "passed": true,
+      "summary": "Independent direct/resumed comparison and decoder validation of retained checkpoint bytes, complete scientific result/event fields and the saved spatial snapshot."
+    },
+    {
+      "command": "Read full-test-result.json and full-test.stdout.log terminal summary; no test rerun.",
+      "reportedCommand": "npm.cmd test",
+      "reportedExitCode": 0,
+      "source": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+      "files": 236,
+      "passed": 3050,
+      "skipped": 23,
+      "vitestDurationSeconds": 1068.18,
+      "stdoutSha256": "9188eb26811579a63634f608e245b259634fabe4f70f893cab0c4208cbe79b31",
+      "stderrSha256": "380542d97c60a8a7bd6cae5b6e9c9d63b37ef262f735ce443a91c8c2a6de98d1",
+      "scope": "Inspected exact root-executed full-suite receipt and raw logs; not independently re-executed."
+    }
+  ],
+  "observations": [
+    "Worst size bound is 50,074,948 bytes for 126 cubed cells plus the maximum header and two N-entry topology lists, below 67,108,864 bytes. The changed bound neither widens ordinary codecs nor alters numerical evolution.",
+    "All six rows match the registered broad/early pairs and physical operands. Actual constructor shells are radius/half-height 31 coarse and 62 fine, each 10.85 um. Seed site counts are 19 / 61 / 183; this is explicitly a thickness bracket, not equal geometry or volume.",
+    "Shared probe preserves historical ladders/watchdogs and gives this batch 1/4/6, all six exact families, 1800-second probe-only child limit. Production remains checkpointed without a wall deadline.",
+    "Witness script retains a genuine killed nonzero preterminal checkpoint, resumes with the same row/source/runtime, compares complete solver bytes, all non-operational result/event fields and direct-listed spatial bytes. No success can be inferred before that comparison executes."
+  ],
+  "liveWitnessInspection": {
+    "invocationSource": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+    "startedAt": "2026-10-09T04:12:27.992Z",
+    "finishedAt": "2026-10-09T04:38:01.613Z",
+    "receiptAvailable": true,
+    "receiptPath": "out/warm-refinement-control/n126-witness/receipt.json",
+    "receiptSha256": "d6759b540a218dd655a1e3609300fc47b599fad9ec2a138aa53ea1547a8d67f9",
+    "status": "Passed and independently recomputed from retained scientific bytes.",
+    "interruptedTick": 1,
+    "finalTicks": [
+      3,
+      3
+    ],
+    "finalCheckpointBytes": 34009537,
+    "finalCheckpointSha256": "ee2c27cf7a0d613bcd4d275445f127e09422e64458e73b114d25c48215c704dd",
+    "scientificEvents": [
+      3,
+      3
+    ],
+    "spatialSnapshots": 1
+  },
+  "requiredBeforeLaunch": [
+    "Fresh completed HIL resource probe at this producer/runtime/workload and retained live memory guard."
+  ],
+  "limits": [
+    "Did not independently rerun the full repository test command or N126 simulation; inspected the root executions and independently recomputed/decoded retained continuation evidence.",
+    "Resource probe-v2 remains running. Its first attempted predecessor stopped before workers because the inherited PowerShell module path prevented the Windows PowerShell sampler from loading; the process-local wrapper correction and successful sampler inspection do not themselves qualify worker count.",
+    "Only an early N126 three-update pause/resume is demonstrated. Mature-geometry restart cost, performance forecast, numerical convergence order, domain independence, physical validation and scientific campaign outcome remain unestablished.",
+    "No complete independent re-review of historical numerical operators or all historical evidence.",
+    "No source edits, process interference, hostile-owner scenarios or second review engagement."
+  ],
+  "operationalHelpers": {
+    "scripts": [
+      {
+        "path": "out/warm-refinement-control/start-hil.ps1",
+        "sha256": "6a3791cf6416bd965fb13cbd88853bff4f2ad614f2534d2e97b2b1d8f97ea501"
+      },
+      {
+        "path": "out/warm-refinement-control/stop-hil.ps1",
+        "sha256": "cb3ef65f86b698f07c1a2932e594e3e22ca4e03bc3b84e17613a92e466422243"
+      },
+      {
+        "path": "out/warm-refinement-control/dispatch-after-probe.ps1",
+        "sha256": "0d2b9093a4e3f95fdf8cbd5b694c315250c613d3e13b8feaf83a3173efe50b21"
+      }
+    ],
+    "observations": [
+      "Launcher uses the frozen source and exact campaign/probe paths, with explicit launch or resume mode, unique invocation/stdout/stderr/exit receipts and process-local Windows PowerShell module path.",
+      "Dispatcher checks completed test/witness/review source and result, waits for the exact probe wrapper completion, then delegates source/runtime/roster/host/qualification enforcement to the existing batch launcher.",
+      "Stop helper targets the recorded warm probe/campaign wrappers and node commands, preserves all output bytes and checks remaining matching processes. Selection only was inspected; this review did not stop any live process."
+    ],
+    "selectionEvidence": "out/warm-refinement-control/stop-selection.json",
+    "correction": "An initial reviewer suggestion that forward-slash input made original stop matching miss workers was withdrawn after independently executing its selection-only prefix: Windows Join-Path normalizes the paths and selected coordinator 11872 and worker 24068, plus wrappers 4676 and 18744. The root subsequently made slash normalization explicit; this was not a demonstrated bug or launch blocker."
+  }
+}

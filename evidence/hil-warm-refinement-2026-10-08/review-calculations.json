@@ -1,0 +1,47 @@
+{
+  "checks": [
+    {
+      "rowId": "warm-refine-coarse-t4p5-early",
+      "actualSeedSites": 19,
+      "actualHexRadius": 31,
+      "actualZHalfExtent": 31,
+      "shellCoordinateRadiusUm": 10.85,
+      "shellCoordinateZHalfUm": 10.85,
+      "nominalWidthThresholdUm": 1.0499999999999998,
+      "seedInclusiveThicknessUm": 0.35,
+      "targetCenterSpanUm": 9.799999999999999
+    },
+    {
+      "rowId": "warm-refine-fine-thin-t4p5-early",
+      "actualSeedSites": 61,
+      "actualHexRadius": 62,
+      "actualZHalfExtent": 62,
+      "shellCoordinateRadiusUm": 10.85,
+      "shellCoordinateZHalfUm": 10.85,
+      "nominalWidthThresholdUm": 1.0499999999999998,
+      "seedInclusiveThicknessUm": 0.175,
+      "targetCenterSpanUm": 9.799999999999999
+    },
+    {
+      "rowId": "warm-refine-fine-thick-t4p5-early",
+      "actualSeedSites": 183,
+      "actualHexRadius": 62,
+      "actualZHalfExtent": 62,
+      "shellCoordinateRadiusUm": 10.85,
+      "shellCoordinateZHalfUm": 10.85,
+      "nominalWidthThresholdUm": 1.0499999999999998,
+      "seedInclusiveThicknessUm": 0.5249999999999999,
+      "targetCenterSpanUm": 9.799999999999999
+    }
+  ],
+  "capacityCalculation": {
+    "cellCount": 2000376,
+    "worstEncodedBytes": 50074948,
+    "byteCap": 67108864
+  },
+  "witnessScript": {
+    "path": "evidence/hil-warm-refinement-2026-10-08/n126-witness.mjs",
+    "bytes": 10537,
+    "sha256": "8d1d34abe3ab22a114e17838f300d47d0d13da87b55fb0a56c67d24d4b8583de"
+  }
+}
