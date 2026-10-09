@@ -1,6 +1,6 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** all 114 October HIL/BLD cases completed; joint internal interpretation and maker-requested HIL worktree retirement underway. No successor run selected.
+**Status:** all 114 October HIL/BLD cases reviewed; maker-requested HIL worktree retirement complete. No successor run selected; final scientific verification pending.
 **Publication destination:** `origin/main`
 **Plan authoring branch:** `docs/hil-bld-workload-2026-10-07`, based on `fe15b74`; direct main publication, no PR
 **Former execution worktree:** `G:\Code Files\snowflake-science-exploration` (reconciled in October consolidation)
@@ -52,6 +52,43 @@ internal triage, not a phase gate, public conclusion or validation.
 Tried and rejected: keeping completed source checkouts merely to retain ignored outputs leaves
 unnecessary working copies. Removing them before relocating their output would lose useful bytes.
 Retain all output in primary staging and keep producer commits in main's history instead.
+
+### Joint review and retirement result
+
+The [joint report](../../evidence/hil-bld-joint-review-2026-10-08/README.md) retains complete
+track readouts and proposes priorities for discussion, not a registered next roster. All 72 HIL
+rows were reconstructed from raw attachment events and pass existing operational checks.
+BLD's 42 saved rows were read with unchanged cavity helpers; its distinct resume producer remains
+separate. Read the exact comparison definitions, brackets and limits before using any headline.
+
+The [retirement receipt](../../evidence/hil-bld-joint-review-2026-10-08/retirement.json) records
+5828 files / 2638078397 bytes retained in primary staging, with exact before/after inventory matches.
+Three HIL archives additionally preserve 3745 files / 1587912611 source bytes in tracked evidence.
+The app archived three managed worktrees; the ordinary resume worktree was removed without force.
+Git left five broken dependency junctions there. Removed those exact link entries and then the
+three empty parent directories individually; no recursive sweep or scientific-output pruning.
+All four merged local task branches are deleted. Only primary main remains; the BLD run tag and
+unrelated remote film branch remain. No PR, new simulation, NAS mutation or successor selection.
+
+One bounded Codex/GPT-6 review with shared context independently decompressed/hashed every HIL
+archive member, rehashed the three HIL moved trees, reconstructed the load-bearing seed/pressure
+observations, all nine cold selected comparisons and warm plane opening histories. It found no
+blocking issue. It did not re-run simulations, certify continuum/physical behavior, verify NAS,
+or observe the final integration-output move; root verified that move separately. The pinned
+`review.json` names exact checked artifacts and remaining limits.
+
+Verification attempts: the first `npm.cmd test` at `5310475` was interrupted because final
+annotations/output-path controls arrived after launch. No completion or passing-suite claim is
+made. The first focused metadata check found an index of 251 lines and newly pinned but not yet
+staged files; compacted blank lines and staged the files. The final unchanged checks passed two
+files / 18 tests. Raw historical producer diff is excluded only from whitespace normalization.
+The final exact full check will run once from the clean primary analysis checkpoint; no further
+scientific code change is planned. Commands and actual exits remain in the final verification receipt.
+
+Next: discuss warm grid/seed-width qualification and seed/facet growth persistence; first extract
+pressure/cold spatial information from saved inputs. The current discovery codec's N64/64 MiB
+bound requires a tested extension before larger-grid restart is possible. Do not plan a launch
+by silently raising existing targets or transferring the earlier short-prefix host budget.
 
 ## Completed wave and consolidation pause — 2026-10-01
 

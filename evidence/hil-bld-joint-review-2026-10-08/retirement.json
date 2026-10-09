@@ -1,0 +1,105 @@
+{
+  "schema": "hil-completed-worktree-retirement-v1",
+  "observedAt": "2026-10-09T00:41:50.013157+00:00",
+  "integratedAnalysisHead": "c24281eea5f5eb3d135cabd6a98dd48a61f0c599",
+  "primary": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake",
+  "outputs": [
+    {
+      "label": "hil-first-batch",
+      "worktree": "C:/Users/biao3/.codex/worktrees/hil-first-batch/snowflake",
+      "sourceHead": "f4ca38a44fefda0de514491bd5ce3044479829ec",
+      "sourceOutput": "C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out",
+      "retainedOutput": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-first-batch",
+      "move": {
+        "label": "hil-first-batch",
+        "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-first-batch\\snowflake\\out",
+        "destination": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-first-batch",
+        "movedAt": "2026-10-09T00:33:00.8860116Z"
+      },
+      "inventory": {
+        "files": 532,
+        "bytes": 7284122,
+        "treeSha256": "c56b40d6fc119d161f194acd3fbe6bb91d9e051a314cad5046fe0aeee90e952b"
+      },
+      "beforeAfterExactMatch": true,
+      "removal": "managed app archive"
+    },
+    {
+      "label": "discovery-resume",
+      "worktree": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume",
+      "sourceHead": "b9cf7ed72c82e350b93570fafd8e45afa0b95d53",
+      "sourceOutput": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out",
+      "retainedOutput": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\discovery-resume",
+      "move": {
+        "label": "discovery-resume",
+        "source": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\.tmp-discovery-resume\\out",
+        "destination": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\discovery-resume",
+        "movedAt": "2026-10-09T00:33:00.9262343Z"
+      },
+      "inventory": {
+        "files": 1902,
+        "bytes": 1021665177,
+        "treeSha256": "783c812e5152cb30d1f01932b0eb4fbcd843d8449938ab7d709abb6a0500100a"
+      },
+      "beforeAfterExactMatch": true,
+      "removal": "git worktree remove without force"
+    },
+    {
+      "label": "hil-exploration-batch2",
+      "worktree": "C:/Users/biao3/.codex/worktrees/hil-exploration-batch2/snowflake",
+      "sourceHead": "43228078308cc089b9da8c6240975b267d7d74cb",
+      "sourceOutput": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out",
+      "retainedOutput": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-exploration-batch2",
+      "move": {
+        "label": "hil-exploration-batch2",
+        "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-batch2\\snowflake\\out",
+        "destination": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-exploration-batch2",
+        "movedAt": "2026-10-09T00:33:00.9390228Z"
+      },
+      "inventory": {
+        "files": 1311,
+        "bytes": 558963312,
+        "treeSha256": "d920e23e72c6e22163d4b457bc4f80f27e5a82a81e0b0de64308c58eb4c7ea09"
+      },
+      "beforeAfterExactMatch": true,
+      "removal": "managed app archive"
+    },
+    {
+      "label": "hil-bld-results-integration",
+      "worktree": "C:/Users/biao3/.codex/worktrees/hil-bld-results-integration/snowflake",
+      "sourceHead": "5310475c3b432cdd2c8335e67309238dfaccbf29",
+      "sourceOutput": "C:\\Users\\biao3\\.codex\\worktrees\\hil-bld-results-integration\\snowflake\\out",
+      "retainedOutput": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration",
+      "move": {
+        "label": "hil-bld-results-integration",
+        "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-bld-results-integration\\snowflake\\out",
+        "destination": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration",
+        "movedAt": "2026-10-09T00:37:37.8525123Z"
+      },
+      "inventory": {
+        "files": 2083,
+        "bytes": 1050165786,
+        "treeSha256": "28bfccb47938a43a954cc9bba586ef739cd5ae73bdf2e0a4115e201fb4d71bdf"
+      },
+      "beforeAfterExactMatch": true,
+      "removal": "managed app archive"
+    }
+  ],
+  "totalRetainedFiles": 5828,
+  "totalRetainedBytes": 2638078397,
+  "worktrees": "worktree C:/Users/biao3/Documents/GitHub/snowflake\nHEAD c24281eea5f5eb3d135cabd6a98dd48a61f0c599\nbranch refs/heads/main",
+  "localBranches": "main",
+  "retainedBldTagTarget": "b3337825182d4d90bb63abad2cd0bedd673db320",
+  "remoteObservation": "4f7a03207f8e42f650074a1d7601d2f126800320\trefs/heads/explore/film-part1-plan\n37e4572efcd13e9a57c70041eab0134b2181a5f3\trefs/heads/main",
+  "removedLocalBranches": [
+    "codex/hil-first-batch",
+    "codex/discovery-resume",
+    "codex/hil-exploration-batch2",
+    "codex/hil-bld-results-integration"
+  ],
+  "prunedScientificOutputs": false,
+  "nasMutation": false,
+  "newSimulation": false,
+  "newRunSelected": false,
+  "limits": "Local staging relocation, not a new NAS publication or independent backup. Every original output retained. Only rebuildable dependency/build directories discarded with retired worktrees. Full HIL output archives tracked; BLD raw archives remain in prior bundle. No PR."
+}
