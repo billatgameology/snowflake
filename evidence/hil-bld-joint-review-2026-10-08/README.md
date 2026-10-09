@@ -21,11 +21,12 @@ not make it irrelevant. Equal maximum extent can mean unequal axial/lateral size
 
 ## Recommendation for discussion
 
-Keep two complementary directions. HIL should investigate whether the seed/facet response persists
-beyond the observed age-sensitive window, with pressure interior profiles first extracted from
-existing outputs. BLD should lead warm grid/seed-width qualification, alongside a small selected
-cold prism comparison if the saved field observations support it. These are proposed priorities,
-not frozen workloads or permission to start simulations.
+Maker allocation correction, 2026-10-08: keep all development, testing, analysis and scientific
+runs on HIL for now. Split with BLD only when the work is expected to take multiple days, using
+representative timing to justify the estimate. This supersedes the earlier two-host recommendation.
+The complementary scientific priorities remain seed/facet persistence, existing pressure interior
+profiles, warm grid/seed-width qualification and selected cold prism comparisons. These are
+proposed priorities, not frozen workloads or permission to start simulations.
 
 The immediate engineering prerequisite for finer grids is concrete: current discovery checkpoint
 code limits state to `64 ** 3` cells and 64 MiB (`core/src/discovery-resume-checkpoint.ts`). The

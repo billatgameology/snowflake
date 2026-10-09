@@ -5,10 +5,10 @@ including **Tried and rejected**. The charter defines intended behavior; this in
 The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
 
 - **Last updated:** 2026-10-08 by Codex
-- **Parallel exploration:** maker-approved for HIL and BLD; commit and push authorized on 2026-10-07.
+- **Execution policy:** maker direction 2026-10-08 keeps development, tests, analysis and scientific runs on HIL. Split work with BLD only when the work is expected to take multiple days; use representative timing before proposing that split.
   The [approved portfolio](plans/post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld)
   covers cavities, cold core/tip structure, seed memory, pressure/transport and environment history.
-  HIL coordinates shared code and joint review; each PC receives a queue of comparisons.
+  HIL owns the current queue and review. The earlier default two-host allocation is superseded; the exploration tracks remain available.
   Shared main publication includes `5c97292`; BLD's `b333782` is preserved by pushed tag `run/bld-first-batch-2026-10-08` and its
   [evidence/NAS records are imported](../evidence/hil-bld-pickup-2026-10-08/README.md), with HIL verification complete.
   HIL has 56 + 16 checked endpoints and BLD has 42. The [joint 114-case review](../evidence/hil-bld-joint-review-2026-10-08/README.md) identifies warm growth memory, prism-sensitive cold structure and age-sensitive seed response. These are internal model-development leads; no successor run is selected.
@@ -235,7 +235,7 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-Discuss the [joint report and proposed priorities](../evidence/hil-bld-joint-review-2026-10-08/README.md): HIL seed/facet persistence plus existing pressure interior profiles; BLD warm grid/seed-width qualification and a selected cold prism comparison. No next roster is frozen or dispatched.
+Discuss the [joint report and proposed priorities](../evidence/hil-bld-joint-review-2026-10-08/README.md) on HIL: seed/facet persistence, existing pressure interior profiles, warm grid/seed-width qualification and selected cold prism comparisons. Keep all work here unless expected duration is multiple days; no next roster is frozen or dispatched.
 Before finer-grid work, inspect `core/src/discovery-resume-checkpoint.ts`: the current format rejects more than `64 ** 3` cells or 64 MiB. A maker-selected refinement needs a bounded extension, real larger-grid restart witness and fresh host budget; N64 probe results do not transfer.
 Readouts preserve exact physical-time brackets. Seed endpoint and common-age signs can differ; cold gap is a small post-hoc lattice measure; warm layers are not independent cavities. All findings remain model-development evidence.
 HIL originals are in primary `out/hil-retired-2026-10-08/{discovery-resume,hil-exploration-batch2,hil-first-batch}/`, including every checkpoint and recovered failure tail; their complete compressed outputs are pinned in the joint bundle.

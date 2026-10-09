@@ -10,6 +10,24 @@
 
 ## Joint October review and HIL retirement — 2026-10-08
 
+**Current allocation — maker correction, 2026-10-08:** keep development, verification tests,
+saved-result analysis and exploratory runs on HIL for now. Split work with BLD only when the
+work is expected to take multiple days. Use representative timing for the actual proposed
+configuration before proposing a split; earlier configurations' costs are context, not a
+transferable forecast. Parallel independent cases within HIL remain available under its measured
+resource budget. This supersedes the earlier default HIL/BLD track assignments, not the scientific
+questions, resumability requirement or finite-target controls. No new campaign is selected.
+
+This focused maker-requested allocation correction updates the existing plan, PROGRESS and the
+joint report's recommendation; it creates no new build or scientific protocol. Solo research;
+hostile actors excluded. Lesson F2/Rule 14B favors keeping coordination proportional to useful
+work. Existing progress/evidence metadata checks passed 2 files / 18 tests; Rule 7 and the scoped
+diff check passed. No scientific suite rerun is needed for this allocation-only prose change.
+The temporary `codex/hil-local-execution-policy` checkout contains these prose/pin changes;
+integrate into main and archive it without retaining another working branch. No PR or output moves.
+Tried and rejected: splitting short work merely because two computers are available adds
+coordination without the maker's multi-day justification.
+
 Maker direction: continue here, close completed branches/worktrees, inspect the results and
 determine the next step. Reuse `codex/hil-bld-results-integration` and its existing checkout,
 fast-forwarded to `37e4572`; create no additional worktree. The deliverable is a clean primary
@@ -196,6 +214,10 @@ Already completed matrices and stationary-pit extensions stay closed; reuse thei
 outputs and add runs only for a new contrast, observation or necessary numerical qualification.
 
 #### Host queues and planning capacity
+
+Historical first-batch allocation below: the current maker correction at the top of this plan
+supersedes its default two-host split. Retain these capacity and execution records as provenance;
+new work stays on HIL unless its expected duration is multiple days.
 
 The maker names this PC **HIL, 20 cores**, and the other **BLD, 32 cores**. Under the approved desktop
 headroom policy, reserve four declared execution slots on each: planning ceilings are
