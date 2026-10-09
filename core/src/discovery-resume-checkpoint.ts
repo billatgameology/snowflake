@@ -8,7 +8,7 @@ import {
 } from "./lk-resume-checkpoint.ts";
 
 export const DISCOVERY_RESUME_SCHEMA = "discovery-resume-v1" as const;
-export const MAX_DISCOVERY_RESUME_CELLS = 64 ** 3;
+export const MAX_DISCOVERY_RESUME_CELLS = 126 ** 3;
 export const MAX_DISCOVERY_RESUME_BYTES = 64 * 1024 * 1024;
 const MAX_HEADER_BYTES = 65_536;
 const MAGIC = new TextEncoder().encode("VCCDR001");
@@ -90,7 +90,7 @@ function exactReviver(_key: string, value: unknown): unknown {
 function validate(state: DiscoveryResumeState, buildTopology: boolean): LKResumeValidatedTopologyV3 | null {
   keys(state.dims, ["nx", "ny", "nz"], "dimensions");
   const n = validateLKResumeNumericalControls({ ...state, timelineMode: "none" });
-  if (n > MAX_DISCOVERY_RESUME_CELLS) fail(`cell count exceeds bounded N64 capacity ${MAX_DISCOVERY_RESUME_CELLS}`);
+  if (n > MAX_DISCOVERY_RESUME_CELLS) fail(`cell count exceeds bounded N126 capacity ${MAX_DISCOVERY_RESUME_CELLS}`);
   if (state.paramSet !== "M1" && state.paramSet !== "M1_NO_DIP_ABLATION") fail("parameter set must be M1 or matched no-dip");
   if (state.testHookEverUsed !== false) fail("test hooks are not eligible");
   if (state.acceptedEnvironmentEventCount !== 0 && state.acceptedEnvironmentEventCount !== 1) {
@@ -131,7 +131,7 @@ function metadata(state: DiscoveryResumeState): Record<string, unknown> {
   return Object.fromEntries(METADATA_KEYS.map((key) => [key, state[key]]));
 }
 
-/** Bounded N64 scope avoids a second asynchronous runner without changing the streamed V3 API. */
+/** Bounded N126 fields and topology fit the unchanged 64 MiB cap; streamed V3 is unchanged. */
 export function encodeDiscoveryResumeCheckpoint(state: DiscoveryResumeState): Uint8Array {
   const epoch = state.mutationEpoch();
   validate(state, false);
@@ -175,7 +175,7 @@ export function decodeDiscoveryResumeCheckpoint(bytes: Uint8Array): DecodedDisco
   const controls = header.state as Omit<DiscoveryResumeState, "a" | "f" | "sigma" | "boundaryOrder" | "lastAttached" | "mutationEpoch">;
   keys(controls.dims, ["nx", "ny", "nz"], "dimensions");
   const n = validateLKResumeNumericalControls({ ...controls, timelineMode: "none" });
-  if (n > MAX_DISCOVERY_RESUME_CELLS) fail("cell count exceeds bounded N64 capacity");
+  if (n > MAX_DISCOVERY_RESUME_CELLS) fail("cell count exceeds bounded N126 capacity");
   const boundaryCount = header.boundaryCount as number;
   const lastAttachedCount = header.lastAttachedCount as number;
   for (const count of [boundaryCount, lastAttachedCount]) {

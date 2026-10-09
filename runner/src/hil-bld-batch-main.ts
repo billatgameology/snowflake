@@ -38,6 +38,18 @@ function newDirectory(path: string): string {
   return directory;
 }
 
+export function batchProbeSettings(host: FirstBatchHost, batch = FIRST_BATCH_DEFINITION): {
+  ladder: number[]; childWallSeconds: number;
+} {
+  namedBatchRows(batch, host);
+  const ceiling = batch.workerCeilings[host]!;
+  const childWallSeconds = batch.probeWallSeconds ?? FIRST_BATCH_PROBE_WALL_SECONDS;
+  if (!Number.isSafeInteger(ceiling) || ceiling < 1 ||
+    !Number.isFinite(childWallSeconds) || childWallSeconds <= 0) throw new Error("invalid batch probe limits");
+  return { ladder: [...new Set([1, 4, 8, 16, 28, ceiling])].filter((count) => count <= ceiling).sort((a, b) => a - b),
+    childWallSeconds };
+}
+
 export function firstBatchProbeRows(host: FirstBatchHost, concurrency: number, batch = FIRST_BATCH_DEFINITION): readonly DiscoveryRow[] {
   const representatives = batch.representatives(host);
   return Array.from({ length: Math.max(concurrency, representatives.length) }, (_, index) => ({
@@ -123,17 +135,17 @@ async function probe(host: FirstBatchHost, output: string, batch: DiscoveryBatch
     gitHead: batchGitHead(), node: process.version, v8: process.versions.v8,
     hostIdentity: batchHostIdentity(), rosterSha256: firstBatchRosterSha256(host, batch),
     limit: "Three-update exact-family prefixes only; not mature-geometry capacity, checkpoint continuation or scientific endpoints. Live memory monitoring remains required; scientific rows use checkpoints without a wall deadline." };
-  const ladder = [1, 4, 8, 16, 28].filter((count) => count <= batch.workerCeilings[host]!);
+  const { ladder, childWallSeconds } = batchProbeSettings(host, batch);
   writeBatchJson(resolve(directory, "invocation.json"), { ...base, exactCommand: process.argv, ladder,
     representatives: batch.representatives(host), probeSteps: FIRST_BATCH_PROBE_STEPS,
-    childWallSeconds: FIRST_BATCH_PROBE_WALL_SECONDS, startedAt: new Date().toISOString() });
+    childWallSeconds, startedAt: new Date().toISOString() });
   const rungs: ProbeRung[] = [];
   for (const concurrency of ladder) {
     const rungDirectory = newDirectory(resolve(directory, `concurrency-${concurrency}`));
     const rows = firstBatchProbeRows(host, concurrency, batch);
     const exits = await launchDiscoveryRows({ campaignDirectory: rungDirectory, launchName: "probe", rows, concurrency,
       entryPath, workerArguments: (row, rowDirectory) => ["run-probe-row", row.id, rowDirectory],
-      hardWallSeconds: FIRST_BATCH_PROBE_WALL_SECONDS, stopOnWorkerFailure: true,
+      hardWallSeconds: childWallSeconds, stopOnWorkerFailure: true,
       monitor: { sample: sampleBatchHost } });
     const completion = readJson<{ actualMaximumConcurrency: number; abortReason: string | null;
       minimumAvailablePhysicalBytes: number | null; minimumCommitHeadroomBytes: number | null;

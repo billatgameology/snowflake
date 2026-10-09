@@ -29,6 +29,24 @@ function expectSame(actual: LKSolver, expected: LKSolver): void {
 }
 
 describe("separate discovery continuation", () => {
+  it("round-trips the registered N126 early-width state and continues its complete fields", () => {
+    const direct = new LKSolver({ ...options, dims: { nx: 126, ny: 126, nz: 126 },
+      dxUm: 0.175, seedRadius: 4, seedThickness: 3, experimentalBasalWidthCells: 6,
+      experimentalBasalWidthHistory: { mode: "early-only", cutoffSeconds: 20 } });
+    // Loose one-sweep controls isolate size/codec behavior; the real campaign-control
+    // interruption differential is a separate executed N126 qualification witness.
+    direct.step();
+    expect(direct.fillLedger).toBeGreaterThan(0);
+    expect(direct.boundaryCells().length).toBeGreaterThan(0);
+    const encoded = bytes(direct);
+    expect(encoded.length).toBeGreaterThan(17 * 126 ** 3);
+    expect(encoded.length).toBeLessThanOrEqual(50_074_948);
+    const restored = LKSolver.restoreDiscovery(decodeDiscoveryResumeCheckpoint(encoded));
+    expect(Buffer.from(bytes(restored)).equals(Buffer.from(encoded))).toBe(true);
+    expect(restored.step()).toEqual(direct.step());
+    expect(Buffer.from(bytes(restored)).equals(Buffer.from(bytes(direct)))).toBe(true);
+    expect(restored.ledger()).toEqual(direct.ledger());
+  });
   const preparations: readonly (readonly [string, Partial<LKSolverOptions>])[] = [
     ["ordinary M1", {}], ["ordinary no-dip", { paramSet: "M1_NO_DIP_ABLATION" }],
     ...(["both", "neither", "basal-only", "prism-only"] as const)
@@ -173,6 +191,20 @@ function rewriteHeader(input: Uint8Array, mutate: (header: Record<string, unknow
 }
 
 describe("discovery codec rejects accidental state loss", () => {
+  it("rejects just-over-N126 dimensions and retains the independent 64 MiB bound", () => {
+    const state = new LKSolver(options).exportDiscoveryResumeState();
+    const dims = { nx: 126, ny: 126, nz: 127 };
+    expect(() => encodeDiscoveryResumeCheckpoint({ ...state, dims })).toThrow(/bounded N126 capacity/);
+    const encoded = bytes(new LKSolver(options));
+    const scalar = (value: number) => {
+      const bits = Buffer.alloc(8); bits.writeDoubleBE(value); return { $f64: bits.toString("hex") };
+    };
+    const oversized = rewriteHeader(encoded, (header) => {
+      (header.state as Record<string, unknown>).dims = { nx: scalar(126), ny: scalar(126), nz: scalar(127) };
+    });
+    expect(() => decodeDiscoveryResumeCheckpoint(oversized)).toThrow(/bounded N126 capacity/);
+    expect(() => decodeDiscoveryResumeCheckpoint(new Uint8Array(64 * 1024 * 1024 + 1))).toThrow(/invalid byte length/);
+  });
   it("rejects truncated payload, wrong format, and missing/extra metadata", () => {
     const encoded = bytes(new LKSolver(options));
     expect(() => decodeDiscoveryResumeCheckpoint(encoded.subarray(0, encoded.length - 1))).toThrow(/payload length/);

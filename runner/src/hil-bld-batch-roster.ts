@@ -18,6 +18,8 @@ export interface DiscoveryBatchDefinition {
   readonly rows: readonly FirstBatchEntry[];
   readonly workerCeilings: Readonly<Partial<Record<FirstBatchHost, number>>>;
   readonly representatives: (host: FirstBatchHost) => readonly FirstBatchEntry[];
+  /** Operational three-update watchdog only; production has no wall deadline. */
+  readonly probeWallSeconds?: number;
 }
 
 export function namedBatchRows(batch: DiscoveryBatchDefinition, host: FirstBatchHost): readonly FirstBatchEntry[] {
