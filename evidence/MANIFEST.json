@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 996,
- "totalBytes": 294663424,
+ "fileCount": 1012,
+ "totalBytes": 298403048,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -3935,8 +3935,8 @@
    "sha256": "bb51941b0c538b92a49505c20b55adb74f6b95363f5d3b7e1343c2e036780e38"
   },
   "hil-bld-joint-review-2026-10-08/README.md": {
-   "bytes": 6252,
-   "sha256": "301dc9fd97f61659d0ab6dac73fb7698b538170c9736278db6cfafb3e2477609"
+   "bytes": 6730,
+   "sha256": "df30c33ffff60cdb92e8c981158373fc341ae96e3183df6232cff4cbf4b502d6"
   },
   "hil-bld-joint-review-2026-10-08/review.json": {
    "bytes": 8460,
@@ -3989,6 +3989,70 @@
   "hil-bld-joint-review-2026-10-08/verification.json": {
    "bytes": 2390,
    "sha256": "0c2f7b9e2a9d535f123ded31a9341cc83be3a2a00ec30ba9a09f8e2153fe4d28"
+  },
+  "hil-bld-joint-review-2026-10-08/followup/cold-notes.md": {
+   "bytes": 6400,
+   "sha256": "ccad70562cb6179b87e54c66f1553c8daf70d8a87e7a9dad68c55cc29283dadb"
+  },
+  "hil-bld-joint-review-2026-10-08/followup/cold.json": {
+   "bytes": 1845161,
+   "sha256": "95530b3e088d362f8708a497f3d5ca6896dd93c0e2c404e49f18ea276403f71f"
+  },
+  "hil-bld-joint-review-2026-10-08/followup/cold.mjs": {
+   "bytes": 14401,
+   "sha256": "11ec642a706bff14475a2ab07c3a5ec02c09c14fb28cfae5b496a53d9041282a"
+  },
+  "hil-bld-joint-review-2026-10-08/followup/history-notes.md": {
+   "bytes": 10754,
+   "sha256": "ca8bab02e49aebd82cc0ba7d20aee1d7c7cd6ec3986afde34e4ebbebf34b95d9"
+  },
+  "hil-bld-joint-review-2026-10-08/followup/history.json": {
+   "bytes": 614213,
+   "sha256": "2810b5c5c8466400efbc214e1e1a84da77a356319d4ae25021d12902d7bea34b"
+  },
+  "hil-bld-joint-review-2026-10-08/followup/history.mjs": {
+   "bytes": 13533,
+   "sha256": "22b39f00bcb1a79822a0266011d48bd957282608f469b376d0f2f53abe9ccf88"
+  },
+  "hil-bld-joint-review-2026-10-08/followup/plot.py": {
+   "bytes": 4451,
+   "sha256": "d646204d3171e792f85b6119e52b9f2c7d9f229a34940a1994ec6a122816a3b8"
+  },
+  "hil-bld-joint-review-2026-10-08/followup/pressure-notes.md": {
+   "bytes": 7619,
+   "sha256": "34482c553fc5d41ad12e88bb7a83b2ea36c0dbe8a478268705361496b74d4927"
+  },
+  "hil-bld-joint-review-2026-10-08/followup/pressure.json": {
+   "bytes": 714769,
+   "sha256": "4579cc696b69ac0ff013d028dcb9064c55dd63f0595bd9480d8aadbb6bcf6004"
+  },
+  "hil-bld-joint-review-2026-10-08/followup/pressure.mjs": {
+   "bytes": 12868,
+   "sha256": "e9e959e003671d45e20cc9d2baeaff56f7c4b7b58f0764958c579dfead177b9e"
+  },
+  "hil-bld-joint-review-2026-10-08/followup/README.md": {
+   "bytes": 10498,
+   "sha256": "db6fdd99e74cc9db2a82a1a920a53455200f13c2557c4b1d9f789f3101de685f"
+  },
+  "hil-bld-joint-review-2026-10-08/followup/structure-and-growth.png": {
+   "bytes": 361223,
+   "sha256": "07bdd3e82ed34511e522905f957b8701d485898b008019ded9bc47119ca21bf6"
+  },
+  "hil-bld-joint-review-2026-10-08/followup/warm.json": {
+   "bytes": 77960,
+   "sha256": "bc750461f2b13c190123ed9ea470a27923c683c327b9b8cfb3e43430549abeb5"
+  },
+  "hil-bld-joint-review-2026-10-08/followup/warm.mjs": {
+   "bytes": 8965,
+   "sha256": "3aaf23257b24079afe4a3413ede2f896b7ce3c2cff974ffca09198e036ab9234"
+  },
+  "hil-bld-joint-review-2026-10-08/followup/review-calculate.py": {
+   "bytes": 8742,
+   "sha256": "1377fe3044e3a277c24299b28f93bc49734f0387f78ed992e272e38fa09f01ad"
+  },
+  "hil-bld-joint-review-2026-10-08/followup/review-calculations.json": {
+   "bytes": 27589,
+   "sha256": "61958fa8cb7deceeecf9353573003c5de03f96e125edafdf63dcdf24c1272852"
   }
  }
 }

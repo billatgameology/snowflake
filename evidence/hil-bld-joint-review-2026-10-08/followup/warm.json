@@ -1,0 +1,2784 @@
+{
+  "claimLevel": "Retrospective discrete-model analysis; no physical validation or grid independence.",
+  "method": {
+    "time": "Start is the early row actual switch boundary; all three arms sampled at common absolute times. The broad control has a different starting geometry. Recorded at-or-before states plus next events, no interpolation.",
+    "increment": "New attachments after start state through end state. Counts include kinetic and geometric-completion attachments and exclude partial fill; these are occupancy increments, not mass or isolated kinetic uptake.",
+    "envelope": "Outside starting axial envelope means k below starting minimum or above starting maximum; its complement includes lateral expansion as well as interior additions.",
+    "bracketRanges": "Extrema over recorded start/end bracket combinations, using the exact state alone at an exact event time; not continuous bounds.",
+    "openings": "Existing center-component flood fill and straight axial opening helper; signed layers are not separate cavities."
+  },
+  "scriptSha256": "3aaf23257b24079afe4a3413ede2f896b7ce3c2cff974ffca09198e036ab9234",
+  "inputRoot": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable",
+  "sources": [
+    {
+      "rowId": "batch1-bld-warm-t4p5-broad",
+      "name": "spec.json",
+      "bytes": 790,
+      "sha256": "346f034239984c20f441eefaaccb55129fd3f0632fff84458721679e1ef03feb"
+    },
+    {
+      "rowId": "batch1-bld-warm-t4p5-broad",
+      "name": "result.json",
+      "bytes": 1853,
+      "sha256": "de17e5392ca8547d60a538fc6f5e75a85ed06ff3725d7ab4e8a4141f74ec59b8"
+    },
+    {
+      "rowId": "batch1-bld-warm-t4p5-broad",
+      "name": "events.jsonl",
+      "bytes": 1105928,
+      "sha256": "cb478fa9bb7cd95a3d733aa3d53bbad06bb7ddc40dc2b046c301d7ce178411b0"
+    },
+    {
+      "rowId": "batch1-bld-warm-t4p5-early",
+      "name": "spec.json",
+      "bytes": 1097,
+      "sha256": "796a451214382d444cace88b55ee21e4775a396b2982270dff6bd80283927b01"
+    },
+    {
+      "rowId": "batch1-bld-warm-t4p5-early",
+      "name": "result.json",
+      "bytes": 2040,
+      "sha256": "bc1646a8906b27915fd455c3421322e64032c69927e282d6a8bd760c3a034672"
+    },
+    {
+      "rowId": "batch1-bld-warm-t4p5-early",
+      "name": "events.jsonl",
+      "bytes": 2218119,
+      "sha256": "0cd4b7c3cf84d2bb0d0853c2e505f319318109e746442c8f263f3afaca388a46"
+    },
+    {
+      "rowId": "batch1-bld-warm-t4p5-full",
+      "name": "spec.json",
+      "bytes": 902,
+      "sha256": "672f874bb9c56ac0541c61812dae3d3f892411cd040ee84bfefbe0d38439c6ac"
+    },
+    {
+      "rowId": "batch1-bld-warm-t4p5-full",
+      "name": "result.json",
+      "bytes": 1945,
+      "sha256": "954d017808cce37644c9d619ca89a3dbd4949e90c91afe068892dd44c5e8df06"
+    },
+    {
+      "rowId": "batch1-bld-warm-t4p5-full",
+      "name": "events.jsonl",
+      "bytes": 1243797,
+      "sha256": "aff811ea28ee938eaa839a54779d74c9f605863f5ba494c90841805a3086e25d"
+    },
+    {
+      "rowId": "batch1-bld-warm-t5-broad",
+      "name": "spec.json",
+      "bytes": 785,
+      "sha256": "6dfe36ceea1ca8ff37004e3acf2481dc0f15a4382112b10762fa7aea220a5433"
+    },
+    {
+      "rowId": "batch1-bld-warm-t5-broad",
+      "name": "result.json",
+      "bytes": 1852,
+      "sha256": "abeec0dfab4455615e804cd61f9eecc521db1aa5e9fbe4555c814eaf6aa56b65"
+    },
+    {
+      "rowId": "batch1-bld-warm-t5-broad",
+      "name": "events.jsonl",
+      "bytes": 1268661,
+      "sha256": "54eb708c29b7abc453fa1841db9520921432f6065608cefa73a26cc4ec252431"
+    },
+    {
+      "rowId": "batch1-bld-warm-t5-early",
+      "name": "spec.json",
+      "bytes": 1092,
+      "sha256": "f029de07ea60ba9da5078db61c3d6db3ad9591008101d29c07c4e2f65ebac211"
+    },
+    {
+      "rowId": "batch1-bld-warm-t5-early",
+      "name": "result.json",
+      "bytes": 2037,
+      "sha256": "4be23246c106c77faafde010a3ba7add68f140dada7884f936754b13e6e48e1f"
+    },
+    {
+      "rowId": "batch1-bld-warm-t5-early",
+      "name": "events.jsonl",
+      "bytes": 2037117,
+      "sha256": "804b86aae74e687cb9aefe9b93a1144ecccb5b66ee7b9bfed53931cc84ad6f9c"
+    },
+    {
+      "rowId": "batch1-bld-warm-t5-full",
+      "name": "spec.json",
+      "bytes": 897,
+      "sha256": "c78365ad5f5e771ce2a922656543d859e6903dcd0a3e854276b5fccf719bce69"
+    },
+    {
+      "rowId": "batch1-bld-warm-t5-full",
+      "name": "result.json",
+      "bytes": 1940,
+      "sha256": "571a51dc370df3f3ad289c4f087f819fb6128684f8d3bd784a74add7b764b3e3"
+    },
+    {
+      "rowId": "batch1-bld-warm-t5-full",
+      "name": "events.jsonl",
+      "bytes": 1269537,
+      "sha256": "488b757c38c9bbdf3affc3eb1e1be7624c9e775e30b8b26f2c42c9d03e75e9a0"
+    }
+  ],
+  "groups": [
+    {
+      "tempC": -4.5,
+      "fraction": 0.075,
+      "switchTimeSeconds": 20.04840569337263,
+      "commonWindowEndSeconds": 27.99271590091247,
+      "commonWindowDurationSeconds": 7.944310207539839,
+      "rows": [
+        {
+          "rowId": "batch1-bld-warm-t4p5-broad",
+          "startRequestedSeconds": 20.04840569337263,
+          "endRequestedSeconds": 27.99271590091247,
+          "startBracket": {
+            "requestedTimeSeconds": 20.04840569337263,
+            "atOrBefore": {
+              "cycle": 225,
+              "simTimeSeconds": 19.999701620437293,
+              "attachedCount": 707,
+              "axialCells": 5,
+              "cartesianLateralInclusiveCells": 13.124355652982143,
+              "aspectRatio": 0.38097108400623764,
+              "extent": 15,
+              "minK": 30,
+              "maxK": 34
+            },
+            "nextEvent": {
+              "cycle": 226,
+              "simTimeSeconds": 20.074303641327198,
+              "attachedCount": 719,
+              "axialCells": 5,
+              "cartesianLateralInclusiveCells": 14,
+              "aspectRatio": 0.35714285714285715,
+              "extent": 15,
+              "minK": 30,
+              "maxK": 34
+            },
+            "exactEventTime": false
+          },
+          "endBracket": {
+            "requestedTimeSeconds": 27.99271590091247,
+            "atOrBefore": {
+              "cycle": 305,
+              "simTimeSeconds": 27.923937730301624,
+              "attachedCount": 1423,
+              "axialCells": 7,
+              "cartesianLateralInclusiveCells": 17,
+              "aspectRatio": 0.4117647058823529,
+              "extent": 17,
+              "minK": 29,
+              "maxK": 35
+            },
+            "nextEvent": {
+              "cycle": 306,
+              "simTimeSeconds": 28.00541186500056,
+              "attachedCount": 1423,
+              "axialCells": 7,
+              "cartesianLateralInclusiveCells": 17,
+              "aspectRatio": 0.4117647058823529,
+              "extent": 17,
+              "minK": 29,
+              "maxK": 35
+            },
+            "exactEventTime": false
+          },
+          "startProfile": {
+            "cycle": 225,
+            "simTimeSeconds": 19.999701620437293,
+            "attachedCount": 707,
+            "axialCells": 5,
+            "cartesianLateralInclusiveCells": 13.124355652982143,
+            "aspectRatio": 0.38097108400623764,
+            "extent": 15,
+            "minK": 30,
+            "maxK": 34,
+            "waist": {
+              "probeFullLayerCount": 5,
+              "lowerOffset": -2,
+              "upperOffset": 2,
+              "centerSpanUm": 1.4,
+              "inclusiveThicknessUm": 1.75
+            },
+            "straightOpenLayers": 0,
+            "planes": [
+              {
+                "offset": -2,
+                "attachedCount": 127,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": -1,
+                "attachedCount": 151,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 0,
+                "attachedCount": 151,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 1,
+                "attachedCount": 151,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 2,
+                "attachedCount": 127,
+                "lateralVoid": "center-occupied"
+              }
+            ]
+          },
+          "endProfile": {
+            "cycle": 305,
+            "simTimeSeconds": 27.923937730301624,
+            "attachedCount": 1423,
+            "axialCells": 7,
+            "cartesianLateralInclusiveCells": 17,
+            "aspectRatio": 0.4117647058823529,
+            "extent": 17,
+            "minK": 29,
+            "maxK": 35,
+            "waist": {
+              "probeFullLayerCount": 7,
+              "lowerOffset": -3,
+              "upperOffset": 3,
+              "centerSpanUm": 2.0999999999999996,
+              "inclusiveThicknessUm": 2.4499999999999997
+            },
+            "straightOpenLayers": 0,
+            "planes": [
+              {
+                "offset": -3,
+                "attachedCount": 169,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": -2,
+                "attachedCount": 217,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": -1,
+                "attachedCount": 217,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 0,
+                "attachedCount": 217,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 1,
+                "attachedCount": 217,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 2,
+                "attachedCount": 217,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 3,
+                "attachedCount": 169,
+                "lateralVoid": "center-occupied"
+              }
+            ]
+          },
+          "addedSites": 716,
+          "outsideStartingAxialEnvelope": 338,
+          "withinStartingAxialEnvelope": 378,
+          "axialSpanIncrementUm": 0.7,
+          "lateralSpanIncrementUm": 1.35647552145625,
+          "addedByPlane": [
+            {
+              "offset": -3,
+              "count": 169
+            },
+            {
+              "offset": -2,
+              "count": 90
+            },
+            {
+              "offset": -1,
+              "count": 66
+            },
+            {
+              "offset": 0,
+              "count": 66
+            },
+            {
+              "offset": 1,
+              "count": 66
+            },
+            {
+              "offset": 2,
+              "count": 90
+            },
+            {
+              "offset": 3,
+              "count": 169
+            }
+          ],
+          "recordedBracketRanges": {
+            "addedSites": [
+              704,
+              716
+            ],
+            "axialSpanIncrementUm": [
+              0.7,
+              0.7
+            ],
+            "lateralSpanIncrementUm": [
+              1.0499999999999998,
+              1.35647552145625
+            ]
+          }
+        },
+        {
+          "rowId": "batch1-bld-warm-t4p5-early",
+          "startRequestedSeconds": 20.04840569337263,
+          "endRequestedSeconds": 27.99271590091247,
+          "startBracket": {
+            "requestedTimeSeconds": 20.04840569337263,
+            "atOrBefore": {
+              "cycle": 264,
+              "simTimeSeconds": 20.04840569337263,
+              "attachedCount": 1159,
+              "axialCells": 15,
+              "cartesianLateralInclusiveCells": 11,
+              "aspectRatio": 1.3636363636363635,
+              "extent": 15,
+              "minK": 25,
+              "maxK": 39
+            },
+            "nextEvent": {
+              "cycle": 265,
+              "simTimeSeconds": 20.12607536212603,
+              "attachedCount": 1159,
+              "axialCells": 15,
+              "cartesianLateralInclusiveCells": 11,
+              "aspectRatio": 1.3636363636363635,
+              "extent": 15,
+              "minK": 25,
+              "maxK": 39
+            },
+            "exactEventTime": true
+          },
+          "endBracket": {
+            "requestedTimeSeconds": 27.99271590091247,
+            "atOrBefore": {
+              "cycle": 365,
+              "simTimeSeconds": 27.93183567904616,
+              "attachedCount": 1999,
+              "axialCells": 17,
+              "cartesianLateralInclusiveCells": 13,
+              "aspectRatio": 1.3076923076923077,
+              "extent": 17,
+              "minK": 24,
+              "maxK": 40
+            },
+            "nextEvent": {
+              "cycle": 366,
+              "simTimeSeconds": 28.008322697379903,
+              "attachedCount": 1999,
+              "axialCells": 17,
+              "cartesianLateralInclusiveCells": 13,
+              "aspectRatio": 1.3076923076923077,
+              "extent": 17,
+              "minK": 24,
+              "maxK": 40
+            },
+            "exactEventTime": false
+          },
+          "startProfile": {
+            "cycle": 264,
+            "simTimeSeconds": 20.04840569337263,
+            "attachedCount": 1159,
+            "axialCells": 15,
+            "cartesianLateralInclusiveCells": 11,
+            "aspectRatio": 1.3636363636363635,
+            "extent": 15,
+            "minK": 25,
+            "maxK": 39,
+            "waist": {
+              "probeFullLayerCount": 1,
+              "lowerOffset": 0,
+              "upperOffset": 0,
+              "centerSpanUm": 0,
+              "inclusiveThicknessUm": 0.35
+            },
+            "straightOpenLayers": 14,
+            "planes": [
+              {
+                "offset": -7,
+                "attachedCount": 54,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -6,
+                "attachedCount": 66,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -5,
+                "attachedCount": 78,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -4,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -3,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -2,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -1,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 0,
+                "attachedCount": 91,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 1,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 2,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 3,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 4,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 5,
+                "attachedCount": 78,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 6,
+                "attachedCount": 66,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 7,
+                "attachedCount": 54,
+                "lateralVoid": "enclosed"
+              }
+            ]
+          },
+          "endProfile": {
+            "cycle": 365,
+            "simTimeSeconds": 27.93183567904616,
+            "attachedCount": 1999,
+            "axialCells": 17,
+            "cartesianLateralInclusiveCells": 13,
+            "aspectRatio": 1.3076923076923077,
+            "extent": 17,
+            "minK": 24,
+            "maxK": 40,
+            "waist": {
+              "probeFullLayerCount": 1,
+              "lowerOffset": 0,
+              "upperOffset": 0,
+              "centerSpanUm": 0,
+              "inclusiveThicknessUm": 0.35
+            },
+            "straightOpenLayers": 16,
+            "planes": [
+              {
+                "offset": -8,
+                "attachedCount": 102,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -7,
+                "attachedCount": 114,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -6,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -5,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -4,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -3,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -2,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -1,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 0,
+                "attachedCount": 127,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 1,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 2,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 3,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 4,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 5,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 6,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 7,
+                "attachedCount": 114,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 8,
+                "attachedCount": 102,
+                "lateralVoid": "enclosed"
+              }
+            ]
+          },
+          "addedSites": 840,
+          "outsideStartingAxialEnvelope": 204,
+          "withinStartingAxialEnvelope": 636,
+          "axialSpanIncrementUm": 0.7,
+          "lateralSpanIncrementUm": 0.7,
+          "addedByPlane": [
+            {
+              "offset": -8,
+              "count": 102
+            },
+            {
+              "offset": -7,
+              "count": 60
+            },
+            {
+              "offset": -6,
+              "count": 54
+            },
+            {
+              "offset": -5,
+              "count": 42
+            },
+            {
+              "offset": -4,
+              "count": 36
+            },
+            {
+              "offset": -3,
+              "count": 36
+            },
+            {
+              "offset": -2,
+              "count": 36
+            },
+            {
+              "offset": -1,
+              "count": 36
+            },
+            {
+              "offset": 0,
+              "count": 36
+            },
+            {
+              "offset": 1,
+              "count": 36
+            },
+            {
+              "offset": 2,
+              "count": 36
+            },
+            {
+              "offset": 3,
+              "count": 36
+            },
+            {
+              "offset": 4,
+              "count": 36
+            },
+            {
+              "offset": 5,
+              "count": 42
+            },
+            {
+              "offset": 6,
+              "count": 54
+            },
+            {
+              "offset": 7,
+              "count": 60
+            },
+            {
+              "offset": 8,
+              "count": 102
+            }
+          ],
+          "recordedBracketRanges": {
+            "addedSites": [
+              840,
+              840
+            ],
+            "axialSpanIncrementUm": [
+              0.7,
+              0.7
+            ],
+            "lateralSpanIncrementUm": [
+              0.7,
+              0.7
+            ]
+          }
+        },
+        {
+          "rowId": "batch1-bld-warm-t4p5-full",
+          "startRequestedSeconds": 20.04840569337263,
+          "endRequestedSeconds": 27.99271590091247,
+          "startBracket": {
+            "requestedTimeSeconds": 20.04840569337263,
+            "atOrBefore": {
+              "cycle": 264,
+              "simTimeSeconds": 20.04840569337263,
+              "attachedCount": 1159,
+              "axialCells": 15,
+              "cartesianLateralInclusiveCells": 11,
+              "aspectRatio": 1.3636363636363635,
+              "extent": 15,
+              "minK": 25,
+              "maxK": 39
+            },
+            "nextEvent": {
+              "cycle": 265,
+              "simTimeSeconds": 20.129715319911423,
+              "attachedCount": 1159,
+              "axialCells": 15,
+              "cartesianLateralInclusiveCells": 11,
+              "aspectRatio": 1.3636363636363635,
+              "extent": 15,
+              "minK": 25,
+              "maxK": 39
+            },
+            "exactEventTime": true
+          },
+          "endBracket": {
+            "requestedTimeSeconds": 27.99271590091247,
+            "atOrBefore": {
+              "cycle": 359,
+              "simTimeSeconds": 27.99271590091247,
+              "attachedCount": 2131,
+              "axialCells": 21,
+              "cartesianLateralInclusiveCells": 13,
+              "aspectRatio": 1.6153846153846154,
+              "extent": 21,
+              "minK": 22,
+              "maxK": 42
+            },
+            "nextEvent": null,
+            "exactEventTime": true
+          },
+          "startProfile": {
+            "cycle": 264,
+            "simTimeSeconds": 20.04840569337263,
+            "attachedCount": 1159,
+            "axialCells": 15,
+            "cartesianLateralInclusiveCells": 11,
+            "aspectRatio": 1.3636363636363635,
+            "extent": 15,
+            "minK": 25,
+            "maxK": 39,
+            "waist": {
+              "probeFullLayerCount": 1,
+              "lowerOffset": 0,
+              "upperOffset": 0,
+              "centerSpanUm": 0,
+              "inclusiveThicknessUm": 0.35
+            },
+            "straightOpenLayers": 14,
+            "planes": [
+              {
+                "offset": -7,
+                "attachedCount": 54,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -6,
+                "attachedCount": 66,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -5,
+                "attachedCount": 78,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -4,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -3,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -2,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -1,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 0,
+                "attachedCount": 91,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 1,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 2,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 3,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 4,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 5,
+                "attachedCount": 78,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 6,
+                "attachedCount": 66,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 7,
+                "attachedCount": 54,
+                "lateralVoid": "enclosed"
+              }
+            ]
+          },
+          "endProfile": {
+            "cycle": 359,
+            "simTimeSeconds": 27.99271590091247,
+            "attachedCount": 2131,
+            "axialCells": 21,
+            "cartesianLateralInclusiveCells": 13,
+            "aspectRatio": 1.6153846153846154,
+            "extent": 21,
+            "minK": 22,
+            "maxK": 42,
+            "waist": {
+              "probeFullLayerCount": 1,
+              "lowerOffset": 0,
+              "upperOffset": 0,
+              "centerSpanUm": 0,
+              "inclusiveThicknessUm": 0.35
+            },
+            "straightOpenLayers": 18,
+            "planes": [
+              {
+                "offset": -10,
+                "attachedCount": 6,
+                "lateralVoid": "open"
+              },
+              {
+                "offset": -9,
+                "attachedCount": 78,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -8,
+                "attachedCount": 90,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -7,
+                "attachedCount": 114,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -6,
+                "attachedCount": 114,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -5,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -4,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -3,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -2,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -1,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 0,
+                "attachedCount": 127,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 1,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 2,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 3,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 4,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 5,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 6,
+                "attachedCount": 114,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 7,
+                "attachedCount": 114,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 8,
+                "attachedCount": 90,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 9,
+                "attachedCount": 78,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 10,
+                "attachedCount": 6,
+                "lateralVoid": "open"
+              }
+            ]
+          },
+          "addedSites": 972,
+          "outsideStartingAxialEnvelope": 348,
+          "withinStartingAxialEnvelope": 624,
+          "axialSpanIncrementUm": 2.0999999999999996,
+          "lateralSpanIncrementUm": 0.7,
+          "addedByPlane": [
+            {
+              "offset": -10,
+              "count": 6
+            },
+            {
+              "offset": -9,
+              "count": 78
+            },
+            {
+              "offset": -8,
+              "count": 90
+            },
+            {
+              "offset": -7,
+              "count": 60
+            },
+            {
+              "offset": -6,
+              "count": 48
+            },
+            {
+              "offset": -5,
+              "count": 42
+            },
+            {
+              "offset": -4,
+              "count": 36
+            },
+            {
+              "offset": -3,
+              "count": 36
+            },
+            {
+              "offset": -2,
+              "count": 36
+            },
+            {
+              "offset": -1,
+              "count": 36
+            },
+            {
+              "offset": 0,
+              "count": 36
+            },
+            {
+              "offset": 1,
+              "count": 36
+            },
+            {
+              "offset": 2,
+              "count": 36
+            },
+            {
+              "offset": 3,
+              "count": 36
+            },
+            {
+              "offset": 4,
+              "count": 36
+            },
+            {
+              "offset": 5,
+              "count": 42
+            },
+            {
+              "offset": 6,
+              "count": 48
+            },
+            {
+              "offset": 7,
+              "count": 60
+            },
+            {
+              "offset": 8,
+              "count": 90
+            },
+            {
+              "offset": 9,
+              "count": 78
+            },
+            {
+              "offset": 10,
+              "count": 6
+            }
+          ],
+          "recordedBracketRanges": {
+            "addedSites": [
+              972,
+              972
+            ],
+            "axialSpanIncrementUm": [
+              2.0999999999999996,
+              2.0999999999999996
+            ],
+            "lateralSpanIncrementUm": [
+              0.7,
+              0.7
+            ]
+          }
+        }
+      ],
+      "earlyWholeRemainingWindow": {
+        "rowId": "batch1-bld-warm-t4p5-early",
+        "startRequestedSeconds": 20.04840569337263,
+        "endRequestedSeconds": 53.40036774566774,
+        "startBracket": {
+          "requestedTimeSeconds": 20.04840569337263,
+          "atOrBefore": {
+            "cycle": 264,
+            "simTimeSeconds": 20.04840569337263,
+            "attachedCount": 1159,
+            "axialCells": 15,
+            "cartesianLateralInclusiveCells": 11,
+            "aspectRatio": 1.3636363636363635,
+            "extent": 15,
+            "minK": 25,
+            "maxK": 39
+          },
+          "nextEvent": {
+            "cycle": 265,
+            "simTimeSeconds": 20.12607536212603,
+            "attachedCount": 1159,
+            "axialCells": 15,
+            "cartesianLateralInclusiveCells": 11,
+            "aspectRatio": 1.3636363636363635,
+            "extent": 15,
+            "minK": 25,
+            "maxK": 39
+          },
+          "exactEventTime": true
+        },
+        "endBracket": {
+          "requestedTimeSeconds": 53.40036774566774,
+          "atOrBefore": {
+            "cycle": 594,
+            "simTimeSeconds": 53.40036774566774,
+            "attachedCount": 5059,
+            "axialCells": 21,
+            "cartesianLateralInclusiveCells": 19,
+            "aspectRatio": 1.105263157894737,
+            "extent": 21,
+            "minK": 22,
+            "maxK": 42
+          },
+          "nextEvent": null,
+          "exactEventTime": true
+        },
+        "startProfile": {
+          "cycle": 264,
+          "simTimeSeconds": 20.04840569337263,
+          "attachedCount": 1159,
+          "axialCells": 15,
+          "cartesianLateralInclusiveCells": 11,
+          "aspectRatio": 1.3636363636363635,
+          "extent": 15,
+          "minK": 25,
+          "maxK": 39,
+          "waist": {
+            "probeFullLayerCount": 1,
+            "lowerOffset": 0,
+            "upperOffset": 0,
+            "centerSpanUm": 0,
+            "inclusiveThicknessUm": 0.35
+          },
+          "straightOpenLayers": 14,
+          "planes": [
+            {
+              "offset": -7,
+              "attachedCount": 54,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -6,
+              "attachedCount": 66,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -5,
+              "attachedCount": 78,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -4,
+              "attachedCount": 84,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -3,
+              "attachedCount": 84,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -2,
+              "attachedCount": 84,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -1,
+              "attachedCount": 84,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 0,
+              "attachedCount": 91,
+              "lateralVoid": "center-occupied"
+            },
+            {
+              "offset": 1,
+              "attachedCount": 84,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 2,
+              "attachedCount": 84,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 3,
+              "attachedCount": 84,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 4,
+              "attachedCount": 84,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 5,
+              "attachedCount": 78,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 6,
+              "attachedCount": 66,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 7,
+              "attachedCount": 54,
+              "lateralVoid": "enclosed"
+            }
+          ]
+        },
+        "endProfile": {
+          "cycle": 594,
+          "simTimeSeconds": 53.40036774566774,
+          "attachedCount": 5059,
+          "axialCells": 21,
+          "cartesianLateralInclusiveCells": 19,
+          "aspectRatio": 1.105263157894737,
+          "extent": 21,
+          "minK": 22,
+          "maxK": 42,
+          "waist": {
+            "probeFullLayerCount": 1,
+            "lowerOffset": 0,
+            "upperOffset": 0,
+            "centerSpanUm": 0,
+            "inclusiveThicknessUm": 0.35
+          },
+          "straightOpenLayers": 18,
+          "planes": [
+            {
+              "offset": -10,
+              "attachedCount": 6,
+              "lateralVoid": "open"
+            },
+            {
+              "offset": -9,
+              "attachedCount": 270,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -8,
+              "attachedCount": 270,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -7,
+              "attachedCount": 264,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -6,
+              "attachedCount": 264,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -5,
+              "attachedCount": 264,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -4,
+              "attachedCount": 264,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -3,
+              "attachedCount": 264,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -2,
+              "attachedCount": 264,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -1,
+              "attachedCount": 264,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 0,
+              "attachedCount": 271,
+              "lateralVoid": "center-occupied"
+            },
+            {
+              "offset": 1,
+              "attachedCount": 264,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 2,
+              "attachedCount": 264,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 3,
+              "attachedCount": 264,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 4,
+              "attachedCount": 264,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 5,
+              "attachedCount": 264,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 6,
+              "attachedCount": 264,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 7,
+              "attachedCount": 264,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 8,
+              "attachedCount": 270,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 9,
+              "attachedCount": 270,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 10,
+              "attachedCount": 6,
+              "lateralVoid": "open"
+            }
+          ]
+        },
+        "addedSites": 3900,
+        "outsideStartingAxialEnvelope": 1092,
+        "withinStartingAxialEnvelope": 2808,
+        "axialSpanIncrementUm": 2.0999999999999996,
+        "lateralSpanIncrementUm": 2.8,
+        "addedByPlane": [
+          {
+            "offset": -10,
+            "count": 6
+          },
+          {
+            "offset": -9,
+            "count": 270
+          },
+          {
+            "offset": -8,
+            "count": 270
+          },
+          {
+            "offset": -7,
+            "count": 210
+          },
+          {
+            "offset": -6,
+            "count": 198
+          },
+          {
+            "offset": -5,
+            "count": 186
+          },
+          {
+            "offset": -4,
+            "count": 180
+          },
+          {
+            "offset": -3,
+            "count": 180
+          },
+          {
+            "offset": -2,
+            "count": 180
+          },
+          {
+            "offset": -1,
+            "count": 180
+          },
+          {
+            "offset": 0,
+            "count": 180
+          },
+          {
+            "offset": 1,
+            "count": 180
+          },
+          {
+            "offset": 2,
+            "count": 180
+          },
+          {
+            "offset": 3,
+            "count": 180
+          },
+          {
+            "offset": 4,
+            "count": 180
+          },
+          {
+            "offset": 5,
+            "count": 186
+          },
+          {
+            "offset": 6,
+            "count": 198
+          },
+          {
+            "offset": 7,
+            "count": 210
+          },
+          {
+            "offset": 8,
+            "count": 270
+          },
+          {
+            "offset": 9,
+            "count": 270
+          },
+          {
+            "offset": 10,
+            "count": 6
+          }
+        ],
+        "recordedBracketRanges": {
+          "addedSites": [
+            3900,
+            3900
+          ],
+          "axialSpanIncrementUm": [
+            2.0999999999999996,
+            2.0999999999999996
+          ],
+          "lateralSpanIncrementUm": [
+            2.8,
+            2.8
+          ]
+        }
+      },
+      "postSwitchSelectedCellUpdates": 0,
+      "postSwitchSelectedKineticDemandFill": 0
+    },
+    {
+      "tempC": -5,
+      "fraction": 0.075,
+      "switchTimeSeconds": 20.051631130757585,
+      "commonWindowEndSeconds": 26.39896679741717,
+      "commonWindowDurationSeconds": 6.3473356666595855,
+      "rows": [
+        {
+          "rowId": "batch1-bld-warm-t5-broad",
+          "startRequestedSeconds": 20.051631130757585,
+          "endRequestedSeconds": 26.39896679741717,
+          "startBracket": {
+            "requestedTimeSeconds": 20.051631130757585,
+            "atOrBefore": {
+              "cycle": 242,
+              "simTimeSeconds": 19.948836100162005,
+              "attachedCount": 635,
+              "axialCells": 5,
+              "cartesianLateralInclusiveCells": 13,
+              "aspectRatio": 0.38461538461538464,
+              "extent": 13,
+              "minK": 30,
+              "maxK": 34
+            },
+            "nextEvent": {
+              "cycle": 243,
+              "simTimeSeconds": 20.15641035353376,
+              "attachedCount": 683,
+              "axialCells": 5,
+              "cartesianLateralInclusiveCells": 13.124355652982143,
+              "aspectRatio": 0.38097108400623764,
+              "extent": 15,
+              "minK": 30,
+              "maxK": 34
+            },
+            "exactEventTime": false
+          },
+          "endBracket": {
+            "requestedTimeSeconds": 26.39896679741717,
+            "atOrBefore": {
+              "cycle": 314,
+              "simTimeSeconds": 26.390549095123124,
+              "attachedCount": 1255,
+              "axialCells": 7,
+              "cartesianLateralInclusiveCells": 15,
+              "aspectRatio": 0.4666666666666667,
+              "extent": 17,
+              "minK": 29,
+              "maxK": 35
+            },
+            "nextEvent": {
+              "cycle": 315,
+              "simTimeSeconds": 26.457405602399895,
+              "attachedCount": 1321,
+              "axialCells": 7,
+              "cartesianLateralInclusiveCells": 15,
+              "aspectRatio": 0.4666666666666667,
+              "extent": 17,
+              "minK": 29,
+              "maxK": 35
+            },
+            "exactEventTime": false
+          },
+          "startProfile": {
+            "cycle": 242,
+            "simTimeSeconds": 19.948836100162005,
+            "attachedCount": 635,
+            "axialCells": 5,
+            "cartesianLateralInclusiveCells": 13,
+            "aspectRatio": 0.38461538461538464,
+            "extent": 13,
+            "minK": 30,
+            "maxK": 34,
+            "waist": {
+              "probeFullLayerCount": 5,
+              "lowerOffset": -2,
+              "upperOffset": 2,
+              "centerSpanUm": 1.4,
+              "inclusiveThicknessUm": 1.75
+            },
+            "straightOpenLayers": 0,
+            "planes": [
+              {
+                "offset": -2,
+                "attachedCount": 127,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": -1,
+                "attachedCount": 127,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 0,
+                "attachedCount": 127,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 1,
+                "attachedCount": 127,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 2,
+                "attachedCount": 127,
+                "lateralVoid": "center-occupied"
+              }
+            ]
+          },
+          "endProfile": {
+            "cycle": 314,
+            "simTimeSeconds": 26.390549095123124,
+            "attachedCount": 1255,
+            "axialCells": 7,
+            "cartesianLateralInclusiveCells": 15,
+            "aspectRatio": 0.4666666666666667,
+            "extent": 17,
+            "minK": 29,
+            "maxK": 35,
+            "waist": {
+              "probeFullLayerCount": 7,
+              "lowerOffset": -3,
+              "upperOffset": 3,
+              "centerSpanUm": 2.0999999999999996,
+              "inclusiveThicknessUm": 2.4499999999999997
+            },
+            "straightOpenLayers": 0,
+            "planes": [
+              {
+                "offset": -3,
+                "attachedCount": 169,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": -2,
+                "attachedCount": 181,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": -1,
+                "attachedCount": 181,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 0,
+                "attachedCount": 193,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 1,
+                "attachedCount": 181,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 2,
+                "attachedCount": 181,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 3,
+                "attachedCount": 169,
+                "lateralVoid": "center-occupied"
+              }
+            ]
+          },
+          "addedSites": 620,
+          "outsideStartingAxialEnvelope": 338,
+          "withinStartingAxialEnvelope": 282,
+          "axialSpanIncrementUm": 0.7,
+          "lateralSpanIncrementUm": 0.7,
+          "addedByPlane": [
+            {
+              "offset": -3,
+              "count": 169
+            },
+            {
+              "offset": -2,
+              "count": 54
+            },
+            {
+              "offset": -1,
+              "count": 54
+            },
+            {
+              "offset": 0,
+              "count": 66
+            },
+            {
+              "offset": 1,
+              "count": 54
+            },
+            {
+              "offset": 2,
+              "count": 54
+            },
+            {
+              "offset": 3,
+              "count": 169
+            }
+          ],
+          "recordedBracketRanges": {
+            "addedSites": [
+              572,
+              686
+            ],
+            "axialSpanIncrementUm": [
+              0.7,
+              0.7
+            ],
+            "lateralSpanIncrementUm": [
+              0.6564755214562501,
+              0.7
+            ]
+          }
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-early",
+          "startRequestedSeconds": 20.051631130757585,
+          "endRequestedSeconds": 26.39896679741717,
+          "startBracket": {
+            "requestedTimeSeconds": 20.051631130757585,
+            "atOrBefore": {
+              "cycle": 284,
+              "simTimeSeconds": 20.051631130757585,
+              "attachedCount": 1279,
+              "axialCells": 17,
+              "cartesianLateralInclusiveCells": 11,
+              "aspectRatio": 1.5454545454545454,
+              "extent": 17,
+              "minK": 24,
+              "maxK": 40
+            },
+            "nextEvent": {
+              "cycle": 285,
+              "simTimeSeconds": 20.125384154185486,
+              "attachedCount": 1279,
+              "axialCells": 17,
+              "cartesianLateralInclusiveCells": 11,
+              "aspectRatio": 1.5454545454545454,
+              "extent": 17,
+              "minK": 24,
+              "maxK": 40
+            },
+            "exactEventTime": true
+          },
+          "endBracket": {
+            "requestedTimeSeconds": 26.39896679741717,
+            "atOrBefore": {
+              "cycle": 373,
+              "simTimeSeconds": 26.354246808661422,
+              "attachedCount": 1999,
+              "axialCells": 17,
+              "cartesianLateralInclusiveCells": 13,
+              "aspectRatio": 1.3076923076923077,
+              "extent": 17,
+              "minK": 24,
+              "maxK": 40
+            },
+            "nextEvent": {
+              "cycle": 374,
+              "simTimeSeconds": 26.424713965616277,
+              "attachedCount": 1999,
+              "axialCells": 17,
+              "cartesianLateralInclusiveCells": 13,
+              "aspectRatio": 1.3076923076923077,
+              "extent": 17,
+              "minK": 24,
+              "maxK": 40
+            },
+            "exactEventTime": false
+          },
+          "startProfile": {
+            "cycle": 284,
+            "simTimeSeconds": 20.051631130757585,
+            "attachedCount": 1279,
+            "axialCells": 17,
+            "cartesianLateralInclusiveCells": 11,
+            "aspectRatio": 1.5454545454545454,
+            "extent": 17,
+            "minK": 24,
+            "maxK": 40,
+            "waist": {
+              "probeFullLayerCount": 1,
+              "lowerOffset": 0,
+              "upperOffset": 0,
+              "centerSpanUm": 0,
+              "inclusiveThicknessUm": 0.35
+            },
+            "straightOpenLayers": 16,
+            "planes": [
+              {
+                "offset": -8,
+                "attachedCount": 30,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -7,
+                "attachedCount": 66,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -6,
+                "attachedCount": 78,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -5,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -4,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -3,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -2,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -1,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 0,
+                "attachedCount": 91,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 1,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 2,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 3,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 4,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 5,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 6,
+                "attachedCount": 78,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 7,
+                "attachedCount": 66,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 8,
+                "attachedCount": 30,
+                "lateralVoid": "enclosed"
+              }
+            ]
+          },
+          "endProfile": {
+            "cycle": 373,
+            "simTimeSeconds": 26.354246808661422,
+            "attachedCount": 1999,
+            "axialCells": 17,
+            "cartesianLateralInclusiveCells": 13,
+            "aspectRatio": 1.3076923076923077,
+            "extent": 17,
+            "minK": 24,
+            "maxK": 40,
+            "waist": {
+              "probeFullLayerCount": 1,
+              "lowerOffset": 0,
+              "upperOffset": 0,
+              "centerSpanUm": 0,
+              "inclusiveThicknessUm": 0.35
+            },
+            "straightOpenLayers": 16,
+            "planes": [
+              {
+                "offset": -8,
+                "attachedCount": 102,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -7,
+                "attachedCount": 114,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -6,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -5,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -4,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -3,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -2,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -1,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 0,
+                "attachedCount": 127,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 1,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 2,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 3,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 4,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 5,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 6,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 7,
+                "attachedCount": 114,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 8,
+                "attachedCount": 102,
+                "lateralVoid": "enclosed"
+              }
+            ]
+          },
+          "addedSites": 720,
+          "outsideStartingAxialEnvelope": 0,
+          "withinStartingAxialEnvelope": 720,
+          "axialSpanIncrementUm": 0,
+          "lateralSpanIncrementUm": 0.7,
+          "addedByPlane": [
+            {
+              "offset": -8,
+              "count": 72
+            },
+            {
+              "offset": -7,
+              "count": 48
+            },
+            {
+              "offset": -6,
+              "count": 42
+            },
+            {
+              "offset": -5,
+              "count": 36
+            },
+            {
+              "offset": -4,
+              "count": 36
+            },
+            {
+              "offset": -3,
+              "count": 36
+            },
+            {
+              "offset": -2,
+              "count": 36
+            },
+            {
+              "offset": -1,
+              "count": 36
+            },
+            {
+              "offset": 0,
+              "count": 36
+            },
+            {
+              "offset": 1,
+              "count": 36
+            },
+            {
+              "offset": 2,
+              "count": 36
+            },
+            {
+              "offset": 3,
+              "count": 36
+            },
+            {
+              "offset": 4,
+              "count": 36
+            },
+            {
+              "offset": 5,
+              "count": 36
+            },
+            {
+              "offset": 6,
+              "count": 42
+            },
+            {
+              "offset": 7,
+              "count": 48
+            },
+            {
+              "offset": 8,
+              "count": 72
+            }
+          ],
+          "recordedBracketRanges": {
+            "addedSites": [
+              720,
+              720
+            ],
+            "axialSpanIncrementUm": [
+              0,
+              0
+            ],
+            "lateralSpanIncrementUm": [
+              0.7,
+              0.7
+            ]
+          }
+        },
+        {
+          "rowId": "batch1-bld-warm-t5-full",
+          "startRequestedSeconds": 20.051631130757585,
+          "endRequestedSeconds": 26.39896679741717,
+          "startBracket": {
+            "requestedTimeSeconds": 20.051631130757585,
+            "atOrBefore": {
+              "cycle": 284,
+              "simTimeSeconds": 20.051631130757585,
+              "attachedCount": 1279,
+              "axialCells": 17,
+              "cartesianLateralInclusiveCells": 11,
+              "aspectRatio": 1.5454545454545454,
+              "extent": 17,
+              "minK": 24,
+              "maxK": 40
+            },
+            "nextEvent": {
+              "cycle": 285,
+              "simTimeSeconds": 20.129020543374853,
+              "attachedCount": 1279,
+              "axialCells": 17,
+              "cartesianLateralInclusiveCells": 11,
+              "aspectRatio": 1.5454545454545454,
+              "extent": 17,
+              "minK": 24,
+              "maxK": 40
+            },
+            "exactEventTime": true
+          },
+          "endBracket": {
+            "requestedTimeSeconds": 26.39896679741717,
+            "atOrBefore": {
+              "cycle": 368,
+              "simTimeSeconds": 26.39896679741717,
+              "attachedCount": 2119,
+              "axialCells": 21,
+              "cartesianLateralInclusiveCells": 13,
+              "aspectRatio": 1.6153846153846154,
+              "extent": 21,
+              "minK": 22,
+              "maxK": 42
+            },
+            "nextEvent": null,
+            "exactEventTime": true
+          },
+          "startProfile": {
+            "cycle": 284,
+            "simTimeSeconds": 20.051631130757585,
+            "attachedCount": 1279,
+            "axialCells": 17,
+            "cartesianLateralInclusiveCells": 11,
+            "aspectRatio": 1.5454545454545454,
+            "extent": 17,
+            "minK": 24,
+            "maxK": 40,
+            "waist": {
+              "probeFullLayerCount": 1,
+              "lowerOffset": 0,
+              "upperOffset": 0,
+              "centerSpanUm": 0,
+              "inclusiveThicknessUm": 0.35
+            },
+            "straightOpenLayers": 16,
+            "planes": [
+              {
+                "offset": -8,
+                "attachedCount": 30,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -7,
+                "attachedCount": 66,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -6,
+                "attachedCount": 78,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -5,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -4,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -3,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -2,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -1,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 0,
+                "attachedCount": 91,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 1,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 2,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 3,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 4,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 5,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 6,
+                "attachedCount": 78,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 7,
+                "attachedCount": 66,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 8,
+                "attachedCount": 30,
+                "lateralVoid": "enclosed"
+              }
+            ]
+          },
+          "endProfile": {
+            "cycle": 368,
+            "simTimeSeconds": 26.39896679741717,
+            "attachedCount": 2119,
+            "axialCells": 21,
+            "cartesianLateralInclusiveCells": 13,
+            "aspectRatio": 1.6153846153846154,
+            "extent": 21,
+            "minK": 22,
+            "maxK": 42,
+            "waist": {
+              "probeFullLayerCount": 1,
+              "lowerOffset": 0,
+              "upperOffset": 0,
+              "centerSpanUm": 0,
+              "inclusiveThicknessUm": 0.35
+            },
+            "straightOpenLayers": 18,
+            "planes": [
+              {
+                "offset": -10,
+                "attachedCount": 6,
+                "lateralVoid": "open"
+              },
+              {
+                "offset": -9,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -8,
+                "attachedCount": 90,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -7,
+                "attachedCount": 102,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -6,
+                "attachedCount": 114,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -5,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -4,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -3,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -2,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": -1,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 0,
+                "attachedCount": 127,
+                "lateralVoid": "center-occupied"
+              },
+              {
+                "offset": 1,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 2,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 3,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 4,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 5,
+                "attachedCount": 120,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 6,
+                "attachedCount": 114,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 7,
+                "attachedCount": 102,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 8,
+                "attachedCount": 90,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 9,
+                "attachedCount": 84,
+                "lateralVoid": "enclosed"
+              },
+              {
+                "offset": 10,
+                "attachedCount": 6,
+                "lateralVoid": "open"
+              }
+            ]
+          },
+          "addedSites": 840,
+          "outsideStartingAxialEnvelope": 180,
+          "withinStartingAxialEnvelope": 660,
+          "axialSpanIncrementUm": 1.4,
+          "lateralSpanIncrementUm": 0.7,
+          "addedByPlane": [
+            {
+              "offset": -10,
+              "count": 6
+            },
+            {
+              "offset": -9,
+              "count": 84
+            },
+            {
+              "offset": -8,
+              "count": 60
+            },
+            {
+              "offset": -7,
+              "count": 36
+            },
+            {
+              "offset": -6,
+              "count": 36
+            },
+            {
+              "offset": -5,
+              "count": 36
+            },
+            {
+              "offset": -4,
+              "count": 36
+            },
+            {
+              "offset": -3,
+              "count": 36
+            },
+            {
+              "offset": -2,
+              "count": 36
+            },
+            {
+              "offset": -1,
+              "count": 36
+            },
+            {
+              "offset": 0,
+              "count": 36
+            },
+            {
+              "offset": 1,
+              "count": 36
+            },
+            {
+              "offset": 2,
+              "count": 36
+            },
+            {
+              "offset": 3,
+              "count": 36
+            },
+            {
+              "offset": 4,
+              "count": 36
+            },
+            {
+              "offset": 5,
+              "count": 36
+            },
+            {
+              "offset": 6,
+              "count": 36
+            },
+            {
+              "offset": 7,
+              "count": 36
+            },
+            {
+              "offset": 8,
+              "count": 60
+            },
+            {
+              "offset": 9,
+              "count": 84
+            },
+            {
+              "offset": 10,
+              "count": 6
+            }
+          ],
+          "recordedBracketRanges": {
+            "addedSites": [
+              840,
+              840
+            ],
+            "axialSpanIncrementUm": [
+              1.4,
+              1.4
+            ],
+            "lateralSpanIncrementUm": [
+              0.7,
+              0.7
+            ]
+          }
+        }
+      ],
+      "earlyWholeRemainingWindow": {
+        "rowId": "batch1-bld-warm-t5-early",
+        "startRequestedSeconds": 20.051631130757585,
+        "endRequestedSeconds": 44.86770273376511,
+        "startBracket": {
+          "requestedTimeSeconds": 20.051631130757585,
+          "atOrBefore": {
+            "cycle": 284,
+            "simTimeSeconds": 20.051631130757585,
+            "attachedCount": 1279,
+            "axialCells": 17,
+            "cartesianLateralInclusiveCells": 11,
+            "aspectRatio": 1.5454545454545454,
+            "extent": 17,
+            "minK": 24,
+            "maxK": 40
+          },
+          "nextEvent": {
+            "cycle": 285,
+            "simTimeSeconds": 20.125384154185486,
+            "attachedCount": 1279,
+            "axialCells": 17,
+            "cartesianLateralInclusiveCells": 11,
+            "aspectRatio": 1.5454545454545454,
+            "extent": 17,
+            "minK": 24,
+            "maxK": 40
+          },
+          "exactEventTime": true
+        },
+        "endBracket": {
+          "requestedTimeSeconds": 44.86770273376511,
+          "atOrBefore": {
+            "cycle": 558,
+            "simTimeSeconds": 44.86770273376511,
+            "attachedCount": 4117,
+            "axialCells": 21,
+            "cartesianLateralInclusiveCells": 17,
+            "aspectRatio": 1.2352941176470589,
+            "extent": 21,
+            "minK": 22,
+            "maxK": 42
+          },
+          "nextEvent": null,
+          "exactEventTime": true
+        },
+        "startProfile": {
+          "cycle": 284,
+          "simTimeSeconds": 20.051631130757585,
+          "attachedCount": 1279,
+          "axialCells": 17,
+          "cartesianLateralInclusiveCells": 11,
+          "aspectRatio": 1.5454545454545454,
+          "extent": 17,
+          "minK": 24,
+          "maxK": 40,
+          "waist": {
+            "probeFullLayerCount": 1,
+            "lowerOffset": 0,
+            "upperOffset": 0,
+            "centerSpanUm": 0,
+            "inclusiveThicknessUm": 0.35
+          },
+          "straightOpenLayers": 16,
+          "planes": [
+            {
+              "offset": -8,
+              "attachedCount": 30,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -7,
+              "attachedCount": 66,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -6,
+              "attachedCount": 78,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -5,
+              "attachedCount": 84,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -4,
+              "attachedCount": 84,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -3,
+              "attachedCount": 84,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -2,
+              "attachedCount": 84,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -1,
+              "attachedCount": 84,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 0,
+              "attachedCount": 91,
+              "lateralVoid": "center-occupied"
+            },
+            {
+              "offset": 1,
+              "attachedCount": 84,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 2,
+              "attachedCount": 84,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 3,
+              "attachedCount": 84,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 4,
+              "attachedCount": 84,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 5,
+              "attachedCount": 84,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 6,
+              "attachedCount": 78,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 7,
+              "attachedCount": 66,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 8,
+              "attachedCount": 30,
+              "lateralVoid": "enclosed"
+            }
+          ]
+        },
+        "endProfile": {
+          "cycle": 558,
+          "simTimeSeconds": 44.86770273376511,
+          "attachedCount": 4117,
+          "axialCells": 21,
+          "cartesianLateralInclusiveCells": 17,
+          "aspectRatio": 1.2352941176470589,
+          "extent": 21,
+          "minK": 22,
+          "maxK": 42,
+          "waist": {
+            "probeFullLayerCount": 1,
+            "lowerOffset": 0,
+            "upperOffset": 0,
+            "centerSpanUm": 0,
+            "inclusiveThicknessUm": 0.35
+          },
+          "straightOpenLayers": 20,
+          "planes": [
+            {
+              "offset": -10,
+              "attachedCount": 48,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -9,
+              "attachedCount": 216,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -8,
+              "attachedCount": 216,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -7,
+              "attachedCount": 210,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -6,
+              "attachedCount": 210,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -5,
+              "attachedCount": 210,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -4,
+              "attachedCount": 210,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -3,
+              "attachedCount": 210,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -2,
+              "attachedCount": 210,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": -1,
+              "attachedCount": 210,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 0,
+              "attachedCount": 217,
+              "lateralVoid": "center-occupied"
+            },
+            {
+              "offset": 1,
+              "attachedCount": 210,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 2,
+              "attachedCount": 210,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 3,
+              "attachedCount": 210,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 4,
+              "attachedCount": 210,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 5,
+              "attachedCount": 210,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 6,
+              "attachedCount": 210,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 7,
+              "attachedCount": 210,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 8,
+              "attachedCount": 216,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 9,
+              "attachedCount": 216,
+              "lateralVoid": "enclosed"
+            },
+            {
+              "offset": 10,
+              "attachedCount": 48,
+              "lateralVoid": "enclosed"
+            }
+          ]
+        },
+        "addedSites": 2838,
+        "outsideStartingAxialEnvelope": 528,
+        "withinStartingAxialEnvelope": 2310,
+        "axialSpanIncrementUm": 1.4,
+        "lateralSpanIncrementUm": 2.0999999999999996,
+        "addedByPlane": [
+          {
+            "offset": -10,
+            "count": 48
+          },
+          {
+            "offset": -9,
+            "count": 216
+          },
+          {
+            "offset": -8,
+            "count": 186
+          },
+          {
+            "offset": -7,
+            "count": 144
+          },
+          {
+            "offset": -6,
+            "count": 132
+          },
+          {
+            "offset": -5,
+            "count": 126
+          },
+          {
+            "offset": -4,
+            "count": 126
+          },
+          {
+            "offset": -3,
+            "count": 126
+          },
+          {
+            "offset": -2,
+            "count": 126
+          },
+          {
+            "offset": -1,
+            "count": 126
+          },
+          {
+            "offset": 0,
+            "count": 126
+          },
+          {
+            "offset": 1,
+            "count": 126
+          },
+          {
+            "offset": 2,
+            "count": 126
+          },
+          {
+            "offset": 3,
+            "count": 126
+          },
+          {
+            "offset": 4,
+            "count": 126
+          },
+          {
+            "offset": 5,
+            "count": 126
+          },
+          {
+            "offset": 6,
+            "count": 132
+          },
+          {
+            "offset": 7,
+            "count": 144
+          },
+          {
+            "offset": 8,
+            "count": 186
+          },
+          {
+            "offset": 9,
+            "count": 216
+          },
+          {
+            "offset": 10,
+            "count": 48
+          }
+        ],
+        "recordedBracketRanges": {
+          "addedSites": [
+            2838,
+            2838
+          ],
+          "axialSpanIncrementUm": [
+            1.4,
+            1.4
+          ],
+          "lateralSpanIncrementUm": [
+            2.0999999999999996,
+            2.0999999999999996
+          ]
+        }
+      },
+      "postSwitchSelectedCellUpdates": 0,
+      "postSwitchSelectedKineticDemandFill": 0
+    }
+  ]
+}

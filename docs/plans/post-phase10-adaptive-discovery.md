@@ -40,6 +40,19 @@ solver law, resume extension, campaign, NAS operation or pruning is included.
 Tried and rejected: expanding temperatures or rerunning the finished cases before locating
 the structural difference would add coverage without resolving the current ambiguity.
 
+The [follow-up report](../../evidence/hil-bld-joint-review-2026-10-08/followup/README.md)
+now covers 44 selected saved rows. `pressure.json` partitions the .20 low/high endpoint
+820-site difference into 28 central-shell and 792 outer-shell sites. `history.json` separates
+inherited M1 cooling axial separation from differing M1 warming additions and explains the
+-8 C wide-seed sign reversal as axial catch-up. `cold.json` retains the -18 C tip-seven null
+but finds earlier contrasts; its sparse -14.4 C prism-enabled field snapshots miss prism cells
+present before 177 of 229 updates per row. `warm.json` distinguishes continued opening persistence
+from the growth increment changed by continued enhancement. All exact sets, units, brackets,
+definitions and limitations are in those artifacts. No next roster or simulation is selected.
+One bounded shared-context independent calculation is concluding; exact full verification follows
+at the stable executable checkpoint. Task-local plotting dependencies are disposable scratch;
+analysis drafts and verification output remain retained until included in the final custody record.
+
 **Current allocation — maker correction, 2026-10-08:** keep development, verification tests,
 saved-result analysis and exploratory runs on HIL for now. Split work with BLD only when the
 work is expected to take multiple days. Use representative timing for the actual proposed

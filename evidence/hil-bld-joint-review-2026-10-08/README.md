@@ -4,6 +4,12 @@ All 114 cases have checked size endpoints: HIL 56 plus 16, BLD 42. The useful re
 of more specific questions about growth history, facet response and transport. These are finite
 discrete-model observations, not validated ice physics. No successor roster or launch is selected.
 
+The maker-authorized [saved-data follow-up](followup/README.md) adds spatial profiles and growth
+increments. Pressure's occupancy difference is mainly off-axis; some history-dependent axial
+separation is inherited while other comparisons show different new growth. The cold -18 C null
+below remains true at its named stage, but earlier stages have a contrast. Its sparse field
+snapshots also miss intermittent prism membership. Use that follow-up for the current next options.
+
 | Track | What the completed cases show | Decision value |
 |---|---|---|
 | Warm cavities | At both temperatures, early enhancement switches off near 20 s; existing openings survive, four new signed open layers survive, and tips advance another 1.05 / 0.70 um with zero selected demand afterward. | Growth memory remains worth testing against grid spacing and seed/width representation. |

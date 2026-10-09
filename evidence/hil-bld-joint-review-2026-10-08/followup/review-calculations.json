@@ -1,0 +1,642 @@
+{
+  "pressure": {
+    "endpointCounts": [
+      3607,
+      3317,
+      2787
+    ],
+    "strictNesting": true,
+    "lowMinusHigh": 820,
+    "byHexRadius": {
+      "0": 4,
+      "1": 24,
+      "4": 84,
+      "5": 132,
+      "6": 168,
+      "7": 168,
+      "8": 132,
+      "9": 108
+    },
+    "bySignedAxialPlane": {
+      "-9": 42,
+      "-8": 66,
+      "-7": 60,
+      "-6": 78,
+      "-5": 60,
+      "-4": 42,
+      "-3": 37,
+      "-2": 19,
+      "-1": 6,
+      "1": 6,
+      "2": 19,
+      "3": 37,
+      "4": 42,
+      "5": 60,
+      "6": 78,
+      "7": 60,
+      "8": 66,
+      "9": 42
+    }
+  },
+  "history": [
+    {
+      "fromTempC": -6,
+      "toTempC": -14.4,
+      "commonSecondsAfterEvent": 3.4546535952851727,
+      "initialAxialLayers": [
+        3,
+        7,
+        13
+      ],
+      "addedAxialLayers": [
+        2,
+        2,
+        2
+      ],
+      "recordedBracketChoices": [
+        [
+          2
+        ],
+        [
+          2
+        ],
+        [
+          2
+        ]
+      ],
+      "newAttachedSitesExcludingSwitchRecord": [
+        478,
+        868,
+        1416
+      ]
+    },
+    {
+      "fromTempC": -14.4,
+      "toTempC": -6,
+      "commonSecondsAfterEvent": 6.59689360623882,
+      "initialAxialLayers": [
+        1,
+        3,
+        3
+      ],
+      "addedAxialLayers": [
+        10,
+        6,
+        6
+      ],
+      "recordedBracketChoices": [
+        [
+          10
+        ],
+        [
+          6
+        ],
+        [
+          6
+        ]
+      ],
+      "newAttachedSitesExcludingSwitchRecord": [
+        1002,
+        1318,
+        1746
+      ]
+    }
+  ],
+  "cold": [
+    {
+      "tempC": -18,
+      "tipHexRadius": 4,
+      "halfShortestPlateauSeconds": 0.7334458396907872,
+      "armOrder": [
+        "neither",
+        "basal-only",
+        "prism-only",
+        "both"
+      ],
+      "selectedGaps": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "selections": [
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-neither",
+          "requestedSeconds": 11.042563919464419,
+          "cycle": 147,
+          "actualSeconds": 11.039118577842977
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-basal-only",
+          "requestedSeconds": 11.177856481076365,
+          "cycle": 148,
+          "actualSeconds": 11.168815258135195
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-prism-only",
+          "requestedSeconds": 2.6647755614598294,
+          "cycle": 72,
+          "actualSeconds": 2.663918438563681
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-both",
+          "requestedSeconds": 2.666251739280991,
+          "cycle": 72,
+          "actualSeconds": 2.6659919405820225
+        }
+      ]
+    },
+    {
+      "tempC": -18,
+      "tipHexRadius": 6,
+      "halfShortestPlateauSeconds": 0.9577161488990815,
+      "armOrder": [
+        "neither",
+        "basal-only",
+        "prism-only",
+        "both"
+      ],
+      "selectedGaps": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "selections": [
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-neither",
+          "requestedSeconds": 26.858586203536927,
+          "cycle": 360,
+          "actualSeconds": 26.846372489149452
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-basal-only",
+          "requestedSeconds": 27.12929556619211,
+          "cycle": 363,
+          "actualSeconds": 27.10659017917262
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-prism-only",
+          "requestedSeconds": 5.603442458419385,
+          "cycle": 146,
+          "actualSeconds": 5.579461656199744
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-both",
+          "requestedSeconds": 5.612120574922724,
+          "cycle": 146,
+          "actualSeconds": 5.575811277179312
+        }
+      ]
+    },
+    {
+      "tempC": -18,
+      "tipHexRadius": 7,
+      "halfShortestPlateauSeconds": 0.4378670271856322,
+      "armOrder": [
+        "neither",
+        "basal-only",
+        "prism-only",
+        "both"
+      ],
+      "selectedGaps": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "selections": [
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-neither",
+          "requestedSeconds": 35.654616791882745,
+          "cycle": 469,
+          "actualSeconds": 35.6448910729225
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-basal-only",
+          "requestedSeconds": 35.91314222939395,
+          "cycle": 469,
+          "actualSeconds": 35.903747278848094
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-prism-only",
+          "requestedSeconds": 6.9990256345040995,
+          "cycle": 180,
+          "actualSeconds": 6.9638223200177976
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-both",
+          "requestedSeconds": 7.0402532614820235,
+          "cycle": 181,
+          "actualSeconds": 7.005364695031754
+        }
+      ]
+    },
+    {
+      "tempC": -14.4,
+      "tipHexRadius": 8,
+      "halfShortestPlateauSeconds": 0.8276213763496969,
+      "armOrder": [
+        "neither",
+        "basal-only",
+        "prism-only",
+        "both"
+      ],
+      "selectedGaps": [
+        0,
+        0,
+        2,
+        2
+      ],
+      "selections": [
+        {
+          "rowId": "batch1-bld-cold-t14p4-f0p1-neither",
+          "requestedSeconds": 32.63819735890992,
+          "cycle": 509,
+          "actualSeconds": 32.60386993886532
+        },
+        {
+          "rowId": "batch1-bld-cold-t14p4-f0p1-basal-only",
+          "requestedSeconds": 32.90850977505909,
+          "cycle": 526,
+          "actualSeconds": 32.89206673115939
+        },
+        {
+          "rowId": "batch1-bld-cold-t14p4-f0p1-prism-only",
+          "requestedSeconds": 6.263513041690162,
+          "cycle": 185,
+          "actualSeconds": 6.221131602215374
+        },
+        {
+          "rowId": "batch1-bld-cold-t14p4-f0p1-both",
+          "requestedSeconds": 6.33534466115018,
+          "cycle": 186,
+          "actualSeconds": 6.323403500236938
+        }
+      ]
+    }
+  ],
+  "coldSavedFieldCensus": [
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p1-prism-only",
+      "updates": 229,
+      "rawRecordedUpdatesWithPrism": 177,
+      "snapshotCensus": [
+        {
+          "completedCycles": 0,
+          "savedPrismCells": 12
+        },
+        {
+          "completedCycles": 42,
+          "savedPrismCells": 0
+        },
+        {
+          "completedCycles": 105,
+          "savedPrismCells": 0
+        },
+        {
+          "completedCycles": 165,
+          "savedPrismCells": 0
+        }
+      ]
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p1-both",
+      "updates": 229,
+      "rawRecordedUpdatesWithPrism": 177,
+      "snapshotCensus": [
+        {
+          "completedCycles": 0,
+          "savedPrismCells": 12
+        },
+        {
+          "completedCycles": 42,
+          "savedPrismCells": 0
+        },
+        {
+          "completedCycles": 105,
+          "savedPrismCells": 0
+        },
+        {
+          "completedCycles": 165,
+          "savedPrismCells": 0
+        }
+      ]
+    }
+  ],
+  "warm": {
+    "tempC": -5,
+    "startSeconds": 20.051631130757585,
+    "endSeconds": 26.39896679741717,
+    "durationSeconds": 6.3473356666595855,
+    "rows": [
+      {
+        "arm": "broad",
+        "axialSpanIncrementUm": 0.7,
+        "bracketAlternativesUm": [
+          0.7
+        ],
+        "addedSites": 620
+      },
+      {
+        "arm": "early",
+        "axialSpanIncrementUm": 0.0,
+        "bracketAlternativesUm": [
+          0.0
+        ],
+        "addedSites": 720
+      },
+      {
+        "arm": "full",
+        "axialSpanIncrementUm": 1.4,
+        "bracketAlternativesUm": [
+          1.4
+        ],
+        "addedSites": 840
+      }
+    ],
+    "quantity": "total axial-span increment, not one-tip displacement"
+  },
+  "sources": [
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\discovery-resume\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p2-p50662p5-both\\spec.json",
+      "bytes": 957,
+      "sha256": "906df5e1de4c541c25503f0181f7518e1c2065cd3f44829e5df977890b5b39c5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\discovery-resume\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p2-p50662p5-both\\events.jsonl",
+      "bytes": 1216934,
+      "sha256": "409babeec23f854dd8ac4abc8662d2d36a4ba4b2d0b79c590206ac5e2d8e024d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-exploration-batch2\\batch2-hil\\rows\\batch2-hil-pressure-t6-f0p2-p101325-both\\spec.json",
+      "bytes": 954,
+      "sha256": "9fbdeb9692b5715365aa45608cf8785a995919723181257771308ebbc1940c1b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-exploration-batch2\\batch2-hil\\rows\\batch2-hil-pressure-t6-f0p2-p101325-both\\events.jsonl",
+      "bytes": 1185212,
+      "sha256": "346ced96b8b820911bfe038f6d98e289d3e5eeb880bf4e5b4c5c0d9345e6b55d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\discovery-resume\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p2-p202650-both\\spec.json",
+      "bytes": 954,
+      "sha256": "e17188fb7a0fd86bf0abc28e4aa592c206a071e963cdec1584888ecf114fdb12"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\discovery-resume\\batch1-hil-resumable\\rows\\batch1-hil-pressure-t6-f0p2-p202650-both\\events.jsonl",
+      "bytes": 1093273,
+      "sha256": "b82f7d8d03254f2217dca440092396a8a092ef78157f2496e7c8295f7bdc7cc1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-analysis\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\followup\\history.json",
+      "bytes": 614213,
+      "sha256": "2810b5c5c8466400efbc214e1e1a84da77a356319d4ae25021d12902d7bea34b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\discovery-resume\\batch1-hil-resumable\\rows\\batch1-hil-history-t6-to-t14p4-e7-m1\\spec.json",
+      "bytes": 941,
+      "sha256": "f7abe8f7d51d58e42e23a9e09dceb8ec72033312fe571880e613e39fbc367810"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\discovery-resume\\batch1-hil-resumable\\rows\\batch1-hil-history-t6-to-t14p4-e7-m1\\events.jsonl",
+      "bytes": 667859,
+      "sha256": "21c1223eaab03347d20a8609e3feb971754f4a3df291345c8e3afa89077f3a2f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\discovery-resume\\batch1-hil-resumable\\rows\\batch1-hil-history-t6-to-t14p4-e11-m1\\spec.json",
+      "bytes": 943,
+      "sha256": "f9bb496e796cb13ae9f335d9792d8e5c83db578c6ead8d5f4d0ce4e4dc5c8d30"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\discovery-resume\\batch1-hil-resumable\\rows\\batch1-hil-history-t6-to-t14p4-e11-m1\\events.jsonl",
+      "bytes": 765624,
+      "sha256": "7280e18fdb314203f7ea99d15c51f7ef2da21bd031b6a106cc8665da3258e7f7"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\discovery-resume\\batch1-hil-resumable\\rows\\batch1-hil-history-t6-to-t14p4-e15-m1\\spec.json",
+      "bytes": 943,
+      "sha256": "847e3a7f73c5c1e08447dd4a51f2ed558fcf9d61341911d65175d04728137d26"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\discovery-resume\\batch1-hil-resumable\\rows\\batch1-hil-history-t6-to-t14p4-e15-m1\\events.jsonl",
+      "bytes": 1021497,
+      "sha256": "49c9bd09a470dd841b65ea834d094029e41ed8427af85f7955ff9c2c95230c81"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\discovery-resume\\batch1-hil-resumable\\rows\\batch1-hil-history-t14p4-to-t6-e7-m1\\spec.json",
+      "bytes": 941,
+      "sha256": "e562f6f0e5abf2bb525c95a93b09df26b1b8ec5d6a24b6f60ef1c0ffeadad6cd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\discovery-resume\\batch1-hil-resumable\\rows\\batch1-hil-history-t14p4-to-t6-e7-m1\\events.jsonl",
+      "bytes": 1388839,
+      "sha256": "60045c9d6da32fd40d2f269289fe7554eee0a76c8e917b6f8544789e9b62f4ed"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\discovery-resume\\batch1-hil-resumable\\rows\\batch1-hil-history-t14p4-to-t6-e11-m1\\spec.json",
+      "bytes": 943,
+      "sha256": "6d3b21c42595ce45288cdce5c63cf19dea48a020a02be2d38c5c1a09f6a2f82f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\discovery-resume\\batch1-hil-resumable\\rows\\batch1-hil-history-t14p4-to-t6-e11-m1\\events.jsonl",
+      "bytes": 1219821,
+      "sha256": "bc9069fee2bc296e2c6dea11d1ddbb3264c143d379eb923708904b8a01b60861"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\discovery-resume\\batch1-hil-resumable\\rows\\batch1-hil-history-t14p4-to-t6-e15-m1\\spec.json",
+      "bytes": 943,
+      "sha256": "37cbef70fb19526b5c216c6423e67d27283275bbc370d37b63f04d01279cabfb"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\discovery-resume\\batch1-hil-resumable\\rows\\batch1-hil-history-t14p4-to-t6-e15-m1\\events.jsonl",
+      "bytes": 952684,
+      "sha256": "aa06e450d5ebbb66beff929970a86cb5853a628526e39902c3ad7431ffe8a17e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-analysis\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\followup\\cold.json",
+      "bytes": 1845161,
+      "sha256": "95530b3e088d362f8708a497f3d5ca6896dd93c0e2c404e49f18ea276403f71f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t18-f0p1-neither\\spec.json",
+      "bytes": 920,
+      "sha256": "39a543436ff70f8dd02475bbc4f359680b1c3eab4dd8fbe532f4f10098f5f9c3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t18-f0p1-neither\\events.jsonl",
+      "bytes": 1528844,
+      "sha256": "e7aa7e90b495623227833028bb031d9b06215425a9a84d3d5d228809af06584b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t18-f0p1-basal-only\\spec.json",
+      "bytes": 929,
+      "sha256": "2e52cdedd1d896fcdb468ff42377ab05d44892b0ee8ea28c93c4f86567f29fa9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t18-f0p1-basal-only\\events.jsonl",
+      "bytes": 1481845,
+      "sha256": "50ff58ad3d5b9cdee9baaafd4bbf99d2c3f63a34f9bde92655d18eaed4d63286"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t18-f0p1-prism-only\\spec.json",
+      "bytes": 929,
+      "sha256": "a26e8a489d9b37a568fe1e3193c3ab07f5533c3e4e0660df71d56645236e0451"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t18-f0p1-prism-only\\events.jsonl",
+      "bytes": 888022,
+      "sha256": "37e9a4ce6b1a7e8d3c8015096b5e80c8603d9725549116df1e755224e812e00e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t18-f0p1-both\\spec.json",
+      "bytes": 911,
+      "sha256": "cf9ce581b92b1cb3eff8bd3d506ec7bb4781df2aded50ed4dace48bb0ffefed3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t18-f0p1-both\\events.jsonl",
+      "bytes": 890240,
+      "sha256": "1c44f69cb0df3b0b4677a04831542d633d59c7f9cd08d08a2bd06cd887c5c788"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-neither\\spec.json",
+      "bytes": 924,
+      "sha256": "6a26210e1a95351eb672786115646195dfcd1d3418d99e58e69869a35db8a9a0"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-neither\\events.jsonl",
+      "bytes": 1714114,
+      "sha256": "650e020155e0ba4fb72bbeee2be6ae91aff0cf5ab804aeb4eb264647f72dbbf1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-basal-only\\spec.json",
+      "bytes": 933,
+      "sha256": "f687c7c1f1dbb8141616ae889bb62fea604aaf81ea0c932ca1d1a275693d5a71"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-basal-only\\events.jsonl",
+      "bytes": 1728011,
+      "sha256": "497a48d472f882d489b991e269512b1fb4d51357781003e0685a6907e21fc7d6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-prism-only\\spec.json",
+      "bytes": 933,
+      "sha256": "3752a3b6c417dd7e748aeecefb4d874856be44477fd3eaa9c18f32286bbe8552"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-prism-only\\events.jsonl",
+      "bytes": 640518,
+      "sha256": "1dcb6e91c583511967ba5af1de4dbc168b5404a0f9bd7f5d0260ac26ed046d4f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-both\\spec.json",
+      "bytes": 915,
+      "sha256": "3746f7771034cbe6af927da6d32a849164fd2c4e07cd4bedb0cae2b8d4d464af"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-both\\events.jsonl",
+      "bytes": 637889,
+      "sha256": "c2ed0ee262ece380530f1551438915a1c951a6583a41d47d5b1e77ae0c4d449f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-prism-only\\spec.json",
+      "bytes": 933,
+      "sha256": "3752a3b6c417dd7e748aeecefb4d874856be44477fd3eaa9c18f32286bbe8552"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-prism-only\\events.jsonl",
+      "bytes": 640518,
+      "sha256": "1dcb6e91c583511967ba5af1de4dbc168b5404a0f9bd7f5d0260ac26ed046d4f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-prism-only\\result.json",
+      "bytes": 1954,
+      "sha256": "4a7fc76a9dcf99afa16806cae759b4be056e419c49280877fc6e14d6ed0508ba"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-prism-only\\boundary-e5.json",
+      "bytes": 21590,
+      "sha256": "ba5b256e445bdb4f6e251682db9d9e9368a3d1651d68b6dcf9f070ce3c42157c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-prism-only\\boundary-e9.json",
+      "bytes": 45173,
+      "sha256": "13f6863cc6b23ef9f4699544affea459e8d1cc5c09fac9408e479925e8a59145"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-prism-only\\boundary-e13.json",
+      "bytes": 87310,
+      "sha256": "330c79bf908199cdf262279b8dfb2b0433984fc8cb15d86bae4397a63e95056d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-prism-only\\boundary-e17.json",
+      "bytes": 142742,
+      "sha256": "ac1d6498609e96a287657b000af44f4f45b3c003a7bbda746396cbddcb16a195"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-both\\spec.json",
+      "bytes": 915,
+      "sha256": "3746f7771034cbe6af927da6d32a849164fd2c4e07cd4bedb0cae2b8d4d464af"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-both\\events.jsonl",
+      "bytes": 637889,
+      "sha256": "c2ed0ee262ece380530f1551438915a1c951a6583a41d47d5b1e77ae0c4d449f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-both\\result.json",
+      "bytes": 1943,
+      "sha256": "7ce1d2d028faa3da8d03f82a0cbb3f1467d687d9dafad4bf4fbbe166cf8c39bd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-both\\boundary-e5.json",
+      "bytes": 21612,
+      "sha256": "21647b76da074d1d6815d2b072e2420ecc332ccf0b9786d989ec85d17d415401"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-both\\boundary-e9.json",
+      "bytes": 45099,
+      "sha256": "2a383bbc7f9c6d98e08e241840ba2a90db9d692f9ba9e3c3e19b62435e74099a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-both\\boundary-e13.json",
+      "bytes": 87383,
+      "sha256": "1bbca8ced2fd41d75030bed0af0c76370a5b889aabcf7a7d701251652ae97767"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-cold-t14p4-f0p1-both\\boundary-e17.json",
+      "bytes": 142612,
+      "sha256": "72840e53e8a37a2bb850602e94d0bbc4a7135a8737a1b3729833b4f89a182e03"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-warm-t5-broad\\spec.json",
+      "bytes": 785,
+      "sha256": "6dfe36ceea1ca8ff37004e3acf2481dc0f15a4382112b10762fa7aea220a5433"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-warm-t5-broad\\events.jsonl",
+      "bytes": 1268661,
+      "sha256": "54eb708c29b7abc453fa1841db9520921432f6065608cefa73a26cc4ec252431"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-warm-t5-early\\spec.json",
+      "bytes": 1092,
+      "sha256": "f029de07ea60ba9da5078db61c3d6db3ad9591008101d29c07c4e2f65ebac211"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-warm-t5-early\\events.jsonl",
+      "bytes": 2037117,
+      "sha256": "804b86aae74e687cb9aefe9b93a1144ecccb5b66ee7b9bfed53931cc84ad6f9c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-warm-t5-full\\spec.json",
+      "bytes": 897,
+      "sha256": "c78365ad5f5e771ce2a922656543d859e6903dcd0a3e854276b5fccf719bce69"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-08\\hil-bld-results-integration\\restores\\bld-first-batch-output-2026-10-08\\batch1-bld-resumable\\rows\\batch1-bld-warm-t5-full\\events.jsonl",
+      "bytes": 1269537,
+      "sha256": "488b757c38c9bbdf3affc3eb1e1be7624c9e775e30b8b26f2c42c9d03e75e9a0"
+    }
+  ]
+}
