@@ -1,6 +1,6 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** all 114 October HIL/BLD cases reviewed; maker-requested HIL worktree retirement complete. No successor run selected; final scientific verification pending.
+**Status:** all 114 October HIL/BLD cases reviewed; maker-requested HIL worktree retirement and scientific verification complete. No successor run selected.
 **Publication destination:** `origin/main`
 **Plan authoring branch:** `docs/hil-bld-workload-2026-10-07`, based on `fe15b74`; direct main publication, no PR
 **Former execution worktree:** `G:\Code Files\snowflake-science-exploration` (reconciled in October consolidation)
@@ -82,8 +82,11 @@ annotations/output-path controls arrived after launch. No completion or passing-
 made. The first focused metadata check found an index of 251 lines and newly pinned but not yet
 staged files; compacted blank lines and staged the files. The final unchanged checks passed two
 files / 18 tests. Raw historical producer diff is excluded only from whitespace normalization.
-The final exact full check will run once from the clean primary analysis checkpoint; no further
-scientific code change is planned. Commands and actual exits remain in the final verification receipt.
+Exact `npm.cmd test` at clean `862ff1ff749d325c1aa0347912e4445ac0925d36`, Node v24.13.1,
+exited zero: 235 test files / 3045 tests passed, 23 skipped, Vitest duration 971.73 seconds.
+Rule 7 and both typechecks are included. The [verification receipt](../../evidence/hil-bld-joint-review-2026-10-08/verification.json)
+binds invocation, real exit and raw stdout/stderr, plus the interrupted earlier attempt.
+Only verification records, pins and closure prose follow this executable checkpoint.
 
 Next: discuss warm grid/seed-width qualification and seed/facet growth persistence; first extract
 pressure/cold spatial information from saved inputs. The current discovery codec's N64/64 MiB

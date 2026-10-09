@@ -12,7 +12,7 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   Shared main publication includes `5c97292`; BLD's `b333782` is preserved by pushed tag `run/bld-first-batch-2026-10-08` and its
   [evidence/NAS records are imported](../evidence/hil-bld-pickup-2026-10-08/README.md), with HIL verification complete.
   HIL has 56 + 16 checked endpoints and BLD has 42. The [joint 114-case review](../evidence/hil-bld-joint-review-2026-10-08/README.md) identifies warm growth memory, prism-sensitive cold structure and age-sensitive seed response. These are internal model-development leads; no successor run is selected.
-  [HIL retirement](../evidence/hil-bld-joint-review-2026-10-08/retirement.json) is complete: only primary `main` remains. All 5828 output files / 2638078397 bytes are retained in primary `out/hil-retired-2026-10-08/`; compressed HIL evidence is tracked and pinned. Final scientific verification is pending at the stable analysis checkpoint.
+  [HIL retirement](../evidence/hil-bld-joint-review-2026-10-08/retirement.json) is complete: only primary `main` remains. All 5828 output files / 2638078397 bytes are retained in primary `out/hil-retired-2026-10-08/`; compressed HIL evidence is tracked and pinned. Exact `npm.cmd test` at `862ff1f` passed 235 files / 3045 tests, 23 skipped ([receipt](../evidence/hil-bld-joint-review-2026-10-08/verification.json)).
 - **New-host follow-up:** [complete](plans/new-host-acceptance-and-capacity-2026-10-07.md),
   locally integrated through `cf1386e`. Glass/camera browser and direct visual acceptance pass;
   the six comparison inputs and both small independent C-drive backups are restored and verified.

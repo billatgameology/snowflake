@@ -1,0 +1,12 @@
+
+ RUN  v3.2.7 C:/Users/biao3/.codex/worktrees/hil-bld-results-integration/snowflake
+
+ ✓ runner/test/progress-index.test.ts (11 tests) 316ms
+ ✓ runner/test/evidence-integrity.test.ts (7 tests) 438ms
+   ✓ evidence integrity (Phase 6 lessons, enforced) > every file in the manifest exists and matches its digest  357ms
+
+ Test Files  2 passed (2)
+      Tests  18 passed (18)
+   Start at  17:40:03
+   Duration  1.01s (transform 34ms, setup 0ms, collect 38ms, tests 755ms, environment 0ms, prepare 79ms)
+

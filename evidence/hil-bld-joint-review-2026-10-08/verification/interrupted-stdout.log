@@ -1,0 +1,45 @@
+
+> virtual-cloud-chamber@0.0.0 test
+> npm run lint:rule7 && npm run typecheck && vitest run
+
+
+> virtual-cloud-chamber@0.0.0 lint:rule7
+> node scripts/lint-rule7.mjs
+
+rule7: clean (2478 files scanned)
+
+> virtual-cloud-chamber@0.0.0 typecheck
+> tsc --noEmit && tsc -p app --noEmit
+
+
+ RUN  v3.2.7 C:/Users/biao3/.codex/worktrees/hil-bld-results-integration/snowflake
+
+ ✓ runner/test/phase10-c0v-s6-executor.test.ts (67 tests) 47023ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > reopens the exact nine-generation stop before recovery-v9 lock acquisition  436ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > reopens the accepted V5 A-P freeze from Git after the V8 source successor  13371ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > requires the live run-lock token before any current A-P candidate write  4147ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > raw-projects all seven produce cap prefixes with a strict equality boundary  652ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > admits only exact freeze lifecycle dirt and a normal launch-HEAD index  952ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > serializes distinct packets under the catalogue-bound package lock  429ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects materialized successor runs before locking and admits verify-existing  1140ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > binds resolution metadata to the exact HEAD blob while accepting only Git-equivalent EOLs  519ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects hard-linked source closure bytes and alternate loaders  7577ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects a coherently changed assume-unchanged manifest and dependency  376ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > reopens a historical launch manifest after a later evidence-manifest commit  455ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > binds the retained preflight manifest identity to the recorded launch HEAD bytes  339ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > admits only exact direct prototype inspections in trusted strict parsers  3562ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects node:fs from the radial producer builtin closure  754ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects node:child_process from the radial producer builtin closure  763ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > resolves the live publish producer, verifier, and check-caller closures under exact builtin rosters  10302ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects tuning a producer dependency that existed at the science freeze  622ms
+ ✓ runner/test/gate4b.test.ts (78 tests) 38082ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > passes the complete synthetic 11-run evidence matrix  1342ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > records all eight diagnostic morphology verdicts on the same matrix  349ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-PROVENANCE trips alone  840ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-CONFIG trips alone  1133ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-TERMINATION trips alone  1136ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-SYMMETRY trips alone on an internally consistent asymmetric delta  1136ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-NOISE trips alone on a shifted witness stream  944ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-CONVERGENCE trips alone  1085ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-SURFACE trips alone  1100ms
+   ✓ g

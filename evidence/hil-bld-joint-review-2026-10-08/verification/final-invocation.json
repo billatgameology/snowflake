@@ -1,0 +1,10 @@
+{
+  "command": "npm.cmd test",
+  "head": "862ff1ff749d325c1aa0347912e4445ac0925d36",
+  "node": "v24.13.1",
+  "cwd": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake",
+  "wrapperPid": 10572,
+  "startedAt": "2026-10-09T00:42:49.6983692Z",
+  "priorMatchingProcesses": 0,
+  "status": []
+}

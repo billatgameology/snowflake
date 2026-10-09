@@ -63,4 +63,7 @@ HIL's two producers have identical numerical core/solver/discovery evolution byt
 its distinct producer and resume implementation under `run/bld-first-batch-2026-10-08`; the
 inspected saved-observation helpers and parameter/metric blobs agree. This supports the stated
 within-track comparisons, not cross-producer trajectory equivalence or checkpoint compatibility.
-Verification and bounded review scope are recorded separately in this bundle.
+Exact `npm.cmd test` at clean `862ff1f` passed 235 files / 3045 tests, with 23 skipped;
+Rule 7 and both typechecks are included. [Verification](verification.json) retains the measured
+exit and raw logs. The [bounded review](review.json) independently rederived the load-bearing
+findings and states its limits. A passing suite is not a scientific gate or validation result.

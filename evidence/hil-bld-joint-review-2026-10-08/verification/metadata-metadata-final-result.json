@@ -1,0 +1,5 @@
+{
+  "command": "npx.cmd vitest run runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts --no-cache",
+  "exitCode": 0,
+  "finishedAt": "2026-10-09T00:40:05.0471260Z"
+}

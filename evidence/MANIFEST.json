@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 985,
- "totalBytes": 294557428,
+ "fileCount": 996,
+ "totalBytes": 294663309,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -3935,8 +3935,8 @@
    "sha256": "bb51941b0c538b92a49505c20b55adb74f6b95363f5d3b7e1343c2e036780e38"
   },
   "hil-bld-joint-review-2026-10-08/README.md": {
-   "bytes": 5842,
-   "sha256": "1b02e2fdfdcb38a4458c405212c7f3086c2b7205a6e17275c1f3d7dd0da1a145"
+   "bytes": 6137,
+   "sha256": "3383e2c5cf422a5b91b2b4607326a948956e7edd04b317e62c4c6b4b12269b1d"
   },
   "hil-bld-joint-review-2026-10-08/review.json": {
    "bytes": 8460,
@@ -3945,6 +3945,50 @@
   "hil-bld-joint-review-2026-10-08/retirement.json": {
    "bytes": 5345,
    "sha256": "419c56a9bee7c39614de4870205c93cd7e795e5c6e65f337d1102b05872578f0"
+  },
+  "hil-bld-joint-review-2026-10-08/verification/final-invocation.json": {
+   "bytes": 294,
+   "sha256": "1b8f95fed45e56a20f6d657ed105720ef7235d3bf328e754b28e817996cb4cac"
+  },
+  "hil-bld-joint-review-2026-10-08/verification/final-result.json": {
+   "bytes": 72,
+   "sha256": "6f632555ada384936e13e37c7f5a5318d7d635cc824cfc9a335de9462e77f607"
+  },
+  "hil-bld-joint-review-2026-10-08/verification/final-stderr.log": {
+   "bytes": 33325,
+   "sha256": "f0e63cd445943d2d1ee037933fddbab9d3eaba6cff05cf7f41af527819bc63ed"
+  },
+  "hil-bld-joint-review-2026-10-08/verification/final-stdout.log": {
+   "bytes": 64135,
+   "sha256": "4a7a63ebb4f9d67ec60cd728d0b776fa959f89fef0dc847159bf925b7c73504f"
+  },
+  "hil-bld-joint-review-2026-10-08/verification/interrupted-interrupted.json": {
+   "bytes": 314,
+   "sha256": "1f955df0674b222d7010c20c61090eb5a3c724513adf69fa3566a92faa4b2eba"
+  },
+  "hil-bld-joint-review-2026-10-08/verification/interrupted-invocation.json": {
+   "bytes": 250,
+   "sha256": "6843f67098c4ec6a422777c145d2e7c58d4b90e7e7e2dff0a41172e8c1f59ddf"
+  },
+  "hil-bld-joint-review-2026-10-08/verification/interrupted-stderr.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hil-bld-joint-review-2026-10-08/verification/interrupted-stdout.log": {
+   "bytes": 4096,
+   "sha256": "b74a06da463c32317673e298c73131f12fbd33a9dba4d47025471f3608671deb"
+  },
+  "hil-bld-joint-review-2026-10-08/verification/metadata-metadata-final-result.json": {
+   "bytes": 193,
+   "sha256": "ccb3fe94737dcf267e9f3a8f788f3500505b203799f9c6f1815b8e3aaad13a0f"
+  },
+  "hil-bld-joint-review-2026-10-08/verification/metadata-metadata-final.log": {
+   "bytes": 517,
+   "sha256": "9f4b22491f4582b1f3de3dfbc5db2281e85723de4b7ac3b6cf88714978b0677d"
+  },
+  "hil-bld-joint-review-2026-10-08/verification.json": {
+   "bytes": 2390,
+   "sha256": "0c2f7b9e2a9d535f123ded31a9341cc83be3a2a00ec30ba9a09f8e2153fe4d28"
   }
  }
 }

@@ -1,0 +1,9 @@
+{
+  "command": "npm.cmd test",
+  "head": "5310475",
+  "status": "interrupted",
+  "exitCode": null,
+  "reason": "Final analysis annotations arrived after test start; stopped rather than claim a stable-checkpoint result",
+  "interruptedAt": "2026-10-09T00:34:08.0616429Z",
+  "vitestProcessesRemaining": 0
+}

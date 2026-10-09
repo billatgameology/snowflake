@@ -1,0 +1,53 @@
+{
+  "command": "npm.cmd test",
+  "head": "862ff1ff749d325c1aa0347912e4445ac0925d36",
+  "node": "v24.13.1",
+  "exitCode": 0,
+  "summary": " Test Files  235 passed (235)\n      Tests  3045 passed | 23 skipped (3068)\n   Duration  971.73s (transform 2.93s, setup 0ms, collect 29.20s, tests 919.82s, environment 20ms, prepare 8.16s)",
+  "files": {
+    "final-invocation.json": {
+      "bytes": 294,
+      "sha256": "1b8f95fed45e56a20f6d657ed105720ef7235d3bf328e754b28e817996cb4cac"
+    },
+    "final-result.json": {
+      "bytes": 72,
+      "sha256": "6f632555ada384936e13e37c7f5a5318d7d635cc824cfc9a335de9462e77f607"
+    },
+    "final-stdout.log": {
+      "bytes": 64135,
+      "sha256": "4a7a63ebb4f9d67ec60cd728d0b776fa959f89fef0dc847159bf925b7c73504f"
+    },
+    "final-stderr.log": {
+      "bytes": 33325,
+      "sha256": "f0e63cd445943d2d1ee037933fddbab9d3eaba6cff05cf7f41af527819bc63ed"
+    },
+    "interrupted-invocation.json": {
+      "bytes": 250,
+      "sha256": "6843f67098c4ec6a422777c145d2e7c58d4b90e7e7e2dff0a41172e8c1f59ddf"
+    },
+    "interrupted-interrupted.json": {
+      "bytes": 314,
+      "sha256": "1f955df0674b222d7010c20c61090eb5a3c724513adf69fa3566a92faa4b2eba"
+    },
+    "interrupted-stdout.log": {
+      "bytes": 4096,
+      "sha256": "b74a06da463c32317673e298c73131f12fbd33a9dba4d47025471f3608671deb"
+    },
+    "interrupted-stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "metadata-metadata-final.log": {
+      "bytes": 517,
+      "sha256": "9f4b22491f4582b1f3de3dfbc5db2281e85723de4b7ac3b6cf88714978b0677d"
+    },
+    "metadata-metadata-final-result.json": {
+      "bytes": 193,
+      "sha256": "ccb3fe94737dcf267e9f3a8f788f3500505b203799f9c6f1815b8e3aaad13a0f"
+    }
+  },
+  "scope": "Exact full repository check after stable one-off scientific readouts; no new phase gate or physical validation.",
+  "previousAttempt": "Interrupted before completion while annotations/output-path controls were still settling; no passing or completion claim.",
+  "previousMetadataAttempt": "Before staging/blank-line compaction, existing checks rejected an untracked pinned script and a 251-line progress index. Corrected without changing tests; final two files / 18 tests pass.",
+  "laterChanges": "Only verification receipts, manifest pins and closure prose follow this executable checkpoint."
+}
