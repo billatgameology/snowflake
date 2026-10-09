@@ -23,8 +23,9 @@ joint report's recommendation; it creates no new build or scientific protocol. S
 hostile actors excluded. Lesson F2/Rule 14B favors keeping coordination proportional to useful
 work. Existing progress/evidence metadata checks passed 2 files / 18 tests; Rule 7 and the scoped
 diff check passed. No scientific suite rerun is needed for this allocation-only prose change.
-The temporary `codex/hil-local-execution-policy` checkout contains these prose/pin changes;
-integrate into main and archive it without retaining another working branch. No PR or output moves.
+The temporary `hil-local-execution-policy` checkout recorded these prose/pin changes at detached
+`54c7fd9`; primary main fast-forwarded to it and the empty-output checkout was archived. Only main
+remains, with no extra task branch, PR or output moves.
 Tried and rejected: splitting short work merely because two computers are available adds
 coordination without the maker's multi-day justification.
 
