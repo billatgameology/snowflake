@@ -59,8 +59,10 @@ retains all 11 useful staging files / 405750 bytes at primary
 `out/hil-saved-data-followup-2026-10-08/`, with complete before/after hashes matching.
 Task-local plotting dependencies and locked Node dependencies are disposable scratch; only these
 remain ignored in the completed task checkout. Primary was clean and equal to refreshed origin/main;
-the sole task branch owns all analysis/closure deltas, with no unrelated work or PR. Fast-forward
-integration and app-managed archive are next. The earlier proposed next action to
+the sole task branch owned all analysis/closure deltas, with no unrelated work or PR. Primary
+fast-forwarded to `b09b2b3`, the app archived the empty-useful-output checkout, and the merged
+`codex/hil-growth-analysis` ref was deleted without force after exact-head/ancestry checks.
+Only primary main remains. The earlier proposed next action to
 extract profiles is complete; the report's three follow-up directions now await maker discussion.
 
 **Current allocation — maker correction, 2026-10-08:** keep development, verification tests,

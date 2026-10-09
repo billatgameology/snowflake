@@ -1,6 +1,6 @@
 {
   "verifiedAfterMove": true,
-  "totalBytes": 405750.0,
+  "totalBytes": 405750,
   "reconciliation": "Primary clean and equal to refreshed origin/main; sole task branch includes all new analysis and closure metadata. No unrelated branch, worktree or delta. No PR.",
   "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-analysis\\snowflake\\out",
   "disposition": "Useful local staging retained; no NAS publication or prune of raw run inputs. All claim-bearing results and verification logs also tracked in this evidence bundle.",
@@ -63,7 +63,7 @@
       "sha256": "60f7789cf25c549383adea27ed2ffe730ef602218fa3b7dad23f689c09ccc8e0"
     }
   ],
-  "worktreeDisposition": "Ready for archive after fast-forward integration; only declared dependency scratch remains ignored.",
+  "worktreeDisposition": "Primary main fast-forwarded to the complete analysis and verification head. Managed task worktree archived after useful output preservation; checked path absent and no registration remains. Merged task branch deleted with git branch -d after exact-head/ancestry verification. Only primary main remains; no PR.",
   "fileCount": 11,
   "branch": "codex/hil-growth-analysis",
   "worktree": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-analysis\\snowflake",
@@ -71,5 +71,6 @@
   "excludedScratch": [
     "out/plot-dependencies: task-local pip-installed plotting dependencies",
     "node_modules: locked install"
-  ]
+  ],
+  "integratedHead": "b09b2b342daa0a182e8c23c72196328ddc8811ab"
 }
