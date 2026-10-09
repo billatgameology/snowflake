@@ -1,7 +1,7 @@
 # HIL / BLD first exploration batch
 
 - **Scope:** executable first stage of the maker-approved post-Phase-10 portfolio; development evidence only.
-- **Status:** first-batch execution complete: HIL has 56 checked endpoints after recovery; BLD has 42, restored and rechecked on HIL. Sources remain distinct. Original stopped HIL is preserved at `f4ca38a`; comparative interpretation is next.
+- **Status:** first-batch execution and internal joint review complete: HIL has 56 checked endpoints after recovery; BLD has 42. Sources remain distinct. The [joint report](../../evidence/hil-bld-joint-review-2026-10-08/README.md) owns current interpretation and retained-output locators; historical checkout paths below are provenance.
 - **Implementation branch / destination:** `codex/discovery-resume` -> `origin/main`; original `science/hil-bld-first-batch` is reconciled.
 - **Authority:** [adaptive discovery](post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld), accepted ADRs 0055-0059, attachment-kinetics specification. No phase gate changes.
 

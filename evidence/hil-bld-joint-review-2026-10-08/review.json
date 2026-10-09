@@ -1,0 +1,154 @@
+{
+  "schema": "bounded-internal-review-v1",
+  "recordedAt": "2026-10-09T00:38:43.213747+00:00",
+  "reviewer": "Codex/GPT-6",
+  "context": "Shared conversation and repository context; separate read-only analysis from report authors. Wrote only this requested review record.",
+  "engagement": "One bounded custody and load-bearing interpretation review for maker-requested HIL worktree retirement and joint internal triage.",
+  "verdict": "No blocking finding in the reviewed disposition or four selected load-bearing result families.",
+  "blockingFindings": [],
+  "scope": {
+    "independentlyExecuted": [
+      "Inspected all registered worktrees, local branches, ordinary and ignored status; checked three fixed HIL producer heads are main ancestors and integration plan delta is task-owned.",
+      "Checked four exact source/destination paths, ordinary directory/link status, absent destinations, and zero links in all out inventories before movement.",
+      "Decompressed every member of all three HIL archives, compared exact path/type/length/SHA-256 inventory and compressed archive length/digest; rejected absolute or traversal member paths.",
+      "After the three execution-worktree moves, independently rehashed every retained file and compared exact directories/file set/length/hash with each before inventory.",
+      "For all six HIL seed quartets, independently selected at-or-before and next-event records from raw event logs at the named quartet ages and enumerated all recorded bracket combinations.",
+      "For the three fraction-.20 both-arm pressure rows, independently reconstructed seed plus attachment-event occupancy, Cartesian aspect ratio, coordinate spans and final physical time.",
+      "For all 36 cold rows, independently reconstructed central-plane occupancy at each reported selected at-or-before raw event, recomputed the largest full integer hex ball and maximum integer hex radius, and checked the gap against the report.",
+      "For the two warm early-only rows, independently reconstructed every post-cutoff occupancy, flood-filled central-plane void enclosure, checked straight axial access, original and new signed-plane survival, tip movement, cutoff time, and every post-cutoff raw selected-count/demand meter.",
+      "Read current discovery-resume maximum constants and enforcement: 64 cubed cells and 64 MiB.",
+      "Read HIL/BLD reports and joint synopsis; checked their scope remains internal finite-model triage with physical, grid, trajectory-equivalence and launch limitations."
+    ],
+    "notExecuted": [
+      "No simulations, checkpoint adoption/decoding, full 114-case independent analysis, full raw field audit, or physical validation.",
+      "No NAS rehash/publication/restore; no branch/worktree/file removals performed by reviewer.",
+      "No test suite rerun or code change by reviewer.",
+      "Final integration worktree relocation/closure had not occurred at review time; its whole out tree remains to be retained and verified by the parent.",
+      "Cold selected plateau durations and source-equation equivalence were not independently rederived; raw selected-time bracket and occupancy claims were checked."
+    ]
+  },
+  "findings": {
+    "seedWideMinus8": {
+      "endpointBothMinusNeitherAR": -0.10526315789473684,
+      "quartetCommonAgeSeconds": 10.444709545878831,
+      "quartetCommonAgeBothMinusNeitherAR": 0.049535603715170295,
+      "allSixQuartetsBracketSigns": "basal-only minus neither positive; prism-only minus neither negative; both - basal-only - prism-only + neither negative in every recorded endpoint combination"
+    },
+    "pressureFractionPoint20Both": {
+      "pressuresPa": [
+        50662.5,
+        101325,
+        202650
+      ],
+      "attachedOccupancy": [
+        3607,
+        3317,
+        2787
+      ],
+      "iJkInclusiveSpans": [
+        21,
+        21,
+        19
+      ],
+      "aspectRatios": [
+        1,
+        1,
+        1
+      ],
+      "terminalPhysicalSeconds": [
+        5.783881122200879,
+        10.215325875723408,
+        18.16963660620104
+      ]
+    },
+    "cold": {
+      "checkedRows": 36,
+      "groups": 9,
+      "groupsWithAdditionalPrismGap": 8,
+      "exception": "-18 C / fraction .10: all four selected gaps equal one cell",
+      "limits": "At-or-before states at selected matched tip and physical plateau ages. Integer hex-coordinate measure, not an exact Euclidean radial distance; nominal radialGapUm scaling does not change that definition. Extra gaps are one or two cells and not an all-trajectory law."
+    },
+    "warm": [
+      {
+        "row": "batch1-bld-warm-t4p5-early",
+        "cutoffCrossingCycle": 264,
+        "cutoffPhysicalSeconds": 20.04840569337263,
+        "postCutoffUpdates": 330,
+        "originalSignedPlanesSurviving": 14,
+        "newSignedPlanesSurviving": 4,
+        "tipAdvanceUm": 1.0499999999999998,
+        "postCutoffSelectedCellUpdates": 0,
+        "postCutoffSelectedKineticDemandFill": 0
+      },
+      {
+        "row": "batch1-bld-warm-t5-early",
+        "cutoffCrossingCycle": 284,
+        "cutoffPhysicalSeconds": 20.051631130757585,
+        "postCutoffUpdates": 274,
+        "originalSignedPlanesSurviving": 16,
+        "newSignedPlanesSurviving": 4,
+        "tipAdvanceUm": 0.7,
+        "postCutoffSelectedCellUpdates": 0,
+        "postCutoffSelectedKineticDemandFill": 0
+      }
+    ]
+  },
+  "custody": {
+    "independentlyVerifiedAfterMoves": [
+      {
+        "label": "hil-first-batch",
+        "files": 532,
+        "bytes": 7284122
+      },
+      {
+        "label": "discovery-resume",
+        "files": 1902,
+        "bytes": 1021665177
+      },
+      {
+        "label": "hil-exploration-batch2",
+        "files": 1311,
+        "bytes": 558963312
+      }
+    ],
+    "conditionForIntegrationClosure": "Retain and rehash whole integration out into its exact absent primary destination, commit/pin the new evidence and fast-forward primary before removing its branch/worktree; do not treat local staging relocation as NAS publication/prune credit."
+  },
+  "reviewedArtifacts": [
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-bld-results-integration\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\README.md",
+      "bytes": 5842,
+      "sha256": "1b02e2fdfdcb38a4458c405212c7f3086c2b7205a6e17275c1f3d7dd0da1a145"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-bld-results-integration\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\hil\\README.md",
+      "bytes": 12017,
+      "sha256": "f5158e228ee8d6f6fb95b7caf9e680a02b8f1ef31ed702088f64fdf40e83c0fb"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-bld-results-integration\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\hil\\analysis-v2.json",
+      "bytes": 1187495,
+      "sha256": "037d3e203bcc48ae3e44dbb2a759ba06bca6b943bec35127aecc2264e36fd194"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-bld-results-integration\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\hil\\bracket-endpoint-sensitivity.json",
+      "bytes": 3384,
+      "sha256": "0d912b2ac65dfe30a621eb735168449ef8c4d5a3f3904e68f9d4e309ebcf2a96"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-bld-results-integration\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\bld\\README.md",
+      "bytes": 8202,
+      "sha256": "0d874baa1d2af19807bb6415e8df01831d206a84f3f6c6f0b04be393a6cc27de"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-bld-results-integration\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\bld\\bld-analysis.json",
+      "bytes": 879223,
+      "sha256": "6c03e0271b9818ef01966d8b1c3763ec0359b99185e2898f58a108f13ce7fa65"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-bld-results-integration\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\bld\\cavity-readout.json",
+      "bytes": 5498077,
+      "sha256": "c9eb3f1161321d3b421fb3dcdf0f2b8ea61b6c0724b13aedcb4563bc37dbda69"
+    }
+  ],
+  "recommendation": "Discussion-only warm grid/seed-width qualification, HIL seed persistence and existing pressure profiles, and selected cold spatial inspection are proportionate next choices. Larger-grid execution first needs bounded resume extension, real pause/resume and host budget measurements."
+}

@@ -1,0 +1,568 @@
+diff --git a/runner/src/post-phase10-discovery.ts b/runner/src/post-phase10-discovery.ts
+index f98eac2..040adc9 100644
+--- a/runner/src/post-phase10-discovery.ts
++++ b/runner/src/post-phase10-discovery.ts
+@@ -12,6 +12,7 @@ import {
+   isD6hInvariantSet,
+   latticeExtents,
+   symmetryError,
++  validateTimelineCursor,
+   type FacetClass,
+   type LKTimelineSchedule,
+   type NucleationParamSet,
+@@ -27,6 +28,7 @@ import {
+   type LKEnvironmentTransitionReport,
+ } from "@vcc/solver-cpu";
+ import { validateLKStepEvidence } from "./gate2b-validation.ts";
++import { acquireDiscoveryRowLease, DiscoveryCheckpointStore, type DiscoveryRunnerResumeState } from "./discovery-resume-io.ts";
+ 
+ export type DiscoveryLane =
+   | "A"
+@@ -156,6 +158,7 @@ export type DiscoveryStopReason =
+   | "stalled"
+   | "step-cap"
+   | "wall-budget"
++  | "checkpoint-pause"
+   | "solver-error";
+ 
+ export type DiscoveryHabitClass = "plate" | "neutral" | "column" | "invalid";
+@@ -620,6 +623,10 @@ function eventFacets(
+ }
+ 
+ export interface RunDiscoveryRowOptions {
++  /** Separate identified continuation; legacy row callers remain unchanged. */
++  readonly checkpoint?: "create" | "resume";
++  /** Operational pause at an absolute completed cycle, after publishing its checkpoint. */
++  readonly pauseAfterCycles?: number;
+   readonly heartbeat?: (message: string) => void;
+   /** Cooperative terminal observation limit; never implies checkpoint continuation. */
+   readonly maxWallSeconds?: number;
+@@ -629,55 +636,21 @@ export interface RunDiscoveryRowOptions {
+ 
+ class DiscoveryWallBudgetReached extends Error {}
+ 
+-export interface DiscoveryContinuationMeasurements {
+-  readonly startedAt: string;
+-  readonly peakRssBytes: number;
+-  readonly totalSweeps: number;
+-  readonly completedCycleRecords: number;
+-  readonly allAttachmentEventsD6h: boolean;
+-  readonly allRelaxationsConverged: boolean;
+-  readonly maxKineticFillIncrement: number;
+-  readonly maxDivergenceResidual: number;
+-  readonly maxAbsSmootherDrift: number;
+-  readonly minShellInjection: number | null;
+-  readonly minSurfaceExchange: number | null;
+-  readonly integrityErrors: readonly string[];
+-  readonly seedSites: number;
+-  readonly spatialSnapshots: readonly DiscoverySpatialSnapshotRecord[];
+-  readonly pendingSpatialExtents: readonly number[];
+-  readonly currentSmootherDriftAbsLimit: number;
+-  readonly maximumSmootherDriftAbsLimit: number;
+-  readonly terminalStopReason: DiscoveryStopReason | null;
+-}
+-
+-export interface DiscoveryContinuationBoundary {
+-  readonly solver: LKSolver;
+-  readonly measurements: DiscoveryContinuationMeasurements;
+-}
+-
+-/** Shared evolution: the legacy synchronous caller ignores save boundaries. */
+ export function runPostPhase10DiscoveryRow(
+   candidate: DiscoveryRow,
+   outputDirectory: string,
+   options: RunDiscoveryRowOptions = {},
+ ): DiscoveryTerminalResult {
+-  const evolution = discoveryRowEvolution(candidate, outputDirectory, options);
+-  for (;;) {
+-    const next = evolution.next();
+-    if (next.done) return next.value;
+-  }
++  if (options.checkpoint === undefined) return runDiscoveryRow(candidate, outputDirectory, options);
++  const release = acquireDiscoveryRowLease(resolve(outputDirectory));
++  try { return runDiscoveryRow(candidate, outputDirectory, options); } finally { release(); }
+ }
+ 
+-/** The async recovery driver saves only the yielded complete interface boundaries. */
+-export function* discoveryRowEvolution(
+-  candidate: DiscoveryRow,
+-  outputDirectory: string,
+-  options: RunDiscoveryRowOptions = {},
+-  continuation?: DiscoveryContinuationBoundary,
+-): Generator<DiscoveryContinuationBoundary, DiscoveryTerminalResult, void> {
+-  if (continuation !== undefined && candidate.timelineEvent !== undefined) {
+-    throw new Error("experimental continuation refuses environment timelines");
++function runDiscoveryRow(candidate: DiscoveryRow, outputDirectory: string, options: RunDiscoveryRowOptions): DiscoveryTerminalResult {
++  if (options.pauseAfterCycles !== undefined && (options.checkpoint === undefined || !Number.isSafeInteger(options.pauseAfterCycles) || options.pauseAfterCycles < 1)) {
++    throw new Error("pauseAfterCycles requires checkpointing and a positive integer cycle");
+   }
++  if (options.checkpoint !== undefined && options.maxWallSeconds !== undefined) throw new Error("resumable science has no wall budget");
+   if (options.maxWallSeconds !== undefined &&
+     (!Number.isFinite(options.maxWallSeconds) || options.maxWallSeconds <= 0)) {
+     throw new Error("maxWallSeconds must be finite and positive");
+@@ -704,14 +677,14 @@ export function* discoveryRowEvolution(
+       ` cutoffSeconds=${candidate.experimentalBasalWidthHistory.cutoffSeconds}`);
+   const output = resolve(outputDirectory);
+   mkdirSync(output, { recursive: true });
+-  if (continuation === undefined) for (const leaf of ["spec.json", "events.jsonl", "result.json"] as const) {
+-    if (existsSync(resolve(output, leaf))) {
++  for (const leaf of ["spec.json", "events.jsonl", "result.json"] as const) {
++    if (existsSync(resolve(output, leaf)) && options.checkpoint !== "resume") {
+       throw new Error(`discovery row output already exists: ${resolve(output, leaf)}`);
+     }
+   }
+ 
+   const head = gitHead();
+-  if (continuation === undefined) writeJson(resolve(output, "spec.json"), {
++  const expectedSpec = {
+     schema: "post-phase10-discovery-row-v1",
+     ...experimentIdentity,
+     row: candidate,
+@@ -720,11 +693,24 @@ export function* discoveryRowEvolution(
+     ...(options.maxWallSeconds === undefined ? {} : {
+       executionBudget: { maxWallSeconds: options.maxWallSeconds },
+     }),
+-  });
+-  if (continuation === undefined) writeJson(resolve(output, "host.json"), { ...hostRecord(head), ...experimentIdentity });
+-  const prior = continuation?.measurements;
+-
+-  const startedAt = prior === undefined ? new Date() : new Date(prior.startedAt);
++    ...(options.checkpoint === undefined ? {} : { checkpointFormat: "discovery-resume-v1" }),
++  };
++  if (options.checkpoint === "resume" && existsSync(resolve(output, "spec.json"))) {
++    if (JSON.stringify(JSON.parse(readFileSync(resolve(output, "spec.json"), "utf8"))) !== JSON.stringify(expectedSpec)) throw new Error("resume row spec mismatch");
++    if (existsSync(resolve(output, "host.json"))) {
++      const previousHost = JSON.parse(readFileSync(resolve(output, "host.json"), "utf8"));
++      if (previousHost.gitHead !== head || previousHost.node !== process.version || previousHost.v8 !== process.versions.v8) throw new Error("resume source/runtime mismatch");
++    }
++  } else {
++    writeJson(resolve(output, "spec.json"), expectedSpec);
++    writeJson(resolve(output, "host.json"), { ...hostRecord(head), ...experimentIdentity });
++  }
++  const checkpointStore = options.checkpoint === undefined ? null : new DiscoveryCheckpointStore(output, candidate, head);
++  const restored = options.checkpoint === "resume" ? checkpointStore!.load() : null;
++  const attemptStartedAt = new Date();
++  const startedAt = restored === null ? attemptStartedAt : new Date(restored.runner.startedAt);
++  const priorWallSeconds = restored?.runner.activeWallSeconds ?? 0;
++  const activeWallSeconds = (): number => priorWallSeconds + (Date.now() - attemptStartedAt.getTime()) / 1000;
+   const budgetClock = options.budgetClockMilliseconds ?? (() => performance.now());
+   const budgetStart = options.maxWallSeconds === undefined ? 0 : budgetClock();
+   if (!Number.isFinite(budgetStart)) throw new Error("budget clock must be finite");
+@@ -752,21 +738,21 @@ export function* discoveryRowEvolution(
+   if (options.maxWallSeconds !== undefined) {
+     writeFileSync(resolve(output, "events.jsonl"), "", { flag: "wx" });
+   }
+-  let peakRssBytes = prior?.peakRssBytes ?? process.memoryUsage().rss;
+-  let totalSweeps = prior?.totalSweeps ?? 0;
+-  let completedCycleRecords = prior?.completedCycleRecords ?? 0;
+-  let allAttachmentEventsD6h = prior?.allAttachmentEventsD6h ?? true;
+-  let allRelaxationsConverged = prior?.allRelaxationsConverged ?? true;
+-  let maxKineticFillIncrement = prior?.maxKineticFillIncrement ?? 0;
+-  let maxDivergenceResidual = prior?.maxDivergenceResidual ?? 0;
+-  let maxAbsSmootherDrift = prior?.maxAbsSmootherDrift ?? 0;
+-  let minShellInjection = prior?.minShellInjection ?? Infinity;
+-  let minSurfaceExchange = prior?.minSurfaceExchange ?? Infinity;
+-  let stopReason: DiscoveryStopReason = prior?.terminalStopReason ?? "step-cap";
+-  const integrityErrors: string[] = [...(prior?.integrityErrors ?? [])];
++  let peakRssBytes = process.memoryUsage().rss;
++  let totalSweeps = 0;
++  let completedCycleRecords = 0;
++  let allAttachmentEventsD6h = true;
++  let allRelaxationsConverged = true;
++  let maxKineticFillIncrement = 0;
++  let maxDivergenceResidual = 0;
++  let maxAbsSmootherDrift = 0;
++  let minShellInjection = Infinity;
++  let minSurfaceExchange = Infinity;
++  let stopReason: DiscoveryStopReason = "step-cap";
++  const integrityErrors: string[] = [];
+   const dims = { nx: candidate.dimsN, ny: candidate.dimsN, nz: candidate.dimsN };
+   const center = domainCenter(dims);
+-  const solver = continuation?.solver ?? new LKSolver({
++  let solver = new LKSolver({
+     surfacePolicy: FIXED.surfacePolicy,
+     dims,
+     tempC: candidate.tempC,
+@@ -798,14 +784,14 @@ export function* discoveryRowEvolution(
+     seedThickness: candidate.seedThickness,
+     center,
+   });
+-  const seedSites = prior?.seedSites ?? solver.attachedCount;
+-  const spatialSnapshots: DiscoverySpatialSnapshotRecord[] = [...(prior?.spatialSnapshots ?? [])];
+-  const pendingSpatialExtents = new Set(prior?.pendingSpatialExtents ?? candidate.spatialSampleExtents ?? []);
+-  let currentSmootherDriftAbsLimit = prior?.currentSmootherDriftAbsLimit ?? float64SmootherDriftAbsLimit(
++  let seedSites = solver.attachedCount;
++  const spatialSnapshots: DiscoverySpatialSnapshotRecord[] = [];
++  const pendingSpatialExtents = new Set(candidate.spatialSampleExtents ?? []);
++  let currentSmootherDriftAbsLimit = float64SmootherDriftAbsLimit(
+     solver.activeCellCount,
+     candidate.sigmaInfinity,
+   );
+-  let maximumSmootherDriftAbsLimit = prior?.maximumSmootherDriftAbsLimit ?? currentSmootherDriftAbsLimit;
++  let maximumSmootherDriftAbsLimit = currentSmootherDriftAbsLimit;
+   const timelineSchedule: LKTimelineSchedule | null =
+     candidate.timelineEvent === undefined
+       ? null
+@@ -850,6 +836,57 @@ export function* discoveryRowEvolution(
+     }
+     timelineCursor = initialDecision.cursor;
+   }
++  let terminalStopReason: DiscoveryStopReason | null = null;
++  if (restored !== null) {
++    const initialControls = solver.exportDiscoveryResumeState();
++    solver = LKSolver.restoreDiscovery(restored.decoded);
++    const state = solver.exportDiscoveryResumeState();
++    const restoredRunner = restored.runner;
++    const controls = ["dxUm", "pressurePa", "paramSet", "cflFill", "relaxTol", "divTol", "relaxMaxSweeps", "rngSeed", "noiseEpsilon", "domain", "farField", "surfacePolicy", "experimentalFacetDips", "experimentalBasalWidthCells"] as const;
++    if (controls.some((key) => !Object.is(state[key], initialControls[key])) ||
++        JSON.stringify(state.dims) !== JSON.stringify(dims) || JSON.stringify(state.center) !== JSON.stringify(center) ||
++        JSON.stringify(state.experimentalBasalWidthHistory) !== JSON.stringify(initialControls.experimentalBasalWidthHistory)) throw new Error("resume solver controls disagree with row");
++    if (timelineSchedule === null) {
++      if (restoredRunner.timelineCursor !== null || restoredRunner.timelineTransition !== null || state.acceptedEnvironmentEventCount !== 0) throw new Error("unexpected resume timeline state");
++    } else {
++      if (restoredRunner.timelineCursor === null) throw new Error("missing resume timeline cursor");
++      validateTimelineCursor(timelineSchedule, restoredRunner.timelineCursor);
++      if (restoredRunner.timelineCursor.lastBoundary?.completedCycles !== solver.tick || restoredRunner.timelineCursor.nextEventIndex !== state.acceptedEnvironmentEventCount ||
++          (restoredRunner.timelineCursor.nextEventIndex === 0) !== (restoredRunner.timelineTransition === null) ||
++          (restoredRunner.timelineTransition !== null && restoredRunner.timelineTransition.eventCycle !== restoredRunner.timelineCursor.eventLog[0]?.crossingBoundary.completedCycles)) throw new Error("resume timeline/solver boundary mismatch");
++    }
++    const expectedEnvironment = restoredRunner.timelineTransition === null ? candidate : candidate.timelineEvent!;
++    if (!Object.is(solver.tempC, expectedEnvironment.tempC) || !Object.is(solver.sigmaInfinity, expectedEnvironment.sigmaInfinity)) throw new Error("resume environment disagrees with timeline");
++    const sampled = restoredRunner.spatialSnapshots.map((x) => x.triggerExtent);
++    const pending = restoredRunner.pendingSpatialExtents;
++    const expectedExtents = [...(candidate.spatialSampleExtents ?? [])].sort((a,b) => a-b);
++    if (new Set([...sampled, ...pending]).size !== sampled.length + pending.length || JSON.stringify([...sampled,...pending].sort((a,b) => a-b)) !== JSON.stringify(expectedExtents) ||
++        restoredRunner.spatialSnapshots.some((x) => x.path !== `boundary-e${x.triggerExtent}.json` || x.completedCycles > solver.tick)) throw new Error("resume spatial sampling state mismatch");
++    totalSweeps = restoredRunner.totalSweeps; completedCycleRecords = restoredRunner.completedCycleRecords;
++    peakRssBytes = Math.max(peakRssBytes, restoredRunner.peakRssBytes);
++    allAttachmentEventsD6h = restoredRunner.allAttachmentEventsD6h; allRelaxationsConverged = restoredRunner.allRelaxationsConverged;
++    maxKineticFillIncrement = restoredRunner.maxKineticFillIncrement; maxDivergenceResidual = restoredRunner.maxDivergenceResidual;
++    maxAbsSmootherDrift = restoredRunner.maxAbsSmootherDrift; minShellInjection = restoredRunner.minShellInjection ?? Infinity;
++    minSurfaceExchange = restoredRunner.minSurfaceExchange ?? Infinity; seedSites = restoredRunner.seedSites;
++    spatialSnapshots.push(...restoredRunner.spatialSnapshots); pendingSpatialExtents.clear(); for (const x of pending) pendingSpatialExtents.add(x);
++    currentSmootherDriftAbsLimit = restoredRunner.currentSmootherDriftAbsLimit; maximumSmootherDriftAbsLimit = restoredRunner.maximumSmootherDriftAbsLimit;
++    timelineCursor = restoredRunner.timelineCursor; timelineTransition = restoredRunner.timelineTransition ?? undefined;
++    integrityErrors.push(...restoredRunner.integrityErrors); terminalStopReason = restoredRunner.terminalStopReason;
++    if (terminalStopReason === "size-target" && solver.largestExtent() < candidate.targetExtent ||
++        terminalStopReason === "step-cap" && solver.tick < candidate.maxSteps ||
++        terminalStopReason === "domain-contact" && !solver.domainContact()) throw new Error("resume terminal condition mismatch");
++    restored.recover();
++  }
++  const checkpoint = (): void => {
++    if (checkpointStore === null) return;
++    const runnerState: DiscoveryRunnerResumeState = { startedAt: startedAt.toISOString(), activeWallSeconds: activeWallSeconds(), peakRssBytes,
++      totalSweeps, completedCycleRecords, allAttachmentEventsD6h, allRelaxationsConverged, maxKineticFillIncrement, maxDivergenceResidual,
++      maxAbsSmootherDrift, minShellInjection: finiteMinimum(minShellInjection), minSurfaceExchange: finiteMinimum(minSurfaceExchange), seedSites,
++      spatialSnapshots, pendingSpatialExtents: [...pendingSpatialExtents], currentSmootherDriftAbsLimit, maximumSmootherDriftAbsLimit,
++      timelineCursor, timelineTransition: timelineTransition ?? null, integrityErrors, terminalStopReason };
++    checkpointStore.save(solver.exportDiscoveryResumeState(), runnerState);
++  };
++  if (checkpointStore !== null && restored === null) checkpoint();
+   let lastHeartbeat = Date.now();
+   options.heartbeat?.(
+     `start row=${candidate.id}${experimentLabel} lane=${candidate.lane} dims=${candidate.dimsN} ` +
+@@ -857,19 +894,9 @@ export function* discoveryRowEvolution(
+       `target=${candidate.targetExtent}`,
+   );
+ 
+-  const saveBoundary = (): DiscoveryContinuationBoundary => ({ solver, measurements: {
+-    startedAt: startedAt.toISOString(), peakRssBytes, totalSweeps, completedCycleRecords,
+-    allAttachmentEventsD6h, allRelaxationsConverged, maxKineticFillIncrement,
+-    maxDivergenceResidual, maxAbsSmootherDrift,
+-    minShellInjection: finiteMinimum(minShellInjection), minSurfaceExchange: finiteMinimum(minSurfaceExchange),
+-    integrityErrors: [...integrityErrors], seedSites, spatialSnapshots: [...spatialSnapshots],
+-    pendingSpatialExtents: [...pendingSpatialExtents], currentSmootherDriftAbsLimit, maximumSmootherDriftAbsLimit,
+-    terminalStopReason: stopReason === "step-cap" ? null : stopReason,
+-  } });
+-  yield saveBoundary();
+-  const finalAllowedCycle = solver.tick + candidate.maxSteps;
+   try {
+-    for (let cycle = solver.tick + 1; stopReason === "step-cap" && cycle <= finalAllowedCycle; cycle++) {
++    if (terminalStopReason !== null) stopReason = terminalStopReason;
++    for (let cycle = solver.tick + 1; terminalStopReason === null && cycle <= candidate.maxSteps; cycle++) {
+       checkBudget("cycle-boundary");
+       const relaxation = solver.relaxField((progress) => {
+         checkBudget("relaxation", { cycle, sweeps: progress.sweeps });
+@@ -1087,7 +1114,7 @@ export function* discoveryRowEvolution(
+         extent,
+         totalSweeps,
+         simTimeSeconds: solver.simTimeSeconds,
+-        wallSeconds: (Date.now() - startedAt.getTime()) / 1000,
++        wallSeconds: activeWallSeconds(),
+         peakRssBytes,
+         updatedAt: new Date().toISOString(),
+       });
+@@ -1100,10 +1127,13 @@ export function* discoveryRowEvolution(
+         );
+         lastHeartbeat = now;
+       }
+-      if (!surface.stalled && solver.domainContact()) stopReason = "domain-contact";
+-      if (stopReason === "step-cap" && extent >= candidate.targetExtent) stopReason = "size-target";
+-      yield saveBoundary();
+-      if (stopReason !== "step-cap") break;
++      if (surface.stalled) terminalStopReason = "stalled";
++      else if (solver.domainContact()) terminalStopReason = "domain-contact";
++      else if (extent >= candidate.targetExtent) terminalStopReason = "size-target";
++      else if (cycle === candidate.maxSteps) terminalStopReason = "step-cap";
++      checkpoint();
++      if (terminalStopReason !== null) { stopReason = terminalStopReason; break; }
++      if (options.pauseAfterCycles !== undefined && solver.tick >= options.pauseAfterCycles) { stopReason = "checkpoint-pause"; break; }
+       checkBudget("cycle-boundary");
+     }
+   } catch (error) {
+@@ -1115,8 +1145,8 @@ export function* discoveryRowEvolution(
+     }
+   }
+ 
+-  const cappedBudgetPrefix = options.maxWallSeconds !== undefined &&
+-    (stopReason === "wall-budget" || stopReason === "step-cap");
++  const cappedBudgetPrefix = (options.maxWallSeconds !== undefined || options.checkpoint !== undefined) &&
++    (stopReason === "wall-budget" || stopReason === "step-cap" || stopReason === "checkpoint-pause");
+   if (timelineSchedule !== null && timelineTransition === undefined && !cappedBudgetPrefix) {
+     integrityErrors.push(`row ${candidate.id} did not reach its registered timeline event`);
+   }
+@@ -1151,7 +1181,7 @@ export function* discoveryRowEvolution(
+     allAttachmentEventsD6h,
+     allRelaxationsConverged,
+     simTimeSeconds: solver.simTimeSeconds,
+-    wallSeconds: (finishedAt.getTime() - startedAt.getTime()) / 1000,
++    wallSeconds: activeWallSeconds(),
+     peakRssBytes,
+     maxKineticFillIncrement,
+     maxDivergenceResidual,
+diff --git a/solver-cpu/src/lk-solver.ts b/solver-cpu/src/lk-solver.ts
+index ca66b99..9b864ce 100644
+--- a/solver-cpu/src/lk-solver.ts
++++ b/solver-cpu/src/lk-solver.ts
+@@ -42,8 +42,7 @@ import {
+   prepareAlphaHK,
+   randomBit,
+   takeDecodedLKResumeCheckpointV3,
+-  takeDecodedLKExperimentalResumeCheckpointV1,
+-  validateLKExperimentalResumeDescriptorV1,
++  takeDecodedDiscoveryResumeCheckpoint,
+   usesCanonicalOpposingOrder,
+   validateTimelineSchedule,
+   vKin,
+@@ -56,9 +55,9 @@ import {
+   type LKSurfacePolicy,
+   type LKTimelineEnvironment,
+   type DecodedLKResumeCheckpointV3,
+-  type DecodedLKExperimentalResumeCheckpointV1,
+-  type LKExperimentalResumeDescriptorV1,
+-  type LKExperimentalResumeStateV1,
++  type DecodedDiscoveryResumeCheckpoint,
++  type AdoptedDiscoveryResumeState,
++  type DiscoveryResumeState,
+   type LKResumeAdoptedStateV3,
+   type LKResumeRelaxationReportV3,
+   type LKResumeStateV3,
+@@ -339,10 +338,7 @@ export type LKCycleState =
+  * object identity without invoking Proxy traps, so only the exact fresh token created below can
+  * select the internal constructor path.
+  */
+-const LK_RESUME_ADOPTIONS = new WeakMap<object, {
+-  readonly common: LKResumeAdoptedStateV3;
+-  readonly experiment?: LKExperimentalResumeDescriptorV1;
+-}>();
++const LK_RESUME_ADOPTIONS = new WeakMap<object, LKResumeAdoptedStateV3 | AdoptedDiscoveryResumeState>();
+ 
+ export class LKSolver implements SurfaceOperator {
+   readonly surfacePolicy: LKSurfacePolicy;
+@@ -493,7 +489,7 @@ export class LKSolver implements SurfaceOperator {
+       );
+     }
+     const constructionToken = Object.create(null) as object;
+-    LK_RESUME_ADOPTIONS.set(constructionToken, { common: adopted });
++    LK_RESUME_ADOPTIONS.set(constructionToken, adopted);
+     try {
+       return Reflect.construct(LKSolver, [constructionToken]) as LKSolver;
+     } finally {
+@@ -503,9 +499,9 @@ export class LKSolver implements SurfaceOperator {
+     }
+   }
+ 
+-  /** ADR 0060: consume the separately identified experimental ownership envelope. */
+-  static fromExperimentalResumeStateV1(decoded: DecodedLKExperimentalResumeCheckpointV1): LKSolver {
+-    const adopted = takeDecodedLKExperimentalResumeCheckpointV1(decoded);
++  /** ADR 0060 development-only continuation; ordinary checkpoint eligibility is unchanged. */
++  static restoreDiscovery(decoded: DecodedDiscoveryResumeCheckpoint): LKSolver {
++    const adopted = takeDecodedDiscoveryResumeCheckpoint(decoded);
+     const constructionToken = Object.create(null) as object;
+     LK_RESUME_ADOPTIONS.set(constructionToken, adopted);
+     try {
+@@ -525,12 +521,12 @@ export class LKSolver implements SurfaceOperator {
+       if (!LK_RESUME_ADOPTIONS.delete(input)) {
+         throw new Error("LK resume construction capability was already consumed");
+       }
+-      const state = adopted.common;
+-      const experiment = adopted.experiment;
+-      // Ordinary v3 retains its historical no-dip restore refusal. ADR 0060 admits that
+-      // control only through the separately decoded experimental descriptor.
+-      if (state.paramSet !== "CAK" && state.paramSet !== "M1" &&
+-        !(experiment?.kind === "ordinary-no-dip" && state.paramSet === "M1_NO_DIP_ABLATION")) {
++      const state = adopted;
++      const discovery = "schema" in state ? state : null;
++      // The core wire reserves the matched no-dip spelling, but its kinetics do not exist yet.
++      // Consuming such an envelope must fail here instead of silently substituting M1 or widening
++      // the shared parameter-set enum.
++      if (discovery === null && state.paramSet !== "CAK" && state.paramSet !== "M1") {
+         throw new Error(
+           `LK resume paramSet ${state.paramSet} is schema-reserved but solver-ineligible`,
+         );
+@@ -545,6 +541,13 @@ export class LKSolver implements SurfaceOperator {
+       this.dxM = this.dxUmInput * 1e-6;
+       this.pressurePa = state.pressurePa;
+       this.paramSet = state.paramSet;
++      if (discovery !== null) {
++        this.experimentalFacetDips = discovery.experimentalFacetDips ?? undefined;
++        this.experimentalBasalWidthCells = discovery.experimentalBasalWidthCells ?? undefined;
++        if (discovery.experimentalBasalWidthHistory !== null) {
++          this.experimentalBasalWidthHistory = Object.freeze({ ...discovery.experimentalBasalWidthHistory });
++        }
++      }
+       this.cflFill = state.cflFill;
+       this.relaxTol = state.relaxTol;
+       this.divTol = state.divTol;
+@@ -569,16 +572,16 @@ export class LKSolver implements SurfaceOperator {
+       this._maximumKineticVelocityScaleMS = resumedScales.maximumKineticVelocityScaleMS;
+       this._maximumKineticFillRateScalePerSecond =
+         resumedScales.maximumKineticFillRateScalePerSecond;
+-      if (experiment?.kind === "facet-dips") this.experimentalFacetDips = experiment.arm;
+-      if (experiment?.kind === "basal-width") {
+-        this.experimentalBasalWidthCells = experiment.widthCells;
+-        if (experiment.history !== null) this.experimentalBasalWidthHistory = experiment.history;
++      if (this.experimentalBasalWidthCells !== undefined) {
++        this.preparedAlphaHK = prepareAlphaHK(this.tempC, "M1_NO_DIP_ABLATION");
+         this.basalWidthDippedPreparation = prepareAlphaHK(this.tempC, "M1");
++        this.basalWidthCache = new Uint32Array(state.a.length);
++        this.basalWidthCacheDirty = true;
++      } else {
++        this.preparedAlphaHK = this.experimentalFacetDips === undefined
++          ? prepareAlphaHK(this.tempC, this.paramSet)
++          : prepareFacetDipExperiment(this.tempC, this.experimentalFacetDips);
+       }
+-      this.preparedAlphaHK = experiment?.kind === "basal-width"
+-        ? prepareAlphaHK(this.tempC, "M1_NO_DIP_ABLATION")
+-        : experiment?.kind === "facet-dips" ? prepareFacetDipExperiment(this.tempC, experiment.arm)
+-        : prepareAlphaHK(this.tempC, this.paramSet);
+ 
+       // These are the decoder's final owned arrays. Do not call the ordinary constructor, seed
+       // initializer, topology scan, or `.set`: restore must never hold a second complete copy.
+@@ -606,10 +609,6 @@ export class LKSolver implements SurfaceOperator {
+       this.kMax = state.topology.kMax;
+ 
+       const n = state.a.length;
+-      if (experiment?.kind === "basal-width") {
+-        this.basalWidthCache = new Uint32Array(n);
+-        this.basalWidthCacheDirty = true;
+-      }
+       this.scratch1 = new Float64Array(n);
+       this.scratch2 = new Float64Array(n);
+       this.sEff = new Float64Array(n);
+@@ -998,6 +997,60 @@ export class LKSolver implements SurfaceOperator {
+     return this.cycleState;
+   }
+ 
++  /** Complete completed-cycle state for the separately identified discovery runner. */
++  exportDiscoveryResumeState(): DiscoveryResumeState {
++    if (this.cycleState !== "boundary") {
++      throw new Error(`discovery resume requires cycle-boundary state (state=${this.cycleState})`);
++    }
++    if (this.surfacePolicy !== "aggregate-hv-g1h1-v6" || this.farField !== "monopole-matched" ||
++      this.domain !== "hexPrism") throw new Error("discovery resume requires v6 monopole hexPrism");
++    if (this.paramSet !== "M1" && this.paramSet !== "M1_NO_DIP_ABLATION") {
++      throw new Error("discovery resume requires M1 or matched no-dip");
++    }
++    if (this.experimentalHoleFilling !== undefined) throw new Error("discovery resume excludes hole-filling experiments");
++    if (this.testHookEverUsed) throw new Error("discovery resume rejects every solver that has ever used a test hook");
++    if (this.acceptedEnvironmentEventCount > 1) throw new Error("discovery resume supports one environment event");
++    let lastRelaxation: LKResumeRelaxationReportV3 | null = null;
++    if (this.lastRelaxation !== null) {
++      const report = this.lastRelaxation;
++      if (report.residual === null || report.divergenceResidual === null || report.shellClampDiagnostic === null ||
++        report.surfaceExchangeDiagnostic === null || report.smootherDriftDiagnostic === null ||
++        report.minLocalSurfaceExchangeDiagnostic === null) throw new Error("discovery resume requires complete v6 diagnostics");
++      lastRelaxation = {
++        sweeps: report.sweeps, converged: report.converged, residual: report.residual,
++        divergenceResidual: report.divergenceResidual, shellClampDiagnostic: report.shellClampDiagnostic,
++        surfaceExchangeDiagnostic: report.surfaceExchangeDiagnostic, smootherDriftDiagnostic: report.smootherDriftDiagnostic,
++        minLocalSurfaceExchangeDiagnostic: report.minLocalSurfaceExchangeDiagnostic,
++      };
++    }
++    const epoch = this.mutationEpoch;
++    return {
++      numericEngine: "float64-cpu", resumePhase: "cycle-boundary", cycleState: "boundary",
++      dims: this.dims, tick: this.tick, rngSeed: this.rngSeed, noiseEpsilon: this.noiseEpsilon,
++      domain: "hexPrism", center: this.center, tempC: this.tempC, sigmaInfinity: this.sigmaInfinity,
++      dxUm: this.dxUmInput, pressurePa: this.pressurePa, paramSet: this.paramSet,
++      cflFill: this.cflFill, relaxTol: this.relaxTol, divTol: this.divTol,
++      relaxMaxSweeps: this.relaxMaxSweeps, surfacePolicy: "aggregate-hv-g1h1-v6", farField: "monopole-matched",
++      activeCellCount: this.activeCellCount, shellCellCount: this.dirichletCells.length,
++      hexRadius: this.hexRadius, zHalfExtent: this.zHalfExtent, attachedCount: this.attachedCount,
++      holeFillCountTotal: this.holeFillCountTotal, a: this.a, f: this.f, sigma: this.sigma,
++      boundaryOrder: this.boundaryList, lastAttached: this.lastAttached, simTimeSeconds: this.simTimeSeconds,
++      volumeRateM3PerS: this.volumeRateM3PerS, lastMaxFillVelocityMS: this.lastMaxFillVelocityMS,
++      fillLedger: this.fillLedger, holeFillDeficit: this.holeFillDeficit,
++      saturationClippedFill: this.saturationClippedFill, lastRelaxation,
++      acceptedEnvironmentEventCount: this.acceptedEnvironmentEventCount,
++      closedPlacedFillVaporUnits: this.closedPlacedFillVaporUnits,
++      currentTemperatureSegmentStartFill: this.currentTemperatureSegmentStartFill,
++      testHookEverUsed: false, experimentalFacetDips: this.experimentalFacetDips ?? null,
++      experimentalBasalWidthCells: this.experimentalBasalWidthCells ?? null,
++      experimentalBasalWidthHistory: this.experimentalBasalWidthHistory ?? null,
++      mutationEpoch: () => {
++        if (this.mutationEpoch !== epoch) throw new Error("discovery resume snapshot is stale");
++        return epoch;
++      },
++    };
++  }
++
+   /**
+    * Snapshot the protocol-independent v3 cycle-boundary state. The three main fields remain the
+    * solver-owned arrays so the streaming encoder does not allocate multi-gigabyte copies. Core
+@@ -1009,33 +1062,6 @@ export class LKSolver implements SurfaceOperator {
+       this.experimentalBasalWidthCells !== undefined) {
+       throw new Error("experimental LK modes are not represented by ordinary LK checkpoints");
+     }
+-    if (this.paramSet !== "CAK" && this.paramSet !== "M1") {
+-      throw new Error(`LK resume export rejects production-ineligible paramSet ${this.paramSet}`);
+-    }
+-    return this.commonResumeStateV3();
+-  }
+-
+-  /** The bounded ADR 0060 modes always carry their effective kinetics beside common state. */
+-  experimentalResumeStateV1(): LKExperimentalResumeStateV1 {
+-    if (this.experimentalHoleFilling !== undefined) {
+-      throw new Error("experimental resume rejects hole-filling overrides");
+-    }
+-    let descriptor: unknown;
+-    if (this.experimentalBasalWidthCells !== undefined) {
+-      descriptor = { kind: "basal-width", widthCells: this.experimentalBasalWidthCells,
+-        history: this.experimentalBasalWidthHistory ?? null };
+-    } else if (this.experimentalFacetDips !== undefined) {
+-      descriptor = { kind: "facet-dips", arm: this.experimentalFacetDips };
+-    } else if (this.paramSet === "M1_NO_DIP_ABLATION") {
+-      descriptor = { kind: "ordinary-no-dip" };
+-    } else {
+-      throw new Error("experimental resume supports only the registered BLD preparations");
+-    }
+-    return { experiment: validateLKExperimentalResumeDescriptorV1(descriptor), common: this.commonResumeStateV3() };
+-  }
+-
+-  /** Shared structural state; public export methods retain their separate eligibility guards. */
+-  private commonResumeStateV3(): LKResumeStateV3 {
+     if (this.cycleState !== "boundary") {
+       throw new Error(
+         `LK resume export requires cycle-boundary state (state=${this.cycleState})`,
+@@ -1050,8 +1076,8 @@ export class LKSolver implements SurfaceOperator {
+     if (this.domain !== "hexPrism") {
+       throw new Error(`LK resume export requires hexPrism domain, got ${this.domain}`);
+     }
+-    if (this.paramSet !== "CAK" && this.paramSet !== "M1" && this.paramSet !== "M1_NO_DIP_ABLATION") {
+-      throw new Error(`LK resume export rejects unsupported common paramSet ${this.paramSet}`);
++    if (this.paramSet !== "CAK" && this.paramSet !== "M1") {
++      throw new Error(`LK resume export rejects production-ineligible paramSet ${this.paramSet}`);
+     }
+     if (this.testHookEverUsed) {
+       throw new Error("LK resume export rejects every solver that has ever used a test hook");

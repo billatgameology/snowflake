@@ -42,6 +42,12 @@ and the factorial interaction (both - basal-only - prism-only + neither) negativ
 opposing and coupled contributions in this implementation over the measured comparisons. It does
 not identify a unique temperature crossover or a temperature-independent facet effect.
 
+`bracket-endpoint-sensitivity.json` separately combines each recorded at-or-before/next-event
+value. Both -8 C quartet-age positive contrasts retain their signs, and all six quartets retain
+positive basal-only, negative prism-only and negative interaction signs under those combinations.
+This check concerns recorded bracketing endpoints, not bounds on continuous dynamics or arbitrary
+intermediate geometry. `check-brackets.mjs` reproduces it from the canonical report into a new file.
+
 At -8 C the wide seed's both-minus-neither difference becomes -0.032164 at the later pair-specific
 common age 11.687289234922202 s. The neither observation is bracketed by
 11.67217550604954 / 11.705013959429051 s, with aspect ratio 0.6111111111111112 on both records;
@@ -140,7 +146,7 @@ event geometry, elapsed durations, every bracket and the static controls.
 
 These are options, not a registered roster or launch authorization. The warm/cold BLD findings
 should set the final joint priority. N64 / dx .35 um / maximum extent 21 remains a short early-growth
-window; largest center span is 7 um. This review did not audit field/checkpoint bytes, rerun a
+window; maximum recorded lattice-coordinate center span is 7 um. This review did not audit field/checkpoint bytes, rerun a
 solver, establish trajectory equivalence across computers, or perform an independent review.
 
 ## Source comparability and rerun
@@ -156,7 +162,7 @@ Run from the primary repository root, providing the complete two campaign roots 
 destination file. After worktree retirement:
 
 ```powershell
-node out/hil-bld-joint-review-20261008/hil/analyze.mjs out/hil-retired-2026-10-08/discovery-resume/batch1-hil-resumable out/hil-retired-2026-10-08/hil-exploration-batch2/batch2-hil out/hil-bld-joint-review-20261008/hil/analysis-rerun.json
+node evidence/hil-bld-joint-review-2026-10-08/hil/analyze.mjs out/hil-retired-2026-10-08/discovery-resume/batch1-hil-resumable out/hil-retired-2026-10-08/hil-exploration-batch2/batch2-hil out/hil-bld-joint-review-20261008/hil/analysis-rerun.json
 ```
 
 The first two arguments replace old paths; the script does not modify either campaign. Root may

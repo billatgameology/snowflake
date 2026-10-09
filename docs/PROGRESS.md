@@ -11,7 +11,8 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   HIL coordinates shared code and joint review; each PC receives a queue of comparisons.
   Shared main publication includes `5c97292`; BLD's `b333782` is preserved by pushed tag `run/bld-first-batch-2026-10-08` and its
   [evidence/NAS records are imported](../evidence/hil-bld-pickup-2026-10-08/README.md), with HIL verification complete.
-  HIL has [56 first-batch endpoints](plans/hil-bld-first-batch.md#recovery-completion-2026-10-08) and [16 successor endpoints](plans/hil-exploration-batch2.md#completion-2026-10-08). BLD has 42 checked endpoints. All 114 cases are available for comparative analysis; no new run is dispatched.
+  HIL has 56 + 16 checked endpoints and BLD has 42. The [joint 114-case review](../evidence/hil-bld-joint-review-2026-10-08/README.md) identifies warm growth memory, prism-sensitive cold structure and age-sensitive seed response. These are internal model-development leads; no successor run is selected.
+  Maker-requested HIL retirement is recorded in the [active plan](plans/post-phase10-adaptive-discovery.md#joint-october-review-and-hil-retirement--2026-10-08). All scientific output is retained in primary `out/hil-retired-2026-10-08/`; compressed HIL evidence is tracked and pinned. Completed execution refs are reconciled; final integration/checks are being closed.
 - **New-host follow-up:** [complete](plans/new-host-acceptance-and-capacity-2026-10-07.md),
   locally integrated through `cf1386e`. Glass/camera browser and direct visual acceptance pass;
   the six comparison inputs and both small independent C-drive backups are restored and verified.
@@ -161,13 +162,11 @@ Local closeout metadata checks passed: `npx.cmd vitest run runner/test/evidence-
 The [closeout result](../evidence/new-host-readiness-2026-10-07/verification/closeout-checks.json)
 binds commands, exits and exact logs; no implementation changes followed the full-check checkpoint.
 
-
 New-host acceptance/evidence exact `npm.cmd test` at clean `cbe2542`, Node v24.13.1, exited zero:
 **226 files / 2,950 tests passed, 23 skipped**, 803.18 seconds.
 The tracked [full-check result](../evidence/new-host-readiness-2026-10-07/verification/full-check-result.json)
 binds source, command, raw logs and exit; Rule 7 and both typechecks are included. Product acceptance
 separately used five focused files / 59 tests, app build and the live browser/visual boundary.
-
 
 The agent-rules cleanup's `npm.cmd run lint:rule7`, `git diff --check` and bounded text review
 passed. Primary `out/agent-rules-cleanup-2026-10-07/document-checks-final.json` records 717 → 415
@@ -212,11 +211,11 @@ custody remain retained. Primary `nas-retention-review.json` records the disposi
   work plan before its risky action; agent discipline is distinguished from automated enforcement.
 - [Repository housekeeping](plans/repository-housekeeping-2026-10-07.md) is complete. Its required
   checks, approved cleanup, local fast-forward and non-force worktree/ref closeout are recorded.
-- [Adaptive discovery](plans/post-phase10-adaptive-discovery.md) continues through the
-  [completed HIL successor](plans/hil-exploration-batch2.md) and imported BLD results; joint review is next.
+- [Adaptive discovery](plans/post-phase10-adaptive-discovery.md) has a completed internal
+  [joint review](../evidence/hil-bld-joint-review-2026-10-08/README.md); successor priorities await maker discussion.
   All six old HIL operational failures reached size endpoints through
   [same-source recovery](plans/hil-bld-first-batch.md#recovery-completion-2026-10-08).
-  All 72 HIL rows across both batches pass the existing operational summary checks; track analysis remains.
+  All 72 HIL rows pass existing operational checks; their event geometry was independently reconstructed.
 - [Glass/camera follow-up](plans/explore-gutcheck-growth-glass-camera.md) has an implementation candidate
   with completed local browser/visual acceptance: current tracked glass record SHA-256
   `052b4c0f92fc1f8ea9b5c88219322c4fd3ceaba4db79051a93b587d6bd4c51c8`.
@@ -236,12 +235,12 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-Review all 114 completed cases before selecting more runs: HIL 56 + 16 and BLD 42. [Censuses, receipts and limits](../evidence/hil-bld-pickup-2026-10-08/README.md) establish operational coverage, not morphology findings or validation.
-Read the [second-batch registered readout](plans/hil-exploration-batch2.md#frozen-roster-and-stopping-rules) and [BLD registered cold/warm comparisons](plans/hil-bld-first-batch.md#registered-original-first-stage-elapsed-time-policy-superseded-above); compare at actual physical-time brackets.
-BLD's 42 endpoints are restored and independently checked on HIL in `C:/Users/biao3/.codex/worktrees/hil-bld-results-integration/snowflake/out/restores/bld-first-batch-output-2026-10-08/`.
-Collection `bld-first-batch-output@2026-10-08` resolves through `Z:/`; all 2061 files / 1050129781 bytes passed fresh-restore checks. Recheck in that checkout: `npm.cmd run assets:verify-restored -- --collection bld-first-batch-output@2026-10-08 --from out/restores/bld-first-batch-output-2026-10-08`.
-BLD producer `d7ff3e1` has separate resume code and branch-local ADR 0060. Only evidence/catalogue/provenance is imported. Inspect source differences before joint interpretation; do not resume BLD checkpoints with HIL code or infer trajectory equivalence from endpoint coverage.
-Retain HIL's fixed execution checkouts and all outputs, including the stopped `f4ca38a` observations and the [six recovered failure records](plans/hil-bld-first-batch.md#recovery-completion-2026-10-08). BLD [branch retirement](plans/hil-bld-first-batch.md#bld-branch-retirement--2026-10-08) retains its outputs in primary staging. No new campaign is launched; Phase 7 stays on hold and S6 closed.
+Discuss the [joint report and proposed priorities](../evidence/hil-bld-joint-review-2026-10-08/README.md): HIL seed/facet persistence plus existing pressure interior profiles; BLD warm grid/seed-width qualification and a selected cold prism comparison. No next roster is frozen or dispatched.
+Before finer-grid work, inspect `core/src/discovery-resume-checkpoint.ts`: the current format rejects more than `64 ** 3` cells or 64 MiB. A maker-selected refinement needs a bounded extension, real larger-grid restart witness and fresh host budget; N64 probe results do not transfer.
+Readouts preserve exact physical-time brackets. Seed endpoint and common-age signs can differ; cold gap is a small post-hoc lattice measure; warm layers are not independent cavities. All findings remain model-development evidence.
+HIL originals are in primary `out/hil-retired-2026-10-08/{discovery-resume,hil-exploration-batch2,hil-first-batch}/`, including every checkpoint and recovered failure tail; their complete compressed outputs are pinned in the joint bundle.
+BLD's HIL restore is now primary `out/hil-retired-2026-10-08/hil-bld-results-integration/restores/bld-first-batch-output-2026-10-08/`. Its original tracked archives and NAS collection remain unchanged. For a fresh NAS recovery use `npm.cmd run assets:restore -- --collection bld-first-batch-output@2026-10-08 --to out/restores/bld-first-batch-output-next-review`, then the catalogue's verify-restored command.
+Use the child HIL/BLD reports' rerun commands with scripts in `evidence/hil-bld-joint-review-2026-10-08/` and fresh output paths. Retain producer-specific source history; do not resume BLD checkpoints with HIL code. Phase 7 stays on hold and S6 closed.
 HIL's exact `npm.cmd test` at `b9d7eb0` passed 235 files / 3045 tests, 23 skipped ([receipt](../evidence/hil-exploration-batch2-2026-10-08/verification.json)); its representative real N64 pause/resume before launch [witness](../evidence/discovery-resume-2026-10-07/verification.json) remains retained. This import changes no scientific producer.
 
 Education proceeds separately with the maker. The readiness/cleanup work is complete. Full large

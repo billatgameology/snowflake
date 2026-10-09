@@ -1,9 +1,9 @@
 # Plan — HIL second exploration batch
 
 - **Phase:** post-Phase-10 development exploration under the approved HIL/BLD portfolio.
-- **Status:** execution complete on fixed `4322807`; all sixteen rows reached extent 21 and pass the existing operational summary checks. Comparative scientific analysis remains.
+- **Status:** execution and internal comparison complete; all sixteen rows reached extent 21. [Joint review and retained output](../../evidence/hil-bld-joint-review-2026-10-08/README.md) own the current findings and locators.
 - **Started / last touched:** 2026-10-08 by Codex/GPT-6.
-- **Branch / checkout:** `codex/hil-exploration-batch2`, `C:/Users/biao3/.codex/worktrees/hil-exploration-batch2/snowflake`.
+- **Historical branch / checkout:** `codex/hil-exploration-batch2` at `4322807`, now retired after exact output preservation; all paths below are producer-era provenance unless superseded by the joint review.
 - **Authority:** current charter section 2.5, accepted decisions 0055 and 0060; [portfolio](post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld).
 
 ## Goal

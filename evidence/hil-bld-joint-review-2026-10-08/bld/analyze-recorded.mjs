@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, readdirSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { resolve, dirname } from 'node:path';
@@ -6,8 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { analyzeCavityRows, bracketCavityTime } from '../../../runner/src/post-phase10-cavity-analysis.ts';
 import { hexSeedSites, domainCenter, coordsOf } from '../../../core/src/index.ts';
 
-const output = resolve(process.env.BLD_REVIEW_OUTPUT ?? dirname(fileURLToPath(import.meta.url)));
-mkdirSync(output,{recursive:true});
+const output = dirname(fileURLToPath(import.meta.url));
 const input = process.env.BLD_REVIEW_INPUT ?? 'C:/Users/biao3/.codex/worktrees/hil-bld-results-integration/snowflake/out/restores/bld-first-batch-output-2026-10-08/batch1-bld-resumable';
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const inputs = [];

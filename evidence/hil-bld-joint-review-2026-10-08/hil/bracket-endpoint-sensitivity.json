@@ -1,0 +1,155 @@
+{
+  "scope": "Combinations of recorded bracketing endpoint values only; not bounds on interpolated or continuous dynamics",
+  "checks": [
+    {
+      "tempC": -7,
+      "seed": [
+        3,
+        1
+      ],
+      "bracketEndpointCombinations": {
+        "bothMinusNeither": [
+          0.07309941520467833,
+          0.10526315789473684
+        ],
+        "basalOnlyMinusNeither": [
+          0.2712418300653594,
+          0.3034055727554179
+        ],
+        "prismOnlyMinusNeither": [
+          -0.1374269005847954,
+          -0.10526315789473689
+        ],
+        "interaction": [
+          -0.09287925696594423,
+          -0.06071551427588573
+        ]
+      }
+    },
+    {
+      "tempC": -7,
+      "seed": [
+        1,
+        5
+      ],
+      "bracketEndpointCombinations": {
+        "bothMinusNeither": [
+          0.2938439653775493,
+          0.2938439653775493
+        ],
+        "basalOnlyMinusNeither": [
+          0.4615384615384617,
+          0.4615384615384617
+        ],
+        "prismOnlyMinusNeither": [
+          -0.08241758241758235,
+          -0.08241758241758235
+        ],
+        "interaction": [
+          -0.08527691374333002,
+          -0.08527691374333002
+        ]
+      }
+    },
+    {
+      "tempC": -8,
+      "seed": [
+        3,
+        1
+      ],
+      "bracketEndpointCombinations": {
+        "bothMinusNeither": [
+          0.049535603715170295,
+          0.049535603715170295
+        ],
+        "basalOnlyMinusNeither": [
+          0.23529411764705876,
+          0.23529411764705876
+        ],
+        "prismOnlyMinusNeither": [
+          -0.055727554179566596,
+          -0.055727554179566596
+        ],
+        "interaction": [
+          -0.13003095975232182,
+          -0.13003095975232182
+        ]
+      }
+    },
+    {
+      "tempC": -8,
+      "seed": [
+        1,
+        5
+      ],
+      "bracketEndpointCombinations": {
+        "bothMinusNeither": [
+          0.05238095238095242,
+          0.05238095238095242
+        ],
+        "basalOnlyMinusNeither": [
+          0.40109890109890123,
+          0.40109890109890123
+        ],
+        "prismOnlyMinusNeither": [
+          -0.2767857142857142,
+          -0.2142857142857142
+        ],
+        "interaction": [
+          -0.13443223443223462,
+          -0.07193223443223462
+        ]
+      }
+    },
+    {
+      "tempC": -9,
+      "seed": [
+        3,
+        1
+      ],
+      "bracketEndpointCombinations": {
+        "bothMinusNeither": [
+          -0.12631578947368421,
+          -0.12631578947368421
+        ],
+        "basalOnlyMinusNeither": [
+          0.1333333333333333,
+          0.1333333333333333
+        ],
+        "prismOnlyMinusNeither": [
+          -0.23157894736842105,
+          -0.23157894736842105
+        ],
+        "interaction": [
+          -0.028070175438596467,
+          -0.028070175438596467
+        ]
+      }
+    },
+    {
+      "tempC": -9,
+      "seed": [
+        1,
+        5
+      ],
+      "bracketEndpointCombinations": {
+        "bothMinusNeither": [
+          -0.1333333333333333,
+          -0.1333333333333333
+        ],
+        "basalOnlyMinusNeither": [
+          0.3666666666666667,
+          0.3666666666666667
+        ],
+        "prismOnlyMinusNeither": [
+          -0.25098039215686274,
+          -0.25098039215686274
+        ],
+        "interaction": [
+          -0.24901960784313726,
+          -0.24901960784313726
+        ]
+      }
+    }
+  ]
+}

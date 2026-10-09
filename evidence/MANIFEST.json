@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 976,
- "totalBytes": 294480393,
+ "fileCount": 984,
+ "totalBytes": 294552083,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -3863,8 +3863,8 @@
    "sha256": "ed02a49627463604df5ea0225e6a16cdbf4d0be1d38479c025eb8887c8a06500"
   },
   "hil-bld-joint-review-2026-10-08/bld/analyze.mjs": {
-   "bytes": 9942,
-   "sha256": "d093491f602d07111d27fa58398753496cef33cc5c8fe31a7321d41ba4d8bbed"
+   "bytes": 10031,
+   "sha256": "c149d90b2005e43ab0dc1101ff79f4831187f43c0a0b6a50cc8712485a747c80"
   },
   "hil-bld-joint-review-2026-10-08/bld/bld-analysis.json": {
    "bytes": 879223,
@@ -3891,8 +3891,8 @@
    "sha256": "fdea3c327a0506034e0403faa389c57fbbefad99c049fe6bbab3d0d77a3a4b31"
   },
   "hil-bld-joint-review-2026-10-08/hil/README.md": {
-   "bytes": 11529,
-   "sha256": "41195a958d523577fc1e54c0c6eb41f615aaf6cfdcf79f8c87ff87776f22b778"
+   "bytes": 12052,
+   "sha256": "8dfbcc2cc3129f24bec36fcad78c99dd6a7c59977b82c8a3d72a874b2bee29c8"
   },
   "hil-bld-joint-review-2026-10-08/hil-exploration-batch2-archive.json": {
    "bytes": 428033,
@@ -3909,6 +3909,38 @@
   "hil-bld-joint-review-2026-10-08/hil-first-batch-output.tar.gz": {
    "bytes": 957457,
    "sha256": "f1a4ce15832792b3e2c2fd0de3b85d26ce8c5cb4d4090d0a2763c84dbac771dd"
+  },
+  "hil-bld-joint-review-2026-10-08/bld/analyze-recorded.mjs": {
+   "bytes": 9942,
+   "sha256": "d093491f602d07111d27fa58398753496cef33cc5c8fe31a7321d41ba4d8bbed"
+  },
+  "hil-bld-joint-review-2026-10-08/bld/artifact-hashes.json": {
+   "bytes": 1083,
+   "sha256": "f14ea475483bf6524a2e0180c9cd2a91bad2c4c2a5d78156018768b18f30f6f4"
+  },
+  "hil-bld-joint-review-2026-10-08/bld/producer-diff.patch": {
+   "bytes": 32890,
+   "sha256": "431839de93f5c032f35e37bcddafdafcbb18d08d5e3470f2cdcb3c0fe7515088"
+  },
+  "hil-bld-joint-review-2026-10-08/bld/README.md": {
+   "bytes": 8318,
+   "sha256": "525ca1c4d0bc6752a4380d8dc2af06be83985f88f47940783854c66d52304f7a"
+  },
+  "hil-bld-joint-review-2026-10-08/hil/bracket-endpoint-sensitivity.json": {
+   "bytes": 3384,
+   "sha256": "0d912b2ac65dfe30a621eb735168449ef8c4d5a3f3904e68f9d4e309ebcf2a96"
+  },
+  "hil-bld-joint-review-2026-10-08/hil/check-brackets.mjs": {
+   "bytes": 1159,
+   "sha256": "bb51941b0c538b92a49505c20b55adb74f6b95363f5d3b7e1343c2e036780e38"
+  },
+  "hil-bld-joint-review-2026-10-08/README.md": {
+   "bytes": 5842,
+   "sha256": "1b02e2fdfdcb38a4458c405212c7f3086c2b7205a6e17275c1f3d7dd0da1a145"
+  },
+  "hil-bld-joint-review-2026-10-08/review.json": {
+   "bytes": 8460,
+   "sha256": "bf6dc3d5a8a4e011259c439edf425382c3a123b68b8885d915a331e4731b7f6c"
   }
  }
 }

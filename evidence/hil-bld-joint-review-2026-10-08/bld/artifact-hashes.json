@@ -1,0 +1,32 @@
+[
+  {
+    "path": "out/hil-bld-joint-review-20261008/bld/analyze.mjs",
+    "bytes": 10031,
+    "sha256": "c149d90b2005e43ab0dc1101ff79f4831187f43c0a0b6a50cc8712485a747c80"
+  },
+  {
+    "path": "out/hil-bld-joint-review-20261008/bld/analyze-recorded.mjs",
+    "bytes": 9942,
+    "sha256": "d093491f602d07111d27fa58398753496cef33cc5c8fe31a7321d41ba4d8bbed"
+  },
+  {
+    "path": "out/hil-bld-joint-review-20261008/bld/bld-analysis.json",
+    "bytes": 879223,
+    "sha256": "6c03e0271b9818ef01966d8b1c3763ec0359b99185e2898f58a108f13ce7fa65"
+  },
+  {
+    "path": "out/hil-bld-joint-review-20261008/bld/cavity-readout.json",
+    "bytes": 5498077,
+    "sha256": "c9eb3f1161321d3b421fb3dcdf0f2b8ea61b6c0724b13aedcb4563bc37dbda69"
+  },
+  {
+    "path": "out/hil-bld-joint-review-20261008/bld/README.md",
+    "bytes": 8202,
+    "sha256": "0d874baa1d2af19807bb6415e8df01831d206a84f3f6c6f0b04be393a6cc27de"
+  },
+  {
+    "path": "out/hil-bld-joint-review-20261008/bld/producer-diff.patch",
+    "bytes": 32890,
+    "sha256": "431839de93f5c032f35e37bcddafdafcbb18d08d5e3470f2cdcb3c0fe7515088"
+  }
+]
