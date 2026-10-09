@@ -251,3 +251,30 @@ correction should reuse applicable measurements, keep live memory guards and res
 and separate timing estimates from resource admission. No new ladder, source change, restart or
 concurrency change was performed for this status check. Preserve the running work while resolving
 that launch-policy issue; the production rows themselves have no wall deadline.
+
+## Operational amendment — run the remaining four cases together
+
+Maker direction on October 9 asks to use runnable queued work after rejecting repeated speed
+qualification. Deliverable: the current fine-thin broad state resumed and the other three fine
+rows running concurrently on HIL, with both coarse endpoints preserved. The four-process probe
+already measured ample memory for these exact configurations; its deadline failure is retained
+honestly and does not become a passed prefix. Do not repeat the capacity ladder.
+
+Keep producer `838c294`, row definitions, numerical controls, source/runtime bindings and the
+original campaign/probe receipts unchanged. Use a bounded operational invocation in the existing
+control directory: validate the original campaign binding, stop the old owned coordinator/workers,
+acquire the existing campaign lease, call `planFirstBatchResume`, then `launchDiscoveryRows` at
+concurrency four with unique attempt logs, its normal host-memory monitor and no wall limit.
+The separate invocation records the operational change from original concurrency one to four.
+On subsequent interruption use that same invocation, not the original CLI that remains bound to one.
+
+Accidental duplicate writers would corrupt row observations (lesson A3); the ordinary CLI also
+cannot alter a frozen campaign's concurrency. Reuse its exported lease, selection, resume and
+monitor APIs rather than build another scheduler or rewrite receipts. Lesson E4 and ADR 0060
+retain completed-cycle recovery: only an unfinished relaxation may repeat. Solo research;
+hostile-owner controls are excluded. No numerical behavior, evidence evaluator or codec changes.
+Verification is operational syntax, existing execution/resume focused tests, typecheck and actual
+four-worker launch with restored cycle/progress and distinct process/log records. Stop there;
+the existing exact full suite and N126 restart differential still govern the unchanged producer.
+Done when all four pending rows are active under one coordinator with memory samples and exact
+pause/resume paths recorded. Preserve every prior output; no NAS move, pruning or BLD dispatch.
