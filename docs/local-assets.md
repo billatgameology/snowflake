@@ -51,8 +51,9 @@ or source-prune authority; keep the restored inputs while using the gallery.
 | 2026-08-15 macOS session scratch | 348,672-byte tar · 17 members | no | Non-served collection `collections/out-legacy-scratch-archives/2026-08-15/payload/`; contains the former `.claude/`, `out/`, and `tmp/` trees. |
 
 `out/` and ignored `research/` payloads are local staging, not retention classes. Before cleanup,
-claim evidence moves to tracked `evidence/`, another useful collection publishes through decision
-0051, or scratch is explicitly discarded. A legacy ledger or same-NAS archive detects or supplies
+concise claim artifacts move to tracked `evidence/`, bulk claim inputs publish as external evidence
+under decisions 0051/0061, another useful collection follows its class, or scratch is explicitly
+discarded. A legacy ledger or same-NAS archive detects or supplies
 some historical bytes but does not retroactively certify the whole staging tree as preserved.
 
 The NAS layout has one rule for future work: durable bytes go to
@@ -72,8 +73,10 @@ serveable through `/nas`.
 
 1. **Classify before copying.** Inventory the staging tree, decide its single storage class,
    rights/privacy/serve policy, retention, reproducibility, restore requirement, and backup
-   requirement. Claim-bearing project-owned bytes that fit Git go to `evidence/`; declared scratch
-   is discarded; only the remaining durable large/private bytes use a NAS collection.
+   requirement. Concise claim artifacts and small fixtures go to `evidence/`; new bulk run payloads
+   go to NAS even when compressed. Claim-bearing bulk uses external-evidence under decision 0061
+   and the governing plan, while reproducible non-claim output may use generated-cache. Declared
+   scratch has an explicit discard disposition.
 2. **Register the intent.** Choose `<asset-id>@<version>` and add a provisional
    `docs/nas-assets.json` entry before durable placement. The version is immutable; changed bytes
    require a new version rather than an in-place refresh.
@@ -98,6 +101,30 @@ Generic forward publication/pruning is intentionally not exposed as an npm comma
 use justifies that interface, the collection's bounded plan records the exact copy, hash, receipt,
 restore, and verification commands. Raw copy commands can transport bytes, but cannot by themselves
 earn a preservation or deletion claim.
+
+### Required before closing a worktree
+
+[Decision 0061](decisions/0061-nas-backup-before-worktree-closeout.md) requires useful retained
+output to have a verified NAS recovery copy before a worktree is closed, removed or archived.
+Git carries the small record: source, concise results, analysis/verifier scripts, recipes,
+provenance, manifests, hashes, share-relative locators and recovery receipts. Full-run archives,
+dense checkpoint/field collections, event/snapshot collections, renders and similar bulk payloads
+do not enter Git/GitHub, even when compression makes an individual archive small. Classification
+is by role, without a numeric size threshold; small fixtures and concise claim evidence stay tracked.
+
+Inventory useful output, including ignored files, then complete the procedure above and record
+the collection/version, exact covered paths and successful recovery in the affected plan. Reuse
+an existing immutable collection with matching byte identities and verified recovery covering
+those outputs; closing another worktree does not require a duplicate copy or a repeated restore.
+Local relocation and pushed Git archives alone do not satisfy this NAS requirement. If the share
+is unavailable or preservation is incomplete, retain the output-owning worktree until it is resolved.
+
+Code/docs-only worktrees with no useful output payload record that fact. Reinstallable dependencies,
+rebuildable builds and explicitly declared scratch need no NAS publication. Do not reclassify a
+cited diagnostic or useful failed attempt as scratch to avoid preservation. Worktree closure still
+requires Git reconciliation and never authorizes pruning retained source copies; external evidence,
+unique sources and masters retain their independent-copy requirements. Existing tracked historical
+payloads remain unchanged; removing old Git blobs is a separate decision, not part of closeout.
 
 ### Enforcement
 

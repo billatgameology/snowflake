@@ -3094,6 +3094,89 @@
       },
       "supersedes": [],
       "unresolved": []
+    },
+    {
+      "assetId": "hil-completed-runs",
+      "version": "2026-10-09",
+      "state": "provisional",
+      "ownerWorkstream": "nas-worktree-closeout",
+      "locator": "collections/hil-completed-runs/2026-10-09/payload",
+      "historicalRepoPath": "out/hil-retired-2026-10-08",
+      "legacyAliases": [],
+      "storageClass": "external-evidence",
+      "aggregate": {
+        "files": 6,
+        "bytes": 135501385
+      },
+      "ownerManifest": null,
+      "rights": {
+        "kind": "project-owned",
+        "redistribution": "allowed"
+      },
+      "privacy": "public",
+      "serve": {
+        "policy": "deny",
+        "prefixes": []
+      },
+      "retention": {
+        "policy": "permanent",
+        "garbageCollection": {
+          "policy": "never",
+          "graceDays": null,
+          "approver": "maker"
+        }
+      },
+      "mutability": "immutable",
+      "externalEvidenceAuthority": {
+        "charterRefs": [
+          "project charter.md"
+        ],
+        "decisionRefs": [
+          "docs/decisions/0061-nas-backup-before-worktree-closeout.md"
+        ],
+        "planRefs": [
+          "docs/plans/nas-worktree-closeout.md"
+        ],
+        "claimRefs": [
+          "evidence/hil-bld-joint-review-2026-10-08/README.md"
+        ]
+      },
+      "provenance": {
+        "record": "docs/plans/nas-worktree-closeout.md",
+        "producerCommit": "5310475c3b432cdd2c8335e67309238dfaccbf29",
+        "command": "node docs/nas-assets/manifests/hil-completed-runs/2026-10-09-preserve.mjs prepare"
+      },
+      "reproducibility": {
+        "kind": "exact-recipe",
+        "record": "docs/plans/nas-worktree-closeout.md"
+      },
+      "restore": {
+        "status": "documented",
+        "command": "npm run assets:restore -- --collection hil-completed-runs@2026-10-09 --to out/restores/hil-completed-runs-2026-10-09",
+        "verifyCommand": "npm run assets:verify-restored -- --collection hil-completed-runs@2026-10-09 --from out/restores/hil-completed-runs-2026-10-09",
+        "record": "docs/plans/nas-worktree-closeout.md"
+      },
+      "verification": {
+        "status": "unavailable",
+        "at": null,
+        "host": null,
+        "receipt": null,
+        "limits": [
+          "Publication pending."
+        ]
+      },
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
+      "backup": {
+        "status": "required-missing",
+        "independentDomains": [],
+        "receipts": []
+      },
+      "supersedes": [],
+      "unresolved": [
+        "Publish, freshly restore and verify; retain primary C-drive originals."
+      ]
     }
   ],
   "overlays": [

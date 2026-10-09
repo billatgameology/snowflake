@@ -358,10 +358,18 @@ Re-read Rules 14A–14B before adding assurance machinery.
 **A hash detects change; it does not preserve bytes. An ignore rule, path, raw copy or NAS presence
 grants neither preservation nor deletion authority.** Tracked research records remain Git authority;
 ignored research payloads and `out/` are local staging. Before useful bytes outlive a task or a local
-source is pruned, promote fitting project-owned claim evidence to tracked `evidence/` under
+source is pruned, promote concise project-owned claim artifacts to tracked `evidence/` under
 [ADR 0038](docs/decisions/0038-evidence-tree-is-tracked.md), or classify/publish under
 [ADR 0051](docs/decisions/0051-govern-durable-untracked-assets-on-nas.md). Explicitly declared scratch
 may be discarded. ADR 0038's historical `out/` deletion wording is superseded by this governance.
+
+**Git keeps the small record; NAS keeps bulk output.** Under
+[ADR 0061](docs/decisions/0061-nas-backup-before-worktree-closeout.md), new full-run archives,
+checkpoint/field collections, event/snapshot collections and other bulk generated payloads stay
+out of Git/GitHub even when compressed. Track concise results, scripts, recipes, provenance,
+manifests, hashes, NAS locators and recovery receipts; small fixtures and claim artifacts still
+belong in Git. Bulk claim inputs use external-evidence with the decision and plan binding, not a
+generated-cache label that weakens their retention. Historical tracked evidence stays unchanged.
 
 Before preserving, moving, serving or pruning a useful untracked collection, read and execute
 [local-assets.md's standard procedure](docs/local-assets.md#standard-procedure-for-a-new-retained-collection)
@@ -401,13 +409,23 @@ purpose, owner/removal condition in the existing plan and remove it when review 
 No `backup`/`finalize`/`close` chains instead of coherent commits. Emergency recovery refs name their
 protected work and must be reconciled/deleted before publication.
 
+**Before closing, removing or archiving a worktree, verify its useful retained output on NAS.**
+Use Rule 15's publication and fresh-restore procedure and commit the recovery bindings first;
+local relocation or a Git archive alone is insufficient. Reuse an existing immutable collection
+when its verified bytes and recovery record cover the exact output; do not recopy it merely for
+closeout. Record the collection/version and covered paths in the affected plan. A worktree with
+no useful output payload records that fact; dependencies and rebuildable builds need no backup.
+An unavailable NAS or incomplete preservation keeps the output-owning worktree open. Source
+pruning remains a separate decision under Rule 15; closing a checkout grants no deletion waiver.
+
 Before pushing/opening a PR:
 
 1. List every registered worktree/local branch and inspect staged, unstaged, untracked and ignored
    task-relevant state in each.
 2. Classify deltas as included, independently owned or verified superseded; preserve other workstreams.
 3. Remove temporary worktrees and redundant refs only after unique changes are committed, moved to
-   their owning checkout or explicitly approved for deletion.
+   their owning checkout or explicitly approved for deletion, and the NAS closeout requirement above
+   is satisfied for useful output.
 4. Verify the surviving primary, named unrelated worktrees and exactly one PR branch; record branch,
    head, checks and PR URL in the plan/progress and PR description.
 

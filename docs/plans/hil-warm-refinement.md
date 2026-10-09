@@ -209,6 +209,15 @@ New project-owned qualification bytes that fit Git are tracked evidence under de
 with verified decompressed member hashes, compact review/check receipts and logs. Leave original
 staging, failed attempts, live probe/campaign and checkpoint bytes intact; no prune is authorized.
 
+**Prospective closeout amendment — 2026-10-09:** maker-directed
+[decision 0061](../decisions/0061-nas-backup-before-worktree-closeout.md) supersedes the preceding
+Git-archive choice for new bulk output. Before this worktree closes, publish its useful retained
+campaign, checkpoint, probe/control and witness payloads to governed NAS collections and verify
+fresh-stage recovery; reuse already verified collections for exact covered bytes. Keep concise
+results, scripts, manifests, hashes and recovery receipts in Git. Existing committed witness
+archives and historical evidence remain unchanged. This amendment changes future preservation,
+not the running producer or scientific protocol, and grants no source-prune authorization.
+
 Publication reconciliation: refreshed `origin/main` remains `0be1d4e`. Primary main was
 fast-forwarded to tested producer `838c294` and owns only this task's subsequent documentation
 and qualification evidence. The sole additional branch/worktree is `codex/hil-warm-refinement`
