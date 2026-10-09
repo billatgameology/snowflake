@@ -1,8 +1,8 @@
 # Plan — HIL warm-cavity representation qualification
 
 - **Phase:** post-Phase-10 model-development exploration; charter section 2.5 and accepted decisions 0058, 0059 and 0060.
-- **Status:** implementation, restart differential and full verification complete; HIL resource qualification and automatic dispatch running.
-- **Started / last touched:** 2026-10-08 by Codex/GPT-6.
+- **Status:** production running at one worker; both coarse cases complete; parallel qualification limited by the probe watchdog.
+- **Started / last touched:** 2026-10-08 / 2026-10-09 by Codex/GPT-6.
 - **Branch / checkout:** `codex/hil-warm-refinement`, `C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake`, from `0be1d4e`.
 - **Authority:** maker accepted the saved-data follow-up recommendation and directed proceeding. HIL owns execution; propose BLD only if representative timing supports multiple days.
 
@@ -119,8 +119,8 @@ coverage. Existing source provenance and P3/P4 limitations remain; no parameter 
 
 - [x] Commit protocol, extend the bounded codec and add the six-row route.
 - [x] Run focused checks, actual N126 interruption differential, bounded review and full check.
-- [ ] Commit tested producer, qualify HIL at 1/4/6 workers and launch at its safe measured count.
-- [ ] Record actual invocation, live paths and recovery commands in PROGRESS.
+- [x] Commit tested producer and launch at the qualified count; one worker passed, four hit the probe watchdog, six were not attempted (see status below).
+- [x] Record actual invocation, live paths and recovery commands in PROGRESS.
 - [ ] After completion, compare paired and cross-grid outcomes using the registered readouts.
 
 ## Out of scope
@@ -135,6 +135,7 @@ S6, education, NAS publication and pruning of retained source outputs.
 - A new streamed codec is unnecessary for this bounded N126 payload, which fits the current byte cap.
 - Matching width by center span would substitute a different meaning for the specified inclusive chord.
 - A short-run wall cutoff or a fresh-seed retry does not satisfy the maker's resumability requirement.
+- The 1800-second four-worker probe cutoff rejected a slow prefix with ample memory and forced serial production. This measured deadline failure is not a hardware concurrency limit. Repeating the same timed ladder is not the remedy; distinguish resource safety from throughput.
 
 ## Open questions
 
@@ -178,8 +179,8 @@ overlap this probe; its wall times are not an isolated benchmark or mature-cost 
 After completed full-check and restart receipts, the local operational wrapper
 `out/warm-refinement-control/dispatch-after-probe.ps1` may wait for the existing probe, require
 its successful exit, then invoke the unchanged qualified launch. It was armed at
-`2026-10-09T04:38:47.8956373Z` as PID 18744 and is waiting for the resource probe. Its
-`dispatch-state.json` is the current launch-state record; no production launch is claimed yet. The
+`2026-10-09T04:38:47.8956373Z` as PID 18744, initially waiting for the resource probe. Its
+`dispatch-state.json` records wrapper transitions; the production launch is recorded below. The
 scientific dispatcher independently validates the exact source/runtime/host/roster receipt and
 retains the live memory guard. No BLD process or second-host workload is dispatched.
 
@@ -216,3 +217,37 @@ scratch; locked `node_modules/` is rebuildable. All useful outputs remain retain
 older ignored output belongs to the recorded prior collections and is unchanged. No temporary
 review checkout, extra ref, other task delta or PR exists. Publish directly to `origin/main`;
 keep the active execution branch/worktree until the six-case campaign and preservation finish.
+
+## Production status — 2026-10-09
+
+The successful probe wrapper exit at `2026-10-09T06:21:10.0357310Z` qualified concurrency one.
+Task `out/warm-refinement-probe-v2/probe.json` records all six serial prefixes completing; the
+four-worker rung stopped when fine-thin broad reached its 1800-second watchdog (1800.035 seconds).
+Fine-thin early completed in 1783.007 seconds, and the other three fine rows had saved two updates.
+Minimum available physical memory at that rung was 50825797632 bytes, with 58487824384 bytes of
+commit headroom. No memory guard triggered; the six-worker rung was not attempted. This shows
+a missed prefix deadline, not that HIL can support only one worker.
+
+Production launched at `2026-10-09T06:21:13.311Z`, recorded in task
+`out/warm-refinement-hil/warm-refinement-HIL-launch.json`, at source `838c294` and concurrency one.
+The coordinator PID 23224 and fine-thin broad worker PID 23688 were live at the morning inspection.
+Both coarse rows exited zero at size target 29: broad used 620 updates / 4791.678 wall seconds;
+early used 942 updates / 8314.843 wall seconds. These values come from their row `result.json`
+and `exit.json`; both producers report converged relaxations and no integrity errors. The results
+have not yet undergone the registered paired cavity analysis.
+
+Fine-thin broad's `status.json` at `2026-10-09T14:07:40.874Z` records cycle 95, extent 13 of
+target 57, 2.724524467266701 simulated seconds and 14879.205 wall seconds. Its events and
+`resume/latest.json` retain the completed update and generations 94/95. Live CPU use continued;
+three rows remained queued. Coordinator `status.json` is written at exits and can show active zero
+between those snapshots; use the actual row process, checkpoint and resource log for live state.
+Logs are `rows/<row-id>/attempts/initial/{stdout,stderr}.log`, with coordinator logs at
+`out/warm-refinement-control/campaign-launch-20261008T232113057.{stdout,stderr}.log`.
+
+Maker clarification: repeated capacity testing is disproportionate when slow work would still
+be executed. A larger-grid memory check was justified; repeating every exact row through a timed
+ladder and treating a missed speed target as a capacity failure was not. The next operational
+correction should reuse applicable measurements, keep live memory guards and resumable state,
+and separate timing estimates from resource admission. No new ladder, source change, restart or
+concurrency change was performed for this status check. Preserve the running work while resolving
+that launch-policy issue; the production rows themselves have no wall deadline.
