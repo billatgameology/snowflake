@@ -1,0 +1,6 @@
+﻿{
+    "command":  "npm.cmd test",
+    "node":  "v24.13.1",
+    "head":  "b465e1f715f43fb6e98681ec9249f052fc1e3b18",
+    "started":  "2026-10-09T03:40:43.1960848Z"
+}

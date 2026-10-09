@@ -1,0 +1,5 @@
+
+> virtual-cloud-chamber@0.0.0 lint:rule7
+> node scripts/lint-rule7.mjs
+
+rule7: clean (2522 files scanned)

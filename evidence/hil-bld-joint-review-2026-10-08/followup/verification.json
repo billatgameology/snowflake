@@ -1,0 +1,57 @@
+{
+  "exitCode": 0,
+  "command": "npm.cmd test",
+  "finished": "2026-10-09T03:55:55.6583183Z",
+  "head": "b465e1f715f43fb6e98681ec9249f052fc1e3b18",
+  "started": "2026-10-09T03:40:43.1960848Z",
+  "node": "v24.13.1",
+  "summary": " Test Files  235 passed (235)\n      Tests  3045 passed | 23 skipped (3068)\n   Duration  900.16s (transform 2.89s, setup 0ms, collect 27.27s, tests 849.78s, environment 25ms, prepare 8.45s)",
+  "files": {
+    "npm-test.invocation.json": {
+      "bytes": 174,
+      "sha256": "9e604f42d4c6abaa6848e7eb2fad7f9fa60865f9fb86d7aa28258c48e00b59e6"
+    },
+    "npm-test.result.json": {
+      "bytes": 219,
+      "sha256": "90b35d409e8a5a35a70cc54eb60e718df610a4fbaf710f54b7a4dab485ce5fe5"
+    },
+    "npm-test.stdout.log": {
+      "bytes": 126162,
+      "sha256": "eda2b3e3bcdb9d7409a25211fc358fa66cadc117c98e87a000ab3ed0b4da201c"
+    },
+    "npm-test.stderr.log": {
+      "bytes": 68112,
+      "sha256": "13c2dfda2f6e5cc082839b014531cb9e0c9d1c50ee47521bea9a8c57c33e68c0"
+    }
+  },
+  "scope": "Exact npm.cmd test at the stable scientific-readout checkpoint, including Rule 7, both typechecks and all Vitest suites. No campaign or physical-validation credit.",
+  "laterChanges": "Only review/verification receipts, manifest pins, reproduction notes and closure prose follow this executable checkpoint.",
+  "review": "review.json records one bounded shared-context Codex/GPT-6 engagement; independent selected raw-coordinate calculations plus explicitly limited field/prose inspection.",
+  "closureChecks": {
+    "commands": [
+      "npx.cmd vitest run runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts",
+      "npm.cmd run lint:rule7",
+      "git -c core.whitespace=cr-at-eol diff --cached --check"
+    ],
+    "exitCodes": [
+      0,
+      0,
+      0
+    ],
+    "testSummary": "2 files / 18 tests passed",
+    "files": {
+      "metadata.stdout.log": {
+        "bytes": 497,
+        "sha256": "a1af0742ef18e43b404fab8a9f88efe4aecdaae8dff835680e11437180816667"
+      },
+      "metadata.result.json": {
+        "bytes": 52,
+        "sha256": "30979305c18f4baeab18353f90f564131ad9d4842eea028d225082415777e386"
+      },
+      "rule7.stdout.log": {
+        "bytes": 107,
+        "sha256": "b0c24e48e57d77986c87649ed5f1d36c95104c359321ec751138bb937fa541ba"
+      }
+    }
+  }
+}

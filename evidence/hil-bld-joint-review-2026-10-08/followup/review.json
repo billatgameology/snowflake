@@ -1,0 +1,141 @@
+{
+  "schema": "bounded-saved-data-followup-review-v1",
+  "recordedAt": "2026-10-09T03:40:59.704030+00:00",
+  "reviewer": "Codex/GPT-6",
+  "sharedContext": true,
+  "context": "Reviewer inherits conversation and repository context. Separate bounded review of author calculations; not an external scientific review.",
+  "sourceHead": "b465e1f715f43fb6e98681ec9249f052fc1e3b18",
+  "verdict": "Pass for the named next-decision claims after one factual control-count wording correction. No unresolved blocking finding.",
+  "scope": "Maker-authorized saved-data analysis and recommendations only. No solver execution, new run protocol, source-law edit, field adoption or broad audit.",
+  "findings": [
+    {
+      "status": "corrected-and-checked",
+      "severity": "bounded factual wording",
+      "path": "evidence/hil-bld-joint-review-2026-10-08/followup/README.md",
+      "issue": "Original twelve source-temperature static controls phrasing confused twelve prefix comparisons with four distinct static source rows.",
+      "resolution": "Now explicitly says all twelve comparisons with the four source-temperature static controls; reviewer read the corrected bytes."
+    }
+  ],
+  "independentlyExecuted": [
+    {
+      "claim": "Fraction .20 pressure endpoint containment and deficit partition",
+      "method": "Independently rebuilt seed and all attached-coordinate sets for the three both-arm rows. Exact set nesting and differences; counted every difference by signed axial plane and integer hex radius.",
+      "result": "Counts 3607 / 3317 / 2787; strict high subset middle subset low; 820 deficit = 28 in shells 0–1 + 792 in shells 4–9; 696 at absolute axial offsets 4–9; maximum 78 sites each at offsets −6 / +6."
+    },
+    {
+      "claim": "M1 history inherited versus newly added axial span",
+      "method": "Read producer ordering at after-interface timeline boundary; independently rebuilt all six M1 switch histories, included trigger-cycle coordinates in baseline, derived minimum common post-event duration from raw events and checked both recorded end brackets.",
+      "result": "Cooling initial axial layers 3 / 7 / 13, additions 2 / 2 / 2 over 3.4546535952851727 s; warming initial 1 / 3 / 3, additions 10 / 6 / 6 over 6.59689360623882 s. All selected added-layer claims are unchanged by recorded end alternatives. New attached counts 478 / 868 / 1416 and 1002 / 1318 / 1746 exclude the switch record."
+    },
+    {
+      "claim": "Cold selected-stage null and prism-associated contrasts",
+      "method": "Independently reconstructed central-plane occupancy for all events in eight rows, recomputed complete centered integer hex ball and maximum occupied hex radius by coordinate membership, derived entries/exits and half-shortest physical plateau durations from raw states.",
+      "result": "−18 C at tips 4 / 6 yields gaps 0 / 0 / 1 / 1; tip 7 yields 1 / 1 / 1 / 1. −14.4 C tip 8 yields 0 / 0 / 2 / 2, in neither / basal-only / prism-only / both order. Exact selected event/time details are retained in calculations."
+    },
+    {
+      "claim": "Cold saved-field sampling gap",
+      "method": "Counted raw event recorded pre-update prism fields and raw snapshot cells classified prism for two −14.4 C enabled rows. Did not independently reconstruct full neighbor classifications.",
+      "result": "Both rows have 177 of 229 raw updates with prism cells; four saved snapshots have 12 / 0 / 0 / 0 prism-class cells. This supports identifying sparse observation coverage, not a mature-field causal explanation."
+    },
+    {
+      "claim": "Warm −5 C first common post-cutoff window",
+      "method": "Derived actual cutoff from first inactive pre-update record and shortest terminal age from three raw rows, rebuilt coordinate sets at start/end and checked all recorded bracket combinations.",
+      "result": "Window 20.051631130757585–26.39896679741717 s; early-only adds 720 occupied sites with 0 total axial-span increment; full adds 840 sites with 1.4 um total axial-span increment. Both span increments survive the recorded bracket alternatives. These are total-span, not one-tip distances."
+    }
+  ],
+  "interpretationReview": {
+    "read": [
+      "Current PROGRESS and saved-data plan including Tried and rejected",
+      "pressure-notes.md",
+      "history-notes.md",
+      "cold-notes.md",
+      "followup README.md",
+      "cold.mjs",
+      "warm.mjs",
+      "plot.py and rendered structure-and-growth.png",
+      "Timeline event ordering in runner/src/post-phase10-discovery.ts"
+    ],
+    "assessment": "Joint narrative retains size versus age versus elapsed-event distinctions, occupancy versus mass, lattice-coordinate versus Euclidean radius, changing facet membership, and finite-model limits. The figure labels those distinctions and is legible. Recommendations are discussion-only and do not authorize runs.",
+    "constraints": "Warm zero axial increment is not zero growth;pressure exact nesting applies only to these unequal-age endpoints;cold null applies to selected stages, not an entire temperature or trajectory;history comparisons do not isolate geometry from partial-fill/vapor history."
+  },
+  "limits": [
+    "No solver or checkpoint execution; no test suite run by reviewer. Parent owns required exact npm test.",
+    "No independent full 44-row or 114-row analysis; selected load-bearing raw calculations only.",
+    "No full field, neighbor-classification or parameter/producer-equivalence audit; raw cold field counts were inspected as recorded.",
+    "No independent replay of all source-static prefixes, full-history or seed increment claims, pressure .10 spatial details, or warm −4.5 first-window arithmetic in this engagement.",
+    "No grid/domain independence, continuous-time bounds, asymptotic rate, physical causality, validation, or launch authorization established.",
+    "No evidence/report/source edits by reviewer; wrote requested scratch calculation source/results and this review outside evidence."
+  ],
+  "calculation": {
+    "command": "python out/followup-review-calculate.py > out/followup-review-calculate.stdout.json",
+    "exitCode": 0,
+    "script": {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-analysis\\snowflake\\out\\followup-review-calculate.py",
+      "bytes": 8742,
+      "sha256": "1377fe3044e3a277c24299b28f93bc49734f0387f78ed992e272e38fa09f01ad"
+    },
+    "result": {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-analysis\\snowflake\\out\\followup-review-calculations.json",
+      "bytes": 27589,
+      "sha256": "61958fa8cb7deceeecf9353573003c5de03f96e125edafdf63dcdf24c1272852"
+    },
+    "stdout": {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-analysis\\snowflake\\out\\followup-review-calculate.stdout.json",
+      "bytes": 8198,
+      "sha256": "94f2b6456ef2c332c107f7d5de3320a38c80654d9a548ddf768d7a583b790da5"
+    },
+    "rawInputBindings": "sources in followup-review-calculations.json bind each read raw spec/event/result/snapshot and comparison report."
+  },
+  "reviewedArtifacts": [
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-analysis\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\followup\\README.md",
+      "bytes": 10498,
+      "sha256": "db6fdd99e74cc9db2a82a1a920a53455200f13c2557c4b1d9f789f3101de685f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-analysis\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\followup\\pressure-notes.md",
+      "bytes": 7619,
+      "sha256": "34482c553fc5d41ad12e88bb7a83b2ea36c0dbe8a478268705361496b74d4927"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-analysis\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\followup\\history-notes.md",
+      "bytes": 10754,
+      "sha256": "ca8bab02e49aebd82cc0ba7d20aee1d7c7cd6ec3986afde34e4ebbebf34b95d9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-analysis\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\followup\\cold-notes.md",
+      "bytes": 6400,
+      "sha256": "ccad70562cb6179b87e54c66f1553c8daf70d8a87e7a9dad68c55cc29283dadb"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-analysis\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\followup\\pressure.json",
+      "bytes": 714769,
+      "sha256": "4579cc696b69ac0ff013d028dcb9064c55dd63f0595bd9480d8aadbb6bcf6004"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-analysis\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\followup\\history.json",
+      "bytes": 614213,
+      "sha256": "2810b5c5c8466400efbc214e1e1a84da77a356319d4ae25021d12902d7bea34b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-analysis\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\followup\\cold.json",
+      "bytes": 1845161,
+      "sha256": "95530b3e088d362f8708a497f3d5ca6896dd93c0e2c404e49f18ea276403f71f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-analysis\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\followup\\warm.json",
+      "bytes": 77960,
+      "sha256": "bc750461f2b13c190123ed9ea470a27923c683c327b9b8cfb3e43430549abeb5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-analysis\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\followup\\plot.py",
+      "bytes": 4451,
+      "sha256": "d646204d3171e792f85b6119e52b9f2c7d9f229a34940a1994ec6a122816a3b8"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-analysis\\snowflake\\evidence\\hil-bld-joint-review-2026-10-08\\followup\\structure-and-growth.png",
+      "bytes": 361223,
+      "sha256": "07bdd3e82ed34511e522905f957b8701d485898b008019ded9bc47119ca21bf6"
+    }
+  ]
+}

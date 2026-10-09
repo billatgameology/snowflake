@@ -1,6 +1,6 @@
 # Post-Phase-10 adaptive discovery follow-up
 
-**Status:** all 114 October HIL/BLD cases reviewed; maker-authorized saved-data spatial and incremental-growth analysis in progress. No successor simulation selected.
+**Status:** all 114 October HIL/BLD cases reviewed; maker-authorized saved-data spatial and incremental-growth analysis and required verification complete. No successor simulation selected.
 **Publication destination:** `origin/main`
 **Plan authoring branch:** `docs/hil-bld-workload-2026-10-07`, based on `fe15b74`; direct main publication, no PR
 **Former execution worktree:** `G:\Code Files\snowflake-science-exploration` (reconciled in October consolidation)
@@ -49,9 +49,19 @@ but finds earlier contrasts; its sparse -14.4 C prism-enabled field snapshots mi
 present before 177 of 229 updates per row. `warm.json` distinguishes continued opening persistence
 from the growth increment changed by continued enhancement. All exact sets, units, brackets,
 definitions and limitations are in those artifacts. No next roster or simulation is selected.
-One bounded shared-context independent calculation is concluding; exact full verification follows
-at the stable executable checkpoint. Task-local plotting dependencies are disposable scratch;
-analysis drafts and verification output remain retained until included in the final custody record.
+One bounded shared-context Codex/GPT-6 calculation reproduced the selected load-bearing numbers
+and reviewed interpretation, with no unresolved blocker after clarifying four static controls
+reused in twelve comparisons. Its limits and raw calculation are retained in `followup/review.json`.
+Exact `npm.cmd test` at clean `b465e1f` passed 235 files / 3045 tests, 23 skipped, in 900.16 seconds;
+Rule 7 and both typechecks passed. `followup/verification.json` binds real exit and raw logs.
+The [custody record](../../evidence/hil-bld-joint-review-2026-10-08/followup/closeout.json)
+retains all 11 useful staging files / 405750 bytes at primary
+`out/hil-saved-data-followup-2026-10-08/`, with complete before/after hashes matching.
+Task-local plotting dependencies and locked Node dependencies are disposable scratch; only these
+remain ignored in the completed task checkout. Primary was clean and equal to refreshed origin/main;
+the sole task branch owns all analysis/closure deltas, with no unrelated work or PR. Fast-forward
+integration and app-managed archive are next. The earlier proposed next action to
+extract profiles is complete; the report's three follow-up directions now await maker discussion.
 
 **Current allocation — maker correction, 2026-10-08:** keep development, verification tests,
 saved-result analysis and exploratory runs on HIL for now. Split work with BLD only when the

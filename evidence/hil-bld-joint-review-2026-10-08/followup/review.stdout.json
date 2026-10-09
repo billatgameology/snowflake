@@ -1,0 +1,360 @@
+{
+  "pressure": {
+    "endpointCounts": [
+      3607,
+      3317,
+      2787
+    ],
+    "strictNesting": true,
+    "lowMinusHigh": 820,
+    "byHexRadius": {
+      "0": 4,
+      "1": 24,
+      "4": 84,
+      "5": 132,
+      "6": 168,
+      "7": 168,
+      "8": 132,
+      "9": 108
+    },
+    "bySignedAxialPlane": {
+      "-9": 42,
+      "-8": 66,
+      "-7": 60,
+      "-6": 78,
+      "-5": 60,
+      "-4": 42,
+      "-3": 37,
+      "-2": 19,
+      "-1": 6,
+      "1": 6,
+      "2": 19,
+      "3": 37,
+      "4": 42,
+      "5": 60,
+      "6": 78,
+      "7": 60,
+      "8": 66,
+      "9": 42
+    }
+  },
+  "history": [
+    {
+      "fromTempC": -6,
+      "toTempC": -14.4,
+      "commonSecondsAfterEvent": 3.4546535952851727,
+      "initialAxialLayers": [
+        3,
+        7,
+        13
+      ],
+      "addedAxialLayers": [
+        2,
+        2,
+        2
+      ],
+      "recordedBracketChoices": [
+        [
+          2
+        ],
+        [
+          2
+        ],
+        [
+          2
+        ]
+      ],
+      "newAttachedSitesExcludingSwitchRecord": [
+        478,
+        868,
+        1416
+      ]
+    },
+    {
+      "fromTempC": -14.4,
+      "toTempC": -6,
+      "commonSecondsAfterEvent": 6.59689360623882,
+      "initialAxialLayers": [
+        1,
+        3,
+        3
+      ],
+      "addedAxialLayers": [
+        10,
+        6,
+        6
+      ],
+      "recordedBracketChoices": [
+        [
+          10
+        ],
+        [
+          6
+        ],
+        [
+          6
+        ]
+      ],
+      "newAttachedSitesExcludingSwitchRecord": [
+        1002,
+        1318,
+        1746
+      ]
+    }
+  ],
+  "cold": [
+    {
+      "tempC": -18,
+      "tipHexRadius": 4,
+      "halfShortestPlateauSeconds": 0.7334458396907872,
+      "armOrder": [
+        "neither",
+        "basal-only",
+        "prism-only",
+        "both"
+      ],
+      "selectedGaps": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "selections": [
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-neither",
+          "requestedSeconds": 11.042563919464419,
+          "cycle": 147,
+          "actualSeconds": 11.039118577842977
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-basal-only",
+          "requestedSeconds": 11.177856481076365,
+          "cycle": 148,
+          "actualSeconds": 11.168815258135195
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-prism-only",
+          "requestedSeconds": 2.6647755614598294,
+          "cycle": 72,
+          "actualSeconds": 2.663918438563681
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-both",
+          "requestedSeconds": 2.666251739280991,
+          "cycle": 72,
+          "actualSeconds": 2.6659919405820225
+        }
+      ]
+    },
+    {
+      "tempC": -18,
+      "tipHexRadius": 6,
+      "halfShortestPlateauSeconds": 0.9577161488990815,
+      "armOrder": [
+        "neither",
+        "basal-only",
+        "prism-only",
+        "both"
+      ],
+      "selectedGaps": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "selections": [
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-neither",
+          "requestedSeconds": 26.858586203536927,
+          "cycle": 360,
+          "actualSeconds": 26.846372489149452
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-basal-only",
+          "requestedSeconds": 27.12929556619211,
+          "cycle": 363,
+          "actualSeconds": 27.10659017917262
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-prism-only",
+          "requestedSeconds": 5.603442458419385,
+          "cycle": 146,
+          "actualSeconds": 5.579461656199744
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-both",
+          "requestedSeconds": 5.612120574922724,
+          "cycle": 146,
+          "actualSeconds": 5.575811277179312
+        }
+      ]
+    },
+    {
+      "tempC": -18,
+      "tipHexRadius": 7,
+      "halfShortestPlateauSeconds": 0.4378670271856322,
+      "armOrder": [
+        "neither",
+        "basal-only",
+        "prism-only",
+        "both"
+      ],
+      "selectedGaps": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "selections": [
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-neither",
+          "requestedSeconds": 35.654616791882745,
+          "cycle": 469,
+          "actualSeconds": 35.6448910729225
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-basal-only",
+          "requestedSeconds": 35.91314222939395,
+          "cycle": 469,
+          "actualSeconds": 35.903747278848094
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-prism-only",
+          "requestedSeconds": 6.9990256345040995,
+          "cycle": 180,
+          "actualSeconds": 6.9638223200177976
+        },
+        {
+          "rowId": "batch1-bld-cold-t18-f0p1-both",
+          "requestedSeconds": 7.0402532614820235,
+          "cycle": 181,
+          "actualSeconds": 7.005364695031754
+        }
+      ]
+    },
+    {
+      "tempC": -14.4,
+      "tipHexRadius": 8,
+      "halfShortestPlateauSeconds": 0.8276213763496969,
+      "armOrder": [
+        "neither",
+        "basal-only",
+        "prism-only",
+        "both"
+      ],
+      "selectedGaps": [
+        0,
+        0,
+        2,
+        2
+      ],
+      "selections": [
+        {
+          "rowId": "batch1-bld-cold-t14p4-f0p1-neither",
+          "requestedSeconds": 32.63819735890992,
+          "cycle": 509,
+          "actualSeconds": 32.60386993886532
+        },
+        {
+          "rowId": "batch1-bld-cold-t14p4-f0p1-basal-only",
+          "requestedSeconds": 32.90850977505909,
+          "cycle": 526,
+          "actualSeconds": 32.89206673115939
+        },
+        {
+          "rowId": "batch1-bld-cold-t14p4-f0p1-prism-only",
+          "requestedSeconds": 6.263513041690162,
+          "cycle": 185,
+          "actualSeconds": 6.221131602215374
+        },
+        {
+          "rowId": "batch1-bld-cold-t14p4-f0p1-both",
+          "requestedSeconds": 6.33534466115018,
+          "cycle": 186,
+          "actualSeconds": 6.323403500236938
+        }
+      ]
+    }
+  ],
+  "coldSavedFieldCensus": [
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p1-prism-only",
+      "updates": 229,
+      "rawRecordedUpdatesWithPrism": 177,
+      "snapshotCensus": [
+        {
+          "completedCycles": 0,
+          "savedPrismCells": 12
+        },
+        {
+          "completedCycles": 42,
+          "savedPrismCells": 0
+        },
+        {
+          "completedCycles": 105,
+          "savedPrismCells": 0
+        },
+        {
+          "completedCycles": 165,
+          "savedPrismCells": 0
+        }
+      ]
+    },
+    {
+      "rowId": "batch1-bld-cold-t14p4-f0p1-both",
+      "updates": 229,
+      "rawRecordedUpdatesWithPrism": 177,
+      "snapshotCensus": [
+        {
+          "completedCycles": 0,
+          "savedPrismCells": 12
+        },
+        {
+          "completedCycles": 42,
+          "savedPrismCells": 0
+        },
+        {
+          "completedCycles": 105,
+          "savedPrismCells": 0
+        },
+        {
+          "completedCycles": 165,
+          "savedPrismCells": 0
+        }
+      ]
+    }
+  ],
+  "warm": {
+    "tempC": -5,
+    "startSeconds": 20.051631130757585,
+    "endSeconds": 26.39896679741717,
+    "durationSeconds": 6.3473356666595855,
+    "rows": [
+      {
+        "arm": "broad",
+        "axialSpanIncrementUm": 0.7,
+        "bracketAlternativesUm": [
+          0.7
+        ],
+        "addedSites": 620
+      },
+      {
+        "arm": "early",
+        "axialSpanIncrementUm": 0.0,
+        "bracketAlternativesUm": [
+          0.0
+        ],
+        "addedSites": 720
+      },
+      {
+        "arm": "full",
+        "axialSpanIncrementUm": 1.4,
+        "bracketAlternativesUm": [
+          1.4
+        ],
+        "addedSites": 840
+      }
+    ],
+    "quantity": "total axial-span increment, not one-tip displacement"
+  }
+}

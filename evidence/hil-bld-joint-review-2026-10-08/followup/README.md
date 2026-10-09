@@ -146,5 +146,18 @@ uses an exact event alone at an exact time; its preliminary broader sensitivity 
 local staging. No raw input or numerical evolution was changed by these corrections.
 
 The existing count/coordinate/extent/aspect reconstruction and plane/shell sums provide the
-nearest-boundary checks. One bounded independent calculation and exact `npm.cmd test` are pending
-at this stable analysis checkpoint. Neither supplies physical-validation or grid-independence credit.
+nearest-boundary checks. One bounded shared-context Codex/GPT-6 [review](review.json) independently
+recomputed the selected pressure partitions, M1 history increments, cold tip-stage gaps and warm
+-5 C growth window from raw coordinates. It also inspected the recorded cold field census and
+interpretation. One control-count wording correction was accepted; no unresolved blocker remains.
+Its limits include no solver execution, full-field audit or independent complete 44-row analysis.
+The byte-preserved `review-calculate.py` was executed from `out/`; copy it there before rerunning,
+because its repository locator is relative to that original location. It writes the review result
+under `out/`, so use a fresh staging checkout if retaining an earlier result there.
+
+Exact `npm.cmd test` at clean `b465e1f715f43fb6e98681ec9249f052fc1e3b18` exited zero:
+235 test files / 3045 tests passed, 23 skipped, Vitest duration 900.16 seconds. Rule 7 and both
+typechecks passed. [Verification](verification.json) binds the actual invocation, exit and raw logs.
+Neither the review nor regression suite supplies physical-validation or grid-independence credit.
+The [closeout record](closeout.json) retains useful analysis drafts and original check receipts
+at primary `out/hil-saved-data-followup-2026-10-08/`; claim-bearing bytes are also tracked here.

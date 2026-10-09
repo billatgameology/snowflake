@@ -12,7 +12,7 @@ The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
   Shared main publication includes `5c97292`; BLD's `b333782` is preserved by pushed tag `run/bld-first-batch-2026-10-08` and its
   [evidence/NAS records are imported](../evidence/hil-bld-pickup-2026-10-08/README.md), with HIL verification complete.
   HIL has 56 + 16 checked endpoints and BLD has 42. The [joint 114-case review](../evidence/hil-bld-joint-review-2026-10-08/README.md) identifies warm growth memory, prism-sensitive cold structure and age-sensitive seed response. These are internal model-development leads; no successor run is selected.
-  The [saved-data follow-up](../evidence/hil-bld-joint-review-2026-10-08/followup/README.md) locates pressure occupancy differences, separates inherited axial span from new growth, and shows the cold exception depends on observation stage. Required verification is in progress in `codex/hil-growth-analysis`; no simulation is running.
+  The [saved-data follow-up](../evidence/hil-bld-joint-review-2026-10-08/followup/README.md) locates pressure occupancy differences, separates inherited axial span from new growth, and shows the cold exception depends on observation stage. Exact `npm.cmd test` at `b465e1f` passed 235 files / 3045 tests, 23 skipped; [receipt and bounded review](../evidence/hil-bld-joint-review-2026-10-08/followup/verification.json) retain limits. No successor simulation is selected.
   [HIL retirement](../evidence/hil-bld-joint-review-2026-10-08/retirement.json) is complete: only primary `main` remains. All 5828 output files / 2638078397 bytes are retained in primary `out/hil-retired-2026-10-08/`; compressed HIL evidence is tracked and pinned. Exact `npm.cmd test` at `862ff1f` passed 235 files / 3045 tests, 23 skipped ([receipt](../evidence/hil-bld-joint-review-2026-10-08/verification.json)).
 - **New-host follow-up:** [complete](plans/new-host-acceptance-and-capacity-2026-10-07.md),
   locally integrated through `cf1386e`. Glass/camera browser and direct visual acceptance pass;
@@ -213,7 +213,7 @@ custody remain retained. Primary `nas-retention-review.json` records the disposi
 - [Repository housekeeping](plans/repository-housekeeping-2026-10-07.md) is complete. Its required
   checks, approved cleanup, local fast-forward and non-force worktree/ref closeout are recorded.
 - [Adaptive discovery](plans/post-phase10-adaptive-discovery.md) has a completed internal
-  [saved-data follow-up](../evidence/hil-bld-joint-review-2026-10-08/followup/README.md); final verification is in progress and successor comparisons remain discussion options.
+  [saved-data follow-up](../evidence/hil-bld-joint-review-2026-10-08/followup/README.md); verification is complete and successor comparisons remain discussion options.
   All six old HIL operational failures reached size endpoints through
   [same-source recovery](plans/hil-bld-first-batch.md#recovery-completion-2026-10-08).
   All 72 HIL rows pass existing operational checks; their event geometry was independently reconstructed.
@@ -236,7 +236,7 @@ publish that bundle. Completed catalog/gallery/phase plans are references, not a
 
 ## Next step
 
-Finish the exact `npm.cmd test` checkpoint for the [saved-data follow-up](../evidence/hil-bld-joint-review-2026-10-08/followup/README.md) in `codex/hil-growth-analysis`, then discuss warm representation qualification, incremental-history persistence and pressure/cold spatial comparisons. Keep all work on HIL unless representative timings justify multiple days; no next roster is frozen or dispatched.
+Discuss the [saved-data follow-up and comparison figure](../evidence/hil-bld-joint-review-2026-10-08/followup/README.md): warm representation qualification, incremental-history persistence and selected pressure/cold spatial comparisons. Existing profiles are extracted; do not repeat that analysis by default. Keep all work on HIL unless representative timings justify multiple days; no next roster is frozen or dispatched.
 Before finer-grid work, inspect `core/src/discovery-resume-checkpoint.ts`: the current format rejects more than `64 ** 3` cells or 64 MiB. A maker-selected refinement needs a bounded extension, real larger-grid restart witness and fresh host budget; N64 probe results do not transfer.
 Readouts preserve physical-time brackets: the -8 C seed contrast reflects axial catch-up; the -18 C cold null is stage-specific; sparse cold snapshots miss prism-bearing states. Warm layers are not independent cavities, and occupancy is not mass. All findings remain model-development evidence.
 HIL originals are in primary `out/hil-retired-2026-10-08/{discovery-resume,hil-exploration-batch2,hil-first-batch}/`, including every checkpoint and recovered failure tail; their complete compressed outputs are pinned in the joint bundle.

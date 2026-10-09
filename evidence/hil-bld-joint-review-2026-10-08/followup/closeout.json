@@ -1,0 +1,75 @@
+{
+  "verifiedAfterMove": true,
+  "totalBytes": 405750.0,
+  "reconciliation": "Primary clean and equal to refreshed origin/main; sole task branch includes all new analysis and closure metadata. No unrelated branch, worktree or delta. No PR.",
+  "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-analysis\\snowflake\\out",
+  "disposition": "Useful local staging retained; no NAS publication or prune of raw run inputs. All claim-bearing results and verification logs also tracked in this evidence bundle.",
+  "primaryBefore": "c25e4fb54a5e1be945182ba57215fa259186f5a7",
+  "analysisCheckpoint": "b465e1f715f43fb6e98681ec9249f052fc1e3b18",
+  "files": [
+    {
+      "path": "followup-review-calculate.py",
+      "bytes": 8742,
+      "sha256": "1377fe3044e3a277c24299b28f93bc49734f0387f78ed992e272e38fa09f01ad"
+    },
+    {
+      "path": "followup-review-calculate.stdout.json",
+      "bytes": 8198,
+      "sha256": "94f2b6456ef2c332c107f7d5de3320a38c80654d9a548ddf768d7a583b790da5"
+    },
+    {
+      "path": "followup-review-calculations.json",
+      "bytes": 27589,
+      "sha256": "61958fa8cb7deceeecf9353573003c5de03f96e125edafdf63dcdf24c1272852"
+    },
+    {
+      "path": "followup-review.json",
+      "bytes": 9927,
+      "sha256": "6586f9c59ef998a68e5cd71dfa52903369346a1424dd3a4efdd31165a7db8513"
+    },
+    {
+      "path": "followup-verification/invocation.json",
+      "bytes": 174,
+      "sha256": "9e604f42d4c6abaa6848e7eb2fad7f9fa60865f9fb86d7aa28258c48e00b59e6"
+    },
+    {
+      "path": "followup-verification/result.json",
+      "bytes": 219,
+      "sha256": "90b35d409e8a5a35a70cc54eb60e718df610a4fbaf710f54b7a4dab485ce5fe5"
+    },
+    {
+      "path": "followup-verification/run.ps1",
+      "bytes": 745,
+      "sha256": "bd2d8e72169f4be6b30d376f5003101769cb1672133891d43668ed5394d26f42"
+    },
+    {
+      "path": "followup-verification/stderr.log",
+      "bytes": 68112,
+      "sha256": "13c2dfda2f6e5cc082839b014531cb9e0c9d1c50ee47521bea9a8c57c33e68c0"
+    },
+    {
+      "path": "followup-verification/stdout.log",
+      "bytes": 126162,
+      "sha256": "eda2b3e3bcdb9d7409a25211fc358fa66cadc117c98e87a000ab3ed0b4da201c"
+    },
+    {
+      "path": "warm-final.json",
+      "bytes": 77960,
+      "sha256": "bc750461f2b13c190123ed9ea470a27923c683c327b9b8cfb3e43430549abeb5"
+    },
+    {
+      "path": "warm-initial.json",
+      "bytes": 77922,
+      "sha256": "60f7789cf25c549383adea27ed2ffe730ef602218fa3b7dad23f689c09ccc8e0"
+    }
+  ],
+  "worktreeDisposition": "Ready for archive after fast-forward integration; only declared dependency scratch remains ignored.",
+  "fileCount": 11,
+  "branch": "codex/hil-growth-analysis",
+  "worktree": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-analysis\\snowflake",
+  "destination": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-saved-data-followup-2026-10-08",
+  "excludedScratch": [
+    "out/plot-dependencies: task-local pip-installed plotting dependencies",
+    "node_modules: locked install"
+  ]
+}
