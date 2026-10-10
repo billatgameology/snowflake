@@ -1,7 +1,7 @@
 # Plan — HIL longer history and cold facet exploration
 
 - **Phase:** post-Phase-10 model development under charter section 2.5 and accepted ADRs 0011, 0055 and 0060.
-- **Status:** implementation and focused verification complete; launch pending.
+- **Status:** ten workers launched and checkpointing alongside four warm workers; scientific completion and analysis pending.
 - **Started / last touched:** 2026-10-10 by Codex/GPT-6.
 - **Branch / checkout:** `codex/hil-exploration-oct10`, `C:/Users/biao3/.codex/worktrees/hil-exploration-oct10/snowflake`, from `b02bbd1`.
 - **Authority:** maker requested another 8–12 useful runs beside ongoing HIL work. This plan registers ten; preserve the four warm workers and their fixed checkout.
@@ -169,11 +169,48 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File out/hil-exploration-oct1
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File out/hil-exploration-oct10-control/start-hil.ps1 -Mode resume
 ```
 
+## Launched — 2026-10-10
+
+Producer `33832e20a386c52d830e2dd338a1f8671a25db8f` is committed and pushed on main. Keep this
+execution branch and checkout fixed there; these later live-state notes are written in primary.
+The hidden dispatcher started at `2026-10-10T18:35:11.3838261Z` (11:35 PDT); coordinator PID
+21384 started all ten rows through the command recorded in task
+`out/hil-exploration-oct10/hil-exploration-oct10-HIL-initial-launch.json` and each row's
+`process.json`. The wrapper is `out/hil-exploration-oct10-control/start-hil.ps1 -Mode launch`,
+invoked with `powershell.exe -NoProfile -ExecutionPolicy Bypass -File` through hidden Start-Process.
+
+The startup observation at `2026-10-10T18:36:31.8033724Z` is retained in
+`evidence/hil-exploration-2026-10-10/launch-verification.json`: ten live new workers, all beyond
+the first completed update with current/previous checkpoint pointers, all ten row stderr files
+and coordinator stderr empty. All fourteen worker CPU clocks advanced over the five-second
+observation, including the four original warm PIDs. The new campaign's resource sample reports
+48311791616 available physical bytes. No new row is claimed complete, and no runtime ETA follows
+from these startup measurements.
+
+Exact coordinator logs: task
+`out/hil-exploration-oct10-control/campaign-launch-20261010T113511594.stdout.log` and sibling
+`.stderr.log`; the wrapper will write the matching `-exit.json` on real completion. Row logs are
+`out/hil-exploration-oct10/rows/<row-id>/attempts/initial/{stdout,stderr}.log`, with separate exit
+records on termination. Checkpoints are under each row's `resume/`; live resource observations
+are `out/hil-exploration-oct10/hil-exploration-oct10-HIL-initial-resources.jsonl`. Use the exact
+stop/resume commands above if interrupted. No capacity probe or production wall deadline was added.
+
+Prelaunch metadata checks passed `runner/test/evidence-integrity.test.ts` and
+`runner/test/progress-index.test.ts`: two files / 18 tests, exit zero; Rule 7 passed. Their live
+receipts are task `out/hil-exploration-oct10-control/metadata-prelaunch{.log,-result.json}` and
+`rule7-final.log`. After recording startup in primary, the same two metadata files passed again
+(18 tests, exit zero), and Rule 7 passed; primary `out/next-hil-design-2026-10-10/postlaunch-{metadata,rule7}{.log,-result.json}` retains these exact executions.
+Raw captured evidence keeps its CRLF bytes; the scoped whitespace check treats
+CR at end-of-line correctly and excludes only the two preserved implementation stdout logs.
+Next: inspect live processes/checkpoints and actual terminal dispositions, then perform the
+registered comparisons. Keep warm, supplement and new exploration output worktrees open until
+governed NAS publication and fresh recovery cover their useful bytes.
+
 ## Steps
 
 - [x] Select and commit these ten rows before implementation.
 - [x] Add finite roster and shared operational entry; complete focused checks and bounded review.
-- [ ] Commit/publish producer, launch ten workers and record actual checkpoints/logs/recovery.
+- [x] Commit/publish producer, launch ten workers and record actual checkpoints/logs/recovery.
 - [ ] Reconcile terminal dispositions, run the registered matched readouts and preserve outputs.
 
 ## Tried and rejected

@@ -1,0 +1,1173 @@
+{
+  "kind": "Operational startup observation; no scientific completion or validation verdict",
+  "campaignComplete": false,
+  "coordinatorStderrBytes": 0,
+  "latestResources": {
+    "capturedUtc": "2026-10-10T18:36:28.511439Z",
+    "availablePhysicalBytes": 48311791616,
+    "commitHeadroomBytes": 56175648768,
+    "children": [
+      {
+        "Id": 6896,
+        "CPU": 73.5,
+        "WorkingSet64": 143392768,
+        "PeakWorkingSet64": 144056320
+      },
+      {
+        "Id": 7592,
+        "CPU": 73.578125,
+        "WorkingSet64": 147804160,
+        "PeakWorkingSet64": 147804160
+      },
+      {
+        "Id": 17428,
+        "CPU": 73.796875,
+        "WorkingSet64": 148004864,
+        "PeakWorkingSet64": 148004864
+      },
+      {
+        "Id": 18092,
+        "CPU": 73.703125,
+        "WorkingSet64": 147599360,
+        "PeakWorkingSet64": 147599360
+      },
+      {
+        "Id": 19728,
+        "CPU": 73.640625,
+        "WorkingSet64": 148738048,
+        "PeakWorkingSet64": 157659136
+      },
+      {
+        "Id": 21812,
+        "CPU": 73.890625,
+        "WorkingSet64": 144453632,
+        "PeakWorkingSet64": 163442688
+      },
+      {
+        "Id": 23888,
+        "CPU": 73.625,
+        "WorkingSet64": 153411584,
+        "PeakWorkingSet64": 153411584
+      },
+      {
+        "Id": 24416,
+        "CPU": 73.6875,
+        "WorkingSet64": 144003072,
+        "PeakWorkingSet64": 152920064
+      },
+      {
+        "Id": 26696,
+        "CPU": 73.65625,
+        "WorkingSet64": 144367616,
+        "PeakWorkingSet64": 153288704
+      },
+      {
+        "Id": 27340,
+        "CPU": 73.6875,
+        "WorkingSet64": 148701184,
+        "PeakWorkingSet64": 157622272
+      }
+    ]
+  },
+  "cpuActivity": [
+    {
+      "pid": 6896,
+      "cpuAfterSeconds": 77.890625,
+      "cpuAdvanced": true,
+      "cpuBeforeSeconds": 72.765625,
+      "workingSetBytes": 131321856
+    },
+    {
+      "pid": 7592,
+      "cpuAfterSeconds": 78.0625,
+      "cpuAdvanced": true,
+      "cpuBeforeSeconds": 72.84375,
+      "workingSetBytes": 125747200
+    },
+    {
+      "pid": 7944,
+      "cpuAfterSeconds": 99583.328125,
+      "cpuAdvanced": true,
+      "cpuBeforeSeconds": 99578.25,
+      "workingSetBytes": 422215680
+    },
+    {
+      "pid": 17428,
+      "cpuAfterSeconds": 78.25,
+      "cpuAdvanced": true,
+      "cpuBeforeSeconds": 73.078125,
+      "workingSetBytes": 135524352
+    },
+    {
+      "pid": 18092,
+      "cpuAfterSeconds": 78.0625,
+      "cpuAdvanced": true,
+      "cpuBeforeSeconds": 72.984375,
+      "workingSetBytes": 148619264
+    },
+    {
+      "pid": 19728,
+      "cpuAfterSeconds": 78.09375,
+      "cpuAdvanced": true,
+      "cpuBeforeSeconds": 72.921875,
+      "workingSetBytes": 131670016
+    },
+    {
+      "pid": 21812,
+      "cpuAfterSeconds": 78.265625,
+      "cpuAdvanced": true,
+      "cpuBeforeSeconds": 73.125,
+      "workingSetBytes": 135311360
+    },
+    {
+      "pid": 22716,
+      "cpuAfterSeconds": 99587.890625,
+      "cpuAdvanced": true,
+      "cpuBeforeSeconds": 99582.8125,
+      "workingSetBytes": 381902848
+    },
+    {
+      "pid": 23888,
+      "cpuAfterSeconds": 78.09375,
+      "cpuAdvanced": true,
+      "cpuBeforeSeconds": 72.9375,
+      "workingSetBytes": 135540736
+    },
+    {
+      "pid": 24416,
+      "cpuAfterSeconds": 78.078125,
+      "cpuAdvanced": true,
+      "cpuBeforeSeconds": 73.0,
+      "workingSetBytes": 144584704
+    },
+    {
+      "pid": 25200,
+      "cpuAfterSeconds": 99587.3125,
+      "cpuAdvanced": true,
+      "cpuBeforeSeconds": 99582.234375,
+      "workingSetBytes": 384258048
+    },
+    {
+      "pid": 26696,
+      "cpuAfterSeconds": 78.09375,
+      "cpuAdvanced": true,
+      "cpuBeforeSeconds": 72.96875,
+      "workingSetBytes": 131723264
+    },
+    {
+      "pid": 27104,
+      "cpuAfterSeconds": 99587.390625,
+      "cpuAdvanced": true,
+      "cpuBeforeSeconds": 99582.296875,
+      "workingSetBytes": 384872448
+    },
+    {
+      "pid": 27340,
+      "cpuAfterSeconds": 78.171875,
+      "cpuAdvanced": true,
+      "cpuBeforeSeconds": 73.015625,
+      "workingSetBytes": 130674688
+    }
+  ],
+  "rows": [
+    {
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "rowId": "oct10-hil-history-t6-to-t14p4-e7-nodip",
+        "cycle": 4,
+        "attachedCount": 19,
+        "extent": 5,
+        "totalSweeps": 23543,
+        "simTimeSeconds": 0.17530374662385062,
+        "wallSeconds": 66.252,
+        "peakRssBytes": 126046208,
+        "updatedAt": "2026-10-10T18:36:20.009Z"
+      },
+      "resumePointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-4-22fc65b3-c91a-487d-af09-0e2b7d2ecc82",
+          "manifestSha256": "286fc83551bdeb334ff0baa18ed5442175168190f053bf24fd8c3df11963cdaa"
+        },
+        "previous": {
+          "directory": "generation-3-8c10f97e-0897-4438-a44e-30d256d2a68e",
+          "manifestSha256": "7da5e574641f97a9794944d5d37012647ecd06bab4111d137d7ce862c56d08d7"
+        }
+      },
+      "targetExtent": 29,
+      "stderrBytes": 0,
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "rowId": "oct10-hil-history-t6-to-t14p4-e7-nodip",
+        "gitHead": "33832e20a386c52d830e2dd338a1f8671a25db8f",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\runner\\src\\hil-exploration-oct10-main.ts",
+          "run-row",
+          "oct10-hil-history-t6-to-t14p4-e7-nodip",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-history-t6-to-t14p4-e7-nodip"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-history-t6-to-t14p4-e7-nodip\\attempts\\initial",
+        "launcherPid": 21384,
+        "pid": 23888,
+        "startedAt": "2026-10-10T18:35:13.554Z"
+      },
+      "exitPresent": false,
+      "rowId": "oct10-hil-history-t6-to-t14p4-e7-nodip"
+    },
+    {
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "rowId": "oct10-hil-history-t6-to-t14p4-e15-nodip",
+        "cycle": 8,
+        "attachedCount": 19,
+        "extent": 5,
+        "totalSweeps": 26971,
+        "simTimeSeconds": 0.3517821997665896,
+        "wallSeconds": 72.776,
+        "peakRssBytes": 163426304,
+        "updatedAt": "2026-10-10T18:36:26.541Z"
+      },
+      "resumePointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-7-b871664a-611b-4346-aa2f-98595865f45f",
+          "manifestSha256": "776b986ab53ff456d1d87be2874aac8f93e098365e8a1a710bc337fc1fe88c74"
+        },
+        "previous": {
+          "directory": "generation-6-eb899d7a-0f96-4de9-b035-148935009bcf",
+          "manifestSha256": "2f108b7a13c26f6baeaff5ad33dd6234d6526e40b02144b2358c40f3709352ac"
+        }
+      },
+      "targetExtent": 29,
+      "stderrBytes": 0,
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "rowId": "oct10-hil-history-t6-to-t14p4-e15-nodip",
+        "gitHead": "33832e20a386c52d830e2dd338a1f8671a25db8f",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\runner\\src\\hil-exploration-oct10-main.ts",
+          "run-row",
+          "oct10-hil-history-t6-to-t14p4-e15-nodip",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-history-t6-to-t14p4-e15-nodip"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-history-t6-to-t14p4-e15-nodip\\attempts\\initial",
+        "launcherPid": 21384,
+        "pid": 21812,
+        "startedAt": "2026-10-10T18:35:13.565Z"
+      },
+      "exitPresent": false,
+      "rowId": "oct10-hil-history-t6-to-t14p4-e15-nodip"
+    },
+    {
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "rowId": "oct10-hil-history-t14p4-to-t6-e7-nodip",
+        "cycle": 5,
+        "attachedCount": 19,
+        "extent": 5,
+        "totalSweeps": 26082,
+        "simTimeSeconds": 0.2547639498537295,
+        "wallSeconds": 71.833,
+        "peakRssBytes": 150220800,
+        "updatedAt": "2026-10-10T18:36:25.626Z"
+      },
+      "resumePointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-5-4f12f087-2573-4c72-a554-2cdffe3be632",
+          "manifestSha256": "9054ef142cac36661afce2d1cc3c7085877a95ab6c8057970c7f6dd19aa81e88"
+        },
+        "previous": {
+          "directory": "generation-4-954a5720-fc2b-49a2-837a-5d508017833c",
+          "manifestSha256": "070da75920d597691bc28277054c1431d9fb830926a63f8a640502e96591003b"
+        }
+      },
+      "targetExtent": 29,
+      "stderrBytes": 0,
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "rowId": "oct10-hil-history-t14p4-to-t6-e7-nodip",
+        "gitHead": "33832e20a386c52d830e2dd338a1f8671a25db8f",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\runner\\src\\hil-exploration-oct10-main.ts",
+          "run-row",
+          "oct10-hil-history-t14p4-to-t6-e7-nodip",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-history-t14p4-to-t6-e7-nodip"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-history-t14p4-to-t6-e7-nodip\\attempts\\initial",
+        "launcherPid": 21384,
+        "pid": 19728,
+        "startedAt": "2026-10-10T18:35:13.575Z"
+      },
+      "exitPresent": false,
+      "rowId": "oct10-hil-history-t14p4-to-t6-e7-nodip"
+    },
+    {
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "rowId": "oct10-hil-history-t14p4-to-t6-e15-nodip",
+        "cycle": 4,
+        "attachedCount": 19,
+        "extent": 5,
+        "totalSweeps": 23657,
+        "simTimeSeconds": 0.20355272940425484,
+        "wallSeconds": 67.158,
+        "peakRssBytes": 125652992,
+        "updatedAt": "2026-10-10T18:36:20.965Z"
+      },
+      "resumePointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-4-be1db32d-25f4-40ee-881f-ae9dea5fa277",
+          "manifestSha256": "dc067b0f82a4ecbc869c8692d7516c392c9f5ef5f98346dd539c831a5943cce9"
+        },
+        "previous": {
+          "directory": "generation-3-f4704f47-19e1-4160-ae2c-e313045f0f39",
+          "manifestSha256": "d1788583c81f913df221100495a74eb8db1245d8d585fcfbe5a3055ccd6f7df3"
+        }
+      },
+      "targetExtent": 29,
+      "stderrBytes": 0,
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "rowId": "oct10-hil-history-t14p4-to-t6-e15-nodip",
+        "gitHead": "33832e20a386c52d830e2dd338a1f8671a25db8f",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\runner\\src\\hil-exploration-oct10-main.ts",
+          "run-row",
+          "oct10-hil-history-t14p4-to-t6-e15-nodip",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-history-t14p4-to-t6-e15-nodip"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-history-t14p4-to-t6-e15-nodip\\attempts\\initial",
+        "launcherPid": 21384,
+        "pid": 6896,
+        "startedAt": "2026-10-10T18:35:13.584Z"
+      },
+      "exitPresent": false,
+      "rowId": "oct10-hil-history-t14p4-to-t6-e15-nodip"
+    },
+    {
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both",
+        "rowId": "oct10-hil-cold-t14p4-f0p1-both",
+        "cycle": 5,
+        "attachedCount": 19,
+        "extent": 5,
+        "totalSweeps": 25752,
+        "simTimeSeconds": 0.1641576889736601,
+        "wallSeconds": 71.669,
+        "peakRssBytes": 145428480,
+        "updatedAt": "2026-10-10T18:36:25.476Z"
+      },
+      "resumePointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-5-fd88f05b-3e21-468d-9eb4-f76f128b87f7",
+          "manifestSha256": "ac694d1660cf248dc3aabea30fd80a8c9aa55168306a6c4ff59f20ec83f404a7"
+        },
+        "previous": {
+          "directory": "generation-4-18f5c4cd-425f-4270-acf6-72f28d6259cf",
+          "manifestSha256": "87c771bce5adc48c29787d056acc9ba3edf2c699104f1968bf7360609093b98b"
+        }
+      },
+      "targetExtent": 29,
+      "stderrBytes": 0,
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both",
+        "rowId": "oct10-hil-cold-t14p4-f0p1-both",
+        "gitHead": "33832e20a386c52d830e2dd338a1f8671a25db8f",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\runner\\src\\hil-exploration-oct10-main.ts",
+          "run-row",
+          "oct10-hil-cold-t14p4-f0p1-both",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-cold-t14p4-f0p1-both"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-cold-t14p4-f0p1-both\\attempts\\initial",
+        "launcherPid": 21384,
+        "pid": 26696,
+        "startedAt": "2026-10-10T18:35:13.595Z"
+      },
+      "exitPresent": false,
+      "rowId": "oct10-hil-cold-t14p4-f0p1-both"
+    },
+    {
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "neither",
+        "rowId": "oct10-hil-cold-t14p4-f0p1-neither",
+        "cycle": 4,
+        "attachedCount": 19,
+        "extent": 5,
+        "totalSweeps": 23739,
+        "simTimeSeconds": 0.39982794222684853,
+        "wallSeconds": 69.725,
+        "peakRssBytes": 126435328,
+        "updatedAt": "2026-10-10T18:36:23.572Z"
+      },
+      "resumePointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-4-fac797be-7061-4947-91da-f1d6785194c4",
+          "manifestSha256": "51cc7c918174faf0cbef286c8f000b0a210516aa8bcc0d452cf7e9435b09df3d"
+        },
+        "previous": {
+          "directory": "generation-3-4194c378-5399-476b-ae25-a0819a21fab1",
+          "manifestSha256": "bc953040a6e31e96db60e6ff5ae6f3f68ec82d977e36b1bd68d6d27e56b940fb"
+        }
+      },
+      "targetExtent": 29,
+      "stderrBytes": 0,
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "neither",
+        "rowId": "oct10-hil-cold-t14p4-f0p1-neither",
+        "gitHead": "33832e20a386c52d830e2dd338a1f8671a25db8f",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\runner\\src\\hil-exploration-oct10-main.ts",
+          "run-row",
+          "oct10-hil-cold-t14p4-f0p1-neither",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-cold-t14p4-f0p1-neither"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-cold-t14p4-f0p1-neither\\attempts\\initial",
+        "launcherPid": 21384,
+        "pid": 24416,
+        "startedAt": "2026-10-10T18:35:13.619Z"
+      },
+      "exitPresent": false,
+      "rowId": "oct10-hil-cold-t14p4-f0p1-neither"
+    },
+    {
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "basal-only",
+        "rowId": "oct10-hil-cold-t14p4-f0p1-basal-only",
+        "cycle": 4,
+        "attachedCount": 19,
+        "extent": 5,
+        "totalSweeps": 23740,
+        "simTimeSeconds": 0.39116406088125555,
+        "wallSeconds": 67.619,
+        "peakRssBytes": 125857792,
+        "updatedAt": "2026-10-10T18:36:21.437Z"
+      },
+      "resumePointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-4-a173e1e6-c6a4-49c2-9c56-849435742e54",
+          "manifestSha256": "bdde9639b4da9c74b6980981d9d480427c24caa9f1db6217b9f9ffc919b7c046"
+        },
+        "previous": {
+          "directory": "generation-3-543c68eb-b95d-4ccf-85a4-a212eb52de2d",
+          "manifestSha256": "9aeffde606a3bcd7f881c7e5b78388b29f58440fa61bbbe1f3967d58107b1df3"
+        }
+      },
+      "targetExtent": 29,
+      "stderrBytes": 0,
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "basal-only",
+        "rowId": "oct10-hil-cold-t14p4-f0p1-basal-only",
+        "gitHead": "33832e20a386c52d830e2dd338a1f8671a25db8f",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\runner\\src\\hil-exploration-oct10-main.ts",
+          "run-row",
+          "oct10-hil-cold-t14p4-f0p1-basal-only",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-cold-t14p4-f0p1-basal-only"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-cold-t14p4-f0p1-basal-only\\attempts\\initial",
+        "launcherPid": 21384,
+        "pid": 17428,
+        "startedAt": "2026-10-10T18:35:13.628Z"
+      },
+      "exitPresent": false,
+      "rowId": "oct10-hil-cold-t14p4-f0p1-basal-only"
+    },
+    {
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "prism-only",
+        "rowId": "oct10-hil-cold-t14p4-f0p1-prism-only",
+        "cycle": 4,
+        "attachedCount": 19,
+        "extent": 5,
+        "totalSweeps": 23412,
+        "simTimeSeconds": 0.13086309920212755,
+        "wallSeconds": 68.523,
+        "peakRssBytes": 125693952,
+        "updatedAt": "2026-10-10T18:36:22.385Z"
+      },
+      "resumePointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-4-bb36cd79-6676-4ae8-84cb-e0bf576616ba",
+          "manifestSha256": "90bbaabab682f09739a1b6ec797b7475c2efd1fd30add95f3f4621be1d5e6bdf"
+        },
+        "previous": {
+          "directory": "generation-3-777094a1-60e5-4917-9b6e-2469518a373b",
+          "manifestSha256": "f8403ff6604c47b49892db01377ea2dfb82730dd6ff8b33d1d1b50c663312b62"
+        }
+      },
+      "targetExtent": 29,
+      "stderrBytes": 0,
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "prism-only",
+        "rowId": "oct10-hil-cold-t14p4-f0p1-prism-only",
+        "gitHead": "33832e20a386c52d830e2dd338a1f8671a25db8f",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\runner\\src\\hil-exploration-oct10-main.ts",
+          "run-row",
+          "oct10-hil-cold-t14p4-f0p1-prism-only",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-cold-t14p4-f0p1-prism-only"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-cold-t14p4-f0p1-prism-only\\attempts\\initial",
+        "launcherPid": 21384,
+        "pid": 7592,
+        "startedAt": "2026-10-10T18:35:13.637Z"
+      },
+      "exitPresent": false,
+      "rowId": "oct10-hil-cold-t14p4-f0p1-prism-only"
+    },
+    {
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "rowId": "oct10-hil-history-static-t6-m1",
+        "cycle": 4,
+        "attachedCount": 19,
+        "extent": 5,
+        "totalSweeps": 23546,
+        "simTimeSeconds": 0.15813957980234125,
+        "wallSeconds": 67.888,
+        "peakRssBytes": 125530112,
+        "updatedAt": "2026-10-10T18:36:21.748Z"
+      },
+      "resumePointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-4-bee71280-d000-4233-826a-3adb7dfb4c5d",
+          "manifestSha256": "3f629f4f9e944ea709694d08ddb6d9fb2b4c52dc06a583e00895223846f46e75"
+        },
+        "previous": {
+          "directory": "generation-3-cf300963-4103-47c7-8981-aadac4454ec6",
+          "manifestSha256": "cc7f8834bab648cc0f8ba5d0318f7881d3d1da4b29f0dde87400ad28ee834f5d"
+        }
+      },
+      "targetExtent": 29,
+      "stderrBytes": 0,
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "rowId": "oct10-hil-history-static-t6-m1",
+        "gitHead": "33832e20a386c52d830e2dd338a1f8671a25db8f",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\runner\\src\\hil-exploration-oct10-main.ts",
+          "run-row",
+          "oct10-hil-history-static-t6-m1",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-history-static-t6-m1"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-history-static-t6-m1\\attempts\\initial",
+        "launcherPid": 21384,
+        "pid": 18092,
+        "startedAt": "2026-10-10T18:35:13.644Z"
+      },
+      "exitPresent": false,
+      "rowId": "oct10-hil-history-static-t6-m1"
+    },
+    {
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "rowId": "oct10-hil-history-static-t6-nodip",
+        "cycle": 5,
+        "attachedCount": 19,
+        "extent": 5,
+        "totalSweeps": 26024,
+        "simTimeSeconds": 0.21942335947347713,
+        "wallSeconds": 71.237,
+        "peakRssBytes": 149938176,
+        "updatedAt": "2026-10-10T18:36:25.097Z"
+      },
+      "resumePointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-5-a83b101a-47e1-4574-bd26-dca1c9315f02",
+          "manifestSha256": "e4cc01219502686b8f48f5e25c9eda797d2eba86bbf7da4d812e1385dbd6c446"
+        },
+        "previous": {
+          "directory": "generation-4-5728102c-d73b-4348-8b16-18b965a9c6fd",
+          "manifestSha256": "53c3f9bad2bc44f1c81d9db9baed21a3dbec7dca1e129ef43cd2f5543884d1e2"
+        }
+      },
+      "targetExtent": 29,
+      "stderrBytes": 0,
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "rowId": "oct10-hil-history-static-t6-nodip",
+        "gitHead": "33832e20a386c52d830e2dd338a1f8671a25db8f",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\runner\\src\\hil-exploration-oct10-main.ts",
+          "run-row",
+          "oct10-hil-history-static-t6-nodip",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-history-static-t6-nodip"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-history-static-t6-nodip\\attempts\\initial",
+        "launcherPid": 21384,
+        "pid": 27340,
+        "startedAt": "2026-10-10T18:35:13.652Z"
+      },
+      "exitPresent": false,
+      "rowId": "oct10-hil-history-static-t6-nodip"
+    }
+  ],
+  "dispatch": {
+    "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10-control\\dispatch-20261010T113511362.stderr.log",
+    "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10-control\\dispatch-20261010T113511362.stdout.log",
+    "source": "33832e20a386c52d830e2dd338a1f8671a25db8f",
+    "command": [
+      "powershell.exe",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10-control\\start-hil.ps1",
+      "-Mode",
+      "launch"
+    ],
+    "startedUtc": "2026-10-10T18:35:11.3838261Z",
+    "dispatcherPid": 24572
+  },
+  "campaign": {
+    "schema": "hil-exploration-oct10-campaign-v1",
+    "batchId": "hil-history-cold-exploration-2026-10-10",
+    "checkpointFormat": "discovery-resume-v1",
+    "host": "HIL",
+    "gitHead": "33832e20a386c52d830e2dd338a1f8671a25db8f",
+    "node": "v24.13.1",
+    "v8": "13.6.233.17-node.40",
+    "hostIdentity": {
+      "hostname": "HIL",
+      "platform": "win32",
+      "arch": "x64",
+      "cpuModels": [
+        "Intel(R) Core(TM) Ultra 9 285K"
+      ],
+      "logicalProcessors": 24,
+      "totalMemoryBytes": 68023050240
+    },
+    "rosterSha256": "f0189283bc01310cde0db7bc8de572b069ab33b12c86ba1c10e7e1b884892a8b",
+    "requestedConcurrency": 10,
+    "rows": [
+      {
+        "conditional": false,
+        "pressurePa": 101325,
+        "paramSet": "M1_NO_DIP_ABLATION",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.05,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "oct10-hil-history-t6-to-t14p4-e7-nodip",
+        "lane": "followup-history",
+        "tempC": -6,
+        "fraction": 0.15,
+        "timelineEvent": {
+          "triggerLargestExtent": 7,
+          "tempC": -14.4,
+          "sigmaInfinity": 0.02256
+        },
+        "sigmaInfinity": 0.00906
+      },
+      {
+        "conditional": false,
+        "pressurePa": 101325,
+        "paramSet": "M1_NO_DIP_ABLATION",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.05,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "oct10-hil-history-t6-to-t14p4-e15-nodip",
+        "lane": "followup-history",
+        "tempC": -6,
+        "fraction": 0.15,
+        "timelineEvent": {
+          "triggerLargestExtent": 15,
+          "tempC": -14.4,
+          "sigmaInfinity": 0.02256
+        },
+        "sigmaInfinity": 0.00906
+      },
+      {
+        "conditional": false,
+        "pressurePa": 101325,
+        "paramSet": "M1_NO_DIP_ABLATION",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.05,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "oct10-hil-history-t14p4-to-t6-e7-nodip",
+        "lane": "followup-history",
+        "tempC": -14.4,
+        "fraction": 0.15,
+        "timelineEvent": {
+          "triggerLargestExtent": 7,
+          "tempC": -6,
+          "sigmaInfinity": 0.00906
+        },
+        "sigmaInfinity": 0.02256
+      },
+      {
+        "conditional": false,
+        "pressurePa": 101325,
+        "paramSet": "M1_NO_DIP_ABLATION",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.05,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "oct10-hil-history-t14p4-to-t6-e15-nodip",
+        "lane": "followup-history",
+        "tempC": -14.4,
+        "fraction": 0.15,
+        "timelineEvent": {
+          "triggerLargestExtent": 15,
+          "tempC": -6,
+          "sigmaInfinity": 0.00906
+        },
+        "sigmaInfinity": 0.02256
+      },
+      {
+        "conditional": false,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.05,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27
+        ],
+        "id": "oct10-hil-cold-t14p4-f0p1-both",
+        "lane": "cavity-mechanism",
+        "tempC": -14.4,
+        "fraction": 0.1,
+        "experimentalFacetDips": "both",
+        "sigmaInfinity": 0.015040000000000001
+      },
+      {
+        "conditional": false,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.05,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27
+        ],
+        "id": "oct10-hil-cold-t14p4-f0p1-neither",
+        "lane": "cavity-mechanism",
+        "tempC": -14.4,
+        "fraction": 0.1,
+        "experimentalFacetDips": "neither",
+        "sigmaInfinity": 0.015040000000000001
+      },
+      {
+        "conditional": false,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.05,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27
+        ],
+        "id": "oct10-hil-cold-t14p4-f0p1-basal-only",
+        "lane": "cavity-mechanism",
+        "tempC": -14.4,
+        "fraction": 0.1,
+        "experimentalFacetDips": "basal-only",
+        "sigmaInfinity": 0.015040000000000001
+      },
+      {
+        "conditional": false,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.05,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27
+        ],
+        "id": "oct10-hil-cold-t14p4-f0p1-prism-only",
+        "lane": "cavity-mechanism",
+        "tempC": -14.4,
+        "fraction": 0.1,
+        "experimentalFacetDips": "prism-only",
+        "sigmaInfinity": 0.015040000000000001
+      },
+      {
+        "conditional": false,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.05,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "oct10-hil-history-static-t6-m1",
+        "lane": "followup-history",
+        "tempC": -6,
+        "fraction": 0.15,
+        "sigmaInfinity": 0.00906
+      },
+      {
+        "conditional": false,
+        "pressurePa": 101325,
+        "paramSet": "M1_NO_DIP_ABLATION",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.05,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "oct10-hil-history-static-t6-nodip",
+        "lane": "followup-history",
+        "tempC": -6,
+        "fraction": 0.15,
+        "sigmaInfinity": 0.00906
+      }
+    ],
+    "createdAt": "2026-10-10T18:35:11.878Z",
+    "exactLaunchCommand": [
+      "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\runner\\src\\hil-exploration-oct10-main.ts",
+      "launch",
+      "HIL",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10"
+    ],
+    "plan": "docs/plans/hil-exploration-oct10.md",
+    "budgetBasis": "Ten additional workers beside four warm workers; existing N64 operation and live headroom. Not a new throughput qualification."
+  },
+  "capturedUtc": "2026-10-10T18:36:31.8033724Z",
+  "warmRows": [
+    {
+      "stderrBytes": 0,
+      "targetExtent": 57,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "rowId": "warm-refine-fine-thin-t4p5-broad",
+        "cycle": 523,
+        "attachedCount": 5319,
+        "extent": 29,
+        "totalSweeps": 6261814,
+        "simTimeSeconds": 17.35278847733343,
+        "wallSeconds": 117196.81700000001,
+        "peakRssBytes": 455950336,
+        "updatedAt": "2026-10-10T18:34:23.524Z"
+      },
+      "rowId": "warm-refine-fine-thin-t4p5-broad",
+      "resumePointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-523-01946c10-b103-4711-9c21-bb9acd8e666b",
+          "manifestSha256": "ca182637893a921fdfee343f02a347cec1b44dcfd04b3b9bb7090e2a0626c37c"
+        },
+        "previous": {
+          "directory": "generation-522-4fc8442a-d11e-46d0-99d7-6e5f15ab4c56",
+          "manifestSha256": "f37ea6811d57710445f14b0aa6ed72c477a037f5727b0ec535f284420cda31f7"
+        }
+      }
+    },
+    {
+      "stderrBytes": 0,
+      "targetExtent": 57,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thin-t4p5-early",
+        "cycle": 355,
+        "attachedCount": 3129,
+        "extent": 21,
+        "totalSweeps": 5236907,
+        "simTimeSeconds": 8.89457259741485,
+        "wallSeconds": 99643.943,
+        "peakRssBytes": 475250688,
+        "updatedAt": "2026-10-10T18:33:36.821Z"
+      },
+      "rowId": "warm-refine-fine-thin-t4p5-early",
+      "resumePointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-355-aafd525c-f292-43b4-91d1-61b98d3b6ee9",
+          "manifestSha256": "71761d35253880a876f7514aa0f7e819c8e8a9f8b59f7133635044489fe5e9e4"
+        },
+        "previous": {
+          "directory": "generation-354-58e562a7-a12d-4931-8c69-c8acf832088a",
+          "manifestSha256": "90afcb4cc0721af8f470ab5d9d158a0f5c7dbaf5378c28b0546256bc27194550"
+        }
+      }
+    },
+    {
+      "stderrBytes": 0,
+      "targetExtent": 57,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "rowId": "warm-refine-fine-thick-t4p5-broad",
+        "cycle": 433,
+        "attachedCount": 5063,
+        "extent": 25,
+        "totalSweeps": 5242745,
+        "simTimeSeconds": 15.019554476955324,
+        "wallSeconds": 99684.468,
+        "peakRssBytes": 419790848,
+        "updatedAt": "2026-10-10T18:34:17.356Z"
+      },
+      "rowId": "warm-refine-fine-thick-t4p5-broad",
+      "resumePointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-433-fc343ebc-6b1a-45ab-a327-f84dae0afb8e",
+          "manifestSha256": "11f0770e1910e7fe5b9346aea6a0241ec05e7a4c4f66c996f5f33000a80f1d8f"
+        },
+        "previous": {
+          "directory": "generation-432-a44b5a04-743b-450a-a16a-25afd561585f",
+          "manifestSha256": "2ae66011dcf6684f15d6bfddd151ba1c3eb6af2dcde0aa93d8f66a1ba1961add"
+        }
+      }
+    },
+    {
+      "stderrBytes": 0,
+      "targetExtent": 57,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thick-t4p5-early",
+        "cycle": 357,
+        "attachedCount": 3479,
+        "extent": 23,
+        "totalSweeps": 5249466,
+        "simTimeSeconds": 9.05763256588794,
+        "wallSeconds": 99628.445,
+        "peakRssBytes": 417878016,
+        "updatedAt": "2026-10-10T18:33:21.342Z"
+      },
+      "rowId": "warm-refine-fine-thick-t4p5-early",
+      "resumePointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-357-439bc7b0-5fc1-4579-a610-b6fa256df979",
+          "manifestSha256": "ea1075630f5f3c0cf26edd968a64517270d1d8d0cec418a8708d4457c5050ca0"
+        },
+        "previous": {
+          "directory": "generation-356-cdc35cc0-24ac-4617-9f7a-698f6998b2e0",
+          "manifestSha256": "4842d20269069fd2b170d5b85a8a96b8bebf8f196761f467de21157c05244c00"
+        }
+      }
+    }
+  ],
+  "coordinator": {
+    "source": "33832e20a386c52d830e2dd338a1f8671a25db8f",
+    "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10-control\\campaign-launch-20261010T113511594.stderr.log",
+    "wrapperPid": 24572,
+    "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10-control\\campaign-launch-20261010T113511594.stdout.log",
+    "command": [
+      "node",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\runner\\src\\hil-exploration-oct10-main.ts",
+      "launch",
+      "HIL",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10"
+    ],
+    "mode": "launch",
+    "coordinatorPid": 21384,
+    "PSModulePath": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+    "startedUtc": "2026-10-10T18:35:11.5953844Z"
+  },
+  "warmResources": {
+    "capturedUtc": "2026-10-10T18:36:29.5034477Z",
+    "availablePhysicalBytes": 48338898944,
+    "commitHeadroomBytes": 56242495488,
+    "children": [
+      {
+        "Id": 7944,
+        "CPU": 99579.9375,
+        "WorkingSet64": 422215680,
+        "PeakWorkingSet64": 526401536
+      },
+      {
+        "Id": 22716,
+        "CPU": 99584.453125,
+        "WorkingSet64": 381902848,
+        "PeakWorkingSet64": 486326272
+      },
+      {
+        "Id": 25200,
+        "CPU": 99583.875,
+        "WorkingSet64": 384258048,
+        "PeakWorkingSet64": 488448000
+      },
+      {
+        "Id": 27104,
+        "CPU": 99583.921875,
+        "WorkingSet64": 384872448,
+        "PeakWorkingSet64": 489680896
+      }
+    ]
+  }
+}
