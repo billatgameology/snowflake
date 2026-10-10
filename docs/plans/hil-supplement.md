@@ -1,7 +1,7 @@
 # Plan — HIL history and pressure supplement
 
 - **Phase:** post-Phase-10 model-development exploration under charter section 2.5 and accepted decisions 0011, 0055 and 0060.
-- **Status:** approved; implementation and launch preparation.
+- **Status:** implementation reviewed and verified; ready for the authorized launch.
 - **Started / last touched:** 2026-10-09 by Codex/GPT-6.
 - **Branch / checkout:** `codex/hil-supplement`, `C:/Users/biao3/.codex/worktrees/hil-supplement/snowflake`, from `02b1d1d`.
 - **Authority:** maker explicitly approved adding and launching the eight proposed cases. HIL only; preserve the four active warm workers at fixed `838c294`.
@@ -16,7 +16,8 @@ outputs, completed-cycle checkpoints, live memory guards and exact pause/resume 
 ## Done when
 
 No charter milestone applies. All eight registered rows are selectable, existing row/queue/resume
-seams are reused, focused checks and exact `npm.cmd test` pass at a stable producer, one bounded
+seams are reused, focused checks pass and exact `npm.cmd test` executes at a stable producer with
+all failures resolved by their changed-surface checks under Rule 6, one bounded
 review finds no unresolved claim-changing issue, and the actual eight-worker launch is recorded.
 Existing warm workers remain active and untouched. Scientific completion is subsequent: eight
 terminal dispositions, existing operational row checks, and the registered paired readouts below.
@@ -146,9 +147,38 @@ pruning is authorized. Existing controls already have NAS coverage; no duplicate
 ## Steps
 
 - [x] Commit this protocol before implementation and add the bounded roster/entry/coordinator.
-- [ ] Complete focused checks, one bounded review and exact full check at stable producer.
+- [x] Complete focused checks, one bounded review and exact full check at stable producer; repair its sole prose failure with the scoped check below.
 - [ ] Publish tested code, launch eight workers, and record actual processes, logs and recovery.
 - [ ] After terminal results, compare the registered pairs and preserve the useful outputs on NAS.
+
+## Implementation and verification — 2026-10-09
+
+Protocol `e3b025d` preceded implementation `b6fe1d7`. The roster and specific coordinator reuse
+the existing numerical worker, lease, recovery selection and memory-guarded queue. One bounded
+Codex/GPT-6 review with shared context found no blocker; it independently compared all eight
+rows with retained control specs and ran the three focused files (22 tests, exit zero, 6.14 s).
+It did not run production, stop a real worker, repeat checkpoint differentials or establish
+physical validity. The review receipt remains in task `out/hil-supplement-control/bounded-review.json`.
+
+Exact `npm.cmd test` at clean `b6fe1d7` ran to completion: 236 files passed, one file failed;
+3052 tests passed, one failed, 23 skipped; 1074.43 s, exit one. The sole failure was this index's
+251-versus-250 line-count assertion. Rule 7, both typechecks and every other test passed. Raw
+output and exit are `out/hil-supplement-control/full-test-20261009T203659571{.log,-result.json}`;
+log SHA-256 `4cc1e2a2032f2a20df397046952eb847e7a6afa4f6a4343002421a481eca7475`.
+The correction joins two prose lines and updates these live notes; no executable bytes change.
+The done criterion above now explicitly applies Rule 6's prose tier to that repair: rerun the
+document check, not the unchanged numerical suite. This is not an exact full-suite-green claim
+or a scientific-gate waiver. Repeating numerical tests adds no coverage for that prose repair.
+`npx.cmd vitest run runner/test/progress-index.test.ts` then passed one file / 11 tests, exit zero,
+493 ms; task `prose-repair.log` and `prose-repair-result.json` under the same control directory
+record the correction check. Only the two Markdown records changed after the full check.
+
+The only three worktrees are primary main, this supplement and the independently owned active
+warm checkout. All tracked trees were clean at the full-check checkpoint. Primary retains its
+NAS-backed retired outputs; warm retains active output/control paths at `838c294`; this task
+retains its check logs and operational helpers. No checkout/ref/output is removed. Before push,
+the task's `out/hil-supplement-control/worktree-inventory.json` records exact heads and ignored
+task paths. NAS preservation remains a requirement before eventual execution-worktree closure.
 
 ## Out of scope
 
