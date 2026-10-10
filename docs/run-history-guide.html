@@ -1,0 +1,345 @@
+<div id="vcc-run-history">
+  <style>
+    #vcc-run-history { color: var(--foreground); }
+    #vcc-run-history .history-calendar, #vcc-run-history .history-design, #vcc-run-history .history-graph { display: block; width: 100%; }
+    #vcc-run-history .history-calendar text, #vcc-run-history .history-design text, #vcc-run-history .history-graph text { fill: var(--foreground); font-size: 12px; }
+    #vcc-run-history details { margin: 16px 0; }
+    #vcc-run-history summary { font-weight: 500; }
+    #vcc-run-history .history-graph-note { margin-top: 8px; overflow-wrap: anywhere; }
+    #vcc-run-history .history-graph-source { margin-top: 4px; overflow-wrap: anywhere; }
+    #vcc-run-history .history-question { margin: 12px 0; }
+    #vcc-run-history .history-key { display: flex; gap: 16px; flex-wrap: wrap; margin: 8px 0 16px; }
+    #vcc-run-history .history-key span { display: inline-flex; align-items: center; gap: 6px; }
+    #vcc-run-history .history-swatch { width: 12px; height: 8px; display: inline-block; }
+    #vcc-run-history .history-picker { margin: 18px 0 12px; }
+    #vcc-run-history .history-picker label { flex: 1 1 360px; min-width: 0; }
+    #vcc-run-history .history-title { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+    #vcc-run-history .history-facts { margin: 8px 0; }
+    #vcc-run-history .history-facts > div { display: grid; grid-template-columns: 118px minmax(0, 1fr); gap: 14px; padding: 8px 0; }
+    #vcc-run-history .history-facts dt { font-weight: 500; }
+    #vcc-run-history .history-facts dd { margin: 0; overflow-wrap: anywhere; }
+    #vcc-run-history .history-evidence { overflow-wrap: anywhere; }
+    #vcc-run-history .history-evidence code { white-space: normal; }
+    #vcc-run-history .history-question-chain { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 16px 0; }
+    #vcc-run-history .history-question-chain > div { min-width: 0; }
+    #vcc-run-history .history-question-chain b { font-weight: 500; }
+    @media (max-width: 500px) {
+      #vcc-run-history .history-facts > div { grid-template-columns: 1fr; gap: 3px; }
+      #vcc-run-history .history-question-chain { grid-template-columns: 1fr; gap: 10px; }
+    }
+  </style>
+  <h2>From habit maps to growth memory</h2>
+  <div class="text-small text-muted">July–October 2026 · Phase 10 exploration continues until multiple distinct promising leads are accepted</div>
+  <details>
+  <summary>Calendar: overlapping study waves</summary>
+  <svg class="history-calendar" role="img" aria-label="Overlapping study windows from late July through October 10. Phase 8 and 9 overlap Phase 6; September cavity and history campaigns run in parallel."></svg>
+  <div class="history-key text-small">
+    <span><i class="history-swatch" style="background:var(--viz-series-1)"></i>Solver campaigns</span>
+    <span><i class="history-swatch" style="background:var(--viz-series-2)"></i>Corpus / component work</span>
+    <span><i class="history-swatch" style="background:var(--viz-series-3)"></i>Evidence / reference work</span>
+  </div>
+  <div class="text-small text-muted">Bars show documented study windows, not continuous compute. Cost below distinguishes calendar time from individual and summed run time.</div>
+  </details>
+  <div class="viz-controls history-picker">
+    <label class="form-label" for="vcc-wave">Explore a wave<select id="vcc-wave" class="form-select"></select></label>
+    <button class="btn" type="button" id="vcc-previous" aria-label="Previous wave">Previous</button>
+    <button class="btn" type="button" id="vcc-next" aria-label="Next wave">Next</button>
+  </div>
+  <div id="vcc-detail" aria-live="polite">
+    <div class="history-title"><h3 id="vcc-title"></h3><span id="vcc-grade" class="viz-badge"></span></div>
+    <div id="vcc-date" class="text-small text-muted"></div>
+    <div id="vcc-question" class="history-question"></div>
+    <div id="vcc-graph-wrap">
+      <h3 id="vcc-graph-title"></h3>
+      <svg class="history-graph" role="img"></svg>
+      <div id="vcc-graph-note" class="text-small history-graph-note"></div>
+      <div id="vcc-graph-source" class="text-small text-muted history-graph-source"></div>
+    </div>
+    <div id="vcc-design-wrap">
+    <svg class="history-design" role="img" aria-label="Experiment design: fixed conditions, changed conditions, and readout."></svg>
+    </div>
+    <details id="vcc-record-details">
+    <summary>Design, result, limits and source records</summary>
+    <dl class="history-facts">
+      <div><dt>Hold fixed</dt><dd id="vcc-fixed"></dd></div>
+      <div><dt>Compare</dt><dd id="vcc-change"></dd></div>
+      <div><dt>Measure</dt><dd id="vcc-read"></dd></div>
+      <div><dt>Actual work</dt><dd id="vcc-work"></dd></div>
+      <div><dt>Result</dt><dd id="vcc-result"></dd></div>
+      <div><dt>Meaning / limits</dt><dd id="vcc-limit"></dd></div>
+      <div><dt>Next question</dt><dd id="vcc-next-question"></dd></div>
+      <div id="vcc-cost-row"><dt>Recorded cost</dt><dd id="vcc-cost" class="tabular-nums"></dd></div>
+      <div><dt>Source records</dt><dd id="vcc-evidence" class="history-evidence text-small"></dd></div>
+    </dl>
+    </details>
+  </div>
+  <hr>
+  <div class="text-small">Terms: CAK = broad-facet parameter family; M1 = Nakaya-informed dip preparation; no-dip = matched M1 with the two dip factors removed. Basal = end faces; prism = side faces. N = lattice domain width; dx = cell spacing; extent = largest lattice span. HIL and BLD are execution hosts.</div>
+  <div class="text-small text-muted" style="margin-top:8px">Guide assembled from retained plans and reports; historical simulations were not rerun. Counts refer to each named wave, including reused controls where stated; no grand total is inferred. No quantitative-validation label was earned by these campaigns.</div>
+  <script type="application/json" id="vcc-history-data">
+  [
+    {"id":"p6-invalid-map","group":"Phase 6 · July–August","title":"The first full map used the wrong parameter family","date":"July 27–28","grade":"Invalidated","fixed":["N48 · dx 0.35 µm","19-site seed · extent 21"],"change":["34 temperatures × 6 forcings","Accidental CAK_A1"],"read":["Aspect-ratio classes","Nakaya regime agreement"],"question":"Can the registered broad-facet model reproduce the temperature–supersaturation habit sequence?","work":"204 float64 CPU cases at −2 through −35 °C, aggregate-v6 / monopole-matched hexPrism.","result":"5/90 measured agreement, but the run used CAK_A1 rather than the frozen CAK prism prefactor. ADR 0031 invalidated the campaign.","limit":"Historical diagnostic bytes remain; these results are excluded from the accepted arm comparison.","next":"Repeat all 204 points with the correct frozen CAK inputs.","cost":"101.119 summed process elapsed hours; this is not measured CPU-core time.","sources":["docs/decisions/0031-phase6-paramset-freeze-row.md","evidence/phase6-sweep-6995868-cak-a1-superseded/report.json"]},
+    {"id":"p6-cak-m1","group":"Phase 6 · July–August","title":"Corrected broad-facet and M1 habit maps","date":"July 28–30","grade":"Measured-only","fixed":["N48 · dx 0.35 µm","204-point map per arm"],"change":["CAK versus M1","Bundled parameter families"],"read":["Plate / neutral / column","Agreement by regime"],"question":"Does adding the M1 parameter prescription repair the missing habit sequence?","work":"Two 204-point sweeps with the same seed, domain, forcing grid and measurement extent 21.","result":"CAK: 3/90 agreement. M1: 54/90 on the common denominator, or 54/78 in its own scope. M1 matches 49/60 cold-plate points; neither arm matches the scored warm column regime.","limit":"CAK→M1 changes more than the dip factors. M1 is Nakaya-informed, so its agreement is in-sample. The registered conservative-intersection verdict was not computed.","next":"Test whether the small measurement scale and finite domain distort the result; isolate dip factors with a matched control.","cost":"Documented wall time: CAK about 20 h with six workers; M1 about 11.5 h. Summed row elapsed time: 89.423 h / 72.671 h.","sources":["evidence/phase6-three-arm-report/report.md","evidence/phase6-sweep/report.json","evidence/phase6-sweep-arm2/report.json"]},
+    {"id":"p6-domain","group":"Phase 6 · July–August","title":"The domain remedy failed its own prerequisite","date":"July 31","grade":"Criterion failure","fixed":["Same extent 21","4 registered conditions"],"change":["N48 → N64 → N80","Same physical cell spacing"],"read":["Same habit class","Counts within 0.5%"],"question":"Is the original finite box adequate, and would rerunning at N64 fix it?","work":"Eight fresh larger-domain jobs comparing four frozen conditions across two domain increments.","result":"3/4 comparisons fail at each increment. Habit classes stay the same, but attached counts move by up to 2.495% at N48→64 and 1.861% at N64→80.","limit":"An unchanged class does not establish numerical adequacy. The proposed N64 full-map remedy was stopped because it also failed the criterion.","next":"Build a measured numerical-control ladder instead of assuming a larger box solves the problem.","cost":"","sources":["evidence/phase6-domain-spot-check/spot-check.json","evidence/phase6-domain-escalation/escalation-n80.json","docs/decisions/0037-phase6-domain-spot-check-failure.md"]},
+    {"id":"p6-size","group":"Phase 6 · July–August","title":"Grow selected crystals farther: does a column emerge?","date":"July 30–August 1","grade":"Diagnostic","fixed":["dx 0.35 µm","Selected warm conditions"],"change":["Larger growth extent","Selected domain / arm checks"],"read":["Aspect ratio versus size","Domain-pair count differences"],"question":"Were columns absent because crystals were measured too early?","work":"18 retained measurements from selected size/domain rungs and later matched or post-hoc controls.","result":"At −5 °C / forcing .10, M1 aspect ratio is 1.400 → 1.526 → 1.522 → 1.640 at achieved extents 21 → 29 → 35 → 41. It can cross the column threshold, with a non-monotone response.","limit":"This changes physical crystal size, not grid spacing. Domain checks alternate pass/fail. Post-hoc CAK controls are diagnostic, and CAK/M1 does not isolate dips.","next":"Use source-derived physical size strata and a clean no-dip M1 control.","cost":"","sources":["evidence/phase6-columns-ladder/ladder.json","docs/phase6-columns-refinement-prereg.md","docs/phase6-convergence-study-prereg.md"]},
+    {"id":"p6-ablation","group":"Phase 6 · July–August","title":"Remove only the M1 dip factors","date":"August 7","grade":"Measured-only","fixed":["Executed M1 configuration","204 points · extent 21"],"change":["Both dip factors → 1","Matched no-dip family"],"read":["Same measured classes","Same agreement rules"],"question":"Which part of M1 carries its cold-plate match in this implementation?","work":"204 new cases, identical to the executed M1 arm except the registered parameter-set choice removing the dip factors.","result":"Agreement falls from 54/90 to 5/90 on the common denominator; cold-plate agreement falls from 49/60 to 0/60. No arm reproduces the scored column regime.","limit":"This isolates the implemented factors at the frozen configuration. It does not establish physical SDAK causality or independent laboratory validation.","next":"Determine whether any affordable numerical setting is sufficiently stable for a stronger campaign.","cost":"About 12 calendar hours at concurrency 12; 139.091 summed row elapsed hours.","sources":["docs/plans/phase-6-arm3-sweep.md","evidence/phase6-sweep-arm3/report.json","evidence/phase6-three-arm-report/report.md"]},
+    {"id":"p6-wp2","group":"Phase 6 · July–August","title":"The 80-case numerical ladder","date":"August 8–20","grade":"NO-PASS · Phase 6 closed negative","fixed":["2 arms × 4 conditions","Source-derived floor sizes"],"change":["Grid / box / fill timestep","Relaxation / seed radius"],"read":["Same habit class","Counts within 0.5%"],"question":"Can domain, timestep and initialization controls select a sufficiently stable configuration?","work":"80 runs. dx 0.7 µm: seed radius 8, target extent 27, N48/64/80. dx 0.35 µm: radius 17, target 54, N96/112/128. Auxiliary CFL, residual-tolerance and ±1 seed-radius controls.","result":"All 80 reach size targets, but both spacings are NO-PASS. Domain failures: 5/16 coarse and 6/16 fine. Halved fill-CFL fails 3/8; tighter relaxation fails 0/8; seed perturbations fail 14/16, with up to 9.285% count sensitivity.","limit":"Floor sizes and four conditions only; finer spacing and ceiling-size strata remain unverified. Phase 6 accepts a negative finding at measured-only grade. The registered production headline is not computed by decision 0045.","next":"Reconcile the experimental ruler and test smaller component hypotheses; do not treat gate closure as successful validation.","cost":"11.53 calendar days between first start and last finish. Longest row: 146.864 h (6.12 days). Sum: 2,113.848 row elapsed h. Recorded concurrency: 12 for 72 rows; 4 for eight.","sources":["docs/plans/phase-6-wp2-ladder.md","evidence/phase6-wp2-ladder/rows.jsonl","evidence/phase6-wp2-ladder/report.json","evidence/phase6-three-arm-report/report.md"]},
+    {"id":"p8a","group":"Phase 8 · the experimental ruler","title":"Reconcile what the laboratory targets mean","date":"August 4–10 · overlaps Phase 6","grade":"Source reconciliation","fixed":["Published laboratory records","Protocols and provenance"],"change":["Reconcile forcing / apparatus","Separate targets from inputs"],"read":["Witness class and scope","Eligibility / uncertainty"],"question":"Which experimental observations are actually comparable under their stated conditions?","work":"Phase 8A target-book curation, without solver runs: 18 entries comprising 16 targets and two inputs.","result":"One target has multiply witnessed Class A support; 15 are protocol-bound Class B. The historical book has seven conditional held-out, five development and four out-of-model targets.","limit":"The original book stays frozen. The later Phase 8B successor governs development work and has zero held-out records. Source reconciliation supplies no validation credit.","next":"Extract actual measurement series and histories that discriminate candidate mechanisms.","cost":"Source work, not a solver campaign.","sources":["docs/plans/phase-8-what-is-real.md","research/phase8-target-book.md","evidence/phase8-target-book/freeze.json"]},
+    {"id":"p8b","group":"Phase 8 · the experimental ruler","title":"Build a usable measurement corpus","date":"August 11–12","grade":"Development corpus","fixed":["Frozen source selection","Native / digitized observations"],"change":["Extract longitudinal series","Retain apparatus restrictions"],"read":["Measurements + uncertainties","Mechanism-discriminating records"],"question":"Which available measurements can support the next model-development experiments?","work":"51 records: 18 native histories, 28 direct numeric records and five interpretation dependencies.","result":"252,134 native history rows and 431 digitized plot points; zero held-out records. A focused Phase-9-ready benchmark replaced exhaustive extraction of the whole discovery universe.","limit":"Measured decreases, duplicate times and source limits are retained. The residual literature universe remains backlog, not an exhaustive closed corpus.","next":"Run cheap compatibility and one-factor probes before an expensive 3-D combination campaign.","cost":"Source extraction and reconciliation; no solver runs.","sources":["docs/plans/phase-8-measurement-corpus.md","evidence/phase8b-benchmark-final-v1/report.json","docs/decisions/0048-focus-phase8b-on-phase9-ready-benchmarks.md"]},
+    {"id":"p9-bulk","group":"Phase 9 · component probes","title":"Does the mass-transfer surrogate improve measured histories?","date":"August 12–13","grade":"No promotion","fixed":["6 levitated mass histories","Same forcing / observation map"],"change":["Published bulk surrogate","Continuum scale comparator"],"read":["Equal-history error","Sensitivity / winning histories"],"question":"Can Lamb’s bulk-transfer surrogate beat a simple continuum rescale fitted on the other five histories?","work":"Scalar replay of six mass-ratio histories in the registered 205–240 K, t < 500 s domain; 24 single-history sensitivity cases. No 3-D growth campaign.","result":"Mean squared errors: Lamb 431.3416 versus internally cross-validated continuum rescale 0.6578183. Lamb wins 0/6 histories; four were required. No sensitivity case flips a win.","limit":"Development-only comparison within the source apparatus. Missing linkage, levitation fields and unobserved habit prevent a morphology or physical-mechanism verdict. Internal cross-validation is not held-out validation.","next":"Do not promote this module into a combined 3-D solver campaign.","cost":"Scalar component work; no day-scale runtime inferred.","sources":["docs/plans/phase-9-execution.md","evidence/phase9-dbt-six-history-development-v3/report.json","research/phase9-dbt-protocol-v1.json"]},
+    {"id":"p9-planar","group":"Phase 9 · component probes","title":"Does the prism annex help under a defensible forcing map?","date":"August 12–13","grade":"Mapping-dependent · no promotion","fixed":["96 planar data points","Basal comparator unchanged"],"change":["Prism annex at −7 / −15 °C","5 diagnostic forcing ratios"],"read":["Planar growth error","Compatibility before scoring"],"question":"Does the printed prism annex improve the inherited broad-facet control?","work":"Six basal/prism series at −7, −15 and −30 °C in 40 Pa stagnant air. Diagnostic forcing ratios .125/.25/.5/.75/1; annex refused outside its printed domain.","result":"Only ratios .125 and .25 meet the effect criterion. A physical apparatus-to-surface forcing mapping is unavailable. Zero Phase 9 items are promoted; combinations are not run.","limit":"A favorable result under an arbitrary diagnostic mapping cannot become a physical score. Other Phase 9 branches remain source-, compatibility- or analytic-limited.","next":"Separate unresolved observation mappings from numerical reference questions in Phase 10.","cost":"Planar/source probes; no 3-D morphology campaign.","sources":["docs/plans/phase-9-execution.md","evidence/phase9-mf-mk2-planar-diagnostic-v1/report.json","research/phase9-mf-mk2-protocol-v1.json"]},
+    {"id":"p10-bridges","group":"Formal Phase 10 · evidence limits","title":"Try to bridge laboratory protocols to solver observables","date":"August 21–25","grade":"Source / mapping refusals","fixed":["Frozen Phase 8 books","Finite source / apparatus roster"],"change":["6 observation bridges","14 held source payloads"],"read":["Resolved operands or refusal","Scope and source identity"],"question":"Can missing apparatus, source and observation semantics be resolved without inventing operands?","work":"Scope overlays over both target books, terminal source intake and six finite acquisition / observation branches.","result":"Five refusals and one cross-pressure non-identification. One of six acquisition targets was obtained; five were rights-blocked. 48 unresolved operands remain.","limit":"No target score, habit campaign or downstream physics implementation is earned by these dispositions.","next":"Document honest refusal; rederive the already saved numerical evidence separately.","cost":"Source and evidence work; not a new morphology sweep.","sources":["docs/plans/phase-10-evidence-verification-execution.md","evidence/phase10-observation-bridges-v1/report.json","evidence/phase10-closure-v1/report.json"]},
+    {"id":"p10-c0","group":"Formal Phase 10 · evidence limits","title":"Reanalyse the expensive Phase 6 ladder","date":"August 21–22","grade":"Criterion NO-PASS","fixed":["80 persisted Phase 6 rows","Original scientific identities"],"change":["64 unique matched pairings","Independent artifact reanalysis"],"read":["Domain / seed / timestep effects","Persisted-field limitations"],"question":"What can the expensive ladder actually tell us from the bytes that were preserved?","work":"Independent reparse of 80 rows and 64 unique pairings; no new solver runs.","result":"Both 0.7 µm and 0.35 µm remain criterion NO-PASS because of attached-count differences. The available bytes support less than a full trajectory/field interpretation.","limit":"The historical rows lack occupancy, fields, event histories and ledger trajectories needed for stronger readouts. Reanalysis cannot manufacture them.","next":"Seek independently referenced absolute numerical controls, while separating missing evidence from numerical failure.","cost":"Read-only reanalysis; the original compute cost belongs to Phase 6.","sources":["evidence/phase10-numerical-verification-v1/c0-report.json","evidence/phase10-numerical-verification-v1/c0-analysis.json","docs/plans/phase-10-evidence-verification-execution.md"]},
+    {"id":"p10-c0v","group":"Formal Phase 10 · evidence limits","title":"Absolute-reference controls do not reach a passing campaign","date":"August 21–25 · formal closure August 25","grade":"Complete-negative · C0V incomplete","fixed":["Independent references required","3 numerical control families"],"change":["Radial / static / moving tests","Bounded reference preparation"],"read":["Absolute accuracy or refusal","Artifact-derived disposition"],"question":"Can production accuracy be checked against a reference independent of its own self-convergence?","work":"Radial reference preparation, static 3-D spatial/flux-reference search and moving-interface first-event reference/check. Repeated S6 recovery was infrastructure work.","result":"Radial reference established, production not executed. Moving reference and independent check disagree. Static independent reference unavailable. Maker terminates S6 recovery; zero S6 scientific credit.","limit":"Formal Phase 10 closes negative on the independent B source-refusal basis. C0V is incomplete/non-PASS. No C1–C5 habit row, validation result or follow-on permission is earned.","next":"Later authorized solver exploration proceeds under separate post-Phase-10 plans, with internal model-development labels.","cost":"No completed numerical-control campaign should be inferred from S6 infrastructure attempts.","sources":["evidence/phase10-closure-v1/report.json","docs/plans/phase-10-evidence-verification-execution.md","docs/decisions/0054-close-phase10-after-maker-terminated-c0v-infrastructure.md"]},
+    {"id":"latest-warm","group":"October 8–10 · selected follow-ups","title":"Qualify early-growth memory at matched physical scales","date":"Registered October 8 · launched October 9 · October 10 recorded status","grade":"2 complete · 4 fine cases running","fixed":["−4.5 °C · forcing .075","Matched 9.8 µm target span"],"change":["dx 0.35 → 0.175 µm","Thin / thick fine seeds"],"read":["Broad versus early-only","Openings + post-cutoff growth"],"question":"Does the warm early-growth opening persist when grid, seed and width are compared at matched physical scales?","work":"Six cases: broad/early-only pairs at N64 coarse, N126 fine-thin and N126 fine-thick. Width thresholds 3/6 match inclusive 1.05 µm; cutoff 20 physical seconds; target extents 29/57.","result":"Both coarse rows reached extent 29 with exit zero. Four fine cases remain running at the recorded October 10 check. The registered paired cavity comparison is not yet complete.","limit":"Fine seed thicknesses bracket the coarse thickness but do not bound nonlinear outcomes. Shell matching is not domain independence; two spacings do not establish convergence order.","next":"Finish all six dispositions, then compare common physical size and age, retained openings, new post-cutoff openings and tip advance.","cost":"Coarse broad: 4,791.678 s (1.33 h); coarse early: 8,314.843 s (2.31 h). Four fine workers run concurrently after the October 9 operational amendment.","sources":["docs/plans/hil-warm-refinement.md","C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake/out/warm-refinement-hil/rows/","evidence/hil-warm-refinement-2026-10-08/n126-witness-receipt.json"]},
+    {"id":"latest-supplement","group":"October 8–10 · selected follow-ups","title":"Yesterday’s eight-case history / pressure supplement","date":"October 9, 20:57–22:59 PDT","grade":"8 endpoints complete · analysis pending","fixed":["N64 · dx 0.35 µm","Exact retained controls"],"change":["History: grow farther","Pressure: halve fill-CFL"],"read":["Matched time / size readouts","Prefix and timestep checks"],"question":"Does history-dependent new growth persist longer, and does the pressure contrast survive a smaller timestep?","work":"Four M1 histories: −6 ↔ −14.4 °C, switch at extent 7/15, extend target 21→29. Four −6 °C both-dip pressure cases: 0.5/2 atm × forcing .10/.20, fill-CFL .05→.025, target 21.","result":"All eight reach valid size endpoints, converge and exit zero with no recorded integrity errors. History update counts: 357/433/703/625; pressure counts: 905/957/709/660 in the plan’s row order.","limit":"Execution completion is established; history-prefix/continuation and pressure-CFL matched scientific comparisons remain pending. No pressure mechanism or persistence verdict is inferred yet.","next":"Reconstruct matched-control growth and opening profiles at common physical ages and sizes; retain adjacent-event brackets. Preserve full outputs before worktree closure.","cost":"Eight workers; coordinator duration 2 h 1 m 31 s. Finished 2026-10-10 05:59:10 UTC, which is October 9 at 22:59 PDT.","sources":["docs/plans/hil-supplement.md#completion-observed--2026-10-10","C:/Users/biao3/.codex/worktrees/hil-supplement/snowflake/out/hil-supplement/hil-supplement-HIL-initial-complete.json","C:/Users/biao3/.codex/worktrees/hil-supplement/snowflake/out/hil-supplement/rows/"]}
+  ]
+  </script>
+  <script type="application/json" id="vcc-discovery-data">
+  [
+    {"id":"discovery31","group":"After Phase 10 · August–September discovery","title":"A 31-case trajectory and numerical sentinel","date":"August 27–28","grade":"Internal exploration","fixed":["Matched M1 / no-dip pairs","Recorded growth trajectories"],"change":["Box / fill-CFL / seeds","Warm and cold forcing"],"read":["Shape and occupancy","First sustained separation"],"question":"Where do the two kinetic preparations diverge, and which small controls deserve further study?","work":"31 rows: N80/96/112 domain sentinel; 2×2 domain/CFL control; seed perturbations; 24 matched warm/cold trajectory runs.","result":"Gross aspect ratio plateaus across the three sentinel domains, with 0.312% remaining occupancy difference. Timestep and seed changes still matter. M1/no-dip shape contrasts have opposite signs in warm and cold neighborhoods.","limit":"A three-domain observation is not general domain independence. Sustained-separation thresholds are post-hoc exploratory readouts.","next":"Localize the bends with a broader temperature, forcing, pressure and seed-shape screen.","cost":"","sources":["docs/plans/post-phase10-discovery-campaign.md","evidence/post-phase10-discovery-campaign-v1/README.md","evidence/post-phase10-discovery-campaign-v1/analysis.json"]},
+    {"id":"pilot432","group":"After Phase 10 · August–September discovery","title":"The broad 432-case pilot","date":"August 28","grade":"Internal exploration","fixed":["N48 · extent 21","M1 / no-dip preparations"],"change":["Temperature / forcing","Pressure / seed shape"],"read":["Shape leads","Matched arm interactions"],"question":"Which effects survive beyond a few hand-picked transition conditions?","work":"432 rows: 288 temperature/forcing, 72 pressure and 72 near-volume seed-shape cases.","result":"All 432 endpoints complete. The screen exposes candidate seed, pressure and morphology interactions.","limit":"This is lead discovery on a small lattice, with one deterministic seed stream. Dramatic extrema alone are insufficient grounds for selection.","next":"Repeat the whole roster at a larger growth extent rather than only the most striking endpoints.","cost":"Coordinator: 8 h 19 min with 16 simultaneous processes.","sources":["docs/plans/post-phase10-adaptive-discovery.md","NAS: collections/post-phase10-science-output/2026-10-01/payload/ · retained pilot completion and outputs"]},
+    {"id":"long432","group":"After Phase 10 · August–September discovery","title":"Repeat all 432 cases with longer growth","date":"August 28–September 2","grade":"Internal exploration","fixed":["Same pilot conditions","Same cell spacing"],"change":["N48 → N64","Target extent 21 → 29"],"read":["Lead survival with growth","Interior shape / occupancy"],"question":"Do the pilot leads persist as crystals grow farther in a larger box?","work":"Complete 432-row repeat at N64 and target extent 29.","result":"432 valid unique endpoints. Four lead families survive: seed-response reversal, pressure/forcing interaction, cold core/tip separation and warm axial hollowing.","limit":"Larger domain and growth extent are not mesh refinement. The retained census has 433 result files because of an extra retained attempt; that is not 433 distinct cases.","next":"Use targeted numerical and localization checks on the surviving lead families.","cost":"The queue spans about 4.59 calendar days.","sources":["docs/plans/post-phase10-adaptive-discovery.md","NAS: collections/post-phase10-science-output/2026-10-01/payload/ · long-wave outputs and census"]},
+    {"id":"confirm58","group":"After Phase 10 · August–September discovery","title":"58 targeted confirmations","date":"September 2–3","grade":"Internal exploration","fixed":["Matched lead conditions","Retained pilot / long controls"],"change":["Finer temperature localization","Half fill-CFL controls"],"read":["Seed / pressure interactions","Cold and warm structure"],"question":"Which apparent leads survive a smaller growth increment and a closer local comparison?","work":"58 rows covering seed crossover, seed/pressure timestep checks, cold topology and warm cavity controls.","result":"Seed interaction changes sign between −8 and −9 °C. Pressure interaction depends on forcing. Cold gaps and warm cavity patterns survive the smaller-increment checks.","limit":"An angular branch-count artifact was replaced by reconstructed occupancy comparisons. These are local model observations, not a universal seed or pressure law.","next":"Extend the relevant trajectories and test environment history and cavity persistence.","cost":"About 19 h 44 min for the confirmation wave.","sources":["docs/plans/post-phase10-adaptive-discovery.md","NAS: collections/post-phase10-science-output/2026-10-01/payload/ · confirmation outputs"]},
+    {"id":"follow134","group":"After Phase 10 · August–September discovery","title":"134 localization, growth and environment-history follow-ups","date":"September 3–8","grade":"Internal exploration","fixed":["Matched static controls","Same ordinary history semantics"],"change":["Seeds / forcing / later stage","8 abrupt temperature histories"],"read":["Five retained lead families","Trajectory-dependent response"],"question":"Are the effects persistent growth phenomena, or artifacts of the chosen endpoint?","work":"134-row roster, including 40 mixed-trajectory controls, 46 N80/extent-37 rows and eight abrupt histories.","result":"Warm cavities, cold core/tip structure, seed memory, stage-dependent pressure response and environment path dependence remain useful leads. One history initially fails a positive-subnormal convergence check; a narrow repair and one rerun complete the roster.","limit":"Endpoint-only pressure and shape laws are rejected. The failed attempt and repaired rerun retain separate provenance; changing conditions does not isolate a single carrier of memory.","next":"Separate cavity persistence, facet preparation and growth history with direct interventions.","cost":"About 4.54 calendar days, including the single repaired rerun.","sources":["docs/plans/post-phase10-adaptive-discovery.md","NAS: collections/post-phase10-science-output/2026-10-01/payload/ · follow-up outputs / rerun"]},
+    {"id":"cavity20","group":"September mechanisms · overlapping long runs","title":"The 20-case cavity / grid / seed campaign","date":"September 8–October 1","grade":"Qualitative lead · dimensions unresolved","fixed":["−4.5 / −5 °C","Matched 9.8 µm center span"],"change":["M1 versus no-dip","Grid spacing / seed geometry"],"read":["Open depth and persistence","Waist thickness in µm"],"question":"Does the hollowing contrast survive grid and seed representation changes?","work":"20 cases: two temperatures × two preparations × baseline/thick/wide coarse seeds plus thin/thick N126 fine seeds. Twelve coarse cases and eight fine cases.","result":"All ten M1 endpoints retain deep straight-open enclosure. Nine no-dip endpoints have none; the remaining fine thick-seed −5 °C no-dip endpoint has zero-depth surface pits. M1 adds four waist planes on both grids: 1.4 µm coarse versus 0.7 µm fine.","limit":"The persistence contrast survives the tested representations, but cavity dimensions are not grid-qualified. No-dip can have transient enclosure. These fine cases test global M1/no-dip, not the later width-conditioned law.","next":"Identify which facet and closure rules carry the contrast, then test the later width/history lead at matched physical scales.","cost":"Coarse rows: about 5.3–8.4 h each. Fine rows: 13.75–22.88 days each. Longest: 22.875 days of wall time for 61.005 simulated seconds.","sources":["evidence/post-phase10-wave-2026-10-01/README.md","evidence/post-phase10-wave-2026-10-01/cavity-comparison.json","docs/plans/post-phase10-adaptive-discovery.md"]},
+    {"id":"facet-closure","group":"September mechanisms · overlapping long runs","title":"Separate end-face, side-face and geometric-completion effects","date":"September 9–11 · alongside fine cavity cases","grade":"Discrete-model interventions","fixed":["Same warm anchors","Retained both / neither controls"],"change":["Basal-only / prism-only","Geometric completion on / off"],"read":["Advancing cavities","Resealing / stationary pits"],"question":"Which implemented ingredients carry deep hollowing, and could geometric completion be creating it?","work":"Four new facet hybrids plus four longer hybrids; four completion-off rows plus four longer rows; then two prism-only/completion-off interaction rows. Completed controls are reused.","result":"Basal-only reproduces deep hollowing. Prism-only generally reseals or produces shallow pits. Disabling completion does not remove the M1/no-dip contrast; the combined prism/completion-off test still yields stationary pits rather than advancing deep cavities.","limit":"These identify effects in the discrete implementation. Global dip selection is not width-dependent physical SDAK. The tested interaction chase is retired; fine-grid interpretation remains separate.","next":"Make basal enhancement depend on local width instead of applying it globally.","cost":"These smaller mechanism blocks ran while the long fine-grid campaign continued.","sources":["docs/plans/post-phase10-adaptive-discovery.md","docs/decisions/0055-add-bounded-post-phase10-facet-isolation.md","docs/decisions/0058-test-local-basal-width-feedback.md"]},
+    {"id":"width4","group":"September mechanisms · overlapping long runs","title":"Four local basal-width comparisons","date":"September 11–12","grade":"Width-three lead","fixed":["Broad prism preparation","2 warm anchors"],"change":["Basal enhancement conditional","Width threshold 2 versus 3"],"read":["Advancing open depth","Resealing / tip advance"],"question":"Does hollowing persist when basal enhancement is selected by evolving local geometry?","work":"Four width-conditioned rows, with retained broad/global-basal controls. The integer exposed-terrace chord selects M1 basal preparation; elsewhere it uses no-dip.","result":"Width-three produces advancing hollow growth at both temperatures. Width-two produces resealing or stationary pits.","limit":"The width law is a chosen mesoscopic rule, not a measured molecular law. It selects recessed regions as well as tips. Early activation and continuing feedback remain entangled.","next":"Turn the same width enhancement on only early or only late, using the same seed and a fixed physical-time cutoff.","cost":"","sources":["docs/plans/post-phase10-adaptive-discovery.md","docs/decisions/0058-test-local-basal-width-feedback.md","evidence/post-phase10-wave-2026-10-01/prior-width-t4p5.json","evidence/post-phase10-wave-2026-10-01/prior-width-t5.json"]},
+    {"id":"history10","group":"September mechanisms · overlapping long runs","title":"Ten long early / late growth-memory cases","date":"September 12–29 PDT · reported October 1","grade":"Finite model-growth memory","fixed":["Same seed and width-three rule","N112 · target extent 53"],"change":["Broad / global / full width","Early-only / late-only at 20 s"],"read":["After-switch open growth","Matched physical ages"],"question":"Does hollow growth require continued enhancement, or can early growth leave a persistent effect?","work":"Five arms at each of −4.5 and −5 °C: broad, global-basal, full width-three, early-only and late-only. Retain accumulated state across the 20-second cutoff.","result":"Early-only retains 14 original open planes, adds 18/22 surviving planes and advances both tips another 3.5 µm after switch-off, with zero selected demand afterward. Late-only ends at just 0.35 µm depth. Full enhancement still changes matched-age growth.","limit":"Signed planes are layers, not independent cavities. Early exposure includes cavity onset and growth, not only the seed. Persistence is finite; the two temperatures, chosen threshold and cutoff do not establish physical SDAK or grid convergence.","next":"Test whether this early-history lead survives physically matched grid spacing, seed representation and width selection.","cost":"Ten rows last 7.41–17.04 wall days, simulating roughly 98–252 s; they overlap the fine cavity runs. Late growth at a common age differs from comparison at a common size.","sources":["docs/decisions/0059-test-early-and-late-basal-width-feedback.md","evidence/post-phase10-wave-2026-10-01/README.md","evidence/post-phase10-wave-2026-10-01/history-t4p5.json","evidence/post-phase10-wave-2026-10-01/history-t5.json"]},
+    {"id":"october114","group":"October portfolio · resumable exploration","title":"114 checked endpoints across the HIL / BLD portfolio","date":"October 7–8","grade":"Internal exploration","fixed":["N64 · dx 0.35 µm","Finite extent-21 targets"],"change":["Seeds / pressure / histories","Cold facets / warm windows"],"read":["Whole trajectories + structure","Common size and physical age"],"question":"Which of the surviving leads deserves the next expensive refinement?","work":"HIL: 56 first-batch plus 16 second-batch endpoints, covering 24 seed, 32 pressure and 16 environment-history rows. BLD: 42 endpoints, comprising 36 cold four-facet and six warm broad/full/early cases.","result":"All 114 endpoints checked. Warm advancing memory persists; cold gaps are prism-sensitive; seed signs depend on observation age; pressure can change occupancy despite tied outer spans; environment histories can alter subsequent growth.","limit":"Producer-specific identities remain separate. Six HIL operational failures reach endpoints through same-source recovery. Old capped observations cannot be turned into restart state. This remains model development, not validation.","next":"Use saved geometry to locate pressure differences and distinguish inherited shape from new growth before registering more runs.","cost":"New discovery-resume state checkpoints completed updates. Four-hour scientific cutoffs were removed; unfinished relaxation repeats after interruption.","sources":["docs/plans/hil-bld-first-batch.md","docs/decisions/0060-resumable-discovery-experiments.md","evidence/hil-bld-joint-review-2026-10-08/README.md","evidence/hil-bld-joint-review-2026-10-08/hil/analysis-v2.json","evidence/hil-bld-joint-review-2026-10-08/bld/bld-analysis.json"]},
+    {"id":"saved44","group":"October portfolio · resumable exploration","title":"Read the saved structure before launching again","date":"October 8 · retrospective follow-up","grade":"44 selected rows · no new simulation","fixed":["114-case saved portfolio","Raw seed + attachment events"],"change":["Spatial / time reconstruction","Pressure / history / cold stages"],"read":["Where occupancy differs","Inherited versus new growth"],"question":"What do the saved trajectories reveal that endpoint aspect ratio hides?","work":"Retrospective spatial and incremental-growth analysis of 44 selected rows; no new numerical evolution.","result":"At −6 °C / forcing .20, 792 of the 820 low-minus-high-pressure occupancy sites lie in outer hex shells 4–9. Selected cooling axial differences are inherited; warming continues to add different axial span. The cold −18 °C null is stage-specific. Continuing warm enhancement changes growth even when early-only openings survive.","limit":"Occupancy is not deposited mass. One-/two-cell cold gaps and narrow openings still need representation checks. Sparse field snapshots miss prism-bearing states.","next":"The maker selects warm representation qualification; longer history and halved-CFL pressure comparisons supply a bounded supplement.","cost":"Saved-data analysis, with no solver rerun.","sources":["evidence/hil-bld-joint-review-2026-10-08/followup/README.md","evidence/hil-bld-joint-review-2026-10-08/followup/pressure.json","evidence/hil-bld-joint-review-2026-10-08/followup/history.json","evidence/hil-bld-joint-review-2026-10-08/followup/cold.json","evidence/hil-bld-joint-review-2026-10-08/followup/warm.json"]}
+  ]
+  </script>
+  <script>
+  (() => {
+    const root = document.getElementById('vcc-run-history');
+    const waves = JSON.parse(root.querySelector('#vcc-history-data').textContent);
+    waves.splice(waves.length - 2, 0, ...JSON.parse(root.querySelector('#vcc-discovery-data').textContent));
+    waves.forEach(wave => {
+      wave.group = wave.group.replace('Formal Phase 10', 'Phase 10 milestone').replace('After Phase 10', 'Phase 10 exploration');
+    });
+    const legacyClosure = waves.find(wave => wave.id === 'p10-c0v');
+    legacyClosure.title = 'The August verification milestone closes negative';
+    legacyClosure.limit = 'The bounded August verification milestone closes negative on the independent B source-refusal basis. C0V is incomplete/non-PASS; S6 remains retired. No C1–C5 habit row or validation result is earned.';
+    legacyClosure.next = 'Continue maker-authorized Phase 10 exploration toward multiple distinct promising model-development leads; preserve the August result and its limitations.';
+    waves.push({id:'oct10-launch',group:'October 8–10 · selected follow-ups',title:'Today’s ten-case longer-history and cold-facet wave',date:'October 10 · launched 11:35 PDT',grade:'Running · scientific results pending',fixed:['N64 · dx 0.35 µm','Target extent 29 · resumable'],change:['4 no-dip histories','4 cold facets + 2 static controls'],read:['New growth at matched ages','Cold structure at matched stages'],question:'Does no-dip history-dependent growth persist farther, and how does cold core catch-up vary with facet preparation?',work:'Ten registered rows alongside the four running warm refinement rows: four longer no-dip −6 ↔ −14.4 °C histories, four −14.4 °C facet arms with denser spatial observations, and two static −6 °C controls.',result:'All ten workers started; the 11:36 PDT startup observation records completed-update checkpoints and empty stderr. No new row is claimed complete.',limit:'Startup establishes operational progress. The longer matched scientific comparisons remain pending; old BLD cold results require source compatibility before cross-producer comparison.',next:'Check terminal dispositions, then compare common physical ages and cold tip stages using retained matched controls.',cost:'Actual startup concurrency: 10 new workers + 4 warm workers. No scientific completion percentage or runtime ETA is inferred.',sources:['docs/plans/hil-exploration-oct10.md#launched--2026-10-10','evidence/hil-exploration-2026-10-10/launch-verification.json']});
+    const select = root.querySelector('#vcc-wave');
+    const prev = root.querySelector('#vcc-previous');
+    const next = root.querySelector('#vcc-next');
+    const calendar = root.querySelector('.history-calendar');
+    const design = root.querySelector('.history-design');
+    const graph = root.querySelector('.history-graph');
+    const ns = 'http://www.w3.org/2000/svg';
+    let selected = 0;
+    const groups = new Map();
+    waves.forEach((wave, i) => {
+      if (!groups.has(wave.group)) {
+        const group = document.createElement('optgroup');
+        group.label = wave.group;
+        groups.set(wave.group, group);
+        select.append(group);
+      }
+      const option = document.createElement('option');
+      option.value = String(i);
+      option.textContent = wave.title;
+      groups.get(wave.group).append(option);
+    });
+    function node(parent, tag, attrs = {}, label) {
+      const element = document.createElementNS(ns, tag);
+      for (const [name, value] of Object.entries(attrs)) element.setAttribute(name, String(value));
+      if (label !== undefined) element.textContent = label;
+      parent.append(element);
+      return element;
+    }
+    const windows = [
+      { label:'Phase 6 · maps + numerics', start:'2026-07-27', end:'2026-08-20', note:'80-case ladder: 11.53 calendar days', color:1 },
+      { label:'Phase 8 · laboratory ruler', start:'2026-08-04', end:'2026-08-12', note:'Corpus work; no solver', color:2 },
+      { label:'Phase 9 · component probes', start:'2026-08-12', end:'2026-08-13', note:'Zero items promoted', color:2 },
+      { label:'Phase 10 · continuing exploration', start:'2026-08-21', end:'2026-10-10', note:'August milestone → multiple promising leads', color:1 },
+      { label:'August verification milestone', start:'2026-08-21', end:'2026-08-25', note:'Negative package preserved; S6 retired', color:3 },
+      { label:'Phase 10 · broad discovery', start:'2026-08-27', end:'2026-09-08', note:'Broad screens → selected leads', color:1 },
+      { label:'Cavity / grid / seed campaign', start:'2026-09-08', end:'2026-10-01', note:'Fine rows: 13.75–22.88 days each', color:1 },
+      { label:'Early / late memory campaign', start:'2026-09-12', end:'2026-09-29', note:'Rows: 7.41–17.04 days each', color:1 },
+      { label:'October portfolio + follow-ups', start:'2026-10-07', end:'2026-10-10', note:'114 endpoints → selected refinements', color:1 }
+    ];
+    const minTime = Date.parse('2026-07-26T00:00:00Z');
+    const maxTime = Date.parse('2026-10-11T00:00:00Z');
+    function drawCalendar() {
+      const w = Math.max(300, Math.round(calendar.getBoundingClientRect().width));
+      const narrow = w < 560;
+      const left = narrow ? 12 : 210;
+      const right = w - 12;
+      const lane = narrow ? 61 : 39;
+      const height = windows.length * lane + 40;
+      calendar.replaceChildren();
+      calendar.setAttribute('viewBox', `0 0 ${w} ${height}`);
+      calendar.setAttribute('height', height);
+      node(calendar,'title',{},'Overlapping study windows');
+      node(calendar,'desc',{},'Calendar windows, not compute duration. Phase 8 and Phase 9 overlap Phase 6. September cavity and history campaigns overlap.');
+      const scale = date => left + (Date.parse(date+'T00:00:00Z') - minTime) / (maxTime - minTime) * (right-left);
+      const ticks = narrow ? [['2026-07-27','Jul 27'],['2026-08-15','Aug 15'],['2026-09-15','Sep 15'],['2026-10-10','Oct 10']] : [['2026-07-27','Jul 27'],['2026-08-15','Aug 15'],['2026-09-01','Sep 1'],['2026-09-15','Sep 15'],['2026-10-01','Oct 1'],['2026-10-10','Oct 10']];
+      ticks.forEach(([date,label],i) => {
+        const x = scale(date);
+        node(calendar,'line',{x1:x,x2:x,y1:8,y2:height-25,stroke:'var(--border)','stroke-width':1});
+        node(calendar,'text',{x,y:height-7,'text-anchor':i===0?'start':i===ticks.length-1?'end':'middle'},label);
+      });
+      windows.forEach((row,i) => {
+        const y=i*lane+12;
+        node(calendar,'text',{x:narrow?12:0,y:y+11},row.label);
+        const barY = narrow ? y+22 : y+4;
+        const start = scale(row.start), end=scale(row.end);
+        node(calendar,'rect',{x:start,y:barY,width:end-start,height:8,fill:`var(--viz-series-${row.color})`,opacity:.7});
+        node(calendar,'circle',{cx:start,cy:barY+4,r:3,fill:`var(--viz-series-${row.color})`});
+        node(calendar,'circle',{cx:end,cy:barY+4,r:3,fill:`var(--viz-series-${row.color})`});
+        node(calendar,'text',{x:narrow?12:left,y:barY+24},row.note);
+      });
+    }
+    function drawDesign() {
+      const w=Math.max(300,Math.round(design.getBoundingClientRect().width));
+      const stacked=w<700;
+      const h=stacked?266:98;
+      const wave=waves[selected];
+      design.replaceChildren();
+      design.setAttribute('viewBox',`0 0 ${w} ${h}`);
+      design.setAttribute('height',h);
+      node(design,'title',{},wave.title+' experiment design');
+      const labels=[['Hold fixed',wave.fixed],['Change / compare',wave.change],['Read out',wave.read]];
+      const boxW=stacked?w-8:(w-42)/3;
+      labels.forEach(([title,lines],i)=>{
+        const x=stacked?4:i*(boxW+21)+2;
+        const y=stacked?i*87+8:14;
+        node(design,'rect',{x,y,width:boxW,height:68,rx:3,fill:'var(--muted)',opacity:.35});
+        node(design,'text',{x:x+10,y:y+17,'font-weight':500},title);
+        lines.forEach((line,j)=>node(design,'text',{x:x+10,y:y+36+j*17},line));
+        if(i<2){
+          if(stacked) node(design,'path',{d:`M ${w/2} ${y+70} v 13 m -4 -4 l 4 4 l 4 -4`,stroke:'var(--border)','stroke-width':1.5,fill:'none'});
+          else node(design,'path',{d:`M ${x+boxW+4} ${y+34} h 12 m -4 -4 l 4 4 l -4 4`,stroke:'var(--border)','stroke-width':1.5,fill:'none'});
+        }
+      });
+    }
+    const measuredGraphs = {
+      'p6-cak-m1': {type:'fraction',title:'Measured habit agreement on the same 90 points',unit:'Agreement (% of 90 scored points)',rows:[['CAK · broad-facet',3,90],['M1 · Nakaya-informed',54,90],['M1 · dips removed',5,90]],note:'CAK / M1 ran July 28–30; no-dip is the August 7 matched follow-up removing only dip factors. CAK → M1 changes a bundled parameter family. Measured-only, in-sample; no validation credit.',source:'evidence/phase6-three-arm-report/report.md'},
+      'p6-ablation': {type:'fraction',title:'The matched dip removal changes agreement',unit:'Agreement (% of 90 scored points)',rows:[['M1 · both dip factors',54,90],['M1 · dips removed',5,90]],note:'Same frozen solver conditions and 90-point denominator. This is an effect in the implementation, with no physical SDAK causality claim.',source:'evidence/phase6-three-arm-report/report.md'},
+      'p6-domain': {type:'fraction',title:'Larger boxes still fail the count criterion',unit:'Failed comparisons (%)',rows:[['Domain N48 → N64',3,4],['Domain N64 → N80',3,4]],note:'Habit classes remain unchanged, but the attached-count criterion fails. Box size alone does not qualify the map.',source:'evidence/phase6-domain-spot-check/spot-check.json; evidence/phase6-domain-escalation/escalation-n80.json'},
+      'p6-size': {type:'size',title:'A column appears at larger growth sizes',points:[[21,1.400],[29,1.526],[35,1.522],[41,1.640]],note:'−5 °C / forcing .10 · M1. Column floor: aspect ratio 1.5. Connecting lines are visual guides; these size/domain rungs are diagnostic.',source:'evidence/phase6-columns-ladder/ladder.json'},
+      'p6-wp2': {type:'fraction',title:'Which numerical controls failed?',unit:'Failed comparisons (%)',rows:[['Domain · dx 0.70 µm',5,16],['Domain · dx 0.35 µm',6,16],['Half fill-CFL',3,8],['Tighter relaxation',0,8],['Seed radius ±1',14,16]],note:'Registered comparisons within the 80-run ladder. Different rows have different denominators; both spacings are criterion NO-PASS.',source:'evidence/phase6-wp2-ladder/report.json'},
+      'cavity20': {type:'thickness',title:'Four extra waist layers mean different physical thickness',note:'Measured added inclusive waist thickness in M1: four planes on both grids. The qualitative cavity contrast persists; its dimensions are not grid-qualified.',source:'evidence/post-phase10-wave-2026-10-01/README.md; cavity-comparison.json'},
+      'history10': {type:'bars',title:'Early exposure leaves much deeper terminal openings',unit:'Maximum open depth (µm)',rows:[['−4.5 °C · early-only',5.60],['−4.5 °C · late-only',0.35],['−5 °C · early-only',5.95],['−5 °C · late-only',0.35]],note:'Endpoints have unequal physical ages. Early-only adds 18 / 22 surviving open layers and advances each tip 3.5 µm after switch-off. Signed layers are not independent cavities.',source:'evidence/post-phase10-wave-2026-10-01/README.md; history-t4p5.json; history-t5.json'},
+      'saved44': {type:'shells',title:'Pressure changes occupancy mainly in outer shells',values:[4,24,0,0,84,132,168,168,132,108,0],note:'−6 °C / forcing .20, both-dip arm, matched extent-21 endpoints: 0.5 atm minus 2 atm. 792 of 820 differing occupied sites lie in shells 4–9. Counts are occupancy, not mass; endpoint ages differ.',source:'evidence/hil-bld-joint-review-2026-10-08/followup/pressure.json · groups[1].pairwise[2].endpoint.radialCounts'},
+      'october114': {type:'bars',title:'Pressure response reverses with forcing',unit:'Occupied sites at size endpoint',rows:[['Forcing .10 · 0.5 atm',3759],['Forcing .10 · 1 atm',3883],['Forcing .10 · 2 atm',4229],['Forcing .20 · 0.5 atm',3607],['Forcing .20 · 1 atm',3317],['Forcing .20 · 2 atm',2787]],note:'Selected both-dip −6 °C rows, N64 / dx .35 µm. Size endpoints have different physical ages and axes. Occupancy alone is not compactness or hollowness.',source:'evidence/hil-bld-joint-review-2026-10-08/followup/README.md; pressure.json'},
+      'latest-supplement': {type:'fraction',title:'Eight endpoints finished; matched analysis is next',unit:'Rows reaching checked size endpoint (%)',rows:[['Longer M1 histories',4,4],['Half-CFL pressure cases',4,4]],note:'Finished October 9 at 22:59 PDT. Execution completion is not a persistence or pressure-mechanism verdict; matched scientific comparisons remain pending.',source:'docs/plans/hil-supplement.md#completion-observed--2026-10-10'}
+    };
+    function drawGraph() {
+      const data = measuredGraphs[waves[selected].id];
+      root.querySelector('#vcc-graph-wrap').hidden = !data;
+      root.querySelector('#vcc-design-wrap').hidden = Boolean(data);
+      if (!data) return;
+      root.querySelector('#vcc-graph-title').textContent = data.title;
+      root.querySelector('#vcc-graph-note').textContent = data.note;
+      root.querySelector('#vcc-graph-source').textContent = 'Source: '+data.source;
+      const w = Math.max(300, Math.round(graph.getBoundingClientRect().width));
+      graph.replaceChildren();
+      graph.setAttribute('aria-label', data.title+'. '+data.note);
+      node(graph,'title',{},data.title);
+      node(graph,'desc',{},data.note);
+      const foreground = 'var(--foreground)', border = 'var(--border)', series = 'var(--viz-series-1)';
+      const textAt = (x,y,label,attrs={}) => node(graph,'text',{x,y,...attrs},label);
+      function frame(height,left=64,top=32,bottom=height-44) {
+        graph.setAttribute('viewBox',`0 0 ${w} ${height}`);
+        graph.setAttribute('height',height);
+        const right=w-18;
+        node(graph,'rect',{'data-chart-frame':'',x:left,y:top,width:right-left,height:bottom-top,fill:'none',stroke:border,'stroke-width':1});
+        return {left,right,top,bottom};
+      }
+      if(data.type==='fraction'||data.type==='bars') {
+        const isFraction=data.type==='fraction';
+        const observedMaximum=Math.max(...data.rows.map(row=>row[1]));
+        const interval=10**Math.floor(Math.log10(observedMaximum))/2;
+        const maximum=isFraction?100:Math.ceil(observedMaximum*1.08/interval)*interval;
+        const h=data.rows.length*56+66, left=64, right=w-18;
+        graph.setAttribute('viewBox',`0 0 ${w} ${h}`); graph.setAttribute('height',h);
+        data.rows.forEach((row,i)=>{
+          const y=17+i*56, value=isFraction?row[1]/row[2]*100:row[1];
+          textAt(8,y,row[0]);
+          textAt(right,y,isFraction?`${row[1]}/${row[2]}`:String(row[1]),{'text-anchor':'end'});
+          node(graph,'rect',{x:left,y:y+9,width:right-left,height:14,fill:'var(--muted)',opacity:.5});
+          node(graph,'rect',{x:left,y:y+9,width:Math.max(0,value/maximum*(right-left)),height:14,fill:series,opacity:1});
+          if(!row[1]) node(graph,'circle',{cx:left,cy:y+16,r:3,fill:foreground});
+        });
+        const base=h-39;
+        node(graph,'line',{x1:left,x2:right,y1:base-11,y2:base-11,stroke:border,'stroke-width':1});
+        [0,maximum/2,maximum].forEach((value,i)=>textAt(left+(right-left)*i/2,base+6,String(value),{'text-anchor':i===0?'start':i===2?'end':'middle'}));
+        textAt((left+right)/2,h-7,data.unit,{'text-anchor':'middle',class:'axis-title','data-axis':'x'});
+        textAt(8,h-7,'Cases',{'class':'axis-title','data-axis':'y'});
+      } else if(data.type==='size') {
+        const bounds=frame(258);
+        const xs=data.points.map(p=>p[0]), ys=[1.5,...data.points.map(p=>p[1])];
+        const xMin=Math.min(...xs),xMax=Math.max(...xs),yMin=Math.min(...ys)-.05,yMax=Math.max(...ys)+.05;
+        const x=v=>bounds.left+8+(v-xMin)/(xMax-xMin)*(bounds.right-bounds.left-16);
+        const y=v=>bounds.bottom-8-(v-yMin)/(yMax-yMin)*(bounds.bottom-bounds.top-16);
+        textAt(8,16,'Aspect ratio',{'class':'axis-title','data-axis':'y'});
+        [1.4,1.5,1.6].forEach(v=>{textAt(bounds.left-8,y(v)+4,String(v),{'text-anchor':'end'});node(graph,'line',{x1:bounds.left,x2:bounds.right,y1:y(v),y2:y(v),stroke:border,'stroke-width':1});});
+        node(graph,'line',{x1:bounds.left,x2:bounds.right,y1:y(1.5),y2:y(1.5),stroke:foreground,'stroke-width':1,'stroke-dasharray':'4 4'});
+        node(graph,'polyline',{points:data.points.map(p=>`${x(p[0])},${y(p[1])}`).join(' '),fill:'none',stroke:series,'stroke-width':2});
+        data.points.forEach((p,i)=>{node(graph,'circle',{cx:x(p[0]),cy:y(p[1]),r:4,fill:series});textAt(x(p[0]),y(p[1])-11,p[1].toFixed(3),{'text-anchor':i===0?'start':i===data.points.length-1?'end':'middle'});textAt(x(p[0]),bounds.bottom+18,String(p[0]),{'text-anchor':'middle'});});
+        textAt((bounds.left+bounds.right)/2,251,'Achieved extent (lattice sites)',{'text-anchor':'middle','class':'axis-title','data-axis':'x'});
+      } else if(data.type==='thickness') {
+        graph.setAttribute('viewBox',`0 0 ${w} 184`); graph.setAttribute('height',184);
+        const cellScale=(w-140)/1.4;
+        [['Coarse · dx .35 µm',.35,1.4],['Fine · dx .175 µm',.175,.7]].forEach((row,i)=>{
+          const y=23+i*72; textAt(8,y,row[0]); textAt(w-18,y,`${row[2]} µm`,{'text-anchor':'end'});
+          for(let j=0;j<4;j++)node(graph,'rect',{x:64+j*row[1]*cellScale,y:y+12,width:row[1]*cellScale-3,height:24,fill:series});
+        });
+        textAt(64,176,'Each block = one added waist plane');
+      } else if(data.type==='shells') {
+        const bounds=frame(270), maximum=Math.max(...data.values)*1.2;
+        const slot=(bounds.right-bounds.left)/data.values.length;
+        const y=v=>bounds.bottom-v/maximum*(bounds.bottom-bounds.top-8);
+        textAt(8,16,'Extra occupied sites',{'class':'axis-title','data-axis':'y'});
+        [0,80,160].forEach(value=>{textAt(bounds.left-8,y(value)+4,String(value),{'text-anchor':'end'});node(graph,'line',{x1:bounds.left,x2:bounds.right,y1:y(value),y2:y(value),stroke:border,'stroke-width':1});});
+        data.values.forEach((value,i)=>{
+          node(graph,'rect',{x:bounds.left+slot*i+2,y:y(value),width:Math.max(2,slot-4),height:bounds.bottom-y(value),fill:series});
+          if([0,4,6,9].includes(i))textAt(bounds.left+slot*(i+.5),y(value)-8,String(value),{'text-anchor':'middle'});
+        });
+        [0,4,7,10].forEach(i=>textAt(bounds.left+slot*(i+.5),bounds.bottom+18,String(i),{'text-anchor':'middle'}));
+        textAt((bounds.left+bounds.right)/2,262,'Integer hex shell radius (cells)',{'text-anchor':'middle','class':'axis-title','data-axis':'x'});
+      }
+    }
+    function show(index, remember=false) {
+      selected=Math.min(waves.length-1,Math.max(0,index));
+      const wave=waves[selected];
+      select.value=String(selected);
+      prev.disabled=selected===0;
+      next.disabled=selected===waves.length-1;
+      ['title','date','question','work','result','limit','cost'].forEach(key=>root.querySelector('#vcc-'+key).textContent=wave[key]||'');
+      root.querySelector('#vcc-grade').textContent=wave.grade;
+      root.querySelector('#vcc-next-question').textContent=wave.next;
+      ['fixed','change','read'].forEach(key=>root.querySelector('#vcc-'+key).textContent=wave[key].join(' · '));
+      root.querySelector('#vcc-cost-row').hidden=!wave.cost;
+      const evidence=root.querySelector('#vcc-evidence');
+      evidence.replaceChildren();
+      wave.sources.forEach((source,i)=>{
+        if(i) evidence.append(document.createElement('br'));
+        const locator=document.createElement('span'); locator.textContent=source; evidence.append(locator);
+      });
+      drawGraph();
+      if (!measuredGraphs[wave.id]) drawDesign();
+      if(remember&&window.openai?.setWidgetState) window.openai.setWidgetState({modelContent:{selectedWave:wave.id,title:wave.title},privateContent:{selectedWave:wave.id}}).catch(()=>{});
+    }
+    select.addEventListener('change',()=>show(Number(select.value),true));
+    prev.addEventListener('click',()=>show(selected-1,true));
+    next.addEventListener('click',()=>show(selected+1,true));
+    const state=window.openai?.widgetState;
+    const saved=state?.privateContent?.selectedWave||state?.modelContent?.selectedWave;
+    const found=waves.findIndex(wave=>wave.id===saved);
+    show(found>=0?found:1);
+    window.addEventListener('openai:set_globals',event=>{
+      const s=event.detail?.globals?.widgetState;
+      const id=s?.privateContent?.selectedWave||s?.modelContent?.selectedWave;
+      const i=waves.findIndex(wave=>wave.id===id); if(i>=0)show(i);
+    });
+    new ResizeObserver(()=>{drawCalendar();drawGraph();if(!measuredGraphs[waves[selected].id])drawDesign();}).observe(root);
+    drawCalendar();
+  })();
+  </script>
+</div>

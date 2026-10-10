@@ -1,12 +1,71 @@
-# Post-Phase-10 adaptive discovery follow-up
+# Phase 10 adaptive exploration
 
-**Status:** all 114 October HIL/BLD cases and the saved-data follow-up are reviewed. Maker selected the [six-case warm refinement](hil-warm-refinement.md); its resumability and HIL resource qualification are in progress. Historical unselected statements below retain their earlier decision context.
+**Status:** Phase 10 remains active under [ADR 0062](../decisions/0062-continue-phase10-exploration.md) until the maker accepts multiple distinct promising leads. The October joint and saved-data reviews are complete; warm refinement and the October 10 ten-row wave are running, and supplement endpoints await matched analysis. Their task plans retain exact execution state. Historical statements below retain their earlier decision context.
 **Publication destination:** `origin/main`
 **Plan authoring branch:** `docs/hil-bld-workload-2026-10-07`, based on `fe15b74`; direct main publication, no PR
 **Former execution worktree:** `G:\Code Files\snowflake-science-exploration` (reconciled in October consolidation)
 **Former branch:** `explore/post-phase10-discovery` (merged and removed after preservation)
 **Base:** `ba99d81`
 **Claim level:** exploratory model-development evidence only
+
+## Continuing Phase 10 scope — maker direction 2026-10-10
+
+The maker chose to keep exploring in Phase 10 until there are multiple promising leads. This plan
+coordinates that portfolio under charter §3.2 and [ADR 0062](../decisions/0062-continue-phase10-exploration.md).
+The August verification package remains a completed negative milestone. The legacy filename and
+historical post-Phase-10 names stay stable; completed scientific records and source pins are unchanged.
+No Phase 11 starts now. The five-track portfolio below remains the working breadth; each finite
+wave has its own question, matched contrasts, readouts, endpoints and next decision.
+
+Current charter endpoint, copied verbatim:
+
+Done when the maker accepts multiple distinct promising model-development leads, each supported by a named matched comparison, a result with its scope and uncertainty, the numerical, representation and observation checks relevant to that result (or a specifically recorded unresolved check), and a concrete next discriminating experiment. Repeated configurations of one effect do not count as separate leads. Current candidates do not close the phase automatically; the maker's portfolio review decides when enough leads are promising. This criterion creates no automatic gate or quantitative-validation label.
+
+Next scientific work remains the registered matched readouts in [warm refinement](hil-warm-refinement.md),
+the completed [supplement](hil-supplement.md), and [October 10 exploration](hil-exploration-oct10.md).
+Their producer commits and live output-owning worktrees remain fixed; this documentation update
+changes no process, roster, solver contract or scientific evidence.
+
+Relevant known failures: lessons E1 and E5 warn against upgrading a qualified finding in the summary
+or turning an implementation intervention into physical causality. E3 requires auditing the full
+charter diff against quoted authority. F2 and Rules 14A–14B require the requested deliverable to
+advance without new assurance machinery; this is solo scientific research, with hostile actors
+excluded unless maker-directed. The shortest meaningful checks are source/contract and local-link
+review, the existing progress-index check, Rule 7, and responsive browser checks for the visual guide.
+No solver gate or full suite is warranted by this prose and presentation change.
+
+This amendment uses task branch `codex/phase10-exploration-scope`, checkout
+`C:/Users/biao3/Documents/GitHub/snowflake/out/phase10-exploration-docs/snowflake`, based on `9e24f2a`.
+It creates no useful run payload in that checkout: the small guide source is retained in
+`docs/run-history-guide.html`, with preview/QA in primary `out/run-history-guide/`.
+The preview, QA and documentation helpers are reproducible task scratch. No output-owning
+execution checkout closes.
+
+Governance checks, 2026-10-10: `npm.cmd run lint:rule7` exited zero (2592 files);
+`npx.cmd vitest run runner/test/progress-index.test.ts` exited zero (1 file / 11 tests);
+`git diff-files --check` passed. Direct text/link checks resolved all 93 local Markdown targets,
+confirmed the complete August substantive block unchanged and verified every changed former
+charter clause's exact ADR quotation. Primary `out/phase10-exploration-docs/document-checks.json`
+records the scoped checks. One bounded read-only Codex/GPT-6 review, with full shared context,
+found no scope/claim conflict; it compared the five changed files against `9e24f2a` and inspected
+current charter closure descriptions. It executed no tests, numerical calculations or live
+process inspection; no exact model identifier was available. These are documentation checks,
+not a new full-suite or scientific result.
+
+The [visual history guide](../run-history-guide.html) now covers 27 waves with measured agreement,
+numerical-failure, growth-size, added grid-thickness, early/late endpoint-depth and pressure plots.
+Long records and the overlapping calendar are expandable. Today's ten-row launch and unfinished
+comparisons are explicitly pending. Browser QA exited zero across every wave at 320/360/560/736 px,
+with calendar and records also opened at 320/736; no missing source paths, JavaScript errors,
+SVG clipping or visible horizontal overflow. Primary `out/run-history-guide/preview-check.json`
+records the check and neighboring PNGs the inspected desktop/mobile and sample graph views.
+Only published measurements were illustrated; simulations and scientific analyses were not rerun.
+
+Tried and rejected: a new Phase 11 for the same exploration purpose, retroactive result relabeling,
+or reopening retired S6. A chart illustrates a named measurement; it does not establish validation.
+One sandboxed repeat of the focused test stopped before collecting tests with `EPERM` while
+reading installed `vitest/dist/spy.js`; the authorized repeat outside the sandbox passed all
+11 tests. This was a filesystem restriction, not a scientific or test verdict.
 
 ## Joint October review and HIL retirement — 2026-10-08
 
@@ -2678,7 +2737,7 @@ row ceiling.
 5. Analyze each completed wave, launch the next finite discriminating wave while a plausible lead
    remains, then promote compact claim-bearing reports, update `docs/PROGRESS.md`, and commit/push.
 
-## Done when
+## Original first-tranche Done when (historical)
 
 - all 432 first-tranche rows have terminal classifications, with failures retained by cause;
 - the temperature/forcing, pressure, and seed-shape analyses are reproducible from retained rows;

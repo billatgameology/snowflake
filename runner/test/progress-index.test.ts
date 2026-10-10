@@ -105,7 +105,7 @@ function currentIndexErrors(text: string): string[] {
     "Phase 6 is COMPLETE (2026-08-20)",
     "Phase 8 is COMPLETE (Phase 8A 2026-08-10; Phase 8B 2026-08-12)",
     "Phase 9 is COMPLETE (development-only, 2026-08-13)",
-    "Phase 10 is COMPLETE (complete-negative, 2026-08-25)",
+    "Phase 10 is ACTIVE (continuing exploration, 2026-10-10)",
     "Phase 7 remains unstarted and independently eligible",
     "No C1–C5 row, habit row, validation claim or downstream authorization was earned.",
     "Do not resume retired S6 execution or reuse refused attempts.",
@@ -122,7 +122,7 @@ function currentIndexErrors(text: string): string[] {
     if (countExactLine(text, heading) !== 1) errors.push(`expected exactly one ${heading}`);
   }
   for (const [phase, prefix] of [[7, PHASE7_GATE_PREFIX], [8, PHASE8_GATE_PREFIX],
-    [9, PHASE9_GATE_PREFIX], [10, PHASE10_GATE_PREFIX]] as const) {
+    [9, PHASE9_GATE_PREFIX], [10, "| 10 | **Active exploration; August verification package complete-negative** |"]] as const) {
     const rows = lines.filter((line) => line.startsWith(`| ${phase} |`));
     if (rows.length !== 1 || !rows[0]?.startsWith(prefix)) errors.push(`ambiguous Phase ${phase} gate row`);
   }

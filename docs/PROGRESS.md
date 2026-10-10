@@ -125,19 +125,19 @@ reviewing existing results and designing other tracks can proceed now.
   mapping limitations remain in the completed plan. Phase 9 cannot grant a quantitative-validation label.
   The [earlier draft](plans/phase-9-modular-physics-arms.md) is superseded design history;
   8B's report records its producer-time source identity. Use the completed execution plan.
-- **Phase 10 is COMPLETE (complete-negative, 2026-08-25).** The maker accepted the candidate plan's
-  A-S + A-I + B + C0 + C0V with packet-specific A-P. The
-  [execution plan](plans/phase-10-evidence-verification-execution.md) records B refusal, C0 criterion
-  NO-PASS, C0V incomplete/non-PASS and zero S6 packet credit. `gate10` exit 0 at `e2cca93`
-  re-derived the negative package closure. Do not resume retired S6 execution or reuse refused attempts.
+- **Phase 10 is ACTIVE (continuing exploration, 2026-10-10).** [ADR 0062](decisions/0062-continue-phase10-exploration.md)
+  keeps it open until the maker accepts multiple distinct promising leads; the [adaptive plan](plans/post-phase10-adaptive-discovery.md) governs the portfolio.
+  The August verification package is complete-negative: its [execution plan](plans/phase-10-evidence-verification-execution.md)
+  records B refusal, C0 criterion NO-PASS, C0V incomplete/non-PASS and zero S6 credit. `gate10` exit 0 at `e2cca93`
+  re-derived that package closure. Do not resume retired S6 execution or reuse refused attempts.
   No C1–C5 row, habit row, validation claim or downstream authorization was earned.
 - **Phase 7 remains unstarted and independently eligible.** It is on maker hold. A separately
   committed execution plan and isolated worktree are required before its work begins.
 
 ## Phase gates
 
-The following accepted gate record is carried forward unchanged. Its commands reproduce registered
-protocols; hours-scale gates are not setup smoke tests. Consult each completed plan before execution.
+The accepted gate outcomes are carried forward below. Phase 10 distinguishes its current scope from
+the completed August package. Reproduction commands are not setup smoke tests; consult each plan.
 
 | Phase | Current gate state | Reproduction/evidence |
 |---|---|---|
@@ -152,7 +152,7 @@ protocols; hours-scale gates are not setup smoke tests. Consult each completed p
 | 7 | Not started; independently eligible | Maker hold; a committed Phase 7 plan and isolated worktree are required. Product, held-out validation and v6 WGSL/preview-GPU parity remain its scope. |
 | 8 | **Complete (8A + 8B)** | Immutable 8A book and separate all-development 8B successor remain pinned; no held-out row. [Completed plan](plans/phase-8-measurement-corpus.md). |
 | 9 | **Complete (development-only)** | All-no-pass branch closed, zero items promoted. [Completed plan](plans/phase-9-execution.md); no validation credit. |
-| 10 | **Complete (negative package; B refusal; C0V incomplete/NO-PASS)** | `gate10` exit 0 at `e2cca93`: 7/7 closure checks re-derive `complete-negative`; terminal B refusal, C0 criterion NO-PASS, C0V incomplete/non-PASS and zero S6 credit. [Completed plan](plans/phase-10-evidence-verification-execution.md). Repro: `node runner/src/main.ts gate10`. |
+| 10 | **Active exploration; August verification package complete-negative** | `gate10` exit 0 at `e2cca93`: 7/7 closure checks re-derive the August package's `complete-negative`; terminal B refusal, C0 criterion NO-PASS, C0V incomplete/non-PASS and zero S6 credit. [Completed plan](plans/phase-10-evidence-verification-execution.md). This gate does not close current exploration. Repro: `node runner/src/main.ts gate10`. |
 
 ## Verification
 
@@ -210,8 +210,8 @@ custody remain retained. Primary `nas-retention-review.json` records the disposi
   work plan before its risky action; agent discipline is distinguished from automated enforcement.
 - [Repository housekeeping](plans/repository-housekeeping-2026-10-07.md) is complete. Its required
   checks, approved cleanup, local fast-forward and non-force worktree/ref closeout are recorded.
-- [Adaptive discovery](plans/post-phase10-adaptive-discovery.md) has a completed internal
-  [saved-data follow-up](../evidence/hil-bld-joint-review-2026-10-08/followup/README.md); verification is complete; [warm refinement](plans/hil-warm-refinement.md) is selected.
+- [Phase 10 adaptive exploration](plans/post-phase10-adaptive-discovery.md) has a completed internal
+  [saved-data follow-up](../evidence/hil-bld-joint-review-2026-10-08/followup/README.md); verification is complete; [warm refinement](plans/hil-warm-refinement.md) is selected. The [visual history](run-history-guide.html) covers 27 study waves through October 10.
   All six old HIL operational failures reached size endpoints through
   [same-source recovery](plans/hil-bld-first-batch.md#recovery-completion-2026-10-08).
   All 72 HIL rows pass existing operational checks; their event geometry was independently reconstructed.
@@ -240,7 +240,7 @@ Follow the running [six-case warm refinement](plans/hil-warm-refinement.md#paral
 Actual concurrency is **fourteen**: four warm workers plus ten N64 exploration workers, using the existing operational budget and unchanged live memory guards. The earlier warm timed probe still records failure; neither it nor its original one-worker receipt was rewritten. Both campaigns use existing lease/selection/launch APIs and completed-cycle recovery, with no wall cutoff or repeated ladder. Resume warm work with `node out/warm-refinement-control/parallel-resume.mjs` after setting its documented Windows module path; pause with `powershell.exe -NoProfile -ExecutionPolicy Bypass -File out/warm-refinement-control/stop-parallel.ps1`. The warm original CLI remains bound to one worker and is superseded for its operational continuation. Use the new exploration plan's separate helpers for its ten workers. Inspect live checkpoints/processes and attempt logs; keep execution checkouts fixed and all work on HIL unless representative timings justify multiple days. Do not repeat speed qualification merely to refresh status.
 
 Completed qualification remains recorded: exact `npm.cmd test` at `838c294` passed 236 files / 3050 tests, 23 skipped ([receipt](../evidence/hil-warm-refinement-2026-10-08/full-test-result.json)); actual N126 interruption/resume preserved final checkpoint/event/result/snapshot equality ([receipt](../evidence/hil-warm-refinement-2026-10-08/n126-witness-receipt.json)). Control logs remain in task `out/warm-refinement-control/`, capacity evidence in `out/warm-refinement-probe-v2/`. No memory guard or scientific rule was relaxed.
-Readouts preserve physical-time brackets: the -8 C seed contrast reflects axial catch-up; the -18 C cold null is stage-specific; sparse cold snapshots miss prism-bearing states. Warm layers are not independent cavities, and occupancy is not mass. All findings remain model-development evidence.
+Continue Phase 10 through reviewed finite waves until multiple promising leads are accepted. Readouts preserve physical-time brackets: the -8 C seed contrast reflects axial catch-up; the -18 C cold null is stage-specific; sparse cold snapshots miss prism-bearing states. Warm layers are not independent cavities, and occupancy is not mass. All findings remain model-development evidence.
 HIL originals are in primary `out/hil-retired-2026-10-08/{discovery-resume,hil-exploration-batch2,hil-first-batch}/`, including every checkpoint and recovered failure tail; their complete compressed outputs are pinned in the joint bundle.
 BLD's HIL restore is now primary `out/hil-retired-2026-10-08/hil-bld-results-integration/restores/bld-first-batch-output-2026-10-08/`. Its original tracked archives and NAS collection remain unchanged. For a fresh NAS recovery use `npm.cmd run assets:restore -- --collection bld-first-batch-output@2026-10-08 --to out/restores/bld-first-batch-output-next-review`, then the catalogue's verify-restored command.
 Use the child HIL/BLD reports' rerun commands with scripts in `evidence/hil-bld-joint-review-2026-10-08/` and fresh output paths. Retain producer-specific source history; do not resume BLD checkpoints with HIL code. Phase 7 stays on hold and S6 closed.
