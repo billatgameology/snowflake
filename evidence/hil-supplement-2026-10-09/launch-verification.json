@@ -1,0 +1,602 @@
+{
+  "campaign": {
+    "schema": "hil-supplement-campaign-v1",
+    "batchId": "hil-history-pressure-supplement-2026-10-09",
+    "checkpointFormat": "discovery-resume-v1",
+    "host": "HIL",
+    "gitHead": "7ea25824e3d2a3a3f3e488b463689d56d5d06997",
+    "node": "v24.13.1",
+    "v8": "13.6.233.17-node.40",
+    "hostIdentity": {
+      "hostname": "HIL",
+      "platform": "win32",
+      "arch": "x64",
+      "cpuModels": [
+        "Intel(R) Core(TM) Ultra 9 285K"
+      ],
+      "logicalProcessors": 24,
+      "totalMemoryBytes": 68023050240
+    },
+    "rosterSha256": "8fe926035666a7815dc6ec0b63a56fa9b0f6287a2090a9970b05e1533a16d41f",
+    "requestedConcurrency": 8,
+    "rows": [
+      {
+        "conditional": false,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.05,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "supplement-hil-history-t6-to-t14p4-e7-m1",
+        "lane": "followup-history",
+        "tempC": -6,
+        "fraction": 0.15,
+        "timelineEvent": {
+          "triggerLargestExtent": 7,
+          "tempC": -14.4,
+          "sigmaInfinity": 0.02256
+        },
+        "sigmaInfinity": 0.00906
+      },
+      {
+        "conditional": false,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.05,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "supplement-hil-history-t6-to-t14p4-e15-m1",
+        "lane": "followup-history",
+        "tempC": -6,
+        "fraction": 0.15,
+        "timelineEvent": {
+          "triggerLargestExtent": 15,
+          "tempC": -14.4,
+          "sigmaInfinity": 0.02256
+        },
+        "sigmaInfinity": 0.00906
+      },
+      {
+        "conditional": false,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.05,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "supplement-hil-history-t14p4-to-t6-e7-m1",
+        "lane": "followup-history",
+        "tempC": -14.4,
+        "fraction": 0.15,
+        "timelineEvent": {
+          "triggerLargestExtent": 7,
+          "tempC": -6,
+          "sigmaInfinity": 0.00906
+        },
+        "sigmaInfinity": 0.02256
+      },
+      {
+        "conditional": false,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.05,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "supplement-hil-history-t14p4-to-t6-e15-m1",
+        "lane": "followup-history",
+        "tempC": -14.4,
+        "fraction": 0.15,
+        "timelineEvent": {
+          "triggerLargestExtent": 15,
+          "tempC": -6,
+          "sigmaInfinity": 0.00906
+        },
+        "sigmaInfinity": 0.02256
+      },
+      {
+        "conditional": false,
+        "pressurePa": 50662.5,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 21,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17
+        ],
+        "id": "supplement-hil-pressure-t6-f0p1-p50662p5-both",
+        "lane": "adaptive-pressure",
+        "tempC": -6,
+        "fraction": 0.1,
+        "experimentalFacetDips": "both",
+        "sigmaInfinity": 0.00604
+      },
+      {
+        "conditional": false,
+        "pressurePa": 202650,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 21,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17
+        ],
+        "id": "supplement-hil-pressure-t6-f0p1-p202650-both",
+        "lane": "adaptive-pressure",
+        "tempC": -6,
+        "fraction": 0.1,
+        "experimentalFacetDips": "both",
+        "sigmaInfinity": 0.00604
+      },
+      {
+        "conditional": false,
+        "pressurePa": 50662.5,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 21,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17
+        ],
+        "id": "supplement-hil-pressure-t6-f0p2-p50662p5-both",
+        "lane": "adaptive-pressure",
+        "tempC": -6,
+        "fraction": 0.2,
+        "experimentalFacetDips": "both",
+        "sigmaInfinity": 0.01208
+      },
+      {
+        "conditional": false,
+        "pressurePa": 202650,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 21,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17
+        ],
+        "id": "supplement-hil-pressure-t6-f0p2-p202650-both",
+        "lane": "adaptive-pressure",
+        "tempC": -6,
+        "fraction": 0.2,
+        "experimentalFacetDips": "both",
+        "sigmaInfinity": 0.01208
+      }
+    ],
+    "createdAt": "2026-10-10T03:57:39.455Z",
+    "exactLaunchCommand": [
+      "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\runner\\src\\hil-supplement-main.ts",
+      "launch",
+      "HIL",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\out\\hil-supplement"
+    ],
+    "plan": "docs/plans/hil-supplement.md",
+    "budgetBasis": "Eight additional workers beside four warm workers; existing N64 operation and live headroom. Not a new throughput qualification."
+  },
+  "launch": {
+    "schema": "post-phase10-discovery-launch-v1",
+    "experimentId": "post-phase10-facet-isolation-v1",
+    "experimentalRows": [
+      {
+        "rowId": "supplement-hil-pressure-t6-f0p1-p50662p5-both",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both"
+      },
+      {
+        "rowId": "supplement-hil-pressure-t6-f0p1-p202650-both",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both"
+      },
+      {
+        "rowId": "supplement-hil-pressure-t6-f0p2-p50662p5-both",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both"
+      },
+      {
+        "rowId": "supplement-hil-pressure-t6-f0p2-p202650-both",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both"
+      }
+    ],
+    "launchName": "hil-supplement-HIL-initial",
+    "gitHead": "7ea25824e3d2a3a3f3e488b463689d56d5d06997",
+    "node": "v24.13.1",
+    "attemptName": "initial",
+    "resumeExistingRows": false,
+    "requestedConcurrency": 8,
+    "rowIds": [
+      "supplement-hil-history-t6-to-t14p4-e7-m1",
+      "supplement-hil-history-t6-to-t14p4-e15-m1",
+      "supplement-hil-history-t14p4-to-t6-e7-m1",
+      "supplement-hil-history-t14p4-to-t6-e15-m1",
+      "supplement-hil-pressure-t6-f0p1-p50662p5-both",
+      "supplement-hil-pressure-t6-f0p1-p202650-both",
+      "supplement-hil-pressure-t6-f0p2-p50662p5-both",
+      "supplement-hil-pressure-t6-f0p2-p202650-both"
+    ],
+    "exactWorkerCommandTemplate": "Exact row-specific command is recorded in each rows/<row-id>/process.json and its named attempt",
+    "launchedAt": "2026-10-10T03:57:39.457Z"
+  },
+  "invocation": {
+    "source": "7ea25824e3d2a3a3f3e488b463689d56d5d06997",
+    "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\out\\hil-supplement-control\\campaign-launch-20261009T205739203.stderr.log",
+    "wrapperPid": 27188,
+    "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\out\\hil-supplement-control\\campaign-launch-20261009T205739203.stdout.log",
+    "command": [
+      "node",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\runner\\src\\hil-supplement-main.ts",
+      "launch",
+      "HIL",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\out\\hil-supplement"
+    ],
+    "mode": "launch",
+    "coordinatorPid": 16356,
+    "PSModulePath": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+    "startedUtc": "2026-10-10T03:57:39.2051339Z"
+  },
+  "capturedUtc": "2026-10-10T03:59:01.0454967Z",
+  "schema": "hil-supplement-launch-verification-v1",
+  "producer": "7ea25824e3d2a3a3f3e488b463689d56d5d06997",
+  "resource": {
+    "capturedUtc": "2026-10-10T03:58:58.8310139Z",
+    "availablePhysicalBytes": 49045114880,
+    "commitHeadroomBytes": 56855703552,
+    "children": [
+      {
+        "Id": 7600,
+        "CPU": 76.453125,
+        "WorkingSet64": 147591168,
+        "PeakWorkingSet64": 160137216
+      },
+      {
+        "Id": 9524,
+        "CPU": 76.296875,
+        "WorkingSet64": 168882176,
+        "PeakWorkingSet64": 180240384
+      },
+      {
+        "Id": 10748,
+        "CPU": 76.359375,
+        "WorkingSet64": 149045248,
+        "PeakWorkingSet64": 153505792
+      },
+      {
+        "Id": 13028,
+        "CPU": 76.5,
+        "WorkingSet64": 144281600,
+        "PeakWorkingSet64": 153202688
+      },
+      {
+        "Id": 18104,
+        "CPU": 76.375,
+        "WorkingSet64": 144531456,
+        "PeakWorkingSet64": 153387008
+      },
+      {
+        "Id": 21344,
+        "CPU": 76.3125,
+        "WorkingSet64": 124604416,
+        "PeakWorkingSet64": 143982592
+      },
+      {
+        "Id": 25132,
+        "CPU": 76.328125,
+        "WorkingSet64": 164790272,
+        "PeakWorkingSet64": 177537024
+      },
+      {
+        "Id": 26764,
+        "CPU": 76.5,
+        "WorkingSet64": 139984896,
+        "PeakWorkingSet64": 163467264
+      }
+    ]
+  },
+  "startupFailure": "Two shell dispatches ended before a campaign existed because Windows default policy disabled script files. Successful invocation used process-scoped ExecutionPolicy Bypass; no persistent policy change.",
+  "changedSinceFullCheck": [
+    "docs/PROGRESS.md",
+    "docs/plans/hil-supplement.md"
+  ],
+  "totalActiveScientificWorkers": 12,
+  "scope": "Operational startup verification only; no terminal scientific result or validation claim",
+  "warm": {
+    "coordinator": {
+      "Id": 25500,
+      "StartTime": "2026-10-09T07:52:51.0529233-07:00",
+      "CPU": 64.8125
+    },
+    "workers": [
+      {
+        "Id": 7944,
+        "StartTime": "2026-10-09T07:52:52.7199615-07:00",
+        "CPU": 47047.546875
+      },
+      {
+        "Id": 22716,
+        "StartTime": "2026-10-09T07:52:52.728506-07:00",
+        "CPU": 47051.859375
+      },
+      {
+        "Id": 25200,
+        "StartTime": "2026-10-09T07:52:52.7440844-07:00",
+        "CPU": 47049.296875
+      },
+      {
+        "Id": 27104,
+        "StartTime": "2026-10-09T07:52:52.7362117-07:00",
+        "CPU": 47051.046875
+      }
+    ],
+    "dirty": [],
+    "resource": {
+      "capturedUtc": "2026-10-10T03:58:59.0666397Z",
+      "availablePhysicalBytes": 49051328512,
+      "commitHeadroomBytes": 56846737408,
+      "children": [
+        {
+          "Id": 7944,
+          "CPU": 47044.140625,
+          "WorkingSet64": 414978048,
+          "PeakWorkingSet64": 521355264
+        },
+        {
+          "Id": 22716,
+          "CPU": 47048.453125,
+          "WorkingSet64": 375906304,
+          "PeakWorkingSet64": 481472512
+        },
+        {
+          "Id": 25200,
+          "CPU": 47045.90625,
+          "WorkingSet64": 377466880,
+          "PeakWorkingSet64": 481923072
+        },
+        {
+          "Id": 27104,
+          "CPU": 47047.65625,
+          "WorkingSet64": 378867712,
+          "PeakWorkingSet64": 483225600
+        }
+      ]
+    },
+    "source": "838c294757c65c0d3b96d017cb7fec3541e4db42"
+  },
+  "newWorkers": [
+    {
+      "cpuSeconds": 79.859375,
+      "checkpoint": {
+        "directory": "generation-20-f0b85164-0d31-4a1b-aed1-4f9fb74de6b3",
+        "manifestSha256": "54529d91c805f533526e544a5ecdd669272fbbaeb1236a5437c889de95e6f5d5"
+      },
+      "rowId": "supplement-hil-history-t14p4-to-t6-e15-m1",
+      "stderrBytes": 0,
+      "cpuAdvanceSeconds": 44.046875,
+      "pid": 26764,
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\runner\\src\\hil-supplement-main.ts",
+        "run-row",
+        "supplement-hil-history-t14p4-to-t6-e15-m1",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\out\\hil-supplement\\rows\\supplement-hil-history-t14p4-to-t6-e15-m1"
+      ],
+      "completedUpdates": 20,
+      "startedAt": "2026-10-10T03:57:41.271Z"
+    },
+    {
+      "cpuSeconds": 79.78125,
+      "checkpoint": {
+        "directory": "generation-20-10ab094b-d4d7-4bd0-965f-24833a3745bd",
+        "manifestSha256": "987b2ef79be28f029311a960d2cfb22113c1705d0f27016edb5b1b4e0c48514f"
+      },
+      "rowId": "supplement-hil-history-t14p4-to-t6-e7-m1",
+      "stderrBytes": 0,
+      "cpuAdvanceSeconds": 44.015625,
+      "pid": 10748,
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\runner\\src\\hil-supplement-main.ts",
+        "run-row",
+        "supplement-hil-history-t14p4-to-t6-e7-m1",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\out\\hil-supplement\\rows\\supplement-hil-history-t14p4-to-t6-e7-m1"
+      ],
+      "completedUpdates": 20,
+      "startedAt": "2026-10-10T03:57:41.263Z"
+    },
+    {
+      "cpuSeconds": 79.796875,
+      "checkpoint": {
+        "directory": "generation-20-58535fc9-1f98-4dcd-80f3-2c8285eb41c1",
+        "manifestSha256": "531a6bce23ede1820ecf32ee1a17a0e8231f9b079d8e2d0ae1a43a6189956a4b"
+      },
+      "rowId": "supplement-hil-history-t6-to-t14p4-e15-m1",
+      "stderrBytes": 0,
+      "cpuAdvanceSeconds": 43.96875,
+      "pid": 18104,
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\runner\\src\\hil-supplement-main.ts",
+        "run-row",
+        "supplement-hil-history-t6-to-t14p4-e15-m1",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\out\\hil-supplement\\rows\\supplement-hil-history-t6-to-t14p4-e15-m1"
+      ],
+      "completedUpdates": 20,
+      "startedAt": "2026-10-10T03:57:41.256Z"
+    },
+    {
+      "cpuSeconds": 79.8125,
+      "checkpoint": {
+        "directory": "generation-20-be407f68-26f5-4182-995a-442d5201964d",
+        "manifestSha256": "bcece19f945c06faae2c6e9f6513a772174c650fab95d186fc26a7aec7586a55"
+      },
+      "rowId": "supplement-hil-history-t6-to-t14p4-e7-m1",
+      "stderrBytes": 0,
+      "cpuAdvanceSeconds": 44.078125,
+      "pid": 7600,
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\runner\\src\\hil-supplement-main.ts",
+        "run-row",
+        "supplement-hil-history-t6-to-t14p4-e7-m1",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\out\\hil-supplement\\rows\\supplement-hil-history-t6-to-t14p4-e7-m1"
+      ],
+      "completedUpdates": 20,
+      "startedAt": "2026-10-10T03:57:41.248Z"
+    },
+    {
+      "cpuSeconds": 79.859375,
+      "checkpoint": {
+        "directory": "generation-40-3acfccb3-541a-4b84-a28a-c54bbf70463a",
+        "manifestSha256": "1cb30d4877daedc6f526ba90c282eb6ba7de1f1869ce51309469ee4375eb8001"
+      },
+      "rowId": "supplement-hil-pressure-t6-f0p1-p202650-both",
+      "stderrBytes": 0,
+      "cpuAdvanceSeconds": 43.953125,
+      "pid": 13028,
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\runner\\src\\hil-supplement-main.ts",
+        "run-row",
+        "supplement-hil-pressure-t6-f0p1-p202650-both",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\out\\hil-supplement\\rows\\supplement-hil-pressure-t6-f0p1-p202650-both"
+      ],
+      "completedUpdates": 40,
+      "startedAt": "2026-10-10T03:57:41.29Z"
+    },
+    {
+      "cpuSeconds": 79.8125,
+      "checkpoint": {
+        "directory": "generation-40-6e5f25e3-fa02-4773-909c-3e32182e2149",
+        "manifestSha256": "5e7bb7aba899c0fde2fb6f4d08e77ce2ae450e526316ed2d2bce0433d9083e0f"
+      },
+      "rowId": "supplement-hil-pressure-t6-f0p1-p50662p5-both",
+      "stderrBytes": 0,
+      "cpuAdvanceSeconds": 44.109375,
+      "pid": 21344,
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\runner\\src\\hil-supplement-main.ts",
+        "run-row",
+        "supplement-hil-pressure-t6-f0p1-p50662p5-both",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\out\\hil-supplement\\rows\\supplement-hil-pressure-t6-f0p1-p50662p5-both"
+      ],
+      "completedUpdates": 40,
+      "startedAt": "2026-10-10T03:57:41.281Z"
+    },
+    {
+      "cpuSeconds": 79.65625,
+      "checkpoint": {
+        "directory": "generation-40-4b8a05c4-5fcf-4020-9360-e9b221b698f4",
+        "manifestSha256": "c8c5d51b0d41ee733a85b69e8e331b5d7f741535c314c5151181c6af7e94fe86"
+      },
+      "rowId": "supplement-hil-pressure-t6-f0p2-p202650-both",
+      "stderrBytes": 0,
+      "cpuAdvanceSeconds": 44.03125,
+      "pid": 9524,
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\runner\\src\\hil-supplement-main.ts",
+        "run-row",
+        "supplement-hil-pressure-t6-f0p2-p202650-both",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\out\\hil-supplement\\rows\\supplement-hil-pressure-t6-f0p2-p202650-both"
+      ],
+      "completedUpdates": 40,
+      "startedAt": "2026-10-10T03:57:41.307Z"
+    },
+    {
+      "cpuSeconds": 79.671875,
+      "checkpoint": {
+        "directory": "generation-40-44833c50-abeb-4f31-befe-6f3c4bffedb3",
+        "manifestSha256": "06a6060b71459a2e0d40767b57c4ea69865d7e04afcee5c7071a394dd11ad976"
+      },
+      "rowId": "supplement-hil-pressure-t6-f0p2-p50662p5-both",
+      "stderrBytes": 0,
+      "cpuAdvanceSeconds": 43.9375,
+      "pid": 25132,
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\runner\\src\\hil-supplement-main.ts",
+        "run-row",
+        "supplement-hil-pressure-t6-f0p2-p50662p5-both",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\out\\hil-supplement\\rows\\supplement-hil-pressure-t6-f0p2-p50662p5-both"
+      ],
+      "completedUpdates": 40,
+      "startedAt": "2026-10-10T03:57:41.299Z"
+    }
+  ],
+  "producerDirty": []
+}

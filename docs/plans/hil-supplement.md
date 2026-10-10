@@ -1,7 +1,7 @@
 # Plan — HIL history and pressure supplement
 
 - **Phase:** post-Phase-10 model-development exploration under charter section 2.5 and accepted decisions 0011, 0055 and 0060.
-- **Status:** implementation reviewed and verified; ready for the authorized launch.
+- **Status:** eight workers running on HIL alongside the four warm workers; terminal comparison pending.
 - **Started / last touched:** 2026-10-09 by Codex/GPT-6.
 - **Branch / checkout:** `codex/hil-supplement`, `C:/Users/biao3/.codex/worktrees/hil-supplement/snowflake`, from `02b1d1d`.
 - **Authority:** maker explicitly approved adding and launching the eight proposed cases. HIL only; preserve the four active warm workers at fixed `838c294`.
@@ -116,7 +116,7 @@ witness remain applicable to this unchanged state contract; do not repeat that s
 The new coordinator's recovery wiring still receives focused tests. Freeze the executing checkout
 after launch and write later live-state records in primary.
 
-Commands to implement, from this task checkout (set the process-only Windows module path first):
+Underlying commands, from this task checkout (set the process-only Windows module path first):
 
 ```powershell
 $env:PSModulePath=Join-Path $env:SystemRoot 'System32/WindowsPowerShell/v1.0/Modules'
@@ -148,7 +148,7 @@ pruning is authorized. Existing controls already have NAS coverage; no duplicate
 
 - [x] Commit this protocol before implementation and add the bounded roster/entry/coordinator.
 - [x] Complete focused checks, one bounded review and exact full check at stable producer; repair its sole prose failure with the scoped check below.
-- [ ] Publish tested code, launch eight workers, and record actual processes, logs and recovery.
+- [x] Publish tested code, launch eight workers, and record actual processes, logs and recovery.
 - [ ] After terminal results, compare the registered pairs and preserve the useful outputs on NAS.
 
 ## Implementation and verification — 2026-10-09
@@ -180,6 +180,68 @@ retains its check logs and operational helpers. No checkout/ref/output is remove
 the task's `out/hil-supplement-control/worktree-inventory.json` records exact heads and ignored
 task paths. NAS preservation remains a requirement before eventual execution-worktree closure.
 
+## Launch — 2026-10-09 20:57 PDT
+
+Main was fast-forwarded and pushed through producer `7ea25824e3d2a3a3f3e488b463689d56d5d06997`.
+Its only changes after the full-check source are the two Markdown records above. This execution
+checkout stays clean and fixed; later operational records are written in primary main. The
+[retained verification bundle](../../evidence/hil-supplement-2026-10-09/full-test-result.json)
+includes the exact full-check log/exit, prose-repair log/exit, bounded review and helper scripts.
+
+Actual queue launch: `2026-10-10T03:57:39.457Z` (October 9, 20:57 PDT), concurrency eight,
+coordinator PID 16356, shell wrapper PID 27188. The
+[startup receipt](../../evidence/hil-supplement-2026-10-09/launch-verification.json) at
+`2026-10-10T03:59:01.0454967Z` records all eight live workers with advancing CPU and zero stderr
+bytes. All four history rows had saved 20 completed updates; all four pressure rows had saved 40.
+These are startup observations, not completed targets. The original four warm PIDs and start times
+remain live at fixed `838c294`; actual total scientific concurrency is twelve.
+
+| Row suffix after `supplement-hil-` | Worker PID | Target extent |
+|---|---:|---:|
+| history-t6-to-t14p4-e7-m1 | 7600 | 29 |
+| history-t6-to-t14p4-e15-m1 | 18104 | 29 |
+| history-t14p4-to-t6-e7-m1 | 10748 | 29 |
+| history-t14p4-to-t6-e15-m1 | 26764 | 29 |
+| pressure-t6-f0p1-p50662p5-both | 21344 | 21 |
+| pressure-t6-f0p1-p202650-both | 13028 | 21 |
+| pressure-t6-f0p2-p50662p5-both | 25132 | 21 |
+| pressure-t6-f0p2-p202650-both | 9524 | 21 |
+
+At `2026-10-10T03:58:58.8310139Z`, the recorded monitor sample has 49045114880 available
+physical bytes and 56855703552 commit-headroom bytes; both guards remain satisfied. This is
+startup headroom only, not a mature-throughput qualification. No capacity ladder was repeated.
+
+From `C:/Users/biao3/.codex/worktrees/hil-supplement/snowflake`, pause and resume exactly:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File out/hil-supplement-control/stop-hil.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File out/hil-supplement-control/start-hil.ps1 -Mode resume
+```
+
+The successful background dispatch uses `Start-Process -WindowStyle Hidden` with the same
+PowerShell arguments and `-Mode launch`. This process-scoped setting is needed because this
+Windows host disables script files by default; no persistent execution policy was changed.
+The helper sets the process-only Windows module path and records the exact Node invocation.
+For unattended resume, dispatch the same helper hidden, as at launch. Never invoke `launch`
+again against the existing campaign directory. Before resume inspect current processes; the
+existing campaign lease/pending selection refuse concurrent writers and skip checked endpoints.
+
+All paths below are under the fixed task checkout:
+
+- Coordinator stdout/stderr: `out/hil-supplement-control/campaign-launch-20261009T205739203.{stdout,stderr}.log`;
+  its `-invocation.json` is present and the wrapper writes `-exit.json` on actual coordinator exit.
+- Campaign binding/launch/live resources: `out/hil-supplement/campaign.json` and
+  `out/hil-supplement/hil-supplement-HIL-initial-{invocation,launch,resources}.json*`.
+- Worker command/stdout/stderr/exit: `out/hil-supplement/rows/<row-id>/attempts/initial/`.
+- Restart state: each row's `resume/latest.json` and two retained generation directories.
+
+Next: obtain terminal dispositions with `node runner/src/hil-supplement-main.ts summarize out/hil-supplement`,
+then execute the registered matched-control readout. Do not infer completion
+from startup counts. Preserve the complete campaign/control output on NAS and verify fresh recovery
+before closing this output-owning worktree; no bulk payload was added to Git.
+The final progress/evidence-integrity checks and Rule 7 passed. Raw test logs retain their exact
+captured whitespace; the source/prose diff check excludes only those two raw logs.
+
 ## Out of scope
 
 Solver/codec changes, old target extension or checkpoint migration, new capacity ladders, warm
@@ -196,3 +258,8 @@ validation, public scientific conclusions and worktree closure before campaign p
   Retain applicable measurements, actual concurrency and live resource guards.
 - Silently increasing finished rows' targets would rewrite their identity; these are new rows
   with separate outputs and registered finite targets.
+- The first exact full check exposed a 251-line progress index. Join prose lines and rerun the
+  document boundary under Rule 6; do not relabel the failed invocation as full-suite green.
+- Plain PowerShell `-File` was blocked before any campaign directory or worker existed. The
+  successful retry used the reviewed local helper with a process-scoped execution setting and
+  separate dispatch stdout/stderr; default system policy remains unchanged.

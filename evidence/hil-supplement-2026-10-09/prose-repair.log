@@ -1,0 +1,10 @@
+
+ RUN  v3.2.7 C:/Users/biao3/.codex/worktrees/hil-supplement/snowflake
+
+ ✓ runner/test/progress-index.test.ts (11 tests) 345ms
+
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Start at  20:55:50
+   Duration  493ms (transform 27ms, setup 0ms, collect 27ms, tests 345ms, environment 0ms, prepare 44ms)
+

@@ -1,0 +1,32 @@
+{
+  "reviewer": "Codex/GPT-6",
+  "sharedContext": true,
+  "scope": "One bounded code/protocol review of the HIL history and pressure supplement",
+  "verdict": "No blocker-bearing finding",
+  "independentChecks": [
+    "Deep-compared all eight imported rows against actual retained control spec.json files, allowing only registered ID plus target/sample or CFL changes; all matched",
+    "Checked campaign source/runtime/host/roster/row/budget binding and existing lease/pending/worker routes",
+    "Checked eight-worker queue retains live memory guards, separate attempts and no hardWallSeconds",
+    "Checked resource interruption owns only spawned children and does not reference warm paths or PIDs"
+  ],
+  "executed": {
+    "command": "npx.cmd vitest run runner/test/hil-supplement.test.ts runner/test/hil-bld-batch-resume.test.ts runner/test/hil-bld-batch-execution.test.ts",
+    "exitCode": 0,
+    "filesPassed": 3,
+    "testsPassed": 22,
+    "durationSeconds": 6.14,
+    "rawOutputCustody": "Reviewer tool output in this chat; no separate raw log was saved"
+  },
+  "reviewedSha256": {
+    "docs/plans/hil-supplement.md": "fa313fa4b1f2cb1c2c9c646b4d725a1041d53d8c23c6c24c39c026e8919e943e",
+    "runner/src/hil-supplement-roster.ts": "1d8c266e3f3b081aabec03d822d5d746f2180dd3992b523b29f836378e35ace8",
+    "runner/src/hil-supplement-main.ts": "b26eae8d503a00ef8733db1738a45265f404119b601b343c5038f2a137a87480",
+    "runner/test/hil-supplement.test.ts": "c7bad2650328f862c40cc70c5fada711db78a99f85d36999281b655646d0390b"
+  },
+  "limits": [
+    "Did not execute full suite or real eight-worker campaign",
+    "Did not execute Windows stop helper",
+    "Did not measure mature memory/throughput or repeat real checkpoint differentials",
+    "No independent physical validity claim"
+  ]
+}

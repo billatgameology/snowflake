@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1049,
- "totalBytes": 316569022,
+ "fileCount": 1058,
+ "totalBytes": 316700616,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -4201,6 +4201,42 @@
   "hil-warm-refinement-2026-10-08/verification.json": {
    "bytes": 1573,
    "sha256": "b384c0b8879d74a6f09e15890714fc5d051dfe2df4b9837d4619ec44199eb5c8"
+  },
+  "hil-supplement-2026-10-09/bounded-review.json": {
+   "bytes": 1789,
+   "sha256": "4a25e13248dc91e74c1931b1911b571674a5d8529d1022b89ec9fe8853254841"
+  },
+  "hil-supplement-2026-10-09/full-test-invocation.json": {
+   "bytes": 254,
+   "sha256": "871f56366147bdd25bc5fe8062d97539aea2319a6b4eade4e303276934d84079"
+  },
+  "hil-supplement-2026-10-09/full-test-result.json": {
+   "bytes": 366,
+   "sha256": "44ad910c535af694afca322bd89a574111ad60730c9d010cd215a001bbfb187a"
+  },
+  "hil-supplement-2026-10-09/full-test.log": {
+   "bytes": 104295,
+   "sha256": "4cc1e2a2032f2a20df397046952eb847e7a6afa4f6a4343002421a481eca7475"
+  },
+  "hil-supplement-2026-10-09/launch-verification.json": {
+   "bytes": 20492,
+   "sha256": "32b25d818559f30a2c8043873dce5acb2480187ee480d27f023afda638d45ed1"
+  },
+  "hil-supplement-2026-10-09/prose-repair-result.json": {
+   "bytes": 379,
+   "sha256": "6429938d533eb9528fc692067d70ef54ef341bf204ac42a6ca42501869fa7011"
+  },
+  "hil-supplement-2026-10-09/prose-repair.log": {
+   "bytes": 322,
+   "sha256": "f4c98bafd2b16db0926671187fce4f58612b07273520b16a10cac75404607c77"
+  },
+  "hil-supplement-2026-10-09/start-hil.ps1": {
+   "bytes": 1832,
+   "sha256": "e5646db561b6d02313e67416457171087b4f40c496fd957c62d64757cf3de82a"
+  },
+  "hil-supplement-2026-10-09/stop-hil.ps1": {
+   "bytes": 1865,
+   "sha256": "36f6af33727db22d8c343595e271d1460b103d28b215d7535a490ae542357a81"
   }
  }
 }

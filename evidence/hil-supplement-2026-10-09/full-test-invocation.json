@@ -1,0 +1,8 @@
+{
+  "startedUtc": "2026-10-10T03:36:59.5728730Z",
+  "node": "v24.13.1",
+  "log": "out/hil-supplement-control/full-test-20261009T203659571.log",
+  "source": "b6fe1d7a80b2c3c09e6eb32b64038528dc07ca48",
+  "command": "npm.cmd test",
+  "pid": 20620
+}
