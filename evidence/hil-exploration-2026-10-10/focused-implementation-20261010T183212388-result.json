@@ -1,0 +1,7 @@
+{
+  "command": "npx.cmd vitest run runner/test/hil-exploration-oct10.test.ts runner/test/hil-supplement.test.ts runner/test/hil-bld-batch-execution.test.ts runner/test/hil-bld-batch-resume.test.ts",
+  "startedUtc": "2026-10-10T18:32:12.4011198Z",
+  "finishedUtc": "2026-10-10T18:32:21.7657251Z",
+  "exitCode": 0,
+  "log": "out\\hil-exploration-oct10-control\\focused-implementation-20261010T183212388.log"
+}

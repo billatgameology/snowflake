@@ -1,0 +1,55 @@
+{
+  "kind": "bounded non-author internal implementation review",
+  "recordedAt": "2026-10-10T18:34:20.120Z",
+  "reviewer": {
+    "model": "Codex / GPT-6 (model family supplied by session; exact serving variant not exposed)",
+    "sharedContext": true,
+    "role": "extra_run_options subagent; author is parent agent"
+  },
+  "workspace": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake",
+  "parentCommit": "85a2f6dc68bbfa69674b2c8561e91721e20592fa",
+  "verdict": "No blocker found in the inspected row, coordinator refactor, and launch/recovery scope.",
+  "findings": [],
+  "inspected": [
+    "Complete exploration plan including Tried and rejected; exact ten-row roster and new main; shared coordinator; old-to-new supplement wrapper diff; focused test source.",
+    "Ten HIL rows copy retained first-batch controls with only registered identity, target 21 to 29, and spatial sampling changes. Four no-dip histories, four cold facet arms, and two static history controls retain all other row fields.",
+    "Shared coordinator preserves supplement campaign binding, clean-tree refusal, absent fresh-output requirement, resume validation, existing lease, pending row selection, per-attempt paths, and worker command routing.",
+    "New main selects ten HIL workers; no hard wall limit is supplied; live host monitor is retained. Existing queue, resource guard, row execution, readout, resume codec and numerical implementation have no changes in the comparison scope.",
+    "Exact-path start/stop helper source: unique coordinator receipts, real child exit, hidden launch, and stop selection requiring both new entry path and new campaign path. No warm entry or campaign path is targeted."
+  ],
+  "independentlyExecuted": [
+    {
+      "command": "PowerShell here-string piped to node --input-type=module -; imported HIL_EXPLORATION_OCT10_ROWS and compared every row with retained first-batch spec.json using assert.deepEqual after only registered id/target/sample substitutions; compared hilSupplementCampaignBinding() with the complete pre-extraction structural definition.",
+      "toolReceipt": "functions.exec / exec_command chunk d5d806",
+      "exitCode": 0,
+      "wallSeconds": 0.233,
+      "result": "All ten actual retained-control comparisons and supplement binding parity passed.",
+      "controlRoots": [
+        "C:/Users/biao3/Documents/GitHub/snowflake/out/hil-retired-2026-10-08/discovery-resume/batch1-hil-resumable/rows/",
+        "C:/Users/biao3/Documents/GitHub/snowflake/out/hil-retired-2026-10-08/hil-bld-results-integration/restores/bld-first-batch-output-2026-10-08/batch1-bld-resumable/rows/"
+      ]
+    },
+    {
+      "command": "git diff 7ea2582 -- core/src solver-cpu/src runner/src/post-phase10-discovery.ts runner/src/discovery-resume-io.ts runner/src/hil-bld-batch-main.ts runner/src/hil-bld-batch-execution.ts",
+      "result": "Empty diff over numerical implementation, discovery row/readout, resume I/O, shared row runner, queue and execution helpers."
+    }
+  ],
+  "limits": [
+    "No full suite, focused Vitest or typecheck was re-executed by this reviewer in this engagement; the operations agent and root own those separate receipts.",
+    "No production launch, scientific simulation, real interruption/resume, start helper, or stop helper was executed by this reviewer.",
+    "This is a bounded internal code/protocol review, not a physical validation, scientific gate, domain/grid independence or trajectory convergence claim.",
+    "The old BLD quartet is a design reference; cross-source scientific comparability remains subject to the plan. The new quartet is internally matched.",
+    "Shared conversation context limits reviewer independence; no distinct exact serving model was exposed.",
+    "Final hashes include the parent-reported whitespace-only EOF cleanup in the shared coordinator. No code modifications were made by the reviewer."
+  ],
+  "sha256": {
+    "docs/plans/hil-exploration-oct10.md": "8b2e35e76a506eabb6f42ba111ae86f9a8bc2a9152299fd341123f71fbe1cac8",
+    "runner/src/hil-operational-batch-main.ts": "3707854510ca1d7c1870b2c233576c422030401da28bbc87ab197ca6e721759d",
+    "runner/src/hil-exploration-oct10-main.ts": "7f1ff802b00f588086f1bb6a467302484a0c1724624993983abdd79dec54a865",
+    "runner/src/hil-exploration-oct10-roster.ts": "41c648d5f7771e6f3d823addd369555c5fc4f4499ed85147b17143571dd9c1df",
+    "runner/src/hil-supplement-main.ts": "9386e1d4443d5f531b62ff35180ec3813a9376f6b584218fb9959603025b888f",
+    "runner/test/hil-exploration-oct10.test.ts": "2c9960bb3614b1e5dd1ef3d06da08875baca5adb602646e2da8d167c41bb73e9",
+    "out/hil-exploration-oct10-control/start-hil.ps1": "228eeda36fe1f1420e0821497aa9ece12c471b513b5bfc3d7cc839e3d0ad887f",
+    "out/hil-exploration-oct10-control/stop-hil.ps1": "372255d87c03eef4c9f79959180943a5f91f43c9c346e53ca17e4b92c45685a8"
+  }
+}

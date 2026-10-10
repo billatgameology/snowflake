@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1058,
- "totalBytes": 316700616,
+ "fileCount": 1066,
+ "totalBytes": 316717298,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -4237,6 +4237,38 @@
   "hil-supplement-2026-10-09/stop-hil.ps1": {
    "bytes": 1865,
    "sha256": "36f6af33727db22d8c343595e271d1460b103d28b215d7535a490ae542357a81"
+  },
+  "hil-exploration-2026-10-10/focused-implementation-20261010T183212388-result.json": {
+   "bytes": 415,
+   "sha256": "6f46870ad30a9dcabe9a051563843dd9b9ccd057cb9cad2cce78d47ceafb55f8"
+  },
+  "hil-exploration-2026-10-10/focused-implementation-20261010T183212388.log": {
+   "bytes": 6621,
+   "sha256": "2197bd84c33d3ff56e941f0f8784afdf659c89a3861b87b28ebcd79d7232c51c"
+  },
+  "hil-exploration-2026-10-10/start-hil.ps1": {
+   "bytes": 1853,
+   "sha256": "228eeda36fe1f1420e0821497aa9ece12c471b513b5bfc3d7cc839e3d0ad887f"
+  },
+  "hil-exploration-2026-10-10/stop-hil.ps1": {
+   "bytes": 1892,
+   "sha256": "372255d87c03eef4c9f79959180943a5f91f43c9c346e53ca17e4b92c45685a8"
+  },
+  "hil-exploration-2026-10-10/typecheck-implementation-20261010T183212553-result.json": {
+   "bytes": 258,
+   "sha256": "fc6ab08d51d6aa4c8d8c12a0376c7c26f054d07b87ca5025c6a69bcf09ef018d"
+  },
+  "hil-exploration-2026-10-10/typecheck-implementation-20261010T183212553.log": {
+   "bytes": 84,
+   "sha256": "51bcdf34980a17f4afbc6fa075186ba067a673569bc37098441f73a31b975087"
+  },
+  "hil-exploration-2026-10-10/warm-before-launch.json": {
+   "bytes": 692,
+   "sha256": "0058a9c53eec95fc5e3651b0246f09db882c1c7ff2a1063b853cb3916acad476"
+  },
+  "hil-exploration-2026-10-10/bounded-review.json": {
+   "bytes": 4867,
+   "sha256": "5b575548ff0ead130e297252d3a048bb52d7077028fcb9fc99363a84aafb9185"
   }
  }
 }

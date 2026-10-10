@@ -1,0 +1,7 @@
+{
+  "command": "npm.cmd run typecheck",
+  "startedUtc": "2026-10-10T18:32:12.5677382Z",
+  "finishedUtc": "2026-10-10T18:32:21.4523806Z",
+  "exitCode": 0,
+  "log": "out\\hil-exploration-oct10-control\\typecheck-implementation-20261010T183212553.log"
+}

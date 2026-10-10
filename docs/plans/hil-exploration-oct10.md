@@ -1,7 +1,7 @@
 # Plan — HIL longer history and cold facet exploration
 
 - **Phase:** post-Phase-10 model development under charter section 2.5 and accepted ADRs 0011, 0055 and 0060.
-- **Status:** registered; implementation and launch pending.
+- **Status:** implementation and focused verification complete; launch pending.
 - **Started / last touched:** 2026-10-10 by Codex/GPT-6.
 - **Branch / checkout:** `codex/hil-exploration-oct10`, `C:/Users/biao3/.codex/worktrees/hil-exploration-oct10/snowflake`, from `b02bbd1`.
 - **Authority:** maker requested another 8–12 useful runs beside ongoing HIL work. This plan registers ten; preserve the four warm workers and their fixed checkout.
@@ -92,6 +92,9 @@ small focused check and introduces no hostile-owner defense or additional assura
 
 Concurrency is ten new workers plus four warm workers: fourteen, within HIL's existing operational
 ceiling of sixteen. This is a bounded operational choice, not a new throughput qualification.
+At `2026-10-10T18:29:43.3955127Z`, the warm resource log records 49563279360 available physical
+bytes and 57610838016 commit-headroom bytes with all four workers live; the retained snapshot is
+task `out/hil-exploration-oct10-control/warm-before-launch.json`.
 Existing N64 checkpointing campaigns and current host headroom justify starting without another
 speed ladder. Both coordinators keep host-global guards of 12 GiB available RAM and 8 GiB commit
 headroom. Inspect actual resource logs before launch; shared cache/bandwidth slowdown is unmeasured.
@@ -99,9 +102,10 @@ headroom. Inspect actual resource logs before launch; shared cache/bandwidth slo
 Checkpoints are written at each completed update, retaining two generations. Recovery repeats
 only an unfinished relaxation. The existing real N64 pause/resume proof under ADR 0060 applies
 because state construction, codec and production worker remain unchanged. Do not repeat it solely
-for a new roster. Relevant lessons: C2/C3 (stage and matched controls), C6 (scope of comparisons),
-E5/F2 (resume and live process evidence); reread their governing contracts before launch/readout.
-Existing queue/lease/resume tests cover accidental recovery mistakes, not future scientific judgment.
+for a new roster. Relevant lessons: C2/C3 (sound diagnostics and matched controls), C6 (computable
+registered readouts), E5 (software interventions do not establish physical causality), and F2
+(deliver the experiment before expanding process). Reread these before launch/readout. Existing
+queue/lease/resume tests cover accidental recovery mistakes, not future scientific judgment.
 
 From the fixed execution checkout:
 
@@ -138,10 +142,37 @@ Git holds protocol, source and concise run receipts. Useful bulk outputs stay lo
 NAS publication and fresh-restore verification under Rule 15 / ADR 0061; keep all three execution
 worktrees open until their coverage is recorded. No cleanup or local pruning is authorized here.
 
+## Implementation and verification — 2026-10-10
+
+Protocol commit `85a2f6d` preceded implementation. The finite roster and thin entry reuse the
+supplement coordinator extracted to `hil-operational-batch-main.ts`; the old supplement's exports,
+binding and operational behavior remain intact. Numerical worker, queue, readout and resume-state
+code are unchanged. `npx.cmd vitest run runner/test/hil-exploration-oct10.test.ts runner/test/hil-supplement.test.ts runner/test/hil-bld-batch-execution.test.ts runner/test/hil-bld-batch-resume.test.ts`
+passed four files / 25 tests, exit zero (8.31 s). `npm.cmd run typecheck` passed both typechecks,
+exit zero. Exact invocation/result/log files use prefixes
+`focused-implementation-20261010T183212388` and `typecheck-implementation-20261010T183212553` under
+task `out/hil-exploration-oct10-control/`, with copies in
+`evidence/hil-exploration-2026-10-10/`. No full-suite-green claim is made.
+
+One Codex/GPT-6 review with shared context found no blocker. It independently compared all ten
+rows against retained first-batch `spec.json` files, checked the original supplement binding and
+confirmed no numerical/readout/resume/queue changes. It did not repeat the implementation tests,
+execute production/start/stop, or establish physical validity. Its limits and exact checks are in
+`evidence/hil-exploration-2026-10-10/bounded-review.json`.
+
+Task `out/hil-exploration-oct10-control/start-hil.ps1` launches or resumes this campaign; the sibling
+`stop-hil.ps1` targets its exact entry/campaign paths and preserves checkpoint files. These helper
+bytes are also retained in the evidence folder. Stop/resume commands from the fixed task checkout:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File out/hil-exploration-oct10-control/stop-hil.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File out/hil-exploration-oct10-control/start-hil.ps1 -Mode resume
+```
+
 ## Steps
 
 - [x] Select and commit these ten rows before implementation.
-- [ ] Add finite roster and shared operational entry; complete focused checks and bounded review.
+- [x] Add finite roster and shared operational entry; complete focused checks and bounded review.
 - [ ] Commit/publish producer, launch ten workers and record actual checkpoints/logs/recovery.
 - [ ] Reconcile terminal dispositions, run the registered matched readouts and preserve outputs.
 
