@@ -1,8 +1,8 @@
 # Plan — HIL history and pressure supplement
 
 - **Phase:** post-Phase-10 model-development exploration under charter section 2.5 and accepted decisions 0011, 0055 and 0060.
-- **Status:** eight workers running on HIL alongside the four warm workers; terminal comparison pending.
-- **Started / last touched:** 2026-10-09 by Codex/GPT-6.
+- **Status:** all eight size endpoints complete and operationally checked; matched comparison and NAS preservation pending. Four fine warm workers remain active separately.
+- **Started / last touched:** 2026-10-09 / 2026-10-10 by Codex/GPT-6.
 - **Branch / checkout:** `codex/hil-supplement`, `C:/Users/biao3/.codex/worktrees/hil-supplement/snowflake`, from `02b1d1d`.
 - **Authority:** maker explicitly approved adding and launching the eight proposed cases. HIL only; preserve the four active warm workers at fixed `838c294`.
 
@@ -241,6 +241,29 @@ from startup counts. Preserve the complete campaign/control output on NAS and ve
 before closing this output-owning worktree; no bulk payload was added to Git.
 The final progress/evidence-integrity checks and Rule 7 passed. Raw test logs retain their exact
 captured whitespace; the source/prose diff check excludes only those two raw logs.
+
+## Completion observed — 2026-10-10
+
+At the October 10, 11:18 PDT status check, `summarizeFirstBatchRow` independently reopened
+all eight rows and rederived valid size endpoints, zero validation errors and exit zero. This
+read-only check was executed by a Codex/GPT-6 subagent with shared context; no scientific paired
+interpretation, physical validation, full test rerun or NAS publication was performed.
+
+Source is unchanged and clean at `7ea2582`. The exact artifacts remain in task
+`out/hil-supplement/rows/<registered-row-id>/{spec,result,exit}.json`, `events.jsonl` and restart
+generations. History completed-update counts in table order above are 357, 433, 703 and 625,
+all extent 29. Pressure counts in table order are 905, 957, 709 and 660, all extent 21.
+
+`out/hil-supplement/hil-supplement-HIL-initial-complete.json` records coordinator completion
+at `2026-10-10T05:59:10.091Z` (October 9, 22:59 PDT), maximum concurrency eight, no abort and
+no unstarted rows. Control `campaign-launch-20261009T205739203-exit.json` independently records
+exit zero at `2026-10-10T05:59:10.1116509Z`; its stderr log is empty. The four fine warm workers
+remain active, so current scientific concurrency is four. No process was stopped or restarted
+for this status check, and no capacity probe was repeated.
+
+Next: execute the already registered matched-control readout using these completed rows and the
+retained controls. Useful output is still local in the open execution worktree; publish it under
+Rule 15 / ADR 0061 and verify fresh NAS recovery before eventual worktree closure.
 
 ## Out of scope
 
