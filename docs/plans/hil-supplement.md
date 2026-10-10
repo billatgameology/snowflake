@@ -145,7 +145,7 @@ pruning is authorized. Existing controls already have NAS coverage; no duplicate
 
 ## Steps
 
-- [ ] Commit this protocol before implementation and add the bounded roster/entry/coordinator.
+- [x] Commit this protocol before implementation and add the bounded roster/entry/coordinator.
 - [ ] Complete focused checks, one bounded review and exact full check at stable producer.
 - [ ] Publish tested code, launch eight workers, and record actual processes, logs and recovery.
 - [ ] After terminal results, compare the registered pairs and preserve the useful outputs on NAS.
