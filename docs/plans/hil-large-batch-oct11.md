@@ -1,7 +1,7 @@
 # Plan — HIL October 11 queued exploration
 
 - **Phase:** active Phase 10 model development, charter sections 2.5 and 3.2; accepted ADRs 0011, 0055, 0060 and 0062.
-- **Status:** running on HIL; 102 registered cases, twelve queue workers alongside four warm workers.
+- **Status:** 17 checked size endpoints, twelve running and 73 queued at 11:59 PDT on October 11; four warm workers continue separately.
 - **Started / last touched:** 2026-10-11 by Codex/GPT-6.
 - **Branch / checkout:** `codex/hil-large-batch-oct11`, `C:/Users/biao3/.codex/worktrees/hil-large-batch-oct11/snowflake`, from `74ad14a`.
 - **Authority:** maker requests a large batch alongside the four remaining warm runs, with roughly another day of useful work. Run on HIL; no production wall deadline.
@@ -244,6 +244,26 @@ After adding startup evidence in primary, evidence-integrity and progress-index 
 again (two files / 18 tests, exit zero), and Rule 7 passed. Exact commands and real exits remain
 in primary `out/hil-large-batch-design-2026-10-11/postlaunch-{metadata,rule7}{.log,-result.json}`.
 No production source was changed by these live-state records.
+
+## Status observed — 2026-10-11, 11:59 PDT
+
+At `2026-10-11T18:59:24.515Z`, existing `summarizeFirstBatchRow` independently rechecked all
+seventeen rows with exit records: seventeen extent-29 size endpoints, zero invalid/failed rows.
+Completed counts by registered block are cold 6/48, seed 5/16, history 2/24, static 2/6 and
+timestep 2/8. Twelve rows are running; 73 have not started. Primary
+`out/status-current-hil-20261011T185924Z/queue-status.json` retains the complete 102-row census,
+named checks and observed checkpoint metadata; sibling `queue-processes.json` confirms the
+coordinator and all twelve workers live, with worker CPU advance over five seconds. Current
+worker/coordinator stderr is empty; active checkpoints report converged relaxation and no integrity
+errors. This is operational coverage, not the registered matched scientific interpretation.
+
+The separate warm observation at `2026-10-11T18:59:09.7362319Z` is primary
+`out/status-current-hil-20261011T185909736Z/warm-status.json`: all four original workers advance,
+with thin-broad extent 37 / update 806, thin-early 31 / 631, thick-broad 33 / 716 and thick-early
+35 / 634; each target is 57. All current checkpoints report converged relaxation with no integrity
+errors and current stderr is empty. Actual concurrency remains sixteen. Continue the existing
+queues; no probe, restart, new simulation or production-source change was performed for this check.
+Completion timing remains uncertain; size fraction is not elapsed-work fraction.
 
 ## Steps
 
