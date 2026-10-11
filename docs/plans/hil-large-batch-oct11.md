@@ -1,7 +1,7 @@
 # Plan — HIL October 11 queued exploration
 
 - **Phase:** active Phase 10 model development, charter sections 2.5 and 3.2; accepted ADRs 0011, 0055, 0060 and 0062.
-- **Status:** implementation checks and bounded review passed; publication and launch pending.
+- **Status:** running on HIL; 102 registered cases, twelve queue workers alongside four warm workers.
 - **Started / last touched:** 2026-10-11 by Codex/GPT-6.
 - **Branch / checkout:** `codex/hil-large-batch-oct11`, `C:/Users/biao3/.codex/worktrees/hil-large-batch-oct11/snowflake`, from `74ad14a`.
 - **Authority:** maker requests a large batch alongside the four remaining warm runs, with roughly another day of useful work. Run on HIL; no production wall deadline.
@@ -206,11 +206,50 @@ remain in task `out/hil-large-batch-oct11-control/metadata-prelaunch{.log,-resul
 `rule7-final{.log,-result.json}`. Scoped staged whitespace check passed with CR-at-EOL recognized,
 excluding only the two byte-preserved implementation stdout logs from whitespace lint.
 
+## Launched — 2026-10-11
+
+Producer `5a00e901874ae5fdf2ae24a2d889b692734e75da` is committed and pushed on main. Keep
+`codex/hil-large-batch-oct11` and its execution checkout fixed there; these live-state notes are
+written in primary. Hidden dispatcher PID 27236 started at `2026-10-11T14:44:39.0064639Z`
+(07:44 PDT); coordinator PID 24868 registered all 102 rows and launched twelve workers.
+The other ninety rows remain queued and will automatically fill free slots.
+
+Exact wrapper invocation is `powershell.exe -NoProfile -ExecutionPolicy Bypass -File
+C:/Users/biao3/.codex/worktrees/hil-large-batch-oct11/snowflake/out/hil-large-batch-oct11-control/start-hil.ps1
+-Mode launch`, through hidden Start-Process. The wrapper's exact Node command and source are in
+task `out/hil-large-batch-oct11-control/campaign-launch-20261011T074439005-invocation.json`;
+coordinator logs are the same prefix with `.stdout.log` and `.stderr.log`, with `-exit.json` on
+real completion. The campaign binding and queue invocation are in `out/hil-large-batch-oct11/`.
+Separate worker logs and checkpoint locations are given above; resource observations are
+`out/hil-large-batch-oct11/hil-large-batch-oct11-HIL-initial-resources.jsonl`.
+
+Startup observation `2026-10-11T14:46:23.6437297Z` is retained in
+`evidence/hil-large-batch-2026-10-11/launch-verification.json`: twelve live new workers, each with
+completed-cycle checkpoint 20 and previous generation 19, matching current manifest/solver digests
+and solver sizes. All twelve report converged completed relaxations and zero integrity errors;
+row/coordinator stderr files are empty, with no row exit or terminal result. All sixteen new/warm
+worker CPU clocks advanced over the five-second observation. Available physical memory was
+47338164224 bytes and commit headroom 55066988544 bytes. This is operational startup evidence,
+not completed scientific results, a runtime forecast or a new semantic checkpoint/resume proof.
+
+The four original warm PIDs remain 7944 / 22716 / 27104 / 25200. In that order their extents are
+35 / 31 / 33 / 33 and completed updates 765 / 595 / 678 / 600, all targeting 57. Their checkpoint
+metadata and current stderr remain clean. No original worker was paused, restarted or moved.
+Next: observe actual terminal dispositions, then run the registered matched analyses. Bulk outputs
+are local active staging; keep all four output-owning checkouts until governed NAS publication and
+fresh recovery cover their useful bytes. Use the exact same-source recovery commands above if
+interrupted; keep the recorded source/runtime/host and roster binding.
+
+After adding startup evidence in primary, evidence-integrity and progress-index checks passed
+again (two files / 18 tests, exit zero), and Rule 7 passed. Exact commands and real exits remain
+in primary `out/hil-large-batch-design-2026-10-11/postlaunch-{metadata,rule7}{.log,-result.json}`.
+No production source was changed by these live-state records.
+
 ## Steps
 
 - [x] Select finite matched blocks and commit protocol before implementation.
 - [x] Add roster/thin entry; focused checks, both typechecks and bounded review.
-- [ ] Publish fixed producer, launch twelve workers, verify checkpoints and warm progress.
+- [x] Publish fixed producer, launch twelve workers, verify checkpoints and warm progress.
 - [ ] Reconcile terminal dispositions, perform registered readouts and preserve useful outputs.
 
 ## Tried and rejected
