@@ -1,8 +1,8 @@
 # Plan — HIL longer history and cold facet exploration
 
 - **Phase:** post-Phase-10 model development under charter section 2.5 and accepted ADRs 0011, 0055 and 0060.
-- **Status:** ten workers launched and checkpointing alongside four warm workers; scientific completion and analysis pending.
-- **Started / last touched:** 2026-10-10 by Codex/GPT-6.
+- **Status:** all ten size endpoints complete and operationally checked; matched analysis and NAS recovery pending. Four warm workers remain active separately.
+- **Started / last touched:** 2026-10-10 / 2026-10-11 by Codex/GPT-6.
 - **Branch / checkout:** `codex/hil-exploration-oct10`, `C:/Users/biao3/.codex/worktrees/hil-exploration-oct10/snowflake`, from `b02bbd1`.
 - **Authority:** maker requested another 8–12 useful runs beside ongoing HIL work. This plan registers ten; preserve the four warm workers and their fixed checkout.
 
@@ -205,6 +205,23 @@ CR at end-of-line correctly and excludes only the two preserved implementation s
 Next: inspect live processes/checkpoints and actual terminal dispositions, then perform the
 registered comparisons. Keep warm, supplement and new exploration output worktrees open until
 governed NAS publication and fresh recovery cover their useful bytes.
+
+## Completion observed — 2026-10-11
+
+At `2026-10-11T14:13:16.274Z` (07:13 PDT), existing `summarizeFirstBatchRow` reopened all ten
+registered spec/result/exit/event streams and rederived ten extent-29 size endpoints, zero errors
+and exit zero. Primary `out/status-2026-10-11/exploration-status.json` retains this read-only
+operational check and exact row paths. Completed updates in the registered table order are
+925, 1037, 783, 840, 353, 851, 852, 353, 658 and 760.
+
+Task `out/hil-exploration-oct10/hil-exploration-oct10-HIL-initial-complete.json` records completion
+at `2026-10-10T21:32:26.253Z` (October 10, 14:32 PDT), with no abort or unstarted rows; the
+coordinator's separate exit receipt records exit zero. Keep producer `33832e2` and its checkout
+fixed. This is completed execution, not the registered matched scientific interpretation.
+Next: compare longer no-dip histories against the M1 supplement, inspect the cold quartet at
+matched stages, and use the static controls over overlapping ages. NAS publication/fresh recovery
+remain pending; preserve this output-owning checkout. No simulation, probe or restart was launched
+for this status check.
 
 ## Steps
 

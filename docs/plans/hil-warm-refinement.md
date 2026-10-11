@@ -335,3 +335,17 @@ the fixed working directory and fresh separate stdout/stderr paths as in `parall
 The helper refuses a live coordinator/worker, skips checked completed rows and resumes remaining
 state. Do not run it alongside the active coordinator. Finite scientific endpoints, every-cycle
 checkpointing, two retained generations and the live memory thresholds remain unchanged.
+
+## Status observed — 2026-10-11
+
+At `2026-10-11T14:13:32.2947466Z` (07:13 PDT), coordinator 25500 and all four original workers
+remain live with advancing CPU. Thin-broad is extent 35 / update 759; thin-early 31 / 589;
+thick-broad 33 / 672; thick-early 33 / 591; all target extent 57. Their current/previous checkpoint
+generations are present, checkpoint metadata reports converged completed relaxations and no
+integrity errors, and current attempt/coordinator stderr files are empty. No terminal result or
+current-attempt exit exists for these four rows. Primary `out/status-2026-10-11/warm-status.json`
+records exact status/checkpoint observations, CPU samples and the live resource sample.
+
+This was a read-only operational check by Codex/GPT-6 with shared context; no numerical execution,
+checkpoint-payload rehash, capacity probe, pause or restart. Source remains clean at `838c294`.
+Continue existing workers; size progress does not give a reliable linear completion ETA.
