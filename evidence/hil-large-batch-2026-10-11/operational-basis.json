@@ -1,0 +1,143 @@
+{
+  "warmResources": {
+    "capturedUtc": "2026-10-11T14:37:39.1642799Z",
+    "availablePhysicalBytes": 48795668480,
+    "commitHeadroomBytes": 56644243456,
+    "children": [
+      {
+        "Id": 7944,
+        "CPU": 171492.09375,
+        "WorkingSet64": 469901312,
+        "PeakWorkingSet64": 540286976
+      },
+      {
+        "Id": 22716,
+        "CPU": 171497.84375,
+        "WorkingSet64": 429355008,
+        "PeakWorkingSet64": 499884032
+      },
+      {
+        "Id": 25200,
+        "CPU": 171499.640625,
+        "WorkingSet64": 397004800,
+        "PeakWorkingSet64": 503050240
+      },
+      {
+        "Id": 27104,
+        "CPU": 171497.484375,
+        "WorkingSet64": 403525632,
+        "PeakWorkingSet64": 507080704
+      }
+    ]
+  },
+  "illustrative102At12Hours": 17.522462416666666,
+  "observedAtUtc": "2026-10-11T14:37:42.0229693Z",
+  "priorSumWorkerHours": 20.614661666666663,
+  "priorMeanHours": 2.0614661666666665,
+  "scope": "Read-only operational budget; timing is non-transferable to new configurations, without a capacity probe",
+  "priorMinHours": 0.7645902777777778,
+  "diskFreeBytes": 3830794481664,
+  "priorMaxHours": 2.9531916666666667,
+  "warmCpu": [
+    {
+      "cpuAfterSeconds": 171496.03125,
+      "workingSetBytes": 469901312,
+      "pid": 7944,
+      "cpuBeforeSeconds": 171491.0,
+      "cpuAdvanced": true
+    },
+    {
+      "cpuAfterSeconds": 171501.78125,
+      "workingSetBytes": 429355008,
+      "pid": 22716,
+      "cpuBeforeSeconds": 171496.765625,
+      "cpuAdvanced": true
+    },
+    {
+      "cpuAfterSeconds": 171503.5625,
+      "workingSetBytes": 397004800,
+      "pid": 25200,
+      "cpuBeforeSeconds": 171498.546875,
+      "cpuAdvanced": true
+    },
+    {
+      "cpuAfterSeconds": 171501.40625,
+      "workingSetBytes": 403525632,
+      "pid": 27104,
+      "cpuBeforeSeconds": 171496.390625,
+      "cpuAdvanced": true
+    }
+  ],
+  "priorRows": [
+    {
+      "signal": null,
+      "wallSeconds": 8972.139,
+      "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-cold-t14p4-f0p1-basal-only\\exit.json",
+      "exitCode": 0,
+      "rowId": "oct10-hil-cold-t14p4-f0p1-basal-only"
+    },
+    {
+      "signal": null,
+      "wallSeconds": 2752.525,
+      "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-cold-t14p4-f0p1-both\\exit.json",
+      "exitCode": 0,
+      "rowId": "oct10-hil-cold-t14p4-f0p1-both"
+    },
+    {
+      "signal": null,
+      "wallSeconds": 9052.257,
+      "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-cold-t14p4-f0p1-neither\\exit.json",
+      "exitCode": 0,
+      "rowId": "oct10-hil-cold-t14p4-f0p1-neither"
+    },
+    {
+      "signal": null,
+      "wallSeconds": 2770.705,
+      "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-cold-t14p4-f0p1-prism-only\\exit.json",
+      "exitCode": 0,
+      "rowId": "oct10-hil-cold-t14p4-f0p1-prism-only"
+    },
+    {
+      "signal": null,
+      "wallSeconds": 6726.962,
+      "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-history-static-t6-m1\\exit.json",
+      "exitCode": 0,
+      "rowId": "oct10-hil-history-static-t6-m1"
+    },
+    {
+      "signal": null,
+      "wallSeconds": 7742.104,
+      "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-history-static-t6-nodip\\exit.json",
+      "exitCode": 0,
+      "rowId": "oct10-hil-history-static-t6-nodip"
+    },
+    {
+      "signal": null,
+      "wallSeconds": 8323.341,
+      "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-history-t14p4-to-t6-e15-nodip\\exit.json",
+      "exitCode": 0,
+      "rowId": "oct10-hil-history-t14p4-to-t6-e15-nodip"
+    },
+    {
+      "signal": null,
+      "wallSeconds": 7929.383,
+      "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-history-t14p4-to-t6-e7-nodip\\exit.json",
+      "exitCode": 0,
+      "rowId": "oct10-hil-history-t14p4-to-t6-e7-nodip"
+    },
+    {
+      "signal": null,
+      "wallSeconds": 10631.49,
+      "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-history-t6-to-t14p4-e15-nodip\\exit.json",
+      "exitCode": 0,
+      "rowId": "oct10-hil-history-t6-to-t14p4-e15-nodip"
+    },
+    {
+      "signal": null,
+      "wallSeconds": 9311.876,
+      "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out\\hil-exploration-oct10\\rows\\oct10-hil-history-t6-to-t14p4-e7-nodip\\exit.json",
+      "exitCode": 0,
+      "rowId": "oct10-hil-history-t6-to-t14p4-e7-nodip"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "command": [
+    "npm.cmd",
+    "run",
+    "typecheck"
+  ],
+  "cwd": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake",
+  "gitHead": "07c202fc47135e6899f50bbb4ad5dee8368081d1",
+  "startedAt": "2026-10-11T14:38:08.5864046Z",
+  "log": "out\\hil-large-batch-oct11-control\\typecheck-implementation-20261011T143808580.log",
+  "finishedAt": "2026-10-11T14:38:17.4956660Z",
+  "exitCode": 0
+}

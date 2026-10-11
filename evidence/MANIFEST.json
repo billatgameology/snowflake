@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1067,
- "totalBytes": 316759058,
+ "fileCount": 1078,
+ "totalBytes": 316799371,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -4273,6 +4273,50 @@
   "hil-exploration-2026-10-10/launch-verification.json": {
    "bytes": 41760,
    "sha256": "619c0b0f13a2bf1f96e0cd0cbcf0a6b3687271033dcdc851e99129e56bd1bba7"
+  },
+  "hil-large-batch-2026-10-11/focused-implementation-20261011T143808465-invocation.json": {
+   "bytes": 597,
+   "sha256": "2c9bd738c5ec4cbf648794648d7980dfa3fc5449d847f8cf45d39044768995c5"
+  },
+  "hil-large-batch-2026-10-11/focused-implementation-20261011T143808465-result.json": {
+   "bytes": 664,
+   "sha256": "7ce020ee159f91359c5a90fd81ded2659f5620579cf6fffbfeb5fea1b2826933"
+  },
+  "hil-large-batch-2026-10-11/focused-implementation-20261011T143808465.log": {
+   "bytes": 6953,
+   "sha256": "7ab6df036936468440bb28c8ab33a1b17b9e88904443aaecedc180360a062f9a"
+  },
+  "hil-large-batch-2026-10-11/operational-basis.json": {
+   "bytes": 5154,
+   "sha256": "6f179c8e9713ba8de31cbdc8f1f7f0ac3d374dbe2837dc9f41a7fcc0d0152d09"
+  },
+  "hil-large-batch-2026-10-11/selection-triage.json": {
+   "bytes": 17033,
+   "sha256": "774bb85dee0ddca7e100878e90eee0e9d72bf9ff923e1b6af6c81d3e9308aa7a"
+  },
+  "hil-large-batch-2026-10-11/start-hil.ps1": {
+   "bytes": 1853,
+   "sha256": "bd7924549c0ee973b23e534459bcd55087d06bca21c534fe3b2c4113524160b2"
+  },
+  "hil-large-batch-2026-10-11/stop-hil.ps1": {
+   "bytes": 1897,
+   "sha256": "dd814408eefbfe7d94b76b1fec2f6089f78ff7b2171c9fb70045fa50e58bba04"
+  },
+  "hil-large-batch-2026-10-11/typecheck-implementation-20261011T143808580-invocation.json": {
+   "bytes": 358,
+   "sha256": "27630d477a4119ea7a64c15d0761be14655f1be6c10ed39436f99be97f87cceb"
+  },
+  "hil-large-batch-2026-10-11/typecheck-implementation-20261011T143808580-result.json": {
+   "bytes": 425,
+   "sha256": "7b6c2f5c3ab1f66661826d6218deef5299eb5af195d3b419c9c4ce5f2593dd73"
+  },
+  "hil-large-batch-2026-10-11/typecheck-implementation-20261011T143808580.log": {
+   "bytes": 84,
+   "sha256": "51bcdf34980a17f4afbc6fa075186ba067a673569bc37098441f73a31b975087"
+  },
+  "hil-large-batch-2026-10-11/bounded-review.json": {
+   "bytes": 5295,
+   "sha256": "785e6c63e1bff0cf428f482db8c532afcd3e85c3719b161adc2be66a8c412786"
   }
  }
 }

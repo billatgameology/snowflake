@@ -1,7 +1,7 @@
 # Plan — HIL October 11 queued exploration
 
 - **Phase:** active Phase 10 model development, charter sections 2.5 and 3.2; accepted ADRs 0011, 0055, 0060 and 0062.
-- **Status:** protocol registered; implementation and launch pending.
+- **Status:** implementation checks and bounded review passed; publication and launch pending.
 - **Started / last touched:** 2026-10-11 by Codex/GPT-6.
 - **Branch / checkout:** `codex/hil-large-batch-oct11`, `C:/Users/biao3/.codex/worktrees/hil-large-batch-oct11/snowflake`, from `74ad14a`.
 - **Authority:** maker requests a large batch alongside the four remaining warm runs, with roughly another day of useful work. Run on HIL; no production wall deadline.
@@ -49,7 +49,7 @@ All rows record dense odd spatial crossings 5/7/9/11/13/15/17/19/21/23/25/27 usi
 writer. Existing per-update scientific event records remain unchanged.
 
 Queue order interleaves complete matched groups from the five blocks, then continues the remaining
-cold groups; preserve the order within each matched quartet/pair. This exposes several questions
+groups; preserve the order within each matched quartet/pair. This exposes several questions
 early without changing any row's physics. Twelve slots refill automatically as rows finish.
 Size, step-cap, contact, stalled growth, convergence and resource dispositions retain their distinct
 meanings. Only independently checked size endpoints complete the scientific targets. Other stops
@@ -63,6 +63,9 @@ Bounded internal saved-data triage is primary
 Its linked history and cold calculations reuse the existing saved-data follow-up definitions;
 the `parentConsolidatedRoster` selects this 102-row design over its earlier 72-row alternative.
 This is selection evidence with scoped limitations, not a completed public scientific conclusion.
+The unchanged concise record is retained at
+`evidence/hil-large-batch-2026-10-11/selection-triage.json`; underlying saved-data reports stay in
+the named primary staging directory, with hashes bound by that record.
 
 Cold: the October 10 quartet at -14.4 C / fraction 0.10 captures prism-bearing states missed by
 the earlier schedule. At tip eight and half the shortest common plateau duration, central-plane
@@ -101,6 +104,12 @@ Refuse a mismatched prefix. Preserve original labels and checkpoint identities; 
 are never ordinary resume inputs. Inherited geometry, vapor and fill prevent interpreting these
 software interventions as physical causality.
 
+Two new static identities deliberately repeat September numerical settings:
+`followup-mixed-timestep-t6-f0p1-{m1,nodip}` already registered N64 / target 29 / CFL 0.05.
+Their September producer/record compatibility has not been established here. The new pair supplies
+same-producer history-prefix controls with this batch's dense observation schedule. These are
+controls, not novel numerical conditions; do not describe the whole 102-row roster as new settings.
+
 ## Execution and smallest implementation
 
 Add only the finite `hil-large-batch-oct11-roster.ts`, thin `hil-large-batch-oct11-main.ts` and
@@ -115,13 +124,15 @@ Relevant lessons C2/C3/C6 (diagnostics, matched comparisons, computable readouts
 effects versus physical cause), and F2 (deliver before expanding process) apply before launch and
 readout. These checks do not replace interpretation judgment.
 
-Existing HIL ceiling is sixteen workers: twelve new plus four warm. At 07:27 PDT on October 11,
-the existing warm monitor recorded 48318599168 available RAM bytes and 56251228160 commit-headroom
-bytes; all four worker CPU clocks advanced. The previous ten-row N64 target-29 batch took
+Existing HIL ceiling is sixteen workers: twelve new plus four warm. At 07:37 PDT on October 11,
+the existing warm monitor recorded 48795668480 available RAM bytes and 56644243456 commit-headroom
+bytes; all four worker CPU clocks advanced over five seconds. The previous ten-row N64 target-29 batch took
 0.765–2.953 hours per row (mean 2.061, summed 20.615 worker-hours), under ten new plus four warm
 workers. Applied illustratively to 102 rows / 12 slots, that mean gives about 17.5 hours before
 uneven tails, additional contention and the slower timestep cases. New conditions are unmeasured;
 this is a roughly-day queue, not a transferable timing qualification or completion promise.
+Exact per-row timing sources, current resource sample and 3830794481664 free C-drive bytes are
+retained in `evidence/hil-large-batch-2026-10-11/operational-basis.json`.
 Use existing host-global 12 GiB available RAM / 8 GiB commit guards, inspect live headroom at launch,
 and do not repeat a capacity ladder. No wall deadline or scientific truncation to fit a day.
 
@@ -169,10 +180,36 @@ event streams and full outputs remain local during execution, then follow Rule 1
 0061 for NAS publication and fresh recovery before any output-owning checkout closes. No cleanup
 or source pruning is part of this launch; NAS presence alone never authorizes deletion.
 
+## Implementation checks — 2026-10-11
+
+Protocol `07c202f` preceded implementation. Only the new roster, thin entry and focused test were
+added; shared scientific worker, state codec, observations, queue and numerical modules are
+unchanged. `npx.cmd vitest run runner/test/hil-large-batch-oct11.test.ts runner/test/hil-exploration-oct10.test.ts runner/test/hil-supplement.test.ts runner/test/hil-bld-batch-execution.test.ts runner/test/hil-bld-batch-resume.test.ts`
+passed five files / 29 tests, exit zero (10.41 s). `npm.cmd run typecheck` passed both TypeScript
+checks, exit zero. Exact command/exit/log receipts are retained under
+`evidence/hil-large-batch-2026-10-11/` with prefixes
+`focused-implementation-20261011T143808465` and `typecheck-implementation-20261011T143808580`.
+No full-suite or scientific-gate claim is made.
+
+One non-author Codex/GPT-6 review with shared context independently rederived all 102 row objects,
+checked twelve-worker binding/refusal, confirmed unchanged scientific/state source against
+`33832e2` and the protocol base, and parsed both PowerShell helpers without syntax errors. No
+unresolved implementation blocker remains. The resolved repeated-static qualification is above.
+`evidence/hil-large-batch-2026-10-11/bounded-review.json` records scope and limits: no simulations,
+production start/stop execution or repeat of the author's tests; future scientific prefix checks
+are still required during readout. Helper copies are retained beside that receipt and staged in
+`out/hil-large-batch-oct11-control/` for exact-source operational recovery.
+
+Prelaunch metadata checks passed `runner/test/evidence-integrity.test.ts` and
+`runner/test/progress-index.test.ts` (two files / 18 tests, exit zero); Rule 7 passed. Exact receipts
+remain in task `out/hil-large-batch-oct11-control/metadata-prelaunch{.log,-result.json}` and
+`rule7-final{.log,-result.json}`. Scoped staged whitespace check passed with CR-at-EOL recognized,
+excluding only the two byte-preserved implementation stdout logs from whitespace lint.
+
 ## Steps
 
 - [x] Select finite matched blocks and commit protocol before implementation.
-- [ ] Add roster/thin entry; focused checks, both typechecks and bounded review.
+- [x] Add roster/thin entry; focused checks, both typechecks and bounded review.
 - [ ] Publish fixed producer, launch twelve workers, verify checkpoints and warm progress.
 - [ ] Reconcile terminal dispositions, perform registered readouts and preserve useful outputs.
 
@@ -184,6 +221,9 @@ or source pruning is part of this launch; NAS presence alone never authorizes de
   temperatures instead. This explicitly resolves the prior October 10 seed-control deferral.
 - Repeating the -14.4 / fraction 0.10 static M1/no-dip pair: retain compatible experimental both/
   neither outputs and require scientific prefix agreement during readout; never relabel state.
+- Treating every fresh identity as a new condition: bounded review identified the September
+  -6 / fraction 0.10 ordinary static pair. Retain the registered repeat as current-producer dense
+  controls, with the compatibility limitation stated above; do not count it as exploration breadth.
 - Giant Cartesian product across every axis: separate five question-driven blocks. The seed
   forcing axis is deferred; first establish whether the new flank contrasts justify expanding it.
 - Arbitrary day cutoff, another speed ladder or new scheduler: existing finite targets, queue,

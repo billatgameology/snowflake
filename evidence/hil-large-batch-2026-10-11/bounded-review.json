@@ -1,0 +1,111 @@
+{
+  "schema": "bounded-implementation-review-v1",
+  "reviewedAt": "2026-10-11T14:43:00.920Z",
+  "reviewer": {
+    "model": "Codex / GPT-6 (parent-inherited)",
+    "sharedContext": true,
+    "role": "Non-author implementation review; participated in earlier scientific roster discussion"
+  },
+  "taskRoot": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake",
+  "protocolCommit": "07c202f",
+  "reviewedHead": "07c202fc47135e6899f50bbb4ad5dee8368081d1",
+  "reviewedFiles": [
+    {
+      "path": "docs/plans/hil-large-batch-oct11.md",
+      "sha256": "a51ec3446d329a07273e2e70ab2f603c798ddf0f1011200ed15dfee02433afe3"
+    },
+    {
+      "path": "runner/src/hil-large-batch-oct11-roster.ts",
+      "sha256": "1f905ca43035cafa13f26ad569b6b52acbd626258e11762b48ae21bd670b80e4"
+    },
+    {
+      "path": "runner/src/hil-large-batch-oct11-main.ts",
+      "sha256": "11132562e4a08d132a0bd1b152844f42963f8252386d3c74d7e9a8e1b620c916"
+    },
+    {
+      "path": "runner/test/hil-large-batch-oct11.test.ts",
+      "sha256": "78ec5e5a066e9efcd2b82faf31edba258da68d31aa7e755d23ba9a4c4a6040e8"
+    },
+    {
+      "path": "runner/src/hil-operational-batch-main.ts",
+      "sha256": "8c61c766845dcd8057612c7d003a07c2a9727fe005e465c47e585735cb88c319"
+    },
+    {
+      "path": "evidence/hil-large-batch-2026-10-11/start-hil.ps1",
+      "sha256": "bd7924549c0ee973b23e534459bcd55087d06bca21c534fe3b2c4113524160b2"
+    },
+    {
+      "path": "evidence/hil-large-batch-2026-10-11/stop-hil.ps1",
+      "sha256": "dd814408eefbfe7d94b76b1fec2f6089f78ff7b2171c9fb70045fa50e58bba04"
+    }
+  ],
+  "inspectedScope": [
+    "Final registered table, complete row operands and matched-group ordering",
+    "New ordinary history forcing, experimental facet modes and prohibited timeline combinations",
+    "Thin entry, existing queue/concurrency and source/runtime/host/roster bindings",
+    "Unchanged scientific row worker, core/solver and resume codec relative to registered sources",
+    "October 10 control source parity and required future scientific-prefix comparison",
+    "Exact-path hidden start/stop helpers and receipt/log capture",
+    "Focused test assertions; author test execution was not repeated"
+  ],
+  "reexecuted": [
+    {
+      "check": "Independent plan-table derivation and complete row-object comparison",
+      "execution": "Metadata only; no scientific worker launched",
+      "expectedRows": 102,
+      "actualRows": 102,
+      "uniqueIds": 102,
+      "blockCounts": {
+        "cold": 48,
+        "seed": 16,
+        "history": 24,
+        "static": 6,
+        "timestep": 8
+      },
+      "allHost": "HIL",
+      "queueWorkers": 12,
+      "forbiddenTimelineFacetCombinations": 0,
+      "result": "passed"
+    },
+    {
+      "check": "Existing campaign binding API",
+      "result": "Valid binding accepted; changed source and changed concurrency refused"
+    },
+    {
+      "check": "Scientific source parity with October 10 producer 33832e2",
+      "command": "git diff --name-only 33832e2 -- core solver-cpu runner/src/post-phase10-discovery.ts runner/src/discovery-resume-io.ts runner/src/phase6-protocol.ts runner/src/hil-bld-batch-execution.ts runner/src/hil-bld-batch-resume.ts",
+      "result": "No changed paths"
+    },
+    {
+      "check": "Existing operational and scientific seam parity with protocol 07c202f",
+      "command": "git diff --name-only 07c202f -- runner/src/hil-operational-batch-main.ts runner/src/hil-bld-batch-main.ts runner/src/hil-bld-batch-execution.ts runner/src/post-phase10-discovery.ts runner/src/discovery-resume-io.ts core solver-cpu",
+      "result": "No changed paths"
+    },
+    {
+      "check": "PowerShell start/stop helper ParseFile syntax",
+      "result": "Zero syntax errors for both helpers; neither executed"
+    }
+  ],
+  "findings": [
+    {
+      "severity": "non-blocking",
+      "status": "resolved by explicit plan qualification",
+      "subject": "Repeated ordinary static controls at -6 C / forcing fraction 0.10",
+      "priorIds": [
+        "followup-mixed-timestep-t6-f0p1-m1",
+        "followup-mixed-timestep-t6-f0p1-nodip"
+      ],
+      "resolution": "Retained deliberately as current-producer controls with dense pre-update observations and later exact history-prefix checks. September source/record compatibility is not established. The plan now states these are repeated conditions, not new exploration breadth."
+    }
+  ],
+  "verdict": "No unresolved implementation blocker in the reviewed scope",
+  "limitations": [
+    "Shared-context review using inherited model; not an independent scientific or adversarial gate review",
+    "Reviewed working-tree bytes before implementation commit; hashes identify those inspected files",
+    "No simulations, capacity probes, pause/resume experiments or production launch/stop executed",
+    "Focused Vitest/typecheck/Rule 7 receipts are author/root executions, not independently repeated here",
+    "October 10 source parity supports reuse design, but new-history scientific-prefix agreement remains a required future executed readout",
+    "No claim about physical validation, grid/domain independence, all historical duplicates, total runtime or realized host headroom",
+    "Existing solver equivalence tests were inspected/referenced, not independently rerun"
+  ]
+}

@@ -1,0 +1,443 @@
+{
+  "createdAt": "2026-10-11T14:29:27.449Z",
+  "scope": "Bounded internal row-selection triage; no implementation edit, launch, physical validation, broad source intake, NAS recovery or full suite.",
+  "reviewer": {
+    "model": "Codex/GPT-6 (exact serving variant not exposed)",
+    "sharedContext": true
+  },
+  "inputs": {
+    "history": {
+      "path": "out/hil-large-batch-design-2026-10-11/history-triage.json",
+      "sha256": "3f05dde9ab5993a22d28f3211868f4da8b9faf7270b2c5b5e4bf0c488393ca30"
+    },
+    "cold": {
+      "path": "out/hil-large-batch-design-2026-10-11/cold.json",
+      "sha256": "0a1a7f2c8e337ba1eff3334563fef1a9cfb5951f77b77779891a2373e2e32467"
+    }
+  },
+  "executed": [
+    {
+      "command": "node out/hil-large-batch-design-2026-10-11/history-triage.mjs",
+      "exitCode": 0,
+      "seconds": 0.4373491,
+      "receipt": "62d311"
+    },
+    {
+      "command": "BLD_REVIEW_INPUT=C:/Users/biao3/.codex/worktrees/hil-exploration-oct10/snowflake/out/hil-exploration-oct10 COLD_FOLLOWUP_OUTPUT=C:/Users/biao3/Documents/GitHub/snowflake/out/hil-large-batch-design-2026-10-11 node out/hil-large-batch-design-2026-10-11/cold-triage.mjs (environment set in PowerShell)",
+      "exitCode": 0,
+      "seconds": 2.0409997,
+      "receipt": "4a780d"
+    },
+    {
+      "command": "git diff 7ea2582 33832e2 -- core/src solver-cpu/src runner/src/post-phase10-discovery.ts runner/src/discovery-resume-io.ts",
+      "result": "empty",
+      "receipt": "2c5cc8"
+    }
+  ],
+  "findings": {
+    "history": [
+      {
+        "fromTempC": -6,
+        "toTempC": -14.4,
+        "commonPostEventSeconds": 7.902663981858929,
+        "rows": [
+          {
+            "rowId": "oct10-hil-history-t6-to-t14p4-e7-nodip",
+            "paramSet": "M1_NO_DIP_ABLATION",
+            "switchExtent": 7,
+            "axialAdded": 8,
+            "laterAxialAdded": 2,
+            "laterAxialBracket": {
+              "min": 2,
+              "max": 2
+            },
+            "lateralAdded": 6.803847577293368
+          },
+          {
+            "rowId": "oct10-hil-history-t6-to-t14p4-e15-nodip",
+            "paramSet": "M1_NO_DIP_ABLATION",
+            "switchExtent": 15,
+            "axialAdded": 6,
+            "laterAxialAdded": 4,
+            "laterAxialBracket": {
+              "min": 2,
+              "max": 4
+            },
+            "lateralAdded": 5.875644347017857
+          },
+          {
+            "rowId": "supplement-hil-history-t6-to-t14p4-e7-m1",
+            "paramSet": "M1",
+            "switchExtent": 7,
+            "axialAdded": 6,
+            "laterAxialAdded": 2,
+            "laterAxialBracket": {
+              "min": 2,
+              "max": 2
+            },
+            "lateralAdded": 15.588457268119896
+          },
+          {
+            "rowId": "supplement-hil-history-t6-to-t14p4-e15-m1",
+            "paramSet": "M1",
+            "switchExtent": 15,
+            "axialAdded": 2,
+            "laterAxialAdded": 0,
+            "laterAxialBracket": {
+              "min": 0,
+              "max": 0
+            },
+            "lateralAdded": 12.124355652982135
+          }
+        ]
+      },
+      {
+        "fromTempC": -14.4,
+        "toTempC": -6,
+        "commonPostEventSeconds": 21.305381825970517,
+        "rows": [
+          {
+            "rowId": "oct10-hil-history-t14p4-to-t6-e7-nodip",
+            "paramSet": "M1_NO_DIP_ABLATION",
+            "switchExtent": 7,
+            "axialAdded": 12,
+            "laterAxialAdded": 4,
+            "laterAxialBracket": {
+              "min": 4,
+              "max": 4
+            },
+            "lateralAdded": 16.803847577293368
+          },
+          {
+            "rowId": "oct10-hil-history-t14p4-to-t6-e15-nodip",
+            "paramSet": "M1_NO_DIP_ABLATION",
+            "switchExtent": 15,
+            "axialAdded": 10,
+            "laterAxialAdded": 4,
+            "laterAxialBracket": {
+              "min": 4,
+              "max": 4
+            },
+            "lateralAdded": 12.875644347017857
+          },
+          {
+            "rowId": "supplement-hil-history-t14p4-to-t6-e7-m1",
+            "paramSet": "M1",
+            "switchExtent": 7,
+            "axialAdded": 22,
+            "laterAxialAdded": 10,
+            "laterAxialBracket": {
+              "min": 10,
+              "max": 10
+            },
+            "lateralAdded": 16.803847577293368
+          },
+          {
+            "rowId": "supplement-hil-history-t14p4-to-t6-e15-m1",
+            "paramSet": "M1",
+            "switchExtent": 15,
+            "axialAdded": 18,
+            "laterAxialAdded": 8,
+            "laterAxialBracket": {
+              "min": 8,
+              "max": 8
+            },
+            "lateralAdded": 13.875644347017857
+          }
+        ]
+      }
+    ],
+    "cold": {
+      "arms": [
+        "neither",
+        "basal-only",
+        "prism-only",
+        "both"
+      ],
+      "commonTimeSeconds": 13.09203065212253,
+      "matchedTipHalfPlateau": [
+        {
+          "tip": 3,
+          "seconds": 0.3252221422640651,
+          "gaps": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "tip": 4,
+          "seconds": 0.6182293372984247,
+          "gaps": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "tip": 5,
+          "seconds": 0.3448506940931175,
+          "gaps": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "tip": 6,
+          "seconds": 0.6800137754564253,
+          "gaps": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "tip": 7,
+          "seconds": 0.4213328810471406,
+          "gaps": [
+            1,
+            1,
+            2,
+            2
+          ]
+        },
+        {
+          "tip": 8,
+          "seconds": 0.8276213763496969,
+          "gaps": [
+            0,
+            0,
+            2,
+            2
+          ]
+        },
+        {
+          "tip": 9,
+          "seconds": 0.4346402023877438,
+          "gaps": [
+            1,
+            1,
+            2,
+            2
+          ]
+        },
+        {
+          "tip": 10,
+          "seconds": 0.7363116073861864,
+          "gaps": [
+            1,
+            1,
+            2,
+            2
+          ]
+        }
+      ],
+      "prismBearingSnapshots": [
+        {
+          "arm": "neither",
+          "extents": [
+            5,
+            7,
+            9,
+            11,
+            13,
+            15,
+            17,
+            19,
+            21,
+            23,
+            25,
+            27
+          ],
+          "terminal": {
+            "cycle": 851,
+            "simTimeSeconds": 55.25596748993361,
+            "extent": 29,
+            "attachedCount": 8949,
+            "centralPlaneAttached": 331,
+            "core": 10,
+            "tip": 10,
+            "gap": 0
+          }
+        },
+        {
+          "arm": "basal-only",
+          "extents": [
+            5,
+            7,
+            9,
+            11,
+            13,
+            15,
+            17,
+            19,
+            21,
+            23,
+            25,
+            27
+          ],
+          "terminal": {
+            "cycle": 852,
+            "simTimeSeconds": 53.7323125553009,
+            "extent": 29,
+            "attachedCount": 8949,
+            "centralPlaneAttached": 331,
+            "core": 10,
+            "tip": 10,
+            "gap": 0
+          }
+        },
+        {
+          "arm": "prism-only",
+          "extents": [
+            5,
+            7,
+            11,
+            15,
+            19,
+            23,
+            27
+          ],
+          "terminal": {
+            "cycle": 353,
+            "simTimeSeconds": 13.09203065212253,
+            "extent": 29,
+            "attachedCount": 1823,
+            "centralPlaneAttached": 451,
+            "core": 10,
+            "tip": 14,
+            "gap": 4
+          }
+        },
+        {
+          "arm": "both",
+          "extents": [
+            5,
+            7,
+            11,
+            15,
+            19,
+            23,
+            27
+          ],
+          "terminal": {
+            "cycle": 353,
+            "simTimeSeconds": 13.214681612300865,
+            "extent": 29,
+            "attachedCount": 1823,
+            "centralPlaneAttached": 451,
+            "core": 10,
+            "tip": 14,
+            "gap": 4
+          }
+        }
+      ]
+    }
+  },
+  "recommendation": {
+    "newRows": 72,
+    "concurrency": 12,
+    "otherWorkers": 4,
+    "productionWallLimit": null,
+    "targetExtent": 29,
+    "dimsN": 64,
+    "dxUm": 0.35,
+    "seedRadius": 2,
+    "seedThickness": 1,
+    "pressurePa": 101325,
+    "maxSteps": 20000,
+    "blocks": [
+      {
+        "name": "History forcing and late switch",
+        "rows": 32,
+        "definition": "fractions .10/.20 × both -6↔-14.4 directions × switch extents7/15/23 × M1/no-dip =24; plus each fraction × static temperatures -6/-14.4 × M1/no-dip =8. CFL .05.",
+        "question": "Does preparation-dependent new axial growth survive changed forcing, and does a later switch preserve or erase it?",
+        "newInformation": "Only .15 histories were present in the inspected registered history blocks; new fractions and late23 contrast change a scientifically interpretable variable. Own source-static controls give exact prefixes."
+      },
+      {
+        "name": "History stage resolution at known forcing",
+        "rows": 12,
+        "definition": "fraction .15 × both directions × switches11/19/23 × M1/no-dip at CFL .05. Reuse completed .15 switch7/15 rows and static target29 controls.",
+        "question": "Is the early/late response smooth in starting stage, or does it change across a narrow discrete geometry transition?",
+        "newInformation": "Switch11 existed only through target21; target29 supplies a later window. Switch19/23 are new. Avoid repeating completed .15 target29 switch7/15 and statics."
+      },
+      {
+        "name": "Cold gap timestep and stage qualification",
+        "rows": 28,
+        "definition": "temperatures -14.4/-18 × fractions .10/.20 × all4 facet arms × CFL .025 =16; add matched CFL .05 target29 quartets for -14.4/.20 and -18/.10/.20 =12. Reuse completed -14.4/.10 CFL .05 target29 quartet.",
+        "question": "Does the prism-sensitive separation, including the earlier -18 stage-specific null, persist under halved fill step and through later matched tip stages?",
+        "newInformation": "Existing BLD anchors terminate21; three .05 quartets gain target29 stages and dense samples, and all four anchors gain matched .025 controls. Not a new broad temperature map."
+      }
+    ],
+    "observation": "Reuse dense odd-extent snapshots5..27 for cold. For histories reuse existing event log and recorded odd-extent schedule; no observer or kinetic-law change. Compute geometry and increments from saved events, bracket common elapsed post-event times and report halves. For cold compare same exact tip and elapsed fraction of the shortest shared plateau, separately common absolute ages; use per-snapshot fields only with their own geometry/time.",
+    "queue": "Interleave complete matched blocks early and then replenish from the finite list; preserve scientific row settings regardless of resource pressure. All72 are new run identities; reused controls stay in their fixed checkouts.",
+    "runtime": "No trustworthy day-length prediction from early updates. This is six waves at12 workers; root should use completed-row elapsed receipts to estimate, without a new capacity ladder or wall cutoff.",
+    "smallerAlternative": "If one-day resource estimate is too large, defer the12 intermediate-stage histories first; the60-row history-forcing and cold-qualification core remains interpretable.",
+    "largerAlternative": "If measured completed-row cost makes72 too short, add eight cold discovery rows: -13/-16 C, fraction .10, all4 facet arms, target29/CFL .05. These new intermediate-temperature quartet comparisons test localization of the gap; do not duplicate existing old endpoint grids."
+  },
+  "limits": [
+    "History arms inherit different geometry, vapor, fill and physical ages at equal switch extent; only within-preparation source-static prefixes are identical. Preparation contrast is within this discrete implementation, not physical causality.",
+    "Cooling no-dip later-half early/late ordering is sensitive to the adjacent recorded endpoint: late addition is2–4 versus early2. Do not claim a resolved strict ordering there.",
+    "Static comparison durations differ by pair and must not be compared as if they were one common duration.",
+    "Cold radius gaps are integer central-plane core/tip differences; target extent may be reached axially in no-prism arms and laterally in prism arms. Terminal gap0 versus4 alone is not matched-stage evidence.",
+    "Dense snapshots now capture prism states, but do not equate extent-matched snapshots with time- or geometry-matched fields. Mean alphaHKBoundary*sigmaBoundary is a demand factor, not deposited mass or isolated mechanism.",
+    "CFL .025 vs .05 is a two-step sensitivity check, not proof of time convergence; N64/dx .35 has unresolved representation and far-field/domain dependence.",
+    "No pressure additions recommended: completed pressure timestep pair already supplies the next saved-data analysis. No multi-event histories or facet/history hybrids; existing resume contract permits only one ordinary event.",
+    "This is an author skeptical pass for internal planning, not a gate or independent external scientific review."
+  ],
+  "scripts": {
+    "history": {
+      "path": "out/hil-large-batch-design-2026-10-11/history-triage.mjs",
+      "sha256": "f7834660d67c29e3afb4dc4441db1383bb94d5968dec9f1e2b6268d4d7105487"
+    },
+    "cold": {
+      "path": "out/hil-large-batch-design-2026-10-11/cold-triage.mjs",
+      "sha256": "5144c369c16ea173c6c4ec4d787b2714adcd8887e0c18726937a65de7047246d"
+    }
+  },
+  "parentConsolidatedRoster": {
+    "rows": 102,
+    "preferredOverEarlier72ForBreadth": true,
+    "blocks": [
+      {
+        "rows": 48,
+        "definition": "Cold temperatures -11/-13/-16/-20 ×fractions .10/.15/.20 ×four facet arms; N64,target29,CFL .05."
+      },
+      {
+        "rows": 16,
+        "definition": "Seed temperatures -6.5/-9.5 ×seed r3t1/r1t5 ×four facet arms, fraction .15; N64,target29,CFL .05."
+      },
+      {
+        "rows": 24,
+        "definition": "Ordinary history fractions .10/.20 ×both -6↔-14.4 directions ×switch7/11/15 ×M1/no-dip; N64,target29,CFL .05."
+      },
+      {
+        "rows": 6,
+        "definition": "New ordinary static -6 at both fractions and both preparations (4); -14.4/.20 both preparations (2). Reuse -14.4/.10 October10 both/neither as explicitly named static equivalents."
+      },
+      {
+        "rows": 8,
+        "definition": "Cold -14.4/.10 four facet arms ×CFL .025/.0125; N64,target29. Compare with retained .05 quartet."
+      }
+    ],
+    "decision": "No concrete scientific or duplicate-row blocker found in the inspected named first-batch, confirmation, followup, supplement and October10 histories/controls. Broader temperature and seed contrasts provide breadth; no pressure padding or novel state contract needed.",
+    "staticReuseBasis": {
+      "code": "solver-cpu/src/lk-facet-dips.ts:13–14 directly returns prepareAlphaHK(tempC,M1) for both and prepareAlphaHK(tempC,M1_NO_DIP_ABLATION) for neither.",
+      "existingNontrivialTest": "solver-cpu/test/lk-facet-dips.test.ts:23–45 compares32 steps through new attachments with exact step, a/f/sigma bytes, time and ledgers at -4.5/-5. Read, not re-executed in this engagement; it is not a -14.4-specific executed witness.",
+      "sourceParity": "git diff7ea2582 33832e2 over core/src,solver-cpu/src,runner/src/post-phase10-discovery.ts,runner/src/discovery-resume-io.ts is empty.",
+      "readoutCondition": "For each new -14.4/.10 ordinary history, compare recorded scientific prefix through the actual switch cycle against the corresponding retained both/neither static. Exclude only identity/RSS fields, preserve all shared scientific event fields. Refuse an unmatched prefix rather than silently claim equivalence.",
+      "identity": "Retain original experimental labels/checkpoint identity. These are compatible static readout controls, never ordinary resume inputs."
+    },
+    "remainingLimits": [
+      "New seed r3t1/r1t5 contrast confounds initial shape, volume, surface and diffusion; it tests seed dependence rather than an isolated geometry mechanism.",
+      "New cold temperature grid is localization around/beyond prior -12/-14.4/-18 anchors, not a global diagram census.",
+      "CFL .05/.025/.0125 is a three-level discrete sensitivity ladder at one cold anchor, not a blanket convergence qualification across all new rows.",
+      "Total duration remains an operational estimate from completed-row receipts; retain finite targets and no wall cutoff."
+    ]
+  }
+}
