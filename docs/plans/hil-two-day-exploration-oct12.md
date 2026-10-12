@@ -1,7 +1,7 @@
 # Plan — HIL two-day exploration
 
 - **Phase:** active Phase 10 model development; charter sections 2.5 and 3.2, accepted ADRs 0011, 0055, 0060 and 0062.
-- **Status:** maker approved launch; protocol frozen before implementation.
+- **Status:** launched from fixed producer 0161a51; twelve new workers and four warm workers observed advancing at 09:41 PDT.
 - **Started / last touched:** 2026-10-12 by Codex/GPT-6.
 - **Authority:** maker chose to keep the four warm runs active and requested useful parallel exploration for roughly the next two days. After reviewing the 192-case scope and 43/54-hour planning scenarios, the maker directed “proceed with new wave.”
 
@@ -133,8 +133,8 @@ or a scientific-gate result; no solver or capacity run was performed.
 - [x] Read completed results and recorded cost; select exact finite comparisons and timing scenarios.
 - [x] Maker approved the 192-case scope and explicit timing uncertainty.
 - [x] Commit approved protocol, implement the small roster/entry and complete launch checks.
-- [ ] Publish fixed producer and record the real launch.
-- [ ] Launch twelve new workers, verify actual checkpoints and preserve the four warm workers.
+- [x] Publish fixed producer and record the real launch.
+- [x] Launch twelve new workers, verify actual checkpoints and preserve the four warm workers.
 - [ ] Reconcile terminal dispositions, execute registered readouts and preserve results on NAS.
 
 ## Out of scope
@@ -228,3 +228,43 @@ Exact commands/logs/exits are task `out/hil-two-day-oct12-control/metadata-prela
 and `rule7-prelaunch{.log,-result.json}`. Scoped diff check passed with CR-at-EOL recognized,
 excluding preserved raw stdout logs from whitespace lint. All producer code stayed unchanged
 after focused checks; the review's nonblocking stale approval question was corrected in prose.
+
+## Launched — 2026-10-12
+
+Producer `0161a5126ea47d565db7d6534ed7b56c743c0ffc` is committed and pushed on main.
+Keep branch `codex/hil-two-day-oct12` and its execution checkout fixed there. Later status
+records are made in primary. Hidden wrapper PID 26680 dispatched at
+`2026-10-12T16:39:51.5075953Z` (09:39 PDT) through
+`powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12-control/start-hil.ps1 -Mode launch`.
+Task `out/hil-two-day-oct12-control/dispatch-20261012T163951487Z.json` records the exact
+command, source and separate dispatch stdout/stderr. The wrapper records coordinator invocation,
+logs and eventual real exit under `campaign-launch-*` in that control directory.
+
+The [startup observation](../../evidence/hil-two-day-oct12-2026-10-12/launch-verification.json)
+at `2026-10-12T16:41:51.8311474Z` (09:41 PDT) records twelve live new workers, 180 rows
+awaiting slots and all four original warm workers live. All sixteen CPU clocks advanced.
+All twelve new rows have current and previous completed-cycle checkpoints: eight at updates
+21/20 and four at 41/40. Their metadata reports converged relaxations and no integrity errors;
+worker and coordinator stderr files are empty. No terminal result or exit is present yet.
+This is an operational observation, not a payload rehash, new semantic resume proof or a
+completed scientific endpoint. No warm worker was stopped or restarted.
+
+Coordinator PID 24256 and wrapper PID 26680 were live. Exact coordinator logs are
+`out/hil-two-day-oct12-control/campaign-launch-20261012T093951726.stdout.log` and
+`out/hil-two-day-oct12-control/campaign-launch-20261012T093951726.stderr.log`; the sibling
+`-invocation.json` binds the actual command, while `-exit.json` appears only on real exit.
+Each row retains its separate attempt logs and `resume/latest.json` with two generations.
+Use the resume command above only after confirming the existing coordinator and workers exited.
+
+Next: inspect terminal dispositions with the registered `summarize` command, compare actual
+block costs with the explicit timing assumptions, then execute matched readouts and publish
+bulk results to NAS before any checkout closure. Five output-owning execution checkouts remain
+open; their source stays fixed and their useful local payloads are retained.
+
+Postlaunch record checks: `npx.cmd vitest run runner/test/evidence-integrity.test.ts
+runner/test/progress-index.test.ts` passed 18 tests, exit zero; `npm.cmd run lint:rule7`
+passed, exit zero. Exact command/time/exit receipts and unique logs are primary
+`out/hil-two-day-design-2026-10-12/postlaunch-{metadata,rule7}{.log,-result.json}`.
+Scoped staged whitespace check passed. Prepublication worktree inspection found all five
+execution checkouts clean at their fixed producers; their ignored output remains independently
+owned and retained. Primary includes only this status, the plan and the pinned startup receipt.
