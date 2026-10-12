@@ -1,9 +1,9 @@
-# Plan — HIL two-day exploration proposal
+# Plan — HIL two-day exploration
 
 - **Phase:** active Phase 10 model development; charter sections 2.5 and 3.2, accepted ADRs 0011, 0055, 0060 and 0062.
-- **Status:** proposed for maker review; no implementation or new simulation launched.
+- **Status:** maker approved launch; protocol frozen before implementation.
 - **Started / last touched:** 2026-10-12 by Codex/GPT-6.
-- **Authority:** maker chose to keep the four warm runs active and requested useful parallel exploration for roughly the next two days. Present the finite scope and duration uncertainty before starting the new batch.
+- **Authority:** maker chose to keep the four warm runs active and requested useful parallel exploration for roughly the next two days. After reviewing the 192-case scope and 43/54-hour planning scenarios, the maker directed “proceed with new wave.”
 
 ## Goal and done when
 
@@ -16,7 +16,7 @@ to make this selection. It does not complete the Phase 10 milestone, whose crite
 
 > Done when the maker accepts multiple distinct promising model-development leads, each supported by a named matched comparison, a result with its scope and uncertainty, the numerical, representation and observation checks relevant to that result (or a specifically recorded unresolved check), and a concrete next discriminating experiment. Repeated configurations of one effect do not count as separate leads. Current candidates do not close the phase automatically; the maker's portfolio review decides when enough leads are promising. This criterion creates no automatic gate or quantitative-validation label.
 
-## Proposed finite comparisons
+## Registered finite comparisons
 
 Each table row is its own Cartesian product. Four facet arms means both, neither, basal-only and
 prism-only under explicit experimental identity; ordinary preparations means M1 and
@@ -131,7 +131,7 @@ The scoped diff check passed. These are metadata/prose checks, not implementatio
 or a scientific-gate result; no solver or capacity run was performed.
 
 - [x] Read completed results and recorded cost; select exact finite comparisons and timing scenarios.
-- [ ] Maker review of the 192-case scope and possible overrun beyond two days.
+- [x] Maker approved the 192-case scope and explicit timing uncertainty.
 - [ ] Commit approved protocol, implement the small roster/entry, check and publish fixed producer.
 - [ ] Launch twelve new workers, verify actual checkpoints and preserve the four warm workers.
 - [ ] Reconcile terminal dispositions, execute registered readouts and preserve results on NAS.
@@ -155,3 +155,43 @@ facet/history mixing, GPU or Phase 7 work, gate/validation claims, automatic fan
 
 Approve this finite scope with the explicit 43-hour planning estimate and 54-hour slowdown
 scenario, or reduce breadth before implementation. The four existing warm workers continue.
+
+## Launch protocol frozen — 2026-10-12
+
+Branch `codex/hil-two-day-oct12`, checkout
+`C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake`, starts at `825c9d1`.
+The other four execution checkouts retain their fixed producers and useful outputs. Live state
+after launch is written in primary, keeping this executing source clean and fixed.
+
+New IDs use `oct12-hil-` and identify block, temperature, fraction, event/seed/pressure and CFL
+where applicable. Preserve complete facet quartet order both/neither/basal-only/prism-only and
+ordinary pair order m1/nodip. Interleave groups in this order: cold tail, seed, history timestep,
+history timestep static, pressure history, pressure static, cold forcing/timestep; repeat until
+all groups are queued. No conditions are selected dynamically after results arrive.
+
+The frozen source-currency check on October 12 reopened the official version histories for
+[TAX2](https://arxiv.org/abs/2306.13087) (v1),
+[CM9](https://arxiv.org/abs/2011.02353) (v1), and
+[CM4](https://arxiv.org/abs/1512.03389) (v2), and the
+[author publication list](https://www.its.caltech.edu/~atomic/publist/kglpub.htm).
+No superseding growth source was identified in this bounded refresh relative to the October 11
+check; the later listed 2025 items concern teaching-lab experiments. No adopted parameter,
+interpolation, physical model or source claim changes.
+
+From the fixed checkout, after setting the process-only Windows module path:
+
+```powershell
+$env:PSModulePath=Join-Path $env:SystemRoot 'System32/WindowsPowerShell/v1.0/Modules'
+node runner/src/hil-two-day-oct12-main.ts launch HIL out/hil-two-day-oct12
+node runner/src/hil-two-day-oct12-main.ts resume HIL out/hil-two-day-oct12
+node runner/src/hil-two-day-oct12-main.ts summarize out/hil-two-day-oct12
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File out/hil-two-day-oct12-control/stop-hil.ps1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File out/hil-two-day-oct12-control/start-hil.ps1 -Mode resume
+```
+
+Use the existing exact-path hidden wrapper pattern with fresh coordinator stdout/stderr, invocation
+and actual-exit receipts. Per-row attempt logs are `out/hil-two-day-oct12/rows/<id>/attempts/initial/`;
+restart state is under each row's `resume/`. Stop targets only this campaign, never warm workers.
+Launch is done when focused checks and both typechecks pass, one bounded non-author review has no
+unresolved claim-changing issue, twelve workers have completed-cycle checkpoints, and all four
+warm CPU clocks still advance. Endpoints and the registered scientific readout come later.
