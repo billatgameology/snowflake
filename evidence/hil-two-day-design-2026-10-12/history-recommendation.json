@@ -1,0 +1,80 @@
+{
+  "scope": "Internal candidate-selection recommendation, not a frozen roster, launch authorization, complete registered interpretation or physical validation. No simulations or execution-source edits performed.",
+  "analysis": {
+    "path": "out/hil-two-day-design-2026-10-12/history-options.json",
+    "sha256": "6582756caa8486e74bba6e7c774e083c4a719b18029cb05390296f1c5a1d09a7",
+    "coverage": "All 24 completed October 11 history rows and six same-producer source statics. Every event geometry reconstructed, 18 scientific source prefixes checked equal. Six histories from -14.4 at fraction .1 still need their retained October 10 experimental static prefix checks before full registered interpretation.",
+    "warmingM1LaterAxialLayers": [
+      {"fraction": 0.1, "commonFullWindowSeconds": 41.172707888953596, "switch7_11_15": [10,10,10], "allAdjacentEventBracketsExact": true},
+      {"fraction": 0.2, "commonFullWindowSeconds": 13.326099704266397, "switch7_11_15": [8,8,8], "allAdjacentEventBracketsExact": true}
+    ],
+    "coolingM1LaterAxialLayers": [
+      {"fraction": 0.1, "commonFullWindowSeconds": 13.714429274640061, "switch7_11_15": [2,0,2], "allAdjacentEventBracketsExact": true},
+      {"fraction": 0.2, "commonFullWindowSeconds": 5.264759945991394, "switch7_11_15": [2,2,0], "allAdjacentEventBracketsExact": true}
+    ],
+    "limits": [
+      "Each direction/fraction uses one common elapsed physical post-event duration across its six rows; different fractions have different durations and cannot be directly contrasted as one common-time forcing experiment.",
+      "Equal later axial increments do not establish absent memory: lateral and occupancy increments still differ.",
+      "Counts are attached occupancy, not mass. Layers and narrow structural differences are discrete-grid observations.",
+      "The triage script retained existing readout definitions and bounded physical endpoints to final retained time to avoid subtraction/addition roundoff past trajectory end. Original first calculation refused that slight floating overshoot; no input was changed."
+    ]
+  },
+  "shared": {
+    "dimsN": 64,
+    "dxUm": 0.35,
+    "targetExtent": 29,
+    "maxCenterSpanUm": 9.8,
+    "seedRadius": 2,
+    "seedThickness": 1,
+    "maxCycles": 20000,
+    "noise": 0,
+    "prngSeed": 1,
+    "spatialSampleExtents": [5,7,9,11,13,15,17,19,21,23,25,27],
+    "ordinaryPreparations": ["M1","M1_NO_DIP_ABLATION"],
+    "unchanged": "Existing aggregate-v6, monopole-matched hexPrism, residual/divergence tolerances 1e-9/1e-7, 200000 relaxation sweeps, one ordinary event only, supersaturation phase6SigmaWaterFromTable(T)*fraction at each environment. No facet/history hybrid. Finite target; checkpoint every completed update; no wall deadline."
+  },
+  "recommendedBlocks": [
+    {
+      "priority": 1,
+      "name": "History timestep sensitivity",
+      "question": "Do the observed later-window equalization and cooling stage contrasts persist with smaller interface updates?",
+      "historyRows": 24,
+      "historyOperands": {"directionsC": [[-6,-14.4],[-14.4,-6]], "fractions": [0.1,0.2], "switchExtents": [7,11,15], "preparations": ["M1","M1_NO_DIP_ABLATION"], "cflFill": 0.025, "pressurePa": 101325},
+      "staticRows": 8,
+      "staticOperands": {"temperaturesC": [-6,-14.4], "fractions": [0.1,0.2], "preparations": ["M1","M1_NO_DIP_ABLATION"], "cflFill": 0.025, "pressurePa": 101325},
+      "totalRows": 32,
+      "controls": "Reuse 24 October 11 CFL .05 histories after source parity. Source-static prefix checks before comparing new static responses; retain experimental labels for reused October 10 both/neither source controls. Compare same time across timestep variants, with bracket sensitivity and early/later windows. This is timestep sensitivity, not continuum or grid convergence.",
+      "cost": "Ordinary history measured costs available from parent operational analysis. Roughly doubled update counts are plausible but duration does not transfer exactly; runtime must be estimated from mature analogue cases, stated uncertain, and included in whole queue cost."
+    },
+    {
+      "priority": 2,
+      "name": "Pressure and history interaction",
+      "question": "Does changing diffusion through constant pressure preserve or change the history-dependent incremental response?",
+      "historyRows": 32,
+      "historyOperands": {"directionsC": [[-6,-14.4],[-14.4,-6]], "fractions": [0.1,0.2], "switchExtents": [7,15], "preparations": ["M1","M1_NO_DIP_ABLATION"], "pressurePa": [50662.5,202650], "cflFill": 0.05},
+      "staticRows": 16,
+      "staticOperands": {"temperaturesC": [-6,-14.4], "fractions": [0.1,0.2], "preparations": ["M1","M1_NO_DIP_ABLATION"], "pressurePa": [50662.5,202650], "cflFill": 0.05},
+      "totalRows": 48,
+      "motivation": "Completed supplement already answers the rejected static pressure timestep question: at f .10 low/high occupancy3747/4229 versus3759/4229 at old CFL; at f .20 low/high3583/2799 versus3607/2787. Both endpoint orderings survive tested timestep, but trajectories differ at common age. A new history interaction asks a distinct question about incremental growth; it is not another static occupancy grid.",
+      "source": "out/next-hil-design-2026-10-10/supplement-triage.json",
+      "controls": "New internally matched ordinary source statics at each pressure. Reuse existing 1-atm histories only after source parity. Across pressures compare on one common post-event physical-time window over the named comparison set; separate longer within-pressure windows. Pressure, inherited geometry, partial fill and vapor remain coupled; no isolated physical mechanism claim."
+    },
+    {
+      "priority": 3,
+      "name": "History away from the original temperature pair",
+      "question": "Is the history lead confined to -6/-14.4 or also present at flank temperature pairs?",
+      "historyRows": 16,
+      "historyOperands": {"directionsC": [[-5,-12],[-12,-5],[-8,-16],[-16,-8]], "fractions": [0.15], "switchExtents": [7,15], "preparations": ["M1","M1_NO_DIP_ABLATION"], "pressurePa": 101325, "cflFill": 0.05},
+      "staticRows": 8,
+      "staticOperands": {"temperaturesC": [-5,-12,-8,-16], "fractions": [0.15], "preparations": ["M1","M1_NO_DIP_ABLATION"], "pressurePa": 101325, "cflFill": 0.05},
+      "totalRows": 24,
+      "controls": "Internally matched early/late and ordinary preparations with source static prefixes. Do not infer which changed temperature caused a cross-pair difference. Bounded grep found no matching exact named history patterns in current roster sources; parent should perform final canonical duplicate census. Retained static reuse is optional only after source/observation compatibility."
+    }
+  ],
+  "rejected": [
+    "No larger domain or finer grid in this selection: warm runs already expose mature-cost uncertainty, and these history questions have useful N64 contrasts.",
+    "No independent static pressure sweep merely to fill time; use the interaction block only if selected for that stated new question.",
+    "No new multi-event timeline, facet/history hybrid, scheduler, observer or verifier.",
+    "Do not pad a two-day queue with duplicate deterministic conditions or promise an exact finish time."
+  ]
+}

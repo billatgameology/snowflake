@@ -375,12 +375,11 @@ relaxation cost change, and contention has changed as other work completed. They
 for additional days, not a few remaining hours. Exact inputs, formula and limitations are in primary
 `out/status-current-hil-20261012T155425800Z/warm-pace-calculation.json`.
 
-Next: discuss continuation versus a resumable pause before committing further work. The recommendation
-is to pause these four rows using their existing completed-cycle checkpoints while reviewing the
-102 newly completed cases, then reassess the value of finishing this refinement. The maker's choice
-is pending; the question does not authorize a stop. For the next
-scientific dispatch, present the scientific value, estimated elapsed range and uncertainty before
-launch; unknown mature cost must be an explicit planning choice. Reuse existing measurements,
-without another capacity ladder, a new governance file or an arbitrary scientific wall cutoff.
-No pause, restart, target change or new run was requested or performed in this status exchange;
-the four workers continue while the maker considers the cost. Saved completed cycles remain resumable.
+The maker chose to continue all four runs and requested useful parallel exploration for roughly
+the next two days; the pause recommendation is superseded. The [192-case proposal](hil-two-day-exploration-oct12.md)
+records the selected questions and explicit timing scenarios for review before a new launch.
+For future scientific dispatch, present the scientific value, estimated elapsed range and
+uncertainty before launch; unknown mature cost must be an explicit planning choice. Reuse
+existing measurements without another capacity ladder or an arbitrary scientific wall cutoff.
+No warm pause, restart or target change was performed. The four workers continue under that
+explicit direction, with saved completed cycles resumable.

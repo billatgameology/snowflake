@@ -1,0 +1,669 @@
+{
+  "createdAt": "2026-10-12T16:10:31.770Z",
+  "scope": "Bounded internal scientific row selection for the maker-requested two-day parallel queue. Read-only completed-output analysis; no source edit, solver run, launch or stop. A parent agent will consolidate operational cost and other track recommendations.",
+  "reviewer": {
+    "model": "Codex/GPT-6 inherited parent model (exact serving variant not exposed)",
+    "sharedContext": true
+  },
+  "inputs": [
+    {
+      "path": "out/hil-two-day-design-2026-10-12/cold-triage.json",
+      "bytes": 609902,
+      "sha256": "fe03ec18e2d36c86b41835b0bc9881b4ee93123c1e5d5d790b78e8092eecbeac"
+    },
+    {
+      "path": "out/hil-two-day-design-2026-10-12/seed-triage.json",
+      "bytes": 219991,
+      "sha256": "830549616a25f6b7503a906d73600ba84e9c065715c66d239bc0094aeb039467"
+    }
+  ],
+  "scripts": [
+    {
+      "path": "out/hil-two-day-design-2026-10-12/cold-triage.mjs",
+      "bytes": 9303,
+      "sha256": "0c84cd551b5f629538a2897f86ba371dcb329ceb9e70cbbc6ae84c2289163218"
+    },
+    {
+      "path": "out/hil-two-day-design-2026-10-12/seed-triage.mjs",
+      "bytes": 6068,
+      "sha256": "240270cd336a2d520081b09dd24cb98b60bcb194a8ae31feeda9bf3e2c00e449"
+    }
+  ],
+  "methods": {
+    "cold": "56 saved rows. Exact reused stateMeasure (central-plane integer ring plus site-membership checks) and bracket from prior cold triage; reconstructed occupancy and all event counts, unique attachments, coordinate/index correspondence, final time/cycle/count. No per-event boundary or snapshot field calculation in this bounded triage.",
+    "seed": "16 saved rows. Existing readRow checks terminal coverage via summarizeFirstBatchRow and reconstructs event extents, Cartesian aspect ratio and attached count; common physical-age brackets preserve nextEvent. New axial/lateral additions subtract actual seed center spans. No solver rerun.",
+    "numericalChecks": "No full suite or scientific gate requested/run; these are provisional internal selection calculations. Seed draft syntax typo and nextEvent accessor were corrected before final successful execution. Cold command exit0 in2.177s; final seed command exit0 in0.770s. No raw attempt logs retained for these short calculation commands."
+  },
+  "findings": {
+    "cold": [
+      {
+        "tempC": -13,
+        "fraction": 0.1,
+        "cflFill": 0.05,
+        "armOrder": [
+          "neither",
+          "basal-only",
+          "prism-only",
+          "both"
+        ],
+        "tip": 8,
+        "shortestPlateauSeconds": 1.4956478759396372,
+        "rows": [
+          {
+            "arm": "neither",
+            "requestedTimeSeconds": 28.811421595661322,
+            "gap": 1,
+            "nextGap": 1
+          },
+          {
+            "arm": "basal-only",
+            "requestedTimeSeconds": 29.194114205427624,
+            "gap": 1,
+            "nextGap": 0
+          },
+          {
+            "arm": "prism-only",
+            "requestedTimeSeconds": 6.542130981469108,
+            "gap": 2,
+            "nextGap": 2
+          },
+          {
+            "arm": "both",
+            "requestedTimeSeconds": 6.605863583974074,
+            "gap": 2,
+            "nextGap": 2
+          }
+        ],
+        "sourceGroupKey": "-13/0.1/0.05"
+      },
+      {
+        "tempC": -16,
+        "fraction": 0.1,
+        "cflFill": 0.05,
+        "armOrder": [
+          "neither",
+          "basal-only",
+          "prism-only",
+          "both"
+        ],
+        "tip": 8,
+        "shortestPlateauSeconds": 1.6359791480830905,
+        "rows": [
+          {
+            "arm": "neither",
+            "requestedTimeSeconds": 37.934106515009965,
+            "gap": 0,
+            "nextGap": 0
+          },
+          {
+            "arm": "basal-only",
+            "requestedTimeSeconds": 38.12399816087179,
+            "gap": 0,
+            "nextGap": 0
+          },
+          {
+            "arm": "prism-only",
+            "requestedTimeSeconds": 6.875845376918914,
+            "gap": 2,
+            "nextGap": 2
+          },
+          {
+            "arm": "both",
+            "requestedTimeSeconds": 6.902045249955114,
+            "gap": 2,
+            "nextGap": 2
+          }
+        ],
+        "sourceGroupKey": "-16/0.1/0.05"
+      },
+      {
+        "tempC": -20,
+        "fraction": 0.1,
+        "cflFill": 0.05,
+        "armOrder": [
+          "neither",
+          "basal-only",
+          "prism-only",
+          "both"
+        ],
+        "tip": 8,
+        "shortestPlateauSeconds": 3.4754025466474534,
+        "rows": [
+          {
+            "arm": "neither",
+            "requestedTimeSeconds": 58.15734785653071,
+            "gap": 0,
+            "nextGap": 0
+          },
+          {
+            "arm": "basal-only",
+            "requestedTimeSeconds": 58.17972340187498,
+            "gap": 0,
+            "nextGap": 0
+          },
+          {
+            "arm": "prism-only",
+            "requestedTimeSeconds": 14.747766836693227,
+            "gap": 0,
+            "nextGap": 0
+          },
+          {
+            "arm": "both",
+            "requestedTimeSeconds": 14.753084358775244,
+            "gap": 0,
+            "nextGap": 0
+          }
+        ],
+        "sourceGroupKey": "-20/0.1/0.05"
+      },
+      {
+        "tempC": -20,
+        "fraction": 0.15,
+        "cflFill": 0.05,
+        "armOrder": [
+          "neither",
+          "basal-only",
+          "prism-only",
+          "both"
+        ],
+        "tip": 8,
+        "shortestPlateauSeconds": 2.100485630996385,
+        "rows": [
+          {
+            "arm": "neither",
+            "requestedTimeSeconds": 23.944235696154763,
+            "gap": 0,
+            "nextGap": 0
+          },
+          {
+            "arm": "basal-only",
+            "requestedTimeSeconds": 24.07423877423961,
+            "gap": 0,
+            "nextGap": 0
+          },
+          {
+            "arm": "prism-only",
+            "requestedTimeSeconds": 8.759914379336243,
+            "gap": 1,
+            "nextGap": 1
+          },
+          {
+            "arm": "both",
+            "requestedTimeSeconds": 8.757100204409,
+            "gap": 1,
+            "nextGap": 1
+          }
+        ],
+        "sourceGroupKey": "-20/0.15/0.05"
+      },
+      {
+        "tempC": -20,
+        "fraction": 0.2,
+        "cflFill": 0.05,
+        "armOrder": [
+          "neither",
+          "basal-only",
+          "prism-only",
+          "both"
+        ],
+        "tip": 8,
+        "shortestPlateauSeconds": 1.3793339622309313,
+        "rows": [
+          {
+            "arm": "neither",
+            "requestedTimeSeconds": 13.983928128441029,
+            "gap": 0,
+            "nextGap": 0
+          },
+          {
+            "arm": "basal-only",
+            "requestedTimeSeconds": 13.97303091829493,
+            "gap": 0,
+            "nextGap": 0
+          },
+          {
+            "arm": "prism-only",
+            "requestedTimeSeconds": 5.871465907773398,
+            "gap": 1,
+            "nextGap": 1
+          },
+          {
+            "arm": "both",
+            "requestedTimeSeconds": 5.872490793190085,
+            "gap": 1,
+            "nextGap": 1
+          }
+        ],
+        "sourceGroupKey": "-20/0.2/0.05"
+      },
+      {
+        "tempC": -14.4,
+        "fraction": 0.1,
+        "cflFill": 0.025,
+        "armOrder": [
+          "neither",
+          "basal-only",
+          "prism-only",
+          "both"
+        ],
+        "tip": 8,
+        "shortestPlateauSeconds": 1.6197404408958143,
+        "rows": [
+          {
+            "arm": "neither",
+            "requestedTimeSeconds": 32.44895163940418,
+            "gap": 0,
+            "nextGap": 0
+          },
+          {
+            "arm": "basal-only",
+            "requestedTimeSeconds": 32.64951195624324,
+            "gap": 0,
+            "nextGap": 0
+          },
+          {
+            "arm": "prism-only",
+            "requestedTimeSeconds": 6.257577207482728,
+            "gap": 2,
+            "nextGap": 2
+          },
+          {
+            "arm": "both",
+            "requestedTimeSeconds": 6.316822270045389,
+            "gap": 2,
+            "nextGap": 2
+          }
+        ],
+        "sourceGroupKey": "-14.4/0.1/0.025"
+      },
+      {
+        "tempC": -14.4,
+        "fraction": 0.1,
+        "cflFill": 0.0125,
+        "armOrder": [
+          "neither",
+          "basal-only",
+          "prism-only",
+          "both"
+        ],
+        "tip": 8,
+        "shortestPlateauSeconds": 1.6080747172304122,
+        "rows": [
+          {
+            "arm": "neither",
+            "requestedTimeSeconds": 32.19694201062746,
+            "gap": 0,
+            "nextGap": 0
+          },
+          {
+            "arm": "basal-only",
+            "requestedTimeSeconds": 32.58033365897887,
+            "gap": 0,
+            "nextGap": 0
+          },
+          {
+            "arm": "prism-only",
+            "requestedTimeSeconds": 6.301151627611294,
+            "gap": 2,
+            "nextGap": 2
+          },
+          {
+            "arm": "both",
+            "requestedTimeSeconds": 6.339465626973432,
+            "gap": 2,
+            "nextGap": 2
+          }
+        ],
+        "sourceGroupKey": "-14.4/0.1/0.0125"
+      }
+    ],
+    "seed": [
+      {
+        "tempC": -6.5,
+        "commonAllEightAgeSeconds": 18.442203218445496,
+        "rows": [
+          {
+            "id": "oct11-hil-seed-t6p5-f0p15-r3-h1-both",
+            "arm": "both",
+            "seed": [
+              3,
+              1
+            ],
+            "newAxialUm": 6.3,
+            "nextNewAxialUm": 6.3,
+            "newLateralUm": 5.6,
+            "newAttached": 5926
+          },
+          {
+            "id": "oct11-hil-seed-t6p5-f0p15-r3-h1-neither",
+            "arm": "neither",
+            "seed": [
+              3,
+              1
+            ],
+            "newAxialUm": 4.199999999999999,
+            "nextNewAxialUm": 4.199999999999999,
+            "newLateralUm": 5.6,
+            "newAttached": 4968
+          },
+          {
+            "id": "oct11-hil-seed-t6p5-f0p15-r3-h1-basal-only",
+            "arm": "basal-only",
+            "seed": [
+              3,
+              1
+            ],
+            "newAxialUm": 6.3,
+            "nextNewAxialUm": 6.3,
+            "newLateralUm": 4.9,
+            "newAttached": 5638
+          },
+          {
+            "id": "oct11-hil-seed-t6p5-f0p15-r3-h1-prism-only",
+            "arm": "prism-only",
+            "seed": [
+              3,
+              1
+            ],
+            "newAxialUm": 4.199999999999999,
+            "nextNewAxialUm": 4.199999999999999,
+            "newLateralUm": 6.299999999999999,
+            "newAttached": 5158
+          },
+          {
+            "id": "oct11-hil-seed-t6p5-f0p15-r1-h5-both",
+            "arm": "both",
+            "seed": [
+              1,
+              5
+            ],
+            "newAxialUm": 7.699999999999999,
+            "nextNewAxialUm": 7.699999999999999,
+            "newLateralUm": 5.6,
+            "newAttached": 6146
+          },
+          {
+            "id": "oct11-hil-seed-t6p5-f0p15-r1-h5-neither",
+            "arm": "neither",
+            "seed": [
+              1,
+              5
+            ],
+            "newAxialUm": 4.9,
+            "nextNewAxialUm": 4.9,
+            "newLateralUm": 5.6,
+            "newAttached": 5024
+          },
+          {
+            "id": "oct11-hil-seed-t6p5-f0p15-r1-h5-basal-only",
+            "arm": "basal-only",
+            "seed": [
+              1,
+              5
+            ],
+            "newAxialUm": 8.399999999999999,
+            "nextNewAxialUm": null,
+            "newLateralUm": 4.8999999999999995,
+            "newAttached": 5594
+          },
+          {
+            "id": "oct11-hil-seed-t6p5-f0p15-r1-h5-prism-only",
+            "arm": "prism-only",
+            "seed": [
+              1,
+              5
+            ],
+            "newAxialUm": 4.9,
+            "nextNewAxialUm": 4.9,
+            "newLateralUm": 5.6,
+            "newAttached": 5018
+          }
+        ]
+      },
+      {
+        "tempC": -9.5,
+        "commonAllEightAgeSeconds": 16.628968625798624,
+        "rows": [
+          {
+            "id": "oct11-hil-seed-t9p5-f0p15-r3-h1-both",
+            "arm": "both",
+            "seed": [
+              3,
+              1
+            ],
+            "newAxialUm": 4.199999999999999,
+            "nextNewAxialUm": 4.199999999999999,
+            "newLateralUm": 7,
+            "newAttached": 6268
+          },
+          {
+            "id": "oct11-hil-seed-t9p5-f0p15-r3-h1-neither",
+            "arm": "neither",
+            "seed": [
+              3,
+              1
+            ],
+            "newAxialUm": 4.8999999999999995,
+            "nextNewAxialUm": 4.8999999999999995,
+            "newLateralUm": 4.9,
+            "newAttached": 4758
+          },
+          {
+            "id": "oct11-hil-seed-t9p5-f0p15-r3-h1-basal-only",
+            "arm": "basal-only",
+            "seed": [
+              3,
+              1
+            ],
+            "newAxialUm": 5.6,
+            "nextNewAxialUm": 5.6,
+            "newLateralUm": 4.9,
+            "newAttached": 4946
+          },
+          {
+            "id": "oct11-hil-seed-t9p5-f0p15-r3-h1-prism-only",
+            "arm": "prism-only",
+            "seed": [
+              3,
+              1
+            ],
+            "newAxialUm": 3.5,
+            "nextNewAxialUm": null,
+            "newLateralUm": 7.699999999999999,
+            "newAttached": 5740
+          },
+          {
+            "id": "oct11-hil-seed-t9p5-f0p15-r1-h5-both",
+            "arm": "both",
+            "seed": [
+              1,
+              5
+            ],
+            "newAxialUm": 4.9,
+            "nextNewAxialUm": 4.9,
+            "newLateralUm": 6.3,
+            "newAttached": 6002
+          },
+          {
+            "id": "oct11-hil-seed-t9p5-f0p15-r1-h5-neither",
+            "arm": "neither",
+            "seed": [
+              1,
+              5
+            ],
+            "newAxialUm": 5.6,
+            "nextNewAxialUm": 5.6,
+            "newLateralUm": 4.8999999999999995,
+            "newAttached": 4520
+          },
+          {
+            "id": "oct11-hil-seed-t9p5-f0p15-r1-h5-basal-only",
+            "arm": "basal-only",
+            "seed": [
+              1,
+              5
+            ],
+            "newAxialUm": 6.299999999999999,
+            "nextNewAxialUm": 6.299999999999999,
+            "newLateralUm": 4.8999999999999995,
+            "newAttached": 4908
+          },
+          {
+            "id": "oct11-hil-seed-t9p5-f0p15-r1-h5-prism-only",
+            "arm": "prism-only",
+            "seed": [
+              1,
+              5
+            ],
+            "newAxialUm": 4.199999999999999,
+            "nextNewAxialUm": 4.199999999999999,
+            "newLateralUm": 6.999999999999999,
+            "newAttached": 5856
+          }
+        ]
+      }
+    ]
+  },
+  "recommendation": {
+    "rows": 112,
+    "common": {
+      "host": "HIL",
+      "dimsN": 64,
+      "dxUm": 0.35,
+      "targetExtent": 29,
+      "maxSteps": 20000,
+      "cflFill": 0.05,
+      "pressurePa": 101325,
+      "seedRadius": 2,
+      "seedThickness": 1,
+      "spatialSampleExtents": [
+        5,
+        7,
+        9,
+        11,
+        13,
+        15,
+        17,
+        19,
+        21,
+        23,
+        25,
+        27
+      ],
+      "arms": [
+        "both",
+        "neither",
+        "basal-only",
+        "prism-only"
+      ],
+      "sigmaInfinity": "phase6SigmaWaterFromTable(tempC)*fraction",
+      "otherControls": "inherit all ordinary Oct11 aggregate-v6/monopole-matched/hexPrism noise0 seed1 residual/divergence and resume controls"
+    },
+    "blocks": [
+      {
+        "name": "Cold-tail localization",
+        "rows": 48,
+        "temperaturesC": [
+          -17.5,
+          -18.5,
+          -19.5,
+          -20.5
+        ],
+        "fractions": [
+          0.1,
+          0.15,
+          0.2
+        ],
+        "facetArms": 4,
+        "cflFill": 0.05,
+        "question": "Where does the prism-sensitive core/tip separation weaken or disappear, and does that boundary move with forcing?",
+        "why": "The observed tip8 half-plateau contrast is strong at -16/.10 but absent at -20/.10 and present at -20/.15. Intermediate half-degree anchors avoid duplicating the prior integer-temperature ordinary map."
+      },
+      {
+        "name": "Cold forcing threshold and timestep check",
+        "rows": 16,
+        "newCfl05": {
+          "tempC": -20,
+          "fractions": [
+            0.125
+          ],
+          "facetArms": 4,
+          "rows": 4
+        },
+        "newCfl025": {
+          "tempC": -20,
+          "fractions": [
+            0.1,
+            0.125,
+            0.15
+          ],
+          "facetArms": 4,
+          "rows": 12
+        },
+        "reusedControls": "Oct11 -20/.10 and -20/.15 quartets at CFL.05, same source scientific parity required; preserve original identities.",
+        "question": "Does the forcing-sensitive cold-tail contrast survive halving the fill step, including the midpoint forcing?",
+        "why": "The existing timestep ladder qualifies -14.4/.10 only; it does not transfer automatically to the weak one-cell -20 response."
+      },
+      {
+        "name": "Seed forcing and crossover",
+        "rows": 48,
+        "flankRows": {
+          "temperaturesC": [
+            -6.5,
+            -9.5
+          ],
+          "fractions": [
+            0.1,
+            0.2
+          ],
+          "seeds": [
+            [
+              3,
+              1
+            ],
+            [
+              1,
+              5
+            ]
+          ],
+          "facetArms": 4,
+          "rows": 32
+        },
+        "interiorRows": {
+          "temperaturesC": [
+            -7.5,
+            -8.5
+          ],
+          "fractions": [
+            0.15
+          ],
+          "seeds": [
+            [
+              3,
+              1
+            ],
+            [
+              1,
+              5
+            ]
+          ],
+          "facetArms": 4,
+          "rows": 16
+        },
+        "reusedControls": "Oct11 flank quartets at fraction.15; all within-new-condition controls are present.",
+        "question": "Does forcing shift the seed-dependent basal/prism response, and what happens between the measured flanks?",
+        "why": "At common physical age, -6.5 has stronger axial growth with basal-only versus neither; -9.5 also shows prism-only axial suppression. Distinguish actual growth added beyond the seed from endpoint occupancy or inherited axial span."
+      }
+    ],
+    "runtime": "Parent operation analysis provides actual Oct11 timing. No estimate from early-cycle extrapolation; no N126 or larger-target scaling assumed. With other tracks these112 rows can contribute to a roughly two-day queue, never a guaranteed completion deadline."
+  },
+  "limits": [
+    "All selection calculations are post-hoc discrete-model observations, not a phase gate or physical mechanism identification.",
+    "Cold same-tip half-plateau observations occur at different absolute times and retain adjacent-event brackets; endpoint gap values alone are not the comparison.",
+    "Seed shape, volume, surface and diffusion differ; common-time axial additions help interpret initialization dependence without isolating physical shape causality.",
+    "Boundary/domain/grid adequacy remains unresolved; two fill steps are sensitivity evidence, not proven convergence.",
+    "No new pressure grid suggested within the cold block; pressure-history work is separately selected by parent.",
+    "Duplicate search covered named runner rosters/adaptive/followup/confirm sources, not all retained artifacts. Existing -8.5/.15 ordinary seed rows use CFL.1, so are not matched CFL.05 controls.",
+    "Current source-currency check, committed protocol and proportionate launch checks remain parent responsibilities. No source fit or numerical contract changes are proposed."
+  ]
+}

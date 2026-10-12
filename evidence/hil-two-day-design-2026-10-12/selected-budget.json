@@ -1,0 +1,49 @@
+{
+  "createdAt": "2026-10-12T16:10:51.167Z",
+  "status": "proposed, not launched",
+  "blocks": [
+    {
+      "id": "cold-tail",
+      "rows": 48,
+      "workerHours": 100.16133500000001,
+      "basis": "48 times measured cold mean"
+    },
+    {
+      "id": "cold-forcing-step",
+      "rows": 16,
+      "workerHours": 40.65798708333334,
+      "basis": "4 times cold mean plus12 times measured cold CFL.025 mean"
+    },
+    {
+      "id": "seed-forcing-crossover",
+      "rows": 48,
+      "workerHours": 103.81462249999998,
+      "basis": "48 times measured seed mean"
+    },
+    {
+      "id": "history-step",
+      "rows": 32,
+      "workerHours": 143.57637722222222,
+      "basis": "Assumed2x measured ordinary history/static cost for half-CFL; intentionally a budget assumption, not measured history scaling"
+    },
+    {
+      "id": "pressure-history",
+      "rows": 48,
+      "workerHours": 106.49955518518519,
+      "basis": "32 times measured history mean plus16 times measured static mean; pressure transfer remains unmeasured"
+    }
+  ],
+  "totalRows": 192,
+  "totalWorkerHours": 494.7098769907408,
+  "newWorkers": 12,
+  "continuingWarmWorkers": 4,
+  "occupiedSlotFraction": 0.9528953054169175,
+  "baselineWallHours": 43.26374875414494,
+  "with25PercentSlowdownHours": 54.07968594268118,
+  "limits": [
+    "Planning scenarios, not a confidence interval or guaranteed upper bound.",
+    "Half-CFL history cost multiplier2 is assumed, not transferred as a scientific timing qualification.",
+    "Temperature,forcing,seed,pressure and timeline differences can change solve counts and duration.",
+    "No wall-clock scientific stop; all rows use finite size target29 and completed-cycle recovery."
+  ]
+}

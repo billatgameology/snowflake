@@ -1,0 +1,273 @@
+{
+  "capturedUtc": "2026-10-12T16:08:09.6037482Z",
+  "scope": "Read-only operational budget calculation from existing attempt exit receipts, producer effort fields and current warm resources; no numerical execution or new endpoint adjudication.",
+  "campaign": "C:/Users/biao3/.codex/worktrees/hil-large-batch-oct11/snowflake/out/hil-large-batch-oct11",
+  "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+  "completionReceipt": {
+    "minimumCommitHeadroomBytes": 37159116800,
+    "minimumAvailablePhysicalBytes": 35174285312,
+    "abortReason": null,
+    "requestedConcurrency": 12,
+    "finishedAt": "2026-10-12T10:39:28.072Z",
+    "exitCount": 102,
+    "unstartedRowIds": [],
+    "sha256": "79cf669dcfe29fdd76fe6a698f6675742e810253e4c3f850457b2157f3d24ff0",
+    "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\hil-large-batch-oct11-HIL-initial-complete.json",
+    "maxSampledChildRssBytes": 327835648,
+    "launchedAt": "2026-10-11T14:44:39.285Z",
+    "elapsedHours": 19.913551944444446,
+    "actualMaximumConcurrency": 12
+  },
+  "overall": {
+    "rows": 102,
+    "minHours": 0.9607975,
+    "medianHours": 2.248179583333333,
+    "meanHours": 2.2324153131808284,
+    "maxHours": 5.806020833333333,
+    "totalWorkerHours": 227.7063619444445,
+    "slowestRow": "oct11-hil-cold-step-t14p4-f0p1-cfl0p0125-neither"
+  },
+  "blocks": [
+    {
+      "block": "cold",
+      "statistics": {
+        "rows": 48,
+        "minHours": 0.9607975,
+        "medianHours": 2.1716931944444444,
+        "meanHours": 2.086694479166667,
+        "maxHours": 3.3739369444444445,
+        "totalWorkerHours": 100.16133500000001,
+        "slowestRow": "oct11-hil-cold-t13-f0p2-neither"
+      }
+    },
+    {
+      "block": "cold-timestep",
+      "statistics": {
+        "rows": 8,
+        "minHours": 1.1477461111111111,
+        "medianHours": 2.841787777777778,
+        "meanHours": 3.149400381944445,
+        "maxHours": 5.806020833333333,
+        "totalWorkerHours": 25.19520305555556,
+        "slowestRow": "oct11-hil-cold-step-t14p4-f0p1-cfl0p0125-neither"
+      }
+    },
+    {
+      "block": "history",
+      "statistics": {
+        "rows": 24,
+        "minHours": 1.0622252777777779,
+        "medianHours": 2.299066527777778,
+        "meanHours": 2.317301377314815,
+        "maxHours": 3.9635291666666665,
+        "totalWorkerHours": 55.61523305555556,
+        "slowestRow": "oct11-hil-history-t6-to-t14p4-f0p1-e15-nodip"
+      }
+    },
+    {
+      "block": "seed",
+      "statistics": {
+        "rows": 16,
+        "minHours": 1.570093888888889,
+        "medianHours": 2.251091944444444,
+        "meanHours": 2.1628046354166663,
+        "maxHours": 2.8511930555555556,
+        "totalWorkerHours": 34.60487416666666,
+        "slowestRow": "oct11-hil-seed-t9p5-f0p15-r3-h1-basal-only"
+      }
+    },
+    {
+      "block": "static",
+      "statistics": {
+        "rows": 6,
+        "minHours": 0.9974530555555556,
+        "medianHours": 2.0893844444444443,
+        "meanHours": 2.021619444444444,
+        "maxHours": 2.7230491666666667,
+        "totalWorkerHours": 12.129716666666665,
+        "slowestRow": "oct11-hil-static-t14p4-f0p2-nodip"
+      }
+    }
+  ],
+  "timestepSubgroups": [
+    {
+      "cfl": "0.0125",
+      "statistics": {
+        "rows": 4,
+        "minHours": 1.487060277777778,
+        "medianHours": 3.565859444444445,
+        "meanHours": 3.6062,
+        "maxHours": 5.806020833333333,
+        "totalWorkerHours": 14.4248,
+        "slowestRow": "oct11-hil-cold-step-t14p4-f0p1-cfl0p0125-neither"
+      }
+    },
+    {
+      "cfl": "0.025",
+      "statistics": {
+        "rows": 4,
+        "minHours": 1.1477461111111111,
+        "medianHours": 2.6793116666666665,
+        "meanHours": 2.692600763888889,
+        "maxHours": 4.2640336111111115,
+        "totalWorkerHours": 10.770403055555557,
+        "slowestRow": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither"
+      }
+    }
+  ],
+  "occupiedSlotFraction": 0.9528953054169175,
+  "host": {
+    "resourcePath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\warm-refinement-HIL-parallel-1791557571381-resources.jsonl",
+    "cpuObservation": {
+      "workers": [
+        {
+          "pid": 7944,
+          "cpuAdvancedSeconds": 4.984375,
+          "rssBytes": 456376320
+        },
+        {
+          "pid": 22716,
+          "cpuAdvancedSeconds": 4.96875,
+          "rssBytes": 416415744
+        },
+        {
+          "pid": 25200,
+          "cpuAdvancedSeconds": 4.96875,
+          "rssBytes": 421163008
+        },
+        {
+          "pid": 27104,
+          "cpuAdvancedSeconds": 4.96875,
+          "rssBytes": 427839488
+        }
+      ],
+      "finishedUtc": "2026-10-12T16:08:09.5590189Z",
+      "startedUtc": "2026-10-12T16:08:04.5678519Z"
+    },
+    "warmStatus": [
+      {
+        "rowId": "warm-refine-fine-thick-t4p5-broad",
+        "extent": 39,
+        "target": 57,
+        "updates": 926,
+        "updatedAt": "2026-10-12T16:07:44.602Z"
+      },
+      {
+        "rowId": "warm-refine-fine-thick-t4p5-early",
+        "extent": 41,
+        "target": 57,
+        "updates": 855,
+        "updatedAt": "2026-10-12T16:04:28.994Z"
+      },
+      {
+        "rowId": "warm-refine-fine-thin-t4p5-broad",
+        "extent": 41,
+        "target": 57,
+        "updates": 1012,
+        "updatedAt": "2026-10-12T16:06:47.457Z"
+      },
+      {
+        "rowId": "warm-refine-fine-thin-t4p5-early",
+        "extent": 39,
+        "target": 57,
+        "updates": 853,
+        "updatedAt": "2026-10-12T16:07:11.338Z"
+      }
+    ],
+    "cDriveFreeBytes": 3430341107712,
+    "sample": {
+      "capturedUtc": "2026-10-12T16:08:03.6213771Z",
+      "availablePhysicalBytes": 48959426560,
+      "commitHeadroomBytes": 55386243072,
+      "children": [
+        {
+          "Id": 7944,
+          "CPU": 262156.890625,
+          "WorkingSet64": 456376320,
+          "PeakWorkingSet64": 540397568
+        },
+        {
+          "Id": 22716,
+          "CPU": 262154.640625,
+          "WorkingSet64": 416415744,
+          "PeakWorkingSet64": 507437056
+        },
+        {
+          "Id": 25200,
+          "CPU": 262170.9375,
+          "WorkingSet64": 421163008,
+          "PeakWorkingSet64": 508825600
+        },
+        {
+          "Id": 27104,
+          "CPU": 262152.40625,
+          "WorkingSet64": 427839488,
+          "PeakWorkingSet64": 507080704
+        }
+      ]
+    }
+  },
+  "planning": {
+    "sameMixRowsAt48Hours": 245.86271769391215,
+    "continuingWarmWorkers": 4,
+    "planningWindowHours": 48,
+    "formula": "Predicted wall hours = sum(named-block count * measured block mean worker-hours) / (12 * observed occupied-slot fraction). The 25% column is an explicit sensitivity scenario, not a confidence bound.",
+    "transferLimits": [
+      "Measurements apply to the named N64 target29 controls, same scientific producer/runtime/checkpoint/observation paths and this HIL host beside four warm workers.",
+      "Different temperatures, forcing, seeds, event timing or CFL may alter the trajectory and solve count. Per-block observations are a planning basis, not a guaranteed bound on new conditions.",
+      "Do not transfer these costs to N126, other domains/grid spacings, longer size targets, width-law protocols or unsupported experiment combinations.",
+      "No fresh capacity ladder or speed eligibility requirement follows. Retain existing live memory guards and pause/resume state; two days is a workload planning window, never a scientific stop.",
+      "Occupied-slot fraction includes the recorded queue tail; it does not establish CPU utilization or a universal scheduler efficiency."
+    ],
+    "illustrativeScenarios": [
+      {
+        "rows": 180,
+        "workerHours": 401.8347563725491,
+        "hoursAtPriorMeanAndFilling": 35.14156225490196,
+        "with25PercentSensitivityHours": 43.92695281862745
+      },
+      {
+        "rows": 200,
+        "workerHours": 446.4830626361657,
+        "hoursAtPriorMeanAndFilling": 39.0461802832244,
+        "with25PercentSensitivityHours": 48.8077253540305
+      },
+      {
+        "rows": 220,
+        "workerHours": 491.1313688997823,
+        "hoursAtPriorMeanAndFilling": 42.95079831154685,
+        "with25PercentSensitivityHours": 53.68849788943355
+      },
+      {
+        "rows": 240,
+        "workerHours": 535.7796751633988,
+        "hoursAtPriorMeanAndFilling": 46.85541633986928,
+        "with25PercentSensitivityHours": 58.56927042483661
+      }
+    ],
+    "recommendation": "Use 12 additional slots and a finite, scientifically selected N64/target29 roster. Around 200 same-mix rows gives about39h at observed cost and about49h with a stated25% slowdown sensitivity; 240 rows gives about47h baseline and about59h under that sensitivity. Final size should follow the weighted selected comparisons, not occupancy alone. No wall deadline.",
+    "atPriorObservedFillingWorkerHours": 548.8676959201445,
+    "theoreticalWorkerHours": 576,
+    "newSlots": 12
+  },
+  "slowWorkObservations": [
+    "The four slowest rows are the neither/basal-only cold-anchor arms at CFL0.025 and0.0125, with1669-3344updates and3.68-5.10million relaxation sweeps. Smaller timestep increases update count in this matched anchor; wall cost does not scale exactly with inverseCFL.",
+    "The slowest CFL0.05 member is cooling -6 to -14.4 at fraction0.1, switch15, no-dip:1168updates,3264468sweeps and3.963529h. This measured work profile is not a physical mechanism claim."
+  ],
+  "implementation": {
+    "unchangedSeams": [
+      "launchDiscoveryRows queue refill and host-global12GiB available/8GiB commit guards",
+      "acquireFirstBatchLease and planFirstBatchResume",
+      "runNamedDiscoveryBatch run-row/resume-row and discovery-resume-v1"
+    ],
+    "excluded": "No scheduler, probe, state contract, numerical worker/readout/codec change, old-checkpoint extension or cross-source resume.",
+    "entryApi": "runHilOperationalBatch({batch, entryPath, concurrency:12, campaignSchema, label, plan, budgetBasis})",
+    "files": "One finite roster, one thin entry, one focused roster/routing/binding test.",
+    "requires": "Committed protocol and clean fixed execution checkout, unique row IDs/new output directory, source/runtime/host/roster binding, focused tests/typecheck. Preserve old output-owning checkouts until governed NAS recovery."
+  },
+  "sourceReceipt": {
+    "path": "out/hil-two-day-design-2026-10-12/operational-basis.json",
+    "bytes": 92114,
+    "sha256": "75b41b2e3a2a33854e92957627115536bb73e014dc679f9aaa57a7c36d1bad2a"
+  }
+}

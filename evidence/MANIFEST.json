@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1080,
- "totalBytes": 316925198,
+ "fileCount": 1084,
+ "totalBytes": 316964580,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -4325,6 +4325,22 @@
   "hil-large-batch-2026-10-11/completion-status-2026-10-12.json": {
    "bytes": 52765,
    "sha256": "e17d32821ac07c3804f85bb9975ca3cd551589d546078c2228b8d0918603f7db"
+  },
+  "hil-two-day-design-2026-10-12/cold-seed-recommendation.json": {
+   "bytes": 19877,
+   "sha256": "3823bf0e673d69da5ea3bfff5aef8ea8d3dd0b80a3239d67e72b64d926229be0"
+  },
+  "hil-two-day-design-2026-10-12/history-recommendation.json": {
+   "bytes": 7240,
+   "sha256": "c0a88436a6605bb4a093fdb84df0b395db6207705fa1cb87bd8687b093a7c42e"
+  },
+  "hil-two-day-design-2026-10-12/operational-summary.json": {
+   "bytes": 10559,
+   "sha256": "69fda1373535a74e0d720f506909ddc6a9a1e733e64b0d261481dc1febfdd886"
+  },
+  "hil-two-day-design-2026-10-12/selected-budget.json": {
+   "bytes": 1706,
+   "sha256": "9d5bf592608edeb0904532cc17b2a8d0adee6d45c8e93f7da80688640fb7a692"
   }
  }
 }
