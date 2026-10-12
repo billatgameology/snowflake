@@ -1,0 +1,35 @@
+{
+  "capturedUtc": "2026-10-12T16:34:35.4400964Z",
+  "source": "2da7eae059722da462a3aef1183645175f0167f6",
+  "helpers": [
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\start-hil.ps1",
+      "sourcePath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11-control\\start-hil.ps1",
+      "sourceSha256": "bd7924549c0ee973b23e534459bcd55087d06bca21c534fe3b2c4113524160b2",
+      "sha256": "9e0c39b2c2be792f78016e78ab3380583b40038f20c36b7a5b7fbb967d0b46c9",
+      "evidencePath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\evidence\\hil-two-day-oct12-2026-10-12\\start-hil.ps1",
+      "evidenceSha256": "9e0c39b2c2be792f78016e78ab3380583b40038f20c36b7a5b7fbb967d0b46c9",
+      "parseErrorCount": 0,
+      "targetRoot": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake",
+      "targetEntry": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\runner\\src\\hil-two-day-oct12-main.ts",
+      "targetCampaign": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12",
+      "changes": "Only campaign/worktree/entry/control path token and stop purpose date changed from October11 pattern."
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\stop-hil.ps1",
+      "sourcePath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11-control\\stop-hil.ps1",
+      "sourceSha256": "dd814408eefbfe7d94b76b1fec2f6089f78ff7b2171c9fb70045fa50e58bba04",
+      "sha256": "adc61a0532554cf0bceb2c52a2e1bb7c66a0e248ac7e9c941b1acfc0ae24ef84",
+      "evidencePath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\evidence\\hil-two-day-oct12-2026-10-12\\stop-hil.ps1",
+      "evidenceSha256": "adc61a0532554cf0bceb2c52a2e1bb7c66a0e248ac7e9c941b1acfc0ae24ef84",
+      "parseErrorCount": 0,
+      "targetRoot": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake",
+      "targetEntry": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\runner\\src\\hil-two-day-oct12-main.ts",
+      "targetCampaign": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12",
+      "changes": "Only campaign/worktree/entry/control path token and stop purpose date changed from October11 pattern."
+    }
+  ],
+  "check": "System.Management.Automation.Language.Parser.ParseFile; no helper execution.",
+  "review": "Copied the existing exact-entry-and-campaign process filter; start retains hidden child, Windows module path, fresh stdout/stderr/invocation/exit receipts. Stop remains restricted to this new campaign and retains checkpoints.",
+  "limits": "Syntax and exact-path inspection only. No production start/stop was executed; root owns launch review."
+}

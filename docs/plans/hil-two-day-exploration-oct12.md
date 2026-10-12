@@ -132,7 +132,8 @@ or a scientific-gate result; no solver or capacity run was performed.
 
 - [x] Read completed results and recorded cost; select exact finite comparisons and timing scenarios.
 - [x] Maker approved the 192-case scope and explicit timing uncertainty.
-- [ ] Commit approved protocol, implement the small roster/entry, check and publish fixed producer.
+- [x] Commit approved protocol, implement the small roster/entry and complete launch checks.
+- [ ] Publish fixed producer and record the real launch.
 - [ ] Launch twelve new workers, verify actual checkpoints and preserve the four warm workers.
 - [ ] Reconcile terminal dispositions, execute registered readouts and preserve results on NAS.
 
@@ -153,8 +154,8 @@ facet/history mixing, GPU or Phase 7 work, gate/validation claims, automatic fan
 
 ## Open question
 
-Approve this finite scope with the explicit 43-hour planning estimate and 54-hour slowdown
-scenario, or reduce breadth before implementation. The four existing warm workers continue.
+The maker approved the finite scope and its explicit timing uncertainty. No maker decision
+blocks launch; actual duration and scientific findings remain to be measured. Warm workers continue.
 
 ## Launch protocol frozen — 2026-10-12
 
@@ -195,3 +196,35 @@ restart state is under each row's `resume/`. Stop targets only this campaign, ne
 Launch is done when focused checks and both typechecks pass, one bounded non-author review has no
 unresolved claim-changing issue, twelve workers have completed-cycle checkpoints, and all four
 warm CPU clocks still advance. Endpoints and the registered scientific readout come later.
+
+## Implementation checks — 2026-10-12
+
+Protocol `2da7eae` preceded implementation. Only the finite roster, thin entry and focused test
+were added; no numerical worker, observer/readout, queue, codec or solver was changed.
+`npx.cmd vitest run runner/test/hil-two-day-oct12.test.ts runner/test/hil-large-batch-oct11.test.ts runner/test/hil-exploration-oct10.test.ts runner/test/hil-supplement.test.ts runner/test/hil-bld-batch-execution.test.ts runner/test/hil-bld-batch-resume.test.ts`
+passed six files / 33 tests, exit zero. `npm.cmd run typecheck` passed both TypeScript checks,
+exit zero. Exact logs and real exit receipts are retained under
+`evidence/hil-two-day-oct12-2026-10-12/` with focused-implementation/typecheck-implementation names.
+These checks cover the roster and unchanged runner boundaries; no full-suite or scientific-gate
+result is claimed. The bounded non-author review found no unresolved blocker.
+
+Locked dependencies were installed locally with unchanged lockfile; workspace links target this
+checkout. Existing exact-path start/stop helpers were adapted and parsed with zero syntax errors,
+without executing stop or production. Helper bytes and preparation/host/worktree-inventory
+receipts are in the same evidence directory. The four previous execution checkouts remain fixed
+and own useful output; primary owns its preserved analysis and retired output. This new task
+contains only included source/records plus local dependencies, control logs and future campaign
+staging. No output-owning checkout or branch is removed.
+
+One Codex/GPT-6 non-author review with shared context independently reconstructed all 192 row
+objects and their interleave: 56 ordinary histories, 24 statics and 112 constant-environment
+experimental rows; all scientific signatures unique and no exact October 11 repeats. It confirmed
+unchanged scientific/runtime files, twelve-worker binding and helper byte/syntax parity. It did
+not rerun tests, simulate, execute stop or qualify physical/grid/domain claims. Exact scope and
+limits are in `evidence/hil-two-day-oct12-2026-10-12/bounded-review.json`.
+
+Prelaunch evidence-integrity and progress-index checks passed 18 tests, exit zero; Rule 7 passed.
+Exact commands/logs/exits are task `out/hil-two-day-oct12-control/metadata-prelaunch{.log,-result.json}`
+and `rule7-prelaunch{.log,-result.json}`. Scoped diff check passed with CR-at-EOL recognized,
+excluding preserved raw stdout logs from whitespace lint. All producer code stayed unchanged
+after focused checks; the review's nonblocking stale approval question was corrected in prose.

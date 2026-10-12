@@ -1,0 +1,139 @@
+{
+  "capturedUtc": "2026-10-12T16:35:29.7082271Z",
+  "warmSource": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+  "warmSourceStatus": [],
+  "warmRows": [
+    {
+      "rowId": "warm-refine-fine-thick-t4p5-broad",
+      "pid": 27104,
+      "extent": 39,
+      "target": 57,
+      "updates": 931,
+      "updatedAt": "2026-10-12T16:34:17.02Z",
+      "stderrBytes": 0,
+      "attemptExitExists": false
+    },
+    {
+      "rowId": "warm-refine-fine-thick-t4p5-early",
+      "pid": 25200,
+      "extent": 41,
+      "target": 57,
+      "updates": 861,
+      "updatedAt": "2026-10-12T16:34:42.819Z",
+      "stderrBytes": 0,
+      "attemptExitExists": false
+    },
+    {
+      "rowId": "warm-refine-fine-thin-t4p5-broad",
+      "pid": 7944,
+      "extent": 41,
+      "target": 57,
+      "updates": 1018,
+      "updatedAt": "2026-10-12T16:33:40.039Z",
+      "stderrBytes": 0,
+      "attemptExitExists": false
+    },
+    {
+      "rowId": "warm-refine-fine-thin-t4p5-early",
+      "pid": 22716,
+      "extent": 39,
+      "target": 57,
+      "updates": 858,
+      "updatedAt": "2026-10-12T16:33:08.196Z",
+      "stderrBytes": 0,
+      "attemptExitExists": false
+    }
+  ],
+  "cpuObservation": {
+    "workers": [
+      {
+        "pid": 7944,
+        "cpuSeconds": 263799.9375,
+        "cpuAdvancedSeconds": 5.03125,
+        "rssBytes": 456585216,
+        "startedUtc": "2026-10-09T14:52:52.7199615Z"
+      },
+      {
+        "pid": 22716,
+        "cpuSeconds": 263797.546875,
+        "cpuAdvancedSeconds": 5.03125,
+        "rssBytes": 417370112,
+        "startedUtc": "2026-10-09T14:52:52.7285060Z"
+      },
+      {
+        "pid": 25200,
+        "cpuSeconds": 263814.0625,
+        "cpuAdvancedSeconds": 5.03125,
+        "rssBytes": 420593664,
+        "startedUtc": "2026-10-09T14:52:52.7440844Z"
+      },
+      {
+        "pid": 27104,
+        "cpuSeconds": 263795.296875,
+        "cpuAdvancedSeconds": 5.015625,
+        "rssBytes": 427577344,
+        "startedUtc": "2026-10-09T14:52:52.7362117Z"
+      }
+    ],
+    "startedUtc": "2026-10-12T16:35:24.4629960Z",
+    "requestedSeconds": 5,
+    "finishedUtc": "2026-10-12T16:35:29.4727370Z"
+  },
+  "existingResourcePath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\warm-refinement-HIL-parallel-1791557571381-resources.jsonl",
+  "resource": {
+    "capturedUtc": "2026-10-12T16:35:27.821488Z",
+    "availablePhysicalBytes": 48899059712,
+    "commitHeadroomBytes": 55274221568,
+    "children": [
+      {
+        "Id": 7944,
+        "CPU": 263797.15625,
+        "WorkingSet64": 456585216,
+        "PeakWorkingSet64": 540397568
+      },
+      {
+        "Id": 22716,
+        "CPU": 263794.765625,
+        "WorkingSet64": 417370112,
+        "PeakWorkingSet64": 507437056
+      },
+      {
+        "Id": 25200,
+        "CPU": 263811.28125,
+        "WorkingSet64": 420593664,
+        "PeakWorkingSet64": 508825600
+      },
+      {
+        "Id": 27104,
+        "CPU": 263792.53125,
+        "WorkingSet64": 427577344,
+        "PeakWorkingSet64": 507080704
+      }
+    ]
+  },
+  "liveScience": [
+    {
+      "ProcessId": 7944,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\runner\\src\\hil-warm-refinement-main.ts resume-row warm-refine-fine-thin-t4p5-broad C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad"
+    },
+    {
+      "ProcessId": 22716,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\runner\\src\\hil-warm-refinement-main.ts run-row warm-refine-fine-thin-t4p5-early C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early"
+    },
+    {
+      "ProcessId": 27104,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\runner\\src\\hil-warm-refinement-main.ts run-row warm-refine-fine-thick-t4p5-broad C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad"
+    },
+    {
+      "ProcessId": 25200,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\runner\\src\\hil-warm-refinement-main.ts run-row warm-refine-fine-thick-t4p5-early C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early"
+    }
+  ],
+  "cDriveFreeBytes": 3429826301952,
+  "newCampaignExists": false,
+  "guards": {
+    "minimumCommitHeadroomBytes": 8589934592,
+    "minimumAvailablePhysicalBytes": 12884901888
+  },
+  "scope": "Read-only existing worker CPU/status and existing monitor sample. No capacity probe, simulation, pause, restart or new campaign launch."
+}

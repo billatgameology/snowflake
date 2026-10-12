@@ -1,0 +1,460 @@
+{
+  "capturedUtc": "2026-10-12T16:35:24.4437904Z",
+  "taskRoot": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake",
+  "worktreeListPorcelain": [
+    "worktree C:/Users/biao3/Documents/GitHub/snowflake",
+    "HEAD 825c9d1fab6daabee342f4eec24eab7426aafa7d",
+    "branch refs/heads/main",
+    "",
+    "worktree C:/Users/biao3/.codex/worktrees/hil-exploration-oct10/snowflake",
+    "HEAD 33832e20a386c52d830e2dd338a1f8671a25db8f",
+    "branch refs/heads/codex/hil-exploration-oct10",
+    "",
+    "worktree C:/Users/biao3/.codex/worktrees/hil-large-batch-oct11/snowflake",
+    "HEAD 5a00e901874ae5fdf2ae24a2d889b692734e75da",
+    "branch refs/heads/codex/hil-large-batch-oct11",
+    "",
+    "worktree C:/Users/biao3/.codex/worktrees/hil-supplement/snowflake",
+    "HEAD 7ea25824e3d2a3a3f3e488b463689d56d5d06997",
+    "branch refs/heads/codex/hil-supplement",
+    "",
+    "worktree C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake",
+    "HEAD 2da7eae059722da462a3aef1183645175f0167f6",
+    "branch refs/heads/codex/hil-two-day-oct12",
+    "",
+    "worktree C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake",
+    "HEAD 838c294757c65c0d3b96d017cb7fec3541e4db42",
+    "branch refs/heads/codex/hil-warm-refinement",
+    ""
+  ],
+  "branchList": [
+    "+ codex/hil-exploration-oct10 33832e2 (C:/Users/biao3/.codex/worktrees/hil-exploration-oct10/snowflake) Add ten resumable HIL history and cold facet runs",
+    "+ codex/hil-large-batch-oct11 5a00e90 (C:/Users/biao3/.codex/worktrees/hil-large-batch-oct11/snowflake) Add 102 resumable HIL exploration cases with twelve workers",
+    "+ codex/hil-supplement        7ea2582 (C:/Users/biao3/.codex/worktrees/hil-supplement/snowflake) Record HIL supplement verification and correct compact index",
+    "* codex/hil-two-day-oct12     2da7eae Approve and freeze the 192-case HIL October 12 protocol",
+    "+ codex/hil-warm-refinement   838c294 (C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake) Support resumable N126 warm representation comparisons",
+    "+ main                        825c9d1 (C:/Users/biao3/Documents/GitHub/snowflake) [origin/main: ahead 3] Propose finite HIL exploration with explicit two-day cost scenarios"
+  ],
+  "worktrees": [
+    {
+      "path": "C:/Users/biao3/Documents/GitHub/snowflake",
+      "head": "825c9d1fab6daabee342f4eec24eab7426aafa7d",
+      "branch": "main",
+      "trackedAndUntrackedStatus": [],
+      "ignoredSummary": [
+        "!! app/dist/",
+        "!! app/node_modules/",
+        "!! debug.log",
+        "!! node_modules/",
+        "!! out/"
+      ],
+      "outExists": true,
+      "outTopLevelEntries": [
+        {
+          "Name": "agent-rules-cleanup-2026-10-07",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-07T22:40:31.0381028Z"
+        },
+        {
+          "Name": "dendrite-styles",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-07T18:38:58.6303322Z"
+        },
+        {
+          "Name": "growth-assets",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-07T21:22:40.9787312Z"
+        },
+        {
+          "Name": "growth-gallery",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-07T21:22:41.1413291Z"
+        },
+        {
+          "Name": "hil-batch2-primary-reconciliation-20261008",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-08T14:40:04.526024Z"
+        },
+        {
+          "Name": "hil-bld-first-batch-verification-2026-10-07",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-08T03:32:33.5275317Z"
+        },
+        {
+          "Name": "hil-bld-joint-review-20261008",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-09T00:27:53.7111644Z"
+        },
+        {
+          "Name": "hil-bld-pickup-primary-reconciliation-20261008",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-08T23:53:53.9169448Z"
+        },
+        {
+          "Name": "hil-large-batch-design-2026-10-11",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-11T14:48:43.8628628Z"
+        },
+        {
+          "Name": "hil-manual-stop-20261007T212733",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-08T04:27:33.5136613Z"
+        },
+        {
+          "Name": "hil-resume-reconciliation-b9cf7ed",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-08T05:31:24.1823946Z"
+        },
+        {
+          "Name": "hil-retired-2026-10-08",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-09T00:37:37.8489547Z"
+        },
+        {
+          "Name": "hil-saved-data-followup-2026-10-08",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-09T03:58:16.1135071Z"
+        },
+        {
+          "Name": "hil-status-20261008T160558",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-08T23:05:59.0132854Z"
+        },
+        {
+          "Name": "hil-two-day-design-2026-10-12",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-12T16:13:37.7406846Z"
+        },
+        {
+          "Name": "hil-worktree-retirement-20261008",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-09T01:00:25.6297872Z"
+        },
+        {
+          "Name": "host-readiness-2026-10-07",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-07T22:12:11.0647672Z"
+        },
+        {
+          "Name": "housekeeping-2026-10-07",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-07T22:17:49.3731767Z"
+        },
+        {
+          "Name": "named-crystal-catalog",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-07T18:38:43.4916819Z"
+        },
+        {
+          "Name": "nas-worktree-closeout-2026-10-09",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-09T16:11:26.9896942Z"
+        },
+        {
+          "Name": "new-host-readiness-2026-10-07",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-08T00:15:17.8714544Z"
+        },
+        {
+          "Name": "next-hil-design-2026-10-10",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-10T18:37:56.8897413Z"
+        },
+        {
+          "Name": "phase10-c0v-s6-preflight-observer-tests",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-07T21:22:05.9023276Z"
+        },
+        {
+          "Name": "phase10-c0v-s6-synthetic-tests",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-07T21:17:14.5622052Z"
+        },
+        {
+          "Name": "phase10-c0v-s6-worker-progress-tests",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-09T00:58:56.1563449Z"
+        },
+        {
+          "Name": "phase10-exploration-docs",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-10T19:59:28.6916277Z"
+        },
+        {
+          "Name": "product-check-scope-2026-10-07",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-07T23:02:23.7925536Z"
+        },
+        {
+          "Name": "restores",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-07T22:12:11.0851105Z"
+        },
+        {
+          "Name": "run-history-guide",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-10T19:51:54.5506547Z"
+        },
+        {
+          "Name": "status-2026-10-11",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-11T14:15:22.2872569Z"
+        },
+        {
+          "Name": "status-current-hil-20261011T185909736Z",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-11T18:59:09.8967697Z"
+        },
+        {
+          "Name": "status-current-hil-20261011T185924Z",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-11T19:00:52.4594326Z"
+        },
+        {
+          "Name": "status-current-hil-20261012T155416Z",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-12T16:02:17.5106557Z"
+        },
+        {
+          "Name": "status-current-hil-20261012T155425800Z",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-12T15:58:22.1407965Z"
+        },
+        {
+          "Name": "nas-worktree-closeout-2026-10-09-relocation.json",
+          "PSIsContainer": false,
+          "Length": 13865,
+          "LastWriteTimeUtc": "2026-10-09T16:17:04.0704859Z"
+        }
+      ],
+      "nodeModules": {
+        "FullName": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\node_modules",
+        "Attributes": 16,
+        "LinkType": null,
+        "Target": null
+      },
+      "retention": "Preserved in place. Useful outputs are not pruned, moved, archived or considered NAS-backed by this inventory."
+    },
+    {
+      "path": "C:/Users/biao3/.codex/worktrees/hil-exploration-oct10/snowflake",
+      "head": "33832e20a386c52d830e2dd338a1f8671a25db8f",
+      "branch": "codex/hil-exploration-oct10",
+      "trackedAndUntrackedStatus": [],
+      "ignoredSummary": [
+        "!! node_modules/",
+        "!! out/"
+      ],
+      "outExists": true,
+      "outTopLevelEntries": [
+        {
+          "Name": "hil-exploration-oct10",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-10T21:32:26.2558409Z"
+        },
+        {
+          "Name": "hil-exploration-oct10-control",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-10T21:32:26.2659643Z"
+        }
+      ],
+      "nodeModules": {
+        "FullName": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\node_modules",
+        "Attributes": 16,
+        "LinkType": null,
+        "Target": null
+      },
+      "retention": "Preserved in place. Useful outputs are not pruned, moved, archived or considered NAS-backed by this inventory."
+    },
+    {
+      "path": "C:/Users/biao3/.codex/worktrees/hil-large-batch-oct11/snowflake",
+      "head": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+      "branch": "codex/hil-large-batch-oct11",
+      "trackedAndUntrackedStatus": [],
+      "ignoredSummary": [
+        "!! node_modules/",
+        "!! out/"
+      ],
+      "outExists": true,
+      "outTopLevelEntries": [
+        {
+          "Name": "hil-large-batch-oct11",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-12T10:39:28.0754121Z"
+        },
+        {
+          "Name": "hil-large-batch-oct11-control",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-12T10:39:28.0854102Z"
+        }
+      ],
+      "nodeModules": {
+        "FullName": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\node_modules",
+        "Attributes": 16,
+        "LinkType": null,
+        "Target": null
+      },
+      "retention": "Preserved in place. Useful outputs are not pruned, moved, archived or considered NAS-backed by this inventory."
+    },
+    {
+      "path": "C:/Users/biao3/.codex/worktrees/hil-supplement/snowflake",
+      "head": "7ea25824e3d2a3a3f3e488b463689d56d5d06997",
+      "branch": "codex/hil-supplement",
+      "trackedAndUntrackedStatus": [],
+      "ignoredSummary": [
+        "!! app/dist/",
+        "!! node_modules/",
+        "!! out/"
+      ],
+      "outExists": true,
+      "outTopLevelEntries": [
+        {
+          "Name": "hil-supplement",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-10T05:59:10.0936529Z"
+        },
+        {
+          "Name": "hil-supplement-control",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-10T05:59:10.1136546Z"
+        },
+        {
+          "Name": "phase10-c0v-s6-worker-progress-tests",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-10T03:50:51.6860975Z"
+        }
+      ],
+      "nodeModules": {
+        "FullName": "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\node_modules",
+        "Attributes": 16,
+        "LinkType": null,
+        "Target": null
+      },
+      "retention": "Preserved in place. Useful outputs are not pruned, moved, archived or considered NAS-backed by this inventory."
+    },
+    {
+      "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake",
+      "head": "2da7eae059722da462a3aef1183645175f0167f6",
+      "branch": "codex/hil-two-day-oct12",
+      "trackedAndUntrackedStatus": [
+        "?? evidence/hil-two-day-oct12-2026-10-12/",
+        "?? runner/src/hil-two-day-oct12-main.ts",
+        "?? runner/src/hil-two-day-oct12-roster.ts"
+      ],
+      "ignoredSummary": [
+        "?? evidence/hil-two-day-oct12-2026-10-12/",
+        "?? runner/src/hil-two-day-oct12-main.ts",
+        "?? runner/src/hil-two-day-oct12-roster.ts",
+        "!! node_modules/",
+        "!! out/"
+      ],
+      "outExists": true,
+      "outTopLevelEntries": {
+        "Name": "hil-two-day-oct12-control",
+        "PSIsContainer": true,
+        "Length": null,
+        "LastWriteTimeUtc": "2026-10-12T16:34:35.4359042Z"
+      },
+      "nodeModules": {
+        "FullName": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\node_modules",
+        "Attributes": 16,
+        "LinkType": null,
+        "Target": null
+      },
+      "retention": "Preserved in place. Useful outputs are not pruned, moved, archived or considered NAS-backed by this inventory."
+    },
+    {
+      "path": "C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake",
+      "head": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+      "branch": "codex/hil-warm-refinement",
+      "trackedAndUntrackedStatus": [],
+      "ignoredSummary": [
+        "!! app/dist/",
+        "!! node_modules/",
+        "!! out/"
+      ],
+      "outExists": true,
+      "outTopLevelEntries": [
+        {
+          "Name": "phase10-c0v-s6-worker-progress-tests",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-09T04:26:21.9995681Z"
+        },
+        {
+          "Name": "warm-refinement-control",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-09T14:53:32.4196089Z"
+        },
+        {
+          "Name": "warm-refinement-hil",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-09T14:52:52.7145028Z"
+        },
+        {
+          "Name": "warm-refinement-probe",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-09T04:16:37.9061481Z"
+        },
+        {
+          "Name": "warm-refinement-probe-v2",
+          "PSIsContainer": true,
+          "Length": null,
+          "LastWriteTimeUtc": "2026-10-09T06:21:10.0248497Z"
+        }
+      ],
+      "nodeModules": {
+        "FullName": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\node_modules",
+        "Attributes": 16,
+        "LinkType": null,
+        "Target": null
+      },
+      "retention": "Preserved in place. Useful outputs are not pruned, moved, archived or considered NAS-backed by this inventory."
+    }
+  ],
+  "scope": "Checkout/ref/status and top-level ignored-output inventory for source publication. Live output contents may advance; this is not a recursive byte inventory, preservation receipt or deletion authorization.",
+  "disposition": "Retain every listed worktree and ignored output. Old scientific producers remain fixed; only the new October12 task contains ongoing source work. Dependencies/builds are rebuildable; pending governed NAS preservation still keeps completed output-owning checkouts open."
+}

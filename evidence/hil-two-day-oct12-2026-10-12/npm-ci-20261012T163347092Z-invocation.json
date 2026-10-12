@@ -1,0 +1,13 @@
+{
+  "command": [
+    "npm.cmd",
+    "ci"
+  ],
+  "cwd": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake",
+  "source": "2da7eae059722da462a3aef1183645175f0167f6",
+  "startedUtc": "2026-10-12T16:33:47.0979344Z",
+  "node": "v24.13.1",
+  "npm": "11.8.0",
+  "log": "out\\hil-two-day-oct12-control\\npm-ci-20261012T163347092Z.log",
+  "packageLockSha256Before": "1652f9a9d768092456337107204e9c2dc21a832618ca597d70a2da966beba89e"
+}

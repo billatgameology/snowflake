@@ -1,0 +1,108 @@
+{
+  "schema": "bounded-oct12-launch-review-v1",
+  "checkedAt": "2026-10-12T16:38:41.296Z",
+  "reviewer": {
+    "model": "GPT-6-family Codex, inherited parent model (exact engine id unavailable)",
+    "sharedContext": true,
+    "role": "Non-author reviewer; independent row reconciliation and source/helper inspection"
+  },
+  "protocolCommit": "2da7eae059722da462a3aef1183645175f0167f6",
+  "reviewedGitHead": "2da7eae059722da462a3aef1183645175f0167f6",
+  "reviewedFiles": [
+    {
+      "path": "runner/src/hil-two-day-oct12-roster.ts",
+      "sha256": "6c7ea0d39c77614f5b5048072f10b0c9e793a45d65d6f84496f80a86f08d142f"
+    },
+    {
+      "path": "runner/src/hil-two-day-oct12-main.ts",
+      "sha256": "50045a5416d8a5d0183903b130f10197a8234be1da49453af6e1b39b3c6fc8c1"
+    },
+    {
+      "path": "out/hil-two-day-oct12-control/start-hil.ps1",
+      "sha256": "9e0c39b2c2be792f78016e78ab3380583b40038f20c36b7a5b7fbb967d0b46c9"
+    },
+    {
+      "path": "out/hil-two-day-oct12-control/stop-hil.ps1",
+      "sha256": "adc61a0532554cf0bceb2c52a2e1bb7c66a0e248ac7e9c941b1acfc0ae24ef84"
+    }
+  ],
+  "checks": {
+    "rows": 192,
+    "literalScientificRowsMatchProtocol": true,
+    "blockCounts": {
+      "coldTail": 48,
+      "coldForcingTimestep": 16,
+      "seedResponse": 48,
+      "historyTimestep": 24,
+      "historyTimestepStatic": 8,
+      "pressureHistory": 32,
+      "pressureStatic": 16
+    },
+    "uniqueIds": 192,
+    "uniqueScientificConfigurations": 192,
+    "exactOct11ScientificDuplicates": [],
+    "ordinaryHistoryRows": 56,
+    "ordinaryStaticRows": 24,
+    "experimentalConstantRows": 112,
+    "registeredGroupInterleave": true,
+    "sourceParityToOct11Producer": true,
+    "unchangedPaths": [
+      "core",
+      "solver-cpu",
+      "solver-gpu",
+      "existing runner",
+      "scripts",
+      "package.json",
+      "package-lock.json",
+      "tsconfig.json"
+    ],
+    "newQueueWorkers": 12,
+    "continuedWarmWorkersPlanned": 4,
+    "format": "discovery-resume-v1",
+    "helperInspection": "Both PowerShell helpers read completely. Start binds exact Oct12 checkout/entry/campaign and creates hidden child with unique coordinator stdout/stderr/invocation/exit. Stop requires both exact entry and campaign path and stops coordinator first; warm entry is distinct. Independently parsed both with zero syntax errors; evidence helper bytes equal staging bytes.",
+    "sourceDiff": {
+      "comparedTo": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+      "approvedAddedFiles": [
+        "runner/src/hil-two-day-oct12-main.ts",
+        "runner/src/hil-two-day-oct12-roster.ts",
+        "runner/test/hil-two-day-oct12.test.ts"
+      ],
+      "existingFileChanges": []
+    },
+    "helperParseErrors": 0
+  },
+  "checksReexecuted": [
+    "Independent full literal 192-row operand reconstruction from committed plan; no author test assertions imported",
+    "Unique IDs and complete scientific signatures excluding IDs; exact Oct11 duplicate check",
+    "Exact group interleave, facet quartet and ordinary preparation pair ordering",
+    "Initial/event sigma values from separately transcribed existing table anchors and interpolation",
+    "Tracked source diff against Oct11 producer; common worker fixed controls and routing inspected",
+    "PowerShell AST parse of both helpers and hashes of staged/evidence copies"
+  ],
+  "unchangedScientificControls": {
+    "surfacePolicy": "aggregate-hv-g1h1-v6",
+    "farField": "monopole-matched",
+    "domain": "hexPrism",
+    "rngSeed": 1,
+    "noiseEpsilon": 0,
+    "relaxTol": 1e-9,
+    "divTol": 1e-7,
+    "relaxMaxSweeps": 200000
+  },
+  "limits": [
+    "No simulation, launch, stop, capacity probe, full suite or duplicate focused tests executed by reviewer.",
+    "No new real interruption/resume witness: inherited contract is unchanged; existing N64 witness remains its evidence.",
+    "Not a physical-science validation, grid/domain qualification, end-to-end runtime bound or scientific interpretation review.",
+    "Live source cleanliness, launch checkpoint reachability, actual concurrency and continued warm CPU activity remain root/operations launch checks.",
+    "Review covers accidental wrong row/source/routing and evidence loss risks; deliberate hostile runtime control excluded."
+  ],
+  "blockers": [],
+  "nonBlocking": [
+    "Remove or revise the stale Open question paragraph that still asks approval; maker launch approval is already recorded."
+  ],
+  "verdict": "no unresolved claim/evidence-corrupting blocker in reviewed scope",
+  "reviewerExecutionCorrections": [
+    "Initial diagnostic looked for track on row instead of entry and therefore incorrectly counted zero static rows. Corrected direct inspection/recount yields 24; complete literal operand/interleave comparison had already passed.",
+    "Root staged the three new files during review, making git diff include approved additions. Reviewed those additions separately; no existing tracked scientific/runtime file differs from Oct11 producer."
+  ]
+}

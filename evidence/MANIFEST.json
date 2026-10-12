@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1084,
- "totalBytes": 316964580,
+ "fileCount": 1097,
+ "totalBytes": 317009506,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -4341,6 +4341,58 @@
   "hil-two-day-design-2026-10-12/selected-budget.json": {
    "bytes": 1706,
    "sha256": "9d5bf592608edeb0904532cc17b2a8d0adee6d45c8e93f7da80688640fb7a692"
+  },
+  "hil-two-day-oct12-2026-10-12/focused-implementation-result.json": {
+   "bytes": 422,
+   "sha256": "827e888edb29e51086181741a4c8838ccc03f970525725b27f9a34a32af2ffd6"
+  },
+  "hil-two-day-oct12-2026-10-12/focused-implementation.log": {
+   "bytes": 7272,
+   "sha256": "0d371f5611facf7d500db55b8f0f1735c4933f60deb570300f256da5b635d67a"
+  },
+  "hil-two-day-oct12-2026-10-12/helper-preparation.json": {
+   "bytes": 2977,
+   "sha256": "0b6183c9828c51703c2e48a98cc678923a414fe8a36b11411e4aa63402a5f2cf"
+  },
+  "hil-two-day-oct12-2026-10-12/npm-ci-20261012T163347092Z-invocation.json": {
+   "bytes": 455,
+   "sha256": "bafb35add5d108edf0a12dbbb60d7f33f3828b467782b8bf05444a7f73884bce"
+  },
+  "hil-two-day-oct12-2026-10-12/npm-ci-20261012T163347092Z-result.json": {
+   "bytes": 2121,
+   "sha256": "c6a7333fa9093491aba3b82a181baad59f83d0bc2c421a049a742e1f6064af01"
+  },
+  "hil-two-day-oct12-2026-10-12/npm-ci-20261012T163347092Z.log": {
+   "bytes": 366,
+   "sha256": "54c8cef27fe8ed8ca1661ed10b636efb71ddf61930e67a393f810f97e6805226"
+  },
+  "hil-two-day-oct12-2026-10-12/start-hil.ps1": {
+   "bytes": 1841,
+   "sha256": "9e0c39b2c2be792f78016e78ab3380583b40038f20c36b7a5b7fbb967d0b46c9"
+  },
+  "hil-two-day-oct12-2026-10-12/stop-hil.ps1": {
+   "bytes": 1885,
+   "sha256": "adc61a0532554cf0bceb2c52a2e1bb7c66a0e248ac7e9c941b1acfc0ae24ef84"
+  },
+  "hil-two-day-oct12-2026-10-12/typecheck-implementation-result.json": {
+   "bytes": 185,
+   "sha256": "bd4ff02fe27d80570353e4963c13f1188215e3d1796aea1c551f9bbd593a5bef"
+  },
+  "hil-two-day-oct12-2026-10-12/typecheck-implementation.log": {
+   "bytes": 84,
+   "sha256": "51bcdf34980a17f4afbc6fa075186ba067a673569bc37098441f73a31b975087"
+  },
+  "hil-two-day-oct12-2026-10-12/warm-before-launch.json": {
+   "bytes": 5270,
+   "sha256": "19aba9bf7660263600eb564c4a46df4370c0df1dd9a2fc1c45bdfa6f6ca77717"
+  },
+  "hil-two-day-oct12-2026-10-12/worktree-inventory.json": {
+   "bytes": 17063,
+   "sha256": "f26e709764773b3fb8339e8ed14b5d32bc8b6a718aaa8f9db76e9113a274ad1e"
+  },
+  "hil-two-day-oct12-2026-10-12/bounded-review.json": {
+   "bytes": 4985,
+   "sha256": "93c9ea73cd408a369df22a2a2943aa59b61b4df6e7589c3ff764532b40973034"
   }
  }
 }
