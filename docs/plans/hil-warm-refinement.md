@@ -2,7 +2,7 @@
 
 - **Phase:** post-Phase-10 model-development exploration; charter section 2.5 and accepted decisions 0058, 0059 and 0060.
 - **Status:** both coarse cases complete; all four fine cases running concurrently from the unchanged scientific producer.
-- **Started / last touched:** 2026-10-08 / 2026-10-09 by Codex/GPT-6.
+- **Started / last touched:** 2026-10-08 / 2026-10-12 by Codex/GPT-6.
 - **Branch / checkout:** `codex/hil-warm-refinement`, `C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake`, from `0be1d4e`.
 - **Authority:** maker accepted the saved-data follow-up recommendation and directed proceeding. HIL owns execution; propose BLD only if representative timing supports multiple days.
 
@@ -349,3 +349,38 @@ records exact status/checkpoint observations, CPU samples and the live resource 
 This was a read-only operational check by Codex/GPT-6 with shared context; no numerical execution,
 checkpoint-payload rehash, capacity probe, pause or restart. Source remains clean at `838c294`.
 Continue existing workers; size progress does not give a reliable linear completion ETA.
+
+## Status and cost-planning concern — 2026-10-12
+
+At `2026-10-12T15:54:25.8004919Z` (08:54 PDT), the four original workers remain live and advance
+CPU over a five-second observation. Thin-broad is extent 41 / update 1009; thin-early 39 / 850;
+thick-broad 39 / 923; thick-early 41 / 852; all target 57. Current checkpoint metadata reports
+converged relaxation and no integrity errors; worker/coordinator stderr is empty. No terminal
+result/current-attempt exit exists. Primary
+`out/status-current-hil-20261012T155425800Z/warm-status.json` records this bounded operational check.
+
+The maker challenged the unplanned multi-day cost. The original plan explicitly left mature cost
+unmeasured; its resource-prefix probe and restart proof never supplied an end-to-end time forecast.
+That was a planning gap: safe resumability and an unrestricted scientific endpoint do not establish
+an acceptable compute commitment. The continuing status notes did not adequately correct the
+expectation that the remaining work might take only another day. These four jobs entered parallel
+execution on October 9; the separate 102-case October 11 queue has already finished in about twenty
+hours. Do not conflate their cost or progress.
+
+The existing snapshots give 73.026 hours elapsed in parallel at the status observation. Across
+roughly 21-hour and 26-hour observation windows, constant-extent-rate arithmetic gives illustrative
+additional time of 68–84 hours for thin-broad, 47–58 for thin-early, 63–77 for thick-broad and 51–56
+for thick-early. These are not reliable ETA bounds: extent advances discretely, geometry and
+relaxation cost change, and contention has changed as other work completed. They support planning
+for additional days, not a few remaining hours. Exact inputs, formula and limitations are in primary
+`out/status-current-hil-20261012T155425800Z/warm-pace-calculation.json`.
+
+Next: discuss continuation versus a resumable pause before committing further work. The recommendation
+is to pause these four rows using their existing completed-cycle checkpoints while reviewing the
+102 newly completed cases, then reassess the value of finishing this refinement. The maker's choice
+is pending; the question does not authorize a stop. For the next
+scientific dispatch, present the scientific value, estimated elapsed range and uncertainty before
+launch; unknown mature cost must be an explicit planning choice. Reuse existing measurements,
+without another capacity ladder, a new governance file or an arbitrary scientific wall cutoff.
+No pause, restart, target change or new run was requested or performed in this status exchange;
+the four workers continue while the maker considers the cost. Saved completed cycles remain resumable.

@@ -1,8 +1,8 @@
 # Plan — HIL October 11 queued exploration
 
 - **Phase:** active Phase 10 model development, charter sections 2.5 and 3.2; accepted ADRs 0011, 0055, 0060 and 0062.
-- **Status:** 17 checked size endpoints, twelve running and 73 queued at 11:59 PDT on October 11; four warm workers continue separately.
-- **Started / last touched:** 2026-10-11 by Codex/GPT-6.
+- **Status:** all 102 size endpoints complete and operationally checked; matched analysis and NAS preservation pending. Four warm workers continue separately.
+- **Started / last touched:** 2026-10-11 / 2026-10-12 by Codex/GPT-6.
 - **Branch / checkout:** `codex/hil-large-batch-oct11`, `C:/Users/biao3/.codex/worktrees/hil-large-batch-oct11/snowflake`, from `74ad14a`.
 - **Authority:** maker requests a large batch alongside the four remaining warm runs, with roughly another day of useful work. Run on HIL; no production wall deadline.
 
@@ -265,12 +265,35 @@ errors and current stderr is empty. Actual concurrency remains sixteen. Continue
 queues; no probe, restart, new simulation or production-source change was performed for this check.
 Completion timing remains uncertain; size fraction is not elapsed-work fraction.
 
+## Completion observed — 2026-10-12
+
+The coordinator finished at `2026-10-12T10:39:28.072Z` (03:39 PDT), with exit zero, no abort and
+no unstarted rows. Elapsed coordinator time was about 19 hours 55 minutes. At
+`2026-10-12T15:54:17.998Z` (08:54 PDT), `summarizeFirstBatchRow` independently rechecked all 102
+terminal rows: 102 extent-29 size endpoints, zero invalid/failed rows. All registered blocks are
+complete: cold 48/48, seed 16/16, history 24/24, static 6/6 and timestep 8/8. No queue workers remain;
+worker/coordinator stderr is empty. The concise tracked result is
+`evidence/hil-large-batch-2026-10-11/completion-status-2026-10-12.json`; full operational snapshots
+are primary `out/status-current-hil-20261012T155416Z/{queue-status,queue-processes}.json`.
+
+Execution completion is not completion of the registered scientific readout. Next: perform the
+matched comparisons and governed NAS publication/fresh recovery before closing this checkout.
+Keep the producer fixed at `5a00e901` and useful bulk output local until that recovery is verified.
+The four separate warm runs remain active; their cost-planning concern is recorded in the warm plan.
+
+This status-only record passed `npx.cmd vitest run runner/test/evidence-integrity.test.ts
+runner/test/progress-index.test.ts` (18 tests, exit zero) and `npm.cmd run lint:rule7` (exit zero).
+Logs are primary `out/status-current-hil-20261012T155416Z/status-metadata-check.log` and
+`status-rule7-check.log` in the same directory. The scoped diff check passed. These checks cover
+the changed records and manifest; they are not a full-suite or scientific-gate result.
+
 ## Steps
 
 - [x] Select finite matched blocks and commit protocol before implementation.
 - [x] Add roster/thin entry; focused checks, both typechecks and bounded review.
 - [x] Publish fixed producer, launch twelve workers, verify checkpoints and warm progress.
-- [ ] Reconcile terminal dispositions, perform registered readouts and preserve useful outputs.
+- [x] Reconcile all 102 terminal dispositions with the existing operational checker.
+- [ ] Perform registered readouts and preserve useful outputs through governed NAS recovery.
 
 ## Tried and rejected
 
