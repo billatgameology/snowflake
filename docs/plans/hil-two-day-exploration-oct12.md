@@ -1,8 +1,8 @@
 # Plan — HIL two-day exploration
 
 - **Phase:** active Phase 10 model development; charter sections 2.5 and 3.2, accepted ADRs 0011, 0055, 0060 and 0062.
-- **Status:** launched from fixed producer 0161a51; 39/192 checked endpoints; twelve new and four warm workers advancing at 18:39-18:40 PDT.
-- **Started / last touched:** 2026-10-12 by Codex/GPT-6.
+- **Status:** launched from fixed producer 0161a51; 102/192 checked endpoints and one solver failure; twelve new and four warm workers advancing October 13 at 07:15 PDT.
+- **Started / last touched:** 2026-10-12 / 2026-10-13 by Codex/GPT-6.
 - **Authority:** maker chose to keep the four warm runs active and requested useful parallel exploration for roughly the next two days. After reviewing the 192-case scope and 43/54-hour planning scenarios, the maker directed “proceed with new wave.”
 
 ## Goal and done when
@@ -297,3 +297,40 @@ continued cost review, then governed NAS preservation before closing any output-
 Status-record verification: evidence-integrity/progress-index checks passed 18 tests, Rule 7
 and staged whitespace checks passed. Exact commands, exits and unique logs are primary
 `out/status-2026-10-12-evening/{metadata-check,rule7-check}{.log,-result.json}`.
+
+## Morning status — 2026-10-13
+
+At 07:15 PDT, the [wave observation](../../evidence/hil-two-day-oct12-2026-10-12/status-2026-10-13-morning-wave.json)
+rederived 102 size endpoints and one invalid solver-error result with the existing terminal-row
+checker. Twelve workers remain live and 77 cases are queued. Completed blocks are cold tail
+24/48, cold forcing/timestep 16/16, seed 23/48, history timestep 18/32 and pressure/history
+21/48, with the failure in pressure/history. Active worker and coordinator stderr are empty;
+all twelve active rows have converged current/previous checkpoint metadata, no recorded integrity
+errors and advancing CPU. Empty stderr does not imply success: the failed row records its error
+in `result.json` and exits nonzero.
+
+Row `oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1` exited one at 00:19 PDT
+with `solver-error`: aggregate boundary solve did not converge, cell 145376, `sigma_b 1e-323`
+versus iterate zero. It had completed 414 updates at extent 21; generations 414/413 remain
+with clean completed-cycle metadata. This is a near-zero numerical failure observation, not a
+diagnosed cause or invalidation of every other case. Next: inspect the boundary iteration
+and reproduce the saved failure in isolation before deciding a correction/rerun protocol.
+Do not relax the convergence contract or modify the running producer; no retry was performed.
+
+At 21.591 elapsed hours, successful completed cases consumed 242.455 worker-hours versus
+264.586 budgeted for those same cases. The fully completed cold forcing/timestep block used
+46.307 versus 40.658 worker-hours (13.9% above its estimate). Other completed blocks remain
+below their corresponding budgets, but this selected prefix cannot bound remaining tails.
+The original 43.264/54.080-hour scenarios remain provisional, and failure recovery is separate.
+
+The [warm observation](../../evidence/hil-two-day-oct12-2026-10-12/status-2026-10-13-morning-warm.json)
+at 07:15 PDT records extents 45/41/43/43 against 57 and updates 1223/1087/1141/1082, in
+thin-broad/thin-early/thick-broad/thick-early order. Each grew two extent units since evening.
+All four original workers and coordinator are live, CPU advances, checkpoint metadata converges
+without recorded integrity errors, and no terminal results, exits or stderr are present.
+Both execution producers remain clean and fixed. No pause, restart, capacity probe or new
+simulation was performed for this operational status check. No reliable warm ETA is established.
+
+Status-record checks passed: evidence-integrity/progress-index 18 tests, Rule 7 and staged
+whitespace. Exact commands, real exits and unique logs are primary
+`out/status-2026-10-13-morning/{metadata-check,rule7-check}{.log,-result.json}`.
