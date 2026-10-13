@@ -1,7 +1,7 @@
 # Plan — HIL two-day exploration
 
 - **Phase:** active Phase 10 model development; charter sections 2.5 and 3.2, accepted ADRs 0011, 0055, 0060 and 0062.
-- **Status:** launched from fixed producer 0161a51; twelve new workers and four warm workers observed advancing at 09:41 PDT.
+- **Status:** launched from fixed producer 0161a51; 39/192 checked endpoints; twelve new and four warm workers advancing at 18:39-18:40 PDT.
 - **Started / last touched:** 2026-10-12 by Codex/GPT-6.
 - **Authority:** maker chose to keep the four warm runs active and requested useful parallel exploration for roughly the next two days. After reviewing the 192-case scope and 43/54-hour planning scenarios, the maker directed “proceed with new wave.”
 
@@ -268,3 +268,32 @@ passed, exit zero. Exact command/time/exit receipts and unique logs are primary
 Scoped staged whitespace check passed. Prepublication worktree inspection found all five
 execution checkouts clean at their fixed producers; their ignored output remains independently
 owned and retained. Primary includes only this status, the plan and the pinned startup receipt.
+
+## Evening status — 2026-10-12
+
+At 18:40 PDT, the [wave observation](../../evidence/hil-two-day-oct12-2026-10-12/status-evening-wave.json)
+rederived 39 size endpoints using the existing `summarizeFirstBatchRow` on terminal rows only:
+zero invalid/failed rows, twelve live workers and 141 queued. Counts by registered block are
+cold tail 10/48, cold forcing/timestep 6/16, seed 8/48, history timestep 7/32 and pressure/history 8/48.
+All twelve live rows have current/previous completed-cycle checkpoints with converged metadata,
+no integrity errors, advancing CPU and empty stderr; coordinator 24256 is live without errors.
+This is operational endpoint checking, not a matched scientific interpretation.
+
+After 9.012 elapsed hours, completed rows consumed 87.751 worker-hours versus 99.334 budgeted
+for those same rows. The block actual/budget worker-hours are cold tail 18.252/20.867,
+cold forcing/timestep 13.381/13.732, seed 17.845/17.302, history timestep 21.295/30.077 and
+pressure/history 16.979/17.356. These are a selected completed prefix; remaining conditions
+and active tails may differ. No new completion-time bound is established. Keep the original
+43.264/54.080-hour scenarios explicit and compare again as later blocks finish.
+
+The [18:39 warm observation](../../evidence/hil-two-day-oct12-2026-10-12/status-evening-warm.json)
+records all four original workers advancing, with extents 43/39/41/41 against target 57,
+in thin-broad/thin-early/thick-broad/thick-early order. Current updates are 1106/942/1018/951.
+Current/previous checkpoint metadata reports convergence and no integrity errors; no terminal
+results, attempt exits or stderr. This check neither restarts work nor establishes a warm ETA.
+Both active producers remain clean and fixed. Next action remains the registered readout and
+continued cost review, then governed NAS preservation before closing any output-owning checkout.
+
+Status-record verification: evidence-integrity/progress-index checks passed 18 tests, Rule 7
+and staged whitespace checks passed. Exact commands, exits and unique logs are primary
+`out/status-2026-10-12-evening/{metadata-check,rule7-check}{.log,-result.json}`.
