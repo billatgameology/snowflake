@@ -1,0 +1,362 @@
+{
+  "schema": "warm-reboot-live-observation-v1",
+  "capturedUtc": "2026-10-14T22:59:14.001Z",
+  "preflight": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\reboot-recovery-2026-10-14\\warm-preflight.json",
+  "source": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+  "trackedCheckoutClean": true,
+  "launch": {
+    "coordinatorPid": 12464,
+    "wrapperPid": 14516,
+    "startedUtc": "2026-10-14T22:53:08.6790469Z",
+    "invocation": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\reboot-resume-20261014T225308622Z-invocation.json",
+    "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\reboot-resume-20261014T225308622Z.stdout.log",
+    "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\reboot-resume-20261014T225308622Z.stderr.log",
+    "exit": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\reboot-resume-20261014T225308622Z-exit.json"
+  },
+  "cpuObservation": {
+    "startUtc": "2026-10-14T22:59:08.292Z",
+    "cpuBefore": [
+      {
+        "Id": 3000,
+        "CPU": 356.3125,
+        "WorkingSet64": 344080384
+      },
+      {
+        "Id": 10660,
+        "CPU": 356.546875,
+        "WorkingSet64": 275406848
+      },
+      {
+        "Id": 10896,
+        "CPU": 356.171875,
+        "WorkingSet64": 275210240
+      },
+      {
+        "Id": 19620,
+        "CPU": 356.09375,
+        "WorkingSet64": 276058112
+      }
+    ],
+    "cpuAfter": [
+      {
+        "Id": 3000,
+        "CPU": 361.65625,
+        "WorkingSet64": 344129536
+      },
+      {
+        "Id": 10660,
+        "CPU": 361.84375,
+        "WorkingSet64": 275406848
+      },
+      {
+        "Id": 10896,
+        "CPU": 361.4375,
+        "WorkingSet64": 275210240
+      },
+      {
+        "Id": 19620,
+        "CPU": 361.4375,
+        "WorkingSet64": 276058112
+      }
+    ]
+  },
+  "rows": [
+    {
+      "rowId": "warm-refine-fine-thin-t4p5-broad",
+      "pid": 3000,
+      "attemptName": "parallel-1792018388972",
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\runner\\src\\hil-warm-refinement-main.ts",
+        "resume-row",
+        "warm-refine-fine-thin-t4p5-broad",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad"
+      ],
+      "savedTick": 1383,
+      "currentTick": 1384,
+      "previousTick": 1383,
+      "advancedFromSaved": true,
+      "current": {
+        "directory": "generation-1384-ff7f6af3-c7c9-440d-ba26-df66437a8b0e",
+        "manifestSha256": "08fbf7677e703db4a436e5dc12768ac6206d3456f20df376d6694250f3f6b94a"
+      },
+      "previous": {
+        "directory": "generation-1383-2d626c41-f7d4-4723-be70-9a4c5bb2134f",
+        "manifestSha256": "352c40431cd0eacea2d4be296df5d96c46a6970ef358762c08c25b3ef8af43e0"
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "rowId": "warm-refine-fine-thin-t4p5-broad",
+        "cycle": 1384,
+        "attachedCount": 30725,
+        "extent": 49,
+        "totalSweeps": 18344745,
+        "simTimeSeconds": 45.207118255018216,
+        "wallSeconds": 420525.13200000004,
+        "peakRssBytes": 498642944,
+        "updatedAt": "2026-10-14T22:58:16.402Z"
+      },
+      "allRelaxationsConverged": true,
+      "integrityErrors": [],
+      "stderrBytes": 0,
+      "stdoutPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\attempts\\parallel-1792018388972\\stdout.log",
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\attempts\\parallel-1792018388972\\stderr.log",
+      "stdoutTail": [
+        "2026-10-14T22:55:37.865Z relax row=warm-refine-fine-thin-t4p5-broad cycle=1384 sweeps=6144 residual=3.1811761301313045e-9 divergence=0.00003473740215136594",
+        "2026-10-14T22:56:52.667Z relax row=warm-refine-fine-thin-t4p5-broad cycle=1384 sweeps=9216 residual=2.0070429371963514e-10 divergence=0.000002191489165727593",
+        "2026-10-14T22:58:07.582Z relax row=warm-refine-fine-thin-t4p5-broad cycle=1384 sweeps=12288 residual=1.2661939398207601e-11 divergence=1.3825737987156659e-7"
+      ],
+      "cpuDeltaSeconds": 5.34375,
+      "attemptExitExists": false,
+      "terminalResultExists": false,
+      "recovery": {
+        "recoveredAt": "2026-10-14T22:53:10.832Z",
+        "checkpoint": {
+          "directory": "generation-1383-2d626c41-f7d4-4723-be70-9a4c5bb2134f",
+          "manifestSha256": "352c40431cd0eacea2d4be296df5d96c46a6970ef358762c08c25b3ef8af43e0"
+        },
+        "retainedEventBytes": 5754086,
+        "preservedTailBytes": 0,
+        "preservedFiles": [
+          "exit.json",
+          "status.json"
+        ]
+      }
+    },
+    {
+      "rowId": "warm-refine-fine-thin-t4p5-early",
+      "pid": 10660,
+      "attemptName": "parallel-1792018388972",
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\runner\\src\\hil-warm-refinement-main.ts",
+        "resume-row",
+        "warm-refine-fine-thin-t4p5-early",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early"
+      ],
+      "savedTick": 1247,
+      "currentTick": 1248,
+      "previousTick": 1247,
+      "advancedFromSaved": true,
+      "current": {
+        "directory": "generation-1248-47b7d2c8-96d7-4f7d-ae6d-ba2252258952",
+        "manifestSha256": "ebd2eef80ec84d7808e212edbaf212625e7079b3865d51ea77fabc8fe96eb438"
+      },
+      "previous": {
+        "directory": "generation-1247-5ca14fb5-2947-4ead-b257-ec80835cc2a9",
+        "manifestSha256": "1f3d27262459b3b8b798f9376be446afb006dee9966b79f8c0d3ec53b6f44045"
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thin-t4p5-early",
+        "cycle": 1248,
+        "attachedCount": 27837,
+        "extent": 41,
+        "totalSweeps": 17766886,
+        "simTimeSeconds": 35.656509913860525,
+        "wallSeconds": 402899.405,
+        "peakRssBytes": 475250688,
+        "updatedAt": "2026-10-14T22:58:38.519Z"
+      },
+      "allRelaxationsConverged": true,
+      "integrityErrors": [],
+      "stderrBytes": 0,
+      "stdoutPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\attempts\\parallel-1792018388972\\stdout.log",
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\attempts\\parallel-1792018388972\\stderr.log",
+      "stdoutTail": [
+        "2026-10-14T22:56:43.734Z relax row=warm-refine-fine-thin-t4p5-early experimentId=post-phase10-basal-width-history-v1 experimentalBasalWidthCells=6 experimentalBasalWidthHistory=early-only cutoffSeconds=20 cycle=1248 sweeps=9216 residual=6.065216487485916e-10 divergence=0.00001048301352052612",
+        "2026-10-14T22:57:55.834Z relax row=warm-refine-fine-thin-t4p5-early experimentId=post-phase10-basal-width-history-v1 experimentalBasalWidthCells=6 experimentalBasalWidthHistory=early-only cutoffSeconds=20 cycle=1248 sweeps=12288 residual=3.27213821881566e-11 divergence=5.655737277534376e-7",
+        "2026-10-14T22:59:02.659Z relax row=warm-refine-fine-thin-t4p5-early experimentId=post-phase10-basal-width-history-v1 experimentalBasalWidthCells=6 experimentalBasalWidthHistory=early-only cutoffSeconds=20 cycle=1249 sweeps=1024 residual=0.000001687883980088933 divergence=0.03332802270828209"
+      ],
+      "cpuDeltaSeconds": 5.296875,
+      "attemptExitExists": false,
+      "terminalResultExists": false,
+      "recovery": {
+        "recoveredAt": "2026-10-14T22:53:10.830Z",
+        "checkpoint": {
+          "directory": "generation-1247-5ca14fb5-2947-4ead-b257-ec80835cc2a9",
+          "manifestSha256": "1f3d27262459b3b8b798f9376be446afb006dee9966b79f8c0d3ec53b6f44045"
+        },
+        "retainedEventBytes": 5937804,
+        "preservedTailBytes": 0,
+        "preservedFiles": [
+          "exit.json",
+          "status.json"
+        ]
+      }
+    },
+    {
+      "rowId": "warm-refine-fine-thick-t4p5-broad",
+      "pid": 10896,
+      "attemptName": "parallel-1792018388972",
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\runner\\src\\hil-warm-refinement-main.ts",
+        "resume-row",
+        "warm-refine-fine-thick-t4p5-broad",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad"
+      ],
+      "savedTick": 1297,
+      "currentTick": 1298,
+      "previousTick": 1297,
+      "advancedFromSaved": true,
+      "current": {
+        "directory": "generation-1298-8b1ee54e-e8cd-48bb-a543-cc0760669686",
+        "manifestSha256": "ddd61aee0a4d83fbe1528a0527cffc3ee40abbbe3bdd9add0857459cc45eaa22"
+      },
+      "previous": {
+        "directory": "generation-1297-20c86504-ebfa-4e05-95ee-a7400c8044f3",
+        "manifestSha256": "d232f967342cacdfd01c4c5e5f43ae9bf70d74574e42d4e68aa30b8d0185af61"
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "rowId": "warm-refine-fine-thick-t4p5-broad",
+        "cycle": 1298,
+        "attachedCount": 28567,
+        "extent": 45,
+        "totalSweeps": 17545385,
+        "simTimeSeconds": 42.502236144259754,
+        "wallSeconds": 402776.614,
+        "peakRssBytes": 482430976,
+        "updatedAt": "2026-10-14T22:58:31.787Z"
+      },
+      "allRelaxationsConverged": true,
+      "integrityErrors": [],
+      "stderrBytes": 0,
+      "stdoutPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\attempts\\parallel-1792018388972\\stdout.log",
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\attempts\\parallel-1792018388972\\stderr.log",
+      "stdoutTail": [
+        "2026-10-14T22:55:34.625Z relax row=warm-refine-fine-thick-t4p5-broad cycle=1298 sweeps=6144 residual=6.7241194608209985e-9 divergence=0.00008497012308673993",
+        "2026-10-14T22:56:47.485Z relax row=warm-refine-fine-thick-t4p5-broad cycle=1298 sweeps=9216 residual=4.173148452316603e-10 divergence=0.000005269787692790873",
+        "2026-10-14T22:58:00.696Z relax row=warm-refine-fine-thick-t4p5-broad cycle=1298 sweeps=12288 residual=2.5885158214420143e-11 divergence=3.268664204805041e-7"
+      ],
+      "cpuDeltaSeconds": 5.265625,
+      "attemptExitExists": false,
+      "terminalResultExists": false,
+      "recovery": {
+        "recoveredAt": "2026-10-14T22:53:10.830Z",
+        "checkpoint": {
+          "directory": "generation-1297-20c86504-ebfa-4e05-95ee-a7400c8044f3",
+          "manifestSha256": "d232f967342cacdfd01c4c5e5f43ae9bf70d74574e42d4e68aa30b8d0185af61"
+        },
+        "retainedEventBytes": 5386062,
+        "preservedTailBytes": 0,
+        "preservedFiles": [
+          "exit.json",
+          "status.json"
+        ]
+      }
+    },
+    {
+      "rowId": "warm-refine-fine-thick-t4p5-early",
+      "pid": 19620,
+      "attemptName": "parallel-1792018388972",
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\runner\\src\\hil-warm-refinement-main.ts",
+        "resume-row",
+        "warm-refine-fine-thick-t4p5-early",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early"
+      ],
+      "savedTick": 1244,
+      "currentTick": 1245,
+      "previousTick": 1244,
+      "advancedFromSaved": true,
+      "current": {
+        "directory": "generation-1245-7fb89a9d-b0bc-4b34-a672-896c5daa9318",
+        "manifestSha256": "78deb1252c6924a19a26b99da0a642be23a2d9181b3631cd5586944311fe3413"
+      },
+      "previous": {
+        "directory": "generation-1244-3bfe61b6-e4f9-424e-9c8d-ccf1a294c031",
+        "manifestSha256": "432a4d16042e41cdb6bd353a50854fb7dfbb3d0bba164ff4be4ca61f5bc35fa8"
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thick-t4p5-early",
+        "cycle": 1245,
+        "attachedCount": 27563,
+        "extent": 43,
+        "totalSweeps": 17735641,
+        "simTimeSeconds": 34.87246299122991,
+        "wallSeconds": 402733.72099999996,
+        "peakRssBytes": 472584192,
+        "updatedAt": "2026-10-14T22:58:37.781Z"
+      },
+      "allRelaxationsConverged": true,
+      "integrityErrors": [],
+      "stderrBytes": 0,
+      "stdoutPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\attempts\\parallel-1792018388972\\stdout.log",
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\attempts\\parallel-1792018388972\\stderr.log",
+      "stdoutTail": [
+        "2026-10-14T22:56:45.536Z relax row=warm-refine-fine-thick-t4p5-early experimentId=post-phase10-basal-width-history-v1 experimentalBasalWidthCells=6 experimentalBasalWidthHistory=early-only cutoffSeconds=20 cycle=1245 sweeps=9216 residual=5.46249645311042e-10 divergence=0.000009484038596251674",
+        "2026-10-14T22:57:58.267Z relax row=warm-refine-fine-thick-t4p5-early experimentId=post-phase10-basal-width-history-v1 experimentalBasalWidthCells=6 experimentalBasalWidthHistory=early-only cutoffSeconds=20 cycle=1245 sweeps=12288 residual=2.87640281963301e-11 divergence=4.9942273260899e-7",
+        "2026-10-14T22:59:01.826Z relax row=warm-refine-fine-thick-t4p5-early experimentId=post-phase10-basal-width-history-v1 experimentalBasalWidthCells=6 experimentalBasalWidthHistory=early-only cutoffSeconds=20 cycle=1246 sweeps=1024 residual=2.714466300911832e-7 divergence=0.004614250810578486"
+      ],
+      "cpuDeltaSeconds": 5.34375,
+      "attemptExitExists": false,
+      "terminalResultExists": false,
+      "recovery": {
+        "recoveredAt": "2026-10-14T22:53:10.826Z",
+        "checkpoint": {
+          "directory": "generation-1244-3bfe61b6-e4f9-424e-9c8d-ccf1a294c031",
+          "manifestSha256": "432a4d16042e41cdb6bd353a50854fb7dfbb3d0bba164ff4be4ca61f5bc35fa8"
+        },
+        "retainedEventBytes": 5897168,
+        "preservedTailBytes": 0,
+        "preservedFiles": [
+          "exit.json",
+          "status.json"
+        ]
+      }
+    }
+  ],
+  "allFourLiveAndAdvancingCpu": true,
+  "allFourAdvancedCheckpoint": true,
+  "coordinatorStderrBytes": 0,
+  "coordinatorExitExists": false,
+  "resourcePath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\warm-refinement-HIL-parallel-1792018388972-resources.jsonl",
+  "resource": {
+    "capturedUtc": "2026-10-14T22:59:12.2430441Z",
+    "availablePhysicalBytes": 52088532992,
+    "commitHeadroomBytes": 56211693568,
+    "children": [
+      {
+        "Id": 3000,
+        "CPU": 358.578125,
+        "WorkingSet64": 344080384,
+        "PeakWorkingSet64": 372793344
+      },
+      {
+        "Id": 10660,
+        "CPU": 358.765625,
+        "WorkingSet64": 275406848,
+        "PeakWorkingSet64": 348844032
+      },
+      {
+        "Id": 10896,
+        "CPU": 358.40625,
+        "WorkingSet64": 275210240,
+        "PeakWorkingSet64": 347738112
+      },
+      {
+        "Id": 19620,
+        "CPU": 358.359375,
+        "WorkingSet64": 276058112,
+        "PeakWorkingSet64": 348590080
+      }
+    ]
+  },
+  "scope": "Preflight used full current-generation byte/semantic loader checks. This live observation reads small checkpoint metadata, process CPU and attempt logs, without payload rehash, numerical tests or capacity probes. Existing producer performs verified restore before emitting its start line and advancing."
+}

@@ -1,0 +1,9 @@
+﻿{
+    "coordinatorPid":  12464,
+    "wrapperPid":  14516,
+    "startedUtc":  "2026-10-14T22:53:08.6790469Z",
+    "invocation":  "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\reboot-resume-20261014T225308622Z-invocation.json",
+    "stdout":  "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\reboot-resume-20261014T225308622Z.stdout.log",
+    "stderr":  "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\reboot-resume-20261014T225308622Z.stderr.log",
+    "exit":  "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\reboot-resume-20261014T225308622Z-exit.json"
+}

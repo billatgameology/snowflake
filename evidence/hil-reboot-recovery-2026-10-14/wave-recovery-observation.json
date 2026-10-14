@@ -1,0 +1,546 @@
+{
+  "capturedUtc": "2026-10-14T22:56:34.672Z",
+  "source": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+  "trackedCheckoutClean": true,
+  "wrapper": {
+    "source": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+    "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\campaign-reboot-resume-20261014T155416947.stderr.log",
+    "wrapperPid": 6192,
+    "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\campaign-reboot-resume-20261014T155416947.stdout.log",
+    "command": [
+      "node",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\resume-reboot-oct14.mjs",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\runner\\src\\hil-two-day-oct12-main.ts",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12"
+    ],
+    "mode": "reboot-resume",
+    "coordinatorPid": 344,
+    "PSModulePath": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+    "startedUtc": "2026-10-14T22:54:16.9473408Z"
+  },
+  "launch": {
+    "schema": "post-phase10-discovery-launch-v1",
+    "launchName": "hil-two-day-oct12-HIL-reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0",
+    "gitHead": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+    "node": "v24.13.1",
+    "attemptName": "reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0",
+    "resumeExistingRows": true,
+    "requestedConcurrency": 4,
+    "rowIds": [
+      "oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-nodip",
+      "oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-nodip",
+      "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-nodip",
+      "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-nodip"
+    ],
+    "exactWorkerCommandTemplate": "Exact row-specific command is recorded in each rows/<row-id>/process.json and its named attempt",
+    "launchedAt": "2026-10-14T22:54:17.232Z"
+  },
+  "invocation": {
+    "source": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+    "operationalPlanCommit": "f6495b1",
+    "command": [
+      "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\resume-reboot-oct14.mjs",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\runner\\src\\hil-two-day-oct12-main.ts",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12"
+    ],
+    "pid": 344,
+    "startedAt": "2026-10-14T22:54:17.227Z",
+    "requestedConcurrency": 4,
+    "originalCampaignSha256": "046afddb59ed042e09c4d6d3deb25ae8fa51ca04bae31e1fc55573ca4d912cc5",
+    "operationalScriptSha256": "88ddbbad63301e327098a5f1522f06f92acdf8b673d261ffa6031b7a3e716fc8",
+    "excludedCompletedRows": 187,
+    "heldSolverFailure": "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1",
+    "pending": [
+      {
+        "rowId": "oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-nodip",
+        "command": "resume-row",
+        "previousCheckpoint": {
+          "schema": "discovery-row-resume-pointer-v1",
+          "current": {
+            "directory": "generation-1227-aaca5f86-a65c-42bd-99b3-c5eb7ac7ef84",
+            "manifestSha256": "afa467faf07181694c027a5e33c89f3c267653f5c855d0505ffa8931fcf5044d"
+          },
+          "previous": {
+            "directory": "generation-1226-93c77e4a-a469-4b64-92b0-817eec514144",
+            "manifestSha256": "1d445ab2414b2352efc3f58e31e5283dc88e4350cd8b25734cb55cab3fa6c516"
+          }
+        },
+        "previousStatus": {
+          "schema": "post-phase10-discovery-status-v1",
+          "rowId": "oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-nodip",
+          "cycle": 1227,
+          "attachedCount": 7175,
+          "extent": 23,
+          "totalSweeps": 2758127,
+          "simTimeSeconds": 16.39245166025318,
+          "wallSeconds": 9516.89,
+          "peakRssBytes": 315662336,
+          "updatedAt": "2026-10-14T06:44:55.256Z"
+        }
+      },
+      {
+        "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-nodip",
+        "command": "resume-row",
+        "previousCheckpoint": {
+          "schema": "discovery-row-resume-pointer-v1",
+          "current": {
+            "directory": "generation-850-dc1aa6c3-bf79-4547-873d-eb0eaaef6549",
+            "manifestSha256": "fb6464f7267628a7269675a19ef6a69dd3398421de183c10b8ecdd9f08b571e6"
+          },
+          "previous": {
+            "directory": "generation-849-caf85730-16a1-4e52-aa1a-3c66d00f20b5",
+            "manifestSha256": "e8421c5a594a6f372d82572f9fb221022afe856174474edfdb2ec0cf7c63d5f7"
+          }
+        },
+        "previousStatus": {
+          "schema": "post-phase10-discovery-status-v1",
+          "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-nodip",
+          "cycle": 850,
+          "attachedCount": 12311,
+          "extent": 27,
+          "totalSweeps": 2370757,
+          "simTimeSeconds": 105.33923317121945,
+          "wallSeconds": 8844.866,
+          "peakRssBytes": 319008768,
+          "updatedAt": "2026-10-14T06:44:59.032Z"
+        }
+      },
+      {
+        "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-nodip",
+        "command": "resume-row",
+        "previousCheckpoint": {
+          "schema": "discovery-row-resume-pointer-v1",
+          "current": {
+            "directory": "generation-421-25d4fa83-fe47-48e9-8bd3-8345365a7f0f",
+            "manifestSha256": "2ce6b326ca497a281b6766718335fed5d6eef8aa04d91ba338b52733cafc7968"
+          },
+          "previous": {
+            "directory": "generation-420-c1fc8b2a-9b0b-4942-b25e-1ad0ebf4b415",
+            "manifestSha256": "77741dd189105d6cd8f1655433cd1e9b9dfe2bcf2115f3336595d19ff60667e8"
+          }
+        },
+        "previousStatus": {
+          "schema": "post-phase10-discovery-status-v1",
+          "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-nodip",
+          "cycle": 421,
+          "attachedCount": 2809,
+          "extent": 17,
+          "totalSweeps": 1334987,
+          "simTimeSeconds": 18.3846336169751,
+          "wallSeconds": 4070.421,
+          "peakRssBytes": 303329280,
+          "updatedAt": "2026-10-14T06:44:56.714Z"
+        }
+      },
+      {
+        "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-nodip",
+        "command": "resume-row",
+        "previousCheckpoint": {
+          "schema": "discovery-row-resume-pointer-v1",
+          "current": {
+            "directory": "generation-571-e3d68cf7-baff-4181-a49a-2aaab1f45c05",
+            "manifestSha256": "e9c5dd3c42ad822701f11dfe3149558413717a8b849d05d7753479aba507e4f1"
+          },
+          "previous": {
+            "directory": "generation-570-54848b8f-10b9-4a74-a1c4-49f8a9daad33",
+            "manifestSha256": "9272ec31598a85d40373b7a6956db5537543458cc7dec645de562a754a6f16a7"
+          }
+        },
+        "previousStatus": {
+          "schema": "post-phase10-discovery-status-v1",
+          "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-nodip",
+          "cycle": 571,
+          "attachedCount": 5951,
+          "extent": 21,
+          "totalSweeps": 1742970,
+          "simTimeSeconds": 8.45130894429985,
+          "wallSeconds": 5909.039,
+          "peakRssBytes": 320757760,
+          "updatedAt": "2026-10-14T06:44:57.534Z"
+        }
+      }
+    ]
+  },
+  "cpuBefore": [
+    {
+      "Id": 888,
+      "CPU": 130.328125,
+      "WorkingSet64": 168968192
+    },
+    {
+      "Id": 12472,
+      "CPU": 130.296875,
+      "WorkingSet64": 163106816
+    },
+    {
+      "Id": 12748,
+      "CPU": 130.109375,
+      "WorkingSet64": 164618240
+    },
+    {
+      "Id": 24708,
+      "CPU": 129.9375,
+      "WorkingSet64": 166735872
+    }
+  ],
+  "cpuAfter": [
+    {
+      "Id": 888,
+      "CPU": 135.640625,
+      "WorkingSet64": 168980480
+    },
+    {
+      "Id": 12472,
+      "CPU": 135.609375,
+      "WorkingSet64": 163119104
+    },
+    {
+      "Id": 12748,
+      "CPU": 135.40625,
+      "WorkingSet64": 164118528
+    },
+    {
+      "Id": 24708,
+      "CPU": 135.25,
+      "WorkingSet64": 166748160
+    }
+  ],
+  "rows": [
+    {
+      "rowId": "oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-nodip",
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "rowId": "oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-nodip",
+        "gitHead": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\runner\\src\\hil-two-day-oct12-main.ts",
+          "resume-row",
+          "oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-nodip",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-nodip"
+        ],
+        "attemptName": "reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-nodip\\attempts\\reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0",
+        "launcherPid": 344,
+        "pid": 12472,
+        "startedAt": "2026-10-14T22:54:18.771Z"
+      },
+      "savedTick": 1227,
+      "currentTick": 1241,
+      "previousTick": 1240,
+      "advancedFromSaved": true,
+      "pointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-1241-6fbb7968-a0ee-4904-b1c5-df49383001e2",
+          "manifestSha256": "5bca61e4cc2d70b9f150b5b952bc5d17396cef611af1c006f167dd3f69a0d9c9"
+        },
+        "previous": {
+          "directory": "generation-1240-07972f3e-0479-4775-b3ea-95ea36b2707a",
+          "manifestSha256": "9c87d220c57c8b9c3fdf362a3229cff4b329d81210e9b533c734fa4c8025d2bd"
+        }
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "rowId": "oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-nodip",
+        "cycle": 1241,
+        "attachedCount": 7271,
+        "extent": 23,
+        "totalSweeps": 2794542,
+        "simTimeSeconds": 16.643079653896855,
+        "wallSeconds": 9649.573,
+        "peakRssBytes": 315662336,
+        "updatedAt": "2026-10-14T22:56:31.663Z"
+      },
+      "allRelaxationsConverged": true,
+      "integrityErrors": [],
+      "terminalStopReason": null,
+      "stdoutPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-nodip\\attempts\\reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0\\stdout.log",
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-nodip\\attempts\\reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0\\stderr.log",
+      "stderrBytes": 0,
+      "stdoutTail": [
+        "2026-10-14T22:54:18.992Z start row=oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-nodip lane=followup-history dims=64 paramSet=M1_NO_DIP_ABLATION pressurePa=101325 target=29",
+        "2026-10-14T22:55:18.999Z relax row=oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-nodip cycle=1234 sweeps=1 residual=0.2430151868119593 divergence=0.5875647739628692",
+        "2026-10-14T22:56:20.160Z relax row=oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-nodip cycle=1240 sweeps=2048 residual=9.557887645660427e-10 divergence=0.0000019828386110752727"
+      ],
+      "cpuDeltaSeconds": 5.3125,
+      "attemptExitExists": false,
+      "terminalResultExists": false,
+      "recovery": {
+        "recoveredAt": "2026-10-14T22:54:18.991Z",
+        "checkpoint": {
+          "directory": "generation-1227-aaca5f86-a65c-42bd-99b3-c5eb7ac7ef84",
+          "manifestSha256": "afa467faf07181694c027a5e33c89f3c267653f5c855d0505ffa8931fcf5044d"
+        },
+        "retainedEventBytes": 3747950,
+        "preservedTailBytes": 0,
+        "preservedFiles": [
+          "exit.json",
+          "status.json"
+        ]
+      }
+    },
+    {
+      "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-nodip",
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-nodip",
+        "gitHead": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\runner\\src\\hil-two-day-oct12-main.ts",
+          "resume-row",
+          "oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-nodip",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-nodip"
+        ],
+        "attemptName": "reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-nodip\\attempts\\reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0",
+        "launcherPid": 344,
+        "pid": 24708,
+        "startedAt": "2026-10-14T22:54:18.779Z"
+      },
+      "savedTick": 850,
+      "currentTick": 863,
+      "previousTick": 862,
+      "advancedFromSaved": true,
+      "pointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-863-fb59f396-bc19-4c70-a3a3-7e9947aa3b21",
+          "manifestSha256": "78a21979c90b14db6ad2391fe71777a372ba3300bbc11a225a66a55acdebf03f"
+        },
+        "previous": {
+          "directory": "generation-862-1f0f99fc-98b8-431e-9004-42e3b4ccb235",
+          "manifestSha256": "888147087258ff2b7d480c6c876f08f7b06e36fc71dab40d7feb1e5850cb447b"
+        }
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-nodip",
+        "cycle": 863,
+        "attachedCount": 12899,
+        "extent": 27,
+        "totalSweeps": 2398592,
+        "simTimeSeconds": 106.92636172693271,
+        "wallSeconds": 8972.092,
+        "peakRssBytes": 319008768,
+        "updatedAt": "2026-10-14T22:56:26.206Z"
+      },
+      "allRelaxationsConverged": true,
+      "integrityErrors": [],
+      "terminalStopReason": null,
+      "stdoutPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-nodip\\attempts\\reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0\\stdout.log",
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-nodip\\attempts\\reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0\\stderr.log",
+      "stderrBytes": 0,
+      "stdoutTail": [
+        "2026-10-14T22:54:18.991Z start row=oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-nodip lane=followup-history dims=64 paramSet=M1_NO_DIP_ABLATION pressurePa=202650 target=29",
+        "2026-10-14T22:55:20.469Z relax row=oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-nodip cycle=857 sweeps=1024 residual=1.2084570920977666e-7 divergence=0.00020934046973818677",
+        "2026-10-14T22:56:20.515Z relax row=oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-nodip cycle=863 sweeps=1024 residual=8.958626623887939e-8 divergence=0.00015735589405704032"
+      ],
+      "cpuDeltaSeconds": 5.3125,
+      "attemptExitExists": false,
+      "terminalResultExists": false,
+      "recovery": {
+        "recoveredAt": "2026-10-14T22:54:18.990Z",
+        "checkpoint": {
+          "directory": "generation-850-dc1aa6c3-bf79-4547-873d-eb0eaaef6549",
+          "manifestSha256": "fb6464f7267628a7269675a19ef6a69dd3398421de183c10b8ecdd9f08b571e6"
+        },
+        "retainedEventBytes": 3082640,
+        "preservedTailBytes": 0,
+        "preservedFiles": [
+          "exit.json",
+          "status.json"
+        ]
+      }
+    },
+    {
+      "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-nodip",
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-nodip",
+        "gitHead": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\runner\\src\\hil-two-day-oct12-main.ts",
+          "resume-row",
+          "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-nodip",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-nodip"
+        ],
+        "attemptName": "reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-nodip\\attempts\\reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0",
+        "launcherPid": 344,
+        "pid": 888,
+        "startedAt": "2026-10-14T22:54:18.787Z"
+      },
+      "savedTick": 421,
+      "currentTick": 434,
+      "previousTick": 433,
+      "advancedFromSaved": true,
+      "pointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-434-74147da4-2a15-4212-98d6-8bf256d5ad02",
+          "manifestSha256": "ee4e16cbfb71e86abb8ad32b29b927e0a09974bae5c035cd092ef9439c5831e5"
+        },
+        "previous": {
+          "directory": "generation-433-a99351c2-07d8-4c3b-9ccc-fe57cf4f9d70",
+          "manifestSha256": "4437805c304c76fb925b377ad5d14a63d32c6d0a66e77cd25490d30c53cfb843"
+        }
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-nodip",
+        "cycle": 434,
+        "attachedCount": 3133,
+        "extent": 19,
+        "totalSweeps": 1377648,
+        "simTimeSeconds": 19.243736192994877,
+        "wallSeconds": 4195.391,
+        "peakRssBytes": 303329280,
+        "updatedAt": "2026-10-14T22:56:23.961Z"
+      },
+      "allRelaxationsConverged": true,
+      "integrityErrors": [],
+      "terminalStopReason": null,
+      "stdoutPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-nodip\\attempts\\reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0\\stdout.log",
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-nodip\\attempts\\reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0\\stderr.log",
+      "stderrBytes": 0,
+      "stdoutTail": [
+        "2026-10-14T22:54:19.002Z start row=oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-nodip lane=followup-history dims=64 paramSet=M1_NO_DIP_ABLATION pressurePa=202650 target=29",
+        "2026-10-14T22:55:20.534Z relax row=oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-nodip cycle=428 sweeps=1024 residual=1.409406678354944e-7 divergence=0.00040118779964505526",
+        "2026-10-14T22:56:21.360Z relax row=oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-nodip cycle=434 sweeps=2048 residual=1.0204689633089824e-9 divergence=0.000002965408206065179"
+      ],
+      "cpuDeltaSeconds": 5.3125,
+      "attemptExitExists": false,
+      "terminalResultExists": false,
+      "recovery": {
+        "recoveredAt": "2026-10-14T22:54:19.002Z",
+        "checkpoint": {
+          "directory": "generation-421-25d4fa83-fe47-48e9-8bd3-8345365a7f0f",
+          "manifestSha256": "2ce6b326ca497a281b6766718335fed5d6eef8aa04d91ba338b52733cafc7968"
+        },
+        "retainedEventBytes": 1306078,
+        "preservedTailBytes": 0,
+        "preservedFiles": [
+          "exit.json",
+          "status.json"
+        ]
+      }
+    },
+    {
+      "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-nodip",
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-nodip",
+        "gitHead": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\runner\\src\\hil-two-day-oct12-main.ts",
+          "resume-row",
+          "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-nodip",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-nodip"
+        ],
+        "attemptName": "reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-nodip\\attempts\\reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0",
+        "launcherPid": 344,
+        "pid": 12748,
+        "startedAt": "2026-10-14T22:54:18.794Z"
+      },
+      "savedTick": 571,
+      "currentTick": 585,
+      "previousTick": 584,
+      "advancedFromSaved": true,
+      "pointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-585-d967608f-3ea5-491e-b743-87b3432984cd",
+          "manifestSha256": "672b634bd3df05c5faa97562d816908488ff05ce447dba767ba4228e7ca340ec"
+        },
+        "previous": {
+          "directory": "generation-584-72459b25-853d-4a35-b2cd-316fcb1c7e56",
+          "manifestSha256": "cb74f62b568eb92698186ee00401b9d8891cec7522632130c21d2f1fe383f30f"
+        }
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-nodip",
+        "cycle": 585,
+        "attachedCount": 6143,
+        "extent": 21,
+        "totalSweeps": 1779014,
+        "simTimeSeconds": 8.738992722554247,
+        "wallSeconds": 6044.141,
+        "peakRssBytes": 320757760,
+        "updatedAt": "2026-10-14T22:56:34.090Z"
+      },
+      "allRelaxationsConverged": true,
+      "integrityErrors": [],
+      "terminalStopReason": null,
+      "stdoutPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-nodip\\attempts\\reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0\\stdout.log",
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-nodip\\attempts\\reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0\\stderr.log",
+      "stderrBytes": 0,
+      "stdoutTail": [
+        "2026-10-14T22:54:18.999Z start row=oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-nodip lane=followup-history dims=64 paramSet=M1_NO_DIP_ABLATION pressurePa=50662.5 target=29",
+        "2026-10-14T22:55:20.817Z relax row=oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-nodip cycle=578 sweeps=1024 residual=2.2158742056337873e-8 divergence=0.00005307602840004497",
+        "2026-10-14T22:56:24.024Z relax row=oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-nodip cycle=584 sweeps=2048 residual=2.8830005608268374e-10 divergence=6.844817900240213e-7"
+      ],
+      "cpuDeltaSeconds": 5.296875,
+      "attemptExitExists": false,
+      "terminalResultExists": false,
+      "recovery": {
+        "recoveredAt": "2026-10-14T22:54:18.998Z",
+        "checkpoint": {
+          "directory": "generation-571-e3d68cf7-baff-4181-a49a-2aaab1f45c05",
+          "manifestSha256": "e9c5dd3c42ad822701f11dfe3149558413717a8b849d05d7753479aba507e4f1"
+        },
+        "retainedEventBytes": 1917728,
+        "preservedTailBytes": 0,
+        "preservedFiles": [
+          "exit.json",
+          "status.json"
+        ]
+      }
+    }
+  ],
+  "allFourLiveAndAdvancingCpu": true,
+  "allFourAdvancedCheckpoint": true,
+  "coordinatorStderrBytes": 0,
+  "completionExists": false,
+  "resourcePath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\hil-two-day-oct12-HIL-reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0-resources.jsonl",
+  "resource": {
+    "capturedUtc": "2026-10-14T22:56:31.0372217Z",
+    "availablePhysicalBytes": 52031225856,
+    "commitHeadroomBytes": 55659671552,
+    "children": [
+      {
+        "Id": 888,
+        "CPU": 130.6875,
+        "WorkingSet64": 168968192,
+        "PeakWorkingSet64": 168968192
+      },
+      {
+        "Id": 12472,
+        "CPU": 130.65625,
+        "WorkingSet64": 163106816,
+        "PeakWorkingSet64": 163106816
+      },
+      {
+        "Id": 12748,
+        "CPU": 130.46875,
+        "WorkingSet64": 164618240,
+        "PeakWorkingSet64": 166440960
+      },
+      {
+        "Id": 24708,
+        "CPU": 130.296875,
+        "WorkingSet64": 166735872,
+        "PeakWorkingSet64": 182919168
+      }
+    ]
+  },
+  "heldResultSha256": "4b218b4f22844527b3226428767260e6bcf5d77d02e39b30f2a4e8d13ebd72d2",
+  "heldResultUnchanged": true,
+  "scope": "Preflight used existing full checkpoint loader. This live observation reads small checkpoint metadata, process CPU and logs; it does not rehash changing payloads or rerun numerical tests. New completed cycles follow successful strict producer restore."
+}

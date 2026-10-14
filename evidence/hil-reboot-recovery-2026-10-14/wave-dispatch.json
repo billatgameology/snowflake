@@ -1,0 +1,15 @@
+{
+  "startedUtc": "2026-10-14T22:54:16.7335491Z",
+  "wrapperPid": 6192,
+  "source": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+  "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\dispatch-reboot-20261014T225416715Z.stderr.log",
+  "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\dispatch-reboot-20261014T225416715Z.stdout.log",
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\resume-reboot-oct14.ps1"
+  ]
+}

@@ -1,8 +1,8 @@
 # Plan — HIL two-day exploration
 
 - **Phase:** active Phase 10 model development; charter sections 2.5 and 3.2, accepted ADRs 0011, 0055, 0060 and 0062.
-- **Status:** launched from fixed producer 0161a51; 102/192 checked endpoints and one solver failure; twelve new and four warm workers advancing October 13 at 07:15 PDT.
-- **Started / last touched:** 2026-10-12 / 2026-10-13 by Codex/GPT-6.
+- **Status:** 187/192 checked endpoints, four interrupted rows resumed and advancing, one solver failure held; fixed producer 0161a51. Four warm continuations also restarted October 14.
+- **Started / last touched:** 2026-10-12 / 2026-10-14 by Codex/GPT-6.
 - **Authority:** maker chose to keep the four warm runs active and requested useful parallel exploration for roughly the next two days. After reviewing the 192-case scope and 43/54-hour planning scenarios, the maker directed “proceed with new wave.”
 
 ## Goal and done when
@@ -383,3 +383,40 @@ from the fixed checkout. Its Node helper receives original entry and campaign pa
 arguments, preserving the existing `stop-hil.ps1` exact-path process selection. Actual recovery
 is complete when all four restored rows advance and the four warm continuations are also live;
 scientific endpoints and the held solver-failure diagnosis remain later work. No wall deadline.
+
+### Executed recovery
+
+The pinned [recovery bundle](../../evidence/hil-reboot-recovery-2026-10-14/wave-preflight.json)
+retains the host restart receipt, existing-loader preflights and all 187 independently checked
+terminal dispositions. The helper/wrapper copies and bounded shared-context Codex review
+are retained beside those receipts. Restore the helper copies into their named fixed checkout's
+`out/hil-two-day-oct12-control/` before using the exact recovery command above; never launch
+a second writer while either existing coordinator is live.
+
+Warm resumed at 15:53 PDT (coordinator 12464; workers 3000, 10660, 10896, 19620).
+The wave resumed at 15:54 PDT (coordinator 344; workers 12472, 24708, 888, 12748),
+attempt `reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0`.
+The [wave observation](../../evidence/hil-reboot-recovery-2026-10-14/wave-recovery-observation.json)
+at 15:56 PDT records updates 1227→1241, 850→863, 421→434 and 571→585,
+with extents 23/27/19/21 against target 29. The
+[warm observation](../../evidence/hil-reboot-recovery-2026-10-14/warm-recovery-observation.json)
+at 2026-10-14T22:59:14.001Z records updates 1383→1384, 1247→1248, 1297→1298, 1244→1245;
+thin-t4p5-broad: extent 49, update 1384; thin-t4p5-early: extent 41, update 1248; thick-t4p5-broad: extent 45, update 1298; thick-t4p5-early: extent 43, update 1245. All eight have advancing CPU, new completed checkpoints, converged
+metadata, no recorded integrity errors and empty stderr. Both fixed checkouts remain clean;
+the held solver-error result has its unchanged pre-recovery hash. This completes operational
+recovery, not the scientific endpoints or their interpretation.
+
+Each observation records exact row stdout/stderr, attempt command, recovery receipt and resource
+sample. Wave coordinator logs are in the fixed checkout at
+`out/hil-two-day-oct12-control/campaign-reboot-resume-20261014T155416947.{stdout,stderr}.log`;
+warm logs are in its fixed checkout at
+`out/warm-refinement-control/reboot-resume-20261014T225308622Z.{stdout,stderr}.log`.
+Real completion/exit receipts are produced by those live coordinators and wrappers when they end.
+The previously completed eight-, ten- and 102-case batches remain local and unchanged.
+Next: continue these eight rows, isolate the held numerical failure before any retry, and
+execute matched readouts plus governed NAS preservation before closing output-owning checkouts.
+
+Recovery-record checks passed: existing evidence-integrity/progress-index checks, 18 tests;
+Rule 7; scoped staged whitespace. Exact command/time/exit receipts and unique logs are primary
+`out/reboot-recovery-2026-10-14/{metadata-check,rule7-check,whitespace-check}{.log,-result.json}`.
+These check recovery metadata and prose; no full-suite or new scientific gate result is claimed.

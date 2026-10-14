@@ -1,0 +1,352 @@
+{
+  "schema": "warm-reboot-preflight-v1",
+  "capturedUtc": "2026-10-14T22:52:42.027Z",
+  "root": "C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake",
+  "source": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+  "trackedCheckoutClean": true,
+  "node": "v24.13.1",
+  "v8": "13.6.233.17-node.40",
+  "campaignDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil",
+  "campaignSha256": "407a0ae128cfd991aea8d5e3a7a98ebba27af984532c1d9f26f8f4bbb322745f",
+  "probeSha256": "859a3760d7b0583e175e70a17e0e23501938379c67c28b2de1e435ec0bd62271",
+  "originalConcurrency": 1,
+  "approvedResumeConcurrency": 4,
+  "skippedRowIds": [
+    "warm-refine-coarse-t4p5-broad",
+    "warm-refine-coarse-t4p5-early"
+  ],
+  "pendingRows": [
+    {
+      "rowId": "warm-refine-fine-thin-t4p5-broad",
+      "command": "resume-row",
+      "targetExtent": 57,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "rowId": "warm-refine-fine-thin-t4p5-broad",
+        "cycle": 1383,
+        "attachedCount": 30569,
+        "extent": 49,
+        "totalSweeps": 18332096,
+        "simTimeSeconds": 45.17765853140776,
+        "wallSeconds": 420219.541,
+        "peakRssBytes": 498642944,
+        "updatedAt": "2026-10-14T06:44:46.248Z"
+      },
+      "current": {
+        "reference": {
+          "directory": "generation-1383-2d626c41-f7d4-4723-be70-9a4c5bb2134f",
+          "manifestSha256": "352c40431cd0eacea2d4be296df5d96c46a6970ef358762c08c25b3ef8af43e0"
+        },
+        "tick": 1383,
+        "solverBytes": 34033829,
+        "solverSha256": "bcf37bba611ea5beacd381c0ee761348351e75a199ee98c9f0ce016e6738ba02",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "committedEventBytes": 5754086,
+        "uncommittedTailBytes": 0,
+        "verification": "Existing DiscoveryCheckpointStore.load: current binding, manifest, solver hash/decode, runner, event prefix and snapshot verification; recover() not called."
+      },
+      "previous": {
+        "reference": {
+          "directory": "generation-1382-0fae2dde-86d3-45ff-b0c2-0d832763f8d8",
+          "manifestSha256": "0225bf5ef11ce5596c2a29791e890ec97514ed7667beafd7e9765a1aeb4d55fb"
+        },
+        "tick": 1382,
+        "solverBytes": 34034021,
+        "solverSha256": "1ecf0ba5242472f9adce3d9e64f41050476fbda7a02ca730768c3425094f3c58",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "verification": "Manifest, solver, event prefix and snapshot byte hashes matched; existing codec decoded state; previous binding/tick agree."
+      },
+      "lastExit": {
+        "schema": "post-phase10-discovery-exit-v1",
+        "rowId": "warm-refine-fine-thin-t4p5-broad",
+        "exitCode": null,
+        "signal": "SIGTERM",
+        "startedAt": "2026-10-09T14:52:52.716Z",
+        "finishedAt": "2026-10-14T06:45:05.815Z",
+        "wallSeconds": 402733.099,
+        "termination": "resource-stop",
+        "attemptName": "parallel-1791557571381"
+      }
+    },
+    {
+      "rowId": "warm-refine-fine-thin-t4p5-early",
+      "command": "resume-row",
+      "targetExtent": 57,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thin-t4p5-early",
+        "cycle": 1247,
+        "attachedCount": 27837,
+        "extent": 41,
+        "totalSweeps": 17752774,
+        "simTimeSeconds": 35.62589014348801,
+        "wallSeconds": 402571.695,
+        "peakRssBytes": 475250688,
+        "updatedAt": "2026-10-14T06:42:24.573Z"
+      },
+      "current": {
+        "reference": {
+          "directory": "generation-1247-5ca14fb5-2947-4ead-b257-ec80835cc2a9",
+          "manifestSha256": "1f3d27262459b3b8b798f9376be446afb006dee9966b79f8c0d3ec53b6f44045"
+        },
+        "tick": 1247,
+        "solverBytes": 34033161,
+        "solverSha256": "053edeeb37c4bc0104d9a0faf637837f3ba30eba181d4441d39ade090a076d63",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "committedEventBytes": 5937804,
+        "uncommittedTailBytes": 0,
+        "verification": "Existing DiscoveryCheckpointStore.load: current binding, manifest, solver hash/decode, runner, event prefix and snapshot verification; recover() not called."
+      },
+      "previous": {
+        "reference": {
+          "directory": "generation-1246-1eeea5cb-e2e5-4e4f-a1e1-c624332fc03f",
+          "manifestSha256": "4f2a66bf605004cca93f555a1b6fabcf0d2e7790a5f82b2592126ba524706244"
+        },
+        "tick": 1246,
+        "solverBytes": 34033113,
+        "solverSha256": "5036149666d243db9415d7eb9badd942ef556f57b37c63958f030f24009926b3",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "verification": "Manifest, solver, event prefix and snapshot byte hashes matched; existing codec decoded state; previous binding/tick agree."
+      },
+      "lastExit": {
+        "schema": "post-phase10-discovery-exit-v1",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thin-t4p5-early",
+        "exitCode": null,
+        "signal": "SIGTERM",
+        "startedAt": "2026-10-09T14:52:52.725Z",
+        "finishedAt": "2026-10-14T06:45:05.799Z",
+        "wallSeconds": 402733.074,
+        "termination": "resource-stop",
+        "attemptName": "parallel-1791557571381"
+      }
+    },
+    {
+      "rowId": "warm-refine-fine-thick-t4p5-broad",
+      "command": "resume-row",
+      "targetExtent": 57,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "rowId": "warm-refine-fine-thick-t4p5-broad",
+        "cycle": 1297,
+        "attachedCount": 28567,
+        "extent": 45,
+        "totalSweeps": 17531788,
+        "simTimeSeconds": 42.46740569898587,
+        "wallSeconds": 402455.636,
+        "peakRssBytes": 482430976,
+        "updatedAt": "2026-10-14T06:40:28.524Z"
+      },
+      "current": {
+        "reference": {
+          "directory": "generation-1297-20c86504-ebfa-4e05-95ee-a7400c8044f3",
+          "manifestSha256": "d232f967342cacdfd01c4c5e5f43ae9bf70d74574e42d4e68aa30b8d0185af61"
+        },
+        "tick": 1297,
+        "solverBytes": 34031429,
+        "solverSha256": "9d0a1c9e1995e58db6dc0fbd5c29e771f065ab3bbdb9ba8e383c4b08e7a33ae2",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "committedEventBytes": 5386062,
+        "uncommittedTailBytes": 0,
+        "verification": "Existing DiscoveryCheckpointStore.load: current binding, manifest, solver hash/decode, runner, event prefix and snapshot verification; recover() not called."
+      },
+      "previous": {
+        "reference": {
+          "directory": "generation-1296-5f9244f7-8e31-43c8-856c-06e8e306f02e",
+          "manifestSha256": "a8faaff14271e3255df2e4a1bed84d67ab8a303b1df2d683421d2a38c0287391"
+        },
+        "tick": 1296,
+        "solverBytes": 34031621,
+        "solverSha256": "e4a42ff43c57134e0270abe04f5fa322f4e15e38f08397b9c5cd1a9fc56c3447",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "verification": "Manifest, solver, event prefix and snapshot byte hashes matched; existing codec decoded state; previous binding/tick agree."
+      },
+      "lastExit": {
+        "schema": "post-phase10-discovery-exit-v1",
+        "rowId": "warm-refine-fine-thick-t4p5-broad",
+        "exitCode": null,
+        "signal": "SIGTERM",
+        "startedAt": "2026-10-09T14:52:52.734Z",
+        "finishedAt": "2026-10-14T06:45:05.804Z",
+        "wallSeconds": 402733.07,
+        "termination": "resource-stop",
+        "attemptName": "parallel-1791557571381"
+      }
+    },
+    {
+      "rowId": "warm-refine-fine-thick-t4p5-early",
+      "command": "resume-row",
+      "targetExtent": 57,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thick-t4p5-early",
+        "cycle": 1244,
+        "attachedCount": 27515,
+        "extent": 43,
+        "totalSweeps": 17721674,
+        "simTimeSeconds": 34.843754883726184,
+        "wallSeconds": 402406.745,
+        "peakRssBytes": 472584192,
+        "updatedAt": "2026-10-14T06:39:39.642Z"
+      },
+      "current": {
+        "reference": {
+          "directory": "generation-1244-3bfe61b6-e4f9-424e-9c8d-ccf1a294c031",
+          "manifestSha256": "432a4d16042e41cdb6bd353a50854fb7dfbb3d0bba164ff4be4ca61f5bc35fa8"
+        },
+        "tick": 1244,
+        "solverBytes": 34032873,
+        "solverSha256": "0c46733e53f90bde3b382875e37544448ca13705925a84aa767171e93722800e",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "committedEventBytes": 5897168,
+        "uncommittedTailBytes": 0,
+        "verification": "Existing DiscoveryCheckpointStore.load: current binding, manifest, solver hash/decode, runner, event prefix and snapshot verification; recover() not called."
+      },
+      "previous": {
+        "reference": {
+          "directory": "generation-1243-c2e443fc-c085-4a99-8727-f9079d244c9b",
+          "manifestSha256": "154a8227cd3e9f8daba529a545fcb9f297be3d15a35e3ea55df453e9b94bc260"
+        },
+        "tick": 1243,
+        "solverBytes": 34033113,
+        "solverSha256": "cab74168a0828af10b7617d54d2effc6ef0ea51a45ca6ef5ffb602d4b8f6fc0d",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "verification": "Manifest, solver, event prefix and snapshot byte hashes matched; existing codec decoded state; previous binding/tick agree."
+      },
+      "lastExit": {
+        "schema": "post-phase10-discovery-exit-v1",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thick-t4p5-early",
+        "exitCode": null,
+        "signal": "SIGTERM",
+        "startedAt": "2026-10-09T14:52:52.742Z",
+        "finishedAt": "2026-10-14T06:45:05.813Z",
+        "wallSeconds": 402733.071,
+        "termination": "resource-stop",
+        "attemptName": "parallel-1791557571381"
+      }
+    }
+  ],
+  "lastCoordinatorCompletion": {
+    "schema": "post-phase10-discovery-launch-complete-v1",
+    "experimentId": "post-phase10-basal-width-history-v1",
+    "experimentalRows": [
+      {
+        "rowId": "warm-refine-fine-thin-t4p5-early",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        }
+      },
+      {
+        "rowId": "warm-refine-fine-thick-t4p5-early",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        }
+      }
+    ],
+    "launchName": "warm-refinement-HIL-parallel-1791557571381",
+    "gitHead": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+    "node": "v24.13.1",
+    "requestedConcurrency": 4,
+    "actualMaximumConcurrency": 4,
+    "launchedAt": "2026-10-09T14:52:51.385Z",
+    "finishedAt": "2026-10-14T06:45:05.817Z",
+    "exits": [
+      {
+        "rowId": "warm-refine-fine-thick-t4p5-broad",
+        "exitCode": null,
+        "signal": "SIGTERM",
+        "startedAt": "2026-10-09T14:52:52.734Z",
+        "finishedAt": "2026-10-14T06:45:05.804Z",
+        "wallSeconds": 402733.07,
+        "termination": "resource-stop"
+      },
+      {
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thick-t4p5-early",
+        "exitCode": null,
+        "signal": "SIGTERM",
+        "startedAt": "2026-10-09T14:52:52.742Z",
+        "finishedAt": "2026-10-14T06:45:05.813Z",
+        "wallSeconds": 402733.071,
+        "termination": "resource-stop"
+      },
+      {
+        "rowId": "warm-refine-fine-thin-t4p5-broad",
+        "exitCode": null,
+        "signal": "SIGTERM",
+        "startedAt": "2026-10-09T14:52:52.716Z",
+        "finishedAt": "2026-10-14T06:45:05.815Z",
+        "wallSeconds": 402733.099,
+        "termination": "resource-stop"
+      },
+      {
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thin-t4p5-early",
+        "exitCode": null,
+        "signal": "SIGTERM",
+        "startedAt": "2026-10-09T14:52:52.725Z",
+        "finishedAt": "2026-10-14T06:45:05.799Z",
+        "wallSeconds": 402733.074,
+        "termination": "resource-stop"
+      }
+    ],
+    "abortReason": "host-monitor-failure: Command failed: powershell.exe -NoProfile -Command \n    $taskPids = @(7944,22716,27104,25200);\n    $taskProcesses = @();\n    if ($taskPids.Count -gt 0) { $taskProcesses = @(Get-Process -Id $taskPids -ErrorAction SilentlyContinue | Select-Object Id,CPU,WorkingSet64,PeakWorkingSet64) };\n    $taskCounters = (Get-Counter -Counter '\\Memory\\Available Bytes','\\Memory\\Committed Bytes','\\Memory\\Commit Limit' -ErrorAction Stop).CounterSamples;\n    $taskAvailable = ($taskCounters | Where-Object { $_.Path -like '*\\memory\\available bytes' }).CookedValue;\n    $taskCommitted = ($taskCounters | Where-Object { $_.Path -like '*\\memory\\committed bytes' }).CookedValue;\n    $taskCommitLimit = ($taskCounters | Where-Object { $_.Path -like '*\\memory\\commit limit' }).CookedValue;\n    [pscustomobject]@{ capturedUtc=(Get-Date).ToUniversalTime().ToString('o');\n      availablePhysicalBytes=[uint64]$taskAvailable;\n      commitHeadroomBytes=[uint64]$taskCommitLimit-[uint64]$taskCommitted;\n      children=$taskProcesses } | ConvertTo-Json -Depth 4 -Compress;\n  \n",
+    "unstartedRowIds": [],
+    "minimumAvailablePhysicalBytes": 35314892800,
+    "minimumCommitHeadroomBytes": 37346758656,
+    "maxSampledChildRssBytes": 572706816
+  },
+  "helper": {
+    "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\parallel-resume.mjs",
+    "sha256": "803672b20f5059d18caa0ce79584580b0025c402e16780fd259e1479376e78ba"
+  },
+  "ready": true,
+  "scope": "Read-only recovery preparation. Existing selector proves old registered worker PIDs are dead and coarse completed endpoints remain admissible. No lease acquisition, recovery mutation, numerical step, capacity probe or test was executed."
+}

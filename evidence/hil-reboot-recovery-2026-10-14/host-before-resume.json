@@ -1,0 +1,34 @@
+{
+  "nodeProcesses": [
+    {
+      "ProcessId": 24732,
+      "CommandLine": "\"C:\\Users\\biao3\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\a9ba6825a525118c\\bin\\node.exe\" C:\\Users\\biao3\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\a9ba6825a525118c\\bin\\node_modules\\@oai\\cua-repl\\bin\\cua-repl.mjs"
+    },
+    {
+      "ProcessId": 4668,
+      "CommandLine": "\"C:\\Users\\biao3\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\a9ba6825a525118c\\bin\\node.exe\"  ./server.mjs "
+    },
+    {
+      "ProcessId": 21148,
+      "CommandLine": "\"C:\\Users\\biao3\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\a9ba6825a525118c\\bin\\node.exe\"  ./server.mjs"
+    }
+  ],
+  "os": {
+    "LastBootUpTime": "2026-10-13T23:48:30.5-07:00",
+    "FreePhysicalMemory": 52646252,
+    "TotalVisibleMemorySize": 66428760
+  },
+  "restartEvents": [
+    {
+      "TimeCreated": "2026-10-13T23:48:03.4774286-07:00",
+      "Id": 1074,
+      "Message": "The process C:\\WINDOWS\\servicing\\TrustedInstaller.exe (HIL) has initiated the restart of computer HIL on behalf of user NT AUTHORITY\\SYSTEM for the following reason: Operating System: Upgrade (Planned)\r\n Reason Code: 0x80020003\r\n Shutdown Type: restart\r\n Comment: "
+    },
+    {
+      "TimeCreated": "2026-10-13T23:47:18.8020898-07:00",
+      "Id": 1074,
+      "Message": "The process C:\\WINDOWS\\servicing\\TrustedInstaller.exe (HIL) has initiated the restart of computer HIL on behalf of user NT AUTHORITY\\SYSTEM for the following reason: Operating System: Upgrade (Planned)\r\n Reason Code: 0x80020003\r\n Shutdown Type: restart\r\n Comment: "
+    }
+  ],
+  "capturedUtc": "2026-10-14T22:52:16.0460618Z"
+}
