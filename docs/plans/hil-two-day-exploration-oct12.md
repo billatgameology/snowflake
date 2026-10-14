@@ -334,3 +334,52 @@ simulation was performed for this operational status check. No reliable warm ETA
 Status-record checks passed: evidence-integrity/progress-index 18 tests, Rule 7 and staged
 whitespace. Exact commands, real exits and unique logs are primary
 `out/status-2026-10-13-morning/{metadata-check,rule7-check}{.log,-result.json}`.
+
+## Reboot recovery protocol — 2026-10-14
+
+The maker requested recovery after Windows Update restarted HIL. System event 1074 records
+a planned OS-upgrade restart by TrustedInstaller on October 13 at 23:47/23:48 PDT; current
+boot began at 23:48:30 PDT. Before recovery no scientific Node processes remain. The original
+queue reached 187 independently checked size endpoints, one previously recorded solver failure
+and four interrupted exits at 23:45 PDT. No unstarted cases remain. Primary
+`out/reboot-recovery-2026-10-14/{host-before-resume,wave-preflight}.json` records this census.
+
+Deliverable: continue exactly these four existing rows from their verified checkpoints, beside
+the four warm continuations, using their fixed producers and unchanged scientific targets:
+
+| Row | Saved update | Extent / target |
+|---|---:|---:|
+| `oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-nodip` | 1227 | 23/29 |
+| `oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-nodip` | 850 | 27/29 |
+| `oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-nodip` | 421 | 17/29 |
+| `oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-nodip` | 571 | 21/29 |
+
+The existing full campaign validator and selected-row resume planner pass. Existing
+`DiscoveryCheckpointStore.load()` verifies each checkpoint's bytes, strict decode, row/source/
+runtime/host binding, event prefix and snapshots without invoking recovery mutation. All four
+have converged completed-cycle metadata, no integrity errors and no terminal stop reason.
+An interrupted relaxation is replayed; this does not restart growth from the seed.
+
+The generic whole-campaign resume correctly refuses the known solver-error row. Use one small
+operational helper in the fixed checkout, `out/hil-two-day-oct12-control/resume-reboot-oct14.mjs`,
+that validates the complete campaign, acquires the existing campaign lease, selects only the four
+rows above with `planFirstBatchResume`, requires four `resume-row` commands and reuses
+`launchDiscoveryRows` with concurrency four, original entry, `resumeExistingRows: true` and
+the existing memory monitor. No solver, codec, roster, checkpoint or failed result is edited.
+The 187 completions and the failed case are excluded, not relabeled. Preserve new attempts and
+the existing recovery-tail disposition, with unique invocation/stdout/stderr/exit records.
+
+Rule 14A: accidental selection of the solver failure or a duplicate writer could corrupt the
+recovery record; the existing campaign/row/lease/loader checks cover those boundaries. The only
+missing operation is explicit selection of the four interrupted rows; reuse those checks rather
+than build new infrastructure. Lessons A3/C1/D2 apply. This is solo scientific research with
+hostile actors excluded. The shortest meaningful check is successful existing checkpoint
+validation, helper syntax/selection review and observed advancement past all four saved ticks.
+No new capacity probe, semantic resume experiment or scientific-code test suite is required.
+
+Launch the exact-path hidden PowerShell wrapper
+`powershell.exe -NoProfile -ExecutionPolicy Bypass -File out/hil-two-day-oct12-control/resume-reboot-oct14.ps1`
+from the fixed checkout. Its Node helper receives original entry and campaign paths as explicit
+arguments, preserving the existing `stop-hil.ps1` exact-path process selection. Actual recovery
+is complete when all four restored rows advance and the four warm continuations are also live;
+scientific endpoints and the held solver-failure diagnosis remain later work. No wall deadline.
