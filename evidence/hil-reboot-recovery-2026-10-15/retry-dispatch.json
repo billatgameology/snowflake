@@ -1,0 +1,14 @@
+{
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\retry-held-oct15.ps1"
+  ],
+  "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\dispatch-retry-20261016T043055053Z.stdout.log",
+  "wrapperPid": 3876,
+  "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\dispatch-retry-20261016T043055053Z.stderr.log",
+  "startedUtc": "2026-10-16T04:30:55.0725247Z"
+}

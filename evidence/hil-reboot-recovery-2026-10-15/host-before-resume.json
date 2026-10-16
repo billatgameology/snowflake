@@ -1,0 +1,15 @@
+{
+  "capturedUtc": "2026-10-16T04:28:23.7723375Z",
+  "os": {
+    "LastBootUpTime": "2026-10-15T00:38:44.5-07:00",
+    "FreePhysicalMemory": 53387512,
+    "TotalVisibleMemorySize": 66428760
+  },
+  "restartEvents": [
+    {
+      "TimeCreated": "2026-10-15T00:38:05.0746017-07:00",
+      "Id": 1074,
+      "Message": "The process C:\\WINDOWS\\uus\\AMD64\\MoUsoCoreWorker.exe (HIL) has initiated the restart of computer HIL on behalf of user NT AUTHORITY\\SYSTEM for the following reason: Operating System: Service pack (Planned)\r\n Reason Code: 0x80020010\r\n Shutdown Type: restart\r\n Comment: "
+    }
+  ]
+}

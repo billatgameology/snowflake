@@ -1,0 +1,215 @@
+{
+  "schema": "warm-reboot-preflight-v1",
+  "capturedUtc": "2026-10-16T04:28:30.896Z",
+  "root": "C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake",
+  "source": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+  "trackedCheckoutClean": true,
+  "node": "v24.13.1",
+  "v8": "13.6.233.17-node.40",
+  "campaignDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil",
+  "campaignSha256": "407a0ae128cfd991aea8d5e3a7a98ebba27af984532c1d9f26f8f4bbb322745f",
+  "probeSha256": "859a3760d7b0583e175e70a17e0e23501938379c67c28b2de1e435ec0bd62271",
+  "originalConcurrency": 1,
+  "approvedResumeConcurrency": 4,
+  "skippedRowIds": [
+    "warm-refine-coarse-t4p5-broad",
+    "warm-refine-coarse-t4p5-early"
+  ],
+  "pendingRows": [
+    {
+      "rowId": "warm-refine-fine-thin-t4p5-broad",
+      "command": "resume-row",
+      "targetExtent": 57,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "rowId": "warm-refine-fine-thin-t4p5-broad",
+        "cycle": 1481,
+        "attachedCount": 35419,
+        "extent": 51,
+        "totalSweeps": 19645866,
+        "simTimeSeconds": 48.03005460104373,
+        "wallSeconds": 451685.87700000004,
+        "peakRssBytes": 498642944,
+        "updatedAt": "2026-10-15T07:37:37.147Z"
+      },
+      "current": {
+        "reference": {
+          "directory": "generation-1481-07556b9a-4a5a-451e-be5e-efd23d679b34",
+          "manifestSha256": "a8e5b973befff66329055e084d3923ae98db3698ef223ba838cdd04415cf1942"
+        },
+        "tick": 1481,
+        "solverBytes": 34036109,
+        "solverSha256": "c6e8a610c42f0868ced78489f7b6967844b426c942fea6badba9e32f5e94f337",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "committedEventBytes": 6354761,
+        "uncommittedTailBytes": 0,
+        "verification": "Existing DiscoveryCheckpointStore.load: current binding, manifest, solver hash/decode, runner, event prefix and snapshot verification; recover() not called."
+      },
+      "previous": {
+        "reference": {
+          "directory": "generation-1480-53c15b8f-d0e6-4ea7-9a5f-e89890c00b7b",
+          "manifestSha256": "5ae6b067a6a1ce6030303423beb98ed535b3a2137cd2d407f0df1668b4462300"
+        },
+        "tick": 1480,
+        "solverBytes": 34036205,
+        "solverSha256": "d1183b682617f267d528e333902c6b2f26a6d6679e3c14c16b208bdf4424f122",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "verification": "Manifest, solver, event prefix and snapshot byte hashes matched; existing codec decoded state; previous binding/tick agree."
+      },
+      "lastExit": null
+    },
+    {
+      "rowId": "warm-refine-fine-thin-t4p5-early",
+      "command": "resume-row",
+      "targetExtent": 57,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thin-t4p5-early",
+        "cycle": 1352,
+        "attachedCount": 32307,
+        "extent": 43,
+        "totalSweeps": 19110919,
+        "simTimeSeconds": 38.608502103872596,
+        "wallSeconds": 433966.181,
+        "peakRssBytes": 475250688,
+        "updatedAt": "2026-10-15T07:36:25.295Z"
+      },
+      "current": {
+        "reference": {
+          "directory": "generation-1352-667a2635-2573-482d-9565-dba277f42cba",
+          "manifestSha256": "9aa0d8741f916c07ec70e0aa580249b67fa0bb5d09508397e4e0354151c4418c"
+        },
+        "tick": 1352,
+        "solverBytes": 34034961,
+        "solverSha256": "9c06b6f04520cdf65ce6bae52223822ee47f316ffd6e9d621077bd3f7b8d73d3",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "committedEventBytes": 6581024,
+        "uncommittedTailBytes": 0,
+        "verification": "Existing DiscoveryCheckpointStore.load: current binding, manifest, solver hash/decode, runner, event prefix and snapshot verification; recover() not called."
+      },
+      "previous": {
+        "reference": {
+          "directory": "generation-1351-4996e33a-cafb-4fb6-9f20-5430b6ae5435",
+          "manifestSha256": "5e1216af3f422a5e35bc9531989a783d0f14b88efe2cb63b18cb99b831dd368c"
+        },
+        "tick": 1351,
+        "solverBytes": 34035153,
+        "solverSha256": "181c67820bef166d1aedb9d4c9da0bc025b90ef7e0925d30d453ce9705d164fb",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "verification": "Manifest, solver, event prefix and snapshot byte hashes matched; existing codec decoded state; previous binding/tick agree."
+      },
+      "lastExit": null
+    },
+    {
+      "rowId": "warm-refine-fine-thick-t4p5-broad",
+      "command": "resume-row",
+      "targetExtent": 57,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "rowId": "warm-refine-fine-thick-t4p5-broad",
+        "cycle": 1403,
+        "attachedCount": 31147,
+        "extent": 47,
+        "totalSweeps": 18873211,
+        "simTimeSeconds": 45.56929523334633,
+        "wallSeconds": 433752.76,
+        "peakRssBytes": 482430976,
+        "updatedAt": "2026-10-15T07:34:47.933Z"
+      },
+      "current": {
+        "reference": {
+          "directory": "generation-1403-6753dc81-9af2-4483-968a-44ee89bffafe",
+          "manifestSha256": "eeed9a5e4e1525b0ca1bd99fca8f46601c2d1a6e4cb0d6b6bed4aaf72412d9fe"
+        },
+        "tick": 1403,
+        "solverBytes": 34033085,
+        "solverSha256": "de1af2694da80e6f73968baa8aba8c3da3e353bd96c305ef0ec95bfac3061273",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "committedEventBytes": 5850180,
+        "uncommittedTailBytes": 0,
+        "verification": "Existing DiscoveryCheckpointStore.load: current binding, manifest, solver hash/decode, runner, event prefix and snapshot verification; recover() not called."
+      },
+      "previous": {
+        "reference": {
+          "directory": "generation-1402-25ab85e3-6d67-4e5f-be04-d5529fef7f79",
+          "manifestSha256": "0b1c44e0bdb50ead3772401432163bec6ab56736ce0e99ac565080174a9b2ea1"
+        },
+        "tick": 1402,
+        "solverBytes": 34033085,
+        "solverSha256": "6a024c8cc0f4811a0397ed0e1c1b58e39510cfb678781d326cbad6b89357b7d0",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "verification": "Manifest, solver, event prefix and snapshot byte hashes matched; existing codec decoded state; previous binding/tick agree."
+      },
+      "lastExit": null
+    },
+    {
+      "rowId": "warm-refine-fine-thick-t4p5-early",
+      "command": "resume-row",
+      "targetExtent": 57,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thick-t4p5-early",
+        "cycle": 1348,
+        "attachedCount": 32765,
+        "extent": 45,
+        "totalSweeps": 19080071,
+        "simTimeSeconds": 37.7870942712883,
+        "wallSeconds": 433702.42199999996,
+        "peakRssBytes": 472584192,
+        "updatedAt": "2026-10-15T07:34:46.482Z"
+      },
+      "current": {
+        "reference": {
+          "directory": "generation-1348-5a509be5-88a8-464a-8898-9c7203ab1d30",
+          "manifestSha256": "9e2dc39db1f15080ce03bb605e4d75689ad9faccb2259add92d71cfcbefad4ad"
+        },
+        "tick": 1348,
+        "solverBytes": 34035345,
+        "solverSha256": "b2216d5dd8b01cdafbd70eab6748f10ab07c556b963fad386f727b1b0e8490ed",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "committedEventBytes": 6591416,
+        "uncommittedTailBytes": 0,
+        "verification": "Existing DiscoveryCheckpointStore.load: current binding, manifest, solver hash/decode, runner, event prefix and snapshot verification; recover() not called."
+      },
+      "previous": {
+        "reference": {
+          "directory": "generation-1347-91be52c7-0041-4310-8991-dcd7df6a1dd6",
+          "manifestSha256": "5ea9e5865bae6b894ea5c96a8eb192a4adc83eaa0b0d61cd07a528226886659a"
+        },
+        "tick": 1347,
+        "solverBytes": 34035585,
+        "solverSha256": "86c9645235d5706d0577293b01fdf526fb1783943074356a6d0936084da911a3",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "verification": "Manifest, solver, event prefix and snapshot byte hashes matched; existing codec decoded state; previous binding/tick agree."
+      },
+      "lastExit": null
+    }
+  ],
+  "lastCoordinatorCompletion": null,
+  "helper": {
+    "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\parallel-resume.mjs",
+    "sha256": "803672b20f5059d18caa0ce79584580b0025c402e16780fd259e1479376e78ba"
+  },
+  "ready": true,
+  "scope": "Read-only recovery preparation. Existing selector proves old registered worker PIDs are dead and coarse completed endpoints remain admissible. No lease acquisition, recovery mutation, numerical step, capacity probe or test was executed."
+}

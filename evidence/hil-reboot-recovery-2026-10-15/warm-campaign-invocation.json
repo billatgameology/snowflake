@@ -1,0 +1,142 @@
+{
+  "source": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+  "command": [
+    "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+    "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-control\\parallel-resume.mjs"
+  ],
+  "pid": 13260,
+  "startedAt": "2026-10-16T04:28:41.574Z",
+  "operationalPlanCommit": "803b422",
+  "originalConcurrency": 1,
+  "requestedConcurrency": 4,
+  "reason": "Use the measured four-worker memory headroom with live guards; the prefix speed timeout is not a resource-capacity failure.",
+  "originalCampaignSha256": "407a0ae128cfd991aea8d5e3a7a98ebba27af984532c1d9f26f8f4bbb322745f",
+  "originalProbeSha256": "859a3760d7b0583e175e70a17e0e23501938379c67c28b2de1e435ec0bd62271",
+  "operationalScriptSha256": "803672b20f5059d18caa0ce79584580b0025c402e16780fd259e1479376e78ba",
+  "skippedRowIds": [
+    "warm-refine-coarse-t4p5-broad",
+    "warm-refine-coarse-t4p5-early"
+  ],
+  "pending": [
+    {
+      "rowId": "warm-refine-fine-thin-t4p5-broad",
+      "command": "resume-row",
+      "previousCheckpoint": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-1481-07556b9a-4a5a-451e-be5e-efd23d679b34",
+          "manifestSha256": "a8e5b973befff66329055e084d3923ae98db3698ef223ba838cdd04415cf1942"
+        },
+        "previous": {
+          "directory": "generation-1480-53c15b8f-d0e6-4ea7-9a5f-e89890c00b7b",
+          "manifestSha256": "5ae6b067a6a1ce6030303423beb98ed535b3a2137cd2d407f0df1668b4462300"
+        }
+      },
+      "previousStatus": {
+        "schema": "post-phase10-discovery-status-v1",
+        "rowId": "warm-refine-fine-thin-t4p5-broad",
+        "cycle": 1481,
+        "attachedCount": 35419,
+        "extent": 51,
+        "totalSweeps": 19645866,
+        "simTimeSeconds": 48.03005460104373,
+        "wallSeconds": 451685.87700000004,
+        "peakRssBytes": 498642944,
+        "updatedAt": "2026-10-15T07:37:37.147Z"
+      }
+    },
+    {
+      "rowId": "warm-refine-fine-thin-t4p5-early",
+      "command": "resume-row",
+      "previousCheckpoint": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-1352-667a2635-2573-482d-9565-dba277f42cba",
+          "manifestSha256": "9aa0d8741f916c07ec70e0aa580249b67fa0bb5d09508397e4e0354151c4418c"
+        },
+        "previous": {
+          "directory": "generation-1351-4996e33a-cafb-4fb6-9f20-5430b6ae5435",
+          "manifestSha256": "5e1216af3f422a5e35bc9531989a783d0f14b88efe2cb63b18cb99b831dd368c"
+        }
+      },
+      "previousStatus": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thin-t4p5-early",
+        "cycle": 1352,
+        "attachedCount": 32307,
+        "extent": 43,
+        "totalSweeps": 19110919,
+        "simTimeSeconds": 38.608502103872596,
+        "wallSeconds": 433966.181,
+        "peakRssBytes": 475250688,
+        "updatedAt": "2026-10-15T07:36:25.295Z"
+      }
+    },
+    {
+      "rowId": "warm-refine-fine-thick-t4p5-broad",
+      "command": "resume-row",
+      "previousCheckpoint": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-1403-6753dc81-9af2-4483-968a-44ee89bffafe",
+          "manifestSha256": "eeed9a5e4e1525b0ca1bd99fca8f46601c2d1a6e4cb0d6b6bed4aaf72412d9fe"
+        },
+        "previous": {
+          "directory": "generation-1402-25ab85e3-6d67-4e5f-be04-d5529fef7f79",
+          "manifestSha256": "0b1c44e0bdb50ead3772401432163bec6ab56736ce0e99ac565080174a9b2ea1"
+        }
+      },
+      "previousStatus": {
+        "schema": "post-phase10-discovery-status-v1",
+        "rowId": "warm-refine-fine-thick-t4p5-broad",
+        "cycle": 1403,
+        "attachedCount": 31147,
+        "extent": 47,
+        "totalSweeps": 18873211,
+        "simTimeSeconds": 45.56929523334633,
+        "wallSeconds": 433752.76,
+        "peakRssBytes": 482430976,
+        "updatedAt": "2026-10-15T07:34:47.933Z"
+      }
+    },
+    {
+      "rowId": "warm-refine-fine-thick-t4p5-early",
+      "command": "resume-row",
+      "previousCheckpoint": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-1348-5a509be5-88a8-464a-8898-9c7203ab1d30",
+          "manifestSha256": "9e2dc39db1f15080ce03bb605e4d75689ad9faccb2259add92d71cfcbefad4ad"
+        },
+        "previous": {
+          "directory": "generation-1347-91be52c7-0041-4310-8991-dcd7df6a1dd6",
+          "manifestSha256": "5ea9e5865bae6b894ea5c96a8eb192a4adc83eaa0b0d61cd07a528226886659a"
+        }
+      },
+      "previousStatus": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thick-t4p5-early",
+        "cycle": 1348,
+        "attachedCount": 32765,
+        "extent": 45,
+        "totalSweeps": 19080071,
+        "simTimeSeconds": 37.7870942712883,
+        "wallSeconds": 433702.42199999996,
+        "peakRssBytes": 472584192,
+        "updatedAt": "2026-10-15T07:34:46.482Z"
+      }
+    }
+  ]
+}

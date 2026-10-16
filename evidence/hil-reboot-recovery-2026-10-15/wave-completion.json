@@ -1,0 +1,139 @@
+{
+  "capturedUtc": "2026-10-16T04:28:21.808Z",
+  "source": {
+    "worktree": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake",
+    "gitHead": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+    "gitStatus": "",
+    "node": "v24.13.1",
+    "v8": "13.6.233.17-node.40"
+  },
+  "checker": "runner/src/hil-bld-batch-summary.ts:summarizeFirstBatchRow",
+  "selection": {
+    "source": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\evidence\\hil-reboot-recovery-2026-10-14\\wave-preflight.json",
+    "field": "interrupted",
+    "count": 4
+  },
+  "rows": [
+    {
+      "rowId": "oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-nodip",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-nodip",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "extent": 29,
+      "targetExtent": 29,
+      "completedUpdates": 1633,
+      "physicalTimeSeconds": 24.36120263485244,
+      "exitCode": 0,
+      "errors": [],
+      "finishedAt": "2026-10-14T23:48:32.784Z",
+      "exitPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-nodip\\exit.json"
+    },
+    {
+      "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-nodip",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-nodip",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "extent": 29,
+      "targetExtent": 29,
+      "completedUpdates": 908,
+      "physicalTimeSeconds": 113.04400193432024,
+      "exitCode": 0,
+      "errors": [],
+      "finishedAt": "2026-10-14T23:03:30.063Z",
+      "exitPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-nodip\\exit.json"
+    },
+    {
+      "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-nodip",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-nodip",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "extent": 29,
+      "targetExtent": 29,
+      "completedUpdates": 806,
+      "physicalTimeSeconds": 44.76485830321992,
+      "exitCode": 0,
+      "errors": [],
+      "finishedAt": "2026-10-14T23:51:29.535Z",
+      "exitPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-nodip\\exit.json"
+    },
+    {
+      "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-nodip",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-nodip",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "extent": 29,
+      "targetExtent": 29,
+      "completedUpdates": 832,
+      "physicalTimeSeconds": 13.821434814968857,
+      "exitCode": 0,
+      "errors": [],
+      "finishedAt": "2026-10-14T23:38:30.693Z",
+      "exitPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-nodip\\exit.json"
+    }
+  ],
+  "coordinator": {
+    "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\hil-two-day-oct12-HIL-reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0-complete.json",
+    "sha256": "3afa6e10ceaf5187fad74795a8e28b5a504fa1ef3968a2611239328228bd8282",
+    "completion": {
+      "schema": "post-phase10-discovery-launch-complete-v1",
+      "launchName": "hil-two-day-oct12-HIL-reboot-1792018457227-f81d7616-dac3-45c0-8ea0-3cc8e30058f0",
+      "gitHead": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+      "node": "v24.13.1",
+      "requestedConcurrency": 4,
+      "actualMaximumConcurrency": 4,
+      "launchedAt": "2026-10-14T22:54:17.232Z",
+      "finishedAt": "2026-10-14T23:51:30.725Z",
+      "exits": [
+        {
+          "rowId": "oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-nodip",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-14T22:54:18.771Z",
+          "finishedAt": "2026-10-14T23:48:32.784Z",
+          "wallSeconds": 3254.013
+        },
+        {
+          "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-nodip",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-14T22:54:18.779Z",
+          "finishedAt": "2026-10-14T23:03:30.063Z",
+          "wallSeconds": 551.284
+        },
+        {
+          "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-nodip",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-14T22:54:18.787Z",
+          "finishedAt": "2026-10-14T23:51:29.535Z",
+          "wallSeconds": 3430.748
+        },
+        {
+          "rowId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-nodip",
+          "exitCode": 0,
+          "signal": null,
+          "startedAt": "2026-10-14T22:54:18.794Z",
+          "finishedAt": "2026-10-14T23:38:30.693Z",
+          "wallSeconds": 2651.899
+        }
+      ],
+      "abortReason": null,
+      "unstartedRowIds": [],
+      "minimumAvailablePhysicalBytes": 49697636352,
+      "minimumCommitHeadroomBytes": 55271620608,
+      "maxSampledChildRssBytes": 329912320
+    }
+  },
+  "wrapper": {
+    "exitPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\campaign-reboot-resume-20261014T155416947-exit.json",
+    "exit": {
+      "finishedUtc": "2026-10-14T23:51:30.7353485Z",
+      "exitCode": 0,
+      "startedUtc": "2026-10-14T22:54:16.9473408Z",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\campaign-reboot-resume-20261014T155416947.stderr.log",
+      "mode": "reboot-resume",
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\campaign-reboot-resume-20261014T155416947.stdout.log"
+    }
+  },
+  "scope": "Read-only operational completion check of the four reboot recoveries using existing row verifier; no new simulations, tests, numerical changes, matched scientific interpretation or validation. Prior 187 completions are not rechecked here."
+}

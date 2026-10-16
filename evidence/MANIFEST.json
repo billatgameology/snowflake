@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1113,
- "totalBytes": 317951585,
+ "fileCount": 1125,
+ "totalBytes": 318031190,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -4457,6 +4457,54 @@
   "hil-reboot-recovery-2026-10-14/wave-recovery-observation.json": {
    "bytes": 26204,
    "sha256": "5c8718e4e93542deb829e6267962f5fcb62b7159899655ccf9c86349ce12783a"
+  },
+  "hil-reboot-recovery-2026-10-15/helper-review.json": {
+   "bytes": 1005,
+   "sha256": "e8cc4c475f157f25c5dd4325489352243237b399bef7639cd4ec9c92cbb5f6f1"
+  },
+  "hil-reboot-recovery-2026-10-15/host-before-resume.json": {
+   "bytes": 623,
+   "sha256": "37171648813d14b7739907127171fff839a7040600f4ff848993ed52593b2bf5"
+  },
+  "hil-reboot-recovery-2026-10-15/retry-dispatch.json": {
+   "bytes": 644,
+   "sha256": "c2a4b8493969615e5ce5caefc45f0ad826bd9f172b09542541d51822f6c407e8"
+  },
+  "hil-reboot-recovery-2026-10-15/retry-held-oct15.mjs": {
+   "bytes": 4912,
+   "sha256": "234ee49a2af1a1561772eaab0cfb69e6a9b15ff37be96c3af9e12524f039d586"
+  },
+  "hil-reboot-recovery-2026-10-15/retry-held-oct15.ps1": {
+   "bytes": 1858,
+   "sha256": "df5d36e09e32fa65c7355234b9d1c6ee1ac672c8d9adbe34d876d9dad061af0c"
+  },
+  "hil-reboot-recovery-2026-10-15/retry-outcome.json": {
+   "bytes": 30294,
+   "sha256": "7b744493942b7874e7c164375aaf9b2bd57149a677bcf89144cd6d5ba8796808"
+  },
+  "hil-reboot-recovery-2026-10-15/warm-campaign-invocation.json": {
+   "bytes": 5505,
+   "sha256": "ab09e71ca5515ed063078c2f4a5fb8cedf096ef859f80c706564f1146d27dabd"
+  },
+  "hil-reboot-recovery-2026-10-15/warm-launch-invocation.json": {
+   "bytes": 1172,
+   "sha256": "c9d244932eba5e1cf7da21cdcc68f96a19fb8b3f3b07d560743edd02ef9cc907"
+  },
+  "hil-reboot-recovery-2026-10-15/warm-launch.json": {
+   "bytes": 776,
+   "sha256": "bc303fda0a18f5435495194a4c6835d344f42e13a58c3641d0ed1d4e50111fa0"
+  },
+  "hil-reboot-recovery-2026-10-15/warm-preflight.json": {
+   "bytes": 9261,
+   "sha256": "d2e856f49b1c9e507afc1deb71fcba3f0c552162df547f58b62f12be893895e5"
+  },
+  "hil-reboot-recovery-2026-10-15/warm-recovery-observation.json": {
+   "bytes": 16879,
+   "sha256": "125e0141ed0d2873b004c8a51fe1d3822cb24b64eb088b51691e8fafa0b069e3"
+  },
+  "hil-reboot-recovery-2026-10-15/wave-completion.json": {
+   "bytes": 6676,
+   "sha256": "29ed825aa8460b6ecfd2886915fb75424789d57de37a4b2c79aaa5d9d7da448e"
   }
  }
 }

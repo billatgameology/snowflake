@@ -1,0 +1,738 @@
+{
+  "capturedUtc": "2026-10-16T04:31:55.527Z",
+  "source": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+  "invocation": {
+    "source": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+    "operationalPlanCommit": "feec0c7967ea2921756402fa58e8e15ec24b9aca",
+    "authorization": "Maker requested one unchanged retry of the failed case on 2026-10-15.",
+    "command": [
+      "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\retry-held-oct15.mjs",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\runner\\src\\hil-two-day-oct12-main.ts",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12"
+    ],
+    "pid": 8752,
+    "startedAt": "2026-10-16T04:30:56.118Z",
+    "requestedConcurrency": 1,
+    "originalCampaignSha256": "046afddb59ed042e09c4d6d3deb25ae8fa51ca04bae31e1fc55573ca4d912cc5",
+    "operationalScriptSha256": "234ee49a2af1a1561772eaab0cfb69e6a9b15ff37be96c3af9e12524f039d586",
+    "row": {
+      "conditional": false,
+      "pressurePa": 202650,
+      "paramSet": "M1",
+      "dimsN": 64,
+      "dxUm": 0.35,
+      "cflFill": 0.05,
+      "seedRadius": 2,
+      "seedThickness": 1,
+      "targetExtent": 29,
+      "maxSteps": 20000,
+      "spatialSampleExtents": [
+        5,
+        7,
+        9,
+        11,
+        13,
+        15,
+        17,
+        19,
+        21,
+        23,
+        25,
+        27
+      ],
+      "id": "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1",
+      "lane": "followup-history",
+      "tempC": -6,
+      "fraction": 0.1,
+      "timelineEvent": {
+        "triggerLargestExtent": 15,
+        "tempC": -14.4,
+        "sigmaInfinity": 0.015040000000000001
+      },
+      "sigmaInfinity": 0.00604
+    },
+    "previousResultSha256": "4b218b4f22844527b3226428767260e6bcf5d77d02e39b30f2a4e8d13ebd72d2",
+    "previousResult": {
+      "schema": "post-phase10-discovery-result-v1",
+      "rowId": "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1",
+      "lane": "followup-history",
+      "stopReason": "solver-error",
+      "admissible": false,
+      "habitClass": "neutral",
+      "cycles": 414,
+      "totalSweeps": 1420503,
+      "attachedCount": 3713,
+      "seedSites": 19,
+      "extent": 21,
+      "aspectRatio": 0.7894736842105263,
+      "symmetryError": 0,
+      "allAttachmentEventsD6h": true,
+      "allRelaxationsConverged": true,
+      "simTimeSeconds": 40.68471162351322,
+      "wallSeconds": 4620.415,
+      "peakRssBytes": 303206400,
+      "maxKineticFillIncrement": 0.05000000000000001,
+      "maxDivergenceResidual": 9.99986420588732e-8,
+      "maxAbsSmootherDrift": 1.5860793581290444e-13,
+      "smootherDriftAbsLimit": 6.413681694539264e-10,
+      "minShellInjection": 0.02453496289337461,
+      "minSurfaceExchange": 0.024534965344502967,
+      "fillLedger": 4185.826694942202,
+      "saturationClippedFill": 70.03154448347017,
+      "holeFillDeficit": 5.75449990006745,
+      "holeFillCountTotal": 88,
+      "integrityErrors": [
+        "Error: aggregate boundary solve did not converge (cell 145376: sigma_b 1e-323 vs iterate 0)\n    at LKSolver.solveAggregateBoundary (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/solver-cpu/src/lk-solver.ts:1729:13)\n    at LKSolver.sweepAggregate (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/solver-cpu/src/lk-solver.ts:2006:29)\n    at LKSolver.sweep (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/solver-cpu/src/lk-solver.ts:2069:17)\n    at LKSolver.relaxField (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/solver-cpu/src/lk-solver.ts:2108:75)\n    at runDiscoveryRow (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/post-phase10-discovery.ts:901:33)\n    at runPostPhase10DiscoveryRow (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/post-phase10-discovery.ts:646:16)\n    at runNamedDiscoveryBatch (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/hil-bld-batch-main.ts:386:20)\n    at runHilOperationalBatch (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/hil-operational-batch-main.ts:100:12)\n    at runHilTwoDayOct12 (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/hil-two-day-oct12-main.ts:23:10)\n    at file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/hil-two-day-oct12-main.ts:27:3"
+      ],
+      "startedAt": "2026-10-13T06:02:13.233Z",
+      "finishedAt": "2026-10-13T07:19:13.646Z",
+      "gitHead": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+      "node": "v24.13.1",
+      "spatialSnapshots": [
+        {
+          "path": "boundary-e5.json",
+          "triggerExtent": 5,
+          "actualExtent": 5,
+          "completedCycles": 0,
+          "simTimeSeconds": 0
+        },
+        {
+          "path": "boundary-e7.json",
+          "triggerExtent": 7,
+          "actualExtent": 7,
+          "completedCycles": 27,
+          "simTimeSeconds": 3.067763687580699
+        },
+        {
+          "path": "boundary-e9.json",
+          "triggerExtent": 9,
+          "actualExtent": 9,
+          "completedCycles": 75,
+          "simTimeSeconds": 6.947575354150016
+        },
+        {
+          "path": "boundary-e11.json",
+          "triggerExtent": 11,
+          "actualExtent": 11,
+          "completedCycles": 138,
+          "simTimeSeconds": 12.320913016713229
+        },
+        {
+          "path": "boundary-e13.json",
+          "triggerExtent": 13,
+          "actualExtent": 13,
+          "completedCycles": 205,
+          "simTimeSeconds": 18.661318540615696
+        },
+        {
+          "path": "boundary-e15.json",
+          "triggerExtent": 15,
+          "actualExtent": 15,
+          "completedCycles": 284,
+          "simTimeSeconds": 26.592368311897346
+        },
+        {
+          "path": "boundary-e17.json",
+          "triggerExtent": 17,
+          "actualExtent": 17,
+          "completedCycles": 324,
+          "simTimeSeconds": 30.686773898011563
+        },
+        {
+          "path": "boundary-e19.json",
+          "triggerExtent": 19,
+          "actualExtent": 19,
+          "completedCycles": 362,
+          "simTimeSeconds": 34.80710696993692
+        },
+        {
+          "path": "boundary-e21.json",
+          "triggerExtent": 21,
+          "actualExtent": 21,
+          "completedCycles": 403,
+          "simTimeSeconds": 39.44578653533961
+        }
+      ],
+      "timeline": {
+        "schedule": {
+          "version": 1,
+          "mode": "abrupt",
+          "operator": "LibbrechtKinetics",
+          "initialEnvironment": {
+            "tempC": -6,
+            "sigmaInfinity": 0.00604
+          },
+          "events": [
+            {
+              "index": 0,
+              "operator": "LibbrechtKinetics",
+              "trigger": {
+                "kind": "largestExtent",
+                "value": 15
+              },
+              "environment": {
+                "tempC": -14.4,
+                "sigmaInfinity": 0.015040000000000001
+              }
+            }
+          ]
+        },
+        "eventLog": [
+          {
+            "eventIndex": 0,
+            "operator": "LibbrechtKinetics",
+            "trigger": {
+              "kind": "largestExtent",
+              "value": 15
+            },
+            "previousBoundary": {
+              "phase": "afterInterfaceStep",
+              "completedCycles": 283,
+              "extents": {
+                "iExtent": 13,
+                "jExtent": 13,
+                "zExtent": 13,
+                "tExtent": 13,
+                "largestExtent": 13,
+                "attachedCount": 1475
+              }
+            },
+            "crossingBoundary": {
+              "phase": "afterInterfaceStep",
+              "completedCycles": 284,
+              "extents": {
+                "iExtent": 15,
+                "jExtent": 15,
+                "zExtent": 13,
+                "tExtent": 15,
+                "largestExtent": 15,
+                "attachedCount": 1487
+              }
+            },
+            "beforeEnvironment": {
+              "tempC": -6,
+              "sigmaInfinity": 0.00604
+            },
+            "afterEnvironment": {
+              "tempC": -14.4,
+              "sigmaInfinity": 0.015040000000000001
+            }
+          }
+        ],
+        "eventCycle": 284,
+        "transitionReport": {
+          "operator": "LibbrechtKinetics",
+          "boundary": {
+            "phase": "completedCycleBoundary",
+            "completedCycles": 284,
+            "tick": 284,
+            "simTimeSeconds": 26.592368311897346
+          },
+          "beforeEnvironment": {
+            "tempC": -6,
+            "sigmaInfinity": 0.00604
+          },
+          "afterEnvironment": {
+            "tempC": -14.4,
+            "sigmaInfinity": 0.015040000000000001
+          },
+          "densityTransform": {
+            "temperatureChanged": true,
+            "cSatRatioOldToNew": 2.044990497147675,
+            "activeUnattachedCellCount": 186064,
+            "transformedCellCount": 186064,
+            "transformedInteriorCellCount": 168764,
+            "transformedDirichletShellCellCount": 17300,
+            "absoluteNumberDensitySumBefore": 1.8850561374365622e+28,
+            "absoluteNumberDensitySumAfter": 1.8850561374365622e+28,
+            "maxCellAbsoluteNumberDensityError": 16777216,
+            "maxCellRelativeNumberDensityError": 1.6625860088508613e-16
+          },
+          "reservoir": {
+            "farField": "monopole-matched",
+            "activeUnattachedShellCellCount": 17300,
+            "shellReclampPending": true,
+            "shellClampTargetBefore": 0.00604,
+            "shellClampTargetAfter": 0.015040000000000001
+          },
+          "derivedBefore": {
+            "cSatPerCubicMeter": 1.0082489497455085e+23,
+            "vKinMS": 0.0004549616114734149,
+            "x0M": 7.148770104774096e-8,
+            "mIceLedger": 307463.74700241134,
+            "maximumKineticVelocityScaleMS": 0.000016487808799796556,
+            "maximumKineticFillRateScalePerSecond": 47.10802514227588
+          },
+          "derivedAfter": {
+            "cSatPerCubicMeter": 4.930335623328326e+22,
+            "vKinMS": 0.00021895055443279897,
+            "x0M": 7.263881337752375e-8,
+            "mIceLedger": 628760.4408373481,
+            "maximumKineticVelocityScaleMS": 0.00001975809803201578,
+            "maximumKineticFillRateScalePerSecond": 56.45170866290223
+          }
+        }
+      }
+    },
+    "previousExit": {
+      "schema": "post-phase10-discovery-exit-v1",
+      "rowId": "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1",
+      "exitCode": 1,
+      "signal": null,
+      "startedAt": "2026-10-13T06:02:13.015Z",
+      "finishedAt": "2026-10-13T07:19:13.681Z",
+      "wallSeconds": 4620.666,
+      "attemptName": "initial"
+    },
+    "previousProcess": {
+      "schema": "post-phase10-discovery-process-v1",
+      "rowId": "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1",
+      "gitHead": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\runner\\src\\hil-two-day-oct12-main.ts",
+        "run-row",
+        "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1"
+      ],
+      "attemptName": "initial",
+      "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1\\attempts\\initial",
+      "launcherPid": 24256,
+      "pid": 33072,
+      "startedAt": "2026-10-13T06:02:13.015Z"
+    },
+    "previousStatus": {
+      "schema": "post-phase10-discovery-status-v1",
+      "rowId": "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1",
+      "cycle": 414,
+      "attachedCount": 3713,
+      "extent": 21,
+      "totalSweeps": 1420503,
+      "simTimeSeconds": 40.68471162351322,
+      "wallSeconds": 4618.127,
+      "peakRssBytes": 303206400,
+      "updatedAt": "2026-10-13T07:19:11.360Z"
+    },
+    "previousCheckpoint": {
+      "schema": "discovery-row-resume-pointer-v1",
+      "current": {
+        "directory": "generation-414-bc6d0462-6f09-4ebf-838b-b8af9c31c79e",
+        "manifestSha256": "7e619457c10cbc8a06f2a5888d3da1814af0cf4aa6f5289a955056f835a44c45"
+      },
+      "previous": {
+        "directory": "generation-413-87b217ce-eaae-4ee7-ac04-8dd433dd9ed0",
+        "manifestSha256": "6d11dfe966384a586eda7aa632173750a8bc789d0e04d4826b3f7ad5a2bd4b46"
+      }
+    },
+    "checkpointVerification": "Existing load verified row/source/runtime/host, strict solver bytes, runner state, event prefix and snapshots; recover not called by helper."
+  },
+  "completion": {
+    "schema": "post-phase10-discovery-launch-complete-v1",
+    "launchName": "hil-two-day-oct12-HIL-maker-retry-1792125056118-b7035ed1-52e2-42c8-af00-1768938afbdf",
+    "gitHead": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+    "node": "v24.13.1",
+    "requestedConcurrency": 1,
+    "actualMaximumConcurrency": 1,
+    "launchedAt": "2026-10-16T04:30:56.121Z",
+    "finishedAt": "2026-10-16T04:31:02.796Z",
+    "exits": [
+      {
+        "rowId": "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1",
+        "exitCode": 1,
+        "signal": null,
+        "startedAt": "2026-10-16T04:30:58.480Z",
+        "finishedAt": "2026-10-16T04:31:00.760Z",
+        "wallSeconds": 2.28
+      }
+    ],
+    "abortReason": "worker-failure:oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1",
+    "unstartedRowIds": [],
+    "minimumAvailablePhysicalBytes": 53469450240,
+    "minimumCommitHeadroomBytes": 56944156672,
+    "maxSampledChildRssBytes": 0
+  },
+  "wrapper": {
+    "source": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+    "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\campaign-maker-retry-20261015T213055759.stderr.log",
+    "wrapperPid": 3876,
+    "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\campaign-maker-retry-20261015T213055759.stdout.log",
+    "command": [
+      "node",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\retry-held-oct15.mjs",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\runner\\src\\hil-two-day-oct12-main.ts",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12"
+    ],
+    "mode": "maker-retry",
+    "coordinatorPid": 8752,
+    "PSModulePath": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+    "startedUtc": "2026-10-16T04:30:55.7610968Z"
+  },
+  "wrapperExit": {
+    "finishedUtc": "2026-10-16T04:31:02.8082127Z",
+    "exitCode": 2,
+    "startedUtc": "2026-10-16T04:30:55.7610968Z",
+    "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\campaign-maker-retry-20261015T213055759.stderr.log",
+    "mode": "maker-retry",
+    "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12-control\\campaign-maker-retry-20261015T213055759.stdout.log"
+  },
+  "workerExit": {
+    "schema": "post-phase10-discovery-exit-v1",
+    "rowId": "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1",
+    "exitCode": 1,
+    "signal": null,
+    "startedAt": "2026-10-16T04:30:58.480Z",
+    "finishedAt": "2026-10-16T04:31:00.760Z",
+    "wallSeconds": 2.28,
+    "attemptName": "maker-retry-1792125056118-b7035ed1-52e2-42c8-af00-1768938afbdf"
+  },
+  "process": {
+    "schema": "post-phase10-discovery-process-v1",
+    "rowId": "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1",
+    "gitHead": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+    "command": [
+      "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\runner\\src\\hil-two-day-oct12-main.ts",
+      "resume-row",
+      "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1"
+    ],
+    "attemptName": "maker-retry-1792125056118-b7035ed1-52e2-42c8-af00-1768938afbdf",
+    "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1\\attempts\\maker-retry-1792125056118-b7035ed1-52e2-42c8-af00-1768938afbdf",
+    "launcherPid": 8752,
+    "pid": 12460,
+    "startedAt": "2026-10-16T04:30:58.480Z"
+  },
+  "result": {
+    "schema": "post-phase10-discovery-result-v1",
+    "rowId": "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1",
+    "lane": "followup-history",
+    "stopReason": "solver-error",
+    "admissible": false,
+    "habitClass": "neutral",
+    "cycles": 414,
+    "totalSweeps": 1420503,
+    "attachedCount": 3713,
+    "seedSites": 19,
+    "extent": 21,
+    "aspectRatio": 0.7894736842105263,
+    "symmetryError": 0,
+    "allAttachmentEventsD6h": true,
+    "allRelaxationsConverged": true,
+    "simTimeSeconds": 40.68471162351322,
+    "wallSeconds": 4619.933,
+    "peakRssBytes": 303206400,
+    "maxKineticFillIncrement": 0.05000000000000001,
+    "maxDivergenceResidual": 9.99986420588732e-8,
+    "maxAbsSmootherDrift": 1.5860793581290444e-13,
+    "smootherDriftAbsLimit": 6.413681694539264e-10,
+    "minShellInjection": 0.02453496289337461,
+    "minSurfaceExchange": 0.024534965344502967,
+    "fillLedger": 4185.826694942202,
+    "saturationClippedFill": 70.03154448347017,
+    "holeFillDeficit": 5.75449990006745,
+    "holeFillCountTotal": 88,
+    "integrityErrors": [
+      "Error: aggregate boundary solve did not converge (cell 145376: sigma_b 1e-323 vs iterate 0)\n    at LKSolver.solveAggregateBoundary (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/solver-cpu/src/lk-solver.ts:1729:13)\n    at LKSolver.sweepAggregate (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/solver-cpu/src/lk-solver.ts:2006:29)\n    at LKSolver.sweep (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/solver-cpu/src/lk-solver.ts:2069:17)\n    at LKSolver.relaxField (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/solver-cpu/src/lk-solver.ts:2108:75)\n    at runDiscoveryRow (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/post-phase10-discovery.ts:901:33)\n    at runPostPhase10DiscoveryRow (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/post-phase10-discovery.ts:646:16)\n    at runNamedDiscoveryBatch (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/hil-bld-batch-main.ts:386:20)\n    at runHilOperationalBatch (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/hil-operational-batch-main.ts:100:12)\n    at runHilTwoDayOct12 (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/hil-two-day-oct12-main.ts:23:10)\n    at file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/hil-two-day-oct12-main.ts:27:3"
+    ],
+    "startedAt": "2026-10-13T06:02:13.233Z",
+    "finishedAt": "2026-10-16T04:31:00.484Z",
+    "gitHead": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+    "node": "v24.13.1",
+    "spatialSnapshots": [
+      {
+        "path": "boundary-e5.json",
+        "triggerExtent": 5,
+        "actualExtent": 5,
+        "completedCycles": 0,
+        "simTimeSeconds": 0
+      },
+      {
+        "path": "boundary-e7.json",
+        "triggerExtent": 7,
+        "actualExtent": 7,
+        "completedCycles": 27,
+        "simTimeSeconds": 3.067763687580699
+      },
+      {
+        "path": "boundary-e9.json",
+        "triggerExtent": 9,
+        "actualExtent": 9,
+        "completedCycles": 75,
+        "simTimeSeconds": 6.947575354150016
+      },
+      {
+        "path": "boundary-e11.json",
+        "triggerExtent": 11,
+        "actualExtent": 11,
+        "completedCycles": 138,
+        "simTimeSeconds": 12.320913016713229
+      },
+      {
+        "path": "boundary-e13.json",
+        "triggerExtent": 13,
+        "actualExtent": 13,
+        "completedCycles": 205,
+        "simTimeSeconds": 18.661318540615696
+      },
+      {
+        "path": "boundary-e15.json",
+        "triggerExtent": 15,
+        "actualExtent": 15,
+        "completedCycles": 284,
+        "simTimeSeconds": 26.592368311897346
+      },
+      {
+        "path": "boundary-e17.json",
+        "triggerExtent": 17,
+        "actualExtent": 17,
+        "completedCycles": 324,
+        "simTimeSeconds": 30.686773898011563
+      },
+      {
+        "path": "boundary-e19.json",
+        "triggerExtent": 19,
+        "actualExtent": 19,
+        "completedCycles": 362,
+        "simTimeSeconds": 34.80710696993692
+      },
+      {
+        "path": "boundary-e21.json",
+        "triggerExtent": 21,
+        "actualExtent": 21,
+        "completedCycles": 403,
+        "simTimeSeconds": 39.44578653533961
+      }
+    ],
+    "timeline": {
+      "schedule": {
+        "version": 1,
+        "mode": "abrupt",
+        "operator": "LibbrechtKinetics",
+        "initialEnvironment": {
+          "tempC": -6,
+          "sigmaInfinity": 0.00604
+        },
+        "events": [
+          {
+            "index": 0,
+            "operator": "LibbrechtKinetics",
+            "trigger": {
+              "kind": "largestExtent",
+              "value": 15
+            },
+            "environment": {
+              "tempC": -14.4,
+              "sigmaInfinity": 0.015040000000000001
+            }
+          }
+        ]
+      },
+      "eventLog": [
+        {
+          "eventIndex": 0,
+          "operator": "LibbrechtKinetics",
+          "trigger": {
+            "kind": "largestExtent",
+            "value": 15
+          },
+          "previousBoundary": {
+            "phase": "afterInterfaceStep",
+            "completedCycles": 283,
+            "extents": {
+              "iExtent": 13,
+              "jExtent": 13,
+              "zExtent": 13,
+              "tExtent": 13,
+              "largestExtent": 13,
+              "attachedCount": 1475
+            }
+          },
+          "crossingBoundary": {
+            "phase": "afterInterfaceStep",
+            "completedCycles": 284,
+            "extents": {
+              "iExtent": 15,
+              "jExtent": 15,
+              "zExtent": 13,
+              "tExtent": 15,
+              "largestExtent": 15,
+              "attachedCount": 1487
+            }
+          },
+          "beforeEnvironment": {
+            "tempC": -6,
+            "sigmaInfinity": 0.00604
+          },
+          "afterEnvironment": {
+            "tempC": -14.4,
+            "sigmaInfinity": 0.015040000000000001
+          }
+        }
+      ],
+      "eventCycle": 284,
+      "transitionReport": {
+        "operator": "LibbrechtKinetics",
+        "boundary": {
+          "phase": "completedCycleBoundary",
+          "completedCycles": 284,
+          "tick": 284,
+          "simTimeSeconds": 26.592368311897346
+        },
+        "beforeEnvironment": {
+          "tempC": -6,
+          "sigmaInfinity": 0.00604
+        },
+        "afterEnvironment": {
+          "tempC": -14.4,
+          "sigmaInfinity": 0.015040000000000001
+        },
+        "densityTransform": {
+          "temperatureChanged": true,
+          "cSatRatioOldToNew": 2.044990497147675,
+          "activeUnattachedCellCount": 186064,
+          "transformedCellCount": 186064,
+          "transformedInteriorCellCount": 168764,
+          "transformedDirichletShellCellCount": 17300,
+          "absoluteNumberDensitySumBefore": 1.8850561374365622e+28,
+          "absoluteNumberDensitySumAfter": 1.8850561374365622e+28,
+          "maxCellAbsoluteNumberDensityError": 16777216,
+          "maxCellRelativeNumberDensityError": 1.6625860088508613e-16
+        },
+        "reservoir": {
+          "farField": "monopole-matched",
+          "activeUnattachedShellCellCount": 17300,
+          "shellReclampPending": true,
+          "shellClampTargetBefore": 0.00604,
+          "shellClampTargetAfter": 0.015040000000000001
+        },
+        "derivedBefore": {
+          "cSatPerCubicMeter": 1.0082489497455085e+23,
+          "vKinMS": 0.0004549616114734149,
+          "x0M": 7.148770104774096e-8,
+          "mIceLedger": 307463.74700241134,
+          "maximumKineticVelocityScaleMS": 0.000016487808799796556,
+          "maximumKineticFillRateScalePerSecond": 47.10802514227588
+        },
+        "derivedAfter": {
+          "cSatPerCubicMeter": 4.930335623328326e+22,
+          "vKinMS": 0.00021895055443279897,
+          "x0M": 7.263881337752375e-8,
+          "mIceLedger": 628760.4408373481,
+          "maximumKineticVelocityScaleMS": 0.00001975809803201578,
+          "maximumKineticFillRateScalePerSecond": 56.45170866290223
+        }
+      }
+    }
+  },
+  "resultSha256": "c799413aa920e32d7d37c9d63e020247535c853181263b432720afa85b088507",
+  "summary": {
+    "rowId": "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1",
+    "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1",
+    "disposition": "invalid",
+    "stopReason": "solver-error",
+    "exitCode": 1,
+    "completedUpdates": 414,
+    "physicalTimeSeconds": 40.68471162351322,
+    "extent": 21,
+    "timelineEventTimeSeconds": 26.592368311897346,
+    "postEventSeconds": 14.092343311615878,
+    "cutoffReached": null,
+    "postCutoffUpdateObserved": null,
+    "postUpdateSizeCrossings": [
+      {
+        "extent": 5,
+        "cycle": 1,
+        "physicalTimeSeconds": 0.11124403398505144
+      },
+      {
+        "extent": 7,
+        "cycle": 27,
+        "physicalTimeSeconds": 3.067763687580699
+      },
+      {
+        "extent": 9,
+        "cycle": 75,
+        "physicalTimeSeconds": 6.947575354150016
+      },
+      {
+        "extent": 11,
+        "cycle": 138,
+        "physicalTimeSeconds": 12.320913016713229
+      },
+      {
+        "extent": 13,
+        "cycle": 205,
+        "physicalTimeSeconds": 18.661318540615696
+      },
+      {
+        "extent": 15,
+        "cycle": 284,
+        "physicalTimeSeconds": 26.592368311897346
+      },
+      {
+        "extent": 17,
+        "cycle": 324,
+        "physicalTimeSeconds": 30.686773898011563
+      },
+      {
+        "extent": 19,
+        "cycle": 362,
+        "physicalTimeSeconds": 34.80710696993692
+      },
+      {
+        "extent": 21,
+        "cycle": 403,
+        "physicalTimeSeconds": 39.44578653533961
+      },
+      {
+        "extent": 23,
+        "cycle": null,
+        "physicalTimeSeconds": null
+      },
+      {
+        "extent": 25,
+        "cycle": null,
+        "physicalTimeSeconds": null
+      },
+      {
+        "extent": 27,
+        "cycle": null,
+        "physicalTimeSeconds": null
+      }
+    ],
+    "errors": [
+      "Error: aggregate boundary solve did not converge (cell 145376: sigma_b 1e-323 vs iterate 0)\n    at LKSolver.solveAggregateBoundary (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/solver-cpu/src/lk-solver.ts:1729:13)\n    at LKSolver.sweepAggregate (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/solver-cpu/src/lk-solver.ts:2006:29)\n    at LKSolver.sweep (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/solver-cpu/src/lk-solver.ts:2069:17)\n    at LKSolver.relaxField (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/solver-cpu/src/lk-solver.ts:2108:75)\n    at runDiscoveryRow (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/post-phase10-discovery.ts:901:33)\n    at runPostPhase10DiscoveryRow (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/post-phase10-discovery.ts:646:16)\n    at runNamedDiscoveryBatch (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/hil-bld-batch-main.ts:386:20)\n    at runHilOperationalBatch (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/hil-operational-batch-main.ts:100:12)\n    at runHilTwoDayOct12 (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/hil-two-day-oct12-main.ts:23:10)\n    at file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/hil-two-day-oct12-main.ts:27:3"
+    ]
+  },
+  "checkpoint": {
+    "schema": "discovery-row-resume-pointer-v1",
+    "current": {
+      "directory": "generation-414-bc6d0462-6f09-4ebf-838b-b8af9c31c79e",
+      "manifestSha256": "7e619457c10cbc8a06f2a5888d3da1814af0cf4aa6f5289a955056f835a44c45"
+    },
+    "previous": {
+      "directory": "generation-413-87b217ce-eaae-4ee7-ac04-8dd433dd9ed0",
+      "manifestSha256": "6d11dfe966384a586eda7aa632173750a8bc789d0e04d4826b3f7ad5a2bd4b46"
+    }
+  },
+  "unchangedCheckpoint": true,
+  "sameErrorAsOriginal": true,
+  "recoveryDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1\\resume\\recovery-1792125058693-32d3dbae-af0e-431c-98e4-6c8ab88df969",
+  "recovery": {
+    "recoveredAt": "2026-10-16T04:30:58.709Z",
+    "checkpoint": {
+      "directory": "generation-414-bc6d0462-6f09-4ebf-838b-b8af9c31c79e",
+      "manifestSha256": "7e619457c10cbc8a06f2a5888d3da1814af0cf4aa6f5289a955056f835a44c45"
+    },
+    "retainedEventBytes": 1356711,
+    "preservedTailBytes": 0,
+    "preservedFiles": [
+      "exit.json",
+      "result.json",
+      "status.json"
+    ]
+  },
+  "originalFailurePreserved": true,
+  "scope": "One explicitly maker-requested unchanged retry. Existing row summarizer executed read-only; repeated nonconvergence remains invalid/non-successful. No numerical diagnosis or correction is claimed."
+}

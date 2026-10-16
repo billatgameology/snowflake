@@ -1,8 +1,8 @@
 # Plan — HIL two-day exploration
 
 - **Phase:** active Phase 10 model development; charter sections 2.5 and 3.2, accepted ADRs 0011, 0055, 0060 and 0062.
-- **Status:** 187/192 checked endpoints, four interrupted rows resumed and advancing, one solver failure held; fixed producer 0161a51. Four warm continuations also restarted October 14.
-- **Started / last touched:** 2026-10-12 / 2026-10-14 by Codex/GPT-6.
+- **Status:** 191/192 checked endpoints; one solver failure reproduced by the maker-requested single retry. Wave execution terminal, fixed producer 0161a51. Four warm continuations recovered from the second reboot on October 15.
+- **Started / last touched:** 2026-10-12 / 2026-10-15 by Codex/GPT-6.
 - **Authority:** maker chose to keep the four warm runs active and requested useful parallel exploration for roughly the next two days. After reviewing the 192-case scope and 43/54-hour planning scenarios, the maker directed “proceed with new wave.”
 
 ## Goal and done when
@@ -151,6 +151,10 @@ facet/history mixing, GPU or Phase 7 work, gate/validation claims, automatic fan
 - Arbitrary 48-hour termination: checkpoint recovery preserves finite scientific targets.
 - Extra flank-temperature histories (-5/-12 and -8/-16) remain an unselected option. The chosen
   timestep and pressure interactions have clearer immediate discriminatory value.
+- Unchanged retry of the failed pressure/history row from update 414: the maker-requested
+  October 15 attempt reproduced the identical near-zero boundary nonconvergence in 2.28 seconds,
+  without advancing the saved state. Preserve both attempts; diagnose the iteration before
+  another retry. The October 15 execution result below owns the evidence and exact commands.
 
 ## Open question
 
@@ -457,3 +461,40 @@ If the same failure returns, retain both attempts and leave numerical diagnosis 
 
 Exact launch from the fixed checkout:
 `powershell.exe -NoProfile -ExecutionPolicy Bypass -File out/hil-two-day-oct12-control/retry-held-oct15.ps1`.
+
+### October 15 execution result
+
+The pinned [wave completion](../../evidence/hil-reboot-recovery-2026-10-15/wave-completion.json)
+and [second restart](../../evidence/hil-reboot-recovery-2026-10-15/host-before-resume.json)
+retain exact source/time/exit records. The warm recovery started at 21:28 PDT with coordinator
+13260 and four workers, using the unchanged helper and fixed producer. Its
+[observation](../../evidence/hil-reboot-recovery-2026-10-15/warm-recovery-observation.json)
+at 2026-10-16T04:34:33.494Z confirms completed updates 1481→1482, 1352→1353, 1403→1404, 1348→1349,
+advancing CPU, converged metadata, no recorded integrity errors and empty stderr.
+thin-t4p5-broad: extent 51, update 1482; thin-t4p5-early: extent 43, update 1353; thick-t4p5-broad: extent 47, update 1404; thick-t4p5-early: extent 45, update 1349; all target 57. The actual invocation and row log locations are in the receipt;
+coordinator logs are the warm checkout's
+`out/warm-refinement-control/reboot-resume-20261016T042841205Z.{stdout,stderr}.log`.
+The UTC filename is October 16; the local recovery date is October 15.
+
+The [single retry](../../evidence/hil-reboot-recovery-2026-10-15/retry-outcome.json) began
+at 21:30:58 PDT and ended 21:31:00 PDT, 2.28 seconds, worker exit one / wrapper exit two.
+The existing row checker returns invalid with solver-error at update 414, extent 21.
+Its error exactly matches the original: aggregate boundary solve did not converge at cell
+145376 (`sigma_b 1e-323` versus iterate zero). Both checkpoint generations remain unchanged;
+the preserved original result hash matches the pre-retry binding. The existing recovery receipt
+records retained event prefix, zero event tail and preserved result/status/exit files.
+Attempt `maker-retry-1792125056118-b7035ed1-52e2-42c8-af00-1768938afbdf` and logs are
+bound in the outcome; coordinator logs are the wave checkout's
+`out/hil-two-day-oct12-control/campaign-maker-retry-20261015T213055759.{stdout,stderr}.log`.
+The bounded shared-context Codex/GPT-6 helper review found no blocker; its limits are retained.
+
+The unchanged retry is rejected as a recovery route: it reproduced the error without advancing
+the saved scientific state. This is evidence of reproducibility for this saved case, not a
+diagnosis of the numerical cause. No more retries were launched. Next: isolate that boundary
+iteration, then decide a correction and verification protocol; continue the four warm rows,
+perform the registered matched readouts and publish bulk output to NAS before any closeout.
+
+Operational-record verification passed: existing evidence-integrity/progress-index checks
+(18 tests), Rule 7 and scoped staged whitespace. Exact commands, times, real exits and unique
+logs are primary `out/reboot-recovery-2026-10-15/{metadata-check,rule7-check,whitespace-check}{.log,-result.json}`.
+No full-suite or scientific gate result is claimed for this operational work.

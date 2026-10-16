@@ -1,0 +1,9 @@
+{
+  "reviewer": "Codex/GPT-6 agent /root/oct15_wave_completion",
+  "sharedContext": true,
+  "verdict": "clear; no blocking finding",
+  "scope": "One maker-requested retry, exact helper/wrapper and committed plan feec0c7.",
+  "checked": "Exact registered row, original failed-result hash, clean source 0161a51, full campaign/spec, dead old PID, strict saved checkpoint loading, existing campaign/row leases, original failure preservation, unique one-worker attempt/logs/exit, hidden wrapper and no automatic retry loop or numerical change.",
+  "selectionDecision": "Supplying the exact reviewed row directly is appropriate for this explicit single retry. The generic automatic scientific-failure refusal remains unchanged.",
+  "limits": "Shared-context source inspection plus clean source and original hash observation. Reviewer did not run tests, checkpoint loading, simulations or launches; no physical validation. Root separately checked Node syntax/PowerShell parsing and recorded actual execution."
+}
