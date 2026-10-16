@@ -420,3 +420,40 @@ Recovery-record checks passed: existing evidence-integrity/progress-index checks
 Rule 7; scoped staged whitespace. Exact command/time/exit receipts and unique logs are primary
 `out/reboot-recovery-2026-10-14/{metadata-check,rule7-check,whitespace-check}{.log,-result.json}`.
 These check recovery metadata and prose; no full-suite or new scientific gate result is claimed.
+
+## Second reboot and maker-requested single retry — 2026-10-15
+
+The four October 14 wave recoveries all reached extent 29, exit zero, with no errors from
+the existing row checker. The recovery coordinator ended October 14 at 16:51:30 PDT;
+`out/reboot-recovery-2026-10-15/wave-completion.json` retains those four checks. Combined
+with the earlier 187 checked endpoints, this is 191 successes and the known solver failure.
+Windows Update initiated another planned restart October 15 at 00:38 PDT, stopping the four
+warm rows; same-producer checkpoint recovery uses the already accepted operational protocol.
+
+The maker explicitly requested “let's also rerun the failed one.” This authorizes one isolated,
+unchanged retry of `oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1` from its saved
+completed update 414, extent 21, target 29. It supersedes the prior hold for this single attempt,
+not the general refusal of automatic scientific-failure retries. The previous error was aggregate
+boundary nonconvergence at cell 145376 (`sigma_b 1e-323` versus zero); the same deterministic
+producer may reproduce it. Do not alter numerical tolerances, parameters, source or checkpoint.
+
+Deliverable: one recorded retry with its actual terminal disposition, or verified continuation
+beyond the failed cycle if it proceeds. Use the clean fixed producer `0161a51` and full campaign
+validator, verify the exact registered row/spec and original failure hash, and load the saved state
+through `DiscoveryCheckpointStore.load()` before launch. Keep the original result and exit in
+the concise retry receipt; the existing recovery path also preserves them with any event tail.
+Use the existing campaign/row leases and `launchDiscoveryRows` for one `resume-row` worker,
+a unique `maker-retry-*` attempt, labeled logs and real exit, beside the four warm workers.
+The generic selector correctly refuses the solver failure: this reviewed, maker-requested
+one-row helper supplies that exact row directly to the unchanged worker. No automatic retry loop.
+
+Rule 14A: accidental duplicate work or loss of the original failed result is the relevant risk;
+existing leases, checkpoint validation, attempt logs and recovery preservation cover it. The
+small explicit row selection is the only new seam. Lessons A3/C1/D2 and the existing completed-cycle
+resume contract apply. This is solo scientific research; hostile actors are excluded. The shortest
+check is the existing loader, helper syntax/selection review and recorded worker result. No new
+capacity probe, numerical test suite, physical interpretation or convergence correction is included.
+If the same failure returns, retain both attempts and leave numerical diagnosis as the next task.
+
+Exact launch from the fixed checkout:
+`powershell.exe -NoProfile -ExecutionPolicy Bypass -File out/hil-two-day-oct12-control/retry-held-oct15.ps1`.
