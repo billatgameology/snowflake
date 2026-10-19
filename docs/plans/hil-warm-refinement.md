@@ -1,8 +1,8 @@
 # Plan — HIL warm-cavity representation qualification
 
 - **Phase:** post-Phase-10 model-development exploration; charter section 2.5 and accepted decisions 0058, 0059 and 0060.
-- **Status:** both coarse cases complete; all four fine cases running concurrently from the unchanged scientific producer.
-- **Started / last touched:** 2026-10-08 / 2026-10-12 by Codex/GPT-6.
+- **Status:** both coarse and both fine broad cases complete; two fine early-width cases continue from unchanged producer 838c294.
+- **Started / last touched:** 2026-10-08 / 2026-10-18 by Codex/GPT-6.
 - **Branch / checkout:** `codex/hil-warm-refinement`, `C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake`, from `0be1d4e`.
 - **Authority:** maker accepted the saved-data follow-up recommendation and directed proceeding. HIL owns execution; propose BLD only if representative timing supports multiple days.
 
@@ -383,3 +383,25 @@ uncertainty before launch; unknown mature cost must be an explicit planning choi
 existing measurements without another capacity ladder or an arbitrary scientific wall cutoff.
 No warm pause, restart or target change was performed. The four workers continue under that
 explicit direction, with saved completed cycles resumable.
+
+## Completed controls and maker-directed review — 2026-10-18
+
+The maker directed leaving the remaining work running and analyzing completed results before
+choosing the next step. Both fine broad rows have now completed: thin at extent 57 / update 1770,
+thick at extent 57 / update 1867, exit zero and no errors from the existing row checker. Together
+with the two coarse rows, four of six are complete. The October 18 status observation records
+thin early extent 49 / update 2291 and thick early extent 51 / update 2267, both still active and healthy.
+See the [status receipts](../../evidence/hil-results-review-2026-10-18/status/) and
+[completed-results review](../../evidence/hil-results-review-2026-10-18/README.md).
+
+The unchanged cavity analyzer produced the review's `warm/cavity-readout.json`; its exact command
+and source identity are retained there. It reads complete trajectories only and labels the two
+live early rows pending. At largest center span 9.8 um, all three complete broad controls have
+zero open-layer envelope depth and their witnessed-open intervals show zero tip advance. The
+coarse early row has 3.5 um depth, with new post-switch openings. This is a preliminary baseline,
+not the complete six-row refinement comparison or a grid/seed independence claim. Do not infer
+fine early/broad effects before those two terminal dispositions exist.
+
+Producer 838c294 and its active output remain untouched. Continue the two workers with existing
+restart/target settings, no wall deadline and no new capacity probe. Exact completion ETA remains
+unsupported. Bulk output is still local; no NAS publication, closure or pruning occurred.

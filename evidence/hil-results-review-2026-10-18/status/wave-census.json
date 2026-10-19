@@ -1,0 +1,32 @@
+{
+  "schema": "wave-terminal-census-v1",
+  "observedAt": "2026-10-19T04:09:03.194Z",
+  "root": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake",
+  "gitHead": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+  "sourceStatus": "",
+  "campaignPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\campaign.json",
+  "campaignSha256": "046afddb59ed042e09c4d6d3deb25ae8fa51ca04bae31e1fc55573ca4d912cc5",
+  "counts": {
+    "total": 192,
+    "sizeTarget": 191,
+    "solverError": 1,
+    "other": 0
+  },
+  "failedRow": {
+    "rowId": "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1",
+    "stopReason": "solver-error",
+    "extent": 21,
+    "targetExtent": 29,
+    "exitCode": 1,
+    "attemptName": "maker-retry-1792125056118-b7035ed1-52e2-42c8-af00-1768938afbdf",
+    "finishedAt": "2026-10-16T04:31:00.760Z",
+    "resultSha256": "c799413aa920e32d7d37c9d63e020247535c853181263b432720afa85b088507"
+  },
+  "failedResultUnchangedSinceRetry": true,
+  "failureAttemptDirectories": [
+    "initial",
+    "maker-retry-1792125056118-b7035ed1-52e2-42c8-af00-1768938afbdf"
+  ],
+  "latestExitAt": "2026-10-16T04:31:00.760Z",
+  "scope": "Terminal receipt census only; no repeat event or checkpoint validation of the 191 prior checked successful endpoints. Failure result hash compared to the October15 retry receipt."
+}

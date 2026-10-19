@@ -1,0 +1,743 @@
+
+> virtual-cloud-chamber@0.0.0 test
+> npm run lint:rule7 && npm run typecheck && vitest run
+
+
+> virtual-cloud-chamber@0.0.0 lint:rule7
+> node scripts/lint-rule7.mjs
+
+rule7: clean (2680 files scanned)
+
+> virtual-cloud-chamber@0.0.0 typecheck
+> tsc --noEmit && tsc -p app --noEmit
+
+
+ RUN  v3.2.7 C:/Users/biao3/Documents/GitHub/snowflake
+
+ ✓ runner/test/phase10-c0v-s6-authority.test.ts (19 tests) 101614ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > binds recovery-v7 to the exact recovery-v6 stop and authorizes only moving-produce v3  307ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > binds recovery-v8 to the exact recovery-v7 stop and authorizes only moving-produce v4  317ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > binds recovery-v9 to the exact recovery-v8 stop and authorizes only moving-produce v5  310ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > independently closes all ten supplemental A-P graph checks  92692ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > executes the split missing-producer and uncalled-check mutations non-vacuously  538ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > strict-parses the canonical graph and registers every successor output schema once  2323ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > keeps every authority path unignored and byte-stable on checkout  3698ms
+ ✓ solver-cpu/test/monopole-far-field.test.ts (10 tests) 98263ms
+   ✓ monopole-matched far field > holds symmetry at the LARGEST fill-CFL, which is what amplifies a ulp shell error  14807ms
+   ✓ monopole-matched far field — construction > holds the shell at exactly sigma_infinity until growth has been measured  399ms
+   ✓ monopole-matched far field — its validity limit > stops being domain-independent below a limit that has to be measured per configuration  10245ms
+ ✓ runner/test/gate4a.test.ts (89 tests) 82064ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > passes the complete synthetic 13-run evidence matrix  5776ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-PROVENANCE trips alone  2404ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-CONFIG trips alone  2870ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-SYMMETRY trips alone on an internally consistent asymmetric delta  2606ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-SYMMETRY trips alone on asymmetric boundary/vapor bits with symmetric occupancy  2608ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NOISE trips alone  2348ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NOISE alone owns representative run-disconnected evidence  2766ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-MASS trips alone  2859ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-DOMAIN trips alone  2863ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-DOMAIN trips alone on a reconstructed contacting crystal  2989ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-TERMINATION trips alone  2727ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-TERMINATION trips alone on shifted threshold  2297ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-TERMINATION trips alone on shifted cycle-0 mean  2292ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-TERMINATION trips alone on far-field run carrying extent witness  2812ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-TERMINATION rejects a size run carrying a far-field witness  1210ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-TERMINATION alone owns a forged transition report and equal fabricated masses  2815ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NUMERIC trips alone on a reopened artifact byte mismatch  1159ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NUMERIC reconstruction rejects multi-witness mutation: orphan witness on an empty-delta row  329ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NUMERIC reconstruction rejects multi-witness mutation: out-of-order witness cycles  311ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NUMERIC alone owns a representative malformed delta chain  782ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NUMERIC owns a checkpoint/scenario metric mismatch  1308ms
+   ✓ gate4a branch morphology is nonvacuous against raw attachment chains > a coherent seed-only comparator changes only A-BRANCH from true to false  7843ms
+   ✓ gate4a branch morphology is nonvacuous against raw attachment chains > rejects a grown final comparator whose attachment deltas are missing before morphology  1733ms
+   ✓ gate4a artifact and checkpoint seams > reopens and cross-links the complete exact payload set  1225ms
+   ✓ gate4a artifact and checkpoint seams > rejects Pass-A v1 manifest and scenario identities  1226ms
+   ✓ gate4a artifact and checkpoint seams > rejects byte mutations in every Pass-A artifact family  1990ms
+   ✓ gate4a artifact and checkpoint seams > rejects missing scenario farFieldWitness metadata keys or types  1087ms
+   ✓ gate4a artifact and checkpoint seams > rejects extra scenario farFieldWitness metadata keys or types  1086ms
+   ✓ gate4a artifact and checkpoint seams > rejects renamed scenario farFieldWitness metadata keys or types  1081ms
+   ✓ gate4a artifact and checkpoint seams > rejects mistyped scenario farFieldWitness metadata keys or types  1088ms
+   ✓ gate4a artifact and checkpoint seams > A-EXEC-CONFIG owns corrupt manifest bytes: invalid UTF-8  1346ms
+   ✓ gate4a artifact and checkpoint seams > A-EXEC-CONFIG owns corrupt manifest bytes: invalid JSON  1343ms
+   ✓ gate4a artifact and checkpoint seams > A-EXEC-CONFIG owns corrupt manifest bytes: noncanonical whitespace  1348ms
+   ✓ gate4a artifact and checkpoint seams > A-EXEC-CONFIG owns corrupt manifest bytes: BOM-prefixed canonical bytes  1350ms
+   ✓ gate4a artifact and checkpoint seams > A-EXEC-CONFIG owns corrupt manifest bytes: canonical bytes off the freeze  1351ms
+   ✓ gate4a artifact and checkpoint seams > rejects a canonically re-encoded noise header mutation with unchanged field bytes  1781ms
+   ✓ gate4a serial orchestration seams > executes the frozen matrix serially without a cross-run resolver  4966ms
+ ✓ runner/test/phase10-scope-overlay.test.ts (24 tests) 45629ms
+   ✓ Phase 10 A-S scope overlay > rejects a coordinated zero-blocker validation-credit upgrade even with repaired report and index  592ms
+   ✓ Phase 10 A-S scope overlay > rejects a coordinated producer-provenance rewrite even with a repaired artifact index  576ms
+   ✓ Phase 10 A-S scope overlay > requires the exact candidate-local receipt path at the CLI boundary  812ms
+   ✓ Phase 10 A-S static packet lifecycle > rejects a structurally valid committed post-freeze classification-protocol drift  1441ms
+   ✓ Phase 10 A-S static packet lifecycle > requires an exact passing A-P dependency lifecycle before A-S preflight  11997ms
+   ✓ Phase 10 A-S static packet lifecycle > executes the exact clean-head produce, verify, publish sequence and resumes exact publication  5515ms
+   ✓ Phase 10 A-S static packet lifecycle > refuses a dirty preflight and a tampered retained observed runtime  3564ms
+   ✓ Phase 10 A-S static packet lifecycle > rejects terminal obligation-set drift and malformed mutation witnesses  5445ms
+   ✓ Phase 10 A-S static packet lifecycle > prevalidates a conflicting receipt destination and safely retries after its removal  5143ms
+   ✓ Phase 10 A-S static packet lifecycle > resumes either exact scope-only or receipt-only partial publication orientation  9153ms
+ ✓ runner/test/phase10-intake.test.ts (12 tests) 48285ms
+   ✓ Phase 10 A-I synthetic lifecycle > runs exact produce, safely resumes a partial candidate, verifies, and publishes beside unchanged A-S bytes  11152ms
+   ✓ Phase 10 A-I synthetic lifecycle > refuses duplicate artifacts, wrong dependency, and wrong evaluator provenance before any new write  7671ms
+   ✓ Phase 10 A-I synthetic lifecycle > rejects a producer-only shared currency-derivation bug  6313ms
+   ✓ Phase 10 A-I synthetic lifecycle > rejects an implementation that omits a registered check-caller invocation  6469ms
+   ✓ Phase 10 A-I synthetic lifecycle > refuses a committed post-freeze support-module drift  5831ms
+   ✓ Phase 10 A-I freeze-before-input ordering > refuses observation from a descendant HEAD before any endpoint or NAS operation  3978ms
+ ✓ runner/test/phase10-c0v-s6-executor.test.ts (67 tests) 41974ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > reopens the exact nine-generation stop before recovery-v9 lock acquisition  436ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > reopens the accepted V5 A-P freeze from Git after the V8 source successor  11352ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > requires the live run-lock token before any current A-P candidate write  4789ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > raw-projects all seven produce cap prefixes with a strict equality boundary  716ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > admits only exact freeze lifecycle dirt and a normal launch-HEAD index  810ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > serializes distinct packets under the catalogue-bound package lock  604ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects materialized successor runs before locking and admits verify-existing  1002ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > binds resolution metadata to the exact HEAD blob while accepting only Git-equivalent EOLs  445ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects hard-linked source closure bytes and alternate loaders  6390ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects a coherently changed assume-unchanged manifest and dependency  319ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > reopens a historical launch manifest after a later evidence-manifest commit  381ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > admits only exact direct prototype inspections in trusted strict parsers  2941ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects node:fs from the radial producer builtin closure  635ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects node:child_process from the radial producer builtin closure  635ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > resolves the live publish producer, verifier, and check-caller closures under exact builtin rosters  9022ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects tuning a producer dependency that existed at the science freeze  526ms
+ ✓ runner/test/phase10-executor.test.ts (13 tests) 42408ms
+   ✓ Phase 10 bounded non-solver executor > losing concurrent run acquires no authorization observation before the writer lock  1811ms
+   ✓ Phase 10 bounded non-solver executor > runs a read-only preflight against a clean committed synthetic code freeze without opening rows  3324ms
+   ✓ Phase 10 bounded non-solver executor > rejects stage-set, command, path, and resource mutations in retained preflight bytes  2820ms
+   ✓ Phase 10 bounded non-solver executor > rejects dependency schema substitution and callable, preflight, and eager-worker transitive drift  11995ms
+   ✓ Phase 10 bounded non-solver executor > accepts the registered c0-publish dependency schema and rejects a generic-schema substitution  9860ms
+   ✓ Phase 10 bounded non-solver executor > validates the distinct c0-publish independent-verification dependency shape and six-artifact roster  12301ms
+ ✓ app/test/phase4-verify.test.ts (59 tests) 48000ms
+   ✓ frozen run completeness and provenance > the visual harness rejects a Pass-A v1 bundle before capture output exists  341ms
+   ✓ real publication provenance is derived from recorded Git objects > accepts immutable recorded commits without requiring recorded HEAD == current HEAD  397ms
+   ✓ real publication provenance is derived from recorded Git objects > rejects both false and true ancestry rewrites against independently recomputed facts  313ms
+   ✓ real publication provenance is derived from recorded Git objects > rejects solver source rewrites at an otherwise descendant recorded commit  3434ms
+   ✓ visual harness test-hook isolation > an ordinary harness without IPC never activates or waits for a test hook  348ms
+   ✓ visual harness output-parent swap hooks > fails closed when the absent output parent becomes a Pass A junction after the verifying log  355ms
+   ✓ visual harness output-parent swap hooks > cleans trusted staging when the output parent becomes a Pass A junction after staging  356ms
+   ✓ visual harness staged-file hard-link attacks > rejects a first-PNG destination precreated as a hard link to the Pass A manifest  7768ms
+   ✓ visual harness staged-file hard-link attacks > rejects a staged manifest precreated as a hard link to the Pass A report  11164ms
+   ✓ visual harness staged-file hard-link attacks > rejects a post-create external hard link before publication  10965ms
+   ✓ visual harness staged-file hard-link attacks > rolls back and rejects a post-rename external hard link before publication verification  11051ms
+ ✓ runner/test/phase10-c0v-reference-lifecycle.test.ts (12 tests) 36268ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > supplies frozen static source bytes to the independent refusal checker  2196ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > derives, independently checks, publishes, and retries exact synthetic bytes  7725ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > publishes a registered discrepancy refusal instead of silently dropping the artifact  5767ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > reexecutes the independent check and rejects a post-check receipt mutation  3954ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > rejects an unknown field in a scientific candidate before independent checking  2111ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > rejects tracked code drift and untracked static source locators  635ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > accepts Git-equivalent CRLF only for package metadata and keeps protocol bytes exact  2940ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > recursively detects a forbidden dynamic local import  699ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > rejects an aliased staging parent before writing an attempt  1167ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > rejects a retained publication timestamp that predates its independent check  3950ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > rejects future timestamps at the derive and check command boundaries  5122ms
+ ✓ runner/test/gate4b.test.ts (78 tests) 40321ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > passes the complete synthetic 11-run evidence matrix  1448ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > records all eight diagnostic morphology verdicts on the same matrix  380ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-PROVENANCE trips alone  870ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-CONFIG trips alone  1160ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-TERMINATION trips alone  1164ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-SYMMETRY trips alone on an internally consistent asymmetric delta  1173ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-NOISE trips alone on a shifted witness stream  1020ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-CONVERGENCE trips alone  1169ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-SURFACE trips alone  1173ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-LEDGER trips alone  1147ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-PECLET trips alone  1165ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-CHECKPOINT trips alone  627ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-NUMERIC trips alone on a reopened artifact byte mismatch  421ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-COMPLETE trips alone on a missing registered sweep point  1063ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-COMPLETE trips alone on a duplicated registered record  945ms
+   ✓ gate4b rejects the registered LK negative list by name > wrong surface policy fails B-EXEC-CONFIG  326ms
+   ✓ gate4b rejects the registered LK negative list by name > reflecting far field fails B-EXEC-CONFIG  315ms
+   ✓ gate4b rejects the registered LK negative list by name > a legacy-v3 checkpoint artifact fails B-EXEC-CHECKPOINT  647ms
+   ✓ gate4b rejects the registered LK negative list by name > a checkpoint policy shift fails B-EXEC-CHECKPOINT  642ms
+   ✓ gate4b rejects the registered LK negative list by name > residual-only convergence claims fail B-EXEC-CONVERGENCE  1163ms
+   ✓ gate4b rejects the registered LK negative list by name > a forged divergence report that disagrees with shell/exchange fails B-EXEC-CONVERGENCE  1147ms
+   ✓ gate4b rejects the registered LK negative list by name > clipped-demand omission fails B-EXEC-LEDGER  1140ms
+   ✓ gate4b rejects the registered LK negative list by name > an incomplete temperature sweep fails B-EXEC-COMPLETE  1028ms
+   ✓ gate4b noise witnesses are independently recomputed > a divergent same-seed replay fails B-EXEC-NOISE alone  1165ms
+   ✓ gate4b noise witnesses are independently recomputed > a witness cell set detached from the reconstructed boundary fails B-EXEC-NOISE  1142ms
+   ✓ gate4b noise witnesses are independently recomputed > epsilon/seed round-trip through the frozen LK v2 checkpoint is enforced  962ms
+   ✓ gate4b timeline evidence is independently recomputed > clamping the transformed negatives to zero fails the bitwise density transform  1153ms
+   ✓ gate4b timeline evidence is independently recomputed > the cross-temperature vapor ledger catches final-temperature multiplication by name  1171ms
+   ✓ gate4b artifact and checkpoint seams > reopens and cross-links the complete exact payload set  456ms
+   ✓ gate4b artifact and checkpoint seams > rejects byte mutations in every Pass-B artifact family  1302ms
+   ✓ gate4b artifact and checkpoint seams > B-EXEC-CONFIG owns corrupt manifest bytes: invalid UTF-8  398ms
+   ✓ gate4b artifact and checkpoint seams > B-EXEC-CONFIG owns corrupt manifest bytes: invalid JSON  407ms
+   ✓ gate4b artifact and checkpoint seams > B-EXEC-CONFIG owns corrupt manifest bytes: noncanonical whitespace  404ms
+   ✓ gate4b artifact and checkpoint seams > B-EXEC-CONFIG owns corrupt manifest bytes: BOM-prefixed canonical bytes  392ms
+   ✓ gate4b artifact and checkpoint seams > B-EXEC-CONFIG owns corrupt manifest bytes: canonical bytes off the freeze  401ms
+   ✓ gate4b serial orchestration seams > executes the frozen matrix serially and publishes a verifiable bundle on validity  1788ms
+   ✓ gate4b serial orchestration seams > records diagnostic morphology misses without blocking exit 0 or publication  1766ms
+   ✓ gate4b serial orchestration seams > an execution-integrity failure publishes nothing and exits 1 by name  1523ms
+   ✓ gate4b serial orchestration seams > refuses to present an execution-valid verdict without a verified publication  1203ms
+   ✓ gate4b serial orchestration seams > refuses to present an execution-invalid verdict that carries a publication  1507ms
+   ✓ gate4b real solver integration (tiny dims) > captures a validated dual-outcome noise witness and replays bit-identically  742ms
+ ✓ runner/test/gate5-runner.test.ts (27 tests) 38669ms
+   ✓ Phase 5 lane runner > publishes only after stable clean provenance and source snapshots  2092ms
+   ✓ Phase 5 lane runner > removes the canonical lane when source identity drifts after rename  1245ms
+   ✓ Phase 5 lane runner > runs the probe from the snapshot root, never the live working tree  1654ms
+   ✓ Phase 5 immutable source snapshot > exports a detached commit-bound worktree that live edits cannot change  740ms
+   ✓ Phase 5 immutable source snapshot > derives the registered inventory from the commit, not from the checkout  956ms
+   ✓ Phase 5 immutable source snapshot > releases the snapshot when the inventory read fails  509ms
+   ✓ Phase 5 immutable source snapshot > removes the snapshot without descending into the installed dependencies  502ms
+   ✓ Phase 5 immutable source snapshot > quarantines the snapshot before any recursive removal  465ms
+   ✓ Phase 5 immutable source snapshot > refuses to delete a replacement that appears at the private snapshot path  464ms
+   ✓ Phase 5 aggregate gate > reopens the lane, re-derives all criteria, and commits the index last  2919ms
+   ✓ Phase 5 aggregate gate > re-derives the lane's commit inventory with no seams at all  4794ms
+   ✓ Phase 5 aggregate gate > rejects a lane from another commit  2067ms
+   ✓ Phase 5 aggregate gate > rejects source drift before aggregate publication  1668ms
+   ✓ Phase 5 aggregate gate > detects post-publication lane mutation and removes only its aggregate files  2074ms
+   ✓ Phase 5 aggregate gate > refuses to delete a replacement aggregate report during failed cleanup  2475ms
+   ✓ Phase 5 aggregate gate > recovers an authenticated orphan report after an interrupted publication  3337ms
+   ✓ Phase 5 aggregate gate > rejects aggregate report mutation against its commit marker  2904ms
+   ✓ Phase 5 aggregate gate > rejects hard-linked aggregate artifacts  2891ms
+   ✓ Phase 5 aggregate gate > never overwrites completed aggregate evidence  2523ms
+   ✓ Phase 5 aggregate gate > rejects unindexed aggregate-directory entries  1653ms
+   ✓ Phase 5 aggregate gate > makes both public commands flagless at the CLI boundary  312ms
+ ✓ solver-cpu/test/lk-hole-filling.test.ts (9 tests) 31201ms
+   ✓ ADR 0056 geometric completion counterfactual > -4.5 M1: enabled preserves ordinary evolution including geometric completion  4781ms
+   ✓ ADR 0056 geometric completion counterfactual > -4.5 M1_NO_DIP_ABLATION: enabled preserves ordinary evolution including geometric completion  10141ms
+   ✓ ADR 0056 geometric completion counterfactual > -5 M1: enabled preserves ordinary evolution including geometric completion  4662ms
+   ✓ ADR 0056 geometric completion counterfactual > -5 M1_NO_DIP_ABLATION: enabled preserves ordinary evolution including geometric completion  10151ms
+   ✓ ADR 0056 geometric completion counterfactual > M1 still grows kinetically with exact attached symmetry at fill-CFL 0.2  544ms
+   ✓ ADR 0056 geometric completion counterfactual > M1_NO_DIP_ABLATION still grows kinetically with exact attached symmetry at fill-CFL 0.2  610ms
+ ✓ solver-cpu/test/lk-solver.test.ts (41 tests) 23051ms
+   ✓ LKSolver — divergence identity (§4.4 test 3) > at convergence, Dirichlet injection equals signed net boundary exchange  424ms
+   ✓ LKSolver — ledger identity (§4.4 test 4) > fill ledger + hole-fill deficit account for every attached cell and every partial fill  3186ms
+   ✓ LKSolver — ledger identity (§4.4 test 4) > NON-TAUTOLOGICAL: the ledger delta equals independently recomputed kinetic demand  1060ms
+   ✓ LKSolver — legacy-v3 sink-vs-demand regression > COMPUTED: legacy Robin absorption vs converged-field per-sweep demand  1959ms
+   ✓ LKSolver — fill-CFL (§4.4 test 5, kinetic-only per the round-2 correction) > no growth step's KINETIC fill ever exceeds the bound  2848ms
+   ✓ LKSolver — growth, determinism, symmetry > a crystal grows at all (plan, Stage 2b check)  4259ms
+   ✓ LKSolver — growth, determinism, symmetry > two runs with the same options are bit-identical (pinned-oracle scope)  3719ms
+   ✓ LKSolver — growth, determinism, symmetry > noise off, hexPrism: every attachment delta is D6h-invariant and the full metric reads 0  4255ms
+   ✓ opposing-vapor mean, D6h equivariance > v6 is an ordering change only: it reaches the same state v5 does at this scale  501ms
+ ✓ solver-cpu/test/prepared-kinetics.test.ts (35 tests) 17145ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 legacy-v3 noise=0  546ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 legacy-v3 noise=0.375  523ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 aggregate-hv-g1h1-v4 noise=0  517ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 aggregate-hv-g1h1-v4 noise=0.375  518ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 aggregate-hv-g1h1-v5 noise=0  522ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 aggregate-hv-g1h1-v5 noise=0.375  520ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 aggregate-hv-g1h1-v6 noise=0  525ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 aggregate-hv-g1h1-v6 noise=0.375  516ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK legacy-v3 noise=0  519ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK legacy-v3 noise=0.375  511ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK aggregate-hv-g1h1-v4 noise=0  520ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK aggregate-hv-g1h1-v4 noise=0.375  511ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK aggregate-hv-g1h1-v5 noise=0  513ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK aggregate-hv-g1h1-v5 noise=0.375  511ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK aggregate-hv-g1h1-v6 noise=0  515ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK aggregate-hv-g1h1-v6 noise=0.375  512ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 legacy-v3 noise=0  525ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 legacy-v3 noise=0.375  513ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 aggregate-hv-g1h1-v4 noise=0  515ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 aggregate-hv-g1h1-v4 noise=0.375  515ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 aggregate-hv-g1h1-v5 noise=0  513ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 aggregate-hv-g1h1-v5 noise=0.375  513ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 aggregate-hv-g1h1-v6 noise=0  518ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 aggregate-hv-g1h1-v6 noise=0.375  513ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION legacy-v3 noise=0  515ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION legacy-v3 noise=0.375  513ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION aggregate-hv-g1h1-v4 noise=0  513ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION aggregate-hv-g1h1-v4 noise=0.375  515ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION aggregate-hv-g1h1-v5 noise=0  519ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION aggregate-hv-g1h1-v5 noise=0.375  511ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION aggregate-hv-g1h1-v6 noise=0  511ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION aggregate-hv-g1h1-v6 noise=0.375  516ms
+ ✓ runner/test/gate5-evidence.test.ts (51 tests) 16588ms
+   ✓ Phase 5 lane evidence publication > publishes and independently reopens the complete indexed graph  2495ms
+   ✓ Phase 5 lane evidence publication > reconstructs an interleaved global readback audit from per-fixture artifacts  1664ms
+   ✓ Phase 5 lane evidence publication > uses the real core decoders when no test-only checkpoint seam is supplied  440ms
+   ✓ Phase 5 lane evidence publication > rejects UTF-8 BOMs in terminal evidence  443ms
+   ✓ Phase 5 lane evidence publication > rejects an indexed artifact byte mutation after publication  1666ms
+   ✓ Phase 5 lane evidence publication > rejects noncanonical JSON even if a caller edits a JSON artifact directly  1661ms
+   ✓ Phase 5 lane evidence publication > rejects unindexed extra files  1677ms
+   ✓ Phase 5 lane evidence publication > rejects a coherent index kind shift against the frozen artifact graph  1656ms
+   ✓ Phase 5 lane evidence publication > rejects hard-linked artifacts and removes its private failed attempt  423ms
+   ✓ Phase 5 lane evidence publication > detects a staging mutation before rename and leaves no canonical lane  837ms
+   ✓ Phase 5 lane evidence publication > refuses to delete a replacement that appears at the private staging path  832ms
+   ✓ ADR-0019 G-G Dirichlet corrected-mass ledger > publishes the complete registered chronology and both device witnesses  2068ms
+   ✓ ADR-0019 G-G Dirichlet corrected-mass ledger > rejects a negative-control roster the runner's own replay does not observe  386ms
+ ✓ solver-cpu/test/lk-facet-dips.test.ts (8 tests) 15185ms
+   ✓ ADR 0055 finite facet preparation > -4.5 both preserves ordinary evolution through attachment  3663ms
+   ✓ ADR 0055 finite facet preparation > -4.5 neither preserves ordinary evolution through attachment  3497ms
+   ✓ ADR 0055 finite facet preparation > -5 both preserves ordinary evolution through attachment  3657ms
+   ✓ ADR 0055 finite facet preparation > -5 neither preserves ordinary evolution through attachment  3512ms
+ ✓ runner/test/phase10-c0v-s6-historical-ap.test.ts (1 test) 11623ms
+   ✓ Phase 10 C0V S6 accepted historical A-P reopen > reopens the complete accepted prefix through its retained V5 protocol and exact 15 paths  11450ms
+ ✓ runner/test/phase10-c0v-s6-lifecycle.test.ts (5 tests) 11602ms
+   ✓ Phase 10 C0V S6 lifecycle whole-file publication overlay > reopens the accepted A-P lifecycle through its retained recovery-v5 protocol only  11418ms
+ ✓ solver-cpu/test/lk-resume.test.ts (16 tests) 13860ms
+   ✓ LK v3 field-adopting restore > CAK: direct, checkpoint-every-cycle, and multiply resumed evolution are exact  5769ms
+   ✓ LK v3 field-adopting restore > M1: direct, checkpoint-every-cycle, and multiply resumed evolution are exact  5742ms
+   ✓ LK v3 field-adopting restore > CAK: converged multi-sweep continuation remains exact after nonlinear events  1168ms
+   ✓ LK v3 field-adopting restore > M1: converged multi-sweep continuation remains exact after nonlinear events  1164ms
+ ✓ runner/test/gate4-protocol.test.ts (90 tests) 14272ms
+   ✓ Phase 4 hollow ensemble validators > recomputes real open-tube geometry and passes distinct streams plus a full-state replay  442ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'missing canonical seed site'  326ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'extra canonical seed site'  318ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'shifted canonical seed'  517ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'wrong dimensions'  516ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'wrong target'  309ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'wrong step cap'  301ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'wrong stop'  306ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'nonconsecutive crossing'  311ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'malformed final occupancy length'  309ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'nonbinary occupancy'  308ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'initial occupancy not subset of previ…'  310ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'previous occupancy not subset of final'  309ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'wrong previous raw extent'  316ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'wrong final raw extent'  316ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'invalid execution identity'  305ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'overlapping raw field buffers'  302ms
+   ✓ Phase 4 hollow ensemble validators > rejects a reused ensemble execution identity through A-HOLLOW-NONVACUOUS  378ms
+   ✓ Phase 4 hollow ensemble validators > rejects independent replay divergence in 'initial occupancy'  305ms
+   ✓ Phase 4 hollow ensemble validators > rejects independent replay divergence in 'previous occupancy'  372ms
+   ✓ Phase 4 hollow ensemble validators > rejects independent replay divergence in 'final occupancy'  379ms
+   ✓ Phase 4 hollow ensemble validators > rejects independent replay divergence in 'surface field'  370ms
+   ✓ Phase 4 hollow ensemble validators > rejects independent replay divergence in 'vapor field'  379ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw solid, sealed, pre-hollowed, and domain-contact geometry by A-HOLLOW-EACH  1543ms
+   ✓ Phase 4 hollow ensemble validators > ignores fabricated metric claims and independently derives a solid failure  377ms
+   ✓ Phase 4 hollow ensemble validators > rejects seed-vacuous occupancy, replay divergence, identity reuse, and overlapping buffers  1537ms
+   ✓ Phase 4 hollow ensemble validators > keeps structural inspection independent from raw morphology checks  376ms
+   ✓ Phase 4 hollow ensemble validators > keeps B hollowing diagnostic while recomputing the registered B-domain geometry  318ms
+   ✓ Phase 4 hollow ensemble validators > enforces the 12,000-cycle cap on every Pass A hollow primary and replay  2100ms
+ ✓ runner/test/phase10-ap-lifecycle.test.ts (5 tests) 10881ms
+   ✓ Phase 10 A-P retained lifecycle > runs the exact produce/verify/publish commands and republishes only identical bytes  4934ms
+   ✓ Phase 10 A-P retained lifecycle > refuses CLI omission and a receipt path outside the candidate  1398ms
+   ✓ Phase 10 A-P retained lifecycle > rejects verification-path, duplicate-attempt-root, and packet-path catalogue mutations  942ms
+   ✓ Phase 10 A-P retained lifecycle > rejects checkout-unstable callable bytes  921ms
+   ✓ Phase 10 A-P retained lifecycle > rejects post-verification control tampering and handcrafted execution provenance  2685ms
+ ✓ runner/test/discovery-resume.test.ts (18 tests) 9826ms
+   ✓ discovery row continuation > serializes stale-owner replacement and admits only one of two real worker contenders  620ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: ordinary  577ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: no-dip  502ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: both  523ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: neither  499ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: basal-only  524ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: prism-only  494ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: width  524ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: early width  539ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: warm to cold  557ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: cold to warm no-dip  1858ms
+   ✓ discovery row continuation > preserves and removes uncommitted event/snapshot tails, ignoring an incomplete generation  383ms
+   ✓ discovery row continuation > continues an actually killed worker in a fresh process with identical scientific output  1302ms
+ ✓ runner/test/gate5-protocol.test.ts (47 tests) 7621ms
+   ✓ Phase 5 negative controls executed at their named boundary > re-derives the unmutated capture's raw evidence from its own payload  409ms
+   ✓ Phase 5 negative controls executed at their named boundary > returns the frozen control inventory in registered order  382ms
+   ✓ Phase 5 negative controls executed at their named boundary > observes an owner-independent failing set for the tolerance bypass  379ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-WINDOWS-BACKEND-RELABEL corrupts its named evidence and is refused by the evaluator  398ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-PROTOCOL-HASH-SHIFT corrupts its named evidence and is refused by the evaluator  398ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-REQUIRED-LIMIT-DOWNGRADE corrupts its named evidence and is refused by the evaluator  395ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-AXIS-SWAP corrupts its named evidence and is refused by the evaluator  392ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-WRONG-BOUNDARY-CLAMP corrupts its named evidence and is refused by the evaluator  396ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-STALE-PING-PONG corrupts its named evidence and is refused by the evaluator  396ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-LK-RESIDUAL-ONLY corrupts its named evidence and is refused by the evaluator  392ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-SYMMETRY-BIT corrupts its named evidence and is refused by the evaluator  396ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-DOMAIN-CONTACT corrupts its named evidence and is refused by the evaluator  397ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-EXCESSIVE-DISPATCH corrupts its named evidence and is refused by the evaluator  396ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-LATE-EDIT-ACK corrupts its named evidence and is refused by the evaluator  394ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-LATE-FIRST-FRAME corrupts its named evidence and is refused by the evaluator  395ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-FULL-FIELD-PER-FRAME corrupts its named evidence and is refused by the evaluator  395ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-CHECKPOINT-DTYPE-SHIFT corrupts its named evidence and is refused by the evaluator  397ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-TOLERANCE-BYPASS corrupts its named evidence and is refused by the evaluator  396ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-ARTIFACT-BYTE-MUTATION corrupts its named evidence and is refused by the evaluator  395ms
+ ✓ runner/test/gutcheck-growth-comparison-publisher.test.ts (33 tests | 3 skipped) 6063ms
+   ✓ Run B comparison NAS publisher > publishes the exact 17-file bundle by one verified same-share rename  443ms
+   ✓ Run B comparison NAS publisher > allows a source hard link because staged files are exclusive fresh copies  420ms
+   ✓ Run B comparison NAS publisher > rejects forged browser witnesses even when the top-level status remains pass  1750ms
+ ✓ solver-cpu/test/lk-basal-width.test.ts (12 tests) 5568ms
+   ✓ ADR 0058 exposed-support basal width experiment > matches the broad control from nonuniform vapor with nonzero fill  642ms
+   ✓ ADR 0058 exposed-support basal width experiment > matches the dipped control from nonuniform vapor with nonzero fill  1162ms
+   ✓ ADR 0059 early/late basal-width history > preserves the nonuniform early-only numerical prefix and accumulated fill  1161ms
+   ✓ ADR 0059 early/late basal-width history > crosses the early-only cutoff without splitting and changes both coupled kinetics without attachment  329ms
+   ✓ ADR 0059 early/late basal-width history > preserves the nonuniform late-only numerical prefix and accumulated fill  1218ms
+   ✓ ADR 0059 early/late basal-width history > crosses the late-only cutoff without splitting and changes both coupled kinetics without attachment  324ms
+ ✓ solver-cpu/test/discovery-resume.test.ts (22 tests) 5988ms
+   ✓ separate discovery continuation > round-trips the registered N126 early-width state and continues its complete fields  752ms
+   ✓ separate discovery continuation > ordinary M1: repeated resumes preserve fields, order, diagnostics and evolution  472ms
+   ✓ separate discovery continuation > ordinary no-dip: repeated resumes preserve fields, order, diagnostics and evolution  439ms
+   ✓ separate discovery continuation > both: repeated resumes preserve fields, order, diagnostics and evolution  438ms
+   ✓ separate discovery continuation > neither: repeated resumes preserve fields, order, diagnostics and evolution  446ms
+   ✓ separate discovery continuation > basal-only: repeated resumes preserve fields, order, diagnostics and evolution  439ms
+   ✓ separate discovery continuation > prism-only: repeated resumes preserve fields, order, diagnostics and evolution  447ms
+   ✓ separate discovery continuation > full width: repeated resumes preserve fields, order, diagnostics and evolution  440ms
+   ✓ separate discovery continuation > early-only: resumes on both sides of the physical-time cutoff retain the switch  424ms
+   ✓ separate discovery continuation > late-only: resumes on both sides of the physical-time cutoff retain the switch  429ms
+ ✓ runner/test/phase10-c0v-s6-radial.test.ts (24 tests) 3908ms
+   ✓ Phase 10 C0V S6 radial production and independent evaluation > encodes the exact 5,891-byte witness and binds the S5 science protocol  2754ms
+ ✓ runner/test/gutcheck-hardening.test.ts (57 tests | 15 skipped) 3759ms
+   ✓ evidence manifest pinning > does not mistake an eval import with the library at argv[1] for direct CLI execution  381ms
+   ✓ evidence manifest pinning > makes a live manifest update wait until the current lock holder exits its action  467ms
+   ✓ grow-batch frame-enabled resume > does not skip wrong spec, dimensions, domain, ticks, seed, noise, extraction, cadence, or final tick  660ms
+ ✓ runner/test/gate-enforce.test.ts (21 tests) 3380ms
+ ✓ solver-cpu/test/gg-solver.test.ts (15 tests) 3607ms
+   ✓ GGSolver — mass conservation (gate at full size runs via runner; this is the dev-grid version) > crystal-free control run characterizes the float floor  323ms
+   ✓ GGSolver — mass conservation (gate at full size runs via runner; this is the dev-grid version) > conserves total mass to < 1e-10 relative over 10 000 ticks GROWN, noise OFF, reflecting  2016ms
+   ✓ GGSolver — mass conservation (gate at full size runs via runner; this is the dev-grid version) > conserves total mass with noise ON (the §6 form conserves by construction)  572ms
+ ✓ runner/test/phase10-c0v-s6-aggregate.test.ts (5 tests) 2977ms
+   ✓ Phase 10 C0V S6 aggregate > keeps aggregate producers outside the independent evaluator closure  2970ms
+ ✓ runner/test/phase9-permanent-control-readiness.test.ts (5 tests) 2738ms
+   ✓ Phase 9 S2 permanent-control readiness > rejects shifted frozen inputs instead of accepting caller-attested availability  1443ms
+   ✓ Phase 9 S2 permanent-control readiness > refuses present-day source drift rather than re-pinning the historical protocol  823ms
+ ✓ runner/test/discovery-resume-publication.test.ts (10 tests) 2554ms
+ ✓ runner/test/gate6-aggregate.test.ts (21 tests) 2073ms
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+launch row=fixture-0 active=1 remaining=4
+launch row=fixture-1 active=2 remaining=3
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+finish row=fixture-0 code=0 signal=null active=1 completed=1/5
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+launch row=fixture-2 active=2 remaining=2
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+finish row=fixture-1 code=0 signal=null active=1 completed=2/5
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+launch row=fixture-3 active=2 remaining=1
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+finish row=fixture-2 code=0 signal=null active=1 completed=3/5
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+launch row=fixture-4 active=2 remaining=0
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+finish row=fixture-3 code=0 signal=null active=1 completed=4/5
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+finish row=fixture-4 code=0 signal=null active=0 completed=5/5
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > kills its active workers and leaves queued work unstarted when memory falls
+launch row=slow-0 active=1 remaining=2
+launch row=slow-1 active=2 remaining=1
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > kills its active workers and leaves queued work unstarted when memory falls
+finish row=slow-0 code=null signal=SIGTERM active=1 completed=1/3
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > kills its active workers and leaves queued work unstarted when memory falls
+finish row=slow-1 code=null signal=SIGTERM active=0 completed=2/3
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > enforces a hard wall budget and stops a failing probe queue
+launch row=slow-first active=1 remaining=1
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > enforces a hard wall budget and stops a failing probe queue
+finish row=slow-first code=null signal=SIGTERM active=0 completed=1/2
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > retains a crashed worker while allowing independent science rows to continue
+launch row=fail-first active=1 remaining=1
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > retains a crashed worker while allowing independent science rows to continue
+finish row=fail-first code=7 signal=null active=0 completed=1/2
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > retains a crashed worker while allowing independent science rows to continue
+launch row=surviving active=1 remaining=0
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > retains a crashed worker while allowing independent science rows to continue
+finish row=surviving code=0 signal=null active=0 completed=2/2
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > checkpointed attempt records > preserves each resumed process attempt and refuses accidental reuse of its logs
+launch row=checkpointed active=1 remaining=0
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > checkpointed attempt records > preserves each resumed process attempt and refuses accidental reuse of its logs
+finish row=checkpointed code=0 signal=null active=0 completed=1/1
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > checkpointed attempt records > preserves each resumed process attempt and refuses accidental reuse of its logs
+launch row=checkpointed active=1 remaining=0
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > checkpointed attempt records > preserves each resumed process attempt and refuses accidental reuse of its logs
+finish row=checkpointed code=0 signal=null active=0 completed=1/1
+
+ ✓ runner/test/hil-bld-batch-execution.test.ts (9 tests) 2357ms
+   ✓ named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit  758ms
+   ✓ named batch execution > retains a crashed worker while allowing independent science rows to continue  521ms
+   ✓ checkpointed attempt records > preserves each resumed process attempt and refuses accidental reuse of its logs  532ms
+ ✓ runner/test/phase10-c0-lifecycle.test.ts (16 tests) 2288ms
+   ✓ Phase 10 C0 frozen existing-byte lifecycle > installs derive and publish artifacts idempotently at only the registered destination  1131ms
+ ✓ runner/test/phase5-lk-reduction-shadow.test.ts (3 tests) 2220ms
+   ✓ Phase 5 LK f32 reduction shadow > measures every frozen blocking LK topology before production WGSL exists  2216ms
+ ✓ runner/test/phase5-wp0.test.ts (12 tests) 2087ms
+   ✓ Phase 5 criteria freeze > runs the pre-GPU binary32 shadow inside the frozen envelope  2080ms
+ ✓ runner/test/nas-asset-transaction-lib.test.ts (43 tests | 1 skipped) 1841ms
+ ✓ solver-cpu/test/surface-cycle-hardening.test.ts (18 tests) 1429ms
+   ✓ SurfaceOperator cycle ownership hardening > makes direct and wrapper G-G cycles bit-identical with noise enabled  495ms
+ ✓ runner/test/named-crystal-hard-form-probes.test.ts (4 tests) 1372ms
+   ✓ named-crystal hard-form probe tranche > materializes every custom seed as a fitting connected GG+ initial condition  1340ms
+ ✓ runner/test/phase10-obligation-preflight.test.ts (14 tests) 1055ms
+   ✓ Phase 10 A-P strict contracts > keeps every registered research output trackable with raw-byte-stable attributes  830ms
+ ✓ runner/test/nas-assets-catalog.test.ts (9 tests) 1336ms
+   ✓ tracked NAS asset catalogue > re-derives every machine-readable tracked owner selection  491ms
+   ✓ tracked NAS asset catalogue > assigns every live ledger row to exactly one collection owner  801ms
+ ✓ runner/test/grow-lk.test.ts (12 tests) 1295ms
+   ✓ grow-lk policy/checkpoint evidence path > produces bit-identical compact checkpoints sequentially and in concurrent processes  490ms
+ ✓ core/test/lk-resume-checkpoint.test.ts (22 tests) 1224ms
+   ✓ streamed LK resume checkpoint v3 > splits f64 fields exactly at the fixed chunk boundary without crossing field/alignment seams  1182ms
+ ✓ runner/test/hil-bld-batch-resume.test.ts (10 tests) 965ms
+   ✓ explicit first-batch resume > binds resume to the original checkpointed campaign, exact probe, host, source, runtime and rows  564ms
+ ✓ runner/test/phase6-wp2-ladder-eval.test.ts (24 tests) 1080ms
+ ✓ runner/test/phase6-independent-evidence-scripts.test.ts (10 tests) 1040ms
+ ✓ runner/test/named-crystal-baseline-probes.test.ts (3 tests) 975ms
+   ✓ named-crystal baseline probe tranche > materializes every custom profile as a fitting, connected GG+ seed  945ms
+ ✓ runner/test/phase8-search-protocol-successor.test.ts (15 tests) 984ms
+ ✓ runner/test/phase8-target-book.test.ts (18 tests) 651ms
+   ✓ published Phase 8 freeze > re-derives the book, pins, and split from published bytes  600ms
+ ✓ runner/test/post-phase10-spatial.test.ts (1 test) 867ms
+   ✓ optional spatial boundary observations > records the converged pre-update boundary without changing numerical trajectories  866ms
+ ✓ runner/test/post-phase10-holefill.test.ts (11 tests) 813ms
+ ✓ runner/test/phase9-mgt-analytic.test.ts (18 tests) 651ms
+ ✓ runner/test/nas-asset-legacy-restore.test.ts (19 tests) 799ms
+   ✓ legacy NAS restore and restored-tree verifier > scans alias namespaces by directory rather than once per flat file  511ms
+ ✓ solver-cpu/test/timeline-environment.test.ts (10 tests) 772ms
+ ✓ runner/test/evidence-integrity.test.ts (7 tests) 498ms
+   ✓ evidence integrity (Phase 6 lessons, enforced) > every file in the manifest exists and matches its digest  414ms
+ ✓ runner/test/post-phase10-facet-factorial.test.ts (8 tests) 664ms
+ ✓ runner/test/phase10-c0v-schema-promotion.test.ts (7 tests) 571ms
+   ✓ Phase 10 C0V schema promotion > keeps every new research contract pretty-2 LF, trackable, and byte-stable  490ms
+ ✓ runner/test/named-crystal-final-compose-accept.test.ts (6 tests) 704ms
+ ✓ runner/test/hil-two-day-oct12.test.ts (4 tests) 1178ms
+   ✓ registered October 12 HIL wave > routes the actual CLI to this roster and its existing checkpointed worker  890ms
+ ✓ runner/test/hil-large-batch-oct11.test.ts (4 tests) 1440ms
+   ✓ registered October 11 HIL queue > refuses a changed campaign binding and either earlier batch's resume identity  405ms
+   ✓ registered October 11 HIL queue > routes the executable list and checkpointed workers to this roster without a probe route  1028ms
+ ✓ runner/test/phase10-final-package.test.ts (3 tests) 548ms
+   ✓ Phase 10 final package > matches the published report to its bound producer commit  535ms
+ ✓ runner/test/hil-batch2.test.ts (4 tests) 556ms
+   ✓ registered HIL second batch > routes the real entry point to its own roster and refuses old worker IDs  359ms
+ ✓ runner/test/phase9-dbt-publication.test.ts (67 tests) 638ms
+ ✓ runner/test/cli-entry.test.ts (6 tests) 527ms
+ ✓ runner/test/gutcheck-growth-out.test.ts (2 tests) 471ms
+   ✓ grow-params --growth-out > writes a gutcheck-growth-v1 asset the website decoder rules accept  302ms
+ ✓ runner/test/discovery-budget.test.ts (11 tests) 395ms
+ ✓ runner/test/post-phase10-followup.test.ts (5 tests) 471ms
+   ✓ post-Phase-10 follow-up wave 2 > runs one abrupt event at its exact first extent crossing  468ms
+ ✓ runner/test/gutcheck-growth-baker.test.ts (11 tests) 403ms
+ ✓ runner/test/named-crystal-final-direct-accept.test.ts (5 tests) 403ms
+ ✓ runner/test/phase10-c0v-s6-preflight-observer.test.ts (12 tests) 499ms
+ ✓ runner/test/gate4-aggregate.test.ts (17 tests) 393ms
+ ✓ runner/test/hil-exploration-oct10.test.ts (3 tests) 1430ms
+   ✓ registered October 10 HIL exploration > preserves the original supplement binding and refuses cross-batch or changed resume identity  362ms
+   ✓ registered October 10 HIL exploration > routes the executable list and checkpointed workers to this roster without a probe route  1064ms
+ ✓ runner/test/phase6-ladder-reader.test.ts (3 tests) 359ms
+ ❯ runner/test/gutcheck-animation-queue-cli.test.ts (1 test | 1 failed) 388ms
+   × gut-check animation queue CLI > plans portable A/B manifests and dry-runs both workers 387ms
+     → expected 'file:///C:/Users/biao3/Documents/GitH…' to match /non-local output requires|NAS output…/u
+ ✓ runner/test/gutcheck-build-index-catalog.test.ts (4 tests | 1 skipped) 370ms
+ ✓ runner/test/post-phase10-basal-history.test.ts (4 tests) 350ms
+ ✓ runner/test/phase8-search-protocol.test.ts (22 tests) 376ms
+ ✓ runner/test/post-phase10-cavity-analysis.test.ts (26 tests) 353ms
+ ✓ runner/test/depletion-metric.test.ts (3 tests) 333ms
+ ✓ runner/test/phase10-b-branches.test.ts (3 tests) 351ms
+ ✓ runner/test/nas-asset-restore-cli.test.ts (15 tests) 306ms
+ ❯ runner/test/progress-index.test.ts (11 tests | 1 failed) 283ms
+   ✓ compact progress index and byte-exact historical record > preserves and labels the exact pre-housekeeping body without making it current authority 31ms
+   ✓ compact progress index and byte-exact historical record > rejects loss of current closed-phase, hold, history and actual next-step boundaries 5ms
+   ✓ compact progress index and byte-exact historical record > preserves the complete pre-compaction body byte-for-byte 1ms
+   ✓ compact progress index and byte-exact historical record > disables Git line-ending conversion for the byte-exact mixed-ending archive 65ms
+   × compact progress index and byte-exact historical record > keeps the live authority complete and unambiguous 3ms
+     → expected 252 to be less than or equal to 250
+   ✓ compact progress index and byte-exact historical record > keeps every local Markdown target in the current index and archive resolvable 14ms
+   ✓ compact progress index and byte-exact historical record > labels the archive as historical rather than a second current authority 1ms
+   ✓ compact progress index and byte-exact historical record > labels the phase 6/8/9 history file as historical rather than a second current authority 0ms
+   ✓ compact progress index and byte-exact historical record > allows session dates to advance while rejecting missing, duplicate or invalid dates 15ms
+   ✓ compact progress index and byte-exact historical record > preserves historical state-loss mutation coverage against its dated snapshot 147ms
+   ✓ compact progress index and byte-exact historical record > rejects a one-byte archived-body mutation independently of the archive producer 0ms
+ ✓ runner/test/hil-bld-batch-summary.test.ts (7 tests) 270ms
+ ✓ runner/test/named-crystal-final-resolution-production.test.ts (9 tests) 292ms
+ ❯ runner/test/phase10-c0v-s6-executor-dispatch.test.ts (19 tests | 1 failed) 314ms
+   ✓ Phase 10 C0V S6 executor dispatch > accepts exactly the compiled 16 public command tuples 1ms
+   ✓ Phase 10 C0V S6 executor dispatch > rejects reordered, extended, and cross-packet public command authority 1ms
+   ✓ Phase 10 C0V S6 executor dispatch > performs static check inspection without claiming a preflight or run authority 77ms
+   × Phase 10 C0V S6 executor dispatch > requires a physical repository before any ready run can open an attempt 22ms
+     → expected [Function] to throw error matching /ENOENT|repository root/u but got 'UNKNOWN: unknown error, lstat \'Z:\no…'
+   ✓ Phase 10 C0V S6 executor dispatch > rejects loader-capable parent state and materializes no ambient child value 1ms
+   ✓ Phase 10 C0V S6 executor dispatch > accepts only the compiled internal worker arguments and protocol rosters 32ms
+   ✓ Phase 10 C0V S6 blocking worker transport > round-trips exact commands and recursive byte payloads 1ms
+   ✓ Phase 10 C0V S6 blocking worker transport > preserves an own __proto__ payload key without prototype mutation or field loss 0ms
+   ✓ Phase 10 C0V S6 blocking worker transport > rejects accessors, non-plain objects, and extended arrays without invoking accessors 0ms
+   ✓ Phase 10 C0V S6 blocking worker transport > rejects field-order, sequence, nullability, framing, and reserved-marker attacks 0ms
+   ✓ Phase 10 C0V S6 blocking worker transport > rejects noncanonical byte markers and lines above the exact 32 MiB bound 63ms
+   ✓ Phase 10 C0V S6 parent stream boundary > distinguishes a true spawn failure from a post-spawn process error until raw close 1ms
+   ✓ Phase 10 C0V S6 parent stream boundary > captures a governed completion synchronously at LF recognition 1ms
+   ✓ Phase 10 C0V S6 parent stream boundary > captures a deferred governed start synchronously at LF recognition 1ms
+   ✓ Phase 10 C0V S6 parent stream boundary > leaves watchdog boundary rejection distinct from transport framing 1ms
+   ✓ Phase 10 C0V S6 parent stream boundary > rejects trailing and partial stdout before terminal quiescence 1ms
+   ✓ Phase 10 C0V S6 parent stream boundary > rejects a late stderr overflow before a terminal worker claim 45ms
+   ✓ Phase 10 C0V S6 parent stream boundary > retains the exact bounded raw prefix when a chunk crosses either stream limit 62ms
+   ✓ Phase 10 C0V S6 parent stream boundary > enforces exact per-class line and count ceilings within the aggregate stdout bound 3ms
+ ✓ runner/test/phase6-wp2-ladder-independent.test.ts (4 tests) 272ms
+ ✓ runner/test/post-phase10-basal-width.test.ts (4 tests) 247ms
+ ✓ solver-cpu/test/phase6-ablation-arm.test.ts (1 test) 270ms
+ ✓ runner/test/post-phase10-cavity.test.ts (5 tests) 249ms
+ ✓ runner/test/phase10-b-acquisition.test.ts (4 tests) 252ms
+ ✓ runner/test/phase9-measurement-adapters-row-parsers.test.ts (12 tests) 249ms
+ ✓ solver-cpu/test/diffusion.test.ts (11 tests) 239ms
+ ✓ runner/test/phase10-c0v-s6-semantic-fingerprint.test.ts (2 tests) 242ms
+ ✓ runner/test/phase8-focused-discovery.test.ts (3 tests) 219ms
+ ✓ runner/test/vite-nas-serving.test.ts (23 tests | 3 skipped) 190ms
+ ✓ runner/test/phase6-protocol.test.ts (50 tests) 142ms
+ ✓ runner/test/named-crystal-direct-production.test.ts (5 tests) 260ms
+ ✓ runner/test/named-crystal-final-resolution-production-c.test.ts (5 tests) 159ms
+ ✓ runner/test/phase6-arm3.test.ts (26 tests) 110ms
+ ✓ runner/test/named-crystal-direct-production-2.test.ts (6 tests) 140ms
+ ✓ runner/test/phase6-heldout-source-lock.test.ts (7 tests) 165ms
+ ✓ runner/test/phase6-provenance.test.ts (12 tests) 135ms
+ ✓ runner/test/gate3.test.ts (20 tests) 161ms
+ ✓ runner/test/phase6-arm2.test.ts (38 tests) 118ms
+ ✓ runner/test/phase9-mf-mk2-publication.test.ts (7 tests) 160ms
+ ✓ runner/test/phase10-c0v-moving-static-reference.test.ts (10 tests) 137ms
+ ✓ runner/test/nas-assets.test.ts (26 tests) 136ms
+ ✓ runner/test/phase9-measurement-adapters.test.ts (20 tests) 128ms
+ ❯ runner/test/phase9-mgp-intake.test.ts (15 tests | 1 failed) 103ms
+   ✓ Phase 9 M-GP source-only intake > verifies the exact four-source registry and produces no score 6ms
+   × Phase 9 M-GP source-only intake > resolves every source only through the portable NAS resolver when the share is present 24ms
+     → VCC_NAS_ROOT=Z:/ is not the marked snowcrystal share: root does not exist; refusing to use a silently wrong or detached mount
+   ✓ Phase 9 M-GP source-only intake > rejects an altered bound authority artifact 1ms
+   ✓ Phase 9 M-GP source-only intake > rejects source identity, page, and audit mutations 7ms
+   ✓ Phase 9 M-GP source-only intake > rejects incomplete M-GP restriction handling and any attempted M-PK discharge 4ms
+   ✓ Phase 9 M-GP source-only intake > rejects invented plot coordinates, image numerics, and surface claims 8ms
+   ✓ Phase 9 M-GP source-only intake > pins Isono elapsed labels to minutes and strict source order 7ms
+   ✓ Phase 9 M-GP source-only intake > keeps the Gonda 1976 Figure 3 condition conflict a hard refusal 3ms
+   ✓ Phase 9 M-GP source-only intake > rejects any record with a collapsed or missing condition field 3ms
+   ✓ Phase 9 M-GP source-only intake > rejects coherently repinned row, source, locator, temperature, time, and observable forgeries 15ms
+   ✓ Phase 9 M-GP source-only intake > rejects coherently repinned complete Isono timeline forgeries 7ms
+   ✓ Phase 9 M-GP source-only intake > rejects a coherently repinned swap of the Figure 3 refusal and derived exclusion 3ms
+   ✓ Phase 9 M-GP source-only intake > rejects exact source path, citation, load-bearing-page, audit, and visual-audit forgeries 6ms
+   ✓ Phase 9 M-GP source-only intake > rejects exact seven-disposition and M-PK pending-semantic forgeries 5ms
+   ✓ Phase 9 M-GP source-only intake > rejects coherently repinned validation-claim fields at every exact protocol container 4ms
+ ✓ runner/test/rule7-lint.test.ts (3 tests) 112ms
+ ✓ runner/test/phase9-dbt-model.test.ts (27 tests) 116ms
+ ✓ runner/test/phase9-source-overlay.test.ts (8 tests) 117ms
+ ✓ runner/test/phase6-sweep.test.ts (39 tests) 94ms
+ ✓ runner/test/nas-asset-selection-lib.test.ts (18 tests) 108ms
+ ✓ runner/test/gate4-evidence.test.ts (44 tests) 98ms
+ ✓ solver-cpu/test/operator.test.ts (3 tests) 95ms
+ ✓ runner/test/phase10-c0v-s6-executor-worker.test.ts (6 tests) 95ms
+ ✓ solver-cpu/test/gg-plus-solver.test.ts (4 tests) 89ms
+ ✓ runner/test/gutcheck-growth-fleet.test.ts (5 tests) 79ms
+ ✓ runner/test/gutcheck-growth-comparison-builder.test.ts (15 tests) 84ms
+ ✓ runner/test/gutcheck-photo-match-cli.test.ts (2 tests) 76ms
+ ✓ runner/test/nas-asset-bootstrap.test.ts (21 tests) 69ms
+ ✓ runner/test/post-phase10-discovery.test.ts (6 tests) 54ms
+ ✓ solver-gpu/test/layout.test.ts (10 tests) 56ms
+ ✓ solver-cpu/test/dirichlet.test.ts (3 tests) 55ms
+ ✓ runner/test/growth-study-assets.test.ts (5 tests) 52ms
+ ✓ runner/test/phase8-plot-extraction-v3.test.ts (7 tests) 50ms
+ ✓ runner/test/named-crystal-final-compose.test.ts (4 tests) 49ms
+ ✓ app/test/gpuengine.test.ts (38 tests) 49ms
+ ✓ app/test/dendrite-data.test.ts (3 tests) 48ms
+ ✓ runner/test/phase9-knowledge-source.test.ts (9 tests) 46ms
+ ✓ runner/test/phase10-c0v-s6-worker-progress.test.ts (6 tests) 63ms
+ ✓ runner/test/named-crystal-direct-production-review.test.ts (2 tests) 36ms
+ ✓ runner/test/gate4a-reference.test.ts (6 tests) 39ms
+ ✓ runner/test/phase8-plot-extraction.test.ts (17 tests) 37ms
+ ✓ runner/test/named-crystal-final-resolution-c-cadence-repair.test.ts (5 tests) 35ms
+ ✓ runner/test/phase10-c0v-s6-publication-finalization-paths.test.ts (2 tests) 35ms
+ ✓ core/test/metrics.test.ts (32 tests) 32ms
+ ✓ runner/test/named-crystal-early-stop-probes.test.ts (3 tests) 33ms
+ ✓ runner/test/nas-asset-lib.test.ts (52 tests) 35ms
+ ✓ runner/test/phase9-mv-preflight.test.ts (2 tests) 35ms
+ ✓ runner/test/phase8-benchmark-selection.test.ts (5 tests) 31ms
+ ✓ app/test/inspect.test.ts (20 tests) 29ms
+ ✓ runner/test/phase8-benchmark-final.test.ts (7 tests) 28ms
+ ✓ core/test/libbrecht.test.ts (35 tests) 27ms
+ ✓ runner/test/phase8-bacon-successor.test.ts (4 tests) 28ms
+ ✓ runner/test/phase8-corpus-local.test.ts (22 tests) 25ms
+ ✓ app/test/stoprule.test.ts (8 tests) 24ms
+ ✓ runner/test/phase8-native-history.test.ts (8 tests) 23ms
+ ✓ solver-gpu/test/gg-surface.test.ts (17 tests) 20ms
+ ✓ runner/test/phase10-c0v-radial-reference.test.ts (10 tests) 20ms
+ ✓ core/test/lattice.test.ts (13 tests) 20ms
+ ✓ runner/test/phase10-c0v-s6-aggregate-parent.test.ts (2 tests) 18ms
+ ✓ runner/test/phase10-c0v-contracts.test.ts (5 tests) 19ms
+ ✓ runner/test/nas-mount-identity.test.ts (9 tests) 18ms
+ ✓ app/test/gutcheck-growth-format.test.ts (26 tests) 16ms
+ ✓ app/test/ggtimeline.test.ts (7 tests) 16ms
+ ✓ core/test/timeline.test.ts (20 tests) 16ms
+ ✓ runner/test/phase6-crossplatform.test.ts (13 tests) 15ms
+ ✓ core/test/prng.test.ts (6 tests) 14ms
+ ✓ core/test/checkpoint.test.ts (15 tests) 14ms
+ ✓ app/test/gpu-instrument.test.ts (17 tests) 14ms
+ ✓ runner/test/render-worktrees-closeout-nas-publication.test.ts (3 tests) 13ms
+ ✓ runner/test/phase9-ms-categorical.test.ts (8 tests) 13ms
+ ✓ runner/test/hil-bld-batch-roster.test.ts (6 tests) 12ms
+ ✓ solver-gpu/test/diffusion.test.ts (12 tests) 12ms
+ ✓ runner/test/phase9-mf-mk2-model.test.ts (16 tests) 12ms
+ ✓ runner/test/phase9-transport-analytic.test.ts (20 tests) 12ms
+ ✓ runner/test/phase9-mh-msr-foundation.test.ts (8 tests) 12ms
+ ✓ solver-gpu/test/lk-applied-noise.test.ts (10 tests) 11ms
+ ✓ solver-cpu/test/lk-cycle-phase.test.ts (5 tests) 11ms
+ ✓ runner/test/phase9-dbt-preflight.test.ts (2 tests) 11ms
+ ✓ runner/test/post-phase10-long.test.ts (2 tests) 11ms
+ ✓ app/test/gpuview.test.ts (29 tests) 11ms
+ ✓ app/test/gutcheck-scene-motion.test.ts (8 tests) 10ms
+ ✓ runner/test/growth-gallery-restore.test.ts (4 tests) 10ms
+ ✓ runner/test/phase6-size-strata.test.ts (8 tests) 9ms
+ ✓ runner/test/phase9-nas.test.ts (6 tests) 10ms
+ ✓ runner/test/phase9-hollowing-rivals.test.ts (12 tests) 9ms
+ ✓ runner/test/pgm.test.ts (2 tests) 8ms
+ ✓ app/test/snapshot.test.ts (3 tests) 8ms
+ ✓ app/test/gutcheck-growth-comparison-record.test.ts (20 tests) 8ms
+ ✓ runner/test/named-crystal-catalog.test.ts (4 tests) 7ms
+ ✓ solver-gpu/test/transport.test.ts (10 tests) 7ms
+ ✓ runner/test/gate2b-v4-artifact.test.ts (2 tests) 7ms
+ ✓ runner/test/phase6-sdak.test.ts (13 tests) 6ms
+ ✓ app/test/display.test.ts (10 tests) 6ms
+ ✓ app/test/growth-statistics.test.ts (5 tests) 6ms
+ ✓ runner/test/gate5-readback-attribution.test.ts (16 tests) 6ms
+ ✓ runner/test/suite-integrity.test.ts (4 tests) 6ms
+ ✓ runner/test/hil-supplement.test.ts (3 tests) 1324ms
+   ✓ registered HIL history and pressure supplement > routes the executable list and both checkpointed worker commands through the registered batch  1027ms
+ ✓ app/test/named-crystal-catalog-service.test.ts (2 tests) 7ms
+ ✓ app/test/gutcheck-growth-framing.test.ts (2 tests) 6ms
+ ✓ app/test/colormap.test.ts (8 tests) 6ms
+ ✓ core/test/target-observables.test.ts (26 tests) 5ms
+ ✓ runner/test/gutcheck-growth-scientific-nas-publication.test.ts (2 tests) 5ms
+ ✓ app/test/protocol.test.ts (15 tests) 5ms
+ ✓ runner/test/phase6-diagram.test.ts (6 tests) 5ms
+ ✓ runner/test/post-phase10-cavity-geometry.test.ts (6 tests) 5ms
+ ✓ runner/test/phase10-c0v-s6-watchdog-transition.test.ts (5 tests) 5ms
+ ✓ app/test/scenarios.test.ts (11 tests) 4ms
+ ✓ runner/test/phase9-mv-eligibility.test.ts (6 tests) 4ms
+ ✓ solver-gpu/test/lk-conversion.test.ts (3 tests) 4ms
+ ✓ app/test/lkoverlays.test.ts (14 tests) 4ms
+ ✓ solver-cpu/test/spherical-reference.test.ts (10 tests) 4ms
+ ✓ app/test/growth-study-data.test.ts (3 tests) 3ms
+ ✓ runner/test/phase10-c0v-s6-publication.test.ts (3 tests) 4ms
+ ✓ app/test/slice.test.ts (11 tests) 3ms
+ ✓ app/test/gpudevice.test.ts (15 tests) 3ms
+ ✓ runner/test/post-phase10-cavity-spatial.test.ts (5 tests) 3ms
+ ✓ runner/test/phase10-c0v-s6-static-parent.test.ts (4 tests) 3ms
+ ✓ core/test/params.test.ts (11 tests) 3ms
+ ✓ app/test/hexgeom.test.ts (8 tests) 3ms
+ ✓ app/test/overlays.test.ts (14 tests) 3ms
+ ✓ app/test/surface.test.ts (6 tests) 3ms
+ ✓ app/test/gutcheck-animation-queue.test.ts (4 tests) 3ms
+ ✓ runner/test/post-phase10-confirm.test.ts (3 tests) 3ms
+ ✓ app/test/growth-comparison-contract.test.ts (3 tests) 3ms
+ ✓ app/test/growth-scene.test.ts (5 tests) 3ms
+ ✓ runner/test/phase10-c0v-s6-radial-publish-parent.test.ts (2 tests) 3ms
+ ✓ runner/test/post-phase10-adaptive.test.ts (4 tests) 3ms
+ ✓ solver-gpu/test/lk-input.test.ts (5 tests) 3ms
+ ✓ app/test/hud.test.ts (8 tests) 2ms
+ ✓ runner/test/phase10-c0v-s6-radial-parent.test.ts (2 tests) 3ms
+ ✓ runner/test/named-crystal-current-audit.test.ts (2 tests) 3ms
+ ✓ runner/test/named-crystal-baseline-probe-review.test.ts (3 tests) 2ms
+ ✓ app/test/three-views.test.ts (2 tests) 2ms
+ ✓ app/test/catalog-volume.test.ts (3 tests) 2ms
+ ✓ runner/test/phase10-c0v-s6-moving-locked-dispatch.test.ts (1 test) 3ms
+ ✓ app/test/readout.test.ts (6 tests) 2ms
+ ✓ app/test/growth-asset.test.ts (2 tests) 2ms
+ ✓ solver-gpu/test/lk-cycle.test.ts (2 tests) 2ms
+ ✓ app/test/growth-study-library.test.ts (3 tests) 2ms
+ ✓ app/test/growth-scene-review-camera.test.ts (5 tests) 2ms
+ ✓ solver-gpu/test/gg-surface-numerical.test.ts (1 test) 2ms
+ ✓ runner/test/hil-warm-refinement.test.ts (3 tests) 168ms
+ ✓ app/test/spike-gg-realism-frame.test.ts (3 tests) 1ms
+
+ Test Files  5 failed | 235 passed (240)
+      Tests  4 failed | 3055 passed | 23 skipped (3082)
+   Start at  21:21:08
+   Duration  958.38s (transform 2.98s, setup 0ms, collect 32.00s, tests 902.10s, environment 24ms, prepare 8.73s)
+

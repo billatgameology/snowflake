@@ -1,0 +1,105 @@
+{
+  "createdAt": "2026-10-19T04:28:24.997442+00:00",
+  "scope": "Historical costs only; non-transferable to changed domain, timestep, mature geometry or concurrency. No new capacity measurement or launch.",
+  "coldFourN64Controls": {
+    "rows": [
+      {
+        "rowId": "oct10-hil-cold-t14p4-f0p1-both",
+        "result": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-exploration-oct10/snowflake/out/hil-exploration-oct10/rows/oct10-hil-cold-t14p4-f0p1-both/result.json",
+          "bytes": 3325,
+          "sha256": "e88abb7ae6bc97430cf7539c7ead21ed44ed91f59d7d474a8d2246b50b0eefcd"
+        },
+        "wallSeconds": 2752.279,
+        "completedUpdates": 353,
+        "totalSweeps": 875126
+      },
+      {
+        "rowId": "oct10-hil-cold-t14p4-f0p1-neither",
+        "result": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-exploration-oct10/snowflake/out/hil-exploration-oct10/rows/oct10-hil-cold-t14p4-f0p1-neither/result.json",
+          "bytes": 3335,
+          "sha256": "a2e68c76ab78d49723cff38b8cb91b16d36e0370a760a315ecb753245f767bb9"
+        },
+        "wallSeconds": 9051.992,
+        "completedUpdates": 851,
+        "totalSweeps": 2521838
+      },
+      {
+        "rowId": "oct10-hil-cold-t14p4-f0p1-basal-only",
+        "result": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-exploration-oct10/snowflake/out/hil-exploration-oct10/rows/oct10-hil-cold-t14p4-f0p1-basal-only/result.json",
+          "bytes": 3335,
+          "sha256": "3453e3dbdf7d8bccfa53861e1a316984643d9a66657a9c3c48f87d771a4627c7"
+        },
+        "wallSeconds": 8971.916,
+        "completedUpdates": 852,
+        "totalSweeps": 2518001
+      },
+      {
+        "rowId": "oct10-hil-cold-t14p4-f0p1-prism-only",
+        "result": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-exploration-oct10/snowflake/out/hil-exploration-oct10/rows/oct10-hil-cold-t14p4-f0p1-prism-only/result.json",
+          "bytes": 3334,
+          "sha256": "9a7652b72ebb8d71a0190c18d1895e6f9f9968d2975e203858597d0c37e2f0b0"
+        },
+        "wallSeconds": 2770.45,
+        "completedUpdates": 353,
+        "totalSweeps": 884759
+      }
+    ],
+    "summedWorkerHours": 6.5407325,
+    "longestWorkerHours": 2.5144422222222222
+  },
+  "seedEightControls": {
+    "rows": [
+      {
+        "rowId": "oct11-hil-seed-t6p5-f0p15-r3-h1-both",
+        "wallSeconds": 8432.162,
+        "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da"
+      },
+      {
+        "rowId": "oct11-hil-seed-t6p5-f0p15-r3-h1-neither",
+        "wallSeconds": 8091.398,
+        "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da"
+      },
+      {
+        "rowId": "oct11-hil-seed-t6p5-f0p15-r1-h5-both",
+        "wallSeconds": 5731.895,
+        "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da"
+      },
+      {
+        "rowId": "oct11-hil-seed-t6p5-f0p15-r1-h5-neither",
+        "wallSeconds": 9354.072,
+        "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da"
+      },
+      {
+        "rowId": "oct11-hil-seed-t9p5-f0p15-r3-h1-both",
+        "wallSeconds": 5813.768,
+        "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da"
+      },
+      {
+        "rowId": "oct11-hil-seed-t9p5-f0p15-r3-h1-neither",
+        "wallSeconds": 8681.195,
+        "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da"
+      },
+      {
+        "rowId": "oct11-hil-seed-t9p5-f0p15-r1-h5-both",
+        "wallSeconds": 8115.911,
+        "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da"
+      },
+      {
+        "rowId": "oct11-hil-seed-t9p5-f0p15-r1-h5-neither",
+        "wallSeconds": 8131.115,
+        "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da"
+      }
+    ],
+    "sumWorkerHours": 17.319865555555555,
+    "limits": "Observed CFL .05 rows under original contention. New CFL .025 seed cost is unmeasured; no estimate or transfer claim."
+  },
+  "candidateOnly": {
+    "cold": "Four N96 same-spacing cases at -14.4 C/fraction .10, four existing facet preparations, seed2/1, dx.35um, CFL.05, extent29; compare with N64 controls. Candidate dimensions, not frozen protocol.",
+    "seed": "Eight N64 smaller-step cases, -6.5/-9.5 C/fraction .15, both/neither x seeds3/1 and1/5, dx.35um, CFL.025, extent29.",
+    "changedConfigurationElapsedEstimate": "not yet measured; prepare explicit estimate and uncertainty before launch authorization"
+  }
+}

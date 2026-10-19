@@ -1,0 +1,172 @@
+{
+  "schema": "warm-completion-status-v1",
+  "observedAt": "2026-10-19T04:09:03.153Z",
+  "checker": "summarizeFirstBatchRow(directory) from runner/src/hil-bld-batch-summary.ts",
+  "checkerSha256": "ed9211818dff80426fd8fd889abe0ad6ab27437ef780b33b28f38854527f296a",
+  "producer": {
+    "root": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake",
+    "gitHead": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+    "status": "",
+    "node": "v24.13.1",
+    "v8": "13.6.233.17-node.40",
+    "campaignPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\campaign.json",
+    "campaignSha256": "407a0ae128cfd991aea8d5e3a7a98ebba27af984532c1d9f26f8f4bbb322745f"
+  },
+  "rows": [
+    {
+      "rowId": "warm-refine-fine-thin-t4p5-broad",
+      "summary": {
+        "rowId": "warm-refine-fine-thin-t4p5-broad",
+        "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad",
+        "disposition": "size-endpoint",
+        "stopReason": "size-target",
+        "exitCode": 0,
+        "completedUpdates": 1770,
+        "physicalTimeSeconds": 56.70347153158861,
+        "extent": 57,
+        "timelineEventTimeSeconds": null,
+        "postEventSeconds": null,
+        "cutoffReached": null,
+        "postCutoffUpdateObserved": null,
+        "postUpdateSizeCrossings": [
+          {
+            "extent": 9,
+            "cycle": 1,
+            "physicalTimeSeconds": 0.04427939244847449
+          },
+          {
+            "extent": 17,
+            "cycle": 160,
+            "physicalTimeSeconds": 4.929933834816681
+          },
+          {
+            "extent": 25,
+            "cycle": 393,
+            "physicalTimeSeconds": 12.725943194792656
+          },
+          {
+            "extent": 33,
+            "cycle": 641,
+            "physicalTimeSeconds": 21.924704691618057
+          },
+          {
+            "extent": 41,
+            "cycle": 939,
+            "physicalTimeSeconds": 32.32905004697065
+          },
+          {
+            "extent": 49,
+            "cycle": 1330,
+            "physicalTimeSeconds": 43.7770827055833
+          }
+        ],
+        "errors": []
+      },
+      "exit": {
+        "schema": "post-phase10-discovery-exit-v1",
+        "rowId": "warm-refine-fine-thin-t4p5-broad",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-10-16T04:28:44.651Z",
+        "finishedAt": "2026-10-17T04:33:39.301Z",
+        "wallSeconds": 86694.65,
+        "attemptName": "parallel-1792124921574"
+      },
+      "result": {
+        "gitHead": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+        "node": "v24.13.1",
+        "startedAt": "2026-10-09T09:59:41.669Z",
+        "finishedAt": "2026-10-17T04:33:39.198Z",
+        "wallSeconds": 538380.159,
+        "allRelaxationsConverged": true,
+        "integrityErrors": []
+      },
+      "targetExtent": 57,
+      "bindings": {
+        "spec.json": "370fa34f7f86fe73211c9f8ec6a7456d75d7f84192b4667b4fdab9292c6257c1",
+        "result.json": "337ff8ca868136b2739cd68fce14cf84bc6d658462aaabf5499d7385f4cab3e8",
+        "exit.json": "5d96b66d1e0715608b2a21d3254d4b3774db1e92d067a62fc27263e6f8bb2052",
+        "events.jsonl": "071cb36b2af45526ef8b3ddb6731c6f0d07933fd65f13ac93ac7a0371505b28f"
+      }
+    },
+    {
+      "rowId": "warm-refine-fine-thick-t4p5-broad",
+      "summary": {
+        "rowId": "warm-refine-fine-thick-t4p5-broad",
+        "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad",
+        "disposition": "size-endpoint",
+        "stopReason": "size-target",
+        "exitCode": 0,
+        "completedUpdates": 1867,
+        "physicalTimeSeconds": 59.23322494643029,
+        "extent": 57,
+        "timelineEventTimeSeconds": null,
+        "postEventSeconds": null,
+        "cutoffReached": null,
+        "postCutoffUpdateObserved": null,
+        "postUpdateSizeCrossings": [
+          {
+            "extent": 9,
+            "cycle": 1,
+            "physicalTimeSeconds": 0.05143105979855144
+          },
+          {
+            "extent": 17,
+            "cycle": 164,
+            "physicalTimeSeconds": 5.583271107684711
+          },
+          {
+            "extent": 25,
+            "cycle": 380,
+            "physicalTimeSeconds": 13.775369170232247
+          },
+          {
+            "extent": 33,
+            "cycle": 653,
+            "physicalTimeSeconds": 23.497031007374922
+          },
+          {
+            "extent": 41,
+            "cycle": 1010,
+            "physicalTimeSeconds": 34.39163687837536
+          },
+          {
+            "extent": 49,
+            "cycle": 1414,
+            "physicalTimeSeconds": 45.93616383260058
+          }
+        ],
+        "errors": []
+      },
+      "exit": {
+        "schema": "post-phase10-discovery-exit-v1",
+        "rowId": "warm-refine-fine-thick-t4p5-broad",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-10-16T04:28:44.665Z",
+        "finishedAt": "2026-10-17T19:29:04.183Z",
+        "wallSeconds": 140419.518,
+        "attemptName": "parallel-1792124921574"
+      },
+      "result": {
+        "gitHead": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+        "node": "v24.13.1",
+        "startedAt": "2026-10-09T14:52:52.888Z",
+        "finishedAt": "2026-10-17T19:29:04.043Z",
+        "wallSeconds": 574171.88,
+        "allRelaxationsConverged": true,
+        "integrityErrors": []
+      },
+      "targetExtent": 57,
+      "bindings": {
+        "spec.json": "0c548a510668b767dd88b88f8d65c95f74e565dd19d6bda1c7ed899bc9726b0f",
+        "result.json": "ec8183d4bb820db5cb7155fa1b329e9043d5735d50e0f66379ad4060ca8e6546",
+        "exit.json": "db1f95da85d23ca05abe7dedc5e91f997a38688de26e301277217dafe2cec050",
+        "events.jsonl": "a84980ea55ed66a7b629c535a886430824dc710f96409e5772fca53f9f85925e"
+      }
+    }
+  ],
+  "errors": [],
+  "checkExitCode": 0,
+  "scope": "Read-only existing operational row checker over both newly finished fine broad rows. No simulation, morphology comparison, checkpoint payload rehash, physical validation or NAS publication."
+}

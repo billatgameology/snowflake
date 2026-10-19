@@ -1,0 +1,23 @@
+{
+  "createdAt": "2026-10-19T04:17:12.402116+00:00",
+  "methodChecks": {
+    "readRowExact": true,
+    "windowContrastHelpersExact": true
+  },
+  "scientificReadoutSourceDifferenceFromProducerToCurrent": "none in core, solver-cpu, discovery worker and bracket helper",
+  "executedCommands": [
+    {
+      "command": "node out/analysis-2026-10-18/seed/analyze.mjs out/analysis-2026-10-18/seed/seed-analysis-v2.json",
+      "exitCode": 0
+    },
+    {
+      "command": "python out/analysis-2026-10-18/seed/summarize.py",
+      "exitCode": 0
+    },
+    {
+      "command": "python out/analysis-2026-10-18/seed/compact.py",
+      "exitCode": 0
+    }
+  ],
+  "scope": "Author calculation and source checks only; no full test-suite or scientific validation claim."
+}

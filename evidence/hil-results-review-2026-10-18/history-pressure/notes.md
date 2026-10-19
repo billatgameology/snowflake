@@ -1,0 +1,40 @@
+# History and pressure readout — 2026-10-18
+
+Internal retrospective model-development analysis by Codex/GPT-6 subagent with inherited context. No solver execution, producer edits, gate verdict, physical causal claim, continuum convergence or domain-independence claim. Occupancy is not mass.
+
+## Artifacts and exact commands
+
+From `C:/Users/biao3/Documents/GitHub/snowflake`:
+
+```
+node out/analysis-2026-10-18/history-pressure/readout.mjs
+node out/analysis-2026-10-18/history-pressure/summarize.mjs
+```
+
+Both completed exit zero. Outputs use exclusive creation; choose fresh output filenames before replay. The first recipe copies the retained `out/hil-two-day-design-2026-10-12/history-options.mjs` reconstruction/window functions unchanged apart from import depth and selects the new completed roster. It calls existing `summarizeFirstBatchRow`, `hexSeedSites`, `coordsOf`, `cartesian`, and `bracketCavityTime`. No scientific library was changed. Detailed result: `readout.json`, SHA-256 `15b8d93f51ce14124e23b2e2d3fdc605f0c7e76d9d542d4bc06cede224b32bfa`. Compact result: `summary.json`, SHA-256 `315180839fa6d074bd1255c1d6b4aad15baf1546c6196123f7606f85da88366e`.
+
+Source parity: `git diff --name-only 7ea2582 0161a51 -- core/src solver-cpu/src runner/src/post-phase10-discovery.ts runner/src/discovery-resume-io.ts runner/src/post-phase10-cavity-analysis.ts runner/src/post-phase10-cavity-geometry.ts runner/src/hil-bld-batch-summary.ts` returned no differences. Fixed producer bindings remain explicit in each source result, not migrated. Readout inputs have paths/bytes/hashes in `readout.json.sources`.
+
+Coverage: 111 successful endpoints (79 histories, 32 statics), reconstructing 99,074 recorded updates; all endpoint/geometry checks passed. The 79 source-static prefixes match in reconstructed geometry and the retained scientific event projection (relaxation, boundary, surface, attachments, ledgers, physical time). This includes all six previously deferred ordinary histories using explicitly experimental October 10 both/neither controls. It does not compare unrecorded full fields. The 80 selected October 12 history/static rows comprise 79 completed inputs and the single failed cooling M1 pressure/history row, which is excluded from complete contrasts. It remains at update 414/extent21, not an absent effect.
+
+Earlier supplement/October10 readouts were reused, not rerun: all 64, 40 and 120 source bindings in supplement-triage, history-triage and October12 history-options were rehashed and still match. Exact report identities are in `summary.json.reusedEarlierAnalyses`.
+
+## What changed in our understanding
+
+**History response survives the smaller timestep in the measured axial quantity.** All 24 CFL0.05/CFL0.025 history pairs have the same at-or-before axial span additions in all three named windows (full, early, later: 24/24 each). The four common full durations are cooling fraction0.10:13.57402469692868s; cooling0.20:5.247091323320856s; warming0.10:40.773804170086194s; warming0.20:13.195310213443392s. Multiply axial layers by0.35um for total center span. This is not trajectory identity: only 21/24 full/later lateral additions match, and only6/24 full occupancy increments match. The largest full/later lateral difference in this set is0.606217782649105um at cooling fraction0.10 switch11 M1; the largest full occupancy difference is182 attached sites at warming fraction0.10 switch11 no-dip (9274 versus9456). Exact witnesses and adjacent-event sensitivities remain in the JSON.
+
+**The earlier 'later equalization' observation is sensitive to where the window is cut.** At the previous CFL0.05-only common duration41.172707888953596s, warming fraction0.10 M1 later additions were10/10/10 layers for switch7/11/15. The new shared duration40.773804170086194s yields12/10/10 in BOTH timesteps (4.2/3.5/3.5um). At fraction0.20, the former13.326099704266397s window gave8/8/8; shared13.195310213443392s gives8/6/8 in BOTH timesteps (2.8/2.1/2.8um). The new axial values do not change under their immediate adjacent-event choices. Thus those old equalities were true for their windows but cannot establish that growth memory disappeared. This is sensitivity to the observation window in a discrete layer-attachment process, not a disagreement between the two timestep settings.
+
+**Pressure changes the speed and the measured history pattern, but does not produce a universal memory rule.** Across the complete warming fraction0.20 group (12 histories, three pressures, two preparations, switch7/15), one common duration7.5696185581022615s is used. M1's later-half early/late axial additions at half/normal/double pressure are8/6,6/4,4/2 layers: the early switch exceeds the late switch by0.70um at every pressure in that window. All adjacent-event axial brackets retain those values. For warming fraction0.10 over23.029791036395686s, M1 later additions are12/12,6/6,4/4; equal axial increments still accompany unequal occupancy/lateral increments. No-dip at the latter window has early/late6/4,2/4,2/2 layers, so its late-minus-early contrast changes sign with pressure (-0.70,+0.70,0um). These are scoped differences among coupled histories: pressure also changes growth times, pre-event geometry, fill and vapor. Do not call the sign pattern a physical mechanism or asymptotic relaxation law.
+
+The complete pressure comparison consists of47 successful histories (31 new low/high pressure plus16 normal-pressure controls) across four direction/forcing groups; one cooling fraction0.10 high-pressure M1 late-switch case is missing because of solver failure. `pressureStage` preserves that missing contrast explicitly. The pressure pair readouts do not inherit the normal-pressure CFL check.
+
+**Earlier results still stand within their scope.** The supplement's terminal static pressure occupancy ordering survived CFL0.05 to0.025: fraction0.10 low/high3759/4229 becomes3747/4229; fraction0.20 low/high3607/2787 becomes3583/2799. These are extent21 occupancy counts, not mass or a general pressure law. Longer fraction0.15 history data already showed M1 warming later axial additions10 versus8 layers at switch7/15 over a21.305381825970517s common full window; cooling later additions2 versus0 over7.902663981858929s. The new CFL and pressure work qualifies the history lead but rules out a single time-independent story.
+
+## Options for the parent/maker discussion — no new run authorized here
+
+1. **Recommended immediate analysis:** use the retained time series to show growth curves and predeclared broad time windows, with adjacent-event brackets, instead of elevating one split-window equality into loss of memory. The next decision is whether a sustained incremental contrast survives reasonable observation windows. This can use saved data while warm refinement finishes.
+2. **Focused experimental option, after selecting the strongest history contrast:** qualify the low/high-pressure warming fraction0.20 early/late M1 contrast at CFL0.025 with matching static controls. A bounded version is four histories (two pressures x switch7/15) plus four source/destination statics. This addresses the currently untested pressure-timestep transfer; retain finite targets and get a cost estimate from matching completed pressure histories before committing. Do not inflate into another grid or copy normal-pressure qualification.
+3. **Separate numerical repair priority:** isolate the repeatable subnormal boundary iteration failure before attempting the missing cooling row again. Preserve failed outputs and numerical contracts. A correction would require its own governed change/tests and newly identified rerun; unchanged retry has already been rejected by measurement.
+
+No immediate larger-grid history campaign is recommended from these results alone. Grid/domain qualification remains open, and warm mature costs show why it needs its own measured budget. No independent external review was performed; this is an author skeptical pass with exact source checks and scoped interpretation limits.

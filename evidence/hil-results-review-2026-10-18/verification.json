@@ -1,0 +1,82 @@
+{
+  "schema": "hil-completed-results-review-verification-v1",
+  "createdAt": "2026-10-19T04:38:59.373454+00:00",
+  "scope": "Retrospective internal model-development readout and options; no new run, producer change, physical validation, NAS publication or worktree closure.",
+  "fullTest": {
+    "command": "npm.cmd test",
+    "cwd": "C:/Users/biao3/Documents/GitHub/snowflake",
+    "head": "97fddc4589f1e9237024e61e2199f5100879e5a3",
+    "invocation": "verification/full-test-invocation.json",
+    "result": "verification/full-test-result.json",
+    "stdout": "verification/npm-test.stdout.log",
+    "stderr": "verification/npm-test.stderr.log",
+    "exitCode": 1,
+    "passedFiles": 235,
+    "failedFiles": 5,
+    "passedTests": 3055,
+    "failedTests": 4,
+    "skippedTests": 23,
+    "vitestSeconds": 958.38,
+    "failures": [
+      "runner/test/progress-index.test.ts:252 lines exceeds250; corrected to249 lines",
+      "runner/test/phase9-mpk-residual-foundation.test.ts:configured Z: share unavailable at suite import",
+      "runner/test/gutcheck-animation-queue-cli.test.ts:configured Z: unavailable before expected rejection",
+      "runner/test/phase10-c0v-s6-executor-dispatch.test.ts:unavailable Z: produces UNKNOWN lstat rather than expected ENOENT",
+      "runner/test/phase9-mgp-intake.test.ts:configured Z: unavailable"
+    ],
+    "claim": "Not full-suite green. No numerical, solver, production readout or test files changed."
+  },
+  "analysis": {
+    "cold": "cold/findings.md and cold/cold-summary.json",
+    "seed": "seed/analysis-receipt.json, seed/inputs.json and seed/decision-summary.json",
+    "historyPressure": "history-pressure/notes.md, readout.json and summary.json",
+    "warm": {
+      "command": "node runner/src/post-phase10-cavity-analysis.ts campaign out/warm-refinement-hil C:/Users/biao3/Documents/GitHub/snowflake/out/analysis-2026-10-18/warm/cavity-readout.json",
+      "cwd": "C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake",
+      "producer": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+      "exitCode": 0,
+      "artifact": "warm/cavity-readout.json"
+    }
+  },
+  "review": "verification/review.json",
+  "nas": {
+    "observedLocal": "2026-10-18 21:37 PDT",
+    "mapping": "Z: -> \\\\GameStation\\snowcrystal",
+    "status": "Disconnected; authentication failed",
+    "hostReachability": "DNS resolution and TCP445 succeeded",
+    "readOnlyAccess": "Z: and exact UNC both returned Win32 error1326: The user name or password is incorrect.",
+    "action": "Reconnect the existing share through Windows with working credentials. No credentials, mappings, paths or NAS files were changed."
+  },
+  "focusedChecks": {
+    "command": "npx.cmd vitest run runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts",
+    "exitCode": 0,
+    "passedFiles": 2,
+    "passedTests": 18,
+    "vitestSeconds": 1.05,
+    "stdout": "verification/focused-final.stdout.log",
+    "stderr": "verification/focused-final.stderr.log",
+    "earlierCorrection": "An intermediate Windows default-text-encoding mistake corrupted punctuation in the edited progress/report prose; UTF-8 bytes were restored before this passing check. Earlier focused logs are retained. No numerical or analysis-recipe bytes changed."
+  },
+  "limits": [
+    "New scripts select/package established scientific calculations; full suite does not independently test every bespoke selection.",
+    "Shared-context review independently reconstructed selected cold/seed results and cross-checked warm tables; history reviewer was its author.",
+    "No claim of grid/domain convergence or physical causality; failed and pending scientific members remain explicit.",
+    "Only prose/manifest line endings changed during full test; analysis recipe bytes were stable. Final report metadata receives focused checks."
+  ],
+  "otherChecks": {
+    "rule7": {
+      "command": "npm.cmd run lint:rule7",
+      "exitCode": 0,
+      "filesScanned": 2687,
+      "stdout": "verification/rule7.stdout.log",
+      "stderr": "verification/rule7.stderr.log"
+    },
+    "links": {
+      "filesChecked": 5,
+      "missingRelativeTargets": 0
+    },
+    "diff": "Non-log authored files checked. Verbatim npm-test stdout/stderr retain original trailing whitespace and final blank lines; raw logs were not rewritten to satisfy a whitespace formatter.",
+    "sourceStability": "git diff --name-only 03b40474d6c2c85df5822a75d7f24269b1c92ac4 over core, solver-cpu, solver-gpu, runner and retained .mjs/.py recipes returned no paths."
+  },
+  "recordedAt": "2026-10-19T04:40:36.120063+00:00"
+}

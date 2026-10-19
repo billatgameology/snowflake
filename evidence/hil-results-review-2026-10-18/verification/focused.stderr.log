@@ -1,0 +1,45 @@
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  runner/test/progress-index.test.ts > compact progress index and byte-exact historical record > rejects loss of current closed-phase, hold, history and actual next-step boundaries
+AssertionError: expected [ Array(1) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   "missing current-state phrase: No C1–C5 row, habit row, validation claim or downstream authorization was earned.",
++ ]
+
+ ❯ runner/test/progress-index.test.ts:317:38
+    315|   it("rejects loss of current closed-phase, hold, history and actual n…
+    316|     const text = readFileSync(PROGRESS, "utf8");
+    317|     expect(currentIndexErrors(text)).toEqual([]);
+       |                                      ^
+    318|     for (const phrase of [
+    319|       "Phase 6 is COMPLETE (2026-08-20)",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  runner/test/progress-index.test.ts > compact progress index and byte-exact historical record > keeps the live authority complete and unambiguous
+AssertionError: expected [ Array(1) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   "missing current-state phrase: No C1–C5 row, habit row, validation claim or downstream authorization was earned.",
++ ]
+
+ ❯ runner/test/progress-index.test.ts:380:38
+    378|     // The maker-authorized housekeeping plan restores a compact curre…
+    379|     const text = readFileSync(PROGRESS, "utf8");
+    380|     expect(currentIndexErrors(text)).toEqual([]);
+       |                                      ^
+    381|     expect(text.split(/\r?\n/u).length).toBeLessThanOrEqual(250);
+    382| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+

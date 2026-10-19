@@ -1,0 +1,5431 @@
+{
+  "createdAt": "2026-10-19T04:13:45.458Z",
+  "input": {
+    "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\analysis-2026-10-18\\history-pressure\\readout.json",
+    "sha256": "15b8d93f51ce14124e23b2e2d3fdc605f0c7e76d9d542d4bc06cede224b32bfa"
+  },
+  "reusedEarlierAnalyses": [
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\next-hil-design-2026-10-10\\supplement-triage.json",
+      "sha256": "eb95da47fa726317942a99cf8e48d6c6e572123e109bd4ea6a7c5334cc935df0",
+      "boundInputsRechecked": 64
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-large-batch-design-2026-10-11\\history-triage.json",
+      "sha256": "3f05dde9ab5993a22d28f3211868f4da8b9faf7270b2c5b5e4bf0c488393ca30",
+      "boundInputsRechecked": 40
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-two-day-design-2026-10-12\\history-options.json",
+      "sha256": "6582756caa8486e74bba6e7c774e083c4a719b18029cb05390296f1c5a1d09a7",
+      "boundInputsRechecked": 120
+    }
+  ],
+  "sourceParity": {
+    "command": "git diff --name-only 7ea2582 0161a51 -- core/src solver-cpu/src runner/src/post-phase10-discovery.ts runner/src/discovery-resume-io.ts runner/src/post-phase10-cavity-analysis.ts runner/src/post-phase10-cavity-geometry.ts runner/src/hil-bld-batch-summary.ts",
+    "changedPaths": []
+  },
+  "census": {
+    "oct11": 30,
+    "oct12Selected": 80,
+    "oct12Completed": 79,
+    "borrowedExperimentalStatics": 2,
+    "histories": 79,
+    "statics": 32,
+    "sourceStaticPrefixesEqual": 79,
+    "reconstructedCycles": 99074
+  },
+  "failed": {
+    "id": "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1",
+    "stopReason": "solver-error",
+    "cycles": 414,
+    "extent": 21,
+    "errors": [
+      "Error: aggregate boundary solve did not converge (cell 145376: sigma_b 1e-323 vs iterate 0)\n    at LKSolver.solveAggregateBoundary (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/solver-cpu/src/lk-solver.ts:1729:13)\n    at LKSolver.sweepAggregate (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/solver-cpu/src/lk-solver.ts:2006:29)\n    at LKSolver.sweep (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/solver-cpu/src/lk-solver.ts:2069:17)\n    at LKSolver.relaxField (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/solver-cpu/src/lk-solver.ts:2108:75)\n    at runDiscoveryRow (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/post-phase10-discovery.ts:901:33)\n    at runPostPhase10DiscoveryRow (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/post-phase10-discovery.ts:646:16)\n    at runNamedDiscoveryBatch (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/hil-bld-batch-main.ts:386:20)\n    at runHilOperationalBatch (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/hil-operational-batch-main.ts:100:12)\n    at runHilTwoDayOct12 (file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/hil-two-day-oct12-main.ts:23:10)\n    at file:///C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/runner/src/hil-two-day-oct12-main.ts:27:3"
+    ]
+  },
+  "cflCensus": {
+    "axialCells": {
+      "full": {
+        "n": 24,
+        "same": 24,
+        "maxAbsDifference": {
+          "value": 0
+        }
+      },
+      "early": {
+        "n": 24,
+        "same": 24,
+        "maxAbsDifference": {
+          "value": 0
+        }
+      },
+      "later": {
+        "n": 24,
+        "same": 24,
+        "maxAbsDifference": {
+          "value": 0
+        }
+      }
+    },
+    "lateralCartesianCells": {
+      "full": {
+        "n": 24,
+        "same": 21,
+        "maxAbsDifference": {
+          "value": 1.7320508075688714,
+          "old": "oct11-hil-history-t6-to-t14p4-f0p1-e11-m1",
+          "next": "oct12-hil-history-step-t6-to-t14p4-f0p1-e11-cfl0p025-m1",
+          "oldValue": 13.856406460551021,
+          "nextValue": 15.588457268119893
+        }
+      },
+      "early": {
+        "n": 24,
+        "same": 24,
+        "maxAbsDifference": {
+          "value": 0
+        }
+      },
+      "later": {
+        "n": 24,
+        "same": 21,
+        "maxAbsDifference": {
+          "value": 1.7320508075688714,
+          "old": "oct11-hil-history-t6-to-t14p4-f0p1-e11-m1",
+          "next": "oct12-hil-history-step-t6-to-t14p4-f0p1-e11-cfl0p025-m1",
+          "oldValue": 6.9282032302755105,
+          "nextValue": 8.660254037844382
+        }
+      }
+    },
+    "attachedCount": {
+      "full": {
+        "n": 24,
+        "same": 6,
+        "maxAbsDifference": {
+          "value": 182,
+          "old": "oct11-hil-history-t14p4-to-t6-f0p1-e11-nodip",
+          "next": "oct12-hil-history-step-t14p4-to-t6-f0p1-e11-cfl0p025-nodip",
+          "oldValue": 9274,
+          "nextValue": 9456
+        }
+      },
+      "early": {
+        "n": 24,
+        "same": 10,
+        "maxAbsDifference": {
+          "value": 180,
+          "old": "oct11-hil-history-t14p4-to-t6-f0p1-e11-m1",
+          "next": "oct12-hil-history-step-t14p4-to-t6-f0p1-e11-cfl0p025-m1",
+          "oldValue": 3400,
+          "nextValue": 3580
+        }
+      },
+      "later": {
+        "n": 24,
+        "same": 5,
+        "maxAbsDifference": {
+          "value": 182,
+          "old": "oct11-hil-history-t14p4-to-t6-f0p1-e11-nodip",
+          "next": "oct12-hil-history-step-t14p4-to-t6-f0p1-e11-cfl0p025-nodip",
+          "oldValue": 5770,
+          "nextValue": 5952
+        }
+      }
+    }
+  },
+  "m1Windows": [
+    {
+      "group": "from-6-fraction0.1-two-CFL",
+      "seconds": 13.57402469692868,
+      "rows": [
+        {
+          "id": "oct11-hil-history-t6-to-t14p4-f0p1-e7-m1",
+          "cfl": 0.05,
+          "switch": 7,
+          "earlyAxialUm": 0.7,
+          "laterAxialUm": 0.7,
+          "laterLateralUm": 3.0310889132455374,
+          "laterOccupancy": 1610,
+          "laterAxialBracketUm": {
+            "min": 0.7,
+            "max": 0.7
+          }
+        },
+        {
+          "id": "oct11-hil-history-t6-to-t14p4-f0p1-e11-m1",
+          "cfl": 0.05,
+          "switch": 11,
+          "earlyAxialUm": 0.7,
+          "laterAxialUm": 0,
+          "laterLateralUm": 2.4248711305964283,
+          "laterOccupancy": 2046,
+          "laterAxialBracketUm": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "oct11-hil-history-t6-to-t14p4-f0p1-e15-m1",
+          "cfl": 0.05,
+          "switch": 15,
+          "earlyAxialUm": 0,
+          "laterAxialUm": 0.7,
+          "laterLateralUm": 1.9308311744383921,
+          "laterOccupancy": 2922,
+          "laterAxialBracketUm": {
+            "min": 0.7,
+            "max": 0.7
+          }
+        },
+        {
+          "id": "oct12-hil-history-step-t6-to-t14p4-f0p1-e7-cfl0p025-m1",
+          "cfl": 0.025,
+          "switch": 7,
+          "earlyAxialUm": 0.7,
+          "laterAxialUm": 0.7,
+          "laterLateralUm": 3.0310889132455374,
+          "laterOccupancy": 1610,
+          "laterAxialBracketUm": {
+            "min": 0.7,
+            "max": 0.7
+          }
+        },
+        {
+          "id": "oct12-hil-history-step-t6-to-t14p4-f0p1-e11-cfl0p025-m1",
+          "cfl": 0.025,
+          "switch": 11,
+          "earlyAxialUm": 0.7,
+          "laterAxialUm": 0,
+          "laterLateralUm": 3.0310889132455334,
+          "laterOccupancy": 2148,
+          "laterAxialBracketUm": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "oct12-hil-history-step-t6-to-t14p4-f0p1-e15-cfl0p025-m1",
+          "cfl": 0.025,
+          "switch": 15,
+          "earlyAxialUm": 0,
+          "laterAxialUm": 0.7,
+          "laterLateralUm": 1.9308311744383921,
+          "laterOccupancy": 2886,
+          "laterAxialBracketUm": {
+            "min": 0.7,
+            "max": 0.7
+          }
+        }
+      ]
+    },
+    {
+      "group": "from-6-fraction0.2-two-CFL",
+      "seconds": 5.247091323320856,
+      "rows": [
+        {
+          "id": "oct11-hil-history-t6-to-t14p4-f0p2-e7-m1",
+          "cfl": 0.05,
+          "switch": 7,
+          "earlyAxialUm": 1.4,
+          "laterAxialUm": 0.7,
+          "laterLateralUm": 1.818653347947321,
+          "laterOccupancy": 1066,
+          "laterAxialBracketUm": {
+            "min": 0.7,
+            "max": 0.7
+          }
+        },
+        {
+          "id": "oct11-hil-history-t6-to-t14p4-f0p2-e11-m1",
+          "cfl": 0.05,
+          "switch": 11,
+          "earlyAxialUm": 1.4,
+          "laterAxialUm": 0.7,
+          "laterLateralUm": 1.818653347947321,
+          "laterOccupancy": 1318,
+          "laterAxialBracketUm": {
+            "min": 0.7,
+            "max": 0.7
+          }
+        },
+        {
+          "id": "oct11-hil-history-t6-to-t14p4-f0p2-e15-m1",
+          "cfl": 0.05,
+          "switch": 15,
+          "earlyAxialUm": 1.4,
+          "laterAxialUm": 0,
+          "laterLateralUm": 1.818653347947321,
+          "laterOccupancy": 1662,
+          "laterAxialBracketUm": {
+            "min": 0,
+            "max": 0
+          }
+        },
+        {
+          "id": "oct12-hil-history-step-t6-to-t14p4-f0p2-e7-cfl0p025-m1",
+          "cfl": 0.025,
+          "switch": 7,
+          "earlyAxialUm": 1.4,
+          "laterAxialUm": 0.7,
+          "laterLateralUm": 1.818653347947321,
+          "laterOccupancy": 1114,
+          "laterAxialBracketUm": {
+            "min": 0.7,
+            "max": 0.7
+          }
+        },
+        {
+          "id": "oct12-hil-history-step-t6-to-t14p4-f0p2-e11-cfl0p025-m1",
+          "cfl": 0.025,
+          "switch": 11,
+          "earlyAxialUm": 1.4,
+          "laterAxialUm": 0.7,
+          "laterLateralUm": 1.818653347947321,
+          "laterOccupancy": 1356,
+          "laterAxialBracketUm": {
+            "min": 0.7,
+            "max": 0.7
+          }
+        },
+        {
+          "id": "oct12-hil-history-step-t6-to-t14p4-f0p2-e15-cfl0p025-m1",
+          "cfl": 0.025,
+          "switch": 15,
+          "earlyAxialUm": 1.4,
+          "laterAxialUm": 0,
+          "laterLateralUm": 2.424871130596426,
+          "laterOccupancy": 1668,
+          "laterAxialBracketUm": {
+            "min": 0,
+            "max": 0
+          }
+        }
+      ]
+    },
+    {
+      "group": "from-14.4-fraction0.1-two-CFL",
+      "seconds": 40.773804170086194,
+      "rows": [
+        {
+          "id": "oct11-hil-history-t14p4-to-t6-f0p1-e7-m1",
+          "cfl": 0.05,
+          "switch": 7,
+          "earlyAxialUm": 4.8999999999999995,
+          "laterAxialUm": 4.199999999999999,
+          "laterLateralUm": 2.0999999999999996,
+          "laterOccupancy": 6516,
+          "laterAxialBracketUm": {
+            "min": 4.199999999999999,
+            "max": 4.199999999999999
+          }
+        },
+        {
+          "id": "oct11-hil-history-t14p4-to-t6-f0p1-e11-m1",
+          "cfl": 0.05,
+          "switch": 11,
+          "earlyAxialUm": 4.8999999999999995,
+          "laterAxialUm": 3.5,
+          "laterLateralUm": 2.0999999999999996,
+          "laterOccupancy": 6992,
+          "laterAxialBracketUm": {
+            "min": 3.5,
+            "max": 3.5
+          }
+        },
+        {
+          "id": "oct11-hil-history-t14p4-to-t6-f0p1-e15-m1",
+          "cfl": 0.05,
+          "switch": 15,
+          "earlyAxialUm": 3.5,
+          "laterAxialUm": 3.5,
+          "laterLateralUm": 1.75,
+          "laterOccupancy": 7310,
+          "laterAxialBracketUm": {
+            "min": 3.5,
+            "max": 3.5
+          }
+        },
+        {
+          "id": "oct12-hil-history-step-t14p4-to-t6-f0p1-e7-cfl0p025-m1",
+          "cfl": 0.025,
+          "switch": 7,
+          "earlyAxialUm": 4.8999999999999995,
+          "laterAxialUm": 4.199999999999999,
+          "laterLateralUm": 2.0999999999999996,
+          "laterOccupancy": 6684,
+          "laterAxialBracketUm": {
+            "min": 4.199999999999999,
+            "max": 4.199999999999999
+          }
+        },
+        {
+          "id": "oct12-hil-history-step-t14p4-to-t6-f0p1-e11-cfl0p025-m1",
+          "cfl": 0.025,
+          "switch": 11,
+          "earlyAxialUm": 4.8999999999999995,
+          "laterAxialUm": 3.5,
+          "laterLateralUm": 2.0999999999999996,
+          "laterOccupancy": 6836,
+          "laterAxialBracketUm": {
+            "min": 3.5,
+            "max": 3.5
+          }
+        },
+        {
+          "id": "oct12-hil-history-step-t14p4-to-t6-f0p1-e15-cfl0p025-m1",
+          "cfl": 0.025,
+          "switch": 15,
+          "earlyAxialUm": 3.5,
+          "laterAxialUm": 3.5,
+          "laterLateralUm": 1.75,
+          "laterOccupancy": 7358,
+          "laterAxialBracketUm": {
+            "min": 3.5,
+            "max": 3.5
+          }
+        }
+      ]
+    },
+    {
+      "group": "from-14.4-fraction0.2-two-CFL",
+      "seconds": 13.195310213443392,
+      "rows": [
+        {
+          "id": "oct11-hil-history-t14p4-to-t6-f0p2-e7-m1",
+          "cfl": 0.05,
+          "switch": 7,
+          "earlyAxialUm": 4.199999999999999,
+          "laterAxialUm": 2.8,
+          "laterLateralUm": 2.4499999999999997,
+          "laterOccupancy": 3606,
+          "laterAxialBracketUm": {
+            "min": 2.8,
+            "max": 2.8
+          }
+        },
+        {
+          "id": "oct11-hil-history-t14p4-to-t6-f0p2-e11-m1",
+          "cfl": 0.05,
+          "switch": 11,
+          "earlyAxialUm": 3.5,
+          "laterAxialUm": 2.0999999999999996,
+          "laterLateralUm": 2.0999999999999996,
+          "laterOccupancy": 3894,
+          "laterAxialBracketUm": {
+            "min": 2.0999999999999996,
+            "max": 2.0999999999999996
+          }
+        },
+        {
+          "id": "oct11-hil-history-t14p4-to-t6-f0p2-e15-m1",
+          "cfl": 0.05,
+          "switch": 15,
+          "earlyAxialUm": 2.0999999999999996,
+          "laterAxialUm": 2.8,
+          "laterLateralUm": 2.0999999999999996,
+          "laterOccupancy": 4250,
+          "laterAxialBracketUm": {
+            "min": 2.8,
+            "max": 2.8
+          }
+        },
+        {
+          "id": "oct12-hil-history-step-t14p4-to-t6-f0p2-e7-cfl0p025-m1",
+          "cfl": 0.025,
+          "switch": 7,
+          "earlyAxialUm": 4.199999999999999,
+          "laterAxialUm": 2.8,
+          "laterLateralUm": 2.4499999999999997,
+          "laterOccupancy": 3630,
+          "laterAxialBracketUm": {
+            "min": 2.8,
+            "max": 2.8
+          }
+        },
+        {
+          "id": "oct12-hil-history-step-t14p4-to-t6-f0p2-e11-cfl0p025-m1",
+          "cfl": 0.025,
+          "switch": 11,
+          "earlyAxialUm": 3.5,
+          "laterAxialUm": 2.0999999999999996,
+          "laterLateralUm": 2.0999999999999996,
+          "laterOccupancy": 3954,
+          "laterAxialBracketUm": {
+            "min": 2.0999999999999996,
+            "max": 2.0999999999999996
+          }
+        },
+        {
+          "id": "oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-m1",
+          "cfl": 0.025,
+          "switch": 15,
+          "earlyAxialUm": 2.0999999999999996,
+          "laterAxialUm": 2.8,
+          "laterLateralUm": 2.0999999999999996,
+          "laterOccupancy": 4226,
+          "laterAxialBracketUm": {
+            "min": 2.8,
+            "max": 2.8
+          }
+        }
+      ]
+    }
+  ],
+  "cflPairs": [
+    {
+      "old": "oct11-hil-history-t6-to-t14p4-f0p1-e7-m1",
+      "next": "oct12-hil-history-step-t6-to-t14p4-f0p1-e7-cfl0p025-m1",
+      "commonSeconds": 13.57402469692868,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 4,
+            "next": 4,
+            "difference": 0,
+            "oldRange": {
+              "min": 4,
+              "max": 4
+            },
+            "nextRange": {
+              "min": 4,
+              "max": 4
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 17.320508075688775,
+            "next": 17.320508075688775,
+            "difference": 0,
+            "oldRange": {
+              "min": 17.320508075688775,
+              "max": 17.320508075688775
+            },
+            "nextRange": {
+              "min": 17.320508075688775,
+              "max": 17.320508075688775
+            }
+          },
+          "attachedCount": {
+            "old": 2302,
+            "next": 2302,
+            "difference": 0,
+            "oldRange": {
+              "min": 2302,
+              "max": 2302
+            },
+            "nextRange": {
+              "min": 2302,
+              "max": 2302
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 2,
+            "next": 2,
+            "difference": 0,
+            "oldRange": {
+              "min": 2,
+              "max": 2
+            },
+            "nextRange": {
+              "min": 2,
+              "max": 2
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 8.660254037844382,
+            "next": 8.660254037844382,
+            "difference": 0,
+            "oldRange": {
+              "min": 8.660254037844382,
+              "max": 8.660254037844382
+            },
+            "nextRange": {
+              "min": 8.660254037844382,
+              "max": 8.660254037844382
+            }
+          },
+          "attachedCount": {
+            "old": 692,
+            "next": 692,
+            "difference": 0,
+            "oldRange": {
+              "min": 692,
+              "max": 692
+            },
+            "nextRange": {
+              "min": 692,
+              "max": 692
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 2,
+            "next": 2,
+            "difference": 0,
+            "oldRange": {
+              "min": 2,
+              "max": 2
+            },
+            "nextRange": {
+              "min": 2,
+              "max": 2
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 8.660254037844393,
+            "next": 8.660254037844393,
+            "difference": 0,
+            "oldRange": {
+              "min": 8.660254037844393,
+              "max": 8.660254037844393
+            },
+            "nextRange": {
+              "min": 8.660254037844393,
+              "max": 8.660254037844393
+            }
+          },
+          "attachedCount": {
+            "old": 1610,
+            "next": 1610,
+            "difference": 0,
+            "oldRange": {
+              "min": 1610,
+              "max": 1610
+            },
+            "nextRange": {
+              "min": 1610,
+              "max": 1610
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t6-to-t14p4-f0p1-e7-nodip",
+      "next": "oct12-hil-history-step-t6-to-t14p4-f0p1-e7-cfl0p025-nodip",
+      "commonSeconds": 13.57402469692868,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 8,
+            "next": 8,
+            "difference": 0,
+            "oldRange": {
+              "min": 8,
+              "max": 8
+            },
+            "nextRange": {
+              "min": 8,
+              "max": 8
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 4.803847577293368,
+            "next": 4.803847577293368,
+            "difference": 0,
+            "oldRange": {
+              "min": 4.803847577293368,
+              "max": 4.803847577293368
+            },
+            "nextRange": {
+              "min": 4.803847577293368,
+              "max": 4.803847577293368
+            }
+          },
+          "attachedCount": {
+            "old": 788,
+            "next": 788,
+            "difference": 0,
+            "oldRange": {
+              "min": 788,
+              "max": 788
+            },
+            "nextRange": {
+              "min": 788,
+              "max": 788
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 4,
+            "next": 4,
+            "difference": 0,
+            "oldRange": {
+              "min": 4,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 4,
+              "max": 4
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 2.803847577293368,
+            "next": 2.803847577293368,
+            "difference": 0,
+            "oldRange": {
+              "min": 2.803847577293368,
+              "max": 2.803847577293368
+            },
+            "nextRange": {
+              "min": 2.803847577293368,
+              "max": 2.803847577293368
+            }
+          },
+          "attachedCount": {
+            "old": 274,
+            "next": 274,
+            "difference": 0,
+            "oldRange": {
+              "min": 274,
+              "max": 286
+            },
+            "nextRange": {
+              "min": 274,
+              "max": 274
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 4,
+            "next": 4,
+            "difference": 0,
+            "oldRange": {
+              "min": 2,
+              "max": 4
+            },
+            "nextRange": {
+              "min": 4,
+              "max": 4
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 2,
+            "next": 2,
+            "difference": 0,
+            "oldRange": {
+              "min": 2,
+              "max": 2
+            },
+            "nextRange": {
+              "min": 2,
+              "max": 2
+            }
+          },
+          "attachedCount": {
+            "old": 514,
+            "next": 514,
+            "difference": 0,
+            "oldRange": {
+              "min": 502,
+              "max": 514
+            },
+            "nextRange": {
+              "min": 514,
+              "max": 514
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t6-to-t14p4-f0p1-e11-m1",
+      "next": "oct12-hil-history-step-t6-to-t14p4-f0p1-e11-cfl0p025-m1",
+      "commonSeconds": 13.57402469692868,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 2,
+            "next": 2,
+            "difference": 0,
+            "oldRange": {
+              "min": 2,
+              "max": 2
+            },
+            "nextRange": {
+              "min": 2,
+              "max": 2
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 13.856406460551021,
+            "next": 15.588457268119893,
+            "difference": 1.7320508075688714,
+            "oldRange": {
+              "min": 13.856406460551021,
+              "max": 13.856406460551021
+            },
+            "nextRange": {
+              "min": 15.588457268119893,
+              "max": 15.588457268119893
+            }
+          },
+          "attachedCount": {
+            "old": 3570,
+            "next": 3696,
+            "difference": 126,
+            "oldRange": {
+              "min": 3570,
+              "max": 3618
+            },
+            "nextRange": {
+              "min": 3696,
+              "max": 3696
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 2,
+            "next": 2,
+            "difference": 0,
+            "oldRange": {
+              "min": 2,
+              "max": 2
+            },
+            "nextRange": {
+              "min": 2,
+              "max": 2
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 6.9282032302755105,
+            "next": 6.9282032302755105,
+            "difference": 0,
+            "oldRange": {
+              "min": 6.9282032302755105,
+              "max": 6.9282032302755105
+            },
+            "nextRange": {
+              "min": 6.9282032302755105,
+              "max": 6.9282032302755105
+            }
+          },
+          "attachedCount": {
+            "old": 1524,
+            "next": 1548,
+            "difference": 24,
+            "oldRange": {
+              "min": 1524,
+              "max": 1524
+            },
+            "nextRange": {
+              "min": 1548,
+              "max": 1548
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 0,
+            "next": 0,
+            "difference": 0,
+            "oldRange": {
+              "min": 0,
+              "max": 0
+            },
+            "nextRange": {
+              "min": 0,
+              "max": 0
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 6.9282032302755105,
+            "next": 8.660254037844382,
+            "difference": 1.7320508075688714,
+            "oldRange": {
+              "min": 6.9282032302755105,
+              "max": 6.9282032302755105
+            },
+            "nextRange": {
+              "min": 8.660254037844382,
+              "max": 8.660254037844382
+            }
+          },
+          "attachedCount": {
+            "old": 2046,
+            "next": 2148,
+            "difference": 102,
+            "oldRange": {
+              "min": 2046,
+              "max": 2094
+            },
+            "nextRange": {
+              "min": 2148,
+              "max": 2148
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t6-to-t14p4-f0p1-e11-nodip",
+      "next": "oct12-hil-history-step-t6-to-t14p4-f0p1-e11-cfl0p025-nodip",
+      "commonSeconds": 13.57402469692868,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 5.3397459621556145,
+            "next": 5.3397459621556145,
+            "difference": 0,
+            "oldRange": {
+              "min": 5.3397459621556145,
+              "max": 5.3397459621556145
+            },
+            "nextRange": {
+              "min": 5.3397459621556145,
+              "max": 5.3397459621556145
+            }
+          },
+          "attachedCount": {
+            "old": 1590,
+            "next": 1590,
+            "difference": 0,
+            "oldRange": {
+              "min": 1590,
+              "max": 1590
+            },
+            "nextRange": {
+              "min": 1590,
+              "max": 1590
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 2,
+            "next": 2,
+            "difference": 0,
+            "oldRange": {
+              "min": 2,
+              "max": 2
+            },
+            "nextRange": {
+              "min": 2,
+              "max": 2
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 3.3397459621556145,
+            "next": 3.3397459621556145,
+            "difference": 0,
+            "oldRange": {
+              "min": 3.3397459621556145,
+              "max": 3.3397459621556145
+            },
+            "nextRange": {
+              "min": 3.3397459621556145,
+              "max": 3.3397459621556145
+            }
+          },
+          "attachedCount": {
+            "old": 608,
+            "next": 620,
+            "difference": 12,
+            "oldRange": {
+              "min": 608,
+              "max": 608
+            },
+            "nextRange": {
+              "min": 620,
+              "max": 620
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 4,
+            "next": 4,
+            "difference": 0,
+            "oldRange": {
+              "min": 4,
+              "max": 4
+            },
+            "nextRange": {
+              "min": 4,
+              "max": 4
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 2,
+            "next": 2,
+            "difference": 0,
+            "oldRange": {
+              "min": 2,
+              "max": 2
+            },
+            "nextRange": {
+              "min": 2,
+              "max": 2
+            }
+          },
+          "attachedCount": {
+            "old": 982,
+            "next": 970,
+            "difference": -12,
+            "oldRange": {
+              "min": 982,
+              "max": 982
+            },
+            "nextRange": {
+              "min": 970,
+              "max": 970
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t6-to-t14p4-f0p1-e15-m1",
+      "next": "oct12-hil-history-step-t6-to-t14p4-f0p1-e15-cfl0p025-m1",
+      "commonSeconds": 13.57402469692868,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 2,
+            "next": 2,
+            "difference": 0,
+            "oldRange": {
+              "min": 2,
+              "max": 2
+            },
+            "nextRange": {
+              "min": 2,
+              "max": 2
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 10.516660498395407,
+            "next": 10.516660498395407,
+            "difference": 0,
+            "oldRange": {
+              "min": 10.516660498395407,
+              "max": 10.516660498395407
+            },
+            "nextRange": {
+              "min": 10.516660498395407,
+              "max": 10.516660498395407
+            }
+          },
+          "attachedCount": {
+            "old": 4992,
+            "next": 5028,
+            "difference": 36,
+            "oldRange": {
+              "min": 4992,
+              "max": 5052
+            },
+            "nextRange": {
+              "min": 5028,
+              "max": 5028
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 0,
+            "next": 0,
+            "difference": 0,
+            "oldRange": {
+              "min": 0,
+              "max": 0
+            },
+            "nextRange": {
+              "min": 0,
+              "max": 0
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 5,
+            "next": 5,
+            "difference": 0,
+            "oldRange": {
+              "min": 5,
+              "max": 5
+            },
+            "nextRange": {
+              "min": 5,
+              "max": 5
+            }
+          },
+          "attachedCount": {
+            "old": 2070,
+            "next": 2142,
+            "difference": 72,
+            "oldRange": {
+              "min": 2070,
+              "max": 2106
+            },
+            "nextRange": {
+              "min": 2142,
+              "max": 2166
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 2,
+            "next": 2,
+            "difference": 0,
+            "oldRange": {
+              "min": 2,
+              "max": 2
+            },
+            "nextRange": {
+              "min": 2,
+              "max": 2
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 5.516660498395407,
+            "next": 5.516660498395407,
+            "difference": 0,
+            "oldRange": {
+              "min": 5.516660498395407,
+              "max": 5.516660498395407
+            },
+            "nextRange": {
+              "min": 5.516660498395407,
+              "max": 5.516660498395407
+            }
+          },
+          "attachedCount": {
+            "old": 2922,
+            "next": 2886,
+            "difference": -36,
+            "oldRange": {
+              "min": 2886,
+              "max": 2982
+            },
+            "nextRange": {
+              "min": 2862,
+              "max": 2886
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t6-to-t14p4-f0p1-e15-nodip",
+      "next": "oct12-hil-history-step-t6-to-t14p4-f0p1-e15-cfl0p025-nodip",
+      "commonSeconds": 13.57402469692868,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 3.8756443470178574,
+            "next": 3.8756443470178574,
+            "difference": 0,
+            "oldRange": {
+              "min": 3.8756443470178574,
+              "max": 4.875644347017857
+            },
+            "nextRange": {
+              "min": 3.8756443470178574,
+              "max": 3.8756443470178574
+            }
+          },
+          "attachedCount": {
+            "old": 1908,
+            "next": 1920,
+            "difference": 12,
+            "oldRange": {
+              "min": 1908,
+              "max": 1968
+            },
+            "nextRange": {
+              "min": 1920,
+              "max": 1920
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 4,
+            "next": 4,
+            "difference": 0,
+            "oldRange": {
+              "min": 4,
+              "max": 4
+            },
+            "nextRange": {
+              "min": 4,
+              "max": 4
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 2.8756443470178574,
+            "next": 2.8756443470178574,
+            "difference": 0,
+            "oldRange": {
+              "min": 2.8756443470178574,
+              "max": 2.8756443470178574
+            },
+            "nextRange": {
+              "min": 2.8756443470178574,
+              "max": 2.8756443470178574
+            }
+          },
+          "attachedCount": {
+            "old": 1034,
+            "next": 1082,
+            "difference": 48,
+            "oldRange": {
+              "min": 1034,
+              "max": 1058
+            },
+            "nextRange": {
+              "min": 1082,
+              "max": 1082
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 2,
+            "next": 2,
+            "difference": 0,
+            "oldRange": {
+              "min": 2,
+              "max": 2
+            },
+            "nextRange": {
+              "min": 2,
+              "max": 2
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 1,
+            "next": 1,
+            "difference": 0,
+            "oldRange": {
+              "min": 1,
+              "max": 2
+            },
+            "nextRange": {
+              "min": 1,
+              "max": 1
+            }
+          },
+          "attachedCount": {
+            "old": 874,
+            "next": 838,
+            "difference": -36,
+            "oldRange": {
+              "min": 850,
+              "max": 934
+            },
+            "nextRange": {
+              "min": 838,
+              "max": 838
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t6-to-t14p4-f0p2-e7-m1",
+      "next": "oct12-hil-history-step-t6-to-t14p4-f0p2-e7-cfl0p025-m1",
+      "commonSeconds": 5.247091323320856,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 12.124355652982143,
+            "next": 12.124355652982143,
+            "difference": 0,
+            "oldRange": {
+              "min": 12.124355652982143,
+              "max": 12.124355652982143
+            },
+            "nextRange": {
+              "min": 12.124355652982143,
+              "max": 12.124355652982143
+            }
+          },
+          "attachedCount": {
+            "old": 1580,
+            "next": 1628,
+            "difference": 48,
+            "oldRange": {
+              "min": 1580,
+              "max": 1604
+            },
+            "nextRange": {
+              "min": 1628,
+              "max": 1628
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 4,
+            "next": 4,
+            "difference": 0,
+            "oldRange": {
+              "min": 4,
+              "max": 4
+            },
+            "nextRange": {
+              "min": 4,
+              "max": 4
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 6.9282032302755105,
+            "next": 6.9282032302755105,
+            "difference": 0,
+            "oldRange": {
+              "min": 6.9282032302755105,
+              "max": 6.9282032302755105
+            },
+            "nextRange": {
+              "min": 6.9282032302755105,
+              "max": 6.9282032302755105
+            }
+          },
+          "attachedCount": {
+            "old": 514,
+            "next": 514,
+            "difference": 0,
+            "oldRange": {
+              "min": 514,
+              "max": 514
+            },
+            "nextRange": {
+              "min": 514,
+              "max": 514
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 2,
+            "next": 2,
+            "difference": 0,
+            "oldRange": {
+              "min": 2,
+              "max": 2
+            },
+            "nextRange": {
+              "min": 2,
+              "max": 2
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 5.196152422706632,
+            "next": 5.196152422706632,
+            "difference": 0,
+            "oldRange": {
+              "min": 5.196152422706632,
+              "max": 5.196152422706632
+            },
+            "nextRange": {
+              "min": 5.196152422706632,
+              "max": 5.196152422706632
+            }
+          },
+          "attachedCount": {
+            "old": 1066,
+            "next": 1114,
+            "difference": 48,
+            "oldRange": {
+              "min": 1066,
+              "max": 1090
+            },
+            "nextRange": {
+              "min": 1114,
+              "max": 1114
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t6-to-t14p4-f0p2-e7-nodip",
+      "next": "oct12-hil-history-step-t6-to-t14p4-f0p2-e7-cfl0p025-nodip",
+      "commonSeconds": 5.247091323320856,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 8,
+            "next": 8,
+            "difference": 0,
+            "oldRange": {
+              "min": 8,
+              "max": 8
+            },
+            "nextRange": {
+              "min": 8,
+              "max": 8
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 6.803847577293368,
+            "next": 6.803847577293368,
+            "difference": 0,
+            "oldRange": {
+              "min": 6.803847577293368,
+              "max": 6.803847577293368
+            },
+            "nextRange": {
+              "min": 6.803847577293368,
+              "max": 6.803847577293368
+            }
+          },
+          "attachedCount": {
+            "old": 1100,
+            "next": 1100,
+            "difference": 0,
+            "oldRange": {
+              "min": 1100,
+              "max": 1100
+            },
+            "nextRange": {
+              "min": 1100,
+              "max": 1100
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 3.803847577293368,
+            "next": 3.803847577293368,
+            "difference": 0,
+            "oldRange": {
+              "min": 3.803847577293368,
+              "max": 3.803847577293368
+            },
+            "nextRange": {
+              "min": 3.803847577293368,
+              "max": 3.803847577293368
+            }
+          },
+          "attachedCount": {
+            "old": 418,
+            "next": 442,
+            "difference": 24,
+            "oldRange": {
+              "min": 418,
+              "max": 418
+            },
+            "nextRange": {
+              "min": 442,
+              "max": 442
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 2,
+            "next": 2,
+            "difference": 0,
+            "oldRange": {
+              "min": 2,
+              "max": 2
+            },
+            "nextRange": {
+              "min": 2,
+              "max": 2
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 3,
+            "next": 3,
+            "difference": 0,
+            "oldRange": {
+              "min": 3,
+              "max": 3
+            },
+            "nextRange": {
+              "min": 3,
+              "max": 3
+            }
+          },
+          "attachedCount": {
+            "old": 682,
+            "next": 658,
+            "difference": -24,
+            "oldRange": {
+              "min": 682,
+              "max": 682
+            },
+            "nextRange": {
+              "min": 658,
+              "max": 658
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t6-to-t14p4-f0p2-e11-m1",
+      "next": "oct12-hil-history-step-t6-to-t14p4-f0p2-e11-cfl0p025-m1",
+      "commonSeconds": 5.247091323320856,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 12.124355652982143,
+            "next": 12.124355652982143,
+            "difference": 0,
+            "oldRange": {
+              "min": 12.124355652982143,
+              "max": 12.124355652982143
+            },
+            "nextRange": {
+              "min": 12.124355652982143,
+              "max": 12.124355652982143
+            }
+          },
+          "attachedCount": {
+            "old": 2232,
+            "next": 2270,
+            "difference": 38,
+            "oldRange": {
+              "min": 2232,
+              "max": 2232
+            },
+            "nextRange": {
+              "min": 2270,
+              "max": 2270
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 4,
+            "next": 4,
+            "difference": 0,
+            "oldRange": {
+              "min": 4,
+              "max": 4
+            },
+            "nextRange": {
+              "min": 4,
+              "max": 4
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 6.9282032302755105,
+            "next": 6.9282032302755105,
+            "difference": 0,
+            "oldRange": {
+              "min": 6.9282032302755105,
+              "max": 6.9282032302755105
+            },
+            "nextRange": {
+              "min": 6.9282032302755105,
+              "max": 6.9282032302755105
+            }
+          },
+          "attachedCount": {
+            "old": 914,
+            "next": 914,
+            "difference": 0,
+            "oldRange": {
+              "min": 914,
+              "max": 914
+            },
+            "nextRange": {
+              "min": 914,
+              "max": 920
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 2,
+            "next": 2,
+            "difference": 0,
+            "oldRange": {
+              "min": 2,
+              "max": 2
+            },
+            "nextRange": {
+              "min": 2,
+              "max": 2
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 5.196152422706632,
+            "next": 5.196152422706632,
+            "difference": 0,
+            "oldRange": {
+              "min": 5.196152422706632,
+              "max": 5.196152422706632
+            },
+            "nextRange": {
+              "min": 5.196152422706632,
+              "max": 5.196152422706632
+            }
+          },
+          "attachedCount": {
+            "old": 1318,
+            "next": 1356,
+            "difference": 38,
+            "oldRange": {
+              "min": 1318,
+              "max": 1318
+            },
+            "nextRange": {
+              "min": 1350,
+              "max": 1356
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t6-to-t14p4-f0p2-e11-nodip",
+      "next": "oct12-hil-history-step-t6-to-t14p4-f0p2-e11-cfl0p025-nodip",
+      "commonSeconds": 5.247091323320856,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 5.3397459621556145,
+            "next": 5.3397459621556145,
+            "difference": 0,
+            "oldRange": {
+              "min": 5.3397459621556145,
+              "max": 5.3397459621556145
+            },
+            "nextRange": {
+              "min": 5.3397459621556145,
+              "max": 5.3397459621556145
+            }
+          },
+          "attachedCount": {
+            "old": 1602,
+            "next": 1602,
+            "difference": 0,
+            "oldRange": {
+              "min": 1602,
+              "max": 1602
+            },
+            "nextRange": {
+              "min": 1602,
+              "max": 1602
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 4,
+            "next": 4,
+            "difference": 0,
+            "oldRange": {
+              "min": 4,
+              "max": 4
+            },
+            "nextRange": {
+              "min": 4,
+              "max": 4
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 3.3397459621556145,
+            "next": 3.3397459621556145,
+            "difference": 0,
+            "oldRange": {
+              "min": 3.3397459621556145,
+              "max": 3.3397459621556145
+            },
+            "nextRange": {
+              "min": 3.3397459621556145,
+              "max": 3.3397459621556145
+            }
+          },
+          "attachedCount": {
+            "old": 680,
+            "next": 680,
+            "difference": 0,
+            "oldRange": {
+              "min": 680,
+              "max": 716
+            },
+            "nextRange": {
+              "min": 680,
+              "max": 716
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 2,
+            "next": 2,
+            "difference": 0,
+            "oldRange": {
+              "min": 2,
+              "max": 2
+            },
+            "nextRange": {
+              "min": 2,
+              "max": 2
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 2,
+            "next": 2,
+            "difference": 0,
+            "oldRange": {
+              "min": 2,
+              "max": 2
+            },
+            "nextRange": {
+              "min": 2,
+              "max": 2
+            }
+          },
+          "attachedCount": {
+            "old": 922,
+            "next": 922,
+            "difference": 0,
+            "oldRange": {
+              "min": 886,
+              "max": 922
+            },
+            "nextRange": {
+              "min": 886,
+              "max": 922
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t6-to-t14p4-f0p2-e15-m1",
+      "next": "oct12-hil-history-step-t6-to-t14p4-f0p2-e15-cfl0p025-m1",
+      "commonSeconds": 5.247091323320856,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 4,
+            "next": 4,
+            "difference": 0,
+            "oldRange": {
+              "min": 4,
+              "max": 4
+            },
+            "nextRange": {
+              "min": 4,
+              "max": 4
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 10.392304845413264,
+            "next": 12.124355652982135,
+            "difference": 1.7320508075688714,
+            "oldRange": {
+              "min": 10.392304845413264,
+              "max": 12.124355652982135
+            },
+            "nextRange": {
+              "min": 12.124355652982135,
+              "max": 12.124355652982135
+            }
+          },
+          "attachedCount": {
+            "old": 2922,
+            "next": 2976,
+            "difference": 54,
+            "oldRange": {
+              "min": 2922,
+              "max": 2964
+            },
+            "nextRange": {
+              "min": 2976,
+              "max": 2976
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 4,
+            "next": 4,
+            "difference": 0,
+            "oldRange": {
+              "min": 4,
+              "max": 4
+            },
+            "nextRange": {
+              "min": 4,
+              "max": 4
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 5.196152422706632,
+            "next": 5.196152422706632,
+            "difference": 0,
+            "oldRange": {
+              "min": 5.196152422706632,
+              "max": 5.196152422706632
+            },
+            "nextRange": {
+              "min": 5.196152422706632,
+              "max": 5.196152422706632
+            }
+          },
+          "attachedCount": {
+            "old": 1260,
+            "next": 1308,
+            "difference": 48,
+            "oldRange": {
+              "min": 1260,
+              "max": 1320
+            },
+            "nextRange": {
+              "min": 1308,
+              "max": 1320
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 0,
+            "next": 0,
+            "difference": 0,
+            "oldRange": {
+              "min": 0,
+              "max": 0
+            },
+            "nextRange": {
+              "min": 0,
+              "max": 0
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 5.196152422706632,
+            "next": 6.928203230275503,
+            "difference": 1.7320508075688714,
+            "oldRange": {
+              "min": 5.196152422706632,
+              "max": 6.928203230275503
+            },
+            "nextRange": {
+              "min": 6.928203230275503,
+              "max": 6.928203230275503
+            }
+          },
+          "attachedCount": {
+            "old": 1662,
+            "next": 1668,
+            "difference": 6,
+            "oldRange": {
+              "min": 1602,
+              "max": 1704
+            },
+            "nextRange": {
+              "min": 1656,
+              "max": 1668
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t6-to-t14p4-f0p2-e15-nodip",
+      "next": "oct12-hil-history-step-t6-to-t14p4-f0p2-e15-cfl0p025-nodip",
+      "commonSeconds": 5.247091323320856,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 5.875644347017857,
+            "next": 5.875644347017857,
+            "difference": 0,
+            "oldRange": {
+              "min": 5.875644347017857,
+              "max": 5.875644347017857
+            },
+            "nextRange": {
+              "min": 5.875644347017857,
+              "max": 5.875644347017857
+            }
+          },
+          "attachedCount": {
+            "old": 2560,
+            "next": 2560,
+            "difference": 0,
+            "oldRange": {
+              "min": 2560,
+              "max": 2560
+            },
+            "nextRange": {
+              "min": 2560,
+              "max": 2560
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 2,
+            "next": 2,
+            "difference": 0,
+            "oldRange": {
+              "min": 2,
+              "max": 2
+            },
+            "nextRange": {
+              "min": 2,
+              "max": 2
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 3.8756443470178574,
+            "next": 3.8756443470178574,
+            "difference": 0,
+            "oldRange": {
+              "min": 3.8756443470178574,
+              "max": 3.8756443470178574
+            },
+            "nextRange": {
+              "min": 3.8756443470178574,
+              "max": 3.8756443470178574
+            }
+          },
+          "attachedCount": {
+            "old": 980,
+            "next": 980,
+            "difference": 0,
+            "oldRange": {
+              "min": 980,
+              "max": 980
+            },
+            "nextRange": {
+              "min": 980,
+              "max": 992
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 4,
+            "next": 4,
+            "difference": 0,
+            "oldRange": {
+              "min": 4,
+              "max": 4
+            },
+            "nextRange": {
+              "min": 4,
+              "max": 4
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 2,
+            "next": 2,
+            "difference": 0,
+            "oldRange": {
+              "min": 2,
+              "max": 2
+            },
+            "nextRange": {
+              "min": 2,
+              "max": 2
+            }
+          },
+          "attachedCount": {
+            "old": 1580,
+            "next": 1580,
+            "difference": 0,
+            "oldRange": {
+              "min": 1580,
+              "max": 1580
+            },
+            "nextRange": {
+              "min": 1568,
+              "max": 1580
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t14p4-to-t6-f0p1-e7-m1",
+      "next": "oct12-hil-history-step-t14p4-to-t6-f0p1-e7-cfl0p025-m1",
+      "commonSeconds": 40.773804170086194,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 26,
+            "next": 26,
+            "difference": 0,
+            "oldRange": {
+              "min": 26,
+              "max": 26
+            },
+            "nextRange": {
+              "min": 26,
+              "max": 26
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 16.803847577293368,
+            "next": 16.803847577293368,
+            "difference": 0,
+            "oldRange": {
+              "min": 16.803847577293368,
+              "max": 16.803847577293368
+            },
+            "nextRange": {
+              "min": 16.803847577293368,
+              "max": 16.803847577293368
+            }
+          },
+          "attachedCount": {
+            "old": 9434,
+            "next": 9602,
+            "difference": 168,
+            "oldRange": {
+              "min": 9434,
+              "max": 9482
+            },
+            "nextRange": {
+              "min": 9602,
+              "max": 9602
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 14,
+            "next": 14,
+            "difference": 0,
+            "oldRange": {
+              "min": 14,
+              "max": 14
+            },
+            "nextRange": {
+              "min": 14,
+              "max": 14
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 10.803847577293368,
+            "next": 10.803847577293368,
+            "difference": 0,
+            "oldRange": {
+              "min": 10.803847577293368,
+              "max": 10.803847577293368
+            },
+            "nextRange": {
+              "min": 10.803847577293368,
+              "max": 10.803847577293368
+            }
+          },
+          "attachedCount": {
+            "old": 2918,
+            "next": 2918,
+            "difference": 0,
+            "oldRange": {
+              "min": 2918,
+              "max": 2918
+            },
+            "nextRange": {
+              "min": 2918,
+              "max": 2918
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 12,
+            "next": 12,
+            "difference": 0,
+            "oldRange": {
+              "min": 12,
+              "max": 12
+            },
+            "nextRange": {
+              "min": 12,
+              "max": 12
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "attachedCount": {
+            "old": 6516,
+            "next": 6684,
+            "difference": 168,
+            "oldRange": {
+              "min": 6516,
+              "max": 6564
+            },
+            "nextRange": {
+              "min": 6684,
+              "max": 6684
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t14p4-to-t6-f0p1-e7-nodip",
+      "next": "oct12-hil-history-step-t14p4-to-t6-f0p1-e7-cfl0p025-nodip",
+      "commonSeconds": 40.773804170086194,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 14,
+            "next": 14,
+            "difference": 0,
+            "oldRange": {
+              "min": 14,
+              "max": 14
+            },
+            "nextRange": {
+              "min": 14,
+              "max": 14
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 18.803847577293368,
+            "next": 18.803847577293368,
+            "difference": 0,
+            "oldRange": {
+              "min": 18.803847577293368,
+              "max": 18.803847577293368
+            },
+            "nextRange": {
+              "min": 18.803847577293368,
+              "max": 18.803847577293368
+            }
+          },
+          "attachedCount": {
+            "old": 7866,
+            "next": 7904,
+            "difference": 38,
+            "oldRange": {
+              "min": 7866,
+              "max": 7872
+            },
+            "nextRange": {
+              "min": 7904,
+              "max": 7904
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 8,
+            "next": 8,
+            "difference": 0,
+            "oldRange": {
+              "min": 8,
+              "max": 8
+            },
+            "nextRange": {
+              "min": 8,
+              "max": 8
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 10.803847577293368,
+            "next": 10.803847577293368,
+            "difference": 0,
+            "oldRange": {
+              "min": 10.803847577293368,
+              "max": 10.803847577293368
+            },
+            "nextRange": {
+              "min": 10.803847577293368,
+              "max": 10.803847577293368
+            }
+          },
+          "attachedCount": {
+            "old": 2318,
+            "next": 2318,
+            "difference": 0,
+            "oldRange": {
+              "min": 2318,
+              "max": 2318
+            },
+            "nextRange": {
+              "min": 2318,
+              "max": 2318
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 8,
+            "next": 8,
+            "difference": 0,
+            "oldRange": {
+              "min": 8,
+              "max": 8
+            },
+            "nextRange": {
+              "min": 8,
+              "max": 8
+            }
+          },
+          "attachedCount": {
+            "old": 5548,
+            "next": 5586,
+            "difference": 38,
+            "oldRange": {
+              "min": 5548,
+              "max": 5554
+            },
+            "nextRange": {
+              "min": 5586,
+              "max": 5586
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t14p4-to-t6-f0p1-e11-m1",
+      "next": "oct12-hil-history-step-t14p4-to-t6-f0p1-e11-cfl0p025-m1",
+      "commonSeconds": 40.773804170086194,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 24,
+            "next": 24,
+            "difference": 0,
+            "oldRange": {
+              "min": 24,
+              "max": 24
+            },
+            "nextRange": {
+              "min": 24,
+              "max": 24
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 15.339745962155614,
+            "next": 15.339745962155614,
+            "difference": 0,
+            "oldRange": {
+              "min": 15.339745962155614,
+              "max": 15.339745962155614
+            },
+            "nextRange": {
+              "min": 15.339745962155614,
+              "max": 15.339745962155614
+            }
+          },
+          "attachedCount": {
+            "old": 10392,
+            "next": 10416,
+            "difference": 24,
+            "oldRange": {
+              "min": 10392,
+              "max": 10392
+            },
+            "nextRange": {
+              "min": 10416,
+              "max": 10440
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 14,
+            "next": 14,
+            "difference": 0,
+            "oldRange": {
+              "min": 14,
+              "max": 14
+            },
+            "nextRange": {
+              "min": 14,
+              "max": 14
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 9.339745962155614,
+            "next": 9.339745962155614,
+            "difference": 0,
+            "oldRange": {
+              "min": 9.339745962155614,
+              "max": 9.339745962155614
+            },
+            "nextRange": {
+              "min": 9.339745962155614,
+              "max": 9.339745962155614
+            }
+          },
+          "attachedCount": {
+            "old": 3400,
+            "next": 3580,
+            "difference": 180,
+            "oldRange": {
+              "min": 3400,
+              "max": 3424
+            },
+            "nextRange": {
+              "min": 3580,
+              "max": 3580
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 10,
+            "next": 10,
+            "difference": 0,
+            "oldRange": {
+              "min": 10,
+              "max": 10
+            },
+            "nextRange": {
+              "min": 10,
+              "max": 10
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "attachedCount": {
+            "old": 6992,
+            "next": 6836,
+            "difference": -156,
+            "oldRange": {
+              "min": 6968,
+              "max": 6992
+            },
+            "nextRange": {
+              "min": 6836,
+              "max": 6860
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t14p4-to-t6-f0p1-e11-nodip",
+      "next": "oct12-hil-history-step-t14p4-to-t6-f0p1-e11-cfl0p025-nodip",
+      "commonSeconds": 40.773804170086194,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 12,
+            "next": 12,
+            "difference": 0,
+            "oldRange": {
+              "min": 12,
+              "max": 12
+            },
+            "nextRange": {
+              "min": 12,
+              "max": 12
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 15.339745962155614,
+            "next": 16.339745962155614,
+            "difference": 1,
+            "oldRange": {
+              "min": 15.339745962155614,
+              "max": 15.339745962155614
+            },
+            "nextRange": {
+              "min": 16.339745962155614,
+              "max": 16.339745962155614
+            }
+          },
+          "attachedCount": {
+            "old": 9274,
+            "next": 9456,
+            "difference": 182,
+            "oldRange": {
+              "min": 9274,
+              "max": 9274
+            },
+            "nextRange": {
+              "min": 9456,
+              "max": 9456
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 9.339745962155614,
+            "next": 9.339745962155614,
+            "difference": 0,
+            "oldRange": {
+              "min": 9.339745962155614,
+              "max": 9.339745962155614
+            },
+            "nextRange": {
+              "min": 9.339745962155614,
+              "max": 9.339745962155614
+            }
+          },
+          "attachedCount": {
+            "old": 3504,
+            "next": 3504,
+            "difference": 0,
+            "oldRange": {
+              "min": 3504,
+              "max": 3504
+            },
+            "nextRange": {
+              "min": 3504,
+              "max": 3504
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 6,
+            "next": 7,
+            "difference": 1,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 7,
+              "max": 7
+            }
+          },
+          "attachedCount": {
+            "old": 5770,
+            "next": 5952,
+            "difference": 182,
+            "oldRange": {
+              "min": 5770,
+              "max": 5770
+            },
+            "nextRange": {
+              "min": 5952,
+              "max": 5952
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t14p4-to-t6-f0p1-e15-m1",
+      "next": "oct12-hil-history-step-t14p4-to-t6-f0p1-e15-cfl0p025-m1",
+      "commonSeconds": 40.773804170086194,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 20,
+            "next": 20,
+            "difference": 0,
+            "oldRange": {
+              "min": 20,
+              "max": 20
+            },
+            "nextRange": {
+              "min": 20,
+              "max": 20
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 13.875644347017857,
+            "next": 13.875644347017857,
+            "difference": 0,
+            "oldRange": {
+              "min": 13.875644347017857,
+              "max": 13.875644347017857
+            },
+            "nextRange": {
+              "min": 13.875644347017857,
+              "max": 13.875644347017857
+            }
+          },
+          "attachedCount": {
+            "old": 11260,
+            "next": 11308,
+            "difference": 48,
+            "oldRange": {
+              "min": 11260,
+              "max": 11284
+            },
+            "nextRange": {
+              "min": 11308,
+              "max": 11308
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 10,
+            "next": 10,
+            "difference": 0,
+            "oldRange": {
+              "min": 10,
+              "max": 10
+            },
+            "nextRange": {
+              "min": 10,
+              "max": 10
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 8.875644347017857,
+            "next": 8.875644347017857,
+            "difference": 0,
+            "oldRange": {
+              "min": 8.875644347017857,
+              "max": 8.875644347017857
+            },
+            "nextRange": {
+              "min": 8.875644347017857,
+              "max": 8.875644347017857
+            }
+          },
+          "attachedCount": {
+            "old": 3950,
+            "next": 3950,
+            "difference": 0,
+            "oldRange": {
+              "min": 3950,
+              "max": 3950
+            },
+            "nextRange": {
+              "min": 3950,
+              "max": 3974
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 10,
+            "next": 10,
+            "difference": 0,
+            "oldRange": {
+              "min": 10,
+              "max": 10
+            },
+            "nextRange": {
+              "min": 10,
+              "max": 10
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 5,
+            "next": 5,
+            "difference": 0,
+            "oldRange": {
+              "min": 5,
+              "max": 5
+            },
+            "nextRange": {
+              "min": 5,
+              "max": 5
+            }
+          },
+          "attachedCount": {
+            "old": 7310,
+            "next": 7358,
+            "difference": 48,
+            "oldRange": {
+              "min": 7310,
+              "max": 7334
+            },
+            "nextRange": {
+              "min": 7334,
+              "max": 7358
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t14p4-to-t6-f0p1-e15-nodip",
+      "next": "oct12-hil-history-step-t14p4-to-t6-f0p1-e15-cfl0p025-nodip",
+      "commonSeconds": 40.773804170086194,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 10,
+            "next": 10,
+            "difference": 0,
+            "oldRange": {
+              "min": 10,
+              "max": 10
+            },
+            "nextRange": {
+              "min": 10,
+              "max": 10
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 14,
+            "next": 14,
+            "difference": 0,
+            "oldRange": {
+              "min": 14,
+              "max": 14
+            },
+            "nextRange": {
+              "min": 14,
+              "max": 14
+            }
+          },
+          "attachedCount": {
+            "old": 12012,
+            "next": 12036,
+            "difference": 24,
+            "oldRange": {
+              "min": 12012,
+              "max": 12012
+            },
+            "nextRange": {
+              "min": 12036,
+              "max": 12036
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 8,
+            "next": 8,
+            "difference": 0,
+            "oldRange": {
+              "min": 8,
+              "max": 8
+            },
+            "nextRange": {
+              "min": 8,
+              "max": 8
+            }
+          },
+          "attachedCount": {
+            "old": 5106,
+            "next": 5154,
+            "difference": 48,
+            "oldRange": {
+              "min": 5106,
+              "max": 5142
+            },
+            "nextRange": {
+              "min": 5154,
+              "max": 5178
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 4,
+            "next": 4,
+            "difference": 0,
+            "oldRange": {
+              "min": 4,
+              "max": 4
+            },
+            "nextRange": {
+              "min": 4,
+              "max": 4
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "attachedCount": {
+            "old": 6906,
+            "next": 6882,
+            "difference": -24,
+            "oldRange": {
+              "min": 6870,
+              "max": 6906
+            },
+            "nextRange": {
+              "min": 6858,
+              "max": 6882
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t14p4-to-t6-f0p2-e7-m1",
+      "next": "oct12-hil-history-step-t14p4-to-t6-f0p2-e7-cfl0p025-m1",
+      "commonSeconds": 13.195310213443392,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 20,
+            "next": 20,
+            "difference": 0,
+            "oldRange": {
+              "min": 20,
+              "max": 20
+            },
+            "nextRange": {
+              "min": 20,
+              "max": 20
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 16.803847577293368,
+            "next": 16.803847577293368,
+            "difference": 0,
+            "oldRange": {
+              "min": 16.803847577293368,
+              "max": 16.803847577293368
+            },
+            "nextRange": {
+              "min": 16.803847577293368,
+              "max": 16.803847577293368
+            }
+          },
+          "attachedCount": {
+            "old": 5350,
+            "next": 5386,
+            "difference": 36,
+            "oldRange": {
+              "min": 5350,
+              "max": 5374
+            },
+            "nextRange": {
+              "min": 5386,
+              "max": 5410
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 12,
+            "next": 12,
+            "difference": 0,
+            "oldRange": {
+              "min": 12,
+              "max": 12
+            },
+            "nextRange": {
+              "min": 12,
+              "max": 12
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 9.803847577293368,
+            "next": 9.803847577293368,
+            "difference": 0,
+            "oldRange": {
+              "min": 9.803847577293368,
+              "max": 9.803847577293368
+            },
+            "nextRange": {
+              "min": 9.803847577293368,
+              "max": 9.803847577293368
+            }
+          },
+          "attachedCount": {
+            "old": 1744,
+            "next": 1756,
+            "difference": 12,
+            "oldRange": {
+              "min": 1744,
+              "max": 1744
+            },
+            "nextRange": {
+              "min": 1756,
+              "max": 1768
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 8,
+            "next": 8,
+            "difference": 0,
+            "oldRange": {
+              "min": 8,
+              "max": 8
+            },
+            "nextRange": {
+              "min": 8,
+              "max": 8
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 7,
+            "next": 7,
+            "difference": 0,
+            "oldRange": {
+              "min": 7,
+              "max": 7
+            },
+            "nextRange": {
+              "min": 7,
+              "max": 7
+            }
+          },
+          "attachedCount": {
+            "old": 3606,
+            "next": 3630,
+            "difference": 24,
+            "oldRange": {
+              "min": 3606,
+              "max": 3630
+            },
+            "nextRange": {
+              "min": 3618,
+              "max": 3654
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t14p4-to-t6-f0p2-e7-nodip",
+      "next": "oct12-hil-history-step-t14p4-to-t6-f0p2-e7-cfl0p025-nodip",
+      "commonSeconds": 13.195310213443392,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 12,
+            "next": 12,
+            "difference": 0,
+            "oldRange": {
+              "min": 12,
+              "max": 12
+            },
+            "nextRange": {
+              "min": 12,
+              "max": 12
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 16.803847577293368,
+            "next": 16.803847577293368,
+            "difference": 0,
+            "oldRange": {
+              "min": 16.803847577293368,
+              "max": 16.803847577293368
+            },
+            "nextRange": {
+              "min": 16.803847577293368,
+              "max": 16.803847577293368
+            }
+          },
+          "attachedCount": {
+            "old": 5276,
+            "next": 5336,
+            "difference": 60,
+            "oldRange": {
+              "min": 5276,
+              "max": 5300
+            },
+            "nextRange": {
+              "min": 5336,
+              "max": 5336
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 8,
+            "next": 8,
+            "difference": 0,
+            "oldRange": {
+              "min": 8,
+              "max": 8
+            },
+            "nextRange": {
+              "min": 8,
+              "max": 8
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 9.803847577293368,
+            "next": 9.803847577293368,
+            "difference": 0,
+            "oldRange": {
+              "min": 9.803847577293368,
+              "max": 9.803847577293368
+            },
+            "nextRange": {
+              "min": 9.803847577293368,
+              "max": 10.803847577293368
+            }
+          },
+          "attachedCount": {
+            "old": 1712,
+            "next": 1700,
+            "difference": -12,
+            "oldRange": {
+              "min": 1712,
+              "max": 1712
+            },
+            "nextRange": {
+              "min": 1700,
+              "max": 1766
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 4,
+            "next": 4,
+            "difference": 0,
+            "oldRange": {
+              "min": 4,
+              "max": 4
+            },
+            "nextRange": {
+              "min": 4,
+              "max": 4
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 7,
+            "next": 7,
+            "difference": 0,
+            "oldRange": {
+              "min": 7,
+              "max": 7
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 7
+            }
+          },
+          "attachedCount": {
+            "old": 3564,
+            "next": 3636,
+            "difference": 72,
+            "oldRange": {
+              "min": 3564,
+              "max": 3588
+            },
+            "nextRange": {
+              "min": 3570,
+              "max": 3636
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t14p4-to-t6-f0p2-e11-m1",
+      "next": "oct12-hil-history-step-t14p4-to-t6-f0p2-e11-cfl0p025-m1",
+      "commonSeconds": 13.195310213443392,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 16,
+            "next": 16,
+            "difference": 0,
+            "oldRange": {
+              "min": 16,
+              "max": 16
+            },
+            "nextRange": {
+              "min": 16,
+              "max": 16
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 15.339745962155614,
+            "next": 15.339745962155614,
+            "difference": 0,
+            "oldRange": {
+              "min": 15.339745962155614,
+              "max": 15.339745962155614
+            },
+            "nextRange": {
+              "min": 15.339745962155614,
+              "max": 15.339745962155614
+            }
+          },
+          "attachedCount": {
+            "old": 5970,
+            "next": 6078,
+            "difference": 108,
+            "oldRange": {
+              "min": 5970,
+              "max": 5982
+            },
+            "nextRange": {
+              "min": 6078,
+              "max": 6078
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 10,
+            "next": 10,
+            "difference": 0,
+            "oldRange": {
+              "min": 10,
+              "max": 10
+            },
+            "nextRange": {
+              "min": 10,
+              "max": 10
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 9.339745962155614,
+            "next": 9.339745962155614,
+            "difference": 0,
+            "oldRange": {
+              "min": 9.339745962155614,
+              "max": 9.339745962155614
+            },
+            "nextRange": {
+              "min": 9.339745962155614,
+              "max": 9.339745962155614
+            }
+          },
+          "attachedCount": {
+            "old": 2076,
+            "next": 2124,
+            "difference": 48,
+            "oldRange": {
+              "min": 2076,
+              "max": 2124
+            },
+            "nextRange": {
+              "min": 2124,
+              "max": 2124
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "attachedCount": {
+            "old": 3894,
+            "next": 3954,
+            "difference": 60,
+            "oldRange": {
+              "min": 3846,
+              "max": 3906
+            },
+            "nextRange": {
+              "min": 3954,
+              "max": 3954
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t14p4-to-t6-f0p2-e11-nodip",
+      "next": "oct12-hil-history-step-t14p4-to-t6-f0p2-e11-cfl0p025-nodip",
+      "commonSeconds": 13.195310213443392,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 10,
+            "next": 10,
+            "difference": 0,
+            "oldRange": {
+              "min": 10,
+              "max": 10
+            },
+            "nextRange": {
+              "min": 10,
+              "max": 10
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 13.339745962155614,
+            "next": 13.339745962155614,
+            "difference": 0,
+            "oldRange": {
+              "min": 13.339745962155614,
+              "max": 13.339745962155614
+            },
+            "nextRange": {
+              "min": 13.339745962155614,
+              "max": 13.339745962155614
+            }
+          },
+          "attachedCount": {
+            "old": 6166,
+            "next": 6178,
+            "difference": 12,
+            "oldRange": {
+              "min": 6166,
+              "max": 6178
+            },
+            "nextRange": {
+              "min": 6178,
+              "max": 6178
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 7.3397459621556145,
+            "next": 7.3397459621556145,
+            "difference": 0,
+            "oldRange": {
+              "min": 7.3397459621556145,
+              "max": 7.3397459621556145
+            },
+            "nextRange": {
+              "min": 7.3397459621556145,
+              "max": 7.3397459621556145
+            }
+          },
+          "attachedCount": {
+            "old": 2274,
+            "next": 2346,
+            "difference": 72,
+            "oldRange": {
+              "min": 2274,
+              "max": 2322
+            },
+            "nextRange": {
+              "min": 2346,
+              "max": 2346
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 4,
+            "next": 4,
+            "difference": 0,
+            "oldRange": {
+              "min": 4,
+              "max": 4
+            },
+            "nextRange": {
+              "min": 4,
+              "max": 4
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "attachedCount": {
+            "old": 3892,
+            "next": 3832,
+            "difference": -60,
+            "oldRange": {
+              "min": 3844,
+              "max": 3904
+            },
+            "nextRange": {
+              "min": 3832,
+              "max": 3832
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t14p4-to-t6-f0p2-e15-m1",
+      "next": "oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-m1",
+      "commonSeconds": 13.195310213443392,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 14,
+            "next": 14,
+            "difference": 0,
+            "oldRange": {
+              "min": 14,
+              "max": 14
+            },
+            "nextRange": {
+              "min": 14,
+              "max": 14
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 13.875644347017857,
+            "next": 13.875644347017857,
+            "difference": 0,
+            "oldRange": {
+              "min": 13.875644347017857,
+              "max": 13.875644347017857
+            },
+            "nextRange": {
+              "min": 13.875644347017857,
+              "max": 13.875644347017857
+            }
+          },
+          "attachedCount": {
+            "old": 6732,
+            "next": 6768,
+            "difference": 36,
+            "oldRange": {
+              "min": 6732,
+              "max": 6732
+            },
+            "nextRange": {
+              "min": 6768,
+              "max": 6768
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 7.875644347017857,
+            "next": 7.875644347017857,
+            "difference": 0,
+            "oldRange": {
+              "min": 7.875644347017857,
+              "max": 7.875644347017857
+            },
+            "nextRange": {
+              "min": 7.875644347017857,
+              "max": 7.875644347017857
+            }
+          },
+          "attachedCount": {
+            "old": 2482,
+            "next": 2542,
+            "difference": 60,
+            "oldRange": {
+              "min": 2482,
+              "max": 2542
+            },
+            "nextRange": {
+              "min": 2542,
+              "max": 2542
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 8,
+            "next": 8,
+            "difference": 0,
+            "oldRange": {
+              "min": 8,
+              "max": 8
+            },
+            "nextRange": {
+              "min": 8,
+              "max": 8
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "attachedCount": {
+            "old": 4250,
+            "next": 4226,
+            "difference": -24,
+            "oldRange": {
+              "min": 4190,
+              "max": 4250
+            },
+            "nextRange": {
+              "min": 4226,
+              "max": 4226
+            }
+          }
+        }
+      }
+    },
+    {
+      "old": "oct11-hil-history-t14p4-to-t6-f0p2-e15-nodip",
+      "next": "oct12-hil-history-step-t14p4-to-t6-f0p2-e15-cfl0p025-nodip",
+      "commonSeconds": 13.195310213443392,
+      "windows": {
+        "full": {
+          "axialCells": {
+            "old": 10,
+            "next": 10,
+            "difference": 0,
+            "oldRange": {
+              "min": 10,
+              "max": 10
+            },
+            "nextRange": {
+              "min": 10,
+              "max": 10
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 11.875644347017857,
+            "next": 11.875644347017857,
+            "difference": 0,
+            "oldRange": {
+              "min": 11.875644347017857,
+              "max": 11.875644347017857
+            },
+            "nextRange": {
+              "min": 11.875644347017857,
+              "max": 11.875644347017857
+            }
+          },
+          "attachedCount": {
+            "old": 8222,
+            "next": 8270,
+            "difference": 48,
+            "oldRange": {
+              "min": 8222,
+              "max": 8258
+            },
+            "nextRange": {
+              "min": 8270,
+              "max": 8270
+            }
+          }
+        },
+        "early": {
+          "axialCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 5.875644347017857,
+            "next": 5.875644347017857,
+            "difference": 0,
+            "oldRange": {
+              "min": 5.875644347017857,
+              "max": 5.875644347017857
+            },
+            "nextRange": {
+              "min": 5.875644347017857,
+              "max": 5.875644347017857
+            }
+          },
+          "attachedCount": {
+            "old": 3136,
+            "next": 3184,
+            "difference": 48,
+            "oldRange": {
+              "min": 3136,
+              "max": 3148
+            },
+            "nextRange": {
+              "min": 3184,
+              "max": 3184
+            }
+          }
+        },
+        "later": {
+          "axialCells": {
+            "old": 4,
+            "next": 4,
+            "difference": 0,
+            "oldRange": {
+              "min": 4,
+              "max": 4
+            },
+            "nextRange": {
+              "min": 4,
+              "max": 4
+            }
+          },
+          "lateralCartesianCells": {
+            "old": 6,
+            "next": 6,
+            "difference": 0,
+            "oldRange": {
+              "min": 6,
+              "max": 6
+            },
+            "nextRange": {
+              "min": 6,
+              "max": 6
+            }
+          },
+          "attachedCount": {
+            "old": 5086,
+            "next": 5086,
+            "difference": 0,
+            "oldRange": {
+              "min": 5074,
+              "max": 5122
+            },
+            "nextRange": {
+              "min": 5086,
+              "max": 5086
+            }
+          }
+        }
+      }
+    }
+  ],
+  "pressureStage": [
+    {
+      "group": "from-6-fraction0.1-three-pressures",
+      "prep": "M1",
+      "p": 50662.5,
+      "seconds": 7.957952541770717,
+      "earlyId": "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e7-p50662p5-m1",
+      "lateId": "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p50662p5-m1",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 4,
+            "late": 2,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 19.052558883257646,
+            "late": 10.516660498395407,
+            "lateMinusEarly": -8.53589838486224,
+            "min": -8.53589838486224,
+            "max": -8.53589838486224
+          },
+          "attachedCount": {
+            "early": 2500,
+            "late": 5598,
+            "lateMinusEarly": 3098,
+            "min": 3098,
+            "max": 3098
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 2,
+            "late": 0,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 8.660254037844382,
+            "late": 5,
+            "lateMinusEarly": -3.660254037844382,
+            "min": -3.803847577293368,
+            "max": -3.660254037844382
+          },
+          "attachedCount": {
+            "early": 692,
+            "late": 2218,
+            "lateMinusEarly": 1526,
+            "min": 1502,
+            "max": 1526
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 2,
+            "late": 2,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "lateralCartesianCells": {
+            "early": 10.392304845413264,
+            "late": 5.516660498395407,
+            "lateMinusEarly": -4.875644347017857,
+            "min": -4.875644347017857,
+            "max": -4.732050807568871
+          },
+          "attachedCount": {
+            "early": 1808,
+            "late": 3380,
+            "lateMinusEarly": 1572,
+            "min": 1572,
+            "max": 1596
+          }
+        }
+      }
+    },
+    {
+      "group": "from-6-fraction0.1-three-pressures",
+      "prep": "M1",
+      "p": 101325,
+      "seconds": 7.957952541770717,
+      "earlyId": "oct11-hil-history-t6-to-t14p4-f0p1-e7-m1",
+      "lateId": "oct11-hil-history-t6-to-t14p4-f0p1-e15-m1",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 2,
+            "late": 0,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 10.392304845413264,
+            "late": 6,
+            "lateMinusEarly": -4.392304845413264,
+            "min": -4.392304845413264,
+            "max": -4.392304845413264
+          },
+          "attachedCount": {
+            "early": 842,
+            "late": 2358,
+            "lateMinusEarly": 1516,
+            "min": 1516,
+            "max": 1540
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 2,
+            "late": 0,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 5.196152422706632,
+            "late": 3,
+            "lateMinusEarly": -2.196152422706632,
+            "min": -2.196152422706632,
+            "max": -2.196152422706632
+          },
+          "attachedCount": {
+            "early": 344,
+            "late": 1236,
+            "lateMinusEarly": 892,
+            "min": 892,
+            "max": 916
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 0,
+            "late": 0,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "lateralCartesianCells": {
+            "early": 5.196152422706632,
+            "late": 3,
+            "lateMinusEarly": -2.196152422706632,
+            "min": -2.196152422706632,
+            "max": -2.196152422706632
+          },
+          "attachedCount": {
+            "early": 498,
+            "late": 1122,
+            "lateMinusEarly": 624,
+            "min": 600,
+            "max": 648
+          }
+        }
+      }
+    },
+    {
+      "group": "from-6-fraction0.1-three-pressures",
+      "prep": "M1",
+      "p": 202650,
+      "status": "missing-failed-row",
+      "missing": [
+        "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-m1"
+      ]
+    },
+    {
+      "group": "from-6-fraction0.1-three-pressures",
+      "prep": "M1_NO_DIP_ABLATION",
+      "p": 50662.5,
+      "seconds": 7.957952541770717,
+      "earlyId": "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e7-p50662p5-nodip",
+      "lateId": "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p50662p5-nodip",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 8,
+            "late": 6,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 4.803847577293368,
+            "late": 3.8756443470178574,
+            "lateMinusEarly": -0.9282032302755105,
+            "min": -0.9282032302755105,
+            "max": -0.9282032302755105
+          },
+          "attachedCount": {
+            "early": 788,
+            "late": 1920,
+            "lateMinusEarly": 1132,
+            "min": 1132,
+            "max": 1132
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 4,
+            "late": 4,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "lateralCartesianCells": {
+            "early": 2.803847577293368,
+            "late": 1.8756443470178574,
+            "lateMinusEarly": -0.9282032302755105,
+            "min": -0.9282032302755105,
+            "max": -0.9282032302755105
+          },
+          "attachedCount": {
+            "early": 274,
+            "late": 668,
+            "lateMinusEarly": 394,
+            "min": 394,
+            "max": 418
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 4,
+            "late": 2,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 2,
+            "late": 2,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "attachedCount": {
+            "early": 514,
+            "late": 1252,
+            "lateMinusEarly": 738,
+            "min": 714,
+            "max": 738
+          }
+        }
+      }
+    },
+    {
+      "group": "from-6-fraction0.1-three-pressures",
+      "prep": "M1_NO_DIP_ABLATION",
+      "p": 101325,
+      "seconds": 7.957952541770717,
+      "earlyId": "oct11-hil-history-t6-to-t14p4-f0p1-e7-nodip",
+      "lateId": "oct11-hil-history-t6-to-t14p4-f0p1-e15-nodip",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 6,
+            "late": 4,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 2.803847577293368,
+            "late": 3.8756443470178574,
+            "lateMinusEarly": 1.0717967697244895,
+            "min": 1.0717967697244895,
+            "max": 1.0717967697244895
+          },
+          "attachedCount": {
+            "early": 396,
+            "late": 1412,
+            "lateMinusEarly": 1016,
+            "min": 1016,
+            "max": 1040
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 4,
+            "late": 2,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 1.803847577293368,
+            "late": 1.8756443470178574,
+            "lateMinusEarly": 0.07179676972448945,
+            "min": 0.07179676972448945,
+            "max": 0.07179676972448945
+          },
+          "attachedCount": {
+            "early": 172,
+            "late": 608,
+            "lateMinusEarly": 436,
+            "min": 436,
+            "max": 436
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 2,
+            "late": 2,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "lateralCartesianCells": {
+            "early": 1,
+            "late": 2,
+            "lateMinusEarly": 1,
+            "min": 1,
+            "max": 1
+          },
+          "attachedCount": {
+            "early": 224,
+            "late": 804,
+            "lateMinusEarly": 580,
+            "min": 580,
+            "max": 604
+          }
+        }
+      }
+    },
+    {
+      "group": "from-6-fraction0.1-three-pressures",
+      "prep": "M1_NO_DIP_ABLATION",
+      "p": 202650,
+      "seconds": 7.957952541770717,
+      "earlyId": "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e7-p202650-nodip",
+      "lateId": "oct12-hil-pressure-history-t6-to-t14p4-f0p1-e15-p202650-nodip",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 4,
+            "late": 2,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 2.803847577293368,
+            "late": 1.8756443470178574,
+            "lateMinusEarly": -0.9282032302755105,
+            "min": -0.9282032302755105,
+            "max": -0.9282032302755105
+          },
+          "attachedCount": {
+            "early": 238,
+            "late": 608,
+            "lateMinusEarly": 370,
+            "min": 346,
+            "max": 370
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 2,
+            "late": 0,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 0.803847577293368,
+            "late": 1.8756443470178574,
+            "lateMinusEarly": 1.0717967697244895,
+            "min": 1.0717967697244895,
+            "max": 1.0717967697244895
+          },
+          "attachedCount": {
+            "early": 80,
+            "late": 270,
+            "lateMinusEarly": 190,
+            "min": 190,
+            "max": 190
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 2,
+            "late": 2,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "lateralCartesianCells": {
+            "early": 2,
+            "late": 0,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "attachedCount": {
+            "early": 158,
+            "late": 338,
+            "lateMinusEarly": 180,
+            "min": 156,
+            "max": 180
+          }
+        }
+      }
+    },
+    {
+      "group": "from-6-fraction0.2-three-pressures",
+      "prep": "M1",
+      "p": 50662.5,
+      "seconds": 2.8684863652975974,
+      "earlyId": "oct12-hil-pressure-history-t6-to-t14p4-f0p2-e7-p50662p5-m1",
+      "lateId": "oct12-hil-pressure-history-t6-to-t14p4-f0p2-e15-p50662p5-m1",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 6,
+            "late": 4,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 12.124355652982143,
+            "late": 12.124355652982135,
+            "lateMinusEarly": -7.105427357601002e-15,
+            "min": -7.105427357601002e-15,
+            "max": -7.105427357601002e-15
+          },
+          "attachedCount": {
+            "early": 1616,
+            "late": 3324,
+            "lateMinusEarly": 1708,
+            "min": 1708,
+            "max": 1708
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 4,
+            "late": 2,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 6.9282032302755105,
+            "late": 5.196152422706632,
+            "lateMinusEarly": -1.7320508075688785,
+            "min": -1.7320508075688785,
+            "max": -1.7320508075688785
+          },
+          "attachedCount": {
+            "early": 528,
+            "late": 1404,
+            "lateMinusEarly": 876,
+            "min": 876,
+            "max": 876
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 2,
+            "late": 2,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "lateralCartesianCells": {
+            "early": 5.196152422706632,
+            "late": 6.928203230275503,
+            "lateMinusEarly": 1.7320508075688714,
+            "min": 1.7320508075688714,
+            "max": 1.7320508075688714
+          },
+          "attachedCount": {
+            "early": 1088,
+            "late": 1920,
+            "lateMinusEarly": 832,
+            "min": 832,
+            "max": 832
+          }
+        }
+      }
+    },
+    {
+      "group": "from-6-fraction0.2-three-pressures",
+      "prep": "M1",
+      "p": 101325,
+      "seconds": 2.8684863652975974,
+      "earlyId": "oct11-hil-history-t6-to-t14p4-f0p2-e7-m1",
+      "lateId": "oct11-hil-history-t6-to-t14p4-f0p2-e15-m1",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 4,
+            "late": 4,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "lateralCartesianCells": {
+            "early": 8.660254037844382,
+            "late": 5.196152422706632,
+            "lateMinusEarly": -3.46410161513775,
+            "min": -3.46410161513775,
+            "max": -3.46410161513775
+          },
+          "attachedCount": {
+            "early": 612,
+            "late": 1440,
+            "lateMinusEarly": 828,
+            "min": 804,
+            "max": 852
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 2,
+            "late": 2,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "lateralCartesianCells": {
+            "early": 3.4641016151377535,
+            "late": 1.8756443470178574,
+            "lateMinusEarly": -1.588457268119896,
+            "min": -1.588457268119896,
+            "max": -1.588457268119896
+          },
+          "attachedCount": {
+            "early": 202,
+            "late": 636,
+            "lateMinusEarly": 434,
+            "min": 434,
+            "max": 434
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 2,
+            "late": 2,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "lateralCartesianCells": {
+            "early": 5.1961524227066285,
+            "late": 3.3205080756887746,
+            "lateMinusEarly": -1.8756443470178539,
+            "min": -1.8756443470178539,
+            "max": -1.8756443470178539
+          },
+          "attachedCount": {
+            "early": 410,
+            "late": 804,
+            "lateMinusEarly": 394,
+            "min": 370,
+            "max": 418
+          }
+        }
+      }
+    },
+    {
+      "group": "from-6-fraction0.2-three-pressures",
+      "prep": "M1",
+      "p": 202650,
+      "seconds": 2.8684863652975974,
+      "earlyId": "oct12-hil-pressure-history-t6-to-t14p4-f0p2-e7-p202650-m1",
+      "lateId": "oct12-hil-pressure-history-t6-to-t14p4-f0p2-e15-p202650-m1",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 2,
+            "late": 2,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "lateralCartesianCells": {
+            "early": 5.196152422706632,
+            "late": 3.4641016151377535,
+            "lateMinusEarly": -1.7320508075688785,
+            "min": -1.7320508075688785,
+            "max": -1.7320508075688785
+          },
+          "attachedCount": {
+            "early": 220,
+            "late": 612,
+            "lateMinusEarly": 392,
+            "min": 392,
+            "max": 392
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 0,
+            "late": 2,
+            "lateMinusEarly": 2,
+            "min": 2,
+            "max": 2
+          },
+          "lateralCartesianCells": {
+            "early": 1.803847577293368,
+            "late": 1.7320508075688714,
+            "lateMinusEarly": -0.07179676972449656,
+            "min": -0.07179676972449656,
+            "max": -0.07179676972449656
+          },
+          "attachedCount": {
+            "early": 74,
+            "late": 282,
+            "lateMinusEarly": 208,
+            "min": 208,
+            "max": 208
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 2,
+            "late": 0,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 3.392304845413264,
+            "late": 1.732050807568882,
+            "lateMinusEarly": -1.660254037844382,
+            "min": -1.660254037844382,
+            "max": -1.660254037844382
+          },
+          "attachedCount": {
+            "early": 146,
+            "late": 330,
+            "lateMinusEarly": 184,
+            "min": 184,
+            "max": 184
+          }
+        }
+      }
+    },
+    {
+      "group": "from-6-fraction0.2-three-pressures",
+      "prep": "M1_NO_DIP_ABLATION",
+      "p": 50662.5,
+      "seconds": 2.8684863652975974,
+      "earlyId": "oct12-hil-pressure-history-t6-to-t14p4-f0p2-e7-p50662p5-nodip",
+      "lateId": "oct12-hil-pressure-history-t6-to-t14p4-f0p2-e15-p50662p5-nodip",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 8,
+            "late": 6,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 6.803847577293368,
+            "late": 5.875644347017857,
+            "lateMinusEarly": -0.9282032302755105,
+            "min": -0.9282032302755105,
+            "max": -0.9282032302755105
+          },
+          "attachedCount": {
+            "early": 1064,
+            "late": 2490,
+            "lateMinusEarly": 1426,
+            "min": 1426,
+            "max": 1450
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 6,
+            "late": 4,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 2.803847577293368,
+            "late": 2.8756443470178574,
+            "lateMinusEarly": 0.07179676972448945,
+            "min": -0.5884572681198961,
+            "max": 0.07179676972448945
+          },
+          "attachedCount": {
+            "early": 334,
+            "late": 1204,
+            "lateMinusEarly": 870,
+            "min": 858,
+            "max": 882
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 2,
+            "late": 2,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "lateralCartesianCells": {
+            "early": 4,
+            "late": 3,
+            "lateMinusEarly": -1,
+            "min": -1,
+            "max": -0.3397459621556145
+          },
+          "attachedCount": {
+            "early": 730,
+            "late": 1286,
+            "lateMinusEarly": 556,
+            "min": 544,
+            "max": 592
+          }
+        }
+      }
+    },
+    {
+      "group": "from-6-fraction0.2-three-pressures",
+      "prep": "M1_NO_DIP_ABLATION",
+      "p": 101325,
+      "seconds": 2.8684863652975974,
+      "earlyId": "oct11-hil-history-t6-to-t14p4-f0p2-e7-nodip",
+      "lateId": "oct11-hil-history-t6-to-t14p4-f0p2-e15-nodip",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 6,
+            "late": 4,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 3.803847577293368,
+            "late": 3.8756443470178574,
+            "lateMinusEarly": 0.07179676972448945,
+            "min": -0.9282032302755105,
+            "max": 0.07179676972448945
+          },
+          "attachedCount": {
+            "early": 492,
+            "late": 1256,
+            "lateMinusEarly": 764,
+            "min": 758,
+            "max": 764
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 4,
+            "late": 2,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 1.803847577293368,
+            "late": 1.8756443470178574,
+            "lateMinusEarly": 0.07179676972448945,
+            "min": 0.07179676972448945,
+            "max": 0.07179676972448945
+          },
+          "attachedCount": {
+            "early": 208,
+            "late": 584,
+            "lateMinusEarly": 376,
+            "min": 376,
+            "max": 376
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 2,
+            "late": 2,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "lateralCartesianCells": {
+            "early": 2,
+            "late": 2,
+            "lateMinusEarly": 0,
+            "min": -1,
+            "max": 0
+          },
+          "attachedCount": {
+            "early": 284,
+            "late": 672,
+            "lateMinusEarly": 388,
+            "min": 382,
+            "max": 388
+          }
+        }
+      }
+    },
+    {
+      "group": "from-6-fraction0.2-three-pressures",
+      "prep": "M1_NO_DIP_ABLATION",
+      "p": 202650,
+      "seconds": 2.8684863652975974,
+      "earlyId": "oct12-hil-pressure-history-t6-to-t14p4-f0p2-e7-p202650-nodip",
+      "lateId": "oct12-hil-pressure-history-t6-to-t14p4-f0p2-e15-p202650-nodip",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 4,
+            "late": 2,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 2.803847577293368,
+            "late": 1.8756443470178574,
+            "lateMinusEarly": -0.9282032302755105,
+            "min": -0.9282032302755105,
+            "max": -0.9282032302755105
+          },
+          "attachedCount": {
+            "early": 214,
+            "late": 584,
+            "lateMinusEarly": 370,
+            "min": 370,
+            "max": 370
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 2,
+            "late": 2,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "lateralCartesianCells": {
+            "early": 0.803847577293368,
+            "late": 0.8756443470178574,
+            "lateMinusEarly": 0.07179676972448945,
+            "min": 0.07179676972448945,
+            "max": 0.07179676972448945
+          },
+          "attachedCount": {
+            "early": 80,
+            "late": 264,
+            "lateMinusEarly": 184,
+            "min": 184,
+            "max": 184
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 2,
+            "late": 0,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 2,
+            "late": 1,
+            "lateMinusEarly": -1,
+            "min": -1,
+            "max": -1
+          },
+          "attachedCount": {
+            "early": 134,
+            "late": 320,
+            "lateMinusEarly": 186,
+            "min": 186,
+            "max": 186
+          }
+        }
+      }
+    },
+    {
+      "group": "from-14.4-fraction0.1-three-pressures",
+      "prep": "M1",
+      "p": 50662.5,
+      "seconds": 23.029791036395686,
+      "earlyId": "oct12-hil-pressure-history-t14p4-to-t6-f0p1-e7-p50662p5-m1",
+      "lateId": "oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p50662p5-m1",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 28,
+            "late": 22,
+            "lateMinusEarly": -6,
+            "min": -6,
+            "max": -6
+          },
+          "lateralCartesianCells": {
+            "early": 16.803847577293368,
+            "late": 13.875644347017857,
+            "lateMinusEarly": -2.9282032302755105,
+            "min": -2.9282032302755105,
+            "max": -2.9282032302755105
+          },
+          "attachedCount": {
+            "early": 9848,
+            "late": 11946,
+            "lateMinusEarly": 2098,
+            "min": 2098,
+            "max": 2098
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 16,
+            "late": 10,
+            "lateMinusEarly": -6,
+            "min": -6,
+            "max": -6
+          },
+          "lateralCartesianCells": {
+            "early": 9.803847577293368,
+            "late": 7.875644347017857,
+            "lateMinusEarly": -1.9282032302755105,
+            "min": -1.9282032302755105,
+            "max": -1.9282032302755105
+          },
+          "attachedCount": {
+            "early": 3084,
+            "late": 3974,
+            "lateMinusEarly": 890,
+            "min": 854,
+            "max": 890
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 12,
+            "late": 12,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "lateralCartesianCells": {
+            "early": 7,
+            "late": 6,
+            "lateMinusEarly": -1,
+            "min": -1,
+            "max": -1
+          },
+          "attachedCount": {
+            "early": 6764,
+            "late": 7972,
+            "lateMinusEarly": 1208,
+            "min": 1208,
+            "max": 1244
+          }
+        }
+      }
+    },
+    {
+      "group": "from-14.4-fraction0.1-three-pressures",
+      "prep": "M1",
+      "p": 101325,
+      "seconds": 23.029791036395686,
+      "earlyId": "oct11-hil-history-t14p4-to-t6-f0p1-e7-m1",
+      "lateId": "oct11-hil-history-t14p4-to-t6-f0p1-e15-m1",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 16,
+            "late": 12,
+            "lateMinusEarly": -4,
+            "min": -4,
+            "max": -4
+          },
+          "lateralCartesianCells": {
+            "early": 10.803847577293368,
+            "late": 9.875644347017857,
+            "lateMinusEarly": -0.9282032302755105,
+            "min": -0.9282032302755105,
+            "max": -0.9282032302755105
+          },
+          "attachedCount": {
+            "early": 3470,
+            "late": 5084,
+            "lateMinusEarly": 1614,
+            "min": 1614,
+            "max": 1614
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 10,
+            "late": 6,
+            "lateMinusEarly": -4,
+            "min": -4,
+            "max": -4
+          },
+          "lateralCartesianCells": {
+            "early": 6.803847577293368,
+            "late": 5.875644347017857,
+            "lateMinusEarly": -0.9282032302755105,
+            "min": -0.9282032302755105,
+            "max": -0.9282032302755105
+          },
+          "attachedCount": {
+            "early": 1182,
+            "late": 1954,
+            "lateMinusEarly": 772,
+            "min": 772,
+            "max": 772
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 6,
+            "late": 6,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "lateralCartesianCells": {
+            "early": 4,
+            "late": 4,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "attachedCount": {
+            "early": 2288,
+            "late": 3130,
+            "lateMinusEarly": 842,
+            "min": 842,
+            "max": 842
+          }
+        }
+      }
+    },
+    {
+      "group": "from-14.4-fraction0.1-three-pressures",
+      "prep": "M1",
+      "p": 202650,
+      "seconds": 23.029791036395686,
+      "earlyId": "oct12-hil-pressure-history-t14p4-to-t6-f0p1-e7-p202650-m1",
+      "lateId": "oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-m1",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 10,
+            "late": 6,
+            "lateMinusEarly": -4,
+            "min": -4,
+            "max": -4
+          },
+          "lateralCartesianCells": {
+            "early": 6.9282032302755105,
+            "late": 5.875644347017857,
+            "lateMinusEarly": -1.0525588832576531,
+            "min": -1.0525588832576531,
+            "max": -1.0525588832576531
+          },
+          "attachedCount": {
+            "early": 1254,
+            "late": 2014,
+            "lateMinusEarly": 760,
+            "min": 724,
+            "max": 760
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 6,
+            "late": 2,
+            "lateMinusEarly": -4,
+            "min": -4,
+            "max": -4
+          },
+          "lateralCartesianCells": {
+            "early": 4.803847577293368,
+            "late": 3.8756443470178574,
+            "lateMinusEarly": -0.9282032302755105,
+            "min": -0.9282032302755105,
+            "max": -0.9282032302755105
+          },
+          "attachedCount": {
+            "early": 472,
+            "late": 686,
+            "lateMinusEarly": 214,
+            "min": 214,
+            "max": 238
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 4,
+            "late": 4,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "lateralCartesianCells": {
+            "early": 2.1243556529821426,
+            "late": 2,
+            "lateMinusEarly": -0.12435565298214257,
+            "min": -0.12435565298214257,
+            "max": -0.12435565298214257
+          },
+          "attachedCount": {
+            "early": 782,
+            "late": 1328,
+            "lateMinusEarly": 546,
+            "min": 486,
+            "max": 546
+          }
+        }
+      }
+    },
+    {
+      "group": "from-14.4-fraction0.1-three-pressures",
+      "prep": "M1_NO_DIP_ABLATION",
+      "p": 50662.5,
+      "seconds": 23.029791036395686,
+      "earlyId": "oct12-hil-pressure-history-t14p4-to-t6-f0p1-e7-p50662p5-nodip",
+      "lateId": "oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p50662p5-nodip",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 14,
+            "late": 10,
+            "lateMinusEarly": -4,
+            "min": -4,
+            "max": -4
+          },
+          "lateralCartesianCells": {
+            "early": 18.803847577293368,
+            "late": 14,
+            "lateMinusEarly": -4.803847577293368,
+            "min": -4.803847577293368,
+            "max": -4.803847577293368
+          },
+          "attachedCount": {
+            "early": 7784,
+            "late": 12012,
+            "lateMinusEarly": 4228,
+            "min": 4216,
+            "max": 4228
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 8,
+            "late": 6,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 10.803847577293368,
+            "late": 8,
+            "lateMinusEarly": -2.803847577293368,
+            "min": -2.803847577293368,
+            "max": -2.803847577293368
+          },
+          "attachedCount": {
+            "early": 2306,
+            "late": 5094,
+            "lateMinusEarly": 2788,
+            "min": 2788,
+            "max": 2800
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 6,
+            "late": 4,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 8,
+            "late": 6,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "attachedCount": {
+            "early": 5478,
+            "late": 6918,
+            "lateMinusEarly": 1440,
+            "min": 1416,
+            "max": 1440
+          }
+        }
+      }
+    },
+    {
+      "group": "from-14.4-fraction0.1-three-pressures",
+      "prep": "M1_NO_DIP_ABLATION",
+      "p": 101325,
+      "seconds": 23.029791036395686,
+      "earlyId": "oct11-hil-history-t14p4-to-t6-f0p1-e7-nodip",
+      "lateId": "oct11-hil-history-t14p4-to-t6-f0p1-e15-nodip",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 8,
+            "late": 6,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 11.803847577293368,
+            "late": 9,
+            "lateMinusEarly": -2.803847577293368,
+            "min": -2.803847577293368,
+            "max": -2.803847577293368
+          },
+          "attachedCount": {
+            "early": 2846,
+            "late": 5720,
+            "lateMinusEarly": 2874,
+            "min": 2874,
+            "max": 2898
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 6,
+            "late": 2,
+            "lateMinusEarly": -4,
+            "min": -4,
+            "max": -4
+          },
+          "lateralCartesianCells": {
+            "early": 6.803847577293368,
+            "late": 5,
+            "lateMinusEarly": -1.803847577293368,
+            "min": -1.803847577293368,
+            "max": -1.803847577293368
+          },
+          "attachedCount": {
+            "early": 990,
+            "late": 2314,
+            "lateMinusEarly": 1324,
+            "min": 1312,
+            "max": 1396
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 2,
+            "late": 4,
+            "lateMinusEarly": 2,
+            "min": 2,
+            "max": 2
+          },
+          "lateralCartesianCells": {
+            "early": 5,
+            "late": 4,
+            "lateMinusEarly": -1,
+            "min": -1,
+            "max": -1
+          },
+          "attachedCount": {
+            "early": 1856,
+            "late": 3406,
+            "lateMinusEarly": 1550,
+            "min": 1478,
+            "max": 1586
+          }
+        }
+      }
+    },
+    {
+      "group": "from-14.4-fraction0.1-three-pressures",
+      "prep": "M1_NO_DIP_ABLATION",
+      "p": 202650,
+      "seconds": 23.029791036395686,
+      "earlyId": "oct12-hil-pressure-history-t14p4-to-t6-f0p1-e7-p202650-nodip",
+      "lateId": "oct12-hil-pressure-history-t14p4-to-t6-f0p1-e15-p202650-nodip",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 6,
+            "late": 4,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 7.803847577293368,
+            "late": 6,
+            "lateMinusEarly": -1.803847577293368,
+            "min": -1.803847577293368,
+            "max": -1.803847577293368
+          },
+          "attachedCount": {
+            "early": 1254,
+            "late": 3106,
+            "lateMinusEarly": 1852,
+            "min": 1852,
+            "max": 1936
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 4,
+            "late": 2,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 4.803847577293368,
+            "late": 3,
+            "lateMinusEarly": -1.803847577293368,
+            "min": -1.803847577293368,
+            "max": -1.803847577293368
+          },
+          "attachedCount": {
+            "early": 434,
+            "late": 1706,
+            "lateMinusEarly": 1272,
+            "min": 1258,
+            "max": 1272
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 2,
+            "late": 2,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "lateralCartesianCells": {
+            "early": 3,
+            "late": 3,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "attachedCount": {
+            "early": 820,
+            "late": 1400,
+            "lateMinusEarly": 580,
+            "min": 580,
+            "max": 678
+          }
+        }
+      }
+    },
+    {
+      "group": "from-14.4-fraction0.2-three-pressures",
+      "prep": "M1",
+      "p": 50662.5,
+      "seconds": 7.5696185581022615,
+      "earlyId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e7-p50662p5-m1",
+      "lateId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-m1",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 20,
+            "late": 14,
+            "lateMinusEarly": -6,
+            "min": -6,
+            "max": -6
+          },
+          "lateralCartesianCells": {
+            "early": 16.803847577293368,
+            "late": 13.875644347017857,
+            "lateMinusEarly": -2.9282032302755105,
+            "min": -2.9282032302755105,
+            "max": -2.9282032302755105
+          },
+          "attachedCount": {
+            "early": 6026,
+            "late": 7816,
+            "lateMinusEarly": 1790,
+            "min": 1730,
+            "max": 1790
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 12,
+            "late": 8,
+            "lateMinusEarly": -4,
+            "min": -4,
+            "max": -4
+          },
+          "lateralCartesianCells": {
+            "early": 9.803847577293368,
+            "late": 7.875644347017857,
+            "lateMinusEarly": -1.9282032302755105,
+            "min": -1.9282032302755105,
+            "max": -1.9282032302755105
+          },
+          "attachedCount": {
+            "early": 1844,
+            "late": 2928,
+            "lateMinusEarly": 1084,
+            "min": 1072,
+            "max": 1144
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 8,
+            "late": 6,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 7,
+            "late": 6,
+            "lateMinusEarly": -1,
+            "min": -1,
+            "max": -1
+          },
+          "attachedCount": {
+            "early": 4182,
+            "late": 4888,
+            "lateMinusEarly": 706,
+            "min": 586,
+            "max": 718
+          }
+        }
+      }
+    },
+    {
+      "group": "from-14.4-fraction0.2-three-pressures",
+      "prep": "M1",
+      "p": 101325,
+      "seconds": 7.5696185581022615,
+      "earlyId": "oct11-hil-history-t14p4-to-t6-f0p2-e7-m1",
+      "lateId": "oct11-hil-history-t14p4-to-t6-f0p2-e15-m1",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 14,
+            "late": 8,
+            "lateMinusEarly": -6,
+            "min": -6,
+            "max": -6
+          },
+          "lateralCartesianCells": {
+            "early": 10.803847577293368,
+            "late": 8.875644347017857,
+            "lateMinusEarly": -1.9282032302755105,
+            "min": -1.9282032302755105,
+            "max": -1.9282032302755105
+          },
+          "attachedCount": {
+            "early": 2086,
+            "late": 3084,
+            "lateMinusEarly": 998,
+            "min": 974,
+            "max": 1034
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 8,
+            "late": 4,
+            "lateMinusEarly": -4,
+            "min": -4,
+            "max": -4
+          },
+          "lateralCartesianCells": {
+            "early": 5.803847577293368,
+            "late": 3.8756443470178574,
+            "lateMinusEarly": -1.9282032302755105,
+            "min": -1.9282032302755105,
+            "max": -1.9282032302755105
+          },
+          "attachedCount": {
+            "early": 694,
+            "late": 1202,
+            "lateMinusEarly": 508,
+            "min": 508,
+            "max": 556
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 6,
+            "late": 4,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 5,
+            "late": 5,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "attachedCount": {
+            "early": 1392,
+            "late": 1882,
+            "lateMinusEarly": 490,
+            "min": 418,
+            "max": 526
+          }
+        }
+      }
+    },
+    {
+      "group": "from-14.4-fraction0.2-three-pressures",
+      "prep": "M1",
+      "p": 202650,
+      "seconds": 7.5696185581022615,
+      "earlyId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e7-p202650-m1",
+      "lateId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-m1",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 8,
+            "late": 4,
+            "lateMinusEarly": -4,
+            "min": -4,
+            "max": -4
+          },
+          "lateralCartesianCells": {
+            "early": 6.803847577293368,
+            "late": 5.196152422706632,
+            "lateMinusEarly": -1.607695154586736,
+            "min": -1.607695154586736,
+            "max": -1.607695154586736
+          },
+          "attachedCount": {
+            "early": 724,
+            "late": 1244,
+            "lateMinusEarly": 520,
+            "min": 508,
+            "max": 520
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 4,
+            "late": 2,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 3.4641016151377535,
+            "late": 1.8756443470178574,
+            "lateMinusEarly": -1.588457268119896,
+            "min": -1.588457268119896,
+            "max": -1.588457268119896
+          },
+          "attachedCount": {
+            "early": 236,
+            "late": 512,
+            "lateMinusEarly": 276,
+            "min": 276,
+            "max": 300
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 4,
+            "late": 2,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 3.3397459621556145,
+            "late": 3.3205080756887746,
+            "lateMinusEarly": -0.019237886466839882,
+            "min": -0.019237886466839882,
+            "max": -0.019237886466839882
+          },
+          "attachedCount": {
+            "early": 488,
+            "late": 732,
+            "lateMinusEarly": 244,
+            "min": 208,
+            "max": 244
+          }
+        }
+      }
+    },
+    {
+      "group": "from-14.4-fraction0.2-three-pressures",
+      "prep": "M1_NO_DIP_ABLATION",
+      "p": 50662.5,
+      "seconds": 7.5696185581022615,
+      "earlyId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e7-p50662p5-nodip",
+      "lateId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-nodip",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 12,
+            "late": 10,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 16.803847577293368,
+            "late": 11.875644347017857,
+            "lateMinusEarly": -4.9282032302755105,
+            "min": -4.9282032302755105,
+            "max": -4.9282032302755105
+          },
+          "attachedCount": {
+            "early": 5466,
+            "late": 8416,
+            "lateMinusEarly": 2950,
+            "min": 2926,
+            "max": 2950
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 8,
+            "late": 6,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 9.803847577293368,
+            "late": 5.875644347017857,
+            "lateMinusEarly": -3.9282032302755105,
+            "min": -3.9282032302755105,
+            "max": -2.9282032302755105
+          },
+          "attachedCount": {
+            "early": 1796,
+            "late": 3696,
+            "lateMinusEarly": 1900,
+            "min": 1876,
+            "max": 1924
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 4,
+            "late": 4,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "lateralCartesianCells": {
+            "early": 7,
+            "late": 6,
+            "lateMinusEarly": -1,
+            "min": -2,
+            "max": -1
+          },
+          "attachedCount": {
+            "early": 3670,
+            "late": 4720,
+            "lateMinusEarly": 1050,
+            "min": 1002,
+            "max": 1074
+          }
+        }
+      }
+    },
+    {
+      "group": "from-14.4-fraction0.2-three-pressures",
+      "prep": "M1_NO_DIP_ABLATION",
+      "p": 101325,
+      "seconds": 7.5696185581022615,
+      "earlyId": "oct11-hil-history-t14p4-to-t6-f0p2-e7-nodip",
+      "lateId": "oct11-hil-history-t14p4-to-t6-f0p2-e15-nodip",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 8,
+            "late": 6,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 10.803847577293368,
+            "late": 7.875644347017857,
+            "lateMinusEarly": -2.9282032302755105,
+            "min": -2.9282032302755105,
+            "max": -2.9282032302755105
+          },
+          "attachedCount": {
+            "early": 2164,
+            "late": 3990,
+            "lateMinusEarly": 1826,
+            "min": 1826,
+            "max": 1826
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 4,
+            "late": 4,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "lateralCartesianCells": {
+            "early": 5.803847577293368,
+            "late": 3.8756443470178574,
+            "lateMinusEarly": -1.9282032302755105,
+            "min": -1.9282032302755105,
+            "max": -1.9282032302755105
+          },
+          "attachedCount": {
+            "early": 648,
+            "late": 1712,
+            "lateMinusEarly": 1064,
+            "min": 1064,
+            "max": 1064
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 4,
+            "late": 2,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 5,
+            "late": 4,
+            "lateMinusEarly": -1,
+            "min": -1,
+            "max": -1
+          },
+          "attachedCount": {
+            "early": 1516,
+            "late": 2278,
+            "lateMinusEarly": 762,
+            "min": 762,
+            "max": 762
+          }
+        }
+      }
+    },
+    {
+      "group": "from-14.4-fraction0.2-three-pressures",
+      "prep": "M1_NO_DIP_ABLATION",
+      "p": 202650,
+      "seconds": 7.5696185581022615,
+      "earlyId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e7-p202650-nodip",
+      "lateId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-nodip",
+      "windows": {
+        "full": {
+          "axialCells": {
+            "early": 6,
+            "late": 4,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 6.9282032302755105,
+            "late": 3.8756443470178574,
+            "lateMinusEarly": -3.052558883257653,
+            "min": -3.052558883257653,
+            "max": -3.052558883257653
+          },
+          "attachedCount": {
+            "early": 726,
+            "late": 1666,
+            "lateMinusEarly": 940,
+            "min": 940,
+            "max": 988
+          }
+        },
+        "early": {
+          "axialCells": {
+            "early": 2,
+            "late": 2,
+            "lateMinusEarly": 0,
+            "min": 0,
+            "max": 0
+          },
+          "lateralCartesianCells": {
+            "early": 3.4641016151377535,
+            "late": 1.8756443470178574,
+            "lateMinusEarly": -1.588457268119896,
+            "min": -1.9282032302755105,
+            "max": -0.5884572681198961
+          },
+          "attachedCount": {
+            "early": 226,
+            "late": 794,
+            "lateMinusEarly": 568,
+            "min": 532,
+            "max": 604
+          }
+        },
+        "later": {
+          "axialCells": {
+            "early": 4,
+            "late": 2,
+            "lateMinusEarly": -2,
+            "min": -2,
+            "max": -2
+          },
+          "lateralCartesianCells": {
+            "early": 3.464101615137757,
+            "late": 2,
+            "lateMinusEarly": -1.464101615137757,
+            "min": -2.464101615137757,
+            "max": -1.1243556529821426
+          },
+          "attachedCount": {
+            "early": 500,
+            "late": 872,
+            "lateMinusEarly": 372,
+            "min": 336,
+            "max": 456
+          }
+        }
+      }
+    }
+  ],
+  "limits": {
+    "geometry": "Existing seed plus attachment reconstruction checks every recorded count, extent and aspect ratio; terminal fields reconcile. Occupancy is not mass. Axial/lateral cell increments multiply by dxUm=0.35 for total center-span micrometres.",
+    "time": "Existing bracketCavityTime and adjacent-event sensitivity, no interpolation. Trigger-cycle attachments are inherited, excluded from new growth. Early/later halves divide one common physical duration across every included group row.",
+    "failedRow": "Known solver failure excluded from successful endpoint census and all contrast conclusions requiring that missing row. Other comparisons use named available sets; no absence conclusion."
+  }
+}

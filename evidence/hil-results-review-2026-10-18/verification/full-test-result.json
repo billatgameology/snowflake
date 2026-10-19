@@ -1,0 +1,8 @@
+{
+  "startedAt": "2026-10-19T04:20:54.9854465Z",
+  "exitCode": 1,
+  "finishedAt": "2026-10-19T04:37:06.6137063Z",
+  "command": "npm.cmd test",
+  "head": "97fddc4589f1e9237024e61e2199f5100879e5a3",
+  "stagedTree": "03b40474d6c2c85df5822a75d7f24269b1c92ac4"
+}

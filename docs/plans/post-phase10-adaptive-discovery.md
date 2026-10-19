@@ -309,6 +309,22 @@ qualitative cavity persistence to a resolved physical length. That campaign did 
 later temporal width rule. Source report and existing independent raw-event review retain their
 limits: finite deterministic model evidence, no physical SDAK identification or validation.
 
+### Completed-results review — 2026-10-18
+
+The maker directed keeping the two remaining warm early-intervention rows running while analyzing
+completed work and discussing the next step. The [review](../../evidence/hil-results-review-2026-10-18/README.md)
+now supplies the matched cold, seed and history comparisons across the October 10–12 waves,
+with prior supplement controls and four complete warm rows. It recommends discussion of the
+-14.4C cold domain/representation qualification, with a smaller seed timestep comparison as a
+companion option. No new run or exact protocol is selected. Phase 10 remains active.
+
+The earlier later-growth equalities are observations at their original windows, not evidence
+that memory disappeared: new common windows produce different integer axial increments in both
+timesteps. The cold tail also changes with stage. The review carries those corrections alongside
+the strongest surviving comparisons. Two fine broad warm rows are now complete; the fine early
+rows remain pending, so the full representation question is still open. All bulk output owners
+stay open pending governed NAS recovery; no producer or live experiment was modified.
+
 ### Exploration portfolio for HIL and BLD
 
 Maker clarification, 2026-10-07: there is no single established destination. Use the available

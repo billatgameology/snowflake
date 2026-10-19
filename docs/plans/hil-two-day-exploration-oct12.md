@@ -1,8 +1,8 @@
 # Plan — HIL two-day exploration
 
 - **Phase:** active Phase 10 model development; charter sections 2.5 and 3.2, accepted ADRs 0011, 0055, 0060 and 0062.
-- **Status:** 191/192 checked endpoints; one solver failure reproduced by the maker-requested single retry. Wave execution terminal, fixed producer 0161a51. Four warm continuations recovered from the second reboot on October 15.
-- **Started / last touched:** 2026-10-12 / 2026-10-15 by Codex/GPT-6.
+- **Status:** 191/192 checked endpoints; one solver failure reproduced by the maker-requested single retry. Wave execution terminal, fixed producer 0161a51. The October 18 matched-results review is complete; two warm early cases continue separately.
+- **Started / last touched:** 2026-10-12 / 2026-10-18 by Codex/GPT-6.
 - **Authority:** maker chose to keep the four warm runs active and requested useful parallel exploration for roughly the next two days. After reviewing the 192-case scope and 43/54-hour planning scenarios, the maker directed “proceed with new wave.”
 
 ## Goal and done when
@@ -498,3 +498,25 @@ Operational-record verification passed: existing evidence-integrity/progress-ind
 (18 tests), Rule 7 and scoped staged whitespace. Exact commands, times, real exits and unique
 logs are primary `out/reboot-recovery-2026-10-15/{metadata-check,rule7-check,whitespace-check}{.log,-result.json}`.
 No full-suite or scientific gate result is claimed for this operational work.
+
+## Completed-results review — 2026-10-18
+
+The maker requested analysis and next-step options while leaving the remaining warm work running.
+The [review bundle](../../evidence/hil-results-review-2026-10-18/README.md) covers all successful
+October 12 rows through cold, seed and history readouts and reuses compatible prior controls.
+The one failed cooling/high-pressure row remains excluded, with its failed retry preserved.
+No new simulation, producer modification, capacity probe or campaign freeze occurred.
+
+The cold -14.4 C / .10 contrast is stronger under timestep changes than the stage-sensitive -20 C
+one-cell feature. Seed new-growth effects persist as accumulated differences but often cease
+in later-window increments. All 24 matched history pairs agree in selected axial increments at
+CFL .05/.025; the old later-window equalities change with a slightly different shared window in
+both settings. The review retains exact numbers, units, brackets, input hashes and limitations.
+It completes the previously deferred source-static prefix comparisons, including the six
+histories borrowing experimental October 10 controls. Earlier observations retain their original
+scope; an equality at one window must not be propagated as disappearance of growth memory.
+
+Next: discuss cold domain/representation qualification and the smaller eight-case seed timestep
+option; consider saved history growth curves before another history extension. These are options,
+not approved new protocols. Fixed producer 0161a51 remains unchanged; useful bulk outputs stay in
+this worktree pending governed NAS publication and fresh restore. No closure/prune is authorized.

@@ -1,0 +1,352 @@
+From C:\Users\biao3\AppData\Local\Temp\phase10-retired-history-twQGDP
+ * branch            e092259b8d4c3099b569febc08944bf99bfef31a -> FETCH_HEAD
+Switched to a new branch 'phase10/evidence-verification'
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate2b-validation.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate3.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate4-aggregate.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate4-protocol.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate4a-reference.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate4a.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate4b.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate5-aggregate.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate5-comparison.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate5-evidence.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate5-lane.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate5-negative-controls.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate5-protocol.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate5-readback-attribution.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate6-aggregate.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/grow-lk-defaults.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/main.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/pgm.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase5-lk-reduction-shadow.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase5-protocol.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase5-shadow.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase6-arm2-protocol.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase6-arm3-protocol.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase6-crossplatform.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase6-diagram.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase6-heldout-source-lock.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase6-protocol.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase6-sdak-m1.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase6-size-strata.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase6-sweep.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase8-corpus-local.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase8-focused-discovery.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase8-search-protocol-successor-verify.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase8-search-protocol-successor.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase8-search-protocol-verify.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase8-search-protocol.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-cpu/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-cpu/src/operator.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/device.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/diffusion-shaders.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/diffusion.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/gg-solver.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/gg-surface-shaders.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/gg-surface.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/layout.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/lk-conversion.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/lk-shaders.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/lk-solver.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/readback.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/resources.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/shaders.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/submission.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'node_modules/typescript/lib/typescript.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'node_modules/typescript/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/locks/a-p-c0v-s6.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/locks/package.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/exit-status.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/freeze-evaluation.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/stderr.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/worker-invocations.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v1/locks/a-p-c0v-s6.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v1/locks/package.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/candidate/artifact-index.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/candidate/missing-producer.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/candidate/uncalled-check.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/exit-status.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/freeze-evaluation.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/stdout.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/worker-invocations.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v2/locks/a-p-c0v-s6.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v2/locks/package.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/candidate/artifact-index.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/candidate/missing-producer.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/candidate/uncalled-check.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/exit-status.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/freeze-evaluation.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/stdout.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/worker-invocations.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v3/locks/a-p-c0v-s6.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v3/locks/package.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/candidate/artifact-index.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/candidate/missing-producer.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/candidate/uncalled-check.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/exit-status.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/freeze-evaluation.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/stdout.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/worker-invocations.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v4/locks/a-p-c0v-s6.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v4/locks/package.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/candidate/artifact-index.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/candidate/missing-producer.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/candidate/uncalled-check.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/exit-status.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/freeze-evaluation.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/stdout.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/terminal-success-candidate.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/worker-invocations.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v5/locks/c0v-moving-produce.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v5/locks/package.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v6/locks/c0v-moving-produce.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v6/locks/package.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v7/locks/c0v-moving-produce.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v7/locks/package.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/cause-evaluation.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/exit-status.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/freeze-evaluation.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/stdout.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/worker-invocations.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v8/locks/c0v-moving-produce.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v8/locks/package.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate10.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-adaptive.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-basal-history.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-basal-width.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-cavity-analysis.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-cavity-geometry.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-cavity-spatial.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-cavity.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-confirm.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-discovery-analysis.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-discovery-main.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-discovery.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-facet-factorial.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-followup.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-holefill.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-long.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-cpu/src/gg-plus-solver.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-cpu/src/lk-facet-dips.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'baseline.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evidence/MANIFEST.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evidence/item.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evidence/MANIFEST.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evidence/first.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evidence/MANIFEST.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evidence/second.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evidence/MANIFEST.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-cpu/src/spherical-reference.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-cpu/src/spherical-reference.ts', LF will be replaced by CRLF the next time Git touches it
+stderr | runner/test/gutcheck-hardening.test.ts > evidence manifest pinning > recovers a lock owned by a process that has exited
+evidence-pin: recovering lock C:\Users\biao3\AppData\Local\Temp\gutcheck-manifest-IsCpBc\MANIFEST.json.lock left by dead pid 13236
+
+stderr | runner/test/gutcheck-hardening.test.ts > evidence manifest pinning > recovers an ownerless lock only after its grace period
+evidence-pin: recovering an ownerless lock at C:\Users\biao3\AppData\Local\Temp\gutcheck-manifest-N9m3CH\MANIFEST.json.lock
+
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  runner/test/phase9-mpk-residual-foundation.test.ts [ runner/test/phase9-mpk-residual-foundation.test.ts ]
+Error: VCC_NAS_ROOT=Z:/ is not the marked snowcrystal share: root does not exist; refusing to use a silently wrong or detached mount
+ ❯ inspectConfigured scripts/nas-root.ts:397:13
+    395|     const inspected = inspectNasShare(normalized, hooks);
+    396|     if (inspected.kind !== "ok") {
+    397|       throw new Error(
+       |             ^
+    398|         `${name}=${raw} is not the marked snowcrystal share: ${inspect…
+    399|           `refusing to use a silently wrong or detached mount`,
+ ❯ detectNasMount scripts/nas-root.ts:406:32
+ ❯ detectPhase9NasRoot runner/src/phase9-nas.ts:28:7
+ ❯ runner/test/phase9-mpk-residual-foundation.test.ts:30:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  runner/test/gutcheck-animation-queue-cli.test.ts > gut-check animation queue CLI > plans portable A/B manifests and dry-runs both workers
+AssertionError: expected 'file:///C:/Users/biao3/Documents/GitH…' to match /non-local output requires|NAS output…/u
+
+- Expected: 
+/non-local output requires|NAS output must stay below/u
+
++ Received: 
+"file:///C:/Users/biao3/Documents/GitHub/snowflake/scripts/nas-root.ts:397
+      throw new Error(
+            ^
+
+Error: VCC_NAS_ROOT=Z:/ is not the marked snowcrystal share: root does not exist; refusing to use a silently wrong or detached mount
+    at inspectConfigured (file:///C:/Users/biao3/Documents/GitHub/snowflake/scripts/nas-root.ts:397:13)
+    at detectNasMount (file:///C:/Users/biao3/Documents/GitHub/snowflake/scripts/nas-root.ts:406:32)
+    at assertOutputRoot (file:///C:/Users/biao3/Documents/GitHub/snowflake/scripts/gutcheck-animation-queue.ts:217:19)
+    at execute (file:///C:/Users/biao3/Documents/GitHub/snowflake/scripts/gutcheck-animation-queue.ts:286:3)
+    at main (file:///C:/Users/biao3/Documents/GitHub/snowflake/scripts/gutcheck-animation-queue.ts:366:31)
+    at file:///C:/Users/biao3/Documents/GitHub/snowflake/scripts/gutcheck-animation-queue.ts:370:99
+    at ModuleJob.run (node:internal/modules/esm/module_job:430:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:661:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.13.1
+"
+
+ ❯ runner/test/gutcheck-animation-queue-cli.test.ts:98:28
+     96|     );
+     97|     expect(refused.status).not.toBe(0);
+     98|     expect(refused.stderr).toMatch(/non-local output requires|NAS outp…
+       |                            ^
+     99|   });
+    100| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  runner/test/phase10-c0v-s6-executor-dispatch.test.ts > Phase 10 C0V S6 executor dispatch > requires a physical repository before any ready run can open an attempt
+AssertionError: expected [Function] to throw error matching /ENOENT|repository root/u but got 'UNKNOWN: unknown error, lstat \'Z:\no…'
+
+- Expected: 
+/ENOENT|repository root/u
+
++ Received: 
+"UNKNOWN: unknown error, lstat 'Z:\\not-observed-before-freeze'"
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  runner/test/phase9-mgp-intake.test.ts > Phase 9 M-GP source-only intake > resolves every source only through the portable NAS resolver when the share is present
+Error: VCC_NAS_ROOT=Z:/ is not the marked snowcrystal share: root does not exist; refusing to use a silently wrong or detached mount
+ ❯ inspectConfigured scripts/nas-root.ts:397:13
+    395|     const inspected = inspectNasShare(normalized, hooks);
+    396|     if (inspected.kind !== "ok") {
+    397|       throw new Error(
+       |             ^
+    398|         `${name}=${raw} is not the marked snowcrystal share: ${inspect…
+    399|           `refusing to use a silently wrong or detached mount`,
+ ❯ detectNasMount scripts/nas-root.ts:406:32
+ ❯ detectPhase9NasRoot runner/src/phase9-nas.ts:28:7
+ ❯ runner/test/phase9-mgp-intake.test.ts:103:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  runner/test/progress-index.test.ts > compact progress index and byte-exact historical record > keeps the live authority complete and unambiguous
+AssertionError: expected 252 to be less than or equal to 250
+ ❯ runner/test/progress-index.test.ts:381:41
+    379|     const text = readFileSync(PROGRESS, "utf8");
+    380|     expect(currentIndexErrors(text)).toEqual([]);
+    381|     expect(text.split(/\r?\n/u).length).toBeLessThanOrEqual(250);
+       |                                         ^
+    382| 
+    383|     // The handoff mechanism is retired (maker direction 2026-08-20). …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+

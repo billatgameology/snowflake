@@ -1,0 +1,1285 @@
+{
+  "schema": "seed-analysis-input-bindings-v1",
+  "sources": [
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r3-h1-both\\spec.json",
+      "bytes": 1041,
+      "sha256": "f44823a86af147052e618fad2911ef7adcf23d1ab316f06c8e8b9b64a642d509"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r3-h1-both\\result.json",
+      "bytes": 3316,
+      "sha256": "fc7c86870d6efc201d79f8ca622506638b1fe43876fd8d0fa746d1a8ef8e63b2"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r3-h1-both\\events.jsonl",
+      "bytes": 2870621,
+      "sha256": "a688f431ae053d213189065b0cb4155b0fb22cadc9d33849af05859bed852565"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r3-h1-neither\\spec.json",
+      "bytes": 1050,
+      "sha256": "43dedd2d7a362bb869faf3753561a2fb06ed0a349e2f4e2b97bdeed022880c00"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r3-h1-neither\\result.json",
+      "bytes": 3320,
+      "sha256": "bb247cb548ccdc3534ecfa6b3f66a331e51630dd1be2c4fac516fb17ba04602b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r3-h1-neither\\events.jsonl",
+      "bytes": 2585582,
+      "sha256": "4142b55dcf8cadbffed87e1bd34683f283322f4c3d2b402b2b3675970a04b31a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r3-h1-basal-only\\spec.json",
+      "bytes": 1059,
+      "sha256": "7f15ef96e04d8dc38dd2e928fdef6d8ea6d1a06f74f8c3538c1f5342b276096a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r3-h1-basal-only\\result.json",
+      "bytes": 3331,
+      "sha256": "06294c9ace718d85d956aabc3d5c91f1e1cd971536ceeba63101b0bcae2f3eaa"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r3-h1-basal-only\\events.jsonl",
+      "bytes": 2966362,
+      "sha256": "f8b06efbdb75451ee762b0bcbd9f519d4d3c34aa56ce9f190332f5873015208f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r3-h1-prism-only\\spec.json",
+      "bytes": 1059,
+      "sha256": "b756bc032a345411f78e34b7e0a6e0fab69bc4f73b87fdcd4d9072a76cfdb606"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r3-h1-prism-only\\result.json",
+      "bytes": 3320,
+      "sha256": "e9819c50cc2ed93aa0abd7547d1078dbf8471514a626859c134c6a11ecf1a01d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r3-h1-prism-only\\events.jsonl",
+      "bytes": 2374410,
+      "sha256": "648599d22599c52c290b504222a7d5646b49b347e0c32b7277c66275d340aa0a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r1-h5-both\\spec.json",
+      "bytes": 1041,
+      "sha256": "48ec003d04d3b92bf985f9946a5a645bbc2510971726a284eebff33c2fcf979c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r1-h5-both\\result.json",
+      "bytes": 3331,
+      "sha256": "107346bcb70891cc0e3644123c8f582123c246bd88fd38a0fc7a77916f5c8fe9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r1-h5-both\\events.jsonl",
+      "bytes": 1833734,
+      "sha256": "f05e41c7b4933c28fe9db8c12429e260003b18f7a412c73fa46966cee600fcc1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r1-h5-neither\\spec.json",
+      "bytes": 1050,
+      "sha256": "e240ee8597ba0c2992272573ed194ab7fca71d979e92482fc3ad687ed99c4e1d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r1-h5-neither\\result.json",
+      "bytes": 3321,
+      "sha256": "18266bec51b32d285545eb3c87edd58a2976679ea105c156fe3ed0eaa22258b5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r1-h5-neither\\events.jsonl",
+      "bytes": 3320750,
+      "sha256": "fbdf4728dd686cbca9a78e649738395c3f28130e3e2dc0d3a3e6fad4d391fbdf"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r1-h5-basal-only\\spec.json",
+      "bytes": 1059,
+      "sha256": "5473953bcc12c7d67b590905b6c9ba9ac765d4dae5d8068a76f7a445a586f983"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r1-h5-basal-only\\result.json",
+      "bytes": 3343,
+      "sha256": "ca5f5ee0324c33c9935cd3cbee2380c8c2be290a9da30126957eda08576449b8"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r1-h5-basal-only\\events.jsonl",
+      "bytes": 1788231,
+      "sha256": "0a61e56ff3c3e8ad2ab55820d9566cf4f754dd0481c1dce68cb0f619b020f6b6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r1-h5-prism-only\\spec.json",
+      "bytes": 1059,
+      "sha256": "0432c2198dc2a6cd3df88696388e2a37cf06fb6b201add18798301da8ccc49e8"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r1-h5-prism-only\\result.json",
+      "bytes": 3345,
+      "sha256": "5aec3738fe97c70d2aed9790ed46116a8ed657bd4e70813a7d7b46a3c6c152e3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r1-h5-prism-only\\events.jsonl",
+      "bytes": 3192919,
+      "sha256": "b4897065211131090228fbc93b530cab1947be1430eda7a140c3608053d418ab"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r3-h1-both\\spec.json",
+      "bytes": 1041,
+      "sha256": "d862bbbb126650710ee54ff7bfaaf3a172a5136d2c1726bb5e3dcdb69701366c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r3-h1-both\\result.json",
+      "bytes": 3314,
+      "sha256": "0b4fc40073c20cb2b8ebb14545134e47e615c703921a6c5f0606e238ee44723a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r3-h1-both\\events.jsonl",
+      "bytes": 1888914,
+      "sha256": "3536119065dc81ba5dfcfc770d6d43d15d3b78d7472052260f0615a73dcc08a2"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r3-h1-neither\\spec.json",
+      "bytes": 1050,
+      "sha256": "e54f28c072e296741c18646866459edac57b05c5f0697ee36df13b9611fc4e71"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r3-h1-neither\\result.json",
+      "bytes": 3317,
+      "sha256": "1112440a871832deb3998e14d4c64bb5998819c9ed110ea75488761367660441"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r3-h1-neither\\events.jsonl",
+      "bytes": 2969809,
+      "sha256": "235e52762cd94f6e77827593db02a1e10782f1eb21bd3c5e43a8f1b222b659ff"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r3-h1-basal-only\\spec.json",
+      "bytes": 1059,
+      "sha256": "965758c8ba8cc1165d0f56a689e5b937c681e09c851c79f1c33ef10d2c1f5636"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r3-h1-basal-only\\result.json",
+      "bytes": 3310,
+      "sha256": "dda9b349cc9f2d1dd63cda19b8e09bcc5d0ef69d650fa4864cafdbc2b6faa5ea"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r3-h1-basal-only\\events.jsonl",
+      "bytes": 3529137,
+      "sha256": "bd0f8cec78eb3bc4f2c6389abe655fe900917418e677c6c554102094566581d5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r3-h1-prism-only\\spec.json",
+      "bytes": 1059,
+      "sha256": "9fb877e1cc690d8d5d3742dcf60d6e0a0b70ff2354b8e4c5477bced2bca2cbfc"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r3-h1-prism-only\\result.json",
+      "bytes": 3323,
+      "sha256": "014138b88db3ad571c8de323f6269ae1e2217d5870a35b4f7ae59a87a2321e98"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r3-h1-prism-only\\events.jsonl",
+      "bytes": 1782960,
+      "sha256": "6b9a8d15cf3d83534815f571a9a6d4d9be8739aa7f0b7ce536425b103ed873b3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r1-h5-both\\spec.json",
+      "bytes": 1041,
+      "sha256": "7e6d3965ec4a1a3e58fa44e1242c4417c2954fec37b0c9a4fb201faeb04f4623"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r1-h5-both\\result.json",
+      "bytes": 3336,
+      "sha256": "fb19a5e359635e04b376b411160572826c79066cd0c03195ad91a99c76a36b2e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r1-h5-both\\events.jsonl",
+      "bytes": 2811489,
+      "sha256": "59ab7faeb5f4f1584339f0e2a64fbb02a768e59d689f648174cb4ef70ae6d382"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r1-h5-neither\\spec.json",
+      "bytes": 1050,
+      "sha256": "8f9fee8300307ee7511a78ac8206a44298fdc72e0e0a7e704b90f4cc9d9a6a4a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r1-h5-neither\\result.json",
+      "bytes": 3343,
+      "sha256": "f7cd7174ea2add7a4721e2f841276be0db6eec17c74d6a99c3b93332078166f7"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r1-h5-neither\\events.jsonl",
+      "bytes": 2817705,
+      "sha256": "9b5979ac349bd3c9e52353a46d31515523e2704bc7f508b0426933b36f8ea613"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r1-h5-basal-only\\spec.json",
+      "bytes": 1059,
+      "sha256": "fd30ad66201d44f116bfff29e429b64584638881e59eaad37f252d390066e1de"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r1-h5-basal-only\\result.json",
+      "bytes": 3341,
+      "sha256": "aea40420bbeac575a6ce28d6596e0f0532d6a07d26ec83f5673d49d0e2d1127c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r1-h5-basal-only\\events.jsonl",
+      "bytes": 2383445,
+      "sha256": "b2024761fdd588e1924f257a0199bd0750f032646dc0384476818a1988084284"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r1-h5-prism-only\\spec.json",
+      "bytes": 1059,
+      "sha256": "ab74ae155b8a1f0d6a521a8880334a2721f5a7a7fc18b5d447fb0f5e84e4e1cd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r1-h5-prism-only\\result.json",
+      "bytes": 3343,
+      "sha256": "f9279b9bd25d64ef172d7233f9b6dd934bfdbe55e2602b7d759a290608646b8a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r1-h5-prism-only\\events.jsonl",
+      "bytes": 2645690,
+      "sha256": "106cb418e80526a049a2177cb63cdd359d80fc56171ee106afe71322b5bbb2e4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r3-h1-both\\spec.json",
+      "bytes": 1026,
+      "sha256": "217d15b62dc72a70c4dae77b23b2c8c2220d1521c3b1f00868eec3d0fa827f17"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r3-h1-both\\result.json",
+      "bytes": 3298,
+      "sha256": "d218eecaab13c350a6dfd27f4e0a211218d7829bb3cbe9ba319fe9a1f48f1a7c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r3-h1-both\\events.jsonl",
+      "bytes": 3047920,
+      "sha256": "b5ff7cd43c73a7737fc9d60c95dd5125659bf1157a40c87bd59c5ffc5237a120"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r3-h1-neither\\spec.json",
+      "bytes": 1035,
+      "sha256": "65e722373528fea8cc092b9153cd79b384d9bc9976d9619b6063e99b9fc27b4c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r3-h1-neither\\result.json",
+      "bytes": 3316,
+      "sha256": "e8bbfe0de4f33ba09b9841933eaa8e31521fca16c8a70df8a88613d76c6dcd77"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r3-h1-neither\\events.jsonl",
+      "bytes": 2499202,
+      "sha256": "1b5edda8382dfd059876f96a55e5508aa21efa4c7caebd1f2062303d9749b04a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r3-h1-basal-only\\spec.json",
+      "bytes": 1044,
+      "sha256": "6650bd237b451adb1a1d8ca1c7c16e5a9e88bdb3e14fbb5f46c26c0b83cd5b5a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r3-h1-basal-only\\result.json",
+      "bytes": 3324,
+      "sha256": "3706fed8daab4eebb91f00ff93ada5c38fb7f2017dba92b7487797701b492505"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r3-h1-basal-only\\events.jsonl",
+      "bytes": 2730763,
+      "sha256": "89707c9eb7843ae621f5957e19dc87d7f76da1fa581cc7d98b71a77a96584ec3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r3-h1-prism-only\\spec.json",
+      "bytes": 1044,
+      "sha256": "cbc612d3532292771d5aa38db1c4995cf239cd0bbbe6166972a3433059267b49"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r3-h1-prism-only\\result.json",
+      "bytes": 3319,
+      "sha256": "6f45c21246df888f0ac7f53ba812d2cddb4cbda6178f2c85dd4a61e3d1f3cb2a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r3-h1-prism-only\\events.jsonl",
+      "bytes": 2309763,
+      "sha256": "0864b4d1bc6d3515adefc6f30b7adb9cb5ed5525ad83cb15aa9ad7941c66ca3a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r1-h5-both\\spec.json",
+      "bytes": 1026,
+      "sha256": "0a42101123b710bcbab86ac3a8ecc8e7668ad46612746c6f3d14e96f2acca215"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r1-h5-both\\result.json",
+      "bytes": 3326,
+      "sha256": "4375c525de78404dc75621869a7f86400a568dc5bd456db2edb313e81a1ac0e5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r1-h5-both\\events.jsonl",
+      "bytes": 2060101,
+      "sha256": "de3b7352f69c351b3cf3fcb58f019b54e77af660a0a022dad14f70be73ffd0bd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r1-h5-neither\\spec.json",
+      "bytes": 1035,
+      "sha256": "6ff71e32074191186c029c1e531ef4e2a0a64f47beeaf3d101cccb623c6dfd3d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r1-h5-neither\\result.json",
+      "bytes": 3340,
+      "sha256": "2dc8a458ffcbcd2e5563674363047644a609fd9c8406697c5f03a765902a0888"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r1-h5-neither\\events.jsonl",
+      "bytes": 3357663,
+      "sha256": "2043548e5b50c016fcd84d064ec3d269f0dcf3b31cf92c98ba55d069d54dd724"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r1-h5-basal-only\\spec.json",
+      "bytes": 1044,
+      "sha256": "2b9819e8d4e17f768386acf4911282cfd915587d31bf6c10b6019b3ad8883662"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r1-h5-basal-only\\result.json",
+      "bytes": 3338,
+      "sha256": "f338dbfc6ec1709d9183d1767ea09f52459df521e1cf5bcc13886114530ce5ed"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r1-h5-basal-only\\events.jsonl",
+      "bytes": 1902494,
+      "sha256": "c26832d8e8193a98b6138697bad42b05c50739b5e62890795b56ce5073d1ec0b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r1-h5-prism-only\\spec.json",
+      "bytes": 1044,
+      "sha256": "b8491f4c1ead31e4d984ea894182637fda743771ba95a5799a1f67552d8652a3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r1-h5-prism-only\\result.json",
+      "bytes": 3345,
+      "sha256": "2d8450d0ebd14b41f5447e4c54d66784c723bb2fdc25a009a4ce0572bff9a1e2"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r1-h5-prism-only\\events.jsonl",
+      "bytes": 3112170,
+      "sha256": "d8b7168ada615709c6cd9cb4177ec12c36008f4b0839d3fccf2ab32be51595de"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r3-h1-both\\spec.json",
+      "bytes": 1026,
+      "sha256": "6304dd2910f88c9e60371daa12f549c3b2eb090697af577eb417d2171a0a87de"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r3-h1-both\\result.json",
+      "bytes": 3313,
+      "sha256": "66e23ff161a9958193b929eac9ce45154d759961a5a74225bc2c617a56ae1e1a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r3-h1-both\\events.jsonl",
+      "bytes": 2231343,
+      "sha256": "4707680f48b19f1768612e9b8e9caef63ad9b778ccf197e9bbd05f4db0e64507"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r3-h1-neither\\spec.json",
+      "bytes": 1035,
+      "sha256": "4e34fa83367535fdaa7fd7d2aa51fb83d8109b0217f1fd425ee2d1495b6008b4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r3-h1-neither\\result.json",
+      "bytes": 3320,
+      "sha256": "9b100ed1cdc90222c9907f21f12367c3a8c978a670f7f62252aeb1cc31b117dd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r3-h1-neither\\events.jsonl",
+      "bytes": 2258468,
+      "sha256": "5c0a821a799e8f4568d7aa84b3c1531d4d1598a25fbe08bddfac8ddb0edcb8ab"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r3-h1-basal-only\\spec.json",
+      "bytes": 1044,
+      "sha256": "4054d24ef22fd08616d1804572a928d1a480c6ce8e55d47b3ec5585a2b1dfdf2"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r3-h1-basal-only\\result.json",
+      "bytes": 3327,
+      "sha256": "c4800aa8e24340cac378913c8125dc8c2bb1793bc9217b73560ddcf2b6990ad6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r3-h1-basal-only\\events.jsonl",
+      "bytes": 2552693,
+      "sha256": "dd22d6e16fe12ffb9fed996b458e6fe8894b297b9afaab9749b1401dcce1775f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r3-h1-prism-only\\spec.json",
+      "bytes": 1044,
+      "sha256": "855843ed80454565c9de1cfa774da692e319032a4812cba5ce6e5f99a4358336"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r3-h1-prism-only\\result.json",
+      "bytes": 3324,
+      "sha256": "01ba0e7d994c17bab801b26f263efdbdb5b4cd2814d15e3fd375647c8ed5b47f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r3-h1-prism-only\\events.jsonl",
+      "bytes": 2019466,
+      "sha256": "a6f63f39a34283b0750efb2e1923a3ebe641c55144b4af9a6248a5a2dd36b017"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r1-h5-both\\spec.json",
+      "bytes": 1026,
+      "sha256": "0b014a1c227cb0ea7e7d79efa3cd74d320e6cb7d4b61e3fdb65da3d49ef10f22"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r1-h5-both\\result.json",
+      "bytes": 3331,
+      "sha256": "009b104a758984257c0907a002421173df8cd4b4fc1738c9114ae77be3526ddf"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r1-h5-both\\events.jsonl",
+      "bytes": 1607832,
+      "sha256": "b9514a41e4eb73b3cba16c3405e4e58037fe41141b4cf1f3c09ec3454ff245e5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r1-h5-neither\\spec.json",
+      "bytes": 1035,
+      "sha256": "9187a51a43ea90b0487f028e1e59889a35f93bbb3c72d1c2cf9e3228d895671b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r1-h5-neither\\result.json",
+      "bytes": 3340,
+      "sha256": "e945b05a435ba2f9c1cab91886617df295f65d6a9fc071211df088f0b468bc73"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r1-h5-neither\\events.jsonl",
+      "bytes": 3231937,
+      "sha256": "5189a26d0f6ae03cc08856f81370920dcb9c4f84c09442b6daf046ded77aa9e1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r1-h5-basal-only\\spec.json",
+      "bytes": 1044,
+      "sha256": "4023f95df7380bc73fd211b402c79c9cf5f51e94bc0567bb9d93a8dc68b66b4a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r1-h5-basal-only\\result.json",
+      "bytes": 3340,
+      "sha256": "cc9a9bd165824bed5e4701a7325ee50fe448402a3b6fe1c9b017a1a49f2235f3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r1-h5-basal-only\\events.jsonl",
+      "bytes": 1593766,
+      "sha256": "cddf507e33f350927e1c26646c1361bfc971f5078eea760bb34cba03f62438df"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r1-h5-prism-only\\spec.json",
+      "bytes": 1044,
+      "sha256": "04c0c8f3c85bc4a0658a1bfb800c4ae64d79895897b9c0ecf775debcab5275a3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r1-h5-prism-only\\result.json",
+      "bytes": 3332,
+      "sha256": "6fb342bbd002fb55e6924d359d9b36c7d0bbd6317ddfce1225d370603410b8a0"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r1-h5-prism-only\\events.jsonl",
+      "bytes": 2983201,
+      "sha256": "2ebcef86fdb72519e148e7b25a84c23146f0f6092b1a03b9b8cf0b88597eaf97"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r3-h1-both\\spec.json",
+      "bytes": 1039,
+      "sha256": "562c5f6f44638815a763a54b0398c6a91ce34671954f8d021be5ef16bb4611c7"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r3-h1-both\\result.json",
+      "bytes": 3312,
+      "sha256": "5f3ef41c243eda86a38ea15440ad2b8b28373c1b892cddf2da8ee31f0e4079f2"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r3-h1-both\\events.jsonl",
+      "bytes": 2235561,
+      "sha256": "c9a2a472ca8458228b77a914c94cf83d26f9a5c2b406d923b032fb2c25654d29"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r3-h1-neither\\spec.json",
+      "bytes": 1048,
+      "sha256": "feee132dd6d846c7b983c7c07e624f520452b88b0137a2a56295e226ac8c7a04"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r3-h1-neither\\result.json",
+      "bytes": 3320,
+      "sha256": "dc12c677bf6543e8ab25a734b0b02076841edd7816b442dacad61abe28929dd7"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r3-h1-neither\\events.jsonl",
+      "bytes": 3261810,
+      "sha256": "904e0c496a2876b275db0be8fd5414f87bfdfeff595a6c06df743f8d5659851d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r3-h1-basal-only\\spec.json",
+      "bytes": 1057,
+      "sha256": "e7cd2c21bd860d3ee2ba977855c2ce7d6775572387733c1d6680f6068c75dded"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r3-h1-basal-only\\result.json",
+      "bytes": 3313,
+      "sha256": "28beabfa0b8f1e58b6cdff0e3012d1202539439fe16f59f7733a8aa981f9aac5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r3-h1-basal-only\\events.jsonl",
+      "bytes": 3375938,
+      "sha256": "235d76884551994d03231b5742c0c61dda17059f0ac38a45eb309ddd728ebcd1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r3-h1-prism-only\\spec.json",
+      "bytes": 1057,
+      "sha256": "0d7ce550d070d1621fbd06851d4cb0028a2822b6c6337d102e5c282f64db6003"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r3-h1-prism-only\\result.json",
+      "bytes": 3322,
+      "sha256": "7f9f47160d120a1875abf03e4f7535164db0aa1a32f1c3ada90c1a0796ad4ac7"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r3-h1-prism-only\\events.jsonl",
+      "bytes": 1919373,
+      "sha256": "1ae0632cab87ce8aef2738a9c4b78b43822014b73613dbf4b6510dace4b3f4e8"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r1-h5-both\\spec.json",
+      "bytes": 1039,
+      "sha256": "625afe8f41f4e90a08c9595c669542a478015be1d5879bcc0b0dd9c75345f451"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r1-h5-both\\result.json",
+      "bytes": 3336,
+      "sha256": "f75f6fb6b61f04f5d1b8cf47aebe00664ba1a591734f226ed1d9f78cd5d87417"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r1-h5-both\\events.jsonl",
+      "bytes": 2908872,
+      "sha256": "1f27244d3f230125580aebf80354d0e2afab7cd01669f683e1dcefd5f1f7da46"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r1-h5-neither\\spec.json",
+      "bytes": 1048,
+      "sha256": "0cd3a90756c071395bbd2f689ba04883877b0d0aa97b51d77f11f75ca90c3588"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r1-h5-neither\\result.json",
+      "bytes": 3339,
+      "sha256": "4b635c04bb84bb0577fd7c5040d1c0d8706d809c5b7e9d1a1083418ae57110dc"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r1-h5-neither\\events.jsonl",
+      "bytes": 2771166,
+      "sha256": "b638abdbaca1dc9dcbd00192840d839e90bd2377a99e290a3b350cf98fe117c1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r1-h5-basal-only\\spec.json",
+      "bytes": 1057,
+      "sha256": "48ed449002042a46c607ed5aa897f57cd6282a6877b820456f0ab96fc317935b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r1-h5-basal-only\\result.json",
+      "bytes": 3341,
+      "sha256": "9b77e6371f9587980af4d4838fceac38f70059751d878d70786ab132605fcbbf"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r1-h5-basal-only\\events.jsonl",
+      "bytes": 2270414,
+      "sha256": "cdfb3c0169a503b0f1b6b30614b37850427e2884495f639a52f391ed90b9b1ef"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r1-h5-prism-only\\spec.json",
+      "bytes": 1057,
+      "sha256": "1c48d1835e923387c6294233a4853e4b5976c6a577d6f8597a7e3132d401f658"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r1-h5-prism-only\\result.json",
+      "bytes": 3344,
+      "sha256": "35acf02885a0edfd59f4bd523f70f2dd8db119b9e4d2356641c329d732e157cf"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r1-h5-prism-only\\events.jsonl",
+      "bytes": 2723735,
+      "sha256": "ea303d73dc8f29eb76ac8da8cf1df5b18c32ec08c3418e1b1cc21fab9ecc1f12"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r3-h1-both\\spec.json",
+      "bytes": 1039,
+      "sha256": "600b47eb39bd39f2b82136a0de2d1ada1d694232b34e83914b8f8bfd9a741177"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r3-h1-both\\result.json",
+      "bytes": 3311,
+      "sha256": "5b19a4a5986e6bbbefe22c35839c213a2f27255d4ac6252e177cfa015bf345a5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r3-h1-both\\events.jsonl",
+      "bytes": 1581497,
+      "sha256": "50702429e67a4eff6a7fc69b12f48dc6418210a207d81841eb78ee5dbd241df4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r3-h1-neither\\spec.json",
+      "bytes": 1048,
+      "sha256": "0a035d7c6a53ac3e2f64ac6c648bc0335d2da502431d90ed8dd1227c3f8633c9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r3-h1-neither\\result.json",
+      "bytes": 3323,
+      "sha256": "1dfbc36b25edc5eab4681398034488279c6ff82c1e5aa7972e6e60ed179654eb"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r3-h1-neither\\events.jsonl",
+      "bytes": 2910013,
+      "sha256": "c814e51b206313b26a9e948858b96b42482dd3b14908c6800d4fe0bea221d20a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r3-h1-basal-only\\spec.json",
+      "bytes": 1057,
+      "sha256": "a938f4c86431d9c36e4d2f4cd8336b6e4a399458fa5b18630aaa3d94c33c0e0b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r3-h1-basal-only\\result.json",
+      "bytes": 3327,
+      "sha256": "20506c364a8241675063107887d29c73e14e51b86c67a905914c4425e9f55fab"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r3-h1-basal-only\\events.jsonl",
+      "bytes": 3144775,
+      "sha256": "5a6be8e48936433ef9cb0e10dbbff15d13300964f2b062fad2c5b31414c8582b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r3-h1-prism-only\\spec.json",
+      "bytes": 1057,
+      "sha256": "2d6d2947b895d5e9e2882f2dca5a7fe33b9e593155de03f70e36fff55fe134fd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r3-h1-prism-only\\result.json",
+      "bytes": 3321,
+      "sha256": "c35491f925138cf96926ca63fcc63bdbbc47d718af12148a94d0b80ed6c6f7fd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r3-h1-prism-only\\events.jsonl",
+      "bytes": 1534144,
+      "sha256": "9ed460c2eead95e5427d3fd61e851f8feb805cfcebe573ce7aacca6418e3533f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r1-h5-both\\spec.json",
+      "bytes": 1039,
+      "sha256": "0b7713d332dce8c17f147c19ff087e5e6beff2b539a5e5d43e1a5812a4b0fddd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r1-h5-both\\result.json",
+      "bytes": 3328,
+      "sha256": "5633538d3542216bf80f4e7916ec7fbd530a1d4b9622b166450f8bb1d360b9b4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r1-h5-both\\events.jsonl",
+      "bytes": 2460582,
+      "sha256": "52f5fabe5a159cd5ab7de07fd3b6478384a032c8e65ac5c4ff5f858a4eebccca"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r1-h5-neither\\spec.json",
+      "bytes": 1048,
+      "sha256": "a7920e1777395451e1664ace41eabffffb6560fa08f77ae3d0855869c13f4f49"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r1-h5-neither\\result.json",
+      "bytes": 3343,
+      "sha256": "fa7b04ab8cc58c7eb5c21d761eb77b4da12818528bf47ced9324e83262c31864"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r1-h5-neither\\events.jsonl",
+      "bytes": 2806381,
+      "sha256": "1895c33b820e16ad898189595e6354262ba8c92f51bbc863733e69bb605b2550"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r1-h5-basal-only\\spec.json",
+      "bytes": 1057,
+      "sha256": "719e5998ee254eb8a40f0970d71fc31b6c1a5e8ae39b367e87fac4a9e5e5f46d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r1-h5-basal-only\\result.json",
+      "bytes": 3345,
+      "sha256": "67a1dfcb1e2d3e75de91cbf61768d10b11d3cfe145f3e307d9d310a031bd427d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r1-h5-basal-only\\events.jsonl",
+      "bytes": 2477752,
+      "sha256": "e9ab24ae85096171167580ca844da502a13d01704b0ff26d3b0073597128181c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r1-h5-prism-only\\spec.json",
+      "bytes": 1057,
+      "sha256": "b63f83666a218c14cedae6b1087b4cf55a04ccab8f619f68e2d3dcdb8dc7cc61"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r1-h5-prism-only\\result.json",
+      "bytes": 3342,
+      "sha256": "c5729db958e4169481df26a6580819904de392970847a4102ea366e45285fdb8"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r1-h5-prism-only\\events.jsonl",
+      "bytes": 2386826,
+      "sha256": "afff7215be13a0da9e0b0cce70fa4797e83b612ad0a82c3e367697929db4296e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r3-h1-both\\spec.json",
+      "bytes": 1041,
+      "sha256": "0858b3b5867dcc741049d46b3ed9a6e8a522b0286e69604b8cc3647816f0d326"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r3-h1-both\\result.json",
+      "bytes": 3317,
+      "sha256": "6bcaccb4a1519ff84b4c99437355e90218fce9b54684522aece5c53ba0a3d6eb"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r3-h1-both\\events.jsonl",
+      "bytes": 2658676,
+      "sha256": "d49947d19c6d0f7b8a1100bc610b7a658a1aef9a938d8d2f28057038fa9e171a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r3-h1-neither\\spec.json",
+      "bytes": 1050,
+      "sha256": "bde24821a6fae69486d1e498d2ccb7756d1708d29f40143c9aaee8db21f46fd9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r3-h1-neither\\result.json",
+      "bytes": 3321,
+      "sha256": "e3c197e3d985befd44107484e6df9100e1d772f55b480f16a9c606bca572103c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r3-h1-neither\\events.jsonl",
+      "bytes": 2708873,
+      "sha256": "9e9f2ee3a08c7d12ded9669ba6ade8f53e6abfc92d7be8f37ddb8c670a957d19"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r3-h1-basal-only\\spec.json",
+      "bytes": 1059,
+      "sha256": "62b118743e2d7863c1aba8df5630c5ba214f1384ff513bdf12f375c8fbf560b5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r3-h1-basal-only\\result.json",
+      "bytes": 3328,
+      "sha256": "c8445fa90bf3fec1c36218edef5aa37a42eed4c19ebc593c18cfd8b192cc0b78"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r3-h1-basal-only\\events.jsonl",
+      "bytes": 3321721,
+      "sha256": "840255e0f50d26a3c71f5bea0c31e87dc01b0fc5f2d6c991d03ddde82e559dc3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r3-h1-prism-only\\spec.json",
+      "bytes": 1059,
+      "sha256": "ca744f812b44c3c245d2d8ff8ca4cd773260da6dc343b5377b7d90f2c46bfa49"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r3-h1-prism-only\\result.json",
+      "bytes": 3326,
+      "sha256": "f54187a7b11e8b7dedd42324a0956462f58848dccf06127436c0bfb13ef51d29"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r3-h1-prism-only\\events.jsonl",
+      "bytes": 2320569,
+      "sha256": "4714e7bf9978e73ae6cf099ccbf87a2b9aca5a040eb1f4625e733ffb82c828b7"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r1-h5-both\\spec.json",
+      "bytes": 1041,
+      "sha256": "3c5522caca6cdf863e06d8ce5839cbe0c0a9469a7f9e5537a4f60498d09a2376"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r1-h5-both\\result.json",
+      "bytes": 3329,
+      "sha256": "d473bf9c1247c228eca509889559c65a334c625a79a7353b964ba314c3a98312"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r1-h5-both\\events.jsonl",
+      "bytes": 2426388,
+      "sha256": "f66364f849f2f9aa5e2ab814c2dba88f939de82d40d1efd424db801b4cf94807"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r1-h5-neither\\spec.json",
+      "bytes": 1050,
+      "sha256": "a83aa8c78adbb39ce0f863cb738ea0167d4b7c01598962b750280ac4a87a977d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r1-h5-neither\\result.json",
+      "bytes": 3346,
+      "sha256": "cae9763c2599db5afc3589eb133dade9600b7d749ce6e5f868b946a445a92428"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r1-h5-neither\\events.jsonl",
+      "bytes": 3205485,
+      "sha256": "a4f45988ead08116a2452b559abbf07dc6df6131cc95a472173487758b10bedd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r1-h5-basal-only\\spec.json",
+      "bytes": 1059,
+      "sha256": "79d3582726038ab58c337776f17600a707ee747a18f971b38d486c86807bf609"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r1-h5-basal-only\\result.json",
+      "bytes": 3340,
+      "sha256": "a6bf34b2bab9212472079f23c69d2af5a59a69bd3913f159287a9a0621b7584a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r1-h5-basal-only\\events.jsonl",
+      "bytes": 2186232,
+      "sha256": "5e41bbcf96f40af82f9d47e810fa1ce610f52ed59d44770cd65642da6f044f71"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r1-h5-prism-only\\spec.json",
+      "bytes": 1059,
+      "sha256": "28dee2c2100137d7a160f46e7f2810d8eab8a87b587edf3ff281e31ee58c7640"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r1-h5-prism-only\\result.json",
+      "bytes": 3345,
+      "sha256": "5ecd8dbcd16068376cd016c9663209e91243002ca140a2025dc8c6e18cdc679e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r1-h5-prism-only\\events.jsonl",
+      "bytes": 3155920,
+      "sha256": "c6d23105bf4003642c008d1b6a520deca92981db347f1d74fbd6d652fa5ebaea"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r3-h1-both\\spec.json",
+      "bytes": 1041,
+      "sha256": "9696ba33bcb370733deda0f01e62b08a3885bbd462de71e1f2985c3fb906cdd4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r3-h1-both\\result.json",
+      "bytes": 3313,
+      "sha256": "af8695a15f70642336c459bc0fc939ca3b19c05f568fee000e329c592af49e8a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r3-h1-both\\events.jsonl",
+      "bytes": 2281220,
+      "sha256": "102283aacb0c948567281f758395c7163edecb2479212173074c95f69eea6f40"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r3-h1-neither\\spec.json",
+      "bytes": 1050,
+      "sha256": "8d8b05a90d029bca0dc4c67436d616684859604d10b7439154f8db0368ac5aaa"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r3-h1-neither\\result.json",
+      "bytes": 3323,
+      "sha256": "6be98665dff05e90f9a4a463ec4b11faac2961d601609560e6afa2674093c1da"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r3-h1-neither\\events.jsonl",
+      "bytes": 2946938,
+      "sha256": "2eca7c2451ddd47ec216cb8e593a91fbd12032b91f8f29d6949dd1f86ff7e91e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r3-h1-basal-only\\spec.json",
+      "bytes": 1059,
+      "sha256": "f9ca091d8b230e10e47c6b0d91b9941ebb786002c81c721e942841a4df30628a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r3-h1-basal-only\\result.json",
+      "bytes": 3329,
+      "sha256": "e4bf03a940e2957641779408d70a05555123822c022d78d430c80be6aaf75b6c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r3-h1-basal-only\\events.jsonl",
+      "bytes": 3469921,
+      "sha256": "2a3ca0955c968eff063b5d7e70e2e56a67258e7449bea24ce908ebd9420536f3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r3-h1-prism-only\\spec.json",
+      "bytes": 1059,
+      "sha256": "12244b7d1f0c59c2399551cfb3317daef642107f7e87bf4bf4ad381f677bc8bf"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r3-h1-prism-only\\result.json",
+      "bytes": 3325,
+      "sha256": "e67eb32660b946e82cd395f1512f31e88b0fc39a8b8a114917d61a898aa05d25"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r3-h1-prism-only\\events.jsonl",
+      "bytes": 2100717,
+      "sha256": "5f16ff8006008ccd22ca6be3afa173b028979a24bcac8e688d117924d99419c4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r1-h5-both\\spec.json",
+      "bytes": 1041,
+      "sha256": "7d4e7eb7ab76450b158d814d3e08ec085cd1ed24e19f5bd92c52337f44a3d041"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r1-h5-both\\result.json",
+      "bytes": 3339,
+      "sha256": "4bb52f524daaca69945ef42c57e16c6f8e46da28d8434c935f9c7d92ae12e41e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r1-h5-both\\events.jsonl",
+      "bytes": 3186936,
+      "sha256": "a14287ba39ca5ff21d320bf8b5e3a5331d4f3763b242058bdae15e41d486e5b7"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r1-h5-neither\\spec.json",
+      "bytes": 1050,
+      "sha256": "8d749e636bdaa330bce68e0b4bffe012becee53b00957cf82d1a421ac32240dc"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r1-h5-neither\\result.json",
+      "bytes": 3327,
+      "sha256": "fb62c8fbc5b00cb7a5f7bfe3fadacccfca7e222520eeeba4b10ab52ccbe2fa1e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r1-h5-neither\\events.jsonl",
+      "bytes": 3144345,
+      "sha256": "98fc577cdbda1b2a7edcef8aa689d93431aae2c1f95bdb6b9b223b4fd0480b25"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r1-h5-basal-only\\spec.json",
+      "bytes": 1059,
+      "sha256": "54e158cc1ac0f725b84b043778eb8bf5ccae0595e0e3a9572a8f9ac93b5ed4d1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r1-h5-basal-only\\result.json",
+      "bytes": 3344,
+      "sha256": "d910449dacf9d52624d315493b2006075fbf58a7f53c83bfbad45993341664e5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r1-h5-basal-only\\events.jsonl",
+      "bytes": 2371746,
+      "sha256": "03e48531b3ef5cab17a2dc4d346d9619fc9cfce096b51975ece667ff865c16b9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r1-h5-prism-only\\spec.json",
+      "bytes": 1059,
+      "sha256": "79d2fb4e7c1d32f925d174daa42c73f21b821589279af0186f0b00db3d4568f9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r1-h5-prism-only\\result.json",
+      "bytes": 3347,
+      "sha256": "f33571c753998f8e1d3bc2d005d560cf2c7c6701872483e33206bcc92d88b630"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r1-h5-prism-only\\events.jsonl",
+      "bytes": 2984643,
+      "sha256": "c0282cf9f5b83f56e4aea364169cd2c64a7e707749634708dddba8e7dc6308f1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r3-h1-both\\exit.json",
+      "bytes": 365,
+      "sha256": "2652454c01f2d3ccdd23b187856f726e05952553d219eb3b99bc6676135ad325"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r3-h1-neither\\exit.json",
+      "bytes": 371,
+      "sha256": "04684db9606bc493e9e682428d8977b18847ca49889121fc64faff9d2ba21bb0"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r3-h1-basal-only\\exit.json",
+      "bytes": 377,
+      "sha256": "fd10277278a2109bc4057c2955dc79d5f1e1ce98d0f67ab42245a739b1ff3e8c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r3-h1-prism-only\\exit.json",
+      "bytes": 377,
+      "sha256": "b8a3a9423d5bf6d3c74586bccf60adfa241561544d56a43a8731e94e74fc69ca"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r1-h5-both\\exit.json",
+      "bytes": 365,
+      "sha256": "f987594059cea9f0c8be3c94a172881202b2e55dcda992415e06718431249f75"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r1-h5-neither\\exit.json",
+      "bytes": 371,
+      "sha256": "a7c43494976bd143620331e28fb8189b49e1a96874e1472e8f28656ea0597771"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r1-h5-basal-only\\exit.json",
+      "bytes": 377,
+      "sha256": "33bf14ddd1efed091fa03712ac618b826849ee275065a5a3eb8a04a34b916529"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r1-h5-prism-only\\exit.json",
+      "bytes": 377,
+      "sha256": "f2a57834ba329e582a45fe99e9ef751f9dc28d2952a5a8b7289eae30c96e610d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r3-h1-both\\exit.json",
+      "bytes": 364,
+      "sha256": "8d454d4e7df364bc9aa7592d079faddd85e752efbe814c611f075e0b4ba1c1f5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r3-h1-neither\\exit.json",
+      "bytes": 371,
+      "sha256": "d8d8288d9cc8e0d689189b0c4f7676f61db8dac2e10d87000093b2ea98a2ab6e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r3-h1-basal-only\\exit.json",
+      "bytes": 378,
+      "sha256": "97a422426f007d6d0177f4044ba2f0baea1c4de1d50cc2a2199e6d267ef2dea5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r3-h1-prism-only\\exit.json",
+      "bytes": 377,
+      "sha256": "0d6a72875ca654c40c8df815149cd7d600ba4a6be3b04c73bd9dbe9500b998b1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r1-h5-both\\exit.json",
+      "bytes": 365,
+      "sha256": "59b624af46cb0088db46717be9ff9fe344b0c09f1627b0a65ccb3dff311124cd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r1-h5-neither\\exit.json",
+      "bytes": 371,
+      "sha256": "37685f4bc53feb1e202fa83f09c44dfa2b5336d701013b6a407c72a56895bc5c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r1-h5-basal-only\\exit.json",
+      "bytes": 377,
+      "sha256": "5dffe92fadb6db79d2b8542c76e620bd5874dc12094473b58b6cb90fca26c161"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r1-h5-prism-only\\exit.json",
+      "bytes": 377,
+      "sha256": "51aba2669438036829f40c0f7e8ae4a81c165fdc252fe33e9b85ecbb01335ab2"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r3-h1-both\\exit.json",
+      "bytes": 364,
+      "sha256": "7015265c83d83306a15585b40d90ee5722e857ee6e396666e0e7545f399db5bd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r3-h1-neither\\exit.json",
+      "bytes": 370,
+      "sha256": "a58ecc66db90165b489449aac8829606f67ddec792bcce03233dffce0888a2b9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r3-h1-basal-only\\exit.json",
+      "bytes": 375,
+      "sha256": "d89de9f7992ac93858aabb9d865ad5b8090a32e297cf5494fc131e39b1debf8f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r3-h1-prism-only\\exit.json",
+      "bytes": 376,
+      "sha256": "cb853a35633093db555a211694b7e4037a6e482803be49b4e10b108baf1fc3df"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r1-h5-both\\exit.json",
+      "bytes": 364,
+      "sha256": "05080608e95f8a64444d8f5f9fa49434a7b6ee6298847e246f87cdaf3cd55c61"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r1-h5-neither\\exit.json",
+      "bytes": 371,
+      "sha256": "26616e76ede35dca38756f5131cbdeccbf9f5cfbe7b762eb5f1e083d858eb600"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r1-h5-basal-only\\exit.json",
+      "bytes": 376,
+      "sha256": "757b02db16a63bbce115255c983cd3d23000a2d7224748b09916351347bb5f7e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p1-r1-h5-prism-only\\exit.json",
+      "bytes": 376,
+      "sha256": "9e2e6ba788a2f35cfb5dddfc411260e7ced4fcab2bd672f2a3c7f00d2d9e84c1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r3-h1-both\\exit.json",
+      "bytes": 363,
+      "sha256": "9fdf09f4aaad9d2d13033d8eec839bc8c49a4e25061073d1faf2785e1021580d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r3-h1-neither\\exit.json",
+      "bytes": 370,
+      "sha256": "0f7dd8e943e7f852bc7bd2e9e3eb52bd564368eca75b915e8c6c55871ccf413f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r3-h1-basal-only\\exit.json",
+      "bytes": 376,
+      "sha256": "d7601712acc3849b5cb8d12f9d8347f056bb02c50a4e17cebc77645a9e767cd3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r3-h1-prism-only\\exit.json",
+      "bytes": 376,
+      "sha256": "b6303678a76356779d8b5a87165b5ed8b3da3338864316b1825437c393a0bc50"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r1-h5-both\\exit.json",
+      "bytes": 364,
+      "sha256": "573e19d4b13f64d47dc5edbcacf92300e0b99d8995cac073c8db540576b0b4f5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r1-h5-neither\\exit.json",
+      "bytes": 370,
+      "sha256": "6798d2268fd56daf1d162a8077d6f3f9c4bed9db6dfd046b8c2fa4806bda8847"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r1-h5-basal-only\\exit.json",
+      "bytes": 376,
+      "sha256": "1a67302fa8d5319127b17cbbb10e6ba234daff0d936e6410755f3421c84909f6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t6p5-f0p2-r1-h5-prism-only\\exit.json",
+      "bytes": 375,
+      "sha256": "1e51e7540e0d5c89a0e3c7307a537a50fccf44ad414c6b40bc89d57c4040f38f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r3-h1-both\\exit.json",
+      "bytes": 364,
+      "sha256": "32a9b63d10946294d0e0e939f5f8784ff3df8fc6a777720b563c424a1eebc7d6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r3-h1-neither\\exit.json",
+      "bytes": 371,
+      "sha256": "d8ed768516c20f080d4e5d5735102325a4cce37779ee06221d4dfb4890204ae2"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r3-h1-basal-only\\exit.json",
+      "bytes": 377,
+      "sha256": "273eee694698eb7390c5a16acca3d97666f9e15b44bcd81e14851fa43690c16d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r3-h1-prism-only\\exit.json",
+      "bytes": 376,
+      "sha256": "6636039182a1198938093f05bdcd2d0326bd7296be8df59a104497fbac8f542b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r1-h5-both\\exit.json",
+      "bytes": 364,
+      "sha256": "93b7a3417a7c1cb965b1ac70f842bff17b617795c9092c26e10bc04c1d857919"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r1-h5-neither\\exit.json",
+      "bytes": 370,
+      "sha256": "d09c69cf437925165e87edaa94ea67394f8bfc912a2d6103395ebc6a4b9eb86d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r1-h5-basal-only\\exit.json",
+      "bytes": 375,
+      "sha256": "b4bdd7c9c090338c170120334049b5c8390a598665c9bc7cbb660ea25cebd767"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p1-r1-h5-prism-only\\exit.json",
+      "bytes": 375,
+      "sha256": "698f037a03556b6c2e01bd267dcac4743de4d760f571f136a6d7db7afc450237"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r3-h1-both\\exit.json",
+      "bytes": 364,
+      "sha256": "df6d6fcb7afdb850435cc602eebfe97c0f504b2f7c0865d17f465e959dbd1310"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r3-h1-neither\\exit.json",
+      "bytes": 370,
+      "sha256": "580dc34782e4995981fd4749d592aebdc124078876152010818eb38c42516638"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r3-h1-basal-only\\exit.json",
+      "bytes": 376,
+      "sha256": "b4e47936ea825f5e7c0d7c1f9da8081591c84daacd7e80288b4acfe13dcf8bd1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r3-h1-prism-only\\exit.json",
+      "bytes": 376,
+      "sha256": "c69fbabc827f738f0136acdc5ddf3b790fa61f926a701aac370feb4c12de8dab"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r1-h5-both\\exit.json",
+      "bytes": 364,
+      "sha256": "cc7b07a3e6f2bee55b543d2993b95e7e0d183a1084f6385bbc5052d4d26b3052"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r1-h5-neither\\exit.json",
+      "bytes": 370,
+      "sha256": "567af78a08852cfeb32f030eb503ac22d05cf876ca2ac177ddcde84e52dc84f2"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r1-h5-basal-only\\exit.json",
+      "bytes": 376,
+      "sha256": "a37b34079db70291b20ab7ed75481d8c86ee2d0b97ae9f0c0b0d0970345c829c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t9p5-f0p2-r1-h5-prism-only\\exit.json",
+      "bytes": 376,
+      "sha256": "2389156659ddc4ac1d83f711ffabeeb637074bc351983d74e64013bba8331f55"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r3-h1-both\\exit.json",
+      "bytes": 365,
+      "sha256": "48b2d364688244bb08323b997ebd24c93c1c293a8c3506e7140f8954c433a44d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r3-h1-neither\\exit.json",
+      "bytes": 371,
+      "sha256": "3d02e2cc433295d0cd47ee78f68d4357c92705084cd09d1505ae1e8a63e10999"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r3-h1-basal-only\\exit.json",
+      "bytes": 377,
+      "sha256": "5911fbc1b633b26fe50bcf5cfab83c49ba3186151600f7abcdfe2301dd0565d9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r3-h1-prism-only\\exit.json",
+      "bytes": 377,
+      "sha256": "afd299115108afce736e97c29fd16709a3888184df7c145e122c64dbc72cb9c3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r1-h5-both\\exit.json",
+      "bytes": 365,
+      "sha256": "22ddd82f969d9b7390f3d3ec8b49c2291f87bdd8ac4d1863a5647520f473cef8"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r1-h5-neither\\exit.json",
+      "bytes": 371,
+      "sha256": "5a83cdd162deab1713d3394f30ae87f44a8d02fdb2f843e7f9e592d4cc3677dc"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r1-h5-basal-only\\exit.json",
+      "bytes": 377,
+      "sha256": "86dcca2d6c3dadf577de2adc4897f394beff300c2fe3ba0f9e110feb7fc44d3a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t7p5-f0p15-r1-h5-prism-only\\exit.json",
+      "bytes": 377,
+      "sha256": "d80bf4d1295224b339deb04e55700a812b124e2a5c33d72799edd88cfb4be211"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r3-h1-both\\exit.json",
+      "bytes": 365,
+      "sha256": "d490bceb1e8a31945764d0a52acd56935ceece11a01549585814bc953ea35f3a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r3-h1-neither\\exit.json",
+      "bytes": 370,
+      "sha256": "362ba95ba48970537d299450abf62166bc2adbfdb16b037b25c384bf20af2a92"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r3-h1-basal-only\\exit.json",
+      "bytes": 377,
+      "sha256": "0cc7be709c44f2d26ae141f9bc018f76ed5469e5f0e65ecba529aaa75fe648ac"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r3-h1-prism-only\\exit.json",
+      "bytes": 376,
+      "sha256": "8a0d3f82c5ff5f51559ec68007e52df69a4f301fc7b52d431da22d45bd95c111"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r1-h5-both\\exit.json",
+      "bytes": 365,
+      "sha256": "20bf8d76cd7b46139ab937f1f7495a583e9217f4e9d4f5ffd0a09ca922b730cd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r1-h5-neither\\exit.json",
+      "bytes": 371,
+      "sha256": "0f600dd9955bf3c8f05791dce76c0e07c4e3272afde33b89b1e4a46129f90f47"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r1-h5-basal-only\\exit.json",
+      "bytes": 377,
+      "sha256": "e6a7cd268ec832f2def4196b332b0db0c62271b089f5bc4d4ab917c885ee49ec"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-seed-t8p5-f0p15-r1-h5-prism-only\\exit.json",
+      "bytes": 377,
+      "sha256": "a3bd6a3df243bca2968f5349c0a8fc38cad67be70c47ebb69b498462b9fc7e31"
+    }
+  ]
+}
