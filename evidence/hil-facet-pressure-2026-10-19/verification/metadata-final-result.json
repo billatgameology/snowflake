@@ -1,0 +1,7 @@
+{
+  "log": "metadata-final.log",
+  "startedAt": "2026-10-19T23:41:29.5308280Z",
+  "command": "npx.cmd vitest run runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts",
+  "finishedAt": "2026-10-19T23:41:31.7450136Z",
+  "exitCode": 0
+}

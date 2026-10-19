@@ -1,7 +1,7 @@
 # Plan — HIL facet attribution and pressure/history timestep comparison
 
 - **Phase:** active Phase 10 exploration; charter sections 2.5 and 3.2, accepted ADRs 0011, 0055, 0060 and 0062.
-- **Status:** implemented and reviewed; final metadata check then launch.
+- **Status:** twelve workers launched and checkpointing; four earlier workers continue.
 - **Started / last touched:** 2026-10-19 by Codex/GPT-6.
 - **Authority:** maker: "ok, proceed with all 12 runs on HIL. Keep them resumable with no time limit, and let the current runs continue."
 - **Branch / checkout:** `codex/hil-facet-pressure-oct19`, `C:/Users/biao3/.codex/worktrees/hil-facet-pressure-oct19/snowflake`, from `12219f5`.
@@ -175,7 +175,7 @@ No useful source/output pruning or worktree closure is authorized by this dispat
 
 - [x] Maker approved all twelve cases, uncertainty, HIL and uninterrupted existing work.
 - [x] Commit protocol, implement the small roster/entry and complete scoped verification/review.
-- [ ] Freeze producer, launch twelve workers and observe completed-cycle checkpoints.
+- [x] Freeze producer, launch twelve workers and observe completed-cycle checkpoints.
 - [ ] Reconcile terminal results, execute matched readouts and preserve bulk output on NAS.
 
 ## Out of scope
@@ -211,3 +211,41 @@ The first metadata check found only index length251 versus250; compacting the un
 paragraph corrects it. Exact rerun receipt is task `out/hil-facet-pressure-oct19-checks/metadata-final-result.json`.
 No numerical worker, shared coordinator or checkpoint behavior changed. Keep this checkout
 clean and fixed at the ensuing producer commit; write actual launch/status records in primary.
+
+## Actual launch and continuation — 2026-10-19
+
+Producer `73eb358c7c720a7f1608df5b26f0a8438ae6be92` is clean and fixed in the task checkout.
+Primary fast-forwarded the tested source before dispatch. The hidden wrapper started at
+16:42:14 PDT /23:42:14Z, wrapper PID21628 and coordinator PID24224. Twelve new workers launched
+beside the four existing workers; no old process was stopped, paused, restarted or changed.
+[Campaign](../../evidence/hil-facet-pressure-2026-10-19/campaign.json),
+[invocation](../../evidence/hil-facet-pressure-2026-10-19/invocation.json),
+[launch](../../evidence/hil-facet-pressure-2026-10-19/launch.json) and wrapper invocation retain exact commands and identities.
+An initial shell cleanliness check encountered null output from clean `git status` before any
+launch; the invocation guard was corrected to count output lines, then the absent-output/no-writer
+checks passed. No duplicate campaign or scientific attempt was created.
+
+The [16:43:53 PDT observation](../../evidence/hil-facet-pressure-2026-10-19/launch-observation.json)
+confirms all twelve new workers live with completed-cycle checkpoints at updates40–41 and
+extents5–9, targeting29. Current/previous manifest hashes and solver lengths agree; convergence
+metadata is true, error arrays/stderr empty. Solver payload digests were not rehashed in this
+live observation; this is not a new restart differential or scientific endpoint check.
+Available RAM46.2525 GiB and commit headroom48.6096 GiB exceed unchanged guards.
+Actual concurrency is sixteen science workers: twelve new, two cold and two warm.
+All four old PIDs remain unchanged and advance CPU. Warm thin/thick are updates2524/2501,
+extent53/57; cold neither/basal-only are updates492/496, extent19/29.
+
+Coordinator logs: task `out/hil-facet-pressure-oct19-control/campaign-launch-20261019T164214030.{stdout,stderr}.log`;
+per-row logs: `out/hil-facet-pressure-oct19/rows/<id>/attempts/initial/{stdout,stderr}.log`.
+Actual-exit receipts appear on termination. Exact recovery uses the earlier `resume HIL` command
+or `start-hil.ps1 -Mode resume` from this unchanged producer after confirming no live writer.
+No wall deadline, target extension, capacity probe or automatic queue expansion is present.
+
+Next: let all targets continue, inspect existing summaries and checkpoint metadata at the next
+status request, compare completed costs with the registered assumptions, then execute the named
+matched readouts. Keep seven output-owning checkouts until governed NAS publication/fresh recovery.
+Final implementation metadata checks passed2 files/18 tests; source checks passed as above.
+Launch-record checks in primary passed the same2 files/18 tests and Rule7. Exact commands,
+real exits and unique logs are `out/hil-facet-pressure-oct19-records/{metadata,rule7}{.log,-result.json}`.
+The scoped staged diff check passed with raw verification logs excluded to preserve their bytes.
+The fixed producer was not changed.

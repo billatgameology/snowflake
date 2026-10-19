@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1203,
- "totalBytes": 323349426,
+ "fileCount": 1211,
+ "totalBytes": 323474531,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -4759,8 +4759,8 @@
    "sha256": "5776e699a74fac9f6b2b2eccee353116bf95501187bfc8bab8a8e6566159e702"
   },
   "hil-facet-pressure-2026-10-19/README.md": {
-   "bytes": 1469,
-   "sha256": "15378f435da18355ff8ce2226644798d2329e52168d7a745c8958410f1a1d97e"
+   "bytes": 1745,
+   "sha256": "199738d5f9cf8c153ac90e4737872674bdbd35e837b96941c678dab954f3dc59"
   },
   "hil-facet-pressure-2026-10-19/verification/cli-list-result.json": {
    "bytes": 195,
@@ -4803,8 +4803,8 @@
    "sha256": "51bcdf34980a17f4afbc6fa075186ba067a673569bc37098441f73a31b975087"
   },
   "hil-facet-pressure-2026-10-19/verification.json": {
-   "bytes": 1300,
-   "sha256": "cc3909e18940ce4a996ab73ef605d059ca7f573b98a53eb0767b8f28ff587ac1"
+   "bytes": 1790,
+   "sha256": "a2ecfc2b126d69ecb101eb356bc227550d4d80d6a5f9ec0e73afa5c8a503bb60"
   },
   "hil-facet-pressure-2026-10-19/review.json": {
    "bytes": 10555,
@@ -4817,6 +4817,38 @@
   "hil-facet-pressure-2026-10-19/verification/initial-metadata.log": {
    "bytes": 2968,
    "sha256": "da07cbf2a9db677cb439c2834f13f5731cc081e0efbeaeadbe26041778731ae0"
+  },
+  "hil-facet-pressure-2026-10-19/campaign.json": {
+   "bytes": 9707,
+   "sha256": "968aba179fd78525fd11d8b02ebd1e6d144438e003e686fd2c755b171f57b039"
+  },
+  "hil-facet-pressure-2026-10-19/dispatch.json": {
+   "bytes": 365,
+   "sha256": "578b02af0d77ad3f24cae22045ed9271645801fbe42f718b268aa904c5fe59e8"
+  },
+  "hil-facet-pressure-2026-10-19/invocation.json": {
+   "bytes": 1999,
+   "sha256": "63cdcb41856588b013d3349c853997bd0301e2ee2977413f20deff9c40748de8"
+  },
+  "hil-facet-pressure-2026-10-19/launch-observation.json": {
+   "bytes": 108297,
+   "sha256": "9ce27a3eddfa76b7a4c09766b7cebe1c3438683ba9981b9e43ded7f46687e002"
+  },
+  "hil-facet-pressure-2026-10-19/launch.json": {
+   "bytes": 2161,
+   "sha256": "deab57ca956a7771d118cdd6d239b3c97bfa860ff7ebb6d3d07825b311874880"
+  },
+  "hil-facet-pressure-2026-10-19/verification/metadata-final-result.json": {
+   "bytes": 262,
+   "sha256": "e9927e7a271b205606eb7d8fb6825ef7107926d029a8bda2ff6fbb3a3ad4801c"
+  },
+  "hil-facet-pressure-2026-10-19/verification/metadata-final.log": {
+   "bytes": 514,
+   "sha256": "3646ab5e607d9c66fc4f67a42edf3785bee0b60f3314b30dd3bccb75815ed1ca"
+  },
+  "hil-facet-pressure-2026-10-19/wrapper-invocation.json": {
+   "bytes": 1034,
+   "sha256": "d08edf45d4428ad4c873fccb61e532ae4840fd28c4457b5f2e058cb8634aeae1"
   }
  }
 }

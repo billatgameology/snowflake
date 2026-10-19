@@ -1,0 +1,48 @@
+{
+  "schema": "post-phase10-discovery-launch-v1",
+  "experimentId": "post-phase10-facet-isolation-v1",
+  "experimentalRows": [
+    {
+      "rowId": "oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-basal-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only"
+    },
+    {
+      "rowId": "oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-prism-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only"
+    },
+    {
+      "rowId": "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-basal-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only"
+    },
+    {
+      "rowId": "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-prism-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only"
+    }
+  ],
+  "launchName": "hil-facet-pressure-oct19-HIL-initial",
+  "gitHead": "73eb358c7c720a7f1608df5b26f0a8438ae6be92",
+  "node": "v24.13.1",
+  "attemptName": "initial",
+  "resumeExistingRows": false,
+  "requestedConcurrency": 12,
+  "rowIds": [
+    "oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-basal-only",
+    "oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-prism-only",
+    "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-basal-only",
+    "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-prism-only",
+    "oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e7-p50662p5-m1-cfl0p025",
+    "oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e15-p50662p5-m1-cfl0p025",
+    "oct19-hil-pressure-step-static-t14p4-f0p2-p50662p5-m1-cfl0p025",
+    "oct19-hil-pressure-step-static-t6-f0p2-p50662p5-m1-cfl0p025",
+    "oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e7-p202650-m1-cfl0p025",
+    "oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e15-p202650-m1-cfl0p025",
+    "oct19-hil-pressure-step-static-t14p4-f0p2-p202650-m1-cfl0p025",
+    "oct19-hil-pressure-step-static-t6-f0p2-p202650-m1-cfl0p025"
+  ],
+  "exactWorkerCommandTemplate": "Exact row-specific command is recorded in each rows/<row-id>/process.json and its named attempt",
+  "launchedAt": "2026-10-19T23:42:14.298Z"
+}

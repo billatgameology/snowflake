@@ -22,5 +22,16 @@
     "receipt": "verification/initial-metadata-result.json",
     "result": "17 passed /1 failed: progress index251 lines exceeded250; compacted unchanged host paragraph to249. No scientific failure."
   },
-  "metadataRerun": "out/hil-facet-pressure-oct19-checks/metadata-final-result.json"
+  "metadataRerun": "out/hil-facet-pressure-oct19-checks/metadata-final-result.json",
+  "metadataFinal": {
+    "receipt": "verification/metadata-final-result.json",
+    "filesPassed": 2,
+    "testsPassed": 18
+  },
+  "stagedWhitespace": {
+    "command": "git -c core.whitespace=cr-at-eol diff --cached --check -- . ':!evidence/hil-facet-pressure-2026-10-19/verification/*.log'",
+    "exitCode": 0,
+    "scope": "Raw test logs excluded to preserve exact stdout bytes, including original trailing whitespace."
+  },
+  "producerCommit": "73eb358c7c720a7f1608df5b26f0a8438ae6be92"
 }

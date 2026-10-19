@@ -1,0 +1,17 @@
+{
+    "source":  "73eb358c7c720a7f1608df5b26f0a8438ae6be92",
+    "stderr":  "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19-control\\campaign-launch-20261019T164214030.stderr.log",
+    "wrapperPid":  21628,
+    "stdout":  "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19-control\\campaign-launch-20261019T164214030.stdout.log",
+    "command":  [
+                    "node",
+                    "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\runner\\src\\hil-facet-pressure-oct19-main.ts",
+                    "launch",
+                    "HIL",
+                    "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19"
+                ],
+    "mode":  "launch",
+    "coordinatorPid":  24224,
+    "PSModulePath":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+    "startedUtc":  "2026-10-19T23:42:14.0314140Z"
+}

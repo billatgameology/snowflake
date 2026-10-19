@@ -17,4 +17,7 @@ These are internal model-development findings and planning scenarios, not physic
 `prelaunch.json` records current resource/process/NAS observations. The two PowerShell recipes
 are copied byte-for-byte into the execution worktree's `out/hil-facet-pressure-oct19-control/`.
 They select only this batch; they do not own the continuing cold or warm producers.
-Verification and actual launch records are added after their actions complete.
+`verification.json` and `review.json` record passed focused checks and bounded review.
+`campaign.json`, `launch.json`, `invocation.json`, `wrapper-invocation.json` and
+`launch-observation.json` bind the actual 16:42 PDT launch and sixteen-worker observation.
+Fixed producer: `73eb358c7c720a7f1608df5b26f0a8438ae6be92`. No elapsed-time stop is configured.
