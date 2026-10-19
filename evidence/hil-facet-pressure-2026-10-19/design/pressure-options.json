@@ -1,0 +1,577 @@
+{
+  "createdAt": "2026-10-19T23:29:10.614192+00:00",
+  "purpose": "Read-only options discussion; not a frozen roster or launch authorization. No live partial scientific records analyzed.",
+  "coldCompletedReportedMetrics": [
+    {
+      "resultBinding": {
+        "path": "C:/Users/biao3/.codex/worktrees/hil-exploration-oct10/snowflake/out/hil-exploration-oct10/rows/oct10-hil-cold-t14p4-f0p1-both/result.json",
+        "bytes": 3325,
+        "sha256": "e88abb7ae6bc97430cf7539c7ead21ed44ed91f59d7d474a8d2246b50b0eefcd"
+      },
+      "metrics": {
+        "rowId": "oct10-hil-cold-t14p4-f0p1-both",
+        "stopReason": "size-target",
+        "cycles": 353,
+        "extent": 29,
+        "attachedCount": 1823,
+        "aspectRatio": 0.1980299089094062,
+        "simTimeSeconds": 13.214681612300865,
+        "wallSeconds": 2752.279,
+        "totalSweeps": 875126,
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "gitHead": "33832e20a386c52d830e2dd338a1f8671a25db8f"
+      }
+    },
+    {
+      "resultBinding": {
+        "path": "C:/Users/biao3/.codex/worktrees/hil-domain-seed-oct19/snowflake/out/hil-domain-seed-oct19/rows/oct19-hil-cold-domain-t14p4-f0p1-n96-both/result.json",
+        "bytes": 3339,
+        "sha256": "df582f7281d0123747b1b6a987667d48996cabeea88b99153184973793cac684"
+      },
+      "metrics": {
+        "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-both",
+        "stopReason": "size-target",
+        "cycles": 353,
+        "extent": 29,
+        "attachedCount": 1823,
+        "aspectRatio": 0.19802990890940617,
+        "simTimeSeconds": 13.296829216003353,
+        "wallSeconds": 21410.464,
+        "totalSweeps": 2061359,
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a"
+      }
+    },
+    {
+      "resultBinding": {
+        "path": "C:/Users/biao3/.codex/worktrees/hil-exploration-oct10/snowflake/out/hil-exploration-oct10/rows/oct10-hil-cold-t14p4-f0p1-prism-only/result.json",
+        "bytes": 3334,
+        "sha256": "9a7652b72ebb8d71a0190c18d1895e6f9f9968d2975e203858597d0c37e2f0b0"
+      },
+      "metrics": {
+        "rowId": "oct10-hil-cold-t14p4-f0p1-prism-only",
+        "stopReason": "size-target",
+        "cycles": 353,
+        "extent": 29,
+        "attachedCount": 1823,
+        "aspectRatio": 0.1980299089094062,
+        "simTimeSeconds": 13.09203065212253,
+        "wallSeconds": 2770.45,
+        "totalSweeps": 884759,
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "gitHead": "33832e20a386c52d830e2dd338a1f8671a25db8f"
+      }
+    },
+    {
+      "resultBinding": {
+        "path": "C:/Users/biao3/.codex/worktrees/hil-domain-seed-oct19/snowflake/out/hil-domain-seed-oct19/rows/oct19-hil-cold-domain-t14p4-f0p1-n96-prism-only/result.json",
+        "bytes": 3347,
+        "sha256": "f04113ea1b52e7180b16930be3cf2e5a03866d40d90b61529fd096f313968701"
+      },
+      "metrics": {
+        "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-prism-only",
+        "stopReason": "size-target",
+        "cycles": 354,
+        "extent": 29,
+        "attachedCount": 1835,
+        "aspectRatio": 0.19802990890940617,
+        "simTimeSeconds": 13.206801502033079,
+        "wallSeconds": 21676.028,
+        "totalSweeps": 2078631,
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a"
+      }
+    }
+  ],
+  "coldLimit": "Both complete N96 rows are prism-enabled. These terminal reported quantities cannot decide the registered prism-on/off comparison, full ring/plateau analysis, grid independence or domain independence. Existing pm status checked endpoint integrity; this note does not rerun those checks.",
+  "pressureCandidate": {
+    "newCases": 8,
+    "histories": 4,
+    "statics": 4,
+    "changedOperand": "CFL .05 to .025; fresh identities required; all other listed scientific operands retained",
+    "targetExtent": 29,
+    "maximumCenterSpanUm": 9.8,
+    "dimsN": 64,
+    "dxUm": 0.35,
+    "referenceInputs": [
+      {
+        "id": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e7-p50662p5-m1",
+        "spec": {
+          "conditional": false,
+          "pressurePa": 50662.5,
+          "paramSet": "M1",
+          "dimsN": 64,
+          "dxUm": 0.35,
+          "cflFill": 0.05,
+          "seedRadius": 2,
+          "seedThickness": 1,
+          "targetExtent": 29,
+          "maxSteps": 20000,
+          "spatialSampleExtents": [
+            5,
+            7,
+            9,
+            11,
+            13,
+            15,
+            17,
+            19,
+            21,
+            23,
+            25,
+            27
+          ],
+          "id": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e7-p50662p5-m1",
+          "lane": "followup-history",
+          "tempC": -14.4,
+          "fraction": 0.2,
+          "timelineEvent": {
+            "triggerLargestExtent": 7,
+            "tempC": -6,
+            "sigmaInfinity": 0.01208
+          },
+          "sigmaInfinity": 0.030080000000000003
+        },
+        "result": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-history-t14p4-to-t6-f0p2-e7-p50662p5-m1/result.json",
+          "bytes": 6791,
+          "sha256": "303d9064bc930855282182e87556aa9433d704be2da879d4bd0d4fcf4288d3b1"
+        },
+        "specBinding": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-history-t14p4-to-t6-f0p2-e7-p50662p5-m1/spec.json",
+          "bytes": 1056,
+          "sha256": "9d0a3f897b5c792acd572f1c379c1deb45d5b3e193533225d64991ceda3999ff"
+        },
+        "exitBinding": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-history-t14p4-to-t6-f0p2-e7-p50662p5-m1/exit.json",
+          "bytes": 299,
+          "sha256": "f6953714572c62824d6a39891ebd55d91b3cde9a16d1aa088e4a20f64bce8f00"
+        },
+        "reportedStopReason": "size-target",
+        "actualExitCode": 0,
+        "reportedWallSeconds": 6877.978,
+        "completedUpdates": 617,
+        "reportedPhysicalSeconds": 11.244691428586627,
+        "reportedExtent": 29
+      },
+      {
+        "id": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-m1",
+        "spec": {
+          "conditional": false,
+          "pressurePa": 50662.5,
+          "paramSet": "M1",
+          "dimsN": 64,
+          "dxUm": 0.35,
+          "cflFill": 0.05,
+          "seedRadius": 2,
+          "seedThickness": 1,
+          "targetExtent": 29,
+          "maxSteps": 20000,
+          "spatialSampleExtents": [
+            5,
+            7,
+            9,
+            11,
+            13,
+            15,
+            17,
+            19,
+            21,
+            23,
+            25,
+            27
+          ],
+          "id": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-m1",
+          "lane": "followup-history",
+          "tempC": -14.4,
+          "fraction": 0.2,
+          "timelineEvent": {
+            "triggerLargestExtent": 15,
+            "tempC": -6,
+            "sigmaInfinity": 0.01208
+          },
+          "sigmaInfinity": 0.030080000000000003
+        },
+        "result": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-m1/result.json",
+          "bytes": 6820,
+          "sha256": "923d1feef3b50cf374e904ad8dd385c2fb403a467961d869792876c8450d179d"
+        },
+        "specBinding": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-m1/spec.json",
+          "bytes": 1058,
+          "sha256": "195844258e35143bcdc75a15fa2a32fff89a0762c60a0242f109083715e62eaf"
+        },
+        "exitBinding": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-m1/exit.json",
+          "bytes": 300,
+          "sha256": "833ace2e1032b0771caceeeb09e57cb05dabbf7ed2a3a3800918d65b5e102451"
+        },
+        "reportedStopReason": "size-target",
+        "actualExitCode": 0,
+        "reportedWallSeconds": 5614.029,
+        "completedUpdates": 536,
+        "reportedPhysicalSeconds": 9.07519725084608,
+        "reportedExtent": 29
+      },
+      {
+        "id": "oct12-hil-pressure-static-t14p4-f0p2-p50662p5-m1",
+        "spec": {
+          "conditional": false,
+          "pressurePa": 50662.5,
+          "paramSet": "M1",
+          "dimsN": 64,
+          "dxUm": 0.35,
+          "cflFill": 0.05,
+          "seedRadius": 2,
+          "seedThickness": 1,
+          "targetExtent": 29,
+          "maxSteps": 20000,
+          "spatialSampleExtents": [
+            5,
+            7,
+            9,
+            11,
+            13,
+            15,
+            17,
+            19,
+            21,
+            23,
+            25,
+            27
+          ],
+          "id": "oct12-hil-pressure-static-t14p4-f0p2-p50662p5-m1",
+          "lane": "followup-history",
+          "tempC": -14.4,
+          "fraction": 0.2,
+          "sigmaInfinity": 0.030080000000000003
+        },
+        "result": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-static-t14p4-f0p2-p50662p5-m1/result.json",
+          "bytes": 3256,
+          "sha256": "522f11a318e57b3920ca68a385190df105b3b5f50817fd515d9228909092ddc1"
+        },
+        "specBinding": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-static-t14p4-f0p2-p50662p5-m1/spec.json",
+          "bytes": 933,
+          "sha256": "858bbe5ddc972934ff0e9208a3b94fa534046321129f21e32702777673c6e9ee"
+        },
+        "exitBinding": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-static-t14p4-f0p2-p50662p5-m1/exit.json",
+          "bytes": 289,
+          "sha256": "f196da6d95a007d4661e405e6dff99c34118d0a4217276fce89b582a2214d0cf"
+        },
+        "reportedStopReason": "size-target",
+        "actualExitCode": 0,
+        "reportedWallSeconds": 3467.696,
+        "completedUpdates": 350,
+        "reportedPhysicalSeconds": 4.345712822726849,
+        "reportedExtent": 29
+      },
+      {
+        "id": "oct12-hil-pressure-static-t6-f0p2-p50662p5-m1",
+        "spec": {
+          "conditional": false,
+          "pressurePa": 50662.5,
+          "paramSet": "M1",
+          "dimsN": 64,
+          "dxUm": 0.35,
+          "cflFill": 0.05,
+          "seedRadius": 2,
+          "seedThickness": 1,
+          "targetExtent": 29,
+          "maxSteps": 20000,
+          "spatialSampleExtents": [
+            5,
+            7,
+            9,
+            11,
+            13,
+            15,
+            17,
+            19,
+            21,
+            23,
+            25,
+            27
+          ],
+          "id": "oct12-hil-pressure-static-t6-f0p2-p50662p5-m1",
+          "lane": "followup-history",
+          "tempC": -6,
+          "fraction": 0.2,
+          "sigmaInfinity": 0.01208
+        },
+        "result": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-static-t6-f0p2-p50662p5-m1/result.json",
+          "bytes": 3259,
+          "sha256": "32837195d209f9efa91338036b79f18fe86c904d1a29646a0448e62e78ac6cd7"
+        },
+        "specBinding": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-static-t6-f0p2-p50662p5-m1/spec.json",
+          "bytes": 914,
+          "sha256": "213c9ceda1192211e2422724ef95cd7ce823751a9365833de9d215b8c9c93cc6"
+        },
+        "exitBinding": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-static-t6-f0p2-p50662p5-m1/exit.json",
+          "bytes": 286,
+          "sha256": "25600935fe58be4709c6377d526011f19261bc4ca8abc631753bf28eca7046b3"
+        },
+        "reportedStopReason": "size-target",
+        "actualExitCode": 0,
+        "reportedWallSeconds": 6359.47,
+        "completedUpdates": 563,
+        "reportedPhysicalSeconds": 10.175079033817966,
+        "reportedExtent": 29
+      },
+      {
+        "id": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e7-p202650-m1",
+        "spec": {
+          "conditional": false,
+          "pressurePa": 202650,
+          "paramSet": "M1",
+          "dimsN": 64,
+          "dxUm": 0.35,
+          "cflFill": 0.05,
+          "seedRadius": 2,
+          "seedThickness": 1,
+          "targetExtent": 29,
+          "maxSteps": 20000,
+          "spatialSampleExtents": [
+            5,
+            7,
+            9,
+            11,
+            13,
+            15,
+            17,
+            19,
+            21,
+            23,
+            25,
+            27
+          ],
+          "id": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e7-p202650-m1",
+          "lane": "followup-history",
+          "tempC": -14.4,
+          "fraction": 0.2,
+          "timelineEvent": {
+            "triggerLargestExtent": 7,
+            "tempC": -6,
+            "sigmaInfinity": 0.01208
+          },
+          "sigmaInfinity": 0.030080000000000003
+        },
+        "result": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-history-t14p4-to-t6-f0p2-e7-p202650-m1/result.json",
+          "bytes": 6786,
+          "sha256": "0794d8bb9afd4ec1dd16f2bb321d4d59dec0b8e9ad78f1b7c7297cac0676c37c"
+        },
+        "specBinding": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-history-t14p4-to-t6-f0p2-e7-p202650-m1/spec.json",
+          "bytes": 1053,
+          "sha256": "71995f9606168bf3db649e579c0218ac197fc76bcd093fd5aa9cf2a75c0a0919"
+        },
+        "exitBinding": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-history-t14p4-to-t6-f0p2-e7-p202650-m1/exit.json",
+          "bytes": 298,
+          "sha256": "0fb38129cb453af2fd07f6f2fbc31ce5e78831ef22496482ce0a0782f77f00f3"
+        },
+        "reportedStopReason": "size-target",
+        "actualExitCode": 0,
+        "reportedWallSeconds": 5974.54,
+        "completedUpdates": 572,
+        "reportedPhysicalSeconds": 34.930688916122605,
+        "reportedExtent": 29
+      },
+      {
+        "id": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-m1",
+        "spec": {
+          "conditional": false,
+          "pressurePa": 202650,
+          "paramSet": "M1",
+          "dimsN": 64,
+          "dxUm": 0.35,
+          "cflFill": 0.05,
+          "seedRadius": 2,
+          "seedThickness": 1,
+          "targetExtent": 29,
+          "maxSteps": 20000,
+          "spatialSampleExtents": [
+            5,
+            7,
+            9,
+            11,
+            13,
+            15,
+            17,
+            19,
+            21,
+            23,
+            25,
+            27
+          ],
+          "id": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-m1",
+          "lane": "followup-history",
+          "tempC": -14.4,
+          "fraction": 0.2,
+          "timelineEvent": {
+            "triggerLargestExtent": 15,
+            "tempC": -6,
+            "sigmaInfinity": 0.01208
+          },
+          "sigmaInfinity": 0.030080000000000003
+        },
+        "result": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-m1/result.json",
+          "bytes": 6817,
+          "sha256": "e40e7e6a8e5cf4f2dbf8a53e9eea7e78d9293f976093fc851f42413259d94ff0"
+        },
+        "specBinding": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-m1/spec.json",
+          "bytes": 1055,
+          "sha256": "0a68eaddd83527be6f90740e0ee72513b1a4b95f335405033d7f7f44b14397ff"
+        },
+        "exitBinding": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-m1/exit.json",
+          "bytes": 299,
+          "sha256": "9e9adacb9fa3ae0170efc189341143666419e7bd445b8ea7fef702fbc538fc8a"
+        },
+        "reportedStopReason": "size-target",
+        "actualExitCode": 0,
+        "reportedWallSeconds": 4868.88,
+        "completedUpdates": 490,
+        "reportedPhysicalSeconds": 27.310173045829398,
+        "reportedExtent": 29
+      },
+      {
+        "id": "oct12-hil-pressure-static-t14p4-f0p2-p202650-m1",
+        "spec": {
+          "conditional": false,
+          "pressurePa": 202650,
+          "paramSet": "M1",
+          "dimsN": 64,
+          "dxUm": 0.35,
+          "cflFill": 0.05,
+          "seedRadius": 2,
+          "seedThickness": 1,
+          "targetExtent": 29,
+          "maxSteps": 20000,
+          "spatialSampleExtents": [
+            5,
+            7,
+            9,
+            11,
+            13,
+            15,
+            17,
+            19,
+            21,
+            23,
+            25,
+            27
+          ],
+          "id": "oct12-hil-pressure-static-t14p4-f0p2-p202650-m1",
+          "lane": "followup-history",
+          "tempC": -14.4,
+          "fraction": 0.2,
+          "sigmaInfinity": 0.030080000000000003
+        },
+        "result": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-static-t14p4-f0p2-p202650-m1/result.json",
+          "bytes": 3254,
+          "sha256": "318d2200f7e64a207940f73eef636e5c1b8d32e984bd269ff8ab00e264f18f4d"
+        },
+        "specBinding": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-static-t14p4-f0p2-p202650-m1/spec.json",
+          "bytes": 930,
+          "sha256": "02a99b4fea9a54d986db238fa4494973f807594cde3e42d51d7a030932de580d"
+        },
+        "exitBinding": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-static-t14p4-f0p2-p202650-m1/exit.json",
+          "bytes": 288,
+          "sha256": "859e03f2b679b58c48550cbc4823dea4cf8b87be4bdb3f00ffce7bf1d1507be1"
+        },
+        "reportedStopReason": "size-target",
+        "actualExitCode": 0,
+        "reportedWallSeconds": 3431.62,
+        "completedUpdates": 347,
+        "reportedPhysicalSeconds": 14.355355048318135,
+        "reportedExtent": 29
+      },
+      {
+        "id": "oct12-hil-pressure-static-t6-f0p2-p202650-m1",
+        "spec": {
+          "conditional": false,
+          "pressurePa": 202650,
+          "paramSet": "M1",
+          "dimsN": 64,
+          "dxUm": 0.35,
+          "cflFill": 0.05,
+          "seedRadius": 2,
+          "seedThickness": 1,
+          "targetExtent": 29,
+          "maxSteps": 20000,
+          "spatialSampleExtents": [
+            5,
+            7,
+            9,
+            11,
+            13,
+            15,
+            17,
+            19,
+            21,
+            23,
+            25,
+            27
+          ],
+          "id": "oct12-hil-pressure-static-t6-f0p2-p202650-m1",
+          "lane": "followup-history",
+          "tempC": -6,
+          "fraction": 0.2,
+          "sigmaInfinity": 0.01208
+        },
+        "result": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-static-t6-f0p2-p202650-m1/result.json",
+          "bytes": 3235,
+          "sha256": "c09f230fa08f4578794d524715773164e07356d19f1dfdd07e1e6647ba7fa2eb"
+        },
+        "specBinding": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-static-t6-f0p2-p202650-m1/spec.json",
+          "bytes": 911,
+          "sha256": "b8256fbb224d59f4ebd1c0579b9eb6a8f686ebefd059114af5655d131295328c"
+        },
+        "exitBinding": {
+          "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake/out/hil-two-day-oct12/rows/oct12-hil-pressure-static-t6-f0p2-p202650-m1/exit.json",
+          "bytes": 284,
+          "sha256": "e53d923cd16a8e33ea686121181f1d921c3da0110dd669acfbf99cac645a2777"
+        },
+        "reportedStopReason": "size-target",
+        "actualExitCode": 0,
+        "reportedWallSeconds": 5551.392,
+        "completedUpdates": 511,
+        "reportedPhysicalSeconds": 30.96674311625702,
+        "reportedExtent": 29
+      }
+    ],
+    "baselineSummedWorkerHours": 11.707112500000001,
+    "baselineLongestHours": 1.9105494444444444,
+    "illustrativeAssumedCostMultiplier": 2,
+    "illustrativeSummedWorkerHours": 23.414225000000002,
+    "illustrativeLongestCaseHoursAtEightSlots": 3.821098888888889,
+    "illustrativeLongestPlus25PercentHours": 4.7763736111111115,
+    "costLimits": "Changed pressure/history/timestep cost is unmeasured. Two-times and 25 percent are assumptions, not fitted bounds; tails may exceed scenarios. Do not divide summed worker-hours by slots as an ETA.",
+    "question": "Whether the early-minus-late warming axial increment at forcing .20 survives smaller updates at both pressure extremes; earlier selected window gave .70um at all three pressures.",
+    "readoutLimit": "Recompute common post-switch duration over all compared old/new rows. Retain adjacent-event brackets and broader time-window dependence. Existing normal-pressure cases qualify only their own configuration. No physical mechanism identification."
+  },
+  "priorInterpretation": {
+    "path": "evidence/hil-results-review-2026-10-18/history-pressure/notes.md",
+    "bytes": 8034,
+    "sha256": "7c8234c450088a8d439cde8083d5471ea0c2db3f3e66282497c77897611e830a"
+  }
+}

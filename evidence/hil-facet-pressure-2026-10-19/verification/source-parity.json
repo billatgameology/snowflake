@@ -1,0 +1,48 @@
+{
+  "createdAt": "2026-10-19T23:40:22.309790+00:00",
+  "scientificSources": [
+    {
+      "reference": "838c294",
+      "paths": [
+        "core",
+        "solver-cpu",
+        "runner/src/post-phase10-discovery.ts",
+        "runner/src/discovery-resume-io.ts"
+      ],
+      "changedPaths": []
+    },
+    {
+      "reference": "5a00e901",
+      "paths": [
+        "core",
+        "solver-cpu",
+        "runner/src/post-phase10-discovery.ts",
+        "runner/src/discovery-resume-io.ts"
+      ],
+      "changedPaths": []
+    },
+    {
+      "reference": "0161a512",
+      "paths": [
+        "core",
+        "solver-cpu",
+        "runner/src/post-phase10-discovery.ts",
+        "runner/src/discovery-resume-io.ts"
+      ],
+      "changedPaths": []
+    },
+    {
+      "reference": "ff7b1a88",
+      "paths": [
+        "core",
+        "solver-cpu",
+        "runner/src/post-phase10-discovery.ts",
+        "runner/src/discovery-resume-io.ts"
+      ],
+      "changedPaths": []
+    }
+  ],
+  "coordinatorParitySince": "ff7b1a88",
+  "coordinatorChangedPaths": [],
+  "scope": "Scientific worker/codec/core/solver unchanged; no transfer of mature timing or pressure timestep findings."
+}

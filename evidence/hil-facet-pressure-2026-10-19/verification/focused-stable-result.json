@@ -1,0 +1,7 @@
+{
+  "finishedAt": "2026-10-19T23:39:49.4144672Z",
+  "command": "npx.cmd vitest run runner/test/hil-facet-pressure-oct19.test.ts runner/test/hil-domain-seed-oct19.test.ts runner/test/hil-bld-batch-execution.test.ts runner/test/hil-bld-batch-resume.test.ts",
+  "exitCode": 0,
+  "log": "focused-stable.log",
+  "startedAt": "2026-10-19T23:39:41.1059881Z"
+}

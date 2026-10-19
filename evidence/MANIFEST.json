@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1181,
- "totalBytes": 322979495,
+ "fileCount": 1203,
+ "totalBytes": 323349426,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -4729,6 +4729,94 @@
   "hil-domain-seed-2026-10-19/status-2026-10-19-pm-summary.json": {
    "bytes": 25377,
    "sha256": "101a7dc58ad6942443e5ee8bc7b5971d34cf9c72266862a53e12945bdc3c3ccf"
+  },
+  "hil-facet-pressure-2026-10-19/design/pressure-options.json": {
+   "bytes": 22678,
+   "sha256": "70b426a217a6f9ad11d24dc3714fc8bc27c3bd3be8c728c8d25f589c3508dfdd"
+  },
+  "hil-facet-pressure-2026-10-19/design/seed-inputs.json": {
+   "bytes": 19370,
+   "sha256": "2cdcf2b82ec73b35e0a2db3a6390fe4f1ff2a8b55721bcee08f7c12325f852f9"
+  },
+  "hil-facet-pressure-2026-10-19/design/seed-notes.md": {
+   "bytes": 6469,
+   "sha256": "218a15cef0f5a0898cd057a708ae959fdb850f652db2c9deedf3426bffbbcd69"
+  },
+  "hil-facet-pressure-2026-10-19/design/seed-summary.json": {
+   "bytes": 259300,
+   "sha256": "f3a167ca34660815dfe2718982289f4593b5e16fe583435241851b1071a6c821"
+  },
+  "hil-facet-pressure-2026-10-19/prelaunch.json": {
+   "bytes": 22700,
+   "sha256": "30e4e10062dc63fcb1df9cc27ac3e5cfb15f5244c9ece69c1b1573fe8a35dee5"
+  },
+  "hil-facet-pressure-2026-10-19/start-hil.ps1": {
+   "bytes": 1862,
+   "sha256": "6409b51757cf463c71ee83e82d5328f3b633b41152b968630471806b8594bc08"
+  },
+  "hil-facet-pressure-2026-10-19/stop-hil.ps1": {
+   "bytes": 1921,
+   "sha256": "5776e699a74fac9f6b2b2eccee353116bf95501187bfc8bab8a8e6566159e702"
+  },
+  "hil-facet-pressure-2026-10-19/README.md": {
+   "bytes": 1469,
+   "sha256": "15378f435da18355ff8ce2226644798d2329e52168d7a745c8958410f1a1d97e"
+  },
+  "hil-facet-pressure-2026-10-19/verification/cli-list-result.json": {
+   "bytes": 195,
+   "sha256": "aff739e6ae5c8bb9e201e4430183a91cc0a12dc3fa1b6911ced7c8f6b60af69c"
+  },
+  "hil-facet-pressure-2026-10-19/verification/cli-list.json": {
+   "bytes": 10164,
+   "sha256": "1bb6c3308f85f30f2f451f497ac1a28933ee0a00a0486ae7b9344e7400d61e6b"
+  },
+  "hil-facet-pressure-2026-10-19/verification/focused-stable-result.json": {
+   "bytes": 360,
+   "sha256": "1b280d77d45f81a818cd12a6e62c1cc55b983775d644768b79130b105e61891a"
+  },
+  "hil-facet-pressure-2026-10-19/verification/focused-stable.log": {
+   "bytes": 6596,
+   "sha256": "c6dd7f5a847ee5f3e0d1b7c77490cff7a74a917bf9886e7c6c51256d55af82c0"
+  },
+  "hil-facet-pressure-2026-10-19/verification/npm-ci.log": {
+   "bytes": 27,
+   "sha256": "d48f4dcbbb2defac99f2875ff0705a276afc9ee6fa3ab2a7a8c37268769496dc"
+  },
+  "hil-facet-pressure-2026-10-19/verification/rule7-result.json": {
+   "bytes": 183,
+   "sha256": "53d676c097c583355389422a806b3230d61a0010d850e43441e0b13da890b34b"
+  },
+  "hil-facet-pressure-2026-10-19/verification/rule7.log": {
+   "bytes": 112,
+   "sha256": "f50f5fe8f446cc61ec0aaf5ae45809baeebd3cdecf0937c424a2e8b38f303332"
+  },
+  "hil-facet-pressure-2026-10-19/verification/source-parity.json": {
+   "bytes": 1176,
+   "sha256": "a64645e70614857aea08519d8bdcac814228b7fb5da8e62098bc2e98dc20e2c8"
+  },
+  "hil-facet-pressure-2026-10-19/verification/typecheck-result.json": {
+   "bytes": 186,
+   "sha256": "b79eaf7c9d0f52cfb2487eee8438a82107058e419301b7f4d9c09bcc978ce807"
+  },
+  "hil-facet-pressure-2026-10-19/verification/typecheck.log": {
+   "bytes": 84,
+   "sha256": "51bcdf34980a17f4afbc6fa075186ba067a673569bc37098441f73a31b975087"
+  },
+  "hil-facet-pressure-2026-10-19/verification.json": {
+   "bytes": 1300,
+   "sha256": "cc3909e18940ce4a996ab73ef605d059ca7f573b98a53eb0767b8f28ff587ac1"
+  },
+  "hil-facet-pressure-2026-10-19/review.json": {
+   "bytes": 10555,
+   "sha256": "3c53b2509d39cd96dcb2a940e5a3a819e47d36a0d0135620ab6b587346385f4c"
+  },
+  "hil-facet-pressure-2026-10-19/verification/initial-metadata-result.json": {
+   "bytes": 256,
+   "sha256": "2f2c25d213dc196ec32282aa8430e14215fc657186de39ca6e4348b98bcd720b"
+  },
+  "hil-facet-pressure-2026-10-19/verification/initial-metadata.log": {
+   "bytes": 2968,
+   "sha256": "da07cbf2a9db677cb439c2834f13f5731cc081e0efbeaeadbe26041778731ae0"
   }
  }
 }

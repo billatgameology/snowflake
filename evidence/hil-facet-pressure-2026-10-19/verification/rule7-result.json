@@ -1,0 +1,7 @@
+{
+  "log": "rule7.log",
+  "startedAt": "2026-10-19T23:39:41.1149728Z",
+  "command": "npm.cmd run lint:rule7",
+  "finishedAt": "2026-10-19T23:39:45.4507975Z",
+  "exitCode": 0
+}

@@ -1,0 +1,205 @@
+{
+  "schema": "hil-facet-pressure-bounded-review-v1",
+  "reviewedAt": "2026-10-19T23:40:44.209Z",
+  "reviewer": {
+    "model": "Codex / GPT-6 (parent-inherited)",
+    "sharedContext": true,
+    "role": "Non-author implementation review; prior science-cost/preflight contribution"
+  },
+  "protocol": "73de7d1",
+  "reviewedHead": "73de7d16427ca306d16129eb4a6d911d92045468",
+  "files": [
+    {
+      "path": "docs/plans/hil-facet-pressure-oct19.md",
+      "sha256": "00a8ef12a890f132053ace64eae8f22afff105765689d72b7acfcf76cc55e87e"
+    },
+    {
+      "path": "runner/src/hil-facet-pressure-oct19-roster.ts",
+      "sha256": "fe1a95c2f138e33106b35f4935dc099f8ae4b30193b57e8ddd93d46743e4a211"
+    },
+    {
+      "path": "runner/src/hil-facet-pressure-oct19-main.ts",
+      "sha256": "2677be3a2e076851ee92910b324f0bb52a2b8ffa0398cfc51a47be643843b815"
+    },
+    {
+      "path": "runner/test/hil-facet-pressure-oct19.test.ts",
+      "sha256": "a32d468589446862264540fa3d83f42d0ebb9bdbeffda52dcdb7fa6b6f7dda1a"
+    },
+    {
+      "path": "evidence/hil-facet-pressure-2026-10-19/start-hil.ps1",
+      "sha256": "6409b51757cf463c71ee83e82d5328f3b633b41152b968630471806b8594bc08"
+    },
+    {
+      "path": "evidence/hil-facet-pressure-2026-10-19/stop-hil.ps1",
+      "sha256": "5776e699a74fac9f6b2b2eccee353116bf95501187bfc8bab8a8e6566159e702"
+    }
+  ],
+  "inspected": [
+    "Complete plan including clarifications/readout/Tried and rejected",
+    "All three new source/test files",
+    "Start/stop wrappers and existing coordinator route",
+    "Every completed-update checkpoint call and two-generation retention",
+    "No production hardWallSeconds/maxWallSeconds option added"
+  ],
+  "reexecuted": [
+    {
+      "check": "Literal protocol ID/order and twelve full operand objects against retained actual spec.json files",
+      "result": "passed",
+      "count": 12,
+      "facet": 4,
+      "ordinaryHistories": 4,
+      "ordinaryStatics": 4,
+      "controls": [
+        {
+          "rowId": "oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-basal-only",
+          "controlId": "oct11-hil-seed-t6p5-f0p15-r3-h1-basal-only",
+          "specPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r3-h1-basal-only\\spec.json",
+          "specSha256": "7f15ef96e04d8dc38dd2e928fdef6d8ea6d1a06f74f8c3538c1f5342b276096a",
+          "difference": "ID and CFL .05 to .025 only"
+        },
+        {
+          "rowId": "oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-prism-only",
+          "controlId": "oct11-hil-seed-t6p5-f0p15-r3-h1-prism-only",
+          "specPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t6p5-f0p15-r3-h1-prism-only\\spec.json",
+          "specSha256": "b756bc032a345411f78e34b7e0a6e0fab69bc4f73b87fdcd4d9072a76cfdb606",
+          "difference": "ID and CFL .05 to .025 only"
+        },
+        {
+          "rowId": "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-basal-only",
+          "controlId": "oct11-hil-seed-t9p5-f0p15-r3-h1-basal-only",
+          "specPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r3-h1-basal-only\\spec.json",
+          "specSha256": "965758c8ba8cc1165d0f56a689e5b937c681e09c851c79f1c33ef10d2c1f5636",
+          "difference": "ID and CFL .05 to .025 only"
+        },
+        {
+          "rowId": "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-prism-only",
+          "controlId": "oct11-hil-seed-t9p5-f0p15-r3-h1-prism-only",
+          "specPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11\\rows\\oct11-hil-seed-t9p5-f0p15-r3-h1-prism-only\\spec.json",
+          "specSha256": "9fb877e1cc690d8d5d3742dcf60d6e0a0b70ff2354b8e4c5477bced2bca2cbfc",
+          "difference": "ID and CFL .05 to .025 only"
+        },
+        {
+          "rowId": "oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e7-p50662p5-m1-cfl0p025",
+          "controlId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e7-p50662p5-m1",
+          "specPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p2-e7-p50662p5-m1\\spec.json",
+          "specSha256": "9d0a3f897b5c792acd572f1c379c1deb45d5b3e193533225d64991ceda3999ff",
+          "difference": "ID and CFL .05 to .025 only"
+        },
+        {
+          "rowId": "oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e15-p50662p5-m1-cfl0p025",
+          "controlId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-m1",
+          "specPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p50662p5-m1\\spec.json",
+          "specSha256": "195844258e35143bcdc75a15fa2a32fff89a0762c60a0242f109083715e62eaf",
+          "difference": "ID and CFL .05 to .025 only"
+        },
+        {
+          "rowId": "oct19-hil-pressure-step-static-t14p4-f0p2-p50662p5-m1-cfl0p025",
+          "controlId": "oct12-hil-pressure-static-t14p4-f0p2-p50662p5-m1",
+          "specPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-static-t14p4-f0p2-p50662p5-m1\\spec.json",
+          "specSha256": "858bbe5ddc972934ff0e9208a3b94fa534046321129f21e32702777673c6e9ee",
+          "difference": "ID and CFL .05 to .025 only"
+        },
+        {
+          "rowId": "oct19-hil-pressure-step-static-t6-f0p2-p50662p5-m1-cfl0p025",
+          "controlId": "oct12-hil-pressure-static-t6-f0p2-p50662p5-m1",
+          "specPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-static-t6-f0p2-p50662p5-m1\\spec.json",
+          "specSha256": "213c9ceda1192211e2422724ef95cd7ce823751a9365833de9d215b8c9c93cc6",
+          "difference": "ID and CFL .05 to .025 only"
+        },
+        {
+          "rowId": "oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e7-p202650-m1-cfl0p025",
+          "controlId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e7-p202650-m1",
+          "specPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p2-e7-p202650-m1\\spec.json",
+          "specSha256": "71995f9606168bf3db649e579c0218ac197fc76bcd093fd5aa9cf2a75c0a0919",
+          "difference": "ID and CFL .05 to .025 only"
+        },
+        {
+          "rowId": "oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e15-p202650-m1-cfl0p025",
+          "controlId": "oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-m1",
+          "specPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-history-t14p4-to-t6-f0p2-e15-p202650-m1\\spec.json",
+          "specSha256": "0a68eaddd83527be6f90740e0ee72513b1a4b95f335405033d7f7f44b14397ff",
+          "difference": "ID and CFL .05 to .025 only"
+        },
+        {
+          "rowId": "oct19-hil-pressure-step-static-t14p4-f0p2-p202650-m1-cfl0p025",
+          "controlId": "oct12-hil-pressure-static-t14p4-f0p2-p202650-m1",
+          "specPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-static-t14p4-f0p2-p202650-m1\\spec.json",
+          "specSha256": "02a99b4fea9a54d986db238fa4494973f807594cde3e42d51d7a030932de580d",
+          "difference": "ID and CFL .05 to .025 only"
+        },
+        {
+          "rowId": "oct19-hil-pressure-step-static-t6-f0p2-p202650-m1-cfl0p025",
+          "controlId": "oct12-hil-pressure-static-t6-f0p2-p202650-m1",
+          "specPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out\\hil-two-day-oct12\\rows\\oct12-hil-pressure-static-t6-f0p2-p202650-m1\\spec.json",
+          "specSha256": "b8256fbb224d59f4ebd1c0579b9eb6a8f686ebefd059114af5655d131295328c",
+          "difference": "ID and CFL .05 to .025 only"
+        }
+      ]
+    },
+    {
+      "check": "Campaign binding metadata",
+      "result": "valid twelve-worker binding accepted; wrong source/concurrency refused"
+    },
+    {
+      "check": "Scientific/codec/parameter source parity against both retained producers",
+      "result": "passed",
+      "comparisons": [
+        {
+          "commit": "5a00e901",
+          "paths": [
+            "core",
+            "solver-cpu",
+            "runner/src/post-phase10-discovery.ts",
+            "runner/src/discovery-resume-io.ts",
+            "runner/src/phase6-protocol.ts"
+          ],
+          "changedPaths": []
+        },
+        {
+          "commit": "0161a512",
+          "paths": [
+            "core",
+            "solver-cpu",
+            "runner/src/post-phase10-discovery.ts",
+            "runner/src/discovery-resume-io.ts",
+            "runner/src/phase6-protocol.ts"
+          ],
+          "changedPaths": []
+        }
+      ]
+    },
+    {
+      "check": "No shared execution/restart changes versus protocol",
+      "result": "No changed paths",
+      "paths": [
+        "runner/src/hil-operational-batch-main.ts",
+        "runner/src/hil-bld-batch-main.ts",
+        "runner/src/hil-bld-batch-execution.ts",
+        "runner/src/hil-bld-batch-resume.ts",
+        "core",
+        "solver-cpu",
+        "runner/src/post-phase10-discovery.ts",
+        "runner/src/discovery-resume-io.ts",
+        "runner/src/phase6-protocol.ts"
+      ]
+    },
+    {
+      "check": "PowerShell static ParseFile",
+      "result": "zero syntax errors in both helpers; not executed"
+    },
+    {
+      "check": "Exact-path stop selector against six existing coordinator/worker command lines from preflight",
+      "result": "selects none of the six; selects synthetic new coordinator command"
+    }
+  ],
+  "findings": [],
+  "verdict": "No unresolved claim-changing implementation blocker",
+  "limits": [
+    "Shared-context same inherited model; not independent physical or phase-gate review",
+    "Reviewed working-tree files before implementation commit; hashes identify inspected bytes",
+    "No simulations, scientific readouts, launches, stops, or restart experiments",
+    "Did not repeat author/root focused tests/typechecks/Rule7/metadata suite",
+    "Wrapper syntax/path selection checked only; start/stop helpers were not executed",
+    "Future registered scientific prefix/window readouts remain unexecuted until terminal inputs exist"
+  ]
+}

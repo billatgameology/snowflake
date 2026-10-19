@@ -1,7 +1,7 @@
 # Plan — HIL facet attribution and pressure/history timestep comparison
 
 - **Phase:** active Phase 10 exploration; charter sections 2.5 and 3.2, accepted ADRs 0011, 0055, 0060 and 0062.
-- **Status:** approved; protocol precedes implementation and launch.
+- **Status:** implemented and reviewed; final metadata check then launch.
 - **Started / last touched:** 2026-10-19 by Codex/GPT-6.
 - **Authority:** maker: "ok, proceed with all 12 runs on HIL. Keep them resumable with no time limit, and let the current runs continue."
 - **Branch / checkout:** `codex/hil-facet-pressure-oct19`, `C:/Users/biao3/.codex/worktrees/hil-facet-pressure-oct19/snowflake`, from `12219f5`.
@@ -87,14 +87,18 @@ terminal and fired-event records. Compare full, first/second half and successive
 increments, retaining the same adjacent-event alternatives. Within each pressure/CFL compute
 early minus late; compare pressures within switch/CFL and CFL within pressure/switch. Do not
 inherit the old 7.5696 s window or .70 um conclusion; window dependence is part of the result.
-Normal-pressure controls come from October 11 ordinary histories/statics and October 12
-history-step/static-step rows. Verify exact spec/source compatibility before reuse.
+Normal-pressure controls are `oct11-hil-history-t14p4-to-t6-f0p2-e<7|15>-m1`,
+`oct11-hil-static-t<14p4|6>-f0p2-m1`,
+`oct12-hil-history-step-t14p4-to-t6-f0p2-e<7|15>-cfl0p025-m1` and
+`oct12-hil-static-step-t<14p4|6>-f0p2-cfl0p025-m1`. Verify exact spec/source compatibility.
 
 For every history, compare its scientific prefix through the trigger cycle with the matching
 source static under the same pressure/CFL; trigger-cycle attachment occurs before the event.
 Use destination-static growth over age0..D as a labeled reference with a different inherited
 geometry. Continuing source-static windows at eventAge..eventAge+D require actual coverage;
-report unavailable windows instead of extrapolating or changing D to conceal them. These are
+report unavailable windows instead of extrapolating or changing D to conceal them. Check
+coverage before calling the existing `window()`, which otherwise clamps to the terminal state.
+Source-prefix equality is within the same pressure/CFL, not across different CFL settings. These are
 history comparisons, not physical memory erasure, pressure universality or validation.
 Endpoint/checker failures remain explicit missing comparisons. Proportionate internal skeptical
 interpretation is required under Rules13/14; no new scientific gate is created.
@@ -117,7 +121,8 @@ resource observation; no new capacity ladder, BLD dispatch or mature-cost guaran
 
 ADR0060 initialization and every-complete-cycle checkpoints retain current and previous
 generations. An interrupted elliptic solve repeats from its preceding completed boundary.
-Reuse the actual N64 interruption/resume witness and existing timeline/cutoff equality tests;
+Reuse the actual N64 constant-environment basal-only interruption/resume witness and existing
+timeline/cutoff equality tests (including event splits in both temperature directions);
 verify unchanged worker/core/solver/checkpoint semantics. Do not repeat the restart experiment
 merely because the roster is new. Keep the producer checkout clean/fixed and runtime/host bound.
 The existing cold producer `ff7b1a8` and warm producer `838c294` and their processes are untouched.
@@ -169,7 +174,7 @@ No useful source/output pruning or worktree closure is authorized by this dispat
 ## Steps
 
 - [x] Maker approved all twelve cases, uncertainty, HIL and uninterrupted existing work.
-- [ ] Commit protocol, implement the small roster/entry and complete scoped verification/review.
+- [x] Commit protocol, implement the small roster/entry and complete scoped verification/review.
 - [ ] Freeze producer, launch twelve workers and observe completed-cycle checkpoints.
 - [ ] Reconcile terminal results, execute matched readouts and preserve bulk output on NAS.
 
@@ -192,3 +197,17 @@ BLD allocation and automatic queue expansion.
 ## Open questions
 
 No maker approval remains pending. Scientific outcomes and actual runtimes remain to be measured.
+
+## Implementation verification — 2026-10-19
+
+Protocol `73de7d1` preceded the three roster/entry/test additions. Four focused files /29 tests,
+both typechecks, Rule7, literal twelve-row CLI listing and source parity passed. The bounded
+non-author inherited-context review independently compared every new row with the actual
+retained control spec and found no unresolved claim-changing blocker. It checked wrapper
+syntax/exclusion of existing processes; no extra simulation or physical review was performed.
+The [verification receipt](../../evidence/hil-facet-pressure-2026-10-19/verification.json) and
+[review](../../evidence/hil-facet-pressure-2026-10-19/review.json) retain checks and limits.
+The first metadata check found only index length251 versus250; compacting the unchanged host
+paragraph corrects it. Exact rerun receipt is task `out/hil-facet-pressure-oct19-checks/metadata-final-result.json`.
+No numerical worker, shared coordinator or checkpoint behavior changed. Keep this checkout
+clean and fixed at the ensuing producer commit; write actual launch/status records in primary.

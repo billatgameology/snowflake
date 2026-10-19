@@ -1,0 +1,7 @@
+{
+  "log": "typecheck.log",
+  "startedAt": "2026-10-19T23:39:41.1083440Z",
+  "finishedAt": "2026-10-19T23:39:50.1565036Z",
+  "command": "npm.cmd run typecheck",
+  "exitCode": 0
+}

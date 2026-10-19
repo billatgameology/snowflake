@@ -1,0 +1,26 @@
+{
+  "createdAt": "2026-10-19T23:40:50.385379+00:00",
+  "protocolCommit": "73de7d1",
+  "scope": "Isolated finite-roster and orchestration additions; no solver/readout/codec or shared coordinator changes.",
+  "focused": {
+    "filesPassed": 4,
+    "testsPassed": 29,
+    "receipt": "verification/focused-stable-result.json"
+  },
+  "typecheck": "verification/typecheck-result.json",
+  "rule7": "verification/rule7-result.json",
+  "cli": "verification/cli-list-result.json",
+  "sourceParity": "verification/source-parity.json",
+  "wrapperChecks": {
+    "PowerShellParserErrors": 0,
+    "startAndStopPattern": "Copied existing domain/seed wrappers with exact new entry/output and description; no behavior changed."
+  },
+  "scientificResults": "No new simulation completed; tests are orchestration qualification, not a scientific gate.",
+  "fullSuite": "Not rerun for this isolated orchestration surface. Retained historical full-suite receipts keep their limits.",
+  "review": "review.json",
+  "initialMetadata": {
+    "receipt": "verification/initial-metadata-result.json",
+    "result": "17 passed /1 failed: progress index251 lines exceeded250; compacted unchanged host paragraph to249. No scientific failure."
+  },
+  "metadataRerun": "out/hil-facet-pressure-oct19-checks/metadata-final-result.json"
+}

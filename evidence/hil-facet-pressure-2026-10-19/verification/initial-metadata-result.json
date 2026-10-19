@@ -1,0 +1,7 @@
+{
+  "command": "npx.cmd vitest run runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts",
+  "exitCode": 1,
+  "finishedAt": "2026-10-19T23:40:52.7286507Z",
+  "log": "metadata.log",
+  "startedAt": "2026-10-19T23:40:50.4887335Z"
+}
