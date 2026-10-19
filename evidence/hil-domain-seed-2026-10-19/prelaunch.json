@@ -1,0 +1,180 @@
+{
+  "createdAt": "2026-10-19T13:27:11.152Z",
+  "protocolCommit": "3d4181f4ab5bb78a00fe7d4a7f40f3b951c542c2",
+  "baseline": {
+    "path": "evidence/hil-results-review-2026-10-18/candidate-baselines.json",
+    "bytes": 4332,
+    "sha256": "31d3397dc39716fe0f971a6666c9427e81e97cef47f61838c03d37b59c96655d"
+  },
+  "oldControlHours": {
+    "coldHours": 6.5407325,
+    "seedHours": 17.319865555555555,
+    "coldMax": 2.5144422222222222,
+    "seedMax": 2.5983533333333333
+  },
+  "scenarios": [
+    {
+      "coldMultiplier": 3.375,
+      "seedMultiplier": 2,
+      "workerHours": 56.71470329861111,
+      "longestCaseHours": 8.4862425,
+      "extra25PercentSlowdownHours": 10.607803125
+    },
+    {
+      "coldMultiplier": 7.59375,
+      "seedMultiplier": 2,
+      "workerHours": 84.30841853298611,
+      "longestCaseHours": 19.094045625,
+      "extra25PercentSlowdownHours": 23.86755703125
+    }
+  ],
+  "limits": "Assumptions only; changed-domain and timestep costs unmeasured, not bounds or deadline. Longest-case tail governs a simultaneous twelve-row wave.",
+  "host": {
+    "hostname": "HIL",
+    "platform": "win32",
+    "arch": "x64",
+    "cpuModels": [
+      "Intel(R) Core(TM) Ultra 9 285K"
+    ],
+    "logicalProcessors": 24,
+    "totalMemoryBytes": 68023050240
+  },
+  "sample": {
+    "capturedUtc": "2026-10-19T13:27:12.6489911Z",
+    "availablePhysicalBytes": 52646559744,
+    "commitHeadroomBytes": 55283941376,
+    "children": [
+      {
+        "Id": 14528,
+        "CPU": 290291.84375,
+        "WorkingSet64": 559394816,
+        "PeakWorkingSet64": 638156800
+      },
+      {
+        "Id": 24776,
+        "CPU": 290289.578125,
+        "WorkingSet64": 555053056,
+        "PeakWorkingSet64": 630902784
+      }
+    ]
+  },
+  "requestedNewWorkers": 12,
+  "continuingWarmWorkers": 2,
+  "node": "v24.13.1",
+  "v8": "13.6.233.17-node.40",
+  "nas": "z:/",
+  "freeDiskBytes": 3410339344384,
+  "sourceParity": [
+    {
+      "command": [
+        "git",
+        "diff",
+        "--name-only",
+        "838c294757c65c0d3b96d017cb7fec3541e4db42",
+        "HEAD",
+        "--",
+        "core/src",
+        "solver-cpu/src",
+        "runner/src/post-phase10-discovery.ts",
+        "runner/src/discovery-resume-io.ts",
+        "runner/src/hil-bld-batch-main.ts",
+        "runner/src/hil-bld-batch-execution.ts"
+      ],
+      "exitCode": 0,
+      "changedPaths": []
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--name-only",
+        "0161a51",
+        "HEAD",
+        "--",
+        "runner/src/hil-operational-batch-main.ts"
+      ],
+      "exitCode": 0,
+      "changedPaths": []
+    }
+  ],
+  "restartWitnesses": [
+    {
+      "path": "evidence/discovery-resume-2026-10-07/n64-receipt.json",
+      "bytes": 8733,
+      "sha256": "753c6680e177c2a0ac2c2e00cfa62b98e13b8df5b47557a7809b90b526ec7d38"
+    },
+    {
+      "path": "evidence/hil-warm-refinement-2026-10-08/n126-witness-receipt.json",
+      "bytes": 8454,
+      "sha256": "d6759b540a218dd655a1e3609300fc47b599fad9ec2a138aa53ea1547a8d67f9"
+    }
+  ],
+  "warm": [
+    {
+      "rowId": "warm-refine-fine-thin-t4p5-early",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early",
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thin-t4p5-early",
+        "cycle": 2421,
+        "attachedCount": 87795,
+        "extent": 51,
+        "totalSweeps": 30650668,
+        "simTimeSeconds": 70.9182336869013,
+        "wallSeconds": 725468.344,
+        "peakRssBytes": 560832512,
+        "updatedAt": "2026-10-19T13:27:07.099Z"
+      },
+      "pointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-2421-e0946790-26e6-456d-9503-c99c308e17b2",
+          "manifestSha256": "2e02d3dd28b7414f5f164fd2578afb0c269806bb1bb525d9f645d2442ba7ff61"
+        },
+        "previous": {
+          "directory": "generation-2420-219ac0c2-6541-43f9-a4cd-3f1536b742e1",
+          "manifestSha256": "5558311714e3a7581ac040b91a4d3849f9374aa171d955989c3ca5a2500d23de"
+        }
+      }
+    },
+    {
+      "rowId": "warm-refine-fine-thick-t4p5-early",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early",
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thick-t4p5-early",
+        "cycle": 2396,
+        "attachedCount": 87137,
+        "extent": 51,
+        "totalSweeps": 30310026,
+        "simTimeSeconds": 69.44276169798962,
+        "wallSeconds": 724992.2919999999,
+        "peakRssBytes": 555569152,
+        "updatedAt": "2026-10-19T13:23:34.819Z"
+      },
+      "pointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-2396-770e8104-22d0-4a80-b425-78d54bcad070",
+          "manifestSha256": "75937ae7aec2c435658d669df4f83f175296a9059d206a5c0d84f54089f07f47"
+        },
+        "previous": {
+          "directory": "generation-2395-56322ecf-58f4-4bc0-ba80-64be5fd4cb1d",
+          "manifestSha256": "615f8f5ec7ac2fbe9691b07ca26313f7a1e17a8f0711d5d07a1ff59c409d1551"
+        }
+      }
+    }
+  ]
+}

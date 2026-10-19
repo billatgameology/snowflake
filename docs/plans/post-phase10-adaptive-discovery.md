@@ -316,7 +316,7 @@ completed work and discussing the next step. The [review](../../evidence/hil-res
 now supplies the matched cold, seed and history comparisons across the October 10–12 waves,
 with prior supplement controls and four complete warm rows. It recommends discussion of the
 -14.4C cold domain/representation qualification, with a smaller seed timestep comparison as a
-companion option. No new run or exact protocol is selected. Phase 10 remains active.
+companion option. That review selected no new run. On October 19 the maker selected both follow-ups; [the twelve-row plan](hil-domain-seed-oct19.md) freezes the cold N96 quartet and eight half-timestep seed cases, their budgets and readouts. Phase 10 remains active.
 
 The earlier later-growth equalities are observations at their original windows, not evidence
 that memory disappeared: new common windows produce different integer axial increments in both

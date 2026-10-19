@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1160,
- "totalBytes": 322844151,
+ "fileCount": 1174,
+ "totalBytes": 322875011,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -4645,6 +4645,62 @@
   "hil-results-review-2026-10-18/verification/rule7.stdout.log": {
    "bytes": 107,
    "sha256": "ee945177011e56e6cae37ef0b77819aa56130a0f11e072e9156ab6c1d5438a01"
+  },
+  "hil-domain-seed-2026-10-19/focused.stderr.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hil-domain-seed-2026-10-19/focused.stdout.log": {
+   "bytes": 6481,
+   "sha256": "e2b56cae88fe84ec13dc35543d2839d386a44671db8e4bd10461b9a4e512de6a"
+  },
+  "hil-domain-seed-2026-10-19/prelaunch.json": {
+   "bytes": 5730,
+   "sha256": "b03804f44d3bcf59a29ddb74ee24c5a14189038338e6edeaf7c7ea0d6d5c36ed"
+  },
+  "hil-domain-seed-2026-10-19/roster-list.json": {
+   "bytes": 9721,
+   "sha256": "17431e64ec8ce0a2a80a049b0314dd56b0a0b2de10b7899cfcb6a0484a0bafa6"
+  },
+  "hil-domain-seed-2026-10-19/rule7.stderr.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hil-domain-seed-2026-10-19/rule7.stdout.log": {
+   "bytes": 107,
+   "sha256": "01f021afcd4838d17dc3eb2fbcc83736d09e7224114e74982166f57e400c8498"
+  },
+  "hil-domain-seed-2026-10-19/start-hil.ps1": {
+   "bytes": 1853,
+   "sha256": "abb52c8d3ddab6b9aa11c7c4dc635b18937e409d790f2c0ca2530dd975b7aae6"
+  },
+  "hil-domain-seed-2026-10-19/stop-hil.ps1": {
+   "bytes": 1909,
+   "sha256": "aacc9b8cdb1d8832933fa1fdb3cd41de2438d4dd52295b6fdf5e98b2286ebfba"
+  },
+  "hil-domain-seed-2026-10-19/typecheck.stderr.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hil-domain-seed-2026-10-19/typecheck.stdout.log": {
+   "bytes": 80,
+   "sha256": "7f84518d3a2b8d19485d8e6c6d7afa51f3c9f2db70b1bcb51d199cbf9493818f"
+  },
+  "hil-domain-seed-2026-10-19/verification.json": {
+   "bytes": 3460,
+   "sha256": "bd88b650002316ebfd9e461e8656030554c722e85a44d7ae29085b3a7d1992b6"
+  },
+  "hil-domain-seed-2026-10-19/metadata.stderr.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hil-domain-seed-2026-10-19/metadata.stdout.log": {
+   "bytes": 499,
+   "sha256": "2374b2e4797154dd9f6eb518b6208ef4331bfd3f00f92b2e6539ab2d475897c2"
+  },
+  "hil-domain-seed-2026-10-19/review.json": {
+   "bytes": 1020,
+   "sha256": "89a49fc305519c656f06a76b4058b2ade16eeb2259706e77d4edf646af5f83e5"
   }
  }
 }

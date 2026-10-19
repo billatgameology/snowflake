@@ -1,7 +1,7 @@
 # Progress — The Virtual Cloud Chamber
 
 This is the compact **current-state index**. Read it completely, then the affected active plan including **Tried and rejected**. The charter defines intended behavior; this index records state. The handoff mechanism is retired. [HANDOFF.md](HANDOFF.md) remains a tombstone.
-- **Last updated:** 2026-10-18 by Codex
+- **Last updated:** 2026-10-19 by Codex
 - **Storage/closeout policy:** [ADR 0061](decisions/0061-nas-backup-before-worktree-closeout.md) requires verified NAS recovery before output-owning worktree closure; new bulk run payloads stay out of Git. [HIL catch-up](plans/nas-worktree-closeout.md) published and freshly restored `hil-completed-runs@2026-10-09`: six archive/inventory payload files, 135501385 bytes, covering all 3745 HIL member files / 1587912611 bytes. Primary workstation copies remain; historical Git archives and active HIL execution are unchanged. The [verification record](nas-assets/manifests/hil-completed-runs/2026-10-09-verification.json) and catalogue supply exact recovery commands. Reuse verified immutable coverage rather than repeat a backup for identical bytes.
 - **Execution policy:** maker direction 2026-10-08 keeps development, tests, analysis and scientific runs on HIL. Split work with BLD only when the work is expected to take multiple days; use representative timing before proposing that split.
   The [approved portfolio](plans/post-phase10-adaptive-discovery.md#exploration-portfolio-for-hil-and-bld)
@@ -48,8 +48,8 @@ Completed chronology and failed attempts are retained, not live instructions:
 
 ## Current state
 
-**Local scientific execution continues; NAS access is unavailable at the October 18 check.** The primary checkout is
-`C:/Users/biao3/Documents/GitHub/snowflake`; persistent `VCC_NAS_ROOT=Z:/` currently fails the marked-share check because the root is unavailable. The host is reachable but returns Windows error1326 (credentials rejected); reconnect the existing share before backup/closeout.
+**Local scientific execution continues; the marked NAS is reachable again on October 19.** The primary checkout is
+`C:/Users/biao3/Documents/GitHub/snowflake`; persistent `VCC_NAS_ROOT=Z:/` passes `detectNasMount()` at `z:/` in the [prelaunch receipt](../evidence/hil-domain-seed-2026-10-19/prelaunch.json). The October 18 credential failure is historical; no mapping or credential changes were made here.
 The current host is Intel Core Ultra 9 285K (24 cores / 24 logical processors),
 64 GB RAM and RTX 5080. The former Ryzen/RTX 3080 host's measurements do not establish this host's
 scientific worker budget. The [current measurement](plans/new-host-acceptance-and-capacity-2026-10-07.md#measured-host-budget--2026-10-07)
@@ -231,7 +231,7 @@ The [compact Run B volume plan](plans/explore-gutcheck-growth-volume.md) is impl
 
 ## Next step
 
-Read the [October 18 completed-results review](../evidence/hil-results-review-2026-10-18/README.md) and discuss its next-step options with the maker before freezing or launching another batch. The maker directed keeping the current warm work running while analyzing completed results. The review covers 124 cold rows, 64 seed rows and 111 history/static rows (overlapping cold/static controls are not independent runs), plus four complete warm rows. The -14.4 C cold core/tip contrast agrees across three timestep settings; seed response changes with temperature; history axial additions agree across two timestep settings, but the earlier later-window equalities are sensitive to the observation window. These are scoped internal model-development findings, not physical validation or Phase 10 closure. Recommended discussion: four same-spacing larger-domain cold cases (candidate N96, extent29) plus eight smaller-timestep seed cases (N64, extent29); cost the exact 12-case proposal before selection. No new roster, runtime budget, launch or capacity probe is selected.
+The maker selected the [October 19 cold-domain experiment and seed companion](plans/hil-domain-seed-oct19.md): four N96 cold cases and eight N64 half-timestep seed cases, all extent29, twelve new workers beside two warm workers on HIL. Protocol `3d4181f` precedes implementation in `C:/Users/biao3/.codex/worktrees/hil-domain-seed-oct19/snowflake`. Focused checks (28 tests), both typechecks and bounded review passed. Next: commit the fixed producer, launch with the plan's hidden start helper, and verify completed-cycle checkpoints. Explicit longest-case scenarios are 8.49–19.09 hours (10.61–23.87 with another 25% slowdown), assumptions rather than bounds; no wall deadline, new capacity ladder or BLD dispatch. The [October 18 review](../evidence/hil-results-review-2026-10-18/README.md) remains the motivation and scoped evidence, not physical validation.
 
 **Two warm fine early-intervention workers continue.** Both coarse rows and both fine broad controls are complete; the two newly completed controls pass existing endpoint checks. At the [October 18 observation](../evidence/hil-results-review-2026-10-18/status/warm-live.json) around 21:09 PDT, thin early is extent 49/57, update 2291; thick early is extent 51/57, update 2267. Both advance CPU and have fresh converged checkpoint metadata, no recorded integrity errors and empty stderr. The coordinator remains live at fixed producer `838c294`, checkout `C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake`. There is no reliable ETA. Keep targets, checkpoint cadence, memory guards and absence of a wall deadline unchanged. The completed controls show temporary zero-depth pits; the fine early/broad contrast remains unresolved until the early rows finish. See the [warm plan](plans/hil-warm-refinement.md#completed-controls-and-maker-directed-review--2026-10-18).
 

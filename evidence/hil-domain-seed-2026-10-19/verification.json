@@ -1,0 +1,89 @@
+{
+  "scope": "Isolated twelve-case roster and orchestration. Numerical worker, codec, solver and readout unchanged. No new capacity ladder or full-suite claim.",
+  "checks": [
+    {
+      "exitCode": 0,
+      "startedUtc": "2026-10-19T13:28:27.7900362Z",
+      "finishedUtc": "2026-10-19T13:28:35.8270021Z",
+      "command": "npx.cmd vitest run runner/test/hil-domain-seed-oct19.test.ts runner/test/hil-two-day-oct12.test.ts runner/test/hil-bld-batch-execution.test.ts runner/test/hil-bld-batch-resume.test.ts",
+      "logs": [
+        {
+          "path": "evidence/hil-domain-seed-2026-10-19/focused.stdout.log",
+          "bytes": 6481,
+          "sha256": "e2b56cae88fe84ec13dc35543d2839d386a44671db8e4bd10461b9a4e512de6a"
+        },
+        {
+          "path": "evidence/hil-domain-seed-2026-10-19/focused.stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "startedUtc": "2026-10-19T13:28:27.7899993Z",
+      "finishedUtc": "2026-10-19T13:28:37.3004569Z",
+      "exitCode": 0,
+      "command": "npm.cmd run typecheck",
+      "logs": [
+        {
+          "path": "evidence/hil-domain-seed-2026-10-19/typecheck.stdout.log",
+          "bytes": 80,
+          "sha256": "7f84518d3a2b8d19485d8e6c6d7afa51f3c9f2db70b1bcb51d199cbf9493818f"
+        },
+        {
+          "path": "evidence/hil-domain-seed-2026-10-19/typecheck.stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "exitCode": 0,
+      "command": "npm.cmd run lint:rule7",
+      "finishedUtc": "2026-10-19T13:29:22.3494678Z",
+      "startedUtc": "2026-10-19T13:29:18.3099369Z",
+      "logs": [
+        {
+          "path": "evidence/hil-domain-seed-2026-10-19/rule7.stdout.log",
+          "bytes": 107,
+          "sha256": "01f021afcd4838d17dc3eb2fbcc83736d09e7224114e74982166f57e400c8498"
+        },
+        {
+          "path": "evidence/hil-domain-seed-2026-10-19/rule7.stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "finishedUtc": "2026-10-19T13:29:39.6739648Z",
+      "startedUtc": "2026-10-19T13:29:37.5762906Z",
+      "exitCode": 0,
+      "command": "npx.cmd vitest run runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts",
+      "logs": [
+        {
+          "path": "evidence/hil-domain-seed-2026-10-19/metadata.stdout.log",
+          "bytes": 499,
+          "sha256": "2374b2e4797154dd9f6eb518b6208ef4331bfd3f00f92b2e6539ab2d475897c2"
+        },
+        {
+          "path": "evidence/hil-domain-seed-2026-10-19/metadata.stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    }
+  ],
+  "dryRun": {
+    "command": "node runner/src/hil-domain-seed-oct19-main.ts list HIL",
+    "exitCode": 0,
+    "artifact": "roster-list.json"
+  },
+  "dependencySetup": "npm.cmd ci --no-audit --no-fund exited 0; lockfile unchanged; workspace packages installed in this checkout.",
+  "review": "review.json",
+  "whitespace": {
+    "command": "git -c core.whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol diff --cached --check (raw log files excluded)",
+    "exitCode": 0,
+    "limit": "Preserves raw evidence CRLF; raw command logs are unchanged bytes."
+  }
+}

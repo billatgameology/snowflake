@@ -1,7 +1,7 @@
 # Plan — HIL cold domain comparison and seed timestep companion
 
 - **Phase:** Phase 10 exploration, charter section 2.5 and accepted ADRs 0055, 0060 and 0062.
-- **Status:** approved; protocol precedes implementation and launch.
+- **Status:** implementation checked and reviewed; ready for committed-producer launch.
 - **Started / last touched:** 2026-10-19 by Codex/GPT-6.
 - **Authority:** maker: "let the two remaining finish, do the new recommended experiment and plus small alternative companion."
 - **Branch / checkout:** `codex/hil-domain-seed-oct19`, `C:/Users/biao3/.codex/worktrees/hil-domain-seed-oct19/snowflake`, from `d2360e2`.
@@ -54,8 +54,8 @@ Seed controls are the eight `oct11-hil-seed-t<6p5|9p5>-f0p15-r<3|1>-h<1|5>-<both
 rows, producer `5a00e90`. Their exact bytes and costs are bound in
 [candidate-baselines.json](../../evidence/hil-results-review-2026-10-18/candidate-baselines.json)
 and the review's cold/seed inputs. Verify source and row compatibility before comparing.
-Historical controls have sparser snapshots; compare only common crossings, and use complete
-attachment events for intervening geometry. No redundant full-length controls are added.
+The selected controls share the twelve odd-extent snapshot crossings; compare actual compatible
+crossings, and use complete attachment events for intervening geometry. No redundant full-length controls are added.
 
 ## Readout and decisions
 
@@ -99,7 +99,7 @@ convergence tail may exceed a day. Do not divide total worker-hours by twelve to
 At the first substantive status review compare actual completed block costs to these assumptions.
 
 Use twelve new workers beside two warm workers, fourteen science processes total. The read-only
-2026-10-19T13:20:32Z HIL sample found 52956643328 available RAM bytes and 55690076160 commit-headroom
+[2026-10-19T13:27:12Z HIL sample](../../evidence/hil-domain-seed-2026-10-19/prelaunch.json) found 52646559744 available RAM bytes and 55283941376 commit-headroom
 bytes; warm PIDs 14528/24776 used about .52 GiB each. Keep live 12 GiB available-RAM / 8 GiB
 commit-headroom guards. This registers an explicit budget, not a new N96 capacity qualification.
 No new capacity ladder or BLD dispatch. Save the fresh launch observation with real concurrency.
@@ -152,7 +152,7 @@ items concern teaching laboratories. No mapping, physical law or adopted source 
 ## Steps and retention
 
 - [x] Maker selected the four-case recommendation and eight-case companion; cost scenarios stated.
-- [ ] Commit protocol, implement finite roster and complete focused checks/review.
+- [x] Commit protocol, implement finite roster and complete focused checks/review.
 - [ ] Freeze producer and launch twelve rows; observe real checkpoints and untouched warm progress.
 - [ ] Reconcile endpoints, perform matched readouts and preserve bulk bytes on NAS before closure.
 
@@ -181,3 +181,9 @@ warm modifications, new physical claims, Phase 7, BLD allocation and automatic q
 
 No launch approval is pending. Duration and scientific outcome remain to be measured. Preserve
 the two warm trajectories and report their own completion independently of this new wave.
+
+## Implementation checks — 2026-10-19
+
+Protocol `3d4181f` preceded the three roster/entry/test additions. The [verification record](../../evidence/hil-domain-seed-2026-10-19/verification.json) retains exact commands, timestamps, exits and logs: four focused files / 28 tests, both TypeScript checks, Rule 7 and two metadata files / 18 tests passed. CLI list returned the exact twelve rows. A bounded non-author shared-context review checked actual retained specs, source parity and wrapper scope/syntax with no unresolved blocker; its execution limits are recorded in `review.json`. No numerical worker, codec, readout or queue changed. Locked dependencies installed locally without lockfile changes.
+
+The [prelaunch observation](../../evidence/hil-domain-seed-2026-10-19/prelaunch.json) verified the marked NAS at `z:/`, about 3.41 TB local free space, ample live memory and both warm workers active. Warm status at that observation: thin extent51/update2421 and thick extent51/update2396; these are live progress, not completed scientific comparisons. Source is frozen at the ensuing implementation commit before production; later live records belong in primary.
