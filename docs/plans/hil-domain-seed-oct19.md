@@ -1,7 +1,7 @@
 # Plan — HIL cold domain comparison and seed timestep companion
 
 - **Phase:** Phase 10 exploration, charter section 2.5 and accepted ADRs 0055, 0060 and 0062.
-- **Status:** ten checked endpoints; two cold cases continue; seed companion complete operationally, matched analysis pending.
+- **Status:** ten checked endpoints; two cold cases continue; seed companion and registered matched analysis complete; cold comparison pending.
 - **Started / last touched:** 2026-10-19 by Codex/GPT-6.
 - **Authority:** maker: "let the two remaining finish, do the new recommended experiment and plus small alternative companion."
 - **Branch / checkout:** `codex/hil-domain-seed-oct19`, `C:/Users/biao3/.codex/worktrees/hil-domain-seed-oct19/snowflake`, from `d2360e2`.
@@ -205,3 +205,46 @@ At 16:02 PDT the existing summarize command rederived ten extent29 endpoints wit
 Completed seed wall times range2.6022881–4.1294325 hours; total27.9676728 worker-hours versus the assumed34.6397311. Completed cold both/prism-only took5.9473511/6.0211189 hours. These measurements replace assumptions only for those completed cases; the full quartet and batch runtime remain unmeasured. No extent-based ETA is inferred. Both warm workers independently continue at extent53/57. Actual science concurrency is four, with no queued/unstarted cases or new launch.
 
 Next: execute the registered seed comparison using all eight endpoints and their controls, while allowing the two cold and two warm cases to finish. The cold quartet readout still needs its remaining endpoints. Keep producerff7b1a8 fixed; no restart, numerical change or capacity probe was made. Bulk output remains local pending governed NAS preservation.
+
+## Registered seed readout and follow-up options — 2026-10-19
+
+The maker requested options, not another launch. The sixteen-row registered seed comparison is
+executed using unchanged reconstruction/window/contrast functions from the
+[October 18 recipe](../../evidence/hil-results-review-2026-10-18/seed/analyze.mjs). All sixteen endpoints
+passed the existing checker; 16,757 updates were reconstructed. Matched specs differ only in ID/CFL,
+and the scientific source diff between fixed producers is empty. Primary local staging
+`out/analysis-2026-10-19/seed/` retains the recipe, input hashes, notes, brackets and
+`decision-summary.json` (259,300 bytes; SHA-256
+`f3a167ca34660815dfe2718982289f4593b5e16fe583435241851b1071a6c821`). Analysis and bulk inputs
+remain retained locally pending campaign evidence/NAS closeout; nothing was pruned.
+
+At common age 17.570948037089007 s, both-minus-neither seed-subtracted axial additions are
++6/+8 layers for wide/tall seeds at -6.5 C and -2/-2 at -9.5 C, identically at CFL .05/.025.
+The primary author separately recomputed these eight values from raw attachment coordinates.
+Tall-minus-wide axial additions are zero in both final quarter-windows for all eight
+temperature/preparation/CFL combinations: accumulated advantage does not show continuing differential
+growth. In the final quarter, -6.5 C wide-seed both-minus-neither occupied additions change from
++70 [22,94] to -50 [-86,-26] when CFL is halved. Brackets are adjacent-event alternatives, not
+confidence intervals; occupancy is not mass. The inherited-context analysis subagent checked the
+registered tables; the primary author separately checked final-age axial contrasts and historical
+cost inputs, not every window/full field. No physical validation or general convergence claim follows.
+
+Recommend discussing four basal-only/prism-only cases: wide seed3/1, -6.5/-9.5 C, fraction .15,
+CFL .025, N64, dx .35 um, extent29. Reuse completed both/neither controls to qualify facet
+attribution for this seed. Exact historical controls total 8.9921602778 worker-hours; longest
+2.8511152778 hours. An assumed twice the cost plus 25% gives a 7.1277881944-hour longest-case
+scenario, not a bound. A two-case .0125 occupancy check is secondary unless that quantity becomes
+decision-bearing. Midpoint temperatures and new seed geometries answer separate questions.
+
+A distinct companion is eight M1 warming/pressure cases: four histories -14.4 to -6 C,
+fraction .20, pressures 50662.5/202650 Pa, switches at extents7/15, plus four matching source/destination
+statics, CFL .025/N64/dx .35 um/extent29. Test the earlier scoped .70 um early-minus-late axial
+increment with recomputed shared windows/brackets. Primary
+`out/analysis-2026-10-19/cold-note/options-basis.json` binds exact controls and costs:
+11.7071125 worker-hours, longest 1.9105494444 hours; the same assumption gives 4.7763736111 hours.
+These are planning scenarios, not wall deadlines. No new protocol is frozen or launch authorized.
+
+Next: discuss/select these options while the two cold and two warm trajectories continue. Both
+completed N96 cold arms have prism dips enabled; the prism-on/off domain contrast needs the missing
+members. Defer further cold/warm expansion until their comparisons finish. No solver, metric module,
+live producer, capacity probe, retry or queue changed; no new runs or commits were made.
