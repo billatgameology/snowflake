@@ -1,0 +1,1026 @@
+{
+  "observedAt": "2026-10-19T13:35:33.740Z",
+  "source": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+  "coordinatorPid": 24168,
+  "campaign": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19",
+  "rows": [
+    {
+      "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-both",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-cold-domain-t14p4-f0p1-n96-both",
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both",
+        "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-both",
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\runner\\src\\hil-domain-seed-oct19-main.ts",
+          "run-row",
+          "oct19-hil-cold-domain-t14p4-f0p1-n96-both",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-cold-domain-t14p4-f0p1-n96-both"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-cold-domain-t14p4-f0p1-n96-both\\attempts\\initial",
+        "launcherPid": 24168,
+        "pid": 12100,
+        "startedAt": "2026-10-19T13:31:11.782Z"
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both",
+        "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-both",
+        "cycle": 1,
+        "attachedCount": 19,
+        "extent": 5,
+        "totalSweeps": 17008,
+        "simTimeSeconds": 0.032751075022889306,
+        "wallSeconds": 182.629,
+        "peakRssBytes": 174780416,
+        "updatedAt": "2026-10-19T13:34:14.634Z"
+      },
+      "pointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-1-bcb8f345-196a-49a9-bf32-73fbad302d86",
+          "manifestSha256": "0a4ed3d33984bb8067bfacd448ca009b32930cad49d8c96340dcdc38ab3afa23"
+        },
+        "previous": {
+          "directory": "generation-0-80dce6b3-b492-434c-88b6-d8db58576ee2",
+          "manifestSha256": "e90bf5b0c856e80a89ad2fe24bb2d2e94142c15ae86903ccca6e2744c01bb715"
+        }
+      },
+      "checkpoint": {
+        "tick": 1,
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "node": "v24.13.1",
+        "v8": "13.6.233.17-node.40",
+        "hostname": "HIL",
+        "manifestSha256": "0a4ed3d33984bb8067bfacd448ca009b32930cad49d8c96340dcdc38ab3afa23",
+        "solverBytes": 15042951,
+        "solverSha256": "92199502578bc89bf57d1484c0492a41dc0c5718acf3640bb284ad56f155c67b",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "completedCycleRecords": 1
+      },
+      "stderrBytes": 0,
+      "terminalResultExists": false,
+      "attemptExitExists": false
+    },
+    {
+      "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-neither",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-cold-domain-t14p4-f0p1-n96-neither",
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "neither",
+        "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-neither",
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\runner\\src\\hil-domain-seed-oct19-main.ts",
+          "run-row",
+          "oct19-hil-cold-domain-t14p4-f0p1-n96-neither",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-cold-domain-t14p4-f0p1-n96-neither"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-cold-domain-t14p4-f0p1-n96-neither\\attempts\\initial",
+        "launcherPid": 24168,
+        "pid": 21700,
+        "startedAt": "2026-10-19T13:31:11.790Z"
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "neither",
+        "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-neither",
+        "cycle": 1,
+        "attachedCount": 19,
+        "extent": 5,
+        "totalSweeps": 17139,
+        "simTimeSeconds": 0.09954158392326681,
+        "wallSeconds": 182.621,
+        "peakRssBytes": 157315072,
+        "updatedAt": "2026-10-19T13:34:14.616Z"
+      },
+      "pointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-1-5976a802-ae7f-4e27-87d7-548effbe66d0",
+          "manifestSha256": "c6ae0a68da5dbf3961aa279a8710dba9387889ba92bae261031108439f50f8b4"
+        },
+        "previous": {
+          "directory": "generation-0-f1413c3f-2d93-4bff-a8aa-4c2081f440f9",
+          "manifestSha256": "2f2453b8cf7463212170760c2a07951098bc0cbf0e09d9972e7c262c15b04892"
+        }
+      },
+      "checkpoint": {
+        "tick": 1,
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "node": "v24.13.1",
+        "v8": "13.6.233.17-node.40",
+        "hostname": "HIL",
+        "manifestSha256": "c6ae0a68da5dbf3961aa279a8710dba9387889ba92bae261031108439f50f8b4",
+        "solverBytes": 15042954,
+        "solverSha256": "7cdd5be18210ddbcf44fbaa0c397c735002d1358677d92fcb72d7e0cab0fcafe",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "completedCycleRecords": 1
+      },
+      "stderrBytes": 0,
+      "terminalResultExists": false,
+      "attemptExitExists": false
+    },
+    {
+      "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-basal-only",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-cold-domain-t14p4-f0p1-n96-basal-only",
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "basal-only",
+        "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-basal-only",
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\runner\\src\\hil-domain-seed-oct19-main.ts",
+          "run-row",
+          "oct19-hil-cold-domain-t14p4-f0p1-n96-basal-only",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-cold-domain-t14p4-f0p1-n96-basal-only"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-cold-domain-t14p4-f0p1-n96-basal-only\\attempts\\initial",
+        "launcherPid": 24168,
+        "pid": 26360,
+        "startedAt": "2026-10-19T13:31:11.798Z"
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "basal-only",
+        "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-basal-only",
+        "cycle": 1,
+        "attachedCount": 19,
+        "extent": 5,
+        "totalSweeps": 17135,
+        "simTimeSeconds": 0.09738109272516847,
+        "wallSeconds": 181.797,
+        "peakRssBytes": 175235072,
+        "updatedAt": "2026-10-19T13:34:13.791Z"
+      },
+      "pointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-1-22bcfb59-1155-4278-bcef-93b63e238918",
+          "manifestSha256": "cc6518a68eac9b1d31cbab07e052c5739f9f1ef7a0de8eb835e8d9140c2f4e5c"
+        },
+        "previous": {
+          "directory": "generation-0-018e462a-d1b4-4d8c-82a4-80cfcc148bed",
+          "manifestSha256": "55d1869216d8aba12e1b641efcc8d97c57b5db08961778307a07873782dedd83"
+        }
+      },
+      "checkpoint": {
+        "tick": 1,
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "node": "v24.13.1",
+        "v8": "13.6.233.17-node.40",
+        "hostname": "HIL",
+        "manifestSha256": "cc6518a68eac9b1d31cbab07e052c5739f9f1ef7a0de8eb835e8d9140c2f4e5c",
+        "solverBytes": 15042957,
+        "solverSha256": "33bf3761a914f27042422d50178da771730154423d5777d77143cd285ba731d5",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "completedCycleRecords": 1
+      },
+      "stderrBytes": 0,
+      "terminalResultExists": false,
+      "attemptExitExists": false
+    },
+    {
+      "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-prism-only",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-cold-domain-t14p4-f0p1-n96-prism-only",
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "prism-only",
+        "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-prism-only",
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\runner\\src\\hil-domain-seed-oct19-main.ts",
+          "run-row",
+          "oct19-hil-cold-domain-t14p4-f0p1-n96-prism-only",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-cold-domain-t14p4-f0p1-n96-prism-only"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-cold-domain-t14p4-f0p1-n96-prism-only\\attempts\\initial",
+        "launcherPid": 24168,
+        "pid": 22652,
+        "startedAt": "2026-10-19T13:31:11.805Z"
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "prism-only",
+        "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-prism-only",
+        "cycle": 1,
+        "attachedCount": 19,
+        "extent": 5,
+        "totalSweeps": 17012,
+        "simTimeSeconds": 0.03266574172392982,
+        "wallSeconds": 181.347,
+        "peakRssBytes": 174133248,
+        "updatedAt": "2026-10-19T13:34:13.360Z"
+      },
+      "pointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-1-ff09a75c-93c9-46e9-835e-9170356df1a5",
+          "manifestSha256": "8bf5cd282a9e45c3b3c6652b4474ee368ffeb9f778ec4994d03ff7628fc9c50c"
+        },
+        "previous": {
+          "directory": "generation-0-8a9fb7f1-f3ee-496d-8257-a926645b034c",
+          "manifestSha256": "8c396e2f3e848f9ebbc0a0c086f089e2827773a700a715ee42dffb6fb18fcd30"
+        }
+      },
+      "checkpoint": {
+        "tick": 1,
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "node": "v24.13.1",
+        "v8": "13.6.233.17-node.40",
+        "hostname": "HIL",
+        "manifestSha256": "8bf5cd282a9e45c3b3c6652b4474ee368ffeb9f778ec4994d03ff7628fc9c50c",
+        "solverBytes": 15042957,
+        "solverSha256": "65b765b29ec7f6425bb1396ea2caedf8cee1b9f2779ddf9e14948e157a8fc162",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "completedCycleRecords": 1
+      },
+      "stderrBytes": 0,
+      "terminalResultExists": false,
+      "attemptExitExists": false
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-both",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-both",
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both",
+        "rowId": "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-both",
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\runner\\src\\hil-domain-seed-oct19-main.ts",
+          "run-row",
+          "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-both",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-both"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-both\\attempts\\initial",
+        "launcherPid": 24168,
+        "pid": 4172,
+        "startedAt": "2026-10-19T13:31:11.814Z"
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both",
+        "rowId": "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-both",
+        "cycle": 51,
+        "attachedCount": 91,
+        "extent": 9,
+        "totalSweeps": 84780,
+        "simTimeSeconds": 1.1199510264715102,
+        "wallSeconds": 259.499,
+        "peakRssBytes": 187555840,
+        "updatedAt": "2026-10-19T13:35:31.527Z"
+      },
+      "pointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-51-6b462097-2802-4b56-b8ea-469411aabecb",
+          "manifestSha256": "e22e51675af0a1ae9d8e37995cc10647e9674024b85a13cea5d0d46cbd87d5ac"
+        },
+        "previous": {
+          "directory": "generation-50-05c3f9c4-b5ed-4e34-84ba-17ba44effa9e",
+          "manifestSha256": "2c7d54652368c85a7451162f2cb6e718c98d1789be16163fe8d578249230047a"
+        }
+      },
+      "checkpoint": {
+        "tick": 51,
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "node": "v24.13.1",
+        "v8": "13.6.233.17-node.40",
+        "hostname": "HIL",
+        "manifestSha256": "e22e51675af0a1ae9d8e37995cc10647e9674024b85a13cea5d0d46cbd87d5ac",
+        "solverBytes": 4459271,
+        "solverSha256": "f63c0023225d7944e9f8e6df12a54c47c99a34a9e291511223164d0f15ad98e1",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "completedCycleRecords": 51
+      },
+      "stderrBytes": 0,
+      "terminalResultExists": false,
+      "attemptExitExists": false
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-neither",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-neither",
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "neither",
+        "rowId": "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-neither",
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\runner\\src\\hil-domain-seed-oct19-main.ts",
+          "run-row",
+          "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-neither",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-neither"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-neither\\attempts\\initial",
+        "launcherPid": 24168,
+        "pid": 8932,
+        "startedAt": "2026-10-19T13:31:11.822Z"
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "neither",
+        "rowId": "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-neither",
+        "cycle": 73,
+        "attachedCount": 67,
+        "extent": 9,
+        "totalSweeps": 80550,
+        "simTimeSeconds": 1.3941398357891328,
+        "wallSeconds": 253.342,
+        "peakRssBytes": 192417792,
+        "updatedAt": "2026-10-19T13:35:25.389Z"
+      },
+      "pointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-73-7289ddf6-711c-4448-b420-dafd783ce81f",
+          "manifestSha256": "a5ff3f60a2d238358b4ce508d281f36fa218fe65ce86b343cc15c3b35d86ca19"
+        },
+        "previous": {
+          "directory": "generation-72-7f7885f8-875d-43d7-8f53-78b68555a758",
+          "manifestSha256": "e0734336ffd03d43428c2ea9b7c40e1dc788be12914b2f66f75d8047e12f9c0b"
+        }
+      },
+      "checkpoint": {
+        "tick": 73,
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "node": "v24.13.1",
+        "v8": "13.6.233.17-node.40",
+        "hostname": "HIL",
+        "manifestSha256": "a5ff3f60a2d238358b4ce508d281f36fa218fe65ce86b343cc15c3b35d86ca19",
+        "solverBytes": 4459274,
+        "solverSha256": "604e5acfc1e24d1accb0efa1c4353447bb8ee72f2cab9e0af8cbdc76a55e5ab9",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "completedCycleRecords": 73
+      },
+      "stderrBytes": 0,
+      "terminalResultExists": false,
+      "attemptExitExists": false
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-both",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-both",
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both",
+        "rowId": "oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-both",
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\runner\\src\\hil-domain-seed-oct19-main.ts",
+          "run-row",
+          "oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-both",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-both"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-both\\attempts\\initial",
+        "launcherPid": 24168,
+        "pid": 11964,
+        "startedAt": "2026-10-19T13:31:11.830Z"
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both",
+        "rowId": "oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-both",
+        "cycle": 53,
+        "attachedCount": 79,
+        "extent": 7,
+        "totalSweeps": 83647,
+        "simTimeSeconds": 0.880949021785899,
+        "wallSeconds": 258.922,
+        "peakRssBytes": 182865920,
+        "updatedAt": "2026-10-19T13:35:30.964Z"
+      },
+      "pointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-53-60c044de-706f-404b-974f-918523df1fbe",
+          "manifestSha256": "0f579f56d01263677f08c581081bd13e3dcbefab544062d5cd7d8abec9e09f03"
+        },
+        "previous": {
+          "directory": "generation-52-907130b9-8d49-4dca-ad57-c77f8e11b0eb",
+          "manifestSha256": "bfbf7a78cec45f8c7e7923a57965d13b05889bba56832478d51b685b919eaf4f"
+        }
+      },
+      "checkpoint": {
+        "tick": 53,
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "node": "v24.13.1",
+        "v8": "13.6.233.17-node.40",
+        "hostname": "HIL",
+        "manifestSha256": "0f579f56d01263677f08c581081bd13e3dcbefab544062d5cd7d8abec9e09f03",
+        "solverBytes": 4459175,
+        "solverSha256": "93f2998adbb09916cb89855d162a21f393adaefbc1208fbdd9eb7a35010c5ebc",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "completedCycleRecords": 53
+      },
+      "stderrBytes": 0,
+      "terminalResultExists": false,
+      "attemptExitExists": false
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-neither",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-neither",
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "neither",
+        "rowId": "oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-neither",
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\runner\\src\\hil-domain-seed-oct19-main.ts",
+          "run-row",
+          "oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-neither",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-neither"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-neither\\attempts\\initial",
+        "launcherPid": 24168,
+        "pid": 11256,
+        "startedAt": "2026-10-19T13:31:11.837Z"
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "neither",
+        "rowId": "oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-neither",
+        "cycle": 61,
+        "attachedCount": 79,
+        "extent": 7,
+        "totalSweeps": 81092,
+        "simTimeSeconds": 1.0354212046597369,
+        "wallSeconds": 246.079,
+        "peakRssBytes": 188395520,
+        "updatedAt": "2026-10-19T13:35:18.123Z"
+      },
+      "pointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-61-ca953207-ebd8-40e8-9c32-13e141372dae",
+          "manifestSha256": "f32e807b8e159daa040712bfea6b40555b8adaa81ff9608fd0402d0cc8ead352"
+        },
+        "previous": {
+          "directory": "generation-60-8fc81f46-53a3-4752-964d-a71a536fa510",
+          "manifestSha256": "00dbc8721979bc33c26bde54d83fab2c82858daf5a994490155b8a5e10fd91dc"
+        }
+      },
+      "checkpoint": {
+        "tick": 61,
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "node": "v24.13.1",
+        "v8": "13.6.233.17-node.40",
+        "hostname": "HIL",
+        "manifestSha256": "f32e807b8e159daa040712bfea6b40555b8adaa81ff9608fd0402d0cc8ead352",
+        "solverBytes": 4459178,
+        "solverSha256": "303848724b03e07f1576eaeda98973d67262b6a16a7c93f678808c6075644010",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "completedCycleRecords": 61
+      },
+      "stderrBytes": 0,
+      "terminalResultExists": false,
+      "attemptExitExists": false
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-both",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-both",
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both",
+        "rowId": "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-both",
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\runner\\src\\hil-domain-seed-oct19-main.ts",
+          "run-row",
+          "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-both",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-both"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-both\\attempts\\initial",
+        "launcherPid": 24168,
+        "pid": 23008,
+        "startedAt": "2026-10-19T13:31:11.844Z"
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both",
+        "rowId": "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-both",
+        "cycle": 83,
+        "attachedCount": 73,
+        "extent": 9,
+        "totalSweeps": 82484,
+        "simTimeSeconds": 1.2124490910613726,
+        "wallSeconds": 259.365,
+        "peakRssBytes": 242900992,
+        "updatedAt": "2026-10-19T13:35:31.427Z"
+      },
+      "pointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-83-090809eb-51d1-4e7f-93ec-42b6cda4ba3d",
+          "manifestSha256": "ab9944dfe263df9ad77a50b3dad746ef7884314f660d3ec695a37fec992e3b14"
+        },
+        "previous": {
+          "directory": "generation-82-4addff60-bb9c-4712-9387-8c2ca0ba72b4",
+          "manifestSha256": "1308cfd1bcc2b3f52816cc8ce1ca0e1d3ae29e5c5bdf78c61c9e9620035aa55b"
+        }
+      },
+      "checkpoint": {
+        "tick": 83,
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "node": "v24.13.1",
+        "v8": "13.6.233.17-node.40",
+        "hostname": "HIL",
+        "manifestSha256": "ab9944dfe263df9ad77a50b3dad746ef7884314f660d3ec695a37fec992e3b14",
+        "solverBytes": 4459271,
+        "solverSha256": "925c77a4a2435e1ba408e5b2945a580e38b8505a1eddf888d3158898888e916c",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "completedCycleRecords": 83
+      },
+      "stderrBytes": 0,
+      "terminalResultExists": false,
+      "attemptExitExists": false
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-neither",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-neither",
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "neither",
+        "rowId": "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-neither",
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\runner\\src\\hil-domain-seed-oct19-main.ts",
+          "run-row",
+          "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-neither",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-neither"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-neither\\attempts\\initial",
+        "launcherPid": 24168,
+        "pid": 7076,
+        "startedAt": "2026-10-19T13:31:11.852Z"
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "neither",
+        "rowId": "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-neither",
+        "cycle": 54,
+        "attachedCount": 67,
+        "extent": 9,
+        "totalSweeps": 82987,
+        "simTimeSeconds": 1.1913732441875768,
+        "wallSeconds": 257.795,
+        "peakRssBytes": 187310080,
+        "updatedAt": "2026-10-19T13:35:29.870Z"
+      },
+      "pointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-54-00ed8c05-488c-4aeb-9664-76e24c10e44f",
+          "manifestSha256": "159eb1cf6023e6ac924f45a0ddb6f4d9b468fa9c2d7a05b1b79bd1ff88a830e0"
+        },
+        "previous": {
+          "directory": "generation-53-54a0798c-a4a7-45f4-a99c-881d862327b7",
+          "manifestSha256": "0acd86bea20e86e2c0b530bf1c4ae1f42f67cd05228c578da1f01f829ae4e0ce"
+        }
+      },
+      "checkpoint": {
+        "tick": 54,
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "node": "v24.13.1",
+        "v8": "13.6.233.17-node.40",
+        "hostname": "HIL",
+        "manifestSha256": "159eb1cf6023e6ac924f45a0ddb6f4d9b468fa9c2d7a05b1b79bd1ff88a830e0",
+        "solverBytes": 4459274,
+        "solverSha256": "be362f5157e1f736dedb0d5f50e17b0c3f167bfc85375a5ac63bf28f82f769f5",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "completedCycleRecords": 54
+      },
+      "stderrBytes": 0,
+      "terminalResultExists": false,
+      "attemptExitExists": false
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-both",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-both",
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both",
+        "rowId": "oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-both",
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\runner\\src\\hil-domain-seed-oct19-main.ts",
+          "run-row",
+          "oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-both",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-both"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-both\\attempts\\initial",
+        "launcherPid": 24168,
+        "pid": 5952,
+        "startedAt": "2026-10-19T13:31:11.860Z"
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both",
+        "rowId": "oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-both",
+        "cycle": 71,
+        "attachedCount": 79,
+        "extent": 7,
+        "totalSweeps": 80852,
+        "simTimeSeconds": 0.8934773925494651,
+        "wallSeconds": 245.591,
+        "peakRssBytes": 184061952,
+        "updatedAt": "2026-10-19T13:35:17.675Z"
+      },
+      "pointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-71-65bc4350-f220-4552-8e85-be55329d45ce",
+          "manifestSha256": "a8bd8c7ad7f3b1909f892ee237c142fcacce869e58277e5f424ac8ee8c80cd95"
+        },
+        "previous": {
+          "directory": "generation-70-078e19b7-673f-4dba-92d1-4aaa5325eb08",
+          "manifestSha256": "078f8bea21432d4812969d5aee3273ffed53020a2896ae1957602592fd24312a"
+        }
+      },
+      "checkpoint": {
+        "tick": 71,
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "node": "v24.13.1",
+        "v8": "13.6.233.17-node.40",
+        "hostname": "HIL",
+        "manifestSha256": "a8bd8c7ad7f3b1909f892ee237c142fcacce869e58277e5f424ac8ee8c80cd95",
+        "solverBytes": 4459175,
+        "solverSha256": "80f2d068111889341cbb74fe02655352f97f5060442d1c6bf2bd015259772220",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "completedCycleRecords": 71
+      },
+      "stderrBytes": 0,
+      "terminalResultExists": false,
+      "attemptExitExists": false
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-neither",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-neither",
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "neither",
+        "rowId": "oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-neither",
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\runner\\src\\hil-domain-seed-oct19-main.ts",
+          "run-row",
+          "oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-neither",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-neither"
+        ],
+        "attemptName": "initial",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-neither\\attempts\\initial",
+        "launcherPid": 24168,
+        "pid": 26580,
+        "startedAt": "2026-10-19T13:31:11.868Z"
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "neither",
+        "rowId": "oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-neither",
+        "cycle": 82,
+        "attachedCount": 91,
+        "extent": 7,
+        "totalSweeps": 82142,
+        "simTimeSeconds": 1.2414219606490244,
+        "wallSeconds": 249.352,
+        "peakRssBytes": 189906944,
+        "updatedAt": "2026-10-19T13:35:21.442Z"
+      },
+      "pointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-82-705a2258-85d0-443f-8540-043e8cabc4d8",
+          "manifestSha256": "9ee23a6b7b141ecc77cec6391e2e152a6ffb2017ff6126efb67443d489ece64b"
+        },
+        "previous": {
+          "directory": "generation-81-be0610f7-088f-4a35-8f1b-7ea79c5c8da1",
+          "manifestSha256": "d49e6e787132ca354562aa155305f48464815c7fc2caa9b146e72aee69a96351"
+        }
+      },
+      "checkpoint": {
+        "tick": 82,
+        "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "node": "v24.13.1",
+        "v8": "13.6.233.17-node.40",
+        "hostname": "HIL",
+        "manifestSha256": "9ee23a6b7b141ecc77cec6391e2e152a6ffb2017ff6126efb67443d489ece64b",
+        "solverBytes": 4459178,
+        "solverSha256": "0a921f86f6dce809c7fe89d4e77362641a2c783c9f5e52bf71989682f927ea94",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "completedCycleRecords": 82
+      },
+      "stderrBytes": 0,
+      "terminalResultExists": false,
+      "attemptExitExists": false
+    }
+  ],
+  "warm": [
+    {
+      "rowId": "warm-refine-fine-thin-t4p5-early",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early",
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thin-t4p5-early",
+        "gitHead": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\runner\\src\\hil-warm-refinement-main.ts",
+          "resume-row",
+          "warm-refine-fine-thin-t4p5-early",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early"
+        ],
+        "attemptName": "parallel-1792124921574",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\attempts\\parallel-1792124921574",
+        "launcherPid": 13260,
+        "pid": 14528,
+        "startedAt": "2026-10-16T04:28:44.659Z"
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thin-t4p5-early",
+        "cycle": 2422,
+        "attachedCount": 87867,
+        "extent": 51,
+        "totalSweeps": 30659203,
+        "simTimeSeconds": 70.9517624480937,
+        "wallSeconds": 725711.9010000001,
+        "peakRssBytes": 560832512,
+        "updatedAt": "2026-10-19T13:31:10.656Z"
+      },
+      "pointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-2422-550a5a5f-3d3f-4641-8d56-9dbd5b673cc9",
+          "manifestSha256": "67c28bab6bedaeeeaae57d83739f71d180afc7e38fb799022897db1375c41f82"
+        },
+        "previous": {
+          "directory": "generation-2421-e0946790-26e6-456d-9503-c99c308e17b2",
+          "manifestSha256": "2e02d3dd28b7414f5f164fd2578afb0c269806bb1bb525d9f645d2442ba7ff61"
+        }
+      },
+      "checkpoint": {
+        "tick": 2422,
+        "gitHead": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+        "node": "v24.13.1",
+        "v8": "13.6.233.17-node.40",
+        "hostname": "HIL",
+        "manifestSha256": "67c28bab6bedaeeeaae57d83739f71d180afc7e38fb799022897db1375c41f82",
+        "solverBytes": 34057721,
+        "solverSha256": "bb277943d8cc1c19c06a293fe8faf10d05e2b8ac81d361290ee9a3d3de213934",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "completedCycleRecords": 2422
+      },
+      "stderrBytes": 0,
+      "terminalResultExists": false,
+      "attemptExitExists": false
+    },
+    {
+      "rowId": "warm-refine-fine-thick-t4p5-early",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early",
+      "process": {
+        "schema": "post-phase10-discovery-process-v1",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thick-t4p5-early",
+        "gitHead": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+        "command": [
+          "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\runner\\src\\hil-warm-refinement-main.ts",
+          "resume-row",
+          "warm-refine-fine-thick-t4p5-early",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early"
+        ],
+        "attemptName": "parallel-1792124921574",
+        "attemptDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\attempts\\parallel-1792124921574",
+        "launcherPid": 13260,
+        "pid": 24776,
+        "startedAt": "2026-10-16T04:28:44.671Z"
+      },
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thick-t4p5-early",
+        "cycle": 2398,
+        "attachedCount": 87317,
+        "extent": 51,
+        "totalSweeps": 30328543,
+        "simTimeSeconds": 69.5057745008796,
+        "wallSeconds": 725564.54,
+        "peakRssBytes": 555954176,
+        "updatedAt": "2026-10-19T13:33:07.067Z"
+      },
+      "pointer": {
+        "schema": "discovery-row-resume-pointer-v1",
+        "current": {
+          "directory": "generation-2398-4446396c-9e42-474c-9239-5ce1cd086c8f",
+          "manifestSha256": "74340ea094615f5569b43410b1da43e0a8833be7a951714182b328eb730de355"
+        },
+        "previous": {
+          "directory": "generation-2397-810bf369-51da-4459-8fe4-e23fed6c5af6",
+          "manifestSha256": "1459bd35dd9a240611c9c15fba09709d66d8075d832009accb7bc4d28af60fa1"
+        }
+      },
+      "checkpoint": {
+        "tick": 2398,
+        "gitHead": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+        "node": "v24.13.1",
+        "v8": "13.6.233.17-node.40",
+        "hostname": "HIL",
+        "manifestSha256": "74340ea094615f5569b43410b1da43e0a8833be7a951714182b328eb730de355",
+        "solverBytes": 34058465,
+        "solverSha256": "f5d387f099c1a4cd3cbfa7c93be11483e64f3ae4a097212202dbc726d2901bc4",
+        "allRelaxationsConverged": true,
+        "integrityErrors": [],
+        "completedCycleRecords": 2398
+      },
+      "stderrBytes": 0,
+      "terminalResultExists": false,
+      "attemptExitExists": false
+    }
+  ],
+  "sample": {
+    "capturedUtc": "2026-10-19T13:35:33.6957048Z",
+    "availablePhysicalBytes": 50476085248,
+    "commitHeadroomBytes": 52902469632,
+    "children": [
+      {
+        "Id": 4172,
+        "CPU": 259.453125,
+        "WorkingSet64": 180178944,
+        "PeakWorkingSet64": 190038016
+      },
+      {
+        "Id": 5952,
+        "CPU": 259.40625,
+        "WorkingSet64": 176308224,
+        "PeakWorkingSet64": 187195392
+      },
+      {
+        "Id": 7076,
+        "CPU": 259.265625,
+        "WorkingSet64": 170704896,
+        "PeakWorkingSet64": 189227008
+      },
+      {
+        "Id": 8932,
+        "CPU": 259.625,
+        "WorkingSet64": 173604864,
+        "PeakWorkingSet64": 194670592
+      },
+      {
+        "Id": 11256,
+        "CPU": 259.453125,
+        "WorkingSet64": 173346816,
+        "PeakWorkingSet64": 189530112
+      },
+      {
+        "Id": 11964,
+        "CPU": 259.5625,
+        "WorkingSet64": 175255552,
+        "PeakWorkingSet64": 187523072
+      },
+      {
+        "Id": 12100,
+        "CPU": 259.234375,
+        "WorkingSet64": 174649344,
+        "PeakWorkingSet64": 206897152
+      },
+      {
+        "Id": 14528,
+        "CPU": 290790.421875,
+        "WorkingSet64": 559435776,
+        "PeakWorkingSet64": 638156800
+      },
+      {
+        "Id": 21700,
+        "CPU": 259.1875,
+        "WorkingSet64": 189882368,
+        "PeakWorkingSet64": 205410304
+      },
+      {
+        "Id": 22652,
+        "CPU": 259.421875,
+        "WorkingSet64": 175013888,
+        "PeakWorkingSet64": 223383552
+      },
+      {
+        "Id": 23008,
+        "CPU": 259.328125,
+        "WorkingSet64": 243716096,
+        "PeakWorkingSet64": 252637184
+      },
+      {
+        "Id": 24776,
+        "CPU": 290787.5625,
+        "WorkingSet64": 555171840,
+        "PeakWorkingSet64": 631017472
+      },
+      {
+        "Id": 26360,
+        "CPU": 259.28125,
+        "WorkingSet64": 175038464,
+        "PeakWorkingSet64": 223158272
+      },
+      {
+        "Id": 26580,
+        "CPU": 259.421875,
+        "WorkingSet64": 242319360,
+        "PeakWorkingSet64": 242319360
+      }
+    ]
+  },
+  "warmCpuDelta": [
+    {
+      "rowId": "warm-refine-fine-thin-t4p5-early",
+      "pid": 14528,
+      "deltaSeconds": 498.578125
+    },
+    {
+      "rowId": "warm-refine-fine-thick-t4p5-early",
+      "pid": 24776,
+      "deltaSeconds": 497.984375
+    }
+  ],
+  "limits": "Read-only live progress snapshot; current manifest/solver bytes match their published hashes. Not terminal endpoint analysis, a new restart differential or scientific validation. Concurrent timestamps need not denote one global state."
+}

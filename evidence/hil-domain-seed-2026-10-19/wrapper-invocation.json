@@ -1,0 +1,17 @@
+{
+    "source":  "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+    "stderr":  "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19-control\\campaign-launch-20261019T063110024.stderr.log",
+    "wrapperPid":  14424,
+    "stdout":  "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19-control\\campaign-launch-20261019T063110024.stdout.log",
+    "command":  [
+                    "node",
+                    "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\runner\\src\\hil-domain-seed-oct19-main.ts",
+                    "launch",
+                    "HIL",
+                    "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19"
+                ],
+    "mode":  "launch",
+    "coordinatorPid":  24168,
+    "PSModulePath":  "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+    "startedUtc":  "2026-10-19T13:31:10.0263678Z"
+}

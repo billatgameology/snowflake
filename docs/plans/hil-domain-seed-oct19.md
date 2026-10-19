@@ -1,7 +1,7 @@
 # Plan — HIL cold domain comparison and seed timestep companion
 
 - **Phase:** Phase 10 exploration, charter section 2.5 and accepted ADRs 0055, 0060 and 0062.
-- **Status:** implementation checked and reviewed; ready for committed-producer launch.
+- **Status:** running; all twelve new workers have completed-cycle checkpoints; two warm workers continue unchanged.
 - **Started / last touched:** 2026-10-19 by Codex/GPT-6.
 - **Authority:** maker: "let the two remaining finish, do the new recommended experiment and plus small alternative companion."
 - **Branch / checkout:** `codex/hil-domain-seed-oct19`, `C:/Users/biao3/.codex/worktrees/hil-domain-seed-oct19/snowflake`, from `d2360e2`.
@@ -153,7 +153,7 @@ items concern teaching laboratories. No mapping, physical law or adopted source 
 
 - [x] Maker selected the four-case recommendation and eight-case companion; cost scenarios stated.
 - [x] Commit protocol, implement finite roster and complete focused checks/review.
-- [ ] Freeze producer and launch twelve rows; observe real checkpoints and untouched warm progress.
+- [x] Freeze producer and launch twelve rows; observe real checkpoints and untouched warm progress.
 - [ ] Reconcile endpoints, perform matched readouts and preserve bulk bytes on NAS before closure.
 
 Git holds small recipes, provenance and receipts; new events/fields/checkpoints remain local
@@ -187,3 +187,13 @@ the two warm trajectories and report their own completion independently of this 
 Protocol `3d4181f` preceded the three roster/entry/test additions. The [verification record](../../evidence/hil-domain-seed-2026-10-19/verification.json) retains exact commands, timestamps, exits and logs: four focused files / 28 tests, both TypeScript checks, Rule 7 and two metadata files / 18 tests passed. CLI list returned the exact twelve rows. A bounded non-author shared-context review checked actual retained specs, source parity and wrapper scope/syntax with no unresolved blocker; its execution limits are recorded in `review.json`. No numerical worker, codec, readout or queue changed. Locked dependencies installed locally without lockfile changes.
 
 The [prelaunch observation](../../evidence/hil-domain-seed-2026-10-19/prelaunch.json) verified the marked NAS at `z:/`, about 3.41 TB local free space, ample live memory and both warm workers active. Warm status at that observation: thin extent51/update2421 and thick extent51/update2396; these are live progress, not completed scientific comparisons. Source is frozen at the ensuing implementation commit before production; later live records belong in primary.
+
+## Launch — 2026-10-19
+
+Fixed producer `ff7b1a88bc62335216b9edb23d487eec82868e3a`, branch/checkout as above. The hidden wrapper launched at 2026-10-19T13:31:10Z (06:31 PDT), wrapper PID14424 and coordinator PID24168. Actual concurrency is twelve new workers beside the two unchanged warm workers. [Campaign](../../evidence/hil-domain-seed-2026-10-19/campaign.json), [launch](../../evidence/hil-domain-seed-2026-10-19/launch.json), [invocation](../../evidence/hil-domain-seed-2026-10-19/invocation.json) and wrapper receipt bind exact source, runtime, commands and row inventory. Coordinator logs are task `out/hil-domain-seed-oct19-control/campaign-launch-20261019T063110024.{stdout,stderr}.log`; per-row logs are `out/hil-domain-seed-oct19/rows/<id>/attempts/initial/{stdout,stderr}.log`, with each actual exit written on termination. No exit receipt is expected while a process is running.
+
+Primary now includes this code/protocol. Keep the output-owning execution checkout clean at its fixed producer; write subsequent status/readouts here. The start/stop helper recipes are retained with the evidence, and their exact scoped paths are recorded above.
+
+The [13:35:33Z observation](../../evidence/hil-domain-seed-2026-10-19/launch-observation.json) confirms all twelve new workers alive with nonzero completed-cycle checkpoints: cold quartet update1/extent5, seed rows updates51–83/extents7–9. Current manifest and solver bytes match their published hashes; stored cumulative convergence is true, integrity-error arrays empty and per-attempt stderr empty. These are launch observations, not terminal scientific verdicts. Both warm workers remained on the original PIDs and advanced CPU since prelaunch: thin update2422/extent51, thick update2398/extent51, target57. Available RAM was 47.0095 GiB and commit headroom 49.2693 GiB, above unchanged guards. No new capacity probe or pause/restart occurred.
+
+Next: let all finite targets continue; at the next substantive review run the existing summarize command from this fixed checkout, inspect live checkpoints/attempts, and compare completed block costs with the registered scenarios. Once the required members finish, perform the matched domain/timestep analysis above. Do not replace a live writer, expand targets or treat partial progress as absent effect. Bulk output remains local in this sixth output-owning checkout until governed NAS publication/fresh recovery.

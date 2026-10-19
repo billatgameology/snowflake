@@ -1,0 +1,88 @@
+{
+  "schema": "post-phase10-discovery-launch-v1",
+  "experimentId": "post-phase10-facet-isolation-v1",
+  "experimentalRows": [
+    {
+      "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-both",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both"
+    },
+    {
+      "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-neither",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither"
+    },
+    {
+      "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-basal-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "basal-only"
+    },
+    {
+      "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-prism-only",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "prism-only"
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-both",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both"
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-neither",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither"
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-both",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both"
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-neither",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither"
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-both",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both"
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-neither",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither"
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-both",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "both"
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-neither",
+      "experimentId": "post-phase10-facet-isolation-v1",
+      "experimentalFacetDips": "neither"
+    }
+  ],
+  "launchName": "hil-domain-seed-oct19-HIL-initial",
+  "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+  "node": "v24.13.1",
+  "attemptName": "initial",
+  "resumeExistingRows": false,
+  "requestedConcurrency": 12,
+  "rowIds": [
+    "oct19-hil-cold-domain-t14p4-f0p1-n96-both",
+    "oct19-hil-cold-domain-t14p4-f0p1-n96-neither",
+    "oct19-hil-cold-domain-t14p4-f0p1-n96-basal-only",
+    "oct19-hil-cold-domain-t14p4-f0p1-n96-prism-only",
+    "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-both",
+    "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-neither",
+    "oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-both",
+    "oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-neither",
+    "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-both",
+    "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-neither",
+    "oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-both",
+    "oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-neither"
+  ],
+  "exactWorkerCommandTemplate": "Exact row-specific command is recorded in each rows/<row-id>/process.json and its named attempt",
+  "launchedAt": "2026-10-19T13:31:10.263Z"
+}

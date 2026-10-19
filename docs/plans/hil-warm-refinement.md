@@ -405,3 +405,7 @@ fine early/broad effects before those two terminal dispositions exist.
 Producer 838c294 and its active output remain untouched. Continue the two workers with existing
 restart/target settings, no wall deadline and no new capacity probe. Exact completion ETA remains
 unsupported. Bulk output is still local; no NAS publication, closure or pruning occurred.
+
+## Unchanged continuation beside the selected follow-up — 2026-10-19
+
+The maker directed letting both remaining cases finish while launching the [cold domain and seed timestep follow-up](hil-domain-seed-oct19.md). At the [06:35 PDT live observation](../../evidence/hil-domain-seed-2026-10-19/launch-observation.json), the original warm PIDs14528/24776 remained active and had advanced CPU since prelaunch. Thin early is update2422/extent51 and thick early update2398/extent51, both targeting57. Producer838c294, cadence, targets and guards remain unchanged. No warm pause/restart was performed; the full scientific comparison and reliable completion ETA remain pending.
