@@ -1,0 +1,456 @@
+{
+  "observedAt": "2026-10-19T23:02:38.045291+00:00",
+  "rows": [
+    {
+      "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-basal-only",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-cold-domain-t14p4-f0p1-n96-basal-only",
+      "pid": 26360,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "basal-only",
+        "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-basal-only",
+        "cycle": 465,
+        "attachedCount": 2897,
+        "extent": 19,
+        "totalSweeps": 3342745,
+        "simTimeSeconds": 30.339190577177277,
+        "wallSeconds": 34198.959,
+        "peakRssBytes": 362000384,
+        "updatedAt": "2026-10-19T23:01:10.953Z"
+      },
+      "checkpointTick": 465,
+      "checkpointConverged": true,
+      "checkpointErrors": [],
+      "stderrBytes": 0,
+      "result": null,
+      "resultSha256": null
+    },
+    {
+      "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-both",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-cold-domain-t14p4-f0p1-n96-both",
+      "pid": 12100,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both",
+        "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-both",
+        "cycle": 353,
+        "attachedCount": 1823,
+        "extent": 29,
+        "totalSweeps": 2061359,
+        "simTimeSeconds": 13.296829216003353,
+        "wallSeconds": 21410.405,
+        "peakRssBytes": 394309632,
+        "updatedAt": "2026-10-19T19:28:02.410Z"
+      },
+      "checkpointTick": 353,
+      "checkpointConverged": true,
+      "checkpointErrors": [],
+      "stderrBytes": 0,
+      "result": {
+        "stopReason": "size-target",
+        "cycles": 353,
+        "extent": 29,
+        "wallSeconds": 21410.464,
+        "finishedAt": "2026-10-19T19:28:02.467Z"
+      },
+      "resultSha256": "df582f7281d0123747b1b6a987667d48996cabeea88b99153184973793cac684"
+    },
+    {
+      "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-neither",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-cold-domain-t14p4-f0p1-n96-neither",
+      "pid": 21700,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "neither",
+        "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-neither",
+        "cycle": 467,
+        "attachedCount": 2981,
+        "extent": 19,
+        "totalSweeps": 3334994,
+        "simTimeSeconds": 31.26848733156434,
+        "wallSeconds": 34182.09,
+        "peakRssBytes": 368644096,
+        "updatedAt": "2026-10-19T23:00:54.085Z"
+      },
+      "checkpointTick": 467,
+      "checkpointConverged": true,
+      "checkpointErrors": [],
+      "stderrBytes": 0,
+      "result": null,
+      "resultSha256": null
+    },
+    {
+      "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-prism-only",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-cold-domain-t14p4-f0p1-n96-prism-only",
+      "pid": 22652,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "prism-only",
+        "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-prism-only",
+        "cycle": 354,
+        "attachedCount": 1835,
+        "extent": 29,
+        "totalSweeps": 2078631,
+        "simTimeSeconds": 13.206801502033079,
+        "wallSeconds": 21675.968,
+        "peakRssBytes": 394084352,
+        "updatedAt": "2026-10-19T19:32:27.981Z"
+      },
+      "checkpointTick": 354,
+      "checkpointConverged": true,
+      "checkpointErrors": [],
+      "stderrBytes": 0,
+      "result": {
+        "stopReason": "size-target",
+        "cycles": 354,
+        "extent": 29,
+        "wallSeconds": 21676.028,
+        "finishedAt": "2026-10-19T19:32:28.038Z"
+      },
+      "resultSha256": "f04113ea1b52e7180b16930be3cf2e5a03866d40d90b61529fd096f313968701"
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-both",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-both",
+      "pid": 11964,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both",
+        "rowId": "oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-both",
+        "cycle": 1035,
+        "attachedCount": 6679,
+        "extent": 29,
+        "totalSweeps": 2654189,
+        "simTimeSeconds": 19.256732655107662,
+        "wallSeconds": 9368.208,
+        "peakRssBytes": 322973696,
+        "updatedAt": "2026-10-19T16:07:20.250Z"
+      },
+      "checkpointTick": 1035,
+      "checkpointConverged": true,
+      "checkpointErrors": [],
+      "stderrBytes": 0,
+      "result": {
+        "stopReason": "size-target",
+        "cycles": 1035,
+        "extent": 29,
+        "wallSeconds": 9368.237,
+        "finishedAt": "2026-10-19T16:07:20.277Z"
+      },
+      "resultSha256": "9a46dba70575bfef33c43ed16bad2186331d5c72d05b8d4f33c6b2ec84382f98"
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-neither",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-neither",
+      "pid": 11256,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "neither",
+        "rowId": "oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-neither",
+        "cycle": 1707,
+        "attachedCount": 14755,
+        "extent": 29,
+        "totalSweeps": 3748637,
+        "simTimeSeconds": 35.66601475211351,
+        "wallSeconds": 14865.93,
+        "peakRssBytes": 325910528,
+        "updatedAt": "2026-10-19T17:38:57.974Z"
+      },
+      "checkpointTick": 1707,
+      "checkpointConverged": true,
+      "checkpointErrors": [],
+      "stderrBytes": 0,
+      "result": {
+        "stopReason": "size-target",
+        "cycles": 1707,
+        "extent": 29,
+        "wallSeconds": 14865.957,
+        "finishedAt": "2026-10-19T17:38:57.999Z"
+      },
+      "resultSha256": "251707f1f19de11e3df5a77388e5393fd296af22a1a52f93a4d5cf0a14bcf32d"
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-both",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-both",
+      "pid": 4172,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both",
+        "rowId": "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-both",
+        "cycle": 1433,
+        "attachedCount": 12959,
+        "extent": 29,
+        "totalSweeps": 3640500,
+        "simTimeSeconds": 29.90749525154989,
+        "wallSeconds": 14117.23,
+        "peakRssBytes": 320610304,
+        "updatedAt": "2026-10-19T17:26:29.258Z"
+      },
+      "checkpointTick": 1433,
+      "checkpointConverged": true,
+      "checkpointErrors": [],
+      "stderrBytes": 0,
+      "result": {
+        "stopReason": "size-target",
+        "cycles": 1433,
+        "extent": 29,
+        "wallSeconds": 14117.256,
+        "finishedAt": "2026-10-19T17:26:29.283Z"
+      },
+      "resultSha256": "040a6def5501c760cbc06ab09cd974991ce02e55950ccbcf6c294d5e9a2e37ce"
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-neither",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-neither",
+      "pid": 8932,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "neither",
+        "rowId": "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-neither",
+        "cycle": 1420,
+        "attachedCount": 9297,
+        "extent": 29,
+        "totalSweeps": 3133873,
+        "simTimeSeconds": 27.525830381027188,
+        "wallSeconds": 12238.789,
+        "peakRssBytes": 324481024,
+        "updatedAt": "2026-10-19T16:55:10.836Z"
+      },
+      "checkpointTick": 1420,
+      "checkpointConverged": true,
+      "checkpointErrors": [],
+      "stderrBytes": 0,
+      "result": {
+        "stopReason": "size-target",
+        "cycles": 1420,
+        "extent": 29,
+        "wallSeconds": 12238.816,
+        "finishedAt": "2026-10-19T16:55:10.862Z"
+      },
+      "resultSha256": "f489f4c82c952e969d901d0a78777109015d3e1e1cec0302eae85f7ecbde0fa9"
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-both",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-both",
+      "pid": 5952,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both",
+        "rowId": "oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-both",
+        "cycle": 1429,
+        "attachedCount": 12545,
+        "extent": 29,
+        "totalSweeps": 3673247,
+        "simTimeSeconds": 25.844894883757345,
+        "wallSeconds": 14019.745,
+        "peakRssBytes": 316211200,
+        "updatedAt": "2026-10-19T17:24:51.829Z"
+      },
+      "checkpointTick": 1429,
+      "checkpointConverged": true,
+      "checkpointErrors": [],
+      "stderrBytes": 0,
+      "result": {
+        "stopReason": "size-target",
+        "cycles": 1429,
+        "extent": 29,
+        "wallSeconds": 14019.772,
+        "finishedAt": "2026-10-19T17:24:51.855Z"
+      },
+      "resultSha256": "f274776da44fe8329be2c455889e2ab7d1218eb3080ea40ec29730535fbdbb84"
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-neither",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-neither",
+      "pid": 26580,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "neither",
+        "rowId": "oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-neither",
+        "cycle": 1524,
+        "attachedCount": 10717,
+        "extent": 29,
+        "totalSweeps": 3248904,
+        "simTimeSeconds": 27.51147070555221,
+        "wallSeconds": 12755.515,
+        "peakRssBytes": 324247552,
+        "updatedAt": "2026-10-19T17:03:47.605Z"
+      },
+      "checkpointTick": 1524,
+      "checkpointConverged": true,
+      "checkpointErrors": [],
+      "stderrBytes": 0,
+      "result": {
+        "stopReason": "size-target",
+        "cycles": 1524,
+        "extent": 29,
+        "wallSeconds": 12755.544,
+        "finishedAt": "2026-10-19T17:03:47.632Z"
+      },
+      "resultSha256": "b52f4270d61a42f35e195c0aae0f2f828c7a1fa3edac8cd0753ee405a65dc380"
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-both",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-both",
+      "pid": 23008,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both",
+        "rowId": "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-both",
+        "cycle": 1041,
+        "attachedCount": 6751,
+        "extent": 29,
+        "totalSweeps": 2569635,
+        "simTimeSeconds": 17.570948037089007,
+        "wallSeconds": 9458.378,
+        "peakRssBytes": 317341696,
+        "updatedAt": "2026-10-19T16:08:50.440Z"
+      },
+      "checkpointTick": 1041,
+      "checkpointConverged": true,
+      "checkpointErrors": [],
+      "stderrBytes": 0,
+      "result": {
+        "stopReason": "size-target",
+        "cycles": 1041,
+        "extent": 29,
+        "wallSeconds": 9458.406,
+        "finishedAt": "2026-10-19T16:08:50.467Z"
+      },
+      "resultSha256": "cba8da1a710cd6efb4578c741926a31ebfc45b0cc1339b3de3e42168fb01fcf5"
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-neither",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-neither",
+      "pid": 7076,
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "neither",
+        "rowId": "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-neither",
+        "cycle": 1553,
+        "attachedCount": 12193,
+        "extent": 29,
+        "totalSweeps": 3363855,
+        "simTimeSeconds": 29.773601548014586,
+        "wallSeconds": 13859.605,
+        "peakRssBytes": 325992448,
+        "updatedAt": "2026-10-19T17:22:11.680Z"
+      },
+      "checkpointTick": 1553,
+      "checkpointConverged": true,
+      "checkpointErrors": [],
+      "stderrBytes": 0,
+      "result": {
+        "stopReason": "size-target",
+        "cycles": 1553,
+        "extent": 29,
+        "wallSeconds": 13859.634,
+        "finishedAt": "2026-10-19T17:22:11.707Z"
+      },
+      "resultSha256": "370c914a481cd0705b2f0d11fbe04f6c723bd72501b26bdeeefeed6f6e04b7d5"
+    }
+  ],
+  "cost": {
+    "seedComplete": 8,
+    "seedWorkerHours": 27.96767277777778,
+    "seedMinimumHours": 2.6022880555555554,
+    "seedMaximumHours": 4.1294325,
+    "seedPlannedWorkerHours": 34.63973111111111,
+    "coldCompletedHours": [
+      {
+        "id": "oct19-hil-cold-domain-t14p4-f0p1-n96-both",
+        "wallHours": 5.947351111111111
+      },
+      {
+        "id": "oct19-hil-cold-domain-t14p4-f0p1-n96-prism-only",
+        "wallHours": 6.021118888888888
+      }
+    ],
+    "limits": "Measured completed configurations only. Two cold cases remain unfinished; no linear-extent ETA or transferred warm estimate."
+  },
+  "operationalSummary": {
+    "command": "node runner/src/hil-domain-seed-oct19-main.ts summarize out/hil-domain-seed-oct19",
+    "cwd": "C:/Users/biao3/.codex/worktrees/hil-domain-seed-oct19/snowflake",
+    "exitCode": 0,
+    "artifact": "status-2026-10-19-pm-summary.json",
+    "limits": "Existing per-cycle/endpoint checks; unfinished prefixes are not terminal findings."
+  },
+  "warm": [
+    {
+      "rowId": "warm-refine-fine-thin-t4p5-early",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early",
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thin-t4p5-early",
+        "cycle": 2517,
+        "attachedCount": 96705,
+        "extent": 53,
+        "totalSweeps": 31566483,
+        "simTimeSeconds": 73.90471299523476,
+        "wallSeconds": 759859.01,
+        "peakRssBytes": 576036864,
+        "updatedAt": "2026-10-19T23:00:17.765Z"
+      },
+      "pid": 14528,
+      "checkpointTick": 2517,
+      "checkpointConverged": true,
+      "checkpointErrors": [],
+      "source": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+      "terminalResultExists": false,
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "warm-refine-fine-thick-t4p5-early",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early",
+      "status": {
+        "schema": "post-phase10-discovery-status-v1",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        },
+        "rowId": "warm-refine-fine-thick-t4p5-early",
+        "cycle": 2493,
+        "attachedCount": 95393,
+        "extent": 53,
+        "totalSweeps": 31221364,
+        "simTimeSeconds": 72.5798344876453,
+        "wallSeconds": 759507.01,
+        "peakRssBytes": 569917440,
+        "updatedAt": "2026-10-19T22:58:49.537Z"
+      },
+      "pid": 24776,
+      "checkpointTick": 2493,
+      "checkpointConverged": true,
+      "checkpointErrors": [],
+      "source": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+      "terminalResultExists": false,
+      "stderrBytes": 0
+    }
+  ],
+  "warmReview": {
+    "reviewer": "Codex agent /root/capacity_science_options, inherited/shared context",
+    "observedAt": "2026-10-19T23:01:57Z",
+    "method": "Read-only checkpoint/status/process check; each warm PID gained3.015625 CPU seconds over3seconds; no solver-payload rehash, simulation or tests."
+  },
+  "finishedObservationAt": "2026-10-19T23:03:35.998158+00:00"
+}

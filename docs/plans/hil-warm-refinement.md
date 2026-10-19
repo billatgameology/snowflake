@@ -409,3 +409,7 @@ unsupported. Bulk output is still local; no NAS publication, closure or pruning 
 ## Unchanged continuation beside the selected follow-up — 2026-10-19
 
 The maker directed letting both remaining cases finish while launching the [cold domain and seed timestep follow-up](hil-domain-seed-oct19.md). At the [06:35 PDT live observation](../../evidence/hil-domain-seed-2026-10-19/launch-observation.json), the original warm PIDs14528/24776 remained active and had advanced CPU since prelaunch. Thin early is update2422/extent51 and thick early update2398/extent51, both targeting57. Producer838c294, cadence, targets and guards remain unchanged. No warm pause/restart was performed; the full scientific comparison and reliable completion ETA remain pending.
+
+## Status — 2026-10-19 afternoon
+
+The [afternoon receipt](../../evidence/hil-domain-seed-2026-10-19/status-2026-10-19-pm.json) records both fine early cases at extent53/57: thin update2517, thick update2493. Original PIDs14528/24776 and coordinator13260 remain live; both CPU counters advance, completed checkpoint convergence remains true, error arrays/stderr empty, and neither row has a terminal result. No pause/restart or producer change. Continue to the existing targets; no reliable ETA or completed fine early/broad contrast yet.

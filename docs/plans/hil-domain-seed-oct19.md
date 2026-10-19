@@ -1,7 +1,7 @@
 # Plan — HIL cold domain comparison and seed timestep companion
 
 - **Phase:** Phase 10 exploration, charter section 2.5 and accepted ADRs 0055, 0060 and 0062.
-- **Status:** running; all twelve new workers have completed-cycle checkpoints; two warm workers continue unchanged.
+- **Status:** ten checked endpoints; two cold cases continue; seed companion complete operationally, matched analysis pending.
 - **Started / last touched:** 2026-10-19 by Codex/GPT-6.
 - **Authority:** maker: "let the two remaining finish, do the new recommended experiment and plus small alternative companion."
 - **Branch / checkout:** `codex/hil-domain-seed-oct19`, `C:/Users/biao3/.codex/worktrees/hil-domain-seed-oct19/snowflake`, from `d2360e2`.
@@ -197,3 +197,11 @@ Primary now includes this code/protocol. Keep the output-owning execution checko
 The [13:35:33Z observation](../../evidence/hil-domain-seed-2026-10-19/launch-observation.json) confirms all twelve new workers alive with nonzero completed-cycle checkpoints: cold quartet update1/extent5, seed rows updates51–83/extents7–9. Current manifest and solver bytes match their published hashes; stored cumulative convergence is true, integrity-error arrays empty and per-attempt stderr empty. These are launch observations, not terminal scientific verdicts. Both warm workers remained on the original PIDs and advanced CPU since prelaunch: thin update2422/extent51, thick update2398/extent51, target57. Available RAM was 47.0095 GiB and commit headroom 49.2693 GiB, above unchanged guards. No new capacity probe or pause/restart occurred.
 
 Next: let all finite targets continue; at the next substantive review run the existing summarize command from this fixed checkout, inspect live checkpoints/attempts, and compare completed block costs with the registered scenarios. Once the required members finish, perform the matched domain/timestep analysis above. Do not replace a live writer, expand targets or treat partial progress as absent effect. Bulk output remains local in this sixth output-owning checkout until governed NAS publication/fresh recovery.
+
+## Status — 2026-10-19 afternoon
+
+At 16:02 PDT the existing summarize command rederived ten extent29 endpoints with exit0 and no errors: all eight seed rows plus cold both/prism-only. Cold neither and basal-only remain active at extent19, updates467/465; their checkpoint metadata and stderr report no recorded errors. Exact values, producer paths and result hashes are in the [status receipt](../../evidence/hil-domain-seed-2026-10-19/status-2026-10-19-pm.json) and [operational summary](../../evidence/hil-domain-seed-2026-10-19/status-2026-10-19-pm-summary.json). No pending row is reported as complete.
+
+Completed seed wall times range2.6022881–4.1294325 hours; total27.9676728 worker-hours versus the assumed34.6397311. Completed cold both/prism-only took5.9473511/6.0211189 hours. These measurements replace assumptions only for those completed cases; the full quartet and batch runtime remain unmeasured. No extent-based ETA is inferred. Both warm workers independently continue at extent53/57. Actual science concurrency is four, with no queued/unstarted cases or new launch.
+
+Next: execute the registered seed comparison using all eight endpoints and their controls, while allowing the two cold and two warm cases to finish. The cold quartet readout still needs its remaining endpoints. Keep producerff7b1a8 fixed; no restart, numerical change or capacity probe was made. Bulk output remains local pending governed NAS preservation.

@@ -1,0 +1,931 @@
+{
+  "schema": "hil-bld-first-batch-summary-v1",
+  "generatedAt": "2026-10-19T23:02:11.035Z",
+  "interpretation": "Operational coverage only; capped or unobserved contrasts remain unresolved. Compare physical-time brackets in subsequent track analysis.",
+  "rows": [
+    {
+      "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-basal-only",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-cold-domain-t14p4-f0p1-n96-basal-only",
+      "disposition": "unresolved-prefix",
+      "stopReason": "no-terminal-result",
+      "exitCode": null,
+      "completedUpdates": 465,
+      "physicalTimeSeconds": 30.339190577177277,
+      "extent": 19,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.09738109272516847
+        },
+        {
+          "extent": 7,
+          "cycle": 31,
+          "physicalTimeSeconds": 2.886318773187048
+        },
+        {
+          "extent": 9,
+          "cycle": 104,
+          "physicalTimeSeconds": 6.984378979770077
+        },
+        {
+          "extent": 11,
+          "cycle": 191,
+          "physicalTimeSeconds": 12.1249898816896
+        },
+        {
+          "extent": 13,
+          "cycle": 279,
+          "physicalTimeSeconds": 17.867149921438624
+        },
+        {
+          "extent": 15,
+          "cycle": 351,
+          "physicalTimeSeconds": 21.97721585965087
+        },
+        {
+          "extent": 17,
+          "cycle": 412,
+          "physicalTimeSeconds": 25.864356716017365
+        },
+        {
+          "extent": 19,
+          "cycle": 465,
+          "physicalTimeSeconds": 30.339190577177277
+        },
+        {
+          "extent": 21,
+          "cycle": null,
+          "physicalTimeSeconds": null
+        },
+        {
+          "extent": 23,
+          "cycle": null,
+          "physicalTimeSeconds": null
+        },
+        {
+          "extent": 25,
+          "cycle": null,
+          "physicalTimeSeconds": null
+        },
+        {
+          "extent": 27,
+          "cycle": null,
+          "physicalTimeSeconds": null
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-both",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-cold-domain-t14p4-f0p1-n96-both",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 353,
+      "physicalTimeSeconds": 13.296829216003353,
+      "extent": 29,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.032751075022889306
+        },
+        {
+          "extent": 7,
+          "cycle": 20,
+          "physicalTimeSeconds": 0.6623968232715516
+        },
+        {
+          "extent": 9,
+          "cycle": 42,
+          "physicalTimeSeconds": 1.318391944371688
+        },
+        {
+          "extent": 11,
+          "cycle": 83,
+          "physicalTimeSeconds": 2.5666753927166566
+        },
+        {
+          "extent": 13,
+          "cycle": 105,
+          "physicalTimeSeconds": 3.2637419155004816
+        },
+        {
+          "extent": 15,
+          "cycle": 144,
+          "physicalTimeSeconds": 4.666641260721787
+        },
+        {
+          "extent": 17,
+          "cycle": 165,
+          "physicalTimeSeconds": 5.5406753026066715
+        },
+        {
+          "extent": 19,
+          "cycle": 207,
+          "physicalTimeSeconds": 7.215851644617643
+        },
+        {
+          "extent": 21,
+          "cycle": 229,
+          "physicalTimeSeconds": 8.094854083627727
+        },
+        {
+          "extent": 23,
+          "cycle": 268,
+          "physicalTimeSeconds": 9.579079019244636
+        },
+        {
+          "extent": 25,
+          "cycle": 290,
+          "physicalTimeSeconds": 10.515292495018524
+        },
+        {
+          "extent": 27,
+          "cycle": 331,
+          "physicalTimeSeconds": 12.249230651858694
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-neither",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-cold-domain-t14p4-f0p1-n96-neither",
+      "disposition": "unresolved-prefix",
+      "stopReason": "no-terminal-result",
+      "exitCode": null,
+      "completedUpdates": 467,
+      "physicalTimeSeconds": 31.26848733156434,
+      "extent": 19,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.09954158392326681
+        },
+        {
+          "extent": 7,
+          "cycle": 31,
+          "physicalTimeSeconds": 2.945258516608009
+        },
+        {
+          "extent": 9,
+          "cycle": 102,
+          "physicalTimeSeconds": 7.03431407840778
+        },
+        {
+          "extent": 11,
+          "cycle": 186,
+          "physicalTimeSeconds": 12.0921382309674
+        },
+        {
+          "extent": 13,
+          "cycle": 275,
+          "physicalTimeSeconds": 18.098534503556497
+        },
+        {
+          "extent": 15,
+          "cycle": 347,
+          "physicalTimeSeconds": 22.745357627817157
+        },
+        {
+          "extent": 17,
+          "cycle": 413,
+          "physicalTimeSeconds": 26.790083325252898
+        },
+        {
+          "extent": 19,
+          "cycle": 461,
+          "physicalTimeSeconds": 31.024048631177507
+        },
+        {
+          "extent": 21,
+          "cycle": null,
+          "physicalTimeSeconds": null
+        },
+        {
+          "extent": 23,
+          "cycle": null,
+          "physicalTimeSeconds": null
+        },
+        {
+          "extent": 25,
+          "cycle": null,
+          "physicalTimeSeconds": null
+        },
+        {
+          "extent": 27,
+          "cycle": null,
+          "physicalTimeSeconds": null
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "oct19-hil-cold-domain-t14p4-f0p1-n96-prism-only",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-cold-domain-t14p4-f0p1-n96-prism-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 354,
+      "physicalTimeSeconds": 13.206801502033079,
+      "extent": 29,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.03266574172392982
+        },
+        {
+          "extent": 7,
+          "cycle": 20,
+          "physicalTimeSeconds": 0.6606002269497143
+        },
+        {
+          "extent": 9,
+          "cycle": 42,
+          "physicalTimeSeconds": 1.3143531371400505
+        },
+        {
+          "extent": 11,
+          "cycle": 83,
+          "physicalTimeSeconds": 2.557834185905212
+        },
+        {
+          "extent": 13,
+          "cycle": 105,
+          "physicalTimeSeconds": 3.251899747410719
+        },
+        {
+          "extent": 15,
+          "cycle": 144,
+          "physicalTimeSeconds": 4.615849962071748
+        },
+        {
+          "extent": 17,
+          "cycle": 165,
+          "physicalTimeSeconds": 5.461247496419526
+        },
+        {
+          "extent": 19,
+          "cycle": 207,
+          "physicalTimeSeconds": 7.161862150782008
+        },
+        {
+          "extent": 21,
+          "cycle": 230,
+          "physicalTimeSeconds": 8.079074457161592
+        },
+        {
+          "extent": 23,
+          "cycle": 270,
+          "physicalTimeSeconds": 9.600819556814033
+        },
+        {
+          "extent": 25,
+          "cycle": 292,
+          "physicalTimeSeconds": 10.51097931242465
+        },
+        {
+          "extent": 27,
+          "cycle": 332,
+          "physicalTimeSeconds": 12.177051868724083
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-both",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-both",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1035,
+      "physicalTimeSeconds": 19.256732655107662,
+      "extent": 29,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.016748628362250575
+        },
+        {
+          "extent": 7,
+          "cycle": 40,
+          "physicalTimeSeconds": 0.6898084525130538
+        },
+        {
+          "extent": 9,
+          "cycle": 104,
+          "physicalTimeSeconds": 1.492853977017751
+        },
+        {
+          "extent": 11,
+          "cycle": 169,
+          "physicalTimeSeconds": 2.426879997873215
+        },
+        {
+          "extent": 13,
+          "cycle": 243,
+          "physicalTimeSeconds": 3.5588654401699995
+        },
+        {
+          "extent": 15,
+          "cycle": 326,
+          "physicalTimeSeconds": 4.884927896779276
+        },
+        {
+          "extent": 17,
+          "cycle": 413,
+          "physicalTimeSeconds": 6.39298011643622
+        },
+        {
+          "extent": 19,
+          "cycle": 504,
+          "physicalTimeSeconds": 8.070817897676676
+        },
+        {
+          "extent": 21,
+          "cycle": 607,
+          "physicalTimeSeconds": 10.055097511044575
+        },
+        {
+          "extent": 23,
+          "cycle": 710,
+          "physicalTimeSeconds": 12.148432500758252
+        },
+        {
+          "extent": 25,
+          "cycle": 814,
+          "physicalTimeSeconds": 14.359610554974974
+        },
+        {
+          "extent": 27,
+          "cycle": 927,
+          "physicalTimeSeconds": 16.81192967132958
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-neither",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t6p5-f0p15-r1-h5-cfl0p025-neither",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1707,
+      "physicalTimeSeconds": 35.66601475211351,
+      "extent": 29,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.01958303350134296
+        },
+        {
+          "extent": 7,
+          "cycle": 59,
+          "physicalTimeSeconds": 1.013283453856767
+        },
+        {
+          "extent": 9,
+          "cycle": 143,
+          "physicalTimeSeconds": 2.373511194962113
+        },
+        {
+          "extent": 11,
+          "cycle": 269,
+          "physicalTimeSeconds": 4.193369398113497
+        },
+        {
+          "extent": 13,
+          "cycle": 416,
+          "physicalTimeSeconds": 6.531009798527981
+        },
+        {
+          "extent": 15,
+          "cycle": 580,
+          "physicalTimeSeconds": 9.365226375618391
+        },
+        {
+          "extent": 17,
+          "cycle": 756,
+          "physicalTimeSeconds": 12.607340052223112
+        },
+        {
+          "extent": 19,
+          "cycle": 942,
+          "physicalTimeSeconds": 16.144320780951112
+        },
+        {
+          "extent": 21,
+          "cycle": 1116,
+          "physicalTimeSeconds": 19.989444864933905
+        },
+        {
+          "extent": 23,
+          "cycle": 1274,
+          "physicalTimeSeconds": 23.928819966020455
+        },
+        {
+          "extent": 25,
+          "cycle": 1418,
+          "physicalTimeSeconds": 27.908175634397416
+        },
+        {
+          "extent": 27,
+          "cycle": 1554,
+          "physicalTimeSeconds": 31.72386402130114
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-both",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-both",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1433,
+      "physicalTimeSeconds": 29.90749525154989,
+      "extent": 29,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.02210299266368234
+        },
+        {
+          "extent": 7,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.02210299266368234
+        },
+        {
+          "extent": 9,
+          "cycle": 46,
+          "physicalTimeSeconds": 1.0512811990234934
+        },
+        {
+          "extent": 11,
+          "cycle": 138,
+          "physicalTimeSeconds": 2.489931666190505
+        },
+        {
+          "extent": 13,
+          "cycle": 237,
+          "physicalTimeSeconds": 4.1276521616673625
+        },
+        {
+          "extent": 15,
+          "cycle": 352,
+          "physicalTimeSeconds": 6.145508791250703
+        },
+        {
+          "extent": 17,
+          "cycle": 479,
+          "physicalTimeSeconds": 8.530612681182385
+        },
+        {
+          "extent": 19,
+          "cycle": 619,
+          "physicalTimeSeconds": 11.316547368025336
+        },
+        {
+          "extent": 21,
+          "cycle": 766,
+          "physicalTimeSeconds": 14.401437029720343
+        },
+        {
+          "extent": 23,
+          "cycle": 920,
+          "physicalTimeSeconds": 17.784996509183355
+        },
+        {
+          "extent": 25,
+          "cycle": 1082,
+          "physicalTimeSeconds": 21.48775061128345
+        },
+        {
+          "extent": 27,
+          "cycle": 1253,
+          "physicalTimeSeconds": 25.52979756800577
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-neither",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-neither",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1420,
+      "physicalTimeSeconds": 27.525830381027188,
+      "extent": 29,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.023611361077064474
+        },
+        {
+          "extent": 7,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.023611361077064474
+        },
+        {
+          "extent": 9,
+          "cycle": 40,
+          "physicalTimeSeconds": 0.9845096173732099
+        },
+        {
+          "extent": 11,
+          "cycle": 128,
+          "physicalTimeSeconds": 2.3492004744061386
+        },
+        {
+          "extent": 13,
+          "cycle": 232,
+          "physicalTimeSeconds": 3.9189275849049157
+        },
+        {
+          "extent": 15,
+          "cycle": 354,
+          "physicalTimeSeconds": 5.827760845153214
+        },
+        {
+          "extent": 17,
+          "cycle": 490,
+          "physicalTimeSeconds": 8.135053505057373
+        },
+        {
+          "extent": 19,
+          "cycle": 638,
+          "physicalTimeSeconds": 10.768756794197754
+        },
+        {
+          "extent": 21,
+          "cycle": 790,
+          "physicalTimeSeconds": 13.609119973806381
+        },
+        {
+          "extent": 23,
+          "cycle": 950,
+          "physicalTimeSeconds": 16.669719755472634
+        },
+        {
+          "extent": 25,
+          "cycle": 1102,
+          "physicalTimeSeconds": 19.999531850158
+        },
+        {
+          "extent": 27,
+          "cycle": 1258,
+          "physicalTimeSeconds": 23.6192423064345
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-both",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-both",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1429,
+      "physicalTimeSeconds": 25.844894883757345,
+      "extent": 29,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.014505760004371177
+        },
+        {
+          "extent": 7,
+          "cycle": 69,
+          "physicalTimeSeconds": 0.8741173875676147
+        },
+        {
+          "extent": 9,
+          "cycle": 158,
+          "physicalTimeSeconds": 2.08381771294255
+        },
+        {
+          "extent": 11,
+          "cycle": 278,
+          "physicalTimeSeconds": 3.6978722625009475
+        },
+        {
+          "extent": 13,
+          "cycle": 400,
+          "physicalTimeSeconds": 5.603195968233463
+        },
+        {
+          "extent": 15,
+          "cycle": 507,
+          "physicalTimeSeconds": 7.351207026912234
+        },
+        {
+          "extent": 17,
+          "cycle": 614,
+          "physicalTimeSeconds": 9.233426452609464
+        },
+        {
+          "extent": 19,
+          "cycle": 739,
+          "physicalTimeSeconds": 11.51882966714979
+        },
+        {
+          "extent": 21,
+          "cycle": 871,
+          "physicalTimeSeconds": 14.099295126757568
+        },
+        {
+          "extent": 23,
+          "cycle": 1009,
+          "physicalTimeSeconds": 16.900269444061927
+        },
+        {
+          "extent": 25,
+          "cycle": 1143,
+          "physicalTimeSeconds": 19.681771153499263
+        },
+        {
+          "extent": 27,
+          "cycle": 1288,
+          "physicalTimeSeconds": 22.760796290901624
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-neither",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t9p5-f0p15-r1-h5-cfl0p025-neither",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1524,
+      "physicalTimeSeconds": 27.51147070555221,
+      "extent": 29,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.020249482909606945
+        },
+        {
+          "extent": 7,
+          "cycle": 43,
+          "physicalTimeSeconds": 0.8637717991659977
+        },
+        {
+          "extent": 9,
+          "cycle": 135,
+          "physicalTimeSeconds": 2.0183775889447726
+        },
+        {
+          "extent": 11,
+          "cycle": 256,
+          "physicalTimeSeconds": 3.518153888712537
+        },
+        {
+          "extent": 13,
+          "cycle": 403,
+          "physicalTimeSeconds": 5.388561513755791
+        },
+        {
+          "extent": 15,
+          "cycle": 564,
+          "physicalTimeSeconds": 7.598884569584485
+        },
+        {
+          "extent": 17,
+          "cycle": 724,
+          "physicalTimeSeconds": 10.01799792124752
+        },
+        {
+          "extent": 19,
+          "cycle": 868,
+          "physicalTimeSeconds": 12.598764194016765
+        },
+        {
+          "extent": 21,
+          "cycle": 993,
+          "physicalTimeSeconds": 15.279409427333436
+        },
+        {
+          "extent": 23,
+          "cycle": 1103,
+          "physicalTimeSeconds": 18.048748754180345
+        },
+        {
+          "extent": 25,
+          "cycle": 1225,
+          "physicalTimeSeconds": 21.030746742483718
+        },
+        {
+          "extent": 27,
+          "cycle": 1364,
+          "physicalTimeSeconds": 24.19369913048721
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-both",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-both",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1041,
+      "physicalTimeSeconds": 17.570948037089007,
+      "extent": 29,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.017207988092473914
+        },
+        {
+          "extent": 7,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.017207988092473914
+        },
+        {
+          "extent": 9,
+          "cycle": 40,
+          "physicalTimeSeconds": 0.7159972208234961
+        },
+        {
+          "extent": 11,
+          "cycle": 112,
+          "physicalTimeSeconds": 1.6305940920832633
+        },
+        {
+          "extent": 13,
+          "cycle": 187,
+          "physicalTimeSeconds": 2.6117981782156874
+        },
+        {
+          "extent": 15,
+          "cycle": 279,
+          "physicalTimeSeconds": 3.927524830845853
+        },
+        {
+          "extent": 17,
+          "cycle": 365,
+          "physicalTimeSeconds": 5.204293337735299
+        },
+        {
+          "extent": 19,
+          "cycle": 464,
+          "physicalTimeSeconds": 6.799085966494011
+        },
+        {
+          "extent": 21,
+          "cycle": 568,
+          "physicalTimeSeconds": 8.540672891900638
+        },
+        {
+          "extent": 23,
+          "cycle": 685,
+          "physicalTimeSeconds": 10.645390905849741
+        },
+        {
+          "extent": 25,
+          "cycle": 801,
+          "physicalTimeSeconds": 12.813569703229655
+        },
+        {
+          "extent": 27,
+          "cycle": 920,
+          "physicalTimeSeconds": 15.130006693618121
+        }
+      ],
+      "errors": []
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-neither",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19\\rows\\oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-neither",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1553,
+      "physicalTimeSeconds": 29.773601548014586,
+      "extent": 29,
+      "timelineEventTimeSeconds": null,
+      "postEventSeconds": null,
+      "cutoffReached": null,
+      "postCutoffUpdateObserved": null,
+      "postUpdateSizeCrossings": [
+        {
+          "extent": 5,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.024931008124996018
+        },
+        {
+          "extent": 7,
+          "cycle": 1,
+          "physicalTimeSeconds": 0.024931008124996018
+        },
+        {
+          "extent": 9,
+          "cycle": 40,
+          "physicalTimeSeconds": 1.0424801997270878
+        },
+        {
+          "extent": 11,
+          "cycle": 138,
+          "physicalTimeSeconds": 2.5707553048008696
+        },
+        {
+          "extent": 13,
+          "cycle": 263,
+          "physicalTimeSeconds": 4.4537838134792365
+        },
+        {
+          "extent": 15,
+          "cycle": 406,
+          "physicalTimeSeconds": 6.701405331105936
+        },
+        {
+          "extent": 17,
+          "cycle": 557,
+          "physicalTimeSeconds": 9.256940316595788
+        },
+        {
+          "extent": 19,
+          "cycle": 710,
+          "physicalTimeSeconds": 12.11240339680373
+        },
+        {
+          "extent": 21,
+          "cycle": 864,
+          "physicalTimeSeconds": 15.2964958114504
+        },
+        {
+          "extent": 23,
+          "cycle": 1020,
+          "physicalTimeSeconds": 18.675972712572065
+        },
+        {
+          "extent": 25,
+          "cycle": 1186,
+          "physicalTimeSeconds": 22.1901717722457
+        },
+        {
+          "extent": 27,
+          "cycle": 1364,
+          "physicalTimeSeconds": 25.88039366677688
+        }
+      ],
+      "errors": []
+    }
+  ]
+}
