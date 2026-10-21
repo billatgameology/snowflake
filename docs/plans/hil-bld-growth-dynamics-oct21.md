@@ -615,6 +615,20 @@ Codex/GPT-6 reviewer with shared context found no material implementation findin
 checked historical HIL binding compatibility and reconstructed the four retained endpoints;
 its record states what was not executed. Exact `npm.cmd test` remains the prelaunch checkpoint.
 
+The first exact `npm.cmd test` ran at clean producer `5e03d71` from 20:45:14 to
+21:11:21 UTC on October 21 and exited 1: 245 files passed, two failed; 3069 tests passed,
+three failed and 53 skipped. The [verification record](../../evidence/bld-growth-dynamics-2026-10-21/verification.json)
+retains complete stdout/stderr and the command/timing. The progress index exceeded 250 lines;
+its subsequent correction and evidence integrity passed18 focused tests. Rule7 passed; exact
+log bytes retain diagnostic whitespace. Two existing comparison-builder tests failed
+before exercising their assertions because Windows denied file/directory symlink creation.
+No production or test guard was weakened. Developer Mode approval is pending; no machine
+setting was changed. Resolve that host permission and rerun the affected tests and exact
+full check before dispatch. This is not a full-suite-green or scientific result claim.
+The implementation and records remain local: automatic approval review rejected the Git push
+because the maker explicitly named NAS publication/local commit rather than a remote branch
+update. Separate Git push approval is pending; no remote ref was changed.
+
 Implemented commands from this execution worktree:
 
 ```powershell
@@ -727,6 +741,11 @@ transplant, external-source acquisition/provider contact, automatic endless fan-
 
 ## Tried and rejected
 
+- **Initial BLD full check with missing Windows symlink privilege:** the exact run at `5e03d71`
+  exited 1 with two setup failures in the existing comparison-builder suite and one progress-length
+  assertion. The progress correction is retained; keep the failing receipt and resolve host
+  permission before another full check. Do not skip the tests or weaken publication guards.
+
 - **Keeping long fine-grid work on both hosts:** superseded before launch by the maker's shutdown
   preference. All fine-grid and larger-history cases now run on HIL; BLD has a closed shorter
   queue and hands its data back for analysis. This is an allocation decision, not a failed experiment.
@@ -764,7 +783,8 @@ transplant, external-source acquisition/provider contact, automatic endless fan-
 
 ## Open questions
 
-No maker decision blocks this finite plan. Actual BLD availability, new mature durations and
-the scientific outcomes are unknown. Before dispatch the implementation must resolve exact
-reused-control bindings and executable readout/routing checks. Resource pauses may require a
+The scientific roster needs no further maker decision. BLD launch currently awaits the Windows
+symlink-permission decision and a successful full check; new mature durations and scientific
+outcomes are unknown. Exact reused-control bindings and executable readout/routing checks
+are recorded above. Resource pauses may require a
 lower operational worker allocation; scientific conclusions may select none of the reserve.

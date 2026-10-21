@@ -1,0 +1,76 @@
+{
+  "schema": "bld-growth-dynamics-verification-v1",
+  "producer": "5e03d71d57e0a302e79bcb8bd4b656cc4339b760",
+  "fullCheck": {
+    "command": "npm.cmd test",
+    "cwd": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21",
+    "gitHead": "5e03d71d57e0a302e79bcb8bd4b656cc4339b760",
+    "startedUtc": "2026-10-21T20:45:14.4610728Z",
+    "stdout": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21-controls\\npm-test-20261021T134514423.stdout.log",
+    "stderr": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21-controls\\npm-test-20261021T134514423.stderr.log",
+    "existingNodeProcesses": [],
+    "finishedUtc": "2026-10-21T21:11:21.6531369Z",
+    "exitCode": 1,
+    "retainedStdout": "npm-test-initial.stdout.log",
+    "stdoutSha256": "750ac1a0dd396bb53df2a1c417113e21ed6785d21113e98afc99c29f2277199a",
+    "retainedStderr": "npm-test-initial.stderr.log",
+    "stderrSha256": "0555be770ef2d4e0b51af6f549da14a10d49bfc7ca8101bdf0b2d6a2488065f5",
+    "files": {
+      "failed": 2,
+      "passed": 245,
+      "total": 247
+    },
+    "tests": {
+      "failed": 3,
+      "passed": 3069,
+      "skipped": 53,
+      "total": 3125
+    }
+  },
+  "disposition": {
+    "fullSuiteGreen": false,
+    "campaignLaunched": false,
+    "failures": [
+      {
+        "file": "runner/test/progress-index.test.ts",
+        "count": 1,
+        "reason": "257 lines exceeds the 250-line limit; corrected in the subsequent record commit and checked separately."
+      },
+      {
+        "file": "runner/test/gutcheck-growth-comparison-builder.test.ts",
+        "count": 2,
+        "reason": "Windows EPERM while the existing tests create directory/file symlinks; host permission unresolved, assertions unchanged."
+      }
+    ],
+    "next": "Resolve Windows symlink permission, run the affected tests and exact npm.cmd test on the clean execution producer before launch."
+  },
+  "review": "review.json",
+  "retainedReadoutExercise": "readout-retained-demo.json",
+  "limits": "Implementation verification only. No new BLD scientific row has launched and no new result collection has been published. The prior historical collection restore is separately recorded.",
+  "progressCorrectionCheck": {
+    "command": "npx.cmd --no-install vitest run runner/test/progress-index.test.ts",
+    "cwd": "G:\\Code Files\\snowflake",
+    "startedLocal": "2026-10-21T14:13:09-07:00",
+    "exitCode": 0,
+    "filesPassed": 1,
+    "testsPassed": 11,
+    "limits": "Focused progress-record correction check, not a new full-suite result."
+  },
+  "recordIntegrityCheck": {
+    "command": "npx.cmd --no-install vitest run runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts",
+    "cwd": "G:\\Code Files\\snowflake",
+    "startedLocal": "2026-10-21T14:14:09-07:00",
+    "exitCode": 0,
+    "filesPassed": 2,
+    "testsPassed": 18
+  },
+  "recordChecks": {
+    "rule7": "npm.cmd run lint:rule7 passed (2840 files scanned).",
+    "diff": "Edited prose/JSON diff is whitespace-clean. Exact retained logs preserve their original CRLF, blank EOF and diagnostic source-context whitespace."
+  },
+  "publication": {
+    "gitRemoteUpdated": false,
+    "newNasCollectionPublished": false,
+    "gitPushBlocker": "Automatic approval review rejected the remote branch mutation as outside the explicitly requested NAS/local-commit scope. Separate user approval is pending."
+  }
+}
