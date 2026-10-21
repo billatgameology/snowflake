@@ -1,0 +1,15 @@
+
+ RUN  v3.2.7 C:/Users/biao3/.codex/worktrees/hil-results-preserve-oct21/snowflake
+
+ ✓ runner/test/nas-assets-catalog.test.ts (9 tests) 1303ms
+   ✓ tracked NAS asset catalogue > re-derives every machine-readable tracked owner selection  489ms
+   ✓ tracked NAS asset catalogue > assigns every live ledger row to exactly one collection owner  768ms
+ ✓ runner/test/progress-index.test.ts (11 tests) 276ms
+ ✓ runner/test/evidence-integrity.test.ts (7 tests) 527ms
+   ✓ evidence integrity (Phase 6 lessons, enforced) > every file in the manifest exists and matches its digest  442ms
+
+ Test Files  3 passed (3)
+      Tests  27 passed (27)
+   Start at  09:44:08
+   Duration  2.49s (transform 56ms, setup 0ms, collect 73ms, tests 2.11s, environment 0ms, prepare 117ms)
+

@@ -1,7 +1,7 @@
 # Plan — HIL cold domain comparison and seed timestep companion
 
 - **Phase:** Phase 10 exploration, charter section 2.5 and accepted ADRs 0055, 0060 and 0062.
-- **Status:** twelve checked endpoints; seed analysis complete; cold matched analysis and NAS preservation pending.
+- **Status:** twelve checked endpoints, registered seed/cold comparisons and verified NAS preservation complete; task-level verification recorded with corrected metadata failures; portfolio discussion next.
 - **Started / last touched:** 2026-10-19 / 2026-10-21 by Codex/GPT-6.
 - **Authority:** maker: "let the two remaining finish, do the new recommended experiment and plus small alternative companion."
 - **Branch / checkout:** `codex/hil-domain-seed-oct19`, `C:/Users/biao3/.codex/worktrees/hil-domain-seed-oct19/snowflake`, from `d2360e2`.
@@ -154,7 +154,8 @@ items concern teaching laboratories. No mapping, physical law or adopted source 
 - [x] Maker selected the four-case recommendation and eight-case companion; cost scenarios stated.
 - [x] Commit protocol, implement finite roster and complete focused checks/review.
 - [x] Freeze producer and launch twelve rows; observe real checkpoints and untouched warm progress.
-- [ ] Reconcile endpoints, perform matched readouts and preserve bulk bytes on NAS before closure.
+- [x] Reconcile all endpoints and perform the registered seed and cold matched readouts.
+- [x] Preserve bulk bytes on NAS and verify fresh recovery; local originals/worktrees retained.
 
 Git holds small recipes, provenance and receipts; new events/fields/checkpoints remain local
 during execution and follow Rule 15 / ADRs 0051 and 0061 for NAS publication and fresh restore.
@@ -176,11 +177,15 @@ warm modifications, new physical claims, Phase 7, BLD allocation and automatic q
   guards cover this operational decision; no new codec or worker behavior is introduced.
 - Retry the known subnormal cooling failure unchanged: original plus explicit retry already
   reproduced it; separate diagnosis is required and unrelated to these constant-environment rows.
+- Inferring trajectory or grid independence from stable cold gaps: the larger-domain comparison
+  preserves the registered gap ordering while ring counts and late common-age geometry differ.
 
 ## Open questions
 
-No launch approval is pending. Duration and scientific outcome remain to be measured. Preserve
-the two warm trajectories and report their own completion independently of this new wave.
+All registered rows and comparisons are complete; no launch is pending. Decide whether the
+cold lead next needs physically matched spacing refinement or a shared-geometry mechanism
+comparison. The seed companion's hybrid follow-up is completed in the
+[facet/pressure plan](hil-facet-pressure-oct19.md#completed-matched-readouts--2026-10-21).
 
 ## Implementation checks — 2026-10-19
 
@@ -260,7 +265,37 @@ cold case exceeded the simpler8.4862425-hour scenario but remained below19.09404
 the23.8675570-hour slowdown scenario; assumptions never imposed a scientific deadline.
 
 Producerff7b1a8 remains clean. No restart or new run occurred; there are no active/unstarted
-rows. Next: execute the registered eight-row N64/N96 cold ring/core/tip comparison at common
-plateau and physical-age brackets. The complete quartet now supports that analysis; completion
-alone establishes no domain robustness. Seed readout remains as recorded above. Bulk bytes stay
-local pending governed NAS publication and fresh recovery before checkout closure.
+rows. The completed comparison and preservation below supersede the status check's pending
+cold-readout/recovery steps. Seed readout remains as recorded above; local originals stay retained.
+
+## Completed cold domain comparison — 2026-10-21
+
+The [cold report](../../evidence/hil-results-review-2026-10-21/cold/README.md) and
+[numerical summary](../../evidence/hil-results-review-2026-10-21/cold/summary.json) reconstruct
+all eight endpoints, 4,812 updates and 96 saved field snapshots. Old/new controls differ only
+in ID/domain dimensions; numerical source is unchanged. At every registered tip 8/9 plateau
+sample the prism-only/both gap remains 2 lattice-radius units in N64 and N96. Neither/basal-only
+gaps are 1 at tip 8 fractions 0/.25 and 0 at .5/.75; at tip 9 all four fractions give 1. Adjacent-event
+gap alternatives agree at these samples. This supports the named contrast over these domains.
+
+Ring counts are more sensitive: at the tip 9 midpoint the basal-only ring 9 occupancy is 36/54
+at N64 versus 48/54 at N96, despite the same gap. At shared age 13.09203065212253 s, prism-only
+has gap 4 at N64 versus 3 at N96; their tip radii are 14 versus 13. All other arms retain their
+gap at that age. These observations limit the claim to the registered samples, not whole-
+trajectory equivalence, grid convergence or far-field independence. Complete common crossing
+field/ring profiles and physical-age brackets remain bound to the concise report.
+
+The previously completed seed analysis motivated the now-complete four-arm timestep comparison
+in the [facet/pressure result](hil-facet-pressure-oct19.md#completed-matched-readouts--2026-10-21).
+Its shorter sixteen-row common window is separate from the older seed window; do not splice
+their values into one comparison. The later occupancy sensitivity remains a real limitation.
+
+Next: discuss the [combined findings and options](../../evidence/hil-results-review-2026-10-21/README.md).
+A physically matched spacing refinement or shared-geometry cold intervention would distinguish
+different remaining questions; neither is a frozen batch or launch authorization. The
+[preservation task](hil-results-preservation-oct21.md) published
+`hil-exploration-results@2026-10-21`, including bulk campaign and supporting analysis bytes.
+Its [verified fresh recovery](../nas-assets/manifests/hil-exploration-results/2026-10-21-verification.json)
+covers this campaign's 365 source files / 291,428,860 bytes. Local originals and the output-owning
+checkout remain; no closure or pruning occurred. The analysis used existing readouts with an
+internal skeptical pass; it grants no physical-validation label or automatic Phase10 completion.

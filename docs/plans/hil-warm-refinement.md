@@ -1,7 +1,7 @@
 # Plan — HIL warm-cavity representation qualification
 
-- **Phase:** post-Phase-10 model-development exploration; charter section 2.5 and accepted decisions 0058, 0059 and 0060.
-- **Status:** all six checked size endpoints complete; full paired/cross-grid readout and NAS preservation pending.
+- **Phase:** active Phase 10 model-development exploration; charter sections 2.5/3.2 and accepted decisions 0058, 0059, 0060 and 0062.
+- **Status:** all six checked endpoints, registered paired/cross-grid readout and verified NAS preservation complete; task-level verification recorded with corrected metadata failures; portfolio discussion next.
 - **Started / last touched:** 2026-10-08 / 2026-10-21 by Codex/GPT-6.
 - **Branch / checkout:** `codex/hil-warm-refinement`, `C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake`, from `0be1d4e`.
 - **Authority:** maker accepted the saved-data follow-up recommendation and directed proceeding. HIL owns execution; propose BLD only if representative timing supports multiple days.
@@ -121,7 +121,8 @@ coverage. Existing source provenance and P3/P4 limitations remain; no parameter 
 - [x] Run focused checks, actual N126 interruption differential, bounded review and full check.
 - [x] Commit tested producer and launch at the qualified count; one worker passed, four hit the probe watchdog, six were not attempted (see status below).
 - [x] Record actual invocation, live paths and recovery commands in PROGRESS.
-- [ ] After completion, compare paired and cross-grid outcomes using the registered readouts.
+- [x] Compare all six paired and cross-grid outcomes using the registered readouts.
+- [x] Complete governed NAS publication/fresh recovery under the October21 preservation task; local originals/worktrees retained.
 
 ## Out of scope
 
@@ -136,12 +137,14 @@ S6, education, NAS publication and pruning of retained source outputs.
 - Matching width by center span would substitute a different meaning for the specified inclusive chord.
 - A short-run wall cutoff or a fresh-seed retry does not satisfy the maker's resumability requirement.
 - The 1800-second four-worker probe cutoff rejected a slow prefix with ample memory and forced serial production. This measured deadline failure is not a hardware concurrency limit. Repeating the same timed ladder is not the remedy; distinguish resource safety from throughput.
+- Treating surviving openings as proof of continued growth: the completed readout separately measures post-switch tip advance and new openings. Signed plane/side intervals are not independent three-dimensional cavities.
 
 ## Open questions
 
-Actual HIL cost and mature memory use remain to be measured. A multi-day projection needs later
-representative progress, not an inherited old-host duration. Scientific interpretation waits for
-the complete pairs and retains finite-domain and initialization limitations.
+The registered comparison is complete. Discuss which warm uncertainty should carry the next
+experiment: timestep sensitivity, the chosen width threshold/cutoff, or physical-length
+representation. A new costly fine-grid launch needs an explicit value/cost decision; the
+completed comparison does not authorize it or establish domain/continuum independence.
 
 ## Implementation and live qualification — 2026-10-08
 
@@ -425,8 +428,39 @@ The [process observation](../../evidence/hil-warm-refinement-2026-10-08/process-
 finds no remaining warm/domain science nodes. Current-attempt stderr files are empty.
 
 Producer838c294 remains clean. No restart, new run, capacity probe or cutoff change occurred.
-Next deliverable: complete the registered six-row warm early/broad and cross-grid/seed readout
-with the existing cavity analyzer, physical-size/age brackets and post-switch increments.
-The completed endpoints enable this comparison; they do not establish persistence or physical
-validation. Bulk output remains local until governed NAS publication/fresh recovery; keep the
-output-owning checkout open.
+The status check established endpoint availability; the completed comparison and preservation
+below now supersede its pending-readout/recovery steps. The output-owning checkout is retained.
+
+## Completed representation readout — 2026-10-21
+
+The [completed review](../../evidence/hil-results-review-2026-10-21/README.md) and
+[warm numerical summary](../../evidence/hil-results-review-2026-10-21/warm/summary.json)
+bind all six complete trajectories, exact inputs, physical-size/age brackets and unchanged
+analyzer definitions. At the common largest center span 9.8 um, early-only open-envelope
+depths are 3.5/4.025/4.025 um for coarse/fine-thin/fine-thick, versus zero for all broad controls.
+Their terminal physical ages differ; at the single shared age 56.70347153158861 s, early depths
+are 3.15/3.675/3.675 um and broad depths remain zero, including adjacent-event alternatives.
+The corresponding early-minus-broad axial center-span differences are 3.5/4.55/4.55 um.
+
+After the actual cutoff boundary, original signed plane/side intervals continue advancing:
+maximum post-switch tip advances are 1.4/1.225/1.225 um. New post-switch intervals also occur
+and survive through each recorded stop. Every early row has zero selected basal demand after
+switch-off. Before it, the intervention selected most basal demand, so this is inherited
+geometry/evolution-state persistence under broad kinetics, not an isolated molecular rim law.
+The summary retains the complete witnesses; these intervals are not independent cavities.
+
+Both fine seeds support the same qualitative history lead. Their terminal added axial span,
+depth and added waist thickness agree, but coarse/fine depths and waist increments differ.
+Two spacings with changed seed voxelization do not establish continuum convergence, a pure
+grid-error estimate, seed independence or physical SDAK. Sparse fields do not identify onset
+causality. The author's proportionate skeptical pass and exact reproduction commands are in
+[the warm note](../../evidence/hil-results-review-2026-10-21/warm/notes.md); no new gate was run.
+
+Next: discuss the full portfolio and choose one bounded warm discriminator before writing a
+new protocol. Coarse timestep or width-threshold/cutoff comparisons are options; neither a
+repeat fine batch nor target extension is selected. Present measured predecessor cost and
+uncertainty explicitly before any launch. The [preservation task](hil-results-preservation-oct21.md)
+published `hil-exploration-results@2026-10-21` and verified fresh recovery, all archive members
+and full catalogue hashes. Its [receipt](../nas-assets/manifests/hil-exploration-results/2026-10-21-verification.json)
+covers this campaign's 506 source files / 1,236,895,495 bytes, including useful controls and
+attempts. Local originals and worktrees remain; no closure or source pruning occurred.

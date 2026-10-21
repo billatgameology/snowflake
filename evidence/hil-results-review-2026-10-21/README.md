@@ -34,6 +34,10 @@ At -9.5 C, late basal-minus-neither occupancy changes from -202[-214,-142] to +1
 sites under CFL.05 to.025. These are occupied-site counts, not deposited mass, and the brackets
 are recorded-event alternatives rather than confidence intervals.
 
+The earlier cooling solver failure remains unresolved and is retained with its
+[requested retry](../hil-reboot-recovery-2026-10-15/retry-outcome.json). It is outside the
+completed warming comparison; this review neither repairs it nor authorizes another unchanged retry.
+
 ## What I would prioritize next
 
 First discuss a focused warm-history follow-up that distinguishes a stable history effect from
@@ -57,8 +61,13 @@ The [task plan](../../docs/plans/hil-results-preservation-oct21.md) binds the re
 and `hil-exploration-results@2026-10-21`. Bulk events, fields, checkpoints, failed attempts,
 operational controls and detailed analysis outputs follow ADR0061 onto NAS; concise claims,
 recipes, input identities and recovery records stay in Git. Local originals remain retained.
-The final preservation/verification receipt will state the executed inventory and recovery result;
-a prepared archive by itself is not a completed NAS publication.
+The [completed preservation receipt](../../docs/nas-assets/manifests/hil-exploration-results/2026-10-21-verification.json)
+binds **10,291 source files / 6,630,541,146 bytes**, packed into nine archives and nine member
+inventories (**739,465,345 bytes** total). Publication, fresh restore, every archived-file hash,
+full NAS verification and restored-payload verification passed. The share-relative location is
+`collections/hil-exploration-results/2026-10-21/payload/` (currently HIL `Z:/`);
+the task plan provides portable recovery commands. This includes all seven output-owning HIL
+worktrees and the selected primary/current analysis support. All local originals remain retained.
 
 This review was authored by Codex/GPT-6 with three inherited-context analysis subagents. Each
 track re-executed its named existing reconstruction/analysis functions on complete inputs and
@@ -66,4 +75,8 @@ performed a skeptical interpretation pass. The primary separately recomputed hea
 pressure axial contrasts directly from attachment coordinates and physical times, without the
 analysis window functions; [that receipt](author-axial-recomputation.json) states its limits.
 It did not independently rebuild every cavity/topology/field calculation or every adjacent bracket.
+A bounded shared-context integration review checked these claims against all four summaries and
+inspected the preservation recipes; it reported no claim-changing or recovery blocker. It did not
+independently execute NAS recovery, and its reviewer authored the facet track. Root performed
+publication/recovery checks; the task verification receipt records repository regression results.
 No new simulation, source acquisition, physical identification or validation gate was executed.

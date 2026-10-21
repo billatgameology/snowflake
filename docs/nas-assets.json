@@ -3200,17 +3200,30 @@
     {
       "assetId": "hil-exploration-results",
       "version": "2026-10-21",
-      "state": "provisional",
+      "state": "active",
       "ownerWorkstream": "hil-results-preservation-oct21",
       "locator": "collections/hil-exploration-results/2026-10-21/payload",
       "historicalRepoPath": null,
       "legacyAliases": [],
       "storageClass": "external-evidence",
       "aggregate": {
-        "files": 0,
-        "bytes": 0
+        "files": 18,
+        "bytes": 739465345
       },
-      "ownerManifest": null,
+      "ownerManifest": {
+        "storage": "tracked",
+        "path": "docs/nas-assets/manifests/hil-exploration-results/2026-10-21.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 4331,
+        "sha256": "e5af6d59a51bf37cfce6e649a3ef931554975f8341bcbffa9c60b74d3fb5a2e6",
+        "selector": {
+          "kind": "path-prefixes",
+          "include": [
+            "collections/hil-exploration-results/2026-10-21/payload"
+          ],
+          "exclude": []
+        }
+      },
       "rights": {
         "kind": "project-owned",
         "redistribution": "allowed"
@@ -3240,13 +3253,14 @@
           "docs/plans/hil-results-preservation-oct21.md"
         ],
         "claimRefs": [
+          "evidence/hil-results-review-2026-10-21/README.md",
           "evidence/hil-results-review-2026-10-18/README.md",
           "docs/plans/hil-results-preservation-oct21.md"
         ]
       },
       "provenance": {
         "record": "docs/plans/hil-results-preservation-oct21.md",
-        "producerCommit": "5163d13c0f04ba4fbae07dd393936d001c7b2d8e",
+        "producerCommit": "b53d6bea106cc8ead6fc1c24333cb4608b771621",
         "command": "python docs/nas-assets/manifests/hil-exploration-results/2026-10-21-pack.py"
       },
       "reproducibility": {
@@ -3254,32 +3268,38 @@
         "record": "docs/plans/hil-results-preservation-oct21.md"
       },
       "restore": {
-        "status": "documented",
+        "status": "tested",
         "command": "npm run assets:restore -- --collection hil-exploration-results@2026-10-21 --to out/restores/hil-exploration-results-2026-10-21",
         "verifyCommand": "npm run assets:verify-restored -- --collection hil-exploration-results@2026-10-21 --from out/restores/hil-exploration-results-2026-10-21",
         "record": "docs/plans/hil-results-preservation-oct21.md"
       },
       "verification": {
-        "status": "unavailable",
-        "at": null,
-        "host": null,
-        "receipt": null,
+        "status": "full-hash",
+        "at": "2026-10-21",
+        "host": "HIL",
+        "receipt": "_control/receipts/publication/hil-exploration-results/2026-10-21/hil-exploration-results-20261021-publish.json",
         "limits": [
-          "Forward intent only; no publication or recovery credit yet."
+          "Publication receipt SHA-256 ebc8fd31f155c139ead2369a93036b79e722636619814db6dbb8a827fc33145e.",
+          "Restore receipt _control/receipts/restore/hil-exploration-results/2026-10-21/hil-exploration-results-20261021-restore.json SHA-256 7e63f3756b98bb3c386803f69bc2c222605fcc47029a7527869bf8d843c07776.",
+          "Detailed checks: docs/nas-assets/manifests/hil-exploration-results/2026-10-21-verification.json.",
+          "Windows SMB durability is verification-based. Original workstation files remain; no pruning or off-site recovery claim.",
+          "Seven completed HIL producers and primary/current analysis support; exact source list and archive inventories are retained. All workstation originals remain."
         ]
       },
       "storageDomains": [
         "snowcrystal-nas"
       ],
       "backup": {
-        "status": "required-missing",
-        "independentDomains": [],
-        "receipts": []
+        "status": "verified",
+        "independentDomains": [
+          "hil-workstation-c"
+        ],
+        "receipts": [
+          "docs/nas-assets/manifests/hil-exploration-results/2026-10-21-verification.json"
+        ]
       },
       "supersedes": [],
-      "unresolved": [
-        "Publish and verify fresh recovery; retain all original workstation sources."
-      ]
+      "unresolved": []
     }
   ],
   "overlays": [

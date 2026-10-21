@@ -1,7 +1,7 @@
 # Plan — Completed HIL comparisons and NAS preservation
 
 - **Phase:** active Phase 10 model development; no new campaign or gate.
-- **Status:** in progress.
+- **Status:** analysis, NAS preservation and verification recorded; main publication next.
 - **Started / last touched:** 2026-10-21 by Codex/GPT-6.
 - **Authority:** maker: "let's look at the result, tell me what you think. save all progress including uploading output to NAS".
 - **Branch / checkout:** `codex/hil-results-preserve-oct21`, `C:/Users/biao3/.codex/worktrees/hil-results-preserve-oct21/snowflake`, from `5163d13`.
@@ -66,10 +66,11 @@ scientific gate. No repeat capacity or pause/resume probe.
 
 ## Steps
 
-- [ ] Commit this scope and provisional collection before preservation implementation.
-- [ ] Execute the registered analyses and retain concise findings plus input bindings.
-- [ ] Pack stable sources, publish, register and verify fresh NAS recovery.
-- [ ] Complete required checks, save records in main and publish concise Git progress.
+- [x] Commit this scope and provisional collection before preservation implementation.
+- [x] Execute the registered analyses and retain concise findings plus input bindings.
+- [x] Pack stable sources, publish, register and verify fresh NAS recovery.
+- [x] Complete required checks and record the corrected metadata failures.
+- [ ] Save records in main and publish concise Git progress.
 
 ## Out of scope
 
@@ -84,6 +85,86 @@ public NAS serving, worktree retirement, local/NAS pruning and historical Git re
 - Copying bulk archives into Git or closing after local relocation: use governed NAS recovery.
 - Rebuilding transport or another validator layer: adapt existing bounded recipes and stop.
 
+## Completed findings and decision
+
+The [four-track review](../../evidence/hil-results-review-2026-10-21/README.md) records
+all registered completed comparisons and the author's skeptical pass. Warm advancing openings
+survive both fine seed representations and keep extending after the intervention stops. Cold
+registered core/tip gaps survive N64/N96; facet axial contrasts survive timestep halving while
+late occupancy changes sign; the pressure/history later-half axial advantage comes from its last
+quarter. These scoped implementation leads do not establish physical validation or phase closure.
+Next discuss a focused warm cutoff/width discriminator, cold representation or shared-geometry
+controls, and the optional two-row facet numerical check. No new campaign is authorized here.
+
+One bounded shared-context integration review by Codex/GPT-6 found no claim-changing or recovery
+blocker. It compared the root report with all four saved summaries and inspected the three new
+preservation scripts against the existing October9 workflow. It did not re-execute NAS operations
+or the full suite, and its facet author was not independent of the facet analysis. Root separately
+executed publication/recovery and directly recomputed headline facet/history axial contrasts.
+
+## NAS publication and recovery — executed October21
+
+Collection **hil-exploration-results@2026-10-21** is active, immutable, external evidence and
+not served. The [verification receipt](../nas-assets/manifests/hil-exploration-results/2026-10-21-verification.json)
+binds publication, fresh restore, all archive members and full-hash catalogue verification.
+The [source list](../nas-assets/manifests/hil-exploration-results/2026-10-21-sources.json)
+identifies exact retained roots and support-directory selections; source/member inventories remain
+inside the collection. Analysis recipes were committed at `25f9bd1`; source selection/domain binding
+at `b53d6be`. All original workstation files and worktrees remain. There is no pruning or closure.
+
+Share-relative location: `collections/hil-exploration-results/2026-10-21/payload/`;
+HIL currently resolves it at `Z:/collections/hil-exploration-results/2026-10-21/payload/`.
+Nine archives plus nine member inventories contain **10,291 source files / 6,630,541,146 bytes**;
+the registered payload is **18 files / 739,465,345 bytes**. Tree SHA-256:
+`e0686876c3fab6a25e45114a3b8b1414abfe99ae80962fa753579afb5dc84b15`.
+Publication, fresh restore/member verification, `assets:verify --full`, and
+`assets:verify-restored` each exited0. Local originals/prepared archives are the separate
+`hil-workstation-c` storage domain; same-NAS copies are not a separate backup domain.
+
+For recovery in a checkout containing the catalogue and recipes, resolve the NAS with the existing
+mount mechanism, choose an **absent** destination under `out/restores/`, then run:
+
+```powershell
+npm.cmd run assets:restore -- --collection hil-exploration-results@2026-10-21 --to out/restores/hil-exploration-results-fresh
+npm.cmd run assets:verify-restored -- --collection hil-exploration-results@2026-10-21 --from out/restores/hil-exploration-results-fresh
+python docs/nas-assets/manifests/hil-exploration-results/2026-10-21-verify-archives.py out/restores/hil-exploration-results-fresh
+```
+
+Only after these pass, extract a required archive into its own absent/empty staging directory.
+For example:
+
+```powershell
+New-Item -ItemType Directory out/restores/campaign-replay/hil-domain-seed-oct19
+tar -xzf out/restores/hil-exploration-results-fresh/hil-domain-seed-oct19-output.tar.gz -C out/restores/campaign-replay/hil-domain-seed-oct19
+```
+
+Each campaign archive is rooted at its source **out/** contents; it has no extra `out/` member.
+The example campaign root passed to a readout is therefore
+`out/restores/campaign-replay/hil-domain-seed-oct19/hil-domain-seed-oct19`, containing `rows/`.
+Primary support preserves its listed directories directly, and review-analysis preserves its
+four analysis directories directly. The readout notes show optional root arguments for replay;
+replace their example prefixes with these actual extracted locations.
+
+The first publish invocation rejected the provisional intent's missing storage-domain declaration
+before copying; the corrected intent was committed and the normal workflow succeeded. No partial
+publication was accepted and no existing immutable target was merged or replaced.
+
 ## Open questions
 
-The analysis decides which leads merit follow-up. No new campaign is authorized by this review.
+The maker has not accepted the broader Phase10 portfolio. Select the next discriminating question
+before freezing costs, targets or launching another batch. Repository verification is recorded below; final main publication is the remaining task action.
+Neither creates a new scientific gate result.
+
+## Repository verification — executed October21
+
+Exact `npm.cmd test` finished exit1 after 907.73 s: 240 passing/2 failing files,
+3071 passed/3 failed/23 skipped tests. The failures were the catalogue's expected census
+omitting the new collection and two progress-index assertions for the omitted existing
+pause/resume reference. The [full log](../../evidence/hil-results-review-2026-10-21/npm-test.log)
+and NAS verification receipt preserve the actual result, tested head and index tree.
+The two metadata corrections changed no scientific analyzer, solver or preservation runtime.
+The affected catalogue/evidence-integrity/progress-index recheck passed all27 tests across3 files;
+final Rule7 passed. Their [focused log](../../evidence/hil-results-review-2026-10-21/metadata.log)
+and [Rule7 log](../../evidence/hil-results-review-2026-10-21/rule7-final.log) remain tracked.
+The full suite was not rerun for these metadata corrections; no full-suite-green claim is made.
+No new test/validator or scientific gate was added. Scoped whitespace and local-link checks pass.

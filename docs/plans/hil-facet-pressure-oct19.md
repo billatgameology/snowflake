@@ -1,7 +1,7 @@
 # Plan — HIL facet attribution and pressure/history timestep comparison
 
 - **Phase:** active Phase 10 exploration; charter sections 2.5 and 3.2, accepted ADRs 0011, 0055, 0060 and 0062.
-- **Status:** twelve checked size endpoints; registered facet and pressure/history readouts and NAS preservation pending.
+- **Status:** twelve checked endpoints, registered facet/pressure-history readouts and verified NAS preservation complete; task-level verification recorded with corrected metadata failures; portfolio discussion next.
 - **Started / last touched:** 2026-10-19 / 2026-10-21 by Codex/GPT-6.
 - **Authority:** maker: "ok, proceed with all 12 runs on HIL. Keep them resumable with no time limit, and let the current runs continue."
 - **Branch / checkout:** `codex/hil-facet-pressure-oct19`, `C:/Users/biao3/.codex/worktrees/hil-facet-pressure-oct19/snowflake`, from `12219f5`.
@@ -176,7 +176,8 @@ No useful source/output pruning or worktree closure is authorized by this dispat
 - [x] Maker approved all twelve cases, uncertainty, HIL and uninterrupted existing work.
 - [x] Commit protocol, implement the small roster/entry and complete scoped verification/review.
 - [x] Freeze producer, launch twelve workers and observe completed-cycle checkpoints.
-- [ ] Reconcile terminal results, execute matched readouts and preserve bulk output on NAS.
+- [x] Reconcile terminal results and execute both registered matched readouts.
+- [x] Publish bulk output on NAS and verify fresh recovery; local originals/worktrees retained.
 
 ## Out of scope
 
@@ -193,10 +194,14 @@ BLD allocation and automatic queue expansion.
 - Arbitrary wall cutoff or a non-resumable long run: maker requires saved scientific continuation.
 - Another capacity/restart ladder with unchanged mechanics: use existing witnesses and live guards.
 - Unchanged retry of the known cooling failure: the requested retry already reproduced it.
+- Treating later-half axial advantage as continuously faster growth: the pressure comparison's
+  third quarter ties at all pressures/CFLs; the fourth quarter supplies that later-half difference.
 
 ## Open questions
 
-No maker approval remains pending. Scientific outcomes and actual runtimes remain to be measured.
+Scientific outcomes and actual runtimes are recorded. Discuss whether occupied-site additions
+or catch-up timing warrant a smaller-CFL pair, and whether history attribution warrants shared-
+geometry controls. No follow-up protocol or launch is selected by these completed comparisons.
 
 ## Implementation verification — 2026-10-19
 
@@ -263,14 +268,56 @@ These are actual completed costs, not future runtime guarantees.
 
 Producer73eb358 remains clean; no restart, new simulation, target change or capacity probe
 was performed. This status rechecked numerical event evidence and terminal agreement, not
-the registered morphology comparisons or checkpoint payload hashes. Next deliverable: execute
-the sixteen-row facet attribution and twelve-history pressure/timestep readouts above, preserving
-matched physical-age brackets and explicit unavailable static windows. All required new endpoints
-are present. Bulk output remains local; publish and freshly restore under ADRs0051/0061 before
-closing the output-owning worktree.
+the registered morphology comparisons or checkpoint payload hashes. The completed readouts
+below now supersede its pending-analysis step. Verified preservation is recorded below;
+local originals and the output-owning worktree remain retained.
 
 Status-record checks passed: evidence integrity/progress index2 files/18 tests, Rule7 and scoped
 staged whitespace check. Exact commands, unique logs and real exits are in primary
 `out/status-2026-10-21/{metadata,rule7}{.log,-result.json}`. This is a records-only update;
 no solver suite or scientific comparison was run. Codex/GPT-6 and a shared-context subagent
 inspected endpoint artifacts and processes; neither performed the pending morphology readouts.
+
+## Completed matched readouts — 2026-10-21
+
+The [completed review](../../evidence/hil-results-review-2026-10-21/README.md) retains both
+registered comparisons, exact input hashes and reproduction recipes. The
+[facet numerical summary](../../evidence/hil-results-review-2026-10-21/facet/decision-summary.json)
+reconstructs 16,697 updates across all sixteen checked endpoints. The new shared age is
+16.499190872203283 s; the older 16.6289686258 s anchor is unavailable for this full set.
+At that common end, basal-only/prism-only/both minus neither axial additions are +6/-2/+4
+layers at -6.5 C and +2/-4/-2 at -9.5 C, identically at CFL .05/.025 with agreeing event
+alternatives. This supports opposing implemented axial responses over the named window.
+
+Agreement does not cover all timing/occupancy. In the final quarter,
+12.374393154152461..16.499190872203283 s, -9.5 C basal-minus-neither occupied-site additions
+change from -202[-214,-142] to +122[122,128] under CFL halving; its axial difference is zero
+at both settings. Brackets are event alternatives, not confidence intervals, and occupancy
+is not deposited mass. The [facet report](../../evidence/hil-results-review-2026-10-21/facet/README.md)
+retains all five contrasts, seed subtraction, window dependence and interpretation limits.
+
+The [history numerical summary](../../evidence/hil-results-review-2026-10-21/history-pressure/summary.json)
+reconstructs 18,108 updates over twelve histories/twelve statics, with all twelve matching
+source-static scientific prefixes equal through their trigger cycle. Joint post-event D is
+7.547248938077988 s. All six CFL pairs have equal axial increments in each of seven registered
+windows. Later-half switch7-minus-switch15 axial additions are 2 cells (.70 um) at each of
+50662.5/101325/202650 Pa and both CFLs; quarter 3 ties and quarter 4 supplies that advantage.
+The full-window axial differences are 6/6/4 cells across those pressures. Some lateral and
+occupied-site increments remain timestep-sensitive; this is not a continuous growth-rate law.
+
+All destination statics cover 0..D, but start with fresh geometry. Continued-source full windows
+are available only at 202650 Pa; half/normal-pressure windows are explicitly unavailable, never
+clamped or extrapolated. The [history report](../../evidence/hil-results-review-2026-10-21/history-pressure/README.md)
+retains actual static ages, covered subwindows and event brackets. No pressure universality,
+physical memory-erasure claim, numerical convergence or new validation label follows.
+
+Next: discuss these results within the full portfolio. If occupancy/catch-up becomes decision-
+bearing, the smallest facet option is the -9.5 C wide-seed basal-only/neither pair at CFL .0125;
+otherwise the scoped axial finding can stand. A shared-geometry history intervention addresses
+a different unresolved question. Neither proposal is a frozen or launched batch; new cost is
+unmeasured. The [preservation task](hil-results-preservation-oct21.md) published
+`hil-exploration-results@2026-10-21`; the [fresh recovery/member receipt](../nas-assets/manifests/hil-exploration-results/2026-10-21-verification.json)
+covers this campaign's 367 source files / 193,219,301 bytes. All originals and the output-owning
+checkout remain retained; no closure or pruning occurred. Internal skeptical interpretation
+and the task-level verification receipt retain their respective limits; this paragraph does
+not claim a new gate or full-suite result.

@@ -1,0 +1,26 @@
+{
+  "format": "snowflake-nas-publication-receipt-v1",
+  "transactionId": "hil-exploration-results-20261021-publish",
+  "identity": "hil-exploration-results@2026-10-21",
+  "locator": "collections/hil-exploration-results/2026-10-21/payload",
+  "source": {
+    "fileCount": 18,
+    "totalBytes": 739465345,
+    "treeSha256": "e0686876c3fab6a25e45114a3b8b1414abfe99ae80962fa753579afb5dc84b15"
+  },
+  "staged": {
+    "fileCount": 18,
+    "totalBytes": 739465345,
+    "treeSha256": "e0686876c3fab6a25e45114a3b8b1414abfe99ae80962fa753579afb5dc84b15"
+  },
+  "final": {
+    "fileCount": 18,
+    "totalBytes": 739465345,
+    "treeSha256": "e0686876c3fab6a25e45114a3b8b1414abfe99ae80962fa753579afb5dc84b15"
+  },
+  "verifiedAt": "2026-10-21T16:26:39.557Z",
+  "limits": [
+    "This receipt contains aggregate digests only; private filenames and host paths are intentionally omitted.",
+    "Tracked catalogue registration and a committed Git binding are outside this fixture transaction core."
+  ]
+}

@@ -1,0 +1,1035 @@
+
+> virtual-cloud-chamber@0.0.0 test
+> npm run lint:rule7 && npm run typecheck && vitest run
+
+
+> virtual-cloud-chamber@0.0.0 lint:rule7
+> node scripts/lint-rule7.mjs
+
+rule7: clean (2791 files scanned)
+
+> virtual-cloud-chamber@0.0.0 typecheck
+> tsc --noEmit && tsc -p app --noEmit
+
+
+ RUN  v3.2.7 C:/Users/biao3/.codex/worktrees/hil-results-preserve-oct21/snowflake
+
+From C:\Users\biao3\AppData\Local\Temp\phase10-retired-history-5luFW4
+ * branch            e092259b8d4c3099b569febc08944bf99bfef31a -> FETCH_HEAD
+Switched to a new branch 'phase10/evidence-verification'
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate2b-validation.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate3.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate4-aggregate.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate4-protocol.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate4a-reference.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate4a.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate4b.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate5-aggregate.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate5-comparison.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate5-evidence.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate5-lane.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate5-negative-controls.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate5-protocol.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate5-readback-attribution.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate6-aggregate.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/grow-lk-defaults.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/main.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/pgm.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase5-lk-reduction-shadow.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase5-protocol.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase5-shadow.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase6-arm2-protocol.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase6-arm3-protocol.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase6-crossplatform.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase6-diagram.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase6-heldout-source-lock.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase6-protocol.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase6-sdak-m1.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase6-size-strata.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase6-sweep.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase8-corpus-local.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase8-focused-discovery.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase8-search-protocol-successor-verify.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase8-search-protocol-successor.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase8-search-protocol-verify.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/phase8-search-protocol.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-cpu/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-cpu/src/operator.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/device.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/diffusion-shaders.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/diffusion.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/gg-solver.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/gg-surface-shaders.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/gg-surface.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/layout.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/lk-conversion.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/lk-shaders.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/lk-solver.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/readback.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/resources.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/shaders.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-gpu/src/submission.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'node_modules/typescript/lib/typescript.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'node_modules/typescript/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/locks/a-p-c0v-s6.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/locks/package.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/exit-status.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/freeze-evaluation.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/stderr.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v1/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v2/worker-invocations.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v1/locks/a-p-c0v-s6.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v1/locks/package.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/candidate/artifact-index.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/candidate/missing-producer.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/candidate/uncalled-check.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/exit-status.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/freeze-evaluation.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/stdout.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v2/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v3/worker-invocations.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v2/locks/a-p-c0v-s6.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v2/locks/package.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/candidate/artifact-index.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/candidate/missing-producer.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/candidate/uncalled-check.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/exit-status.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/freeze-evaluation.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/stdout.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v3/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v4/worker-invocations.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v3/locks/a-p-c0v-s6.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v3/locks/package.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/candidate/artifact-index.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/candidate/missing-producer.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/candidate/uncalled-check.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/exit-status.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/freeze-evaluation.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/stdout.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v4/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v5/worker-invocations.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v4/locks/a-p-c0v-s6.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v4/locks/package.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/candidate/artifact-index.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/candidate/missing-producer.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/candidate/uncalled-check.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/exit-status.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/freeze-evaluation.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/stdout.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/terminal-success-candidate.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v5/attempts/a-p-c0v-s6/a-p-c0v-s6-20260822-v6/worker-invocations.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v5/locks/c0v-moving-produce.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v5/locks/package.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v6/locks/c0v-moving-produce.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v6/locks/package.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v7/locks/c0v-moving-produce.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v7/locks/package.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/cause-evaluation.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/exit-status.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/freeze-evaluation.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/stdout.log', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v8/attempts/c0v-moving-produce/c0v-moving-produce-20260822-v4/worker-invocations.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v8/locks/c0v-moving-produce.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'out/phase10-execution-v2/recovery-v8/locks/package.lock', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/gate10.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-adaptive.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-basal-history.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-basal-width.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-cavity-analysis.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-cavity-geometry.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-cavity-spatial.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-cavity.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-confirm.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-discovery-analysis.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-discovery-main.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-discovery.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-facet-factorial.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-followup.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-holefill.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/src/post-phase10-long.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-cpu/src/gg-plus-solver.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-cpu/src/lk-facet-dips.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'baseline.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evidence/MANIFEST.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evidence/item.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evidence/MANIFEST.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evidence/first.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evidence/MANIFEST.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evidence/second.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'evidence/MANIFEST.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pkg/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'runner/root.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.base.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-cpu/src/spherical-reference.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'solver-cpu/src/spherical-reference.ts', LF will be replaced by CRLF the next time Git touches it
+ ✓ runner/test/phase10-c0v-s6-executor.test.ts (67 tests) 39529ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > reopens the exact nine-generation stop before recovery-v9 lock acquisition  450ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > reopens the accepted V5 A-P freeze from Git after the V8 source successor  10622ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > requires the live run-lock token before any current A-P candidate write  4343ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > raw-projects all seven produce cap prefixes with a strict equality boundary  748ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > admits only exact freeze lifecycle dirt and a normal launch-HEAD index  768ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > serializes distinct packets under the catalogue-bound package lock  410ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects materialized successor runs before locking and admits verify-existing  991ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > binds resolution metadata to the exact HEAD blob while accepting only Git-equivalent EOLs  449ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects hard-linked source closure bytes and alternate loaders  6279ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects a coherently changed assume-unchanged manifest and dependency  301ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > reopens a historical launch manifest after a later evidence-manifest commit  364ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > admits only exact direct prototype inspections in trusted strict parsers  2788ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects node:fs from the radial producer builtin closure  619ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects node:child_process from the radial producer builtin closure  618ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > resolves the live publish producer, verifier, and check-caller closures under exact builtin rosters  8317ms
+   ✓ Phase 10 C0V S6 filesystem and closure refusal boundary > rejects tuning a producer dependency that existed at the science freeze  516ms
+ ✓ runner/test/gate4b.test.ts (78 tests) 37594ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > passes the complete synthetic 11-run evidence matrix  1352ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > records all eight diagnostic morphology verdicts on the same matrix  349ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-PROVENANCE trips alone  834ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-CONFIG trips alone  1086ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-TERMINATION trips alone  1072ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-SYMMETRY trips alone on an internally consistent asymmetric delta  1076ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-NOISE trips alone on a shifted witness stream  904ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-CONVERGENCE trips alone  1075ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-SURFACE trips alone  1070ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-LEDGER trips alone  1049ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-PECLET trips alone  1051ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-CHECKPOINT trips alone  581ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-NUMERIC trips alone on a reopened artifact byte mismatch  396ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-COMPLETE trips alone on a missing registered sweep point  988ms
+   ✓ gate4b derives all twelve execution criteria from raw evidence > B-EXEC-COMPLETE trips alone on a duplicated registered record  847ms
+   ✓ gate4b rejects the registered LK negative list by name > wrong surface policy fails B-EXEC-CONFIG  314ms
+   ✓ gate4b rejects the registered LK negative list by name > reflecting far field fails B-EXEC-CONFIG  302ms
+   ✓ gate4b rejects the registered LK negative list by name > a legacy-v3 checkpoint artifact fails B-EXEC-CHECKPOINT  597ms
+   ✓ gate4b rejects the registered LK negative list by name > a checkpoint policy shift fails B-EXEC-CHECKPOINT  591ms
+   ✓ gate4b rejects the registered LK negative list by name > residual-only convergence claims fail B-EXEC-CONVERGENCE  1076ms
+   ✓ gate4b rejects the registered LK negative list by name > a forged divergence report that disagrees with shell/exchange fails B-EXEC-CONVERGENCE  1077ms
+   ✓ gate4b rejects the registered LK negative list by name > clipped-demand omission fails B-EXEC-LEDGER  1063ms
+   ✓ gate4b rejects the registered LK negative list by name > an incomplete temperature sweep fails B-EXEC-COMPLETE  994ms
+   ✓ gate4b noise witnesses are independently recomputed > a divergent same-seed replay fails B-EXEC-NOISE alone  1120ms
+   ✓ gate4b noise witnesses are independently recomputed > a witness cell set detached from the reconstructed boundary fails B-EXEC-NOISE  1105ms
+   ✓ gate4b noise witnesses are independently recomputed > epsilon/seed round-trip through the frozen LK v2 checkpoint is enforced  920ms
+   ✓ gate4b timeline evidence is independently recomputed > clamping the transformed negatives to zero fails the bitwise density transform  1099ms
+   ✓ gate4b timeline evidence is independently recomputed > the cross-temperature vapor ledger catches final-temperature multiplication by name  1086ms
+   ✓ gate4b artifact and checkpoint seams > reopens and cross-links the complete exact payload set  417ms
+   ✓ gate4b artifact and checkpoint seams > rejects byte mutations in every Pass-B artifact family  1225ms
+   ✓ gate4b artifact and checkpoint seams > B-EXEC-CONFIG owns corrupt manifest bytes: invalid UTF-8  377ms
+   ✓ gate4b artifact and checkpoint seams > B-EXEC-CONFIG owns corrupt manifest bytes: invalid JSON  386ms
+   ✓ gate4b artifact and checkpoint seams > B-EXEC-CONFIG owns corrupt manifest bytes: noncanonical whitespace  376ms
+   ✓ gate4b artifact and checkpoint seams > B-EXEC-CONFIG owns corrupt manifest bytes: BOM-prefixed canonical bytes  371ms
+   ✓ gate4b artifact and checkpoint seams > B-EXEC-CONFIG owns corrupt manifest bytes: canonical bytes off the freeze  384ms
+   ✓ gate4b serial orchestration seams > executes the frozen matrix serially and publishes a verifiable bundle on validity  1656ms
+   ✓ gate4b serial orchestration seams > records diagnostic morphology misses without blocking exit 0 or publication  1645ms
+   ✓ gate4b serial orchestration seams > an execution-integrity failure publishes nothing and exits 1 by name  1420ms
+   ✓ gate4b serial orchestration seams > refuses to present an execution-valid verdict without a verified publication  1147ms
+   ✓ gate4b serial orchestration seams > refuses to present an execution-invalid verdict that carries a publication  1394ms
+   ✓ gate4b real solver integration (tiny dims) > captures a validated dual-outcome noise witness and replays bit-identically  684ms
+ ✓ runner/test/gate4a.test.ts (89 tests) 76682ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > passes the complete synthetic 13-run evidence matrix  5380ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-PROVENANCE trips alone  2266ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-CONFIG trips alone  2686ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-SYMMETRY trips alone on an internally consistent asymmetric delta  2429ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-SYMMETRY trips alone on asymmetric boundary/vapor bits with symmetric occupancy  2412ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NOISE trips alone  2201ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NOISE alone owns representative run-disconnected evidence  2648ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-MASS trips alone  2669ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-DOMAIN trips alone  2741ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-DOMAIN trips alone on a reconstructed contacting crystal  2768ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-TERMINATION trips alone  2497ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-TERMINATION trips alone on shifted threshold  2115ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-TERMINATION trips alone on shifted cycle-0 mean  2119ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-TERMINATION trips alone on far-field run carrying extent witness  2611ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-TERMINATION rejects a size run carrying a far-field witness  1118ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-TERMINATION alone owns a forged transition report and equal fabricated masses  2623ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NUMERIC trips alone on a reopened artifact byte mismatch  1083ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NUMERIC reconstruction rejects multi-witness mutation: orphan witness on an empty-delta row  305ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NUMERIC alone owns a representative malformed delta chain  725ms
+   ✓ gate4a derives all eight execution criteria from raw evidence > A-EXEC-NUMERIC owns a checkpoint/scenario metric mismatch  1219ms
+   ✓ gate4a branch morphology is nonvacuous against raw attachment chains > a coherent seed-only comparator changes only A-BRANCH from true to false  7343ms
+   ✓ gate4a branch morphology is nonvacuous against raw attachment chains > rejects a grown final comparator whose attachment deltas are missing before morphology  1609ms
+   ✓ gate4a artifact and checkpoint seams > reopens and cross-links the complete exact payload set  1140ms
+   ✓ gate4a artifact and checkpoint seams > rejects Pass-A v1 manifest and scenario identities  1140ms
+   ✓ gate4a artifact and checkpoint seams > rejects byte mutations in every Pass-A artifact family  1873ms
+   ✓ gate4a artifact and checkpoint seams > rejects missing scenario farFieldWitness metadata keys or types  1016ms
+   ✓ gate4a artifact and checkpoint seams > rejects extra scenario farFieldWitness metadata keys or types  1014ms
+   ✓ gate4a artifact and checkpoint seams > rejects renamed scenario farFieldWitness metadata keys or types  1013ms
+   ✓ gate4a artifact and checkpoint seams > rejects mistyped scenario farFieldWitness metadata keys or types  1012ms
+   ✓ gate4a artifact and checkpoint seams > A-EXEC-CONFIG owns corrupt manifest bytes: invalid UTF-8  1276ms
+   ✓ gate4a artifact and checkpoint seams > A-EXEC-CONFIG owns corrupt manifest bytes: invalid JSON  1284ms
+   ✓ gate4a artifact and checkpoint seams > A-EXEC-CONFIG owns corrupt manifest bytes: noncanonical whitespace  1263ms
+   ✓ gate4a artifact and checkpoint seams > A-EXEC-CONFIG owns corrupt manifest bytes: BOM-prefixed canonical bytes  1265ms
+   ✓ gate4a artifact and checkpoint seams > A-EXEC-CONFIG owns corrupt manifest bytes: canonical bytes off the freeze  1260ms
+   ✓ gate4a artifact and checkpoint seams > rejects a canonically re-encoded noise header mutation with unchanged field bytes  1664ms
+   ✓ gate4a serial orchestration seams > executes the frozen matrix serially without a cross-run resolver  4612ms
+stderr | runner/test/gutcheck-hardening.test.ts > evidence manifest pinning > recovers a lock owned by a process that has exited
+evidence-pin: recovering lock C:\Users\biao3\AppData\Local\Temp\gutcheck-manifest-N8HaQd\MANIFEST.json.lock left by dead pid 24308
+
+stderr | runner/test/gutcheck-hardening.test.ts > evidence manifest pinning > recovers an ownerless lock only after its grace period
+evidence-pin: recovering an ownerless lock at C:\Users\biao3\AppData\Local\Temp\gutcheck-manifest-9pzpDg\MANIFEST.json.lock
+
+ ✓ runner/test/gutcheck-hardening.test.ts (57 tests | 15 skipped) 3736ms
+   ✓ evidence manifest pinning > does not mistake an eval import with the library at argv[1] for direct CLI execution  335ms
+   ✓ evidence manifest pinning > makes a live manifest update wait until the current lock holder exits its action  484ms
+   ✓ grow-batch frame-enabled resume > does not skip wrong spec, dimensions, domain, ticks, seed, noise, extraction, cadence, or final tick  648ms
+ ✓ runner/test/phase10-scope-overlay.test.ts (24 tests) 44938ms
+   ✓ Phase 10 A-S scope overlay > rejects a coordinated zero-blocker validation-credit upgrade even with repaired report and index  555ms
+   ✓ Phase 10 A-S scope overlay > rejects a coordinated producer-provenance rewrite even with a repaired artifact index  562ms
+   ✓ Phase 10 A-S scope overlay > requires the exact candidate-local receipt path at the CLI boundary  774ms
+   ✓ Phase 10 A-S static packet lifecycle > rejects a structurally valid committed post-freeze classification-protocol drift  1392ms
+   ✓ Phase 10 A-S static packet lifecycle > requires an exact passing A-P dependency lifecycle before A-S preflight  12254ms
+   ✓ Phase 10 A-S static packet lifecycle > executes the exact clean-head produce, verify, publish sequence and resumes exact publication  5480ms
+   ✓ Phase 10 A-S static packet lifecycle > refuses a dirty preflight and a tampered retained observed runtime  3662ms
+   ✓ Phase 10 A-S static packet lifecycle > rejects terminal obligation-set drift and malformed mutation witnesses  5271ms
+   ✓ Phase 10 A-S static packet lifecycle > prevalidates a conflicting receipt destination and safely retries after its removal  4935ms
+   ✓ Phase 10 A-S static packet lifecycle > resumes either exact scope-only or receipt-only partial publication orientation  8827ms
+ ✓ runner/test/phase10-c0v-s6-authority.test.ts (19 tests) 93648ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > independently closes all ten supplemental A-P graph checks  85342ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > executes the split missing-producer and uncalled-check mutations non-vacuously  511ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > strict-parses the canonical graph and registers every successor output schema once  2134ms
+   ✓ Phase 10 C0V S6 execution-v2 authority > keeps every authority path unignored and byte-stable on checkout  3460ms
+ ✓ runner/test/phase10-c0v-s6-radial.test.ts (24 tests) 3775ms
+   ✓ Phase 10 C0V S6 radial production and independent evaluation > encodes the exact 5,891-byte witness and binds the S5 science protocol  2696ms
+ ✓ solver-cpu/test/lk-solver.test.ts (41 tests) 20514ms
+   ✓ LKSolver — divergence identity (§4.4 test 3) > at convergence, Dirichlet injection equals signed net boundary exchange  389ms
+   ✓ LKSolver — ledger identity (§4.4 test 4) > fill ledger + hole-fill deficit account for every attached cell and every partial fill  2834ms
+   ✓ LKSolver — ledger identity (§4.4 test 4) > NON-TAUTOLOGICAL: the ledger delta equals independently recomputed kinetic demand  954ms
+   ✓ LKSolver — legacy-v3 sink-vs-demand regression > COMPUTED: legacy Robin absorption vs converged-field per-sweep demand  1732ms
+   ✓ LKSolver — fill-CFL (§4.4 test 5, kinetic-only per the round-2 correction) > no growth step's KINETIC fill ever exceeds the bound  2503ms
+   ✓ LKSolver — growth, determinism, symmetry > a crystal grows at all (plan, Stage 2b check)  3814ms
+   ✓ LKSolver — growth, determinism, symmetry > two runs with the same options are bit-identical (pinned-oracle scope)  3385ms
+   ✓ LKSolver — growth, determinism, symmetry > noise off, hexPrism: every attachment delta is D6h-invariant and the full metric reads 0  3686ms
+   ✓ opposing-vapor mean, D6h equivariance > v6 is an ordering change only: it reaches the same state v5 does at this scale  448ms
+ ✓ core/test/lk-resume-checkpoint.test.ts (22 tests) 1208ms
+   ✓ streamed LK resume checkpoint v3 > splits f64 fields exactly at the fixed chunk boundary without crossing field/alignment seams  1168ms
+ ✓ app/test/phase4-verify.test.ts (59 tests) 42601ms
+   ✓ frozen run completeness and provenance > the visual harness rejects a Pass-A v1 bundle before capture output exists  325ms
+   ✓ real publication provenance is derived from recorded Git objects > accepts immutable recorded commits without requiring recorded HEAD == current HEAD  386ms
+   ✓ real publication provenance is derived from recorded Git objects > rejects solver source rewrites at an otherwise descendant recorded commit  2694ms
+   ✓ visual harness test-hook isolation > an ordinary harness without IPC never activates or waits for a test hook  336ms
+   ✓ visual harness output-parent swap hooks > fails closed when the absent output parent becomes a Pass A junction after the verifying log  343ms
+   ✓ visual harness output-parent swap hooks > cleans trusted staging when the output parent becomes a Pass A junction after staging  346ms
+   ✓ visual harness staged-file hard-link attacks > rejects a first-PNG destination precreated as a hard link to the Pass A manifest  6026ms
+   ✓ visual harness staged-file hard-link attacks > rejects a staged manifest precreated as a hard link to the Pass A report  10162ms
+   ✓ visual harness staged-file hard-link attacks > rejects a post-create external hard link before publication  10209ms
+   ✓ visual harness staged-file hard-link attacks > rolls back and rejects a post-rename external hard link before publication verification  10117ms
+ ✓ runner/test/phase6-protocol.test.ts (50 tests) 143ms
+ ✓ runner/test/nas-asset-transaction-lib.test.ts (43 tests | 1 skipped) 2097ms
+   ✓ safe restore and receipts > restores to one absent target, verifies the exact tree, and sanitizes its receipt  404ms
+ ✓ runner/test/post-phase10-cavity-analysis.test.ts (26 tests) 353ms
+ ✓ runner/test/phase9-mgt-analytic.test.ts (18 tests) 631ms
+ ✓ runner/test/gutcheck-growth-comparison-publisher.test.ts (33 tests | 3 skipped) 5956ms
+   ✓ Run B comparison NAS publisher > publishes the exact 17-file bundle by one verified same-share rename  430ms
+   ✓ Run B comparison NAS publisher > allows a source hard link because staged files are exclusive fresh copies  409ms
+   ✓ Run B comparison NAS publisher > rejects forged browser witnesses even when the top-level status remains pass  1686ms
+ ✓ runner/test/phase6-wp2-ladder-eval.test.ts (24 tests) 1050ms
+ ✓ runner/test/gate4-protocol.test.ts (90 tests) 12596ms
+   ✓ Phase 4 hollow ensemble validators > recomputes real open-tube geometry and passes distinct streams plus a full-state replay  393ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'shifted canonical seed'  404ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw guard mutation: 'wrong dimensions'  421ms
+   ✓ Phase 4 hollow ensemble validators > rejects a reused ensemble execution identity through A-HOLLOW-NONVACUOUS  333ms
+   ✓ Phase 4 hollow ensemble validators > rejects independent replay divergence in 'previous occupancy'  329ms
+   ✓ Phase 4 hollow ensemble validators > rejects independent replay divergence in 'final occupancy'  323ms
+   ✓ Phase 4 hollow ensemble validators > rejects independent replay divergence in 'surface field'  333ms
+   ✓ Phase 4 hollow ensemble validators > rejects independent replay divergence in 'vapor field'  336ms
+   ✓ Phase 4 hollow ensemble validators > rejects raw solid, sealed, pre-hollowed, and domain-contact geometry by A-HOLLOW-EACH  1347ms
+   ✓ Phase 4 hollow ensemble validators > ignores fabricated metric claims and independently derives a solid failure  336ms
+   ✓ Phase 4 hollow ensemble validators > rejects seed-vacuous occupancy, replay divergence, identity reuse, and overlapping buffers  1371ms
+   ✓ Phase 4 hollow ensemble validators > keeps structural inspection independent from raw morphology checks  336ms
+   ✓ Phase 4 hollow ensemble validators > enforces the 12,000-cycle cap on every Pass A hollow primary and replay  1902ms
+ ✓ runner/test/phase9-transport-analytic.test.ts (20 tests) 11ms
+ ✓ runner/test/phase10-c0-lifecycle.test.ts (16 tests) 2202ms
+   ✓ Phase 10 C0 frozen existing-byte lifecycle > installs derive and publish artifacts idempotently at only the registered destination  1088ms
+ ✓ runner/test/phase9-mh-msr-foundation.test.ts (8 tests) 12ms
+ ✓ runner/test/phase10-c0v-s6-preflight-observer.test.ts (12 tests) 426ms
+ ✓ runner/test/phase9-dbt-publication.test.ts (67 tests) 618ms
+ ✓ runner/test/phase6-sweep.test.ts (39 tests) 93ms
+ ✓ runner/test/gate5-evidence.test.ts (51 tests) 15861ms
+   ✓ Phase 5 lane evidence publication > publishes and independently reopens the complete indexed graph  2446ms
+   ✓ Phase 5 lane evidence publication > reconstructs an interleaved global readback audit from per-fixture artifacts  1574ms
+   ✓ Phase 5 lane evidence publication > uses the real core decoders when no test-only checkpoint seam is supplied  418ms
+   ✓ Phase 5 lane evidence publication > rejects UTF-8 BOMs in terminal evidence  424ms
+   ✓ Phase 5 lane evidence publication > rejects an indexed artifact byte mutation after publication  1687ms
+   ✓ Phase 5 lane evidence publication > rejects noncanonical JSON even if a caller edits a JSON artifact directly  1579ms
+   ✓ Phase 5 lane evidence publication > rejects unindexed extra files  1586ms
+   ✓ Phase 5 lane evidence publication > rejects a coherent index kind shift against the frozen artifact graph  1561ms
+   ✓ Phase 5 lane evidence publication > rejects hard-linked artifacts and removes its private failed attempt  403ms
+   ✓ Phase 5 lane evidence publication > detects a staging mutation before rename and leaves no canonical lane  784ms
+   ✓ Phase 5 lane evidence publication > refuses to delete a replacement that appears at the private staging path  791ms
+   ✓ ADR-0019 G-G Dirichlet corrected-mass ledger > publishes the complete registered chronology and both device witnesses  1932ms
+   ✓ ADR-0019 G-G Dirichlet corrected-mass ledger > rejects a negative-control roster the runner's own replay does not observe  351ms
+ ✓ runner/test/phase10-intake.test.ts (12 tests) 49197ms
+   ✓ Phase 10 A-I synthetic lifecycle > runs exact produce, safely resumes a partial candidate, verifies, and publishes beside unchanged A-S bytes  10936ms
+   ✓ Phase 10 A-I synthetic lifecycle > refuses duplicate artifacts, wrong dependency, and wrong evaluator provenance before any new write  7283ms
+   ✓ Phase 10 A-I synthetic lifecycle > rejects a producer-only shared currency-derivation bug  5765ms
+   ✓ Phase 10 A-I synthetic lifecycle > rejects an implementation that omits a registered check-caller invocation  5945ms
+   ✓ Phase 10 A-I synthetic lifecycle > refuses a committed post-freeze support-module drift  6274ms
+   ✓ Phase 10 A-I freeze-before-input ordering > refuses observation from a descendant HEAD before any endpoint or NAS operation  4399ms
+ ✓ runner/test/gutcheck-growth-comparison-builder.test.ts (15 tests) 86ms
+ ✓ runner/test/vite-nas-serving.test.ts (23 tests | 3 skipped) 192ms
+ ✓ runner/test/phase10-c0v-moving-static-reference.test.ts (10 tests) 156ms
+ ✓ runner/test/phase10-executor.test.ts (13 tests) 40357ms
+   ✓ Phase 10 bounded non-solver executor > losing concurrent run acquires no authorization observation before the writer lock  1479ms
+   ✓ Phase 10 bounded non-solver executor > runs a read-only preflight against a clean committed synthetic code freeze without opening rows  3597ms
+   ✓ Phase 10 bounded non-solver executor > rejects stage-set, command, path, and resource mutations in retained preflight bytes  2961ms
+   ✓ Phase 10 bounded non-solver executor > rejects dependency schema substitution and callable, preflight, and eager-worker transitive drift  10889ms
+   ✓ Phase 10 bounded non-solver executor > accepts the registered c0-publish dependency schema and rejects a generic-schema substitution  8854ms
+   ✓ Phase 10 bounded non-solver executor > validates the distinct c0-publish independent-verification dependency shape and six-artifact roster  12288ms
+ ❯ runner/test/progress-index.test.ts (11 tests | 2 failed) 273ms
+   ✓ compact progress index and byte-exact historical record > preserves and labels the exact pre-housekeeping body without making it current authority 30ms
+   × compact progress index and byte-exact historical record > rejects loss of current closed-phase, hold, history and actual next-step boundaries 5ms
+     → expected [ Array(1) ] to deeply equal []
+   ✓ compact progress index and byte-exact historical record > preserves the complete pre-compaction body byte-for-byte 1ms
+   ✓ compact progress index and byte-exact historical record > disables Git line-ending conversion for the byte-exact mixed-ending archive 64ms
+   × compact progress index and byte-exact historical record > keeps the live authority complete and unambiguous 1ms
+     → expected [ Array(1) ] to deeply equal []
+   ✓ compact progress index and byte-exact historical record > keeps every local Markdown target in the current index and archive resolvable 14ms
+   ✓ compact progress index and byte-exact historical record > labels the archive as historical rather than a second current authority 1ms
+   ✓ compact progress index and byte-exact historical record > labels the phase 6/8/9 history file as historical rather than a second current authority 0ms
+   ✓ compact progress index and byte-exact historical record > allows session dates to advance while rejecting missing, duplicate or invalid dates 15ms
+   ✓ compact progress index and byte-exact historical record > preserves historical state-loss mutation coverage against its dated snapshot 141ms
+   ✓ compact progress index and byte-exact historical record > rejects a one-byte archived-body mutation independently of the archive producer 0ms
+ ✓ runner/test/phase6-arm2.test.ts (38 tests) 121ms
+ ✓ runner/test/phase10-c0v-reference-lifecycle.test.ts (12 tests) 34534ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > supplies frozen static source bytes to the independent refusal checker  2061ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > derives, independently checks, publishes, and retries exact synthetic bytes  7261ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > publishes a registered discrepancy refusal instead of silently dropping the artifact  5533ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > reexecutes the independent check and rejects a post-check receipt mutation  3732ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > rejects an unknown field in a scientific candidate before independent checking  1984ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > rejects tracked code drift and untracked static source locators  631ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > accepts Git-equivalent CRLF only for package metadata and keeps protocol bytes exact  2870ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > recursively detects a forbidden dynamic local import  693ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > rejects an aliased staging parent before writing an attempt  1132ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > rejects a retained publication timestamp that predates its independent check  3756ms
+   ✓ Phase 10 C0V neutral S5 reference lifecycle > rejects future timestamps at the derive and check command boundaries  4880ms
+ ✓ runner/test/phase10-obligation-preflight.test.ts (14 tests) 1041ms
+   ✓ Phase 10 A-P strict contracts > keeps every registered research output trackable with raw-byte-stable attributes  806ms
+ ✓ runner/test/phase9-ms-categorical.test.ts (8 tests) 13ms
+ ✓ runner/test/gate5-protocol.test.ts (47 tests) 6961ms
+   ✓ Phase 5 negative controls executed at their named boundary > re-derives the unmutated capture's raw evidence from its own payload  383ms
+   ✓ Phase 5 negative controls executed at their named boundary > returns the frozen control inventory in registered order  353ms
+   ✓ Phase 5 negative controls executed at their named boundary > observes an owner-independent failing set for the tolerance bypass  355ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-WINDOWS-BACKEND-RELABEL corrupts its named evidence and is refused by the evaluator  365ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-PROTOCOL-HASH-SHIFT corrupts its named evidence and is refused by the evaluator  356ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-REQUIRED-LIMIT-DOWNGRADE corrupts its named evidence and is refused by the evaluator  358ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-AXIS-SWAP corrupts its named evidence and is refused by the evaluator  362ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-WRONG-BOUNDARY-CLAMP corrupts its named evidence and is refused by the evaluator  356ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-STALE-PING-PONG corrupts its named evidence and is refused by the evaluator  361ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-LK-RESIDUAL-ONLY corrupts its named evidence and is refused by the evaluator  361ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-SYMMETRY-BIT corrupts its named evidence and is refused by the evaluator  360ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-DOMAIN-CONTACT corrupts its named evidence and is refused by the evaluator  359ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-EXCESSIVE-DISPATCH corrupts its named evidence and is refused by the evaluator  362ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-LATE-EDIT-ACK corrupts its named evidence and is refused by the evaluator  359ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-LATE-FIRST-FRAME corrupts its named evidence and is refused by the evaluator  358ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-FULL-FIELD-PER-FRAME corrupts its named evidence and is refused by the evaluator  360ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-CHECKPOINT-DTYPE-SHIFT corrupts its named evidence and is refused by the evaluator  356ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-TOLERANCE-BYPASS corrupts its named evidence and is refused by the evaluator  363ms
+   ✓ Phase 5 negative controls executed at their named boundary > NC-ARTIFACT-BYTE-MUTATION corrupts its named evidence and is refused by the evaluator  358ms
+ ✓ solver-gpu/test/gg-surface.test.ts (17 tests) 20ms
+ ✓ runner/test/phase10-c0v-s6-executor-dispatch.test.ts (19 tests) 272ms
+ ✓ solver-gpu/test/diffusion.test.ts (12 tests) 12ms
+ ✓ runner/test/nas-asset-lib.test.ts (52 tests) 34ms
+ ✓ runner/test/phase9-mf-mk2-model.test.ts (16 tests) 12ms
+ ✓ runner/test/phase9-dbt-model.test.ts (27 tests) 114ms
+ ✓ runner/test/nas-asset-legacy-restore.test.ts (19 tests) 1122ms
+   ✓ legacy NAS restore and restored-tree verifier > scans alias namespaces by directory rather than once per flat file  761ms
+ ✓ core/test/checkpoint.test.ts (15 tests) 14ms
+ ✓ runner/test/gate5-runner.test.ts (27 tests) 36476ms
+   ✓ Phase 5 lane runner > publishes only after stable clean provenance and source snapshots  1965ms
+   ✓ Phase 5 lane runner > removes the canonical lane when source identity drifts after rename  1164ms
+   ✓ Phase 5 lane runner > runs the probe from the snapshot root, never the live working tree  1549ms
+   ✓ Phase 5 immutable source snapshot > exports a detached commit-bound worktree that live edits cannot change  731ms
+   ✓ Phase 5 immutable source snapshot > derives the registered inventory from the commit, not from the checkout  937ms
+   ✓ Phase 5 immutable source snapshot > releases the snapshot when the inventory read fails  488ms
+   ✓ Phase 5 immutable source snapshot > removes the snapshot without descending into the installed dependencies  508ms
+   ✓ Phase 5 immutable source snapshot > quarantines the snapshot before any recursive removal  467ms
+   ✓ Phase 5 immutable source snapshot > refuses to delete a replacement that appears at the private snapshot path  467ms
+   ✓ Phase 5 aggregate gate > reopens the lane, re-derives all criteria, and commits the index last  2708ms
+   ✓ Phase 5 aggregate gate > re-derives the lane's commit inventory with no seams at all  4520ms
+   ✓ Phase 5 aggregate gate > rejects a lane from another commit  1969ms
+   ✓ Phase 5 aggregate gate > rejects source drift before aggregate publication  1549ms
+   ✓ Phase 5 aggregate gate > detects post-publication lane mutation and removes only its aggregate files  1973ms
+   ✓ Phase 5 aggregate gate > refuses to delete a replacement aggregate report during failed cleanup  2337ms
+   ✓ Phase 5 aggregate gate > recovers an authenticated orphan report after an interrupted publication  3105ms
+   ✓ Phase 5 aggregate gate > rejects aggregate report mutation against its commit marker  2714ms
+   ✓ Phase 5 aggregate gate > rejects hard-linked aggregate artifacts  2692ms
+   ✓ Phase 5 aggregate gate > never overwrites completed aggregate evidence  2343ms
+   ✓ Phase 5 aggregate gate > rejects unindexed aggregate-directory entries  1545ms
+   ✓ Phase 5 aggregate gate > makes both public commands flagless at the CLI boundary  321ms
+ ✓ runner/test/nas-assets.test.ts (26 tests) 139ms
+ ✓ core/test/timeline.test.ts (20 tests) 15ms
+ ✓ app/test/gpuengine.test.ts (38 tests) 48ms
+ ✓ solver-cpu/test/lk-basal-width.test.ts (12 tests) 5212ms
+   ✓ ADR 0058 exposed-support basal width experiment > matches the broad control from nonuniform vapor with nonzero fill  601ms
+   ✓ ADR 0058 exposed-support basal width experiment > matches the dipped control from nonuniform vapor with nonzero fill  1081ms
+   ✓ ADR 0059 early/late basal-width history > preserves the nonuniform early-only numerical prefix and accumulated fill  1096ms
+   ✓ ADR 0059 early/late basal-width history > crosses the early-only cutoff without splitting and changes both coupled kinetics without attachment  310ms
+   ✓ ADR 0059 early/late basal-width history > preserves the nonuniform late-only numerical prefix and accumulated fill  1143ms
+   ✓ ADR 0059 early/late basal-width history > crosses the late-only cutoff without splitting and changes both coupled kinetics without attachment  304ms
+ ✓ runner/test/phase6-arm3.test.ts (26 tests) 109ms
+ ✓ core/test/metrics.test.ts (32 tests) 30ms
+ ✓ runner/test/gate4-aggregate.test.ts (17 tests) 379ms
+ ✓ runner/test/phase10-c0v-contracts.test.ts (5 tests) 17ms
+ ✓ solver-cpu/test/lk-resume.test.ts (16 tests) 13241ms
+   ✓ LK v3 field-adopting restore > CAK: direct, checkpoint-every-cycle, and multiply resumed evolution are exact  5517ms
+   ✓ LK v3 field-adopting restore > M1: direct, checkpoint-every-cycle, and multiply resumed evolution are exact  5508ms
+   ✓ LK v3 field-adopting restore > CAK: converged multi-sweep continuation remains exact after nonlinear events  1099ms
+   ✓ LK v3 field-adopting restore > M1: converged multi-sweep continuation remains exact after nonlinear events  1099ms
+ ✓ core/test/libbrecht.test.ts (35 tests) 27ms
+ ✓ runner/test/phase9-hollowing-rivals.test.ts (12 tests) 9ms
+ ✓ runner/test/phase9-source-overlay.test.ts (8 tests) 111ms
+ ✓ runner/test/phase8-corpus-local.test.ts (22 tests) 26ms
+ ✓ solver-cpu/test/surface-cycle-hardening.test.ts (18 tests) 1335ms
+   ✓ SurfaceOperator cycle ownership hardening > makes direct and wrapper G-G cycles bit-identical with noise enabled  463ms
+ ✓ runner/test/nas-asset-bootstrap.test.ts (21 tests) 75ms
+ ✓ app/test/gpuview.test.ts (29 tests) 10ms
+ ✓ runner/test/phase8-native-history.test.ts (8 tests) 24ms
+ ✓ solver-cpu/test/timeline-environment.test.ts (10 tests) 715ms
+ ✓ runner/test/nas-asset-selection-lib.test.ts (18 tests) 107ms
+ ✓ app/test/gutcheck-growth-format.test.ts (26 tests) 16ms
+ ✓ runner/test/phase9-mv-preflight.test.ts (2 tests) 38ms
+ ❯ runner/test/nas-assets-catalog.test.ts (9 tests | 1 failed) 1290ms
+   × tracked NAS asset catalogue > loads the strict real catalogue and pins the read-only census dispositions 6ms
+     → expected { …(38) } to deeply equal { …(37) }
+   ✓ tracked NAS asset catalogue > recomputes every tracked manifest byte length and digest 9ms
+   ✓ tracked NAS asset catalogue > keeps public owner-manifest checkout bytes independent of line-ending settings 25ms
+   ✓ tracked NAS asset catalogue > binds every active restore declaration to the real destination-aware commands 1ms
+   ✓ tracked NAS asset catalogue > re-derives every machine-readable tracked owner selection  464ms
+   ✓ tracked NAS asset catalogue > assigns every live ledger row to exactly one collection owner  777ms
+   ✓ tracked NAS asset catalogue > checks machine-readable overlay scopes without turning them into competing owners 3ms
+   ✓ tracked NAS asset catalogue > binds each retained private collection to its standard private owner manifest 1ms
+   ✓ tracked NAS asset catalogue > resolves every external-evidence authority and requires accepted decisions 3ms
+ ✓ runner/test/phase8-target-book.test.ts (18 tests) 636ms
+   ✓ published Phase 8 freeze > re-derives the book, pins, and split from published bytes  583ms
+ ✓ runner/test/phase10-c0v-radial-reference.test.ts (10 tests) 19ms
+ ✓ runner/test/evidence-integrity.test.ts (7 tests) 534ms
+   ✓ evidence integrity (Phase 6 lessons, enforced) > every file in the manifest exists and matches its digest  447ms
+ ✓ runner/test/phase5-wp0.test.ts (12 tests) 1962ms
+   ✓ Phase 5 criteria freeze > runs the pre-GPU binary32 shadow inside the frozen envelope  1955ms
+ ✓ runner/test/phase8-benchmark-final.test.ts (7 tests) 27ms
+ ✓ runner/test/gate4-evidence.test.ts (44 tests) 107ms
+ ✓ runner/test/phase8-plot-extraction.test.ts (17 tests) 37ms
+ ✓ runner/test/phase9-mf-mk2-publication.test.ts (7 tests) 151ms
+ ✓ runner/test/grow-lk.test.ts (12 tests) 1222ms
+   ✓ grow-lk policy/checkpoint evidence path > produces bit-identical compact checkpoints sequentially and in concurrent processes  463ms
+ ✓ runner/test/phase10-c0v-s6-semantic-fingerprint.test.ts (2 tests) 236ms
+ ✓ app/test/gutcheck-growth-comparison-record.test.ts (20 tests) 7ms
+ ✓ runner/test/phase6-size-strata.test.ts (8 tests) 10ms
+ ✓ runner/test/phase9-mgp-intake.test.ts (15 tests) 160ms
+ ✓ runner/test/phase9-measurement-adapters.test.ts (20 tests) 119ms
+ ✓ core/test/target-observables.test.ts (26 tests) 5ms
+ ✓ runner/test/phase10-c0v-s6-executor-worker.test.ts (6 tests) 92ms
+ ✓ app/test/inspect.test.ts (20 tests) 29ms
+ ✓ runner/test/phase10-ap-lifecycle.test.ts (5 tests) 10446ms
+   ✓ Phase 10 A-P retained lifecycle > runs the exact produce/verify/publish commands and republishes only identical bytes  4756ms
+   ✓ Phase 10 A-P retained lifecycle > refuses CLI omission and a receipt path outside the candidate  1328ms
+   ✓ Phase 10 A-P retained lifecycle > rejects verification-path, duplicate-attempt-root, and packet-path catalogue mutations  886ms
+   ✓ Phase 10 A-P retained lifecycle > rejects checkout-unstable callable bytes  887ms
+   ✓ Phase 10 A-P retained lifecycle > rejects post-verification control tampering and handcrafted execution provenance  2588ms
+ ✓ solver-gpu/test/transport.test.ts (10 tests) 7ms
+ ✓ runner/test/phase6-crossplatform.test.ts (13 tests) 14ms
+ ✓ runner/test/phase10-c0v-schema-promotion.test.ts (7 tests) 541ms
+   ✓ Phase 10 C0V schema promotion > keeps every new research contract pretty-2 LF, trackable, and byte-stable  463ms
+ ✓ runner/test/phase9-measurement-adapters-row-parsers.test.ts (12 tests) 244ms
+ ✓ solver-cpu/test/prepared-kinetics.test.ts (35 tests) 16087ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 legacy-v3 noise=0  506ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 legacy-v3 noise=0.375  494ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 aggregate-hv-g1h1-v4 noise=0  485ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 aggregate-hv-g1h1-v4 noise=0.375  483ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 aggregate-hv-g1h1-v5 noise=0  484ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 aggregate-hv-g1h1-v5 noise=0.375  485ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 aggregate-hv-g1h1-v6 noise=0  487ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK_A1 aggregate-hv-g1h1-v6 noise=0.375  488ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK legacy-v3 noise=0  481ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK legacy-v3 noise=0.375  482ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK aggregate-hv-g1h1-v4 noise=0  485ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK aggregate-hv-g1h1-v4 noise=0.375  478ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK aggregate-hv-g1h1-v5 noise=0  481ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK aggregate-hv-g1h1-v5 noise=0.375  485ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK aggregate-hv-g1h1-v6 noise=0  481ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > CAK aggregate-hv-g1h1-v6 noise=0.375  486ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 legacy-v3 noise=0  481ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 legacy-v3 noise=0.375  482ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 aggregate-hv-g1h1-v4 noise=0  480ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 aggregate-hv-g1h1-v4 noise=0.375  486ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 aggregate-hv-g1h1-v5 noise=0  485ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 aggregate-hv-g1h1-v5 noise=0.375  482ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 aggregate-hv-g1h1-v6 noise=0  482ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1 aggregate-hv-g1h1-v6 noise=0.375  486ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION legacy-v3 noise=0  484ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION legacy-v3 noise=0.375  486ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION aggregate-hv-g1h1-v4 noise=0  489ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION aggregate-hv-g1h1-v4 noise=0.375  480ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION aggregate-hv-g1h1-v5 noise=0  485ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION aggregate-hv-g1h1-v5 noise=0.375  480ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION aggregate-hv-g1h1-v6 noise=0  485ms
+   ✓ prepared LK kinetics are a bit-identical solver refactor > M1_NO_DIP_ABLATION aggregate-hv-g1h1-v6 noise=0.375  488ms
+ ✓ runner/test/post-phase10-basal-history.test.ts (4 tests) 339ms
+ ✓ runner/test/phase8-search-protocol.test.ts (22 tests) 354ms
+ ✓ runner/test/gutcheck-growth-baker.test.ts (11 tests) 417ms
+ ✓ runner/test/gate5-readback-attribution.test.ts (16 tests) 6ms
+ ✓ runner/test/nas-asset-restore-cli.test.ts (15 tests) 298ms
+ ✓ runner/test/phase6-sdak.test.ts (13 tests) 6ms
+ ✓ runner/test/post-phase10-holefill.test.ts (11 tests) 776ms
+ ✓ solver-cpu/test/discovery-resume.test.ts (22 tests) 5636ms
+   ✓ separate discovery continuation > round-trips the registered N126 early-width state and continues its complete fields  707ms
+   ✓ separate discovery continuation > ordinary M1: repeated resumes preserve fields, order, diagnostics and evolution  454ms
+   ✓ separate discovery continuation > ordinary no-dip: repeated resumes preserve fields, order, diagnostics and evolution  414ms
+   ✓ separate discovery continuation > both: repeated resumes preserve fields, order, diagnostics and evolution  414ms
+   ✓ separate discovery continuation > neither: repeated resumes preserve fields, order, diagnostics and evolution  416ms
+   ✓ separate discovery continuation > basal-only: repeated resumes preserve fields, order, diagnostics and evolution  416ms
+   ✓ separate discovery continuation > prism-only: repeated resumes preserve fields, order, diagnostics and evolution  419ms
+   ✓ separate discovery continuation > full width: repeated resumes preserve fields, order, diagnostics and evolution  416ms
+   ✓ separate discovery continuation > early-only: resumes on both sides of the physical-time cutoff retain the switch  395ms
+   ✓ separate discovery continuation > late-only: resumes on both sides of the physical-time cutoff retain the switch  404ms
+ ✓ solver-cpu/test/gg-solver.test.ts (15 tests) 3432ms
+   ✓ GGSolver — mass conservation (gate at full size runs via runner; this is the dev-grid version) > crystal-free control run characterizes the float floor  307ms
+   ✓ GGSolver — mass conservation (gate at full size runs via runner; this is the dev-grid version) > conserves total mass to < 1e-10 relative over 10 000 ticks GROWN, noise OFF, reflecting  1929ms
+   ✓ GGSolver — mass conservation (gate at full size runs via runner; this is the dev-grid version) > conserves total mass with noise ON (the §6 form conserves by construction)  527ms
+ ✓ runner/test/phase8-search-protocol-successor.test.ts (15 tests) 922ms
+ ✓ runner/test/phase9-permanent-control-readiness.test.ts (5 tests) 2698ms
+   ✓ Phase 9 S2 permanent-control readiness > rejects shifted frozen inputs instead of accepting caller-attested availability  1423ms
+   ✓ Phase 9 S2 permanent-control readiness > refuses present-day source drift rather than re-pinning the historical protocol  815ms
+ ✓ runner/test/phase10-c0v-s6-worker-progress.test.ts (6 tests) 67ms
+ ✓ runner/test/named-crystal-final-compose-accept.test.ts (6 tests) 839ms
+ ✓ solver-cpu/test/monopole-far-field.test.ts (10 tests) 92156ms
+   ✓ monopole-matched far field > holds symmetry at the LARGEST fill-CFL, which is what amplifies a ulp shell error  13878ms
+   ✓ monopole-matched far field — construction > holds the shell at exactly sigma_infinity until growth has been measured  380ms
+   ✓ monopole-matched far field — its validity limit > stops being domain-independent below a limit that has to be measured per configuration  9548ms
+ ✓ runner/test/phase6-heldout-source-lock.test.ts (7 tests) 166ms
+ ✓ runner/test/phase8-bacon-successor.test.ts (4 tests) 27ms
+ ✓ runner/test/gate3.test.ts (20 tests) 151ms
+ ✓ runner/test/gate6-aggregate.test.ts (21 tests) 2053ms
+ ✓ solver-cpu/test/diffusion.test.ts (11 tests) 230ms
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+launch row=fixture-0 active=1 remaining=4
+launch row=fixture-1 active=2 remaining=3
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+finish row=fixture-1 code=0 signal=null active=1 completed=1/5
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+launch row=fixture-2 active=2 remaining=2
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+finish row=fixture-0 code=0 signal=null active=1 completed=2/5
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+launch row=fixture-3 active=2 remaining=1
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+finish row=fixture-2 code=0 signal=null active=1 completed=3/5
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+launch row=fixture-4 active=2 remaining=0
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+finish row=fixture-3 code=0 signal=null active=1 completed=4/5
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+finish row=fixture-4 code=0 signal=null active=0 completed=5/5
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > kills its active workers and leaves queued work unstarted when memory falls
+launch row=slow-0 active=1 remaining=2
+launch row=slow-1 active=2 remaining=1
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > kills its active workers and leaves queued work unstarted when memory falls
+finish row=slow-1 code=null signal=SIGTERM active=1 completed=1/3
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > kills its active workers and leaves queued work unstarted when memory falls
+finish row=slow-0 code=null signal=SIGTERM active=0 completed=2/3
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > enforces a hard wall budget and stops a failing probe queue
+launch row=slow-first active=1 remaining=1
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > enforces a hard wall budget and stops a failing probe queue
+finish row=slow-first code=null signal=SIGTERM active=0 completed=1/2
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > retains a crashed worker while allowing independent science rows to continue
+launch row=fail-first active=1 remaining=1
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > retains a crashed worker while allowing independent science rows to continue
+finish row=fail-first code=7 signal=null active=0 completed=1/2
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > retains a crashed worker while allowing independent science rows to continue
+launch row=surviving active=1 remaining=0
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > retains a crashed worker while allowing independent science rows to continue
+finish row=surviving code=0 signal=null active=0 completed=2/2
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > checkpointed attempt records > preserves each resumed process attempt and refuses accidental reuse of its logs
+launch row=checkpointed active=1 remaining=0
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > checkpointed attempt records > preserves each resumed process attempt and refuses accidental reuse of its logs
+finish row=checkpointed code=0 signal=null active=0 completed=1/1
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > checkpointed attempt records > preserves each resumed process attempt and refuses accidental reuse of its logs
+launch row=checkpointed active=1 remaining=0
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > checkpointed attempt records > preserves each resumed process attempt and refuses accidental reuse of its logs
+finish row=checkpointed code=0 signal=null active=0 completed=1/1
+
+ ✓ runner/test/hil-bld-batch-execution.test.ts (9 tests) 2403ms
+   ✓ named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit  773ms
+   ✓ named batch execution > retains a crashed worker while allowing independent science rows to continue  518ms
+   ✓ checkpointed attempt records > preserves each resumed process attempt and refuses accidental reuse of its logs  549ms
+ ✓ runner/test/phase9-knowledge-source.test.ts (9 tests) 51ms
+ ✓ runner/test/discovery-resume.test.ts (18 tests) 9539ms
+   ✓ discovery row continuation > serializes stale-owner replacement and admits only one of two real worker contenders  618ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: ordinary  574ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: no-dip  492ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: both  524ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: neither  484ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: basal-only  515ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: prism-only  478ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: width  507ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: early width  527ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: warm to cold  546ms
+   ✓ discovery row continuation > matches complete scientific output across multiple resumes: cold to warm no-dip  1762ms
+   ✓ discovery row continuation > preserves and removes uncommitted event/snapshot tails, ignoring an incomplete generation  364ms
+   ✓ discovery row continuation > continues an actually killed worker in a fresh process with identical scientific output  1246ms
+ ✓ runner/test/named-crystal-final-direct-accept.test.ts (5 tests) 490ms
+ ✓ runner/test/phase10-c0v-s6-watchdog-transition.test.ts (5 tests) 4ms
+ ✓ solver-cpu/test/spherical-reference.test.ts (10 tests) 3ms
+ ✓ runner/test/post-phase10-facet-factorial.test.ts (8 tests) 668ms
+ ✓ app/test/ggtimeline.test.ts (7 tests) 16ms
+ ✓ runner/test/phase9-dbt-preflight.test.ts (2 tests) 11ms
+ ✓ app/test/gpu-instrument.test.ts (17 tests) 13ms
+ ✓ runner/test/hil-two-day-oct12.test.ts (4 tests) 1195ms
+   ✓ registered October 12 HIL wave > routes the actual CLI to this roster and its existing checkpointed worker  910ms
+ ✓ app/test/lkoverlays.test.ts (14 tests) 4ms
+ ✓ runner/test/hil-bld-batch-resume.test.ts (10 tests) 927ms
+   ✓ explicit first-batch resume > binds resume to the original checkpointed campaign, exact probe, host, source, runtime and rows  530ms
+ ✓ runner/test/phase9-mpk-residual-foundation.test.ts (5 tests) 115ms
+ ✓ runner/test/growth-study-assets.test.ts (5 tests) 53ms
+ ✓ runner/test/phase10-b-acquisition.test.ts (4 tests) 264ms
+ ✓ runner/test/gutcheck-build-index-catalog.test.ts (4 tests | 1 skipped) 378ms
+ ✓ app/test/gpudevice.test.ts (15 tests) 3ms
+ ✓ runner/test/hil-bld-batch-roster.test.ts (6 tests) 12ms
+ ✓ runner/test/phase10-c0v-s6-publication-finalization-paths.test.ts (2 tests) 37ms
+ ✓ app/test/overlays.test.ts (14 tests) 3ms
+ ✓ app/test/gutcheck-scene-motion.test.ts (8 tests) 12ms
+ ✓ solver-gpu/test/gg-surface-numerical.test.ts (1 test) 2ms
+ ✓ runner/test/phase10-c0v-s6-aggregate.test.ts (5 tests) 2871ms
+   ✓ Phase 10 C0V S6 aggregate > keeps aggregate producers outside the independent evaluator closure  2863ms
+ ✓ runner/test/hil-facet-pressure-oct19.test.ts (5 tests) 1183ms
+   ✓ registered October 19 HIL facet and pressure comparison > routes the real CLI without starting a scientific case  914ms
+ ✓ runner/test/phase10-c0v-s6-lifecycle.test.ts (5 tests) 11195ms
+   ✓ Phase 10 C0V S6 lifecycle whole-file publication overlay > reopens the accepted A-P lifecycle through its retained recovery-v5 protocol only  11007ms
+ ✓ runner/test/hil-large-batch-oct11.test.ts (4 tests) 1408ms
+   ✓ registered October 11 HIL queue > refuses a changed campaign binding and either earlier batch's resume identity  392ms
+   ✓ registered October 11 HIL queue > routes the executable list and checkpointed workers to this roster without a probe route  1008ms
+ ✓ runner/test/gutcheck-growth-out.test.ts (2 tests) 472ms
+ ✓ runner/test/named-crystal-final-compose.test.ts (4 tests) 57ms
+ ✓ runner/test/phase8-plot-extraction-v3.test.ts (7 tests) 47ms
+ ✓ runner/test/phase6-independent-evidence-scripts.test.ts (10 tests) 1004ms
+ ✓ solver-gpu/test/lk-applied-noise.test.ts (10 tests) 11ms
+ ✓ runner/test/phase8-benchmark-selection.test.ts (5 tests) 33ms
+ ✓ runner/test/phase6-provenance.test.ts (12 tests) 137ms
+ ✓ runner/test/hil-domain-seed-oct19.test.ts (5 tests) 1178ms
+   ✓ registered October 19 HIL domain and seed comparison > routes the real CLI to the finite roster and existing checkpointed worker  907ms
+ ✓ runner/test/discovery-budget.test.ts (11 tests) 402ms
+ ✓ app/test/scenarios.test.ts (11 tests) 4ms
+ ✓ solver-gpu/test/layout.test.ts (10 tests) 54ms
+ ✓ runner/test/named-crystal-final-resolution-production.test.ts (9 tests) 299ms
+ ✓ solver-cpu/test/lk-hole-filling.test.ts (9 tests) 29315ms
+   ✓ ADR 0056 geometric completion counterfactual > -4.5 M1: enabled preserves ordinary evolution including geometric completion  4527ms
+   ✓ ADR 0056 geometric completion counterfactual > -4.5 M1_NO_DIP_ABLATION: enabled preserves ordinary evolution including geometric completion  9484ms
+   ✓ ADR 0056 geometric completion counterfactual > -5 M1: enabled preserves ordinary evolution including geometric completion  4407ms
+   ✓ ADR 0056 geometric completion counterfactual > -5 M1_NO_DIP_ABLATION: enabled preserves ordinary evolution including geometric completion  9551ms
+   ✓ ADR 0056 geometric completion counterfactual > M1 still grows kinetically with exact attached symmetry at fill-CFL 0.2  489ms
+   ✓ ADR 0056 geometric completion counterfactual > M1_NO_DIP_ABLATION still grows kinetically with exact attached symmetry at fill-CFL 0.2  552ms
+ ✓ runner/test/post-phase10-basal-width.test.ts (4 tests) 243ms
+ ✓ runner/test/nas-mount-identity.test.ts (9 tests) 19ms
+ ✓ runner/test/phase10-c0v-s6-static-parent.test.ts (4 tests) 3ms
+ ✓ runner/test/post-phase10-cavity-spatial.test.ts (5 tests) 3ms
+ ✓ runner/test/post-phase10-cavity-geometry.test.ts (6 tests) 5ms
+ ✓ runner/test/gate-enforce.test.ts (21 tests) 3285ms
+ ✓ runner/test/post-phase10-discovery.test.ts (6 tests) 53ms
+ ✓ runner/test/gutcheck-growth-fleet.test.ts (5 tests) 75ms
+ ✓ runner/test/hil-batch2.test.ts (4 tests) 565ms
+   ✓ registered HIL second batch > routes the real entry point to its own roster and refuses old worker IDs  375ms
+ ✓ runner/test/phase9-mv-eligibility.test.ts (6 tests) 4ms
+ ✓ runner/test/named-crystal-direct-production-review.test.ts (2 tests) 35ms
+ ✓ solver-cpu/test/lk-facet-dips.test.ts (8 tests) 14178ms
+   ✓ ADR 0055 finite facet preparation > -4.5 both preserves ordinary evolution through attachment  3435ms
+   ✓ ADR 0055 finite facet preparation > -4.5 neither preserves ordinary evolution through attachment  3269ms
+   ✓ ADR 0055 finite facet preparation > -5 both preserves ordinary evolution through attachment  3416ms
+   ✓ ADR 0055 finite facet preparation > -5 neither preserves ordinary evolution through attachment  3283ms
+ ✓ runner/test/phase10-c0v-s6-aggregate-parent.test.ts (2 tests) 17ms
+ ✓ runner/test/hil-exploration-oct10.test.ts (3 tests) 1362ms
+   ✓ registered October 10 HIL exploration > preserves the original supplement binding and refuses cross-batch or changed resume identity  348ms
+   ✓ registered October 10 HIL exploration > routes the executable list and checkpointed workers to this roster without a probe route  1011ms
+ ✓ runner/test/post-phase10-followup.test.ts (5 tests) 446ms
+   ✓ post-Phase-10 follow-up wave 2 > runs one abrupt event at its exact first extent crossing  443ms
+ ✓ runner/test/phase6-wp2-ladder-independent.test.ts (4 tests) 252ms
+ ✓ runner/test/phase6-ladder-reader.test.ts (3 tests) 338ms
+ ✓ runner/test/named-crystal-direct-production-2.test.ts (6 tests) 146ms
+ ✓ app/test/slice.test.ts (11 tests) 3ms
+ ✓ app/test/protocol.test.ts (15 tests) 5ms
+ ✓ runner/test/render-worktrees-closeout-nas-publication.test.ts (3 tests) 13ms
+ ✓ runner/test/phase10-b-branches.test.ts (3 tests) 361ms
+ ✓ solver-cpu/test/lk-cycle-phase.test.ts (5 tests) 11ms
+ ✓ app/test/stoprule.test.ts (8 tests) 24ms
+ ✓ runner/test/named-crystal-final-resolution-production-c.test.ts (5 tests) 185ms
+ ✓ runner/test/named-crystal-final-resolution-c-cadence-repair.test.ts (5 tests) 35ms
+ ✓ core/test/lattice.test.ts (13 tests) 18ms
+ ✓ runner/test/suite-integrity.test.ts (4 tests) 6ms
+ ✓ runner/test/phase5-lk-reduction-shadow.test.ts (3 tests) 1999ms
+   ✓ Phase 5 LK f32 reduction shadow > measures every frozen blocking LK topology before production WGSL exists  1995ms
+ ✓ runner/test/depletion-metric.test.ts (3 tests) 319ms
+ ✓ runner/test/phase9-nas.test.ts (6 tests) 13ms
+ ✓ runner/test/discovery-resume-publication.test.ts (10 tests) 2505ms
+ ✓ runner/test/post-phase10-cavity.test.ts (5 tests) 259ms
+ ✓ runner/test/gate4a-reference.test.ts (6 tests) 39ms
+ ✓ runner/test/hil-supplement.test.ts (3 tests) 1278ms
+   ✓ registered HIL history and pressure supplement > routes the executable list and both checkpointed worker commands through the registered batch  986ms
+ ✓ runner/test/phase10-c0v-s6-radial-publish-parent.test.ts (2 tests) 3ms
+ ✓ app/test/hexgeom.test.ts (8 tests) 3ms
+ ✓ app/test/snapshot.test.ts (3 tests) 7ms
+ ✓ runner/test/named-crystal-hard-form-probes.test.ts (4 tests) 1309ms
+   ✓ named-crystal hard-form probe tranche > materializes every custom seed as a fitting connected GG+ initial condition  1279ms
+ ✓ runner/test/named-crystal-direct-production.test.ts (5 tests) 161ms
+ ✓ runner/test/named-crystal-early-stop-probes.test.ts (3 tests) 31ms
+ ✓ solver-cpu/test/gg-plus-solver.test.ts (4 tests) 87ms
+ ✓ runner/test/phase10-c0v-s6-publication.test.ts (3 tests) 3ms
+ ✓ runner/test/post-phase10-spatial.test.ts (1 test) 812ms
+   ✓ optional spatial boundary observations > records the converged pre-update boundary without changing numerical trajectories  812ms
+ ✓ solver-gpu/test/lk-input.test.ts (5 tests) 3ms
+ ✓ app/test/display.test.ts (10 tests) 6ms
+ ✓ runner/test/hil-warm-refinement.test.ts (3 tests) 173ms
+ ✓ runner/test/phase6-diagram.test.ts (6 tests) 5ms
+ ✓ runner/test/hil-bld-batch-summary.test.ts (7 tests) 273ms
+ ✓ runner/test/gutcheck-growth-scientific-nas-publication.test.ts (2 tests) 5ms
+ ✓ app/test/readout.test.ts (6 tests) 2ms
+ ✓ runner/test/phase8-focused-discovery.test.ts (3 tests) 221ms
+ ✓ app/test/surface.test.ts (6 tests) 3ms
+ ✓ solver-cpu/test/operator.test.ts (3 tests) 88ms
+ ✓ app/test/growth-comparison-contract.test.ts (3 tests) 3ms
+ ✓ runner/test/named-crystal-catalog.test.ts (4 tests) 7ms
+ ✓ runner/test/phase10-c0v-s6-moving-locked-dispatch.test.ts (1 test) 2ms
+ ✓ core/test/params.test.ts (11 tests) 3ms
+ ✓ runner/test/gutcheck-animation-queue-cli.test.ts (1 test) 357ms
+   ✓ gut-check animation queue CLI > plans portable A/B manifests and dry-runs both workers  356ms
+ ✓ app/test/gutcheck-animation-queue.test.ts (4 tests) 3ms
+ ✓ app/test/growth-study-data.test.ts (3 tests) 4ms
+ ✓ solver-cpu/test/dirichlet.test.ts (3 tests) 55ms
+ ✓ app/test/growth-statistics.test.ts (5 tests) 6ms
+ ✓ runner/test/growth-gallery-restore.test.ts (4 tests) 10ms
+ ✓ runner/test/phase10-c0v-s6-radial-parent.test.ts (2 tests) 3ms
+ ✓ app/test/catalog-volume.test.ts (3 tests) 2ms
+ ✓ solver-gpu/test/lk-conversion.test.ts (3 tests) 4ms
+ ✓ runner/test/named-crystal-baseline-probes.test.ts (3 tests) 908ms
+   ✓ named-crystal baseline probe tranche > materializes every custom profile as a fitting, connected GG+ seed  877ms
+ ✓ runner/test/phase10-final-package.test.ts (3 tests) 532ms
+   ✓ Phase 10 final package > matches the published report to its bound producer commit  518ms
+ ✓ runner/test/named-crystal-baseline-probe-review.test.ts (3 tests) 2ms
+ ✓ app/test/named-crystal-catalog-service.test.ts (2 tests) 7ms
+ ✓ app/test/hud.test.ts (8 tests) 3ms
+ ✓ app/test/growth-scene.test.ts (5 tests) 3ms
+ ✓ app/test/growth-study-library.test.ts (3 tests) 2ms
+ ✓ runner/test/post-phase10-adaptive.test.ts (4 tests) 3ms
+ ✓ app/test/gutcheck-growth-framing.test.ts (2 tests) 6ms
+ ✓ solver-gpu/test/lk-cycle.test.ts (2 tests) 2ms
+ ✓ solver-cpu/test/phase6-ablation-arm.test.ts (1 test) 248ms
+ ✓ app/test/colormap.test.ts (8 tests) 6ms
+ ✓ runner/test/cli-entry.test.ts (6 tests) 492ms
+ ✓ app/test/dendrite-data.test.ts (3 tests) 47ms
+ ✓ runner/test/post-phase10-confirm.test.ts (3 tests) 3ms
+ ✓ app/test/three-views.test.ts (2 tests) 2ms
+ ✓ runner/test/rule7-lint.test.ts (3 tests) 105ms
+ ✓ app/test/growth-scene-review-camera.test.ts (5 tests) 2ms
+ ✓ core/test/prng.test.ts (6 tests) 14ms
+ ✓ runner/test/named-crystal-current-audit.test.ts (2 tests) 2ms
+ ✓ app/test/spike-gg-realism-frame.test.ts (3 tests) 1ms
+ ✓ app/test/growth-asset.test.ts (2 tests) 2ms
+ ✓ runner/test/post-phase10-long.test.ts (2 tests) 10ms
+ ✓ runner/test/pgm.test.ts (2 tests) 6ms
+ ✓ runner/test/gutcheck-photo-match-cli.test.ts (2 tests) 71ms
+ ✓ runner/test/phase10-c0v-s6-historical-ap.test.ts (1 test) 11050ms
+   ✓ Phase 10 C0V S6 accepted historical A-P reopen > reopens the complete accepted prefix through its retained V5 protocol and exact 15 paths  10878ms
+ ✓ runner/test/gate2b-v4-artifact.test.ts (2 tests) 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  runner/test/nas-assets-catalog.test.ts > tracked NAS asset catalogue > loads the strict real catalogue and pins the read-only census dispositions
+AssertionError: expected { …(38) } to deeply equal { …(37) }
+
+- Expected
++ Received
+
+@@ -77,10 +77,15 @@
+    "hil-completed-runs@2026-10-09": [
+      "active",
+      6,
+      135501385,
+    ],
++   "hil-exploration-results@2026-10-21": [
++     "active",
++     18,
++     739465345,
++   ],
+    "local-worktree-closeout@2026-10-01": [
+      "active",
+      15,
+      151154825,
+    ],
+
+ ❯ runner/test/nas-assets-catalog.test.ts:196:10
+    194|       `${collection.assetId}@${collection.version}`,
+    195|       [collection.state, collection.aggregate.files, collection.aggreg…
+    196|     ]))).toEqual(expected);
+       |          ^
+    197|     expect(CATALOG.overlays.map((overlay) => overlay.overlayId)).toEqu…
+    198|       "research-media-subset",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  runner/test/progress-index.test.ts > compact progress index and byte-exact historical record > rejects loss of current closed-phase, hold, history and actual next-step boundaries
+AssertionError: expected [ Array(1) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   "missing current-state phrase: pause/resume before launch",
++ ]
+
+ ❯ runner/test/progress-index.test.ts:317:38
+    315|   it("rejects loss of current closed-phase, hold, history and actual n…
+    316|     const text = readFileSync(PROGRESS, "utf8");
+    317|     expect(currentIndexErrors(text)).toEqual([]);
+       |                                      ^
+    318|     for (const phrase of [
+    319|       "Phase 6 is COMPLETE (2026-08-20)",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  runner/test/progress-index.test.ts > compact progress index and byte-exact historical record > keeps the live authority complete and unambiguous
+AssertionError: expected [ Array(1) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   "missing current-state phrase: pause/resume before launch",
++ ]
+
+ ❯ runner/test/progress-index.test.ts:380:38
+    378|     // The maker-authorized housekeeping plan restores a compact curre…
+    379|     const text = readFileSync(PROGRESS, "utf8");
+    380|     expect(currentIndexErrors(text)).toEqual([]);
+       |                                      ^
+    381|     expect(text.split(/\r?\n/u).length).toBeLessThanOrEqual(250);
+    382| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  2 failed | 240 passed (242)
+      Tests  3 failed | 3071 passed | 23 skipped (3097)
+   Start at  09:27:52
+   Duration  907.73s (transform 3.05s, setup 0ms, collect 28.81s, tests 854.68s, environment 23ms, prepare 8.92s)
+
