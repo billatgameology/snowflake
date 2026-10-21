@@ -178,3 +178,56 @@ and this review checkout remain open with their original useful output; no archi
 was performed. The only next scientific action is the maker discussion named in PROGRESS.
 Raw test logs retain their exact diagnostic whitespace; the scoped prose/code whitespace check
 excludes those three preserved log files.
+
+## Maker-directed local closeout — October21 follow-up
+
+Authority: "can you close all worktree and branches make it one clean main, make sure they are safe to close".
+This follow-up supersedes the earlier worktree-retirement exclusion for the eight local checkouts
+listed below. Solo scientific research; hostile actors excluded. Deliver one clean local main,
+with code/history integrated and useful output retained both in the existing NAS collection and
+in primary C-drive custody. No new simulations, scientific interpretation, backup framework,
+Git history rewrite, remote education integration or useful-data pruning.
+
+Reuse `codex/hil-results-preserve-oct21` for closeout records. Before each archive, require clean
+tracked/untracked state, branch ancestry in main, no live process referencing the checkout,
+exact current source-file membership/bytes/hash agreement with the existing NAS inventory for
+its scientific output, and committed recovery/relocation records. Reuse the verified fresh NAS
+restore from this task; ADR0061 explicitly permits reuse for matching immutable bytes. Recheck
+the published collection with the existing full-hash verifier. Move each complete out directory
+into an absent exact destination under primary `out/hil-retired-2026-10-21/<label>/out/` on C:,
+verify before/after complete path/length/hash identity, then archive through the Codex managed
+worktree tool. Preserve the primary-science-support source in place. Reinstallable node_modules,
+rebuildable builds and explicitly identified test scratch need no new NAS publication.
+
+| Exact source checkout under C:/Users/biao3/.codex/worktrees/ | Local branch | Scientific output coverage |
+|---|---|---|
+| hil-domain-seed-oct19/snowflake | codex/hil-domain-seed-oct19 | matching named archive in hil-exploration-results@2026-10-21 |
+| hil-exploration-oct10/snowflake | codex/hil-exploration-oct10 | matching named archive in the same collection |
+| hil-facet-pressure-oct19/snowflake | codex/hil-facet-pressure-oct19 | matching named archive in the same collection |
+| hil-large-batch-oct11/snowflake | codex/hil-large-batch-oct11 | matching named archive in the same collection |
+| hil-supplement/snowflake | codex/hil-supplement | matching named archive in the same collection |
+| hil-two-day-oct12/snowflake | codex/hil-two-day-oct12 | matching named archive in the same collection |
+| hil-warm-refinement/snowflake | codex/hil-warm-refinement | matching named archive in the same collection |
+| hil-results-preserve-oct21/snowflake | codex/hil-results-preserve-oct21 | review-analysis archive; prepared/restored payload duplicates and tracked Git/NAS verification receipts |
+
+The initial audit found all eight local tips ancestors of main b60012a and every checkout clean.
+No process command line referenced these worktrees. The independent remote
+`origin/explore/film-part1-plan` at `4f7a03207f8e42f650074a1d7601d2f126800320` has148 commits
+absent from main and remains retained; deleting or merging that work is outside this local
+science closeout. Main's unrelated ignored data, including debug.log, remain in place.
+
+Lessons A1/A2 and Rule15 govern retained bytes; the existing NAS/member manifests and exact
+relocation inventories cover accidental loss. No new runtime/checker is built. This records-only
+closure uses the existing catalogue/evidence/progress checks, Rule7 and diff checks. It does not
+repeat solver suites, capacity probes or scientific gates. Archive only after recovery bindings
+and exact local disposition are committed to main; delete each merged local branch non-forcibly.
+The final record must show a single registered primary worktree, one local branch main, clean
+status and remote main equality.
+
+- [ ] Verify exact NAS coverage, classify review staging and retain all local output in primary.
+- [ ] Commit relocation/recovery bindings, archive the seven producer checkouts, then the review checkout.
+- [ ] Remove merged local task refs, publish final closeout and verify one clean main.
+
+Tried and rejected for closeout: deleting useful ignored data with the checkout; treating branch
+ancestry as an output backup; deleting the unmerged independent remote film branch; republishing
+identical immutable payloads or building another verifier solely for closure.
