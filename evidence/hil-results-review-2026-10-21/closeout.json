@@ -652,5 +652,165 @@
     "commitsAbsentFromMain": 148,
     "reason": "Independent education/film work; no deletion or integration."
   },
-  "disposition": "All eight out trees retained under primary; source checkouts ready for archive after committed integration; no useful data pruned."
+  "disposition": "Eight merged task worktrees unregistered and eight local branches removed without force; one primary/main remains. All useful output retained on NAS and primary C drive. Six dependency-only shells and five stale app attachments remain as documented; no useful data pruned.",
+  "closedAt": "2026-10-21T17:03:20.657697+00:00",
+  "recoveryBindingsPushedBeforeClosure": "9e6c97aeb57893b2c04f3b1b8a2b03189ccf4e3b",
+  "closure": {
+    "worktrees": [
+      {
+        "path": "C:/Users/biao3/.codex/worktrees/hil-domain-seed-oct19/snowflake",
+        "head": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "branch": "refs/heads/codex/hil-domain-seed-oct19",
+        "clean": true,
+        "ancestorOfMain": true,
+        "gitWorktreeRemoved": true,
+        "localBranchRemoved": true,
+        "method": "Codex archive_worktree",
+        "branchRemoval": "git branch -d <branch>",
+        "filesystem": "Checkout directory absent"
+      },
+      {
+        "path": "C:/Users/biao3/.codex/worktrees/hil-exploration-oct10/snowflake",
+        "head": "33832e20a386c52d830e2dd338a1f8671a25db8f",
+        "branch": "refs/heads/codex/hil-exploration-oct10",
+        "clean": true,
+        "ancestorOfMain": true,
+        "gitWorktreeRemoved": true,
+        "localBranchRemoved": true,
+        "method": "git worktree remove -- <exact-path> (no force)",
+        "branchRemoval": "git branch -d <branch>",
+        "filesystem": "Only broken npm workspace junctions remain; no source/result files"
+      },
+      {
+        "path": "C:/Users/biao3/.codex/worktrees/hil-facet-pressure-oct19/snowflake",
+        "head": "73eb358c7c720a7f1608df5b26f0a8438ae6be92",
+        "branch": "refs/heads/codex/hil-facet-pressure-oct19",
+        "clean": true,
+        "ancestorOfMain": true,
+        "gitWorktreeRemoved": true,
+        "localBranchRemoved": true,
+        "method": "Codex archive_worktree",
+        "branchRemoval": "git branch -d <branch>",
+        "filesystem": "Only broken npm workspace junctions remain; no source/result files"
+      },
+      {
+        "path": "C:/Users/biao3/.codex/worktrees/hil-large-batch-oct11/snowflake",
+        "head": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+        "branch": "refs/heads/codex/hil-large-batch-oct11",
+        "clean": true,
+        "ancestorOfMain": true,
+        "gitWorktreeRemoved": true,
+        "localBranchRemoved": true,
+        "method": "git worktree remove -- <exact-path> (no force)",
+        "branchRemoval": "git branch -d <branch>",
+        "filesystem": "Only broken npm workspace junctions remain; no source/result files"
+      },
+      {
+        "path": "C:/Users/biao3/.codex/worktrees/hil-results-preserve-oct21/snowflake",
+        "head": "9e6c97aeb57893b2c04f3b1b8a2b03189ccf4e3b",
+        "branch": "refs/heads/codex/hil-results-preserve-oct21",
+        "clean": true,
+        "ancestorOfMain": true,
+        "gitWorktreeRemoved": true,
+        "localBranchRemoved": true,
+        "method": "Codex archive_worktree",
+        "branchRemoval": "git branch -d <branch>",
+        "filesystem": "Checkout directory absent"
+      },
+      {
+        "path": "C:/Users/biao3/.codex/worktrees/hil-supplement/snowflake",
+        "head": "7ea25824e3d2a3a3f3e488b463689d56d5d06997",
+        "branch": "refs/heads/codex/hil-supplement",
+        "clean": true,
+        "ancestorOfMain": true,
+        "gitWorktreeRemoved": true,
+        "localBranchRemoved": true,
+        "method": "git worktree remove -- <exact-path> (no force)",
+        "branchRemoval": "git branch -d <branch>",
+        "filesystem": "Only broken npm workspace junctions remain; no source/result files"
+      },
+      {
+        "path": "C:/Users/biao3/.codex/worktrees/hil-two-day-oct12/snowflake",
+        "head": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+        "branch": "refs/heads/codex/hil-two-day-oct12",
+        "clean": true,
+        "ancestorOfMain": true,
+        "gitWorktreeRemoved": true,
+        "localBranchRemoved": true,
+        "method": "git worktree remove -- <exact-path> (no force)",
+        "branchRemoval": "git branch -d <branch>",
+        "filesystem": "Only broken npm workspace junctions remain; no source/result files"
+      },
+      {
+        "path": "C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake",
+        "head": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+        "branch": "refs/heads/codex/hil-warm-refinement",
+        "clean": true,
+        "ancestorOfMain": true,
+        "gitWorktreeRemoved": true,
+        "localBranchRemoved": true,
+        "method": "git worktree remove -- <exact-path> (no force)",
+        "branchRemoval": "git branch -d <branch>",
+        "filesystem": "Only broken npm workspace junctions remain; no source/result files"
+      }
+    ],
+    "registeredWorktrees": [
+      "C:\\Users\\biao3\\Documents\\GitHub\\snowflake"
+    ],
+    "localBranches": [
+      "main"
+    ],
+    "remoteFilmHeadUnchanged": "4f7a03207f8e42f650074a1d7601d2f126800320",
+    "dependencyRemnants": {
+      "labels": [
+        "hil-exploration-oct10",
+        "hil-facet-pressure-oct19",
+        "hil-large-batch-oct11",
+        "hil-supplement",
+        "hil-two-day-oct12",
+        "hil-warm-refinement"
+      ],
+      "junctionsPerShell": 5,
+      "totalJunctions": 30,
+      "packages": [
+        "app",
+        "core",
+        "runner",
+        "solver-cpu",
+        "solver-gpu"
+      ],
+      "observed": "Each junction points to the absent same-named package directory in its own former checkout; no ordinary files remain.",
+      "disposition": "Retained: automatic approval review rejected exact link/empty-directory removal with blocked by policy; no more specific reason provided."
+    },
+    "appMetadata": {
+      "staleAttachments": [
+        "hil-exploration-oct10",
+        "hil-large-batch-oct11",
+        "hil-supplement",
+        "hil-two-day-oct12",
+        "hil-warm-refinement"
+      ],
+      "archiveRetryError": "This worktree is owned by another task.",
+      "limit": "Git removal is complete; app attachment cleanup did not complete. No app database edits or ownership bypass."
+    }
+  },
+  "closeoutVerification": {
+    "checks": [
+      {
+        "command": "npx.cmd vitest run runner/test/nas-assets-catalog.test.ts runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts",
+        "exitCode": 0,
+        "result": "3 files / 27 tests passed",
+        "log": "out/hil-closeout-2026-10-21/closure-metadata.log",
+        "sha256": "5babde304f66c692d8a8032a512100c0d8742033c016f2dc4c3d11ac7c370bb4"
+      },
+      {
+        "command": "npm.cmd run lint:rule7",
+        "exitCode": 0,
+        "result": "Rule7 clean",
+        "log": "out/hil-closeout-2026-10-21/closure-rule7.log",
+        "sha256": "a9001a71bd30a976ff514d44669399a75704d7a8bd7e2cbfbfa4739739016f42"
+      }
+    ],
+    "scope": "Records, catalogue and evidence integrity only; no scientific code changes or full suite rerun."
+  }
 }

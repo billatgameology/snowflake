@@ -463,4 +463,7 @@ uncertainty explicitly before any launch. The [preservation task](hil-results-pr
 published `hil-exploration-results@2026-10-21` and verified fresh recovery, all archive members
 and full catalogue hashes. Its [receipt](../nas-assets/manifests/hil-exploration-results/2026-10-21-verification.json)
 covers this campaign's 506 source files / 1,236,895,495 bytes, including useful controls and
-attempts. Local originals and worktrees remain; no closure or source pruning occurred.
+attempts. The merged worktree and local branch were retired in the
+[October21 closeout](hil-results-preservation-oct21.md#executed-git-closeout-and-remaining-app-metadata).
+All local output is retained at primary `out/hil-retired-2026-10-21/hil-warm-refinement/out/`;
+Rebase historical replay paths onto this retained output directory. No useful output was pruned.

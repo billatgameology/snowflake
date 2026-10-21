@@ -317,7 +317,9 @@ otherwise the scoped axial finding can stand. A shared-geometry history interven
 a different unresolved question. Neither proposal is a frozen or launched batch; new cost is
 unmeasured. The [preservation task](hil-results-preservation-oct21.md) published
 `hil-exploration-results@2026-10-21`; the [fresh recovery/member receipt](../nas-assets/manifests/hil-exploration-results/2026-10-21-verification.json)
-covers this campaign's 367 source files / 193,219,301 bytes. All originals and the output-owning
-checkout remain retained; no closure or pruning occurred. Internal skeptical interpretation
+covers this campaign's 367 source files / 193,219,301 bytes. The merged worktree and local branch
+were retired in the [October21 closeout](hil-results-preservation-oct21.md#executed-git-closeout-and-remaining-app-metadata).
+All output remains at primary `out/hil-retired-2026-10-21/hil-facet-pressure-oct19/out/`;
+Rebase historical replay paths onto this retained output directory. No useful output was pruned. Internal skeptical interpretation
 and the task-level verification receipt retain their respective limits; this paragraph does
 not claim a new gate or full-suite result.

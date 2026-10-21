@@ -225,8 +225,8 @@ The final record must show a single registered primary worktree, one local branc
 status and remote main equality.
 
 - [x] Verify exact NAS coverage, classify review staging and retain all local output in primary.
-- [ ] Commit relocation/recovery bindings, archive the seven producer checkouts, then the review checkout.
-- [ ] Remove merged local task refs, publish final closeout and verify one clean main.
+- [x] Commit relocation/recovery bindings and retire all eight Git worktrees after output retention.
+- [x] Remove the eight merged local task refs; only primary/main remains. Final records accompany this closeout commit.
 
 Tried and rejected for closeout: deleting useful ignored data with the checkout; treating branch
 ancestry as an output backup; deleting the unmerged independent remote film branch; republishing
@@ -249,4 +249,29 @@ payload. Prepared/restored archives are verified duplicate collection bytes. Thu
 remains solely in a closing checkout, and the independent C-drive copy remains available.
 An initial comparison encountered Windows Path ordering versus ordinal manifest ordering;
 normalizing only relative-path ordering showed no missing, extra or changed bytes. No scientific
-producer or archive bytes were altered. Archives may now close after this receipt is integrated.
+producer or archive bytes were altered. Recovery/relocation bindings were integrated and pushed
+at `9e6c97a` before any checkout was removed.
+
+### Executed Git closeout and remaining app metadata
+
+All eight task tips were merged into main, all checkouts were clean, and no process referenced
+them. The Codex archive tool completed for domain-seed, facet-pressure and results-preserve.
+The other five queued requests left their Git worktrees registered; ordinary non-force
+`git worktree remove -- <exact-path>` completed each removal. All eight corresponding local
+branches were then removed with `git branch -d`. Git now registers only the primary checkout
+and local `main`; the unmerged remote film branch remains unchanged.
+
+The final filesystem check found six checkout shells containing only thirty broken npm
+workspace junctions (five each in warm, supplement, exploration, large-batch, two-day and
+facet-pressure). Each points to an absent package directory in its own former checkout.
+They contain no source or result files. Automatic approval review rejected removal of those
+links with "blocked by policy" and no further reason; they remain untouched. Five older Codex
+attachment entries also remain stale. Retrying the warm attachment returned "This worktree
+is owned by another task." No app metadata was edited to bypass that ownership check.
+
+These residual app/dependency entries do not represent registered Git worktrees. The
+[closeout receipt](../../evidence/hil-results-review-2026-10-21/closeout.json) preserves exact
+former heads, methods, current output custody and these limitations. The final bookkeeping
+uses the surviving primary main after the task branch is retired; it changes no scientific code.
+The existing three-file metadata check passes all27 tests, and Rule7 passes. Full scientific
+verification retains the earlier reported limitations; no new full-suite result is claimed.

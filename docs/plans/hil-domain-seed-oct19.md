@@ -296,6 +296,8 @@ different remaining questions; neither is a frozen batch or launch authorization
 [preservation task](hil-results-preservation-oct21.md) published
 `hil-exploration-results@2026-10-21`, including bulk campaign and supporting analysis bytes.
 Its [verified fresh recovery](../nas-assets/manifests/hil-exploration-results/2026-10-21-verification.json)
-covers this campaign's 365 source files / 291,428,860 bytes. Local originals and the output-owning
-checkout remain; no closure or pruning occurred. The analysis used existing readouts with an
+covers this campaign's 365 source files / 291,428,860 bytes. The merged worktree and local branch
+were retired in the [October21 closeout](hil-results-preservation-oct21.md#executed-git-closeout-and-remaining-app-metadata).
+All output remains at primary `out/hil-retired-2026-10-21/hil-domain-seed-oct19/out/`;
+Rebase historical replay paths onto this retained output directory. No useful output was pruned. The analysis used existing readouts with an
 internal skeptical pass; it grants no physical-validation label or automatic Phase10 completion.
