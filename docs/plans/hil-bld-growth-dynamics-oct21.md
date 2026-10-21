@@ -418,6 +418,32 @@ durable publication, not active checkpoint writes. No new disk supervisor or sch
 
 ## Execution implementation and exact-command handoff
 
+### Independent HIL execution slice — October21
+
+The maker reports BLD is working from `48a8ffb` in its own worktree and directs HIL to start
+without waiting for that unpublished work. HIL therefore implements its unchanged 24-row roster
+in `hil-growth-dynamics-oct21-roster.ts` and `hil-growth-dynamics-oct21-main.ts`. BLD's 92-row
+implementation remains owned by BLD. This supersedes the shared-entry dependency below: the
+hosts need matching registered scientific operands and unchanged numerical code, not the same
+new wrapper file or Git commit. Each host still pins its own tested producer for exact resume.
+Do not change or restart a running BLD producer merely to unify wrappers.
+
+One deliverable is HIL's 24-row queue running and checkpointing: 20 initial workers and four
+queued history rows, with the frozen W4/C1/H1 order. Reuse the existing queue and complete-cycle
+runner. Add only the explicit worker ceiling/attempt-count separation needed to resume at fewer
+workers after a resource stop; preserve historical callers. The small HIL readout selector must
+demonstrate retained-input reconstruction before dispatch; complete cohort comparisons remain
+pending the new rows and BLD handoff. No solver, codec or scientific definition changes.
+
+The concrete launch/resume interface is now the HIL-prefixed entry above with the same arguments
+as the proposed shared entry below. Record its exact tested command before launch. Verification
+is exact roster/host/routing tests, readout-selection tests, one exact `npm test` at the stable
+checkpoint, and the existing restart witnesses where continuation code is unchanged. The
+known failures remain wrong control/host selection and omitted observations (Rule6 and lessons
+C3/C6/E1/E5); nearest-boundary tests cover the new selection, while interpretation still needs
+judgment. Solo scientific research remains the scope; hostile actors are excluded. No new
+scheduler, capacity ladder, restart format or assurance layer is needed.
+
 Existing `launchDiscoveryRows` accepts heterogeneous rows and any positive worker count;
 `DiscoveryBatchDefinition` already understands HIL/BLD. `hil-operational-batch-main.ts` provides
 the explicit-budget lease/resume/monitor path but is HIL-specific. Implement a thin two-host
