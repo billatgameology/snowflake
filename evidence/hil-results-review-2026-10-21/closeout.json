@@ -1,0 +1,656 @@
+{
+  "at": "2026-10-21T16:52:46.916138+00:00",
+  "collection": "hil-exploration-results@2026-10-21",
+  "nasFullVerify": {
+    "command": "npm.cmd run assets:verify -- --collection hil-exploration-results@2026-10-21 --full",
+    "exitCode": 0,
+    "fileCount": 18,
+    "totalBytes": 739465345
+  },
+  "targets": [
+    {
+      "label": "hil-warm-refinement",
+      "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out",
+      "destination": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out",
+      "before": {
+        "files": 506,
+        "bytes": 1236895495,
+        "treeSha256": "9a31bbbb80400045959672c71881f2b6664e4d35a038f7ccb49b8a0b8d976371"
+      },
+      "nasArchive": "hil-warm-refinement-output.tar.gz",
+      "nasSourceMembersMatch": true,
+      "after": {
+        "files": 506,
+        "bytes": 1236895495,
+        "treeSha256": "9a31bbbb80400045959672c71881f2b6664e4d35a038f7ccb49b8a0b8d976371"
+      },
+      "exactMatch": true
+    },
+    {
+      "label": "hil-supplement",
+      "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\out",
+      "destination": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-supplement\\out",
+      "before": {
+        "files": 197,
+        "bytes": 98361997,
+        "treeSha256": "2bb3eda39c8b3f2f21f926f51eb3f4251bd015ed0818f691ca4cb07a7c786c41"
+      },
+      "nasArchive": "hil-supplement-output.tar.gz",
+      "nasSourceMembersMatch": true,
+      "after": {
+        "files": 197,
+        "bytes": 98361997,
+        "treeSha256": "2bb3eda39c8b3f2f21f926f51eb3f4251bd015ed0818f691ca4cb07a7c786c41"
+      },
+      "exactMatch": true
+    },
+    {
+      "label": "hil-exploration-oct10",
+      "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out",
+      "destination": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-exploration-oct10\\out",
+      "before": {
+        "files": 273,
+        "bytes": 142764740,
+        "treeSha256": "fb4d5c62d993e21610ca27446a8dafb717aa176aca29ccfbfdd552093e2b2525"
+      },
+      "nasArchive": "hil-exploration-oct10-output.tar.gz",
+      "nasSourceMembersMatch": true,
+      "after": {
+        "files": 273,
+        "bytes": 142764740,
+        "treeSha256": "fb4d5c62d993e21610ca27446a8dafb717aa176aca29ccfbfdd552093e2b2525"
+      },
+      "exactMatch": true
+    },
+    {
+      "label": "hil-large-batch-oct11",
+      "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out",
+      "destination": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out",
+      "before": {
+        "files": 2886,
+        "bytes": 1580563997,
+        "treeSha256": "7c905029b5b9fe93b61605d740e893a942dcdccda44dd9df473e174264cb3c48"
+      },
+      "nasArchive": "hil-large-batch-oct11-output.tar.gz",
+      "nasSourceMembersMatch": true,
+      "after": {
+        "files": 2886,
+        "bytes": 1580563997,
+        "treeSha256": "7c905029b5b9fe93b61605d740e893a942dcdccda44dd9df473e174264cb3c48"
+      },
+      "exactMatch": true
+    },
+    {
+      "label": "hil-two-day-oct12",
+      "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out",
+      "destination": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-two-day-oct12\\out",
+      "before": {
+        "files": 5467,
+        "bytes": 3027531421,
+        "treeSha256": "8d9c931e678e3f453f56c851b4e2cbc1a950a5e9f409ab97fd822603df29a422"
+      },
+      "nasArchive": "hil-two-day-oct12-output.tar.gz",
+      "nasSourceMembersMatch": true,
+      "after": {
+        "files": 5467,
+        "bytes": 3027531421,
+        "treeSha256": "8d9c931e678e3f453f56c851b4e2cbc1a950a5e9f409ab97fd822603df29a422"
+      },
+      "exactMatch": true
+    },
+    {
+      "label": "hil-domain-seed-oct19",
+      "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out",
+      "destination": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-domain-seed-oct19\\out",
+      "before": {
+        "files": 365,
+        "bytes": 291428860,
+        "treeSha256": "5840c52628599c6694b5d7bcfa600a5f3b343a1f6f1fbe02a3587c16935996a6"
+      },
+      "nasArchive": "hil-domain-seed-oct19-output.tar.gz",
+      "nasSourceMembersMatch": true,
+      "after": {
+        "files": 365,
+        "bytes": 291428860,
+        "treeSha256": "5840c52628599c6694b5d7bcfa600a5f3b343a1f6f1fbe02a3587c16935996a6"
+      },
+      "exactMatch": true
+    },
+    {
+      "label": "hil-facet-pressure-oct19",
+      "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out",
+      "destination": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-facet-pressure-oct19\\out",
+      "before": {
+        "files": 367,
+        "bytes": 193219301,
+        "treeSha256": "bdcfde4dffa428e283dfb078fe40c01e3e3bc5f71bcb80f628646c6a63cceb1a"
+      },
+      "nasArchive": "hil-facet-pressure-oct19-output.tar.gz",
+      "nasSourceMembersMatch": true,
+      "after": {
+        "files": 367,
+        "bytes": 193219301,
+        "treeSha256": "bdcfde4dffa428e283dfb078fe40c01e3e3bc5f71bcb80f628646c6a63cceb1a"
+      },
+      "exactMatch": true
+    },
+    {
+      "label": "hil-results-preserve-oct21",
+      "source": "C:\\Users\\biao3\\.codex\\worktrees\\hil-results-preserve-oct21\\snowflake\\out",
+      "destination": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-results-preserve-oct21\\out",
+      "before": {
+        "files": 76,
+        "bytes": 1487229925,
+        "treeSha256": "532737c888c88d0ab381082cd9bd3ed22a498951b9185789154ee47b4b973710"
+      },
+      "nasArchive": "review-analysis-output.tar.gz",
+      "nasSourceMembersMatch": true,
+      "preparedAndRestoredPayloadsMatch": true,
+      "fullInventory": [
+        {
+          "path": "analysis-2026-10-21/author-axial-recomputation.json",
+          "bytes": 2495,
+          "sha256": "9c2d192bce0fcb78e3e8cd3e595b8b753368fff4e294e231b7ad3cf9fd5de9ac"
+        },
+        {
+          "path": "analysis-2026-10-21/cold/readout-final.json",
+          "bytes": 724875,
+          "sha256": "41f386f5d0c40bc454e8b3987784a55b779af827c72c4e23a88244d480404804"
+        },
+        {
+          "path": "analysis-2026-10-21/cold/readout-final.stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "analysis-2026-10-21/cold/readout-final.stdout.log",
+          "bytes": 592,
+          "sha256": "2522ec0c26336d0e06cfb12430c7b4807648d8a1d537e65d2296082f80d2c85e"
+        },
+        {
+          "path": "analysis-2026-10-21/cold/readout.json",
+          "bytes": 724875,
+          "sha256": "41322117bde178c4b4f2d239ae9a3d717708daf7f5e86cc2d09e30e1c03455f9"
+        },
+        {
+          "path": "analysis-2026-10-21/cold/readout.stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "analysis-2026-10-21/cold/readout.stdout.log",
+          "bytes": 586,
+          "sha256": "687a21f9fdd8814ad63e834f54ac670df2f96b014c56649024ac6c6693fbf386"
+        },
+        {
+          "path": "analysis-2026-10-21/facet/readout.json",
+          "bytes": 862577,
+          "sha256": "8e82be945b74def9cf98c52ea44cdbd7634779333eb7cf663cda216c4da4bdeb"
+        },
+        {
+          "path": "analysis-2026-10-21/facet/selection.mjs",
+          "bytes": 6110,
+          "sha256": "ee8275d1e2470d08603996bd29f39e27e456cdb7a04e9959f3d57e4d21554769"
+        },
+        {
+          "path": "analysis-2026-10-21/history-pressure/readout-final.json",
+          "bytes": 423045,
+          "sha256": "e8f67e0b585adafa6b0592ed436f87ae6590682ae385c8b211f6a4c81c1d4d45"
+        },
+        {
+          "path": "analysis-2026-10-21/history-pressure/readout-final.stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "analysis-2026-10-21/history-pressure/readout-final.stdout.log",
+          "bytes": 6919,
+          "sha256": "e147c790128871397c04ebe62b0991ec2b38f784dea1fff9205da15c94ab520f"
+        },
+        {
+          "path": "analysis-2026-10-21/history-pressure/readout.json",
+          "bytes": 423045,
+          "sha256": "4661f94c9db2dcd0f6996d6881ae779ed36d41644e521f640f8453704111a5be"
+        },
+        {
+          "path": "analysis-2026-10-21/history-pressure/readout.stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "analysis-2026-10-21/history-pressure/readout.stdout.log",
+          "bytes": 6913,
+          "sha256": "086ec86d355d71a0a4165019c36c00cf6e675692f5dac0d2e853bb30c1ee1c10"
+        },
+        {
+          "path": "analysis-2026-10-21/warm/cavity-readout.json",
+          "bytes": 2150685,
+          "sha256": "af56b9892f0423078fb454f749fc8d1a29e94a1e2a359d1d093922a24d5ca997"
+        },
+        {
+          "path": "analysis-2026-10-21/warm/paired/pair-coarse.json",
+          "bytes": 481888,
+          "sha256": "7d78d07618c2b50f0b6c8dfdaaaeaff10e0c3ea538c8c9b7de666163a3731397"
+        },
+        {
+          "path": "analysis-2026-10-21/warm/paired/pair-fine-thick.json",
+          "bytes": 844250,
+          "sha256": "be1e8ac591b18e3e65b848c48d908c48b7c8b4c4a089136646f51b24e2f0d55a"
+        },
+        {
+          "path": "analysis-2026-10-21/warm/paired/pair-fine-thin.json",
+          "bytes": 798115,
+          "sha256": "e4470ed3c62e5d2cdc97bb15157bd51d53cf5686beb7bed9f9d738fc49ba88f1"
+        },
+        {
+          "path": "analysis-2026-10-21/warm/terminal-slices-final.svg",
+          "bytes": 639653,
+          "sha256": "513fdf0fb77ee7ce17c95bafbdc5cb1ae1131ea287aaa001e061a33d3bc33caf"
+        },
+        {
+          "path": "analysis-2026-10-21/warm/terminal-slices.png",
+          "bytes": 81930,
+          "sha256": "ccf37bf93587d76bf7a9d416a2fe82a8c0e93de1356468904aada23b933e7d30"
+        },
+        {
+          "path": "checks-2026-10-21/metadata-result.json",
+          "bytes": 319,
+          "sha256": "cd6738a109cdd7b03891717de92f40a6ade8218280658bb89758d74543ea882c"
+        },
+        {
+          "path": "checks-2026-10-21/metadata.log",
+          "bytes": 789,
+          "sha256": "bf890a56384ce98c51830539b6cbdaef27e6c47a8185c0106528a4fc1ee71649"
+        },
+        {
+          "path": "checks-2026-10-21/npm-test-result.json",
+          "bytes": 315,
+          "sha256": "be4a5a804ae35225eaf3ecbfcd003440269bfd27473d489995a0fb67501fe65d"
+        },
+        {
+          "path": "checks-2026-10-21/npm-test.log",
+          "bytes": 103978,
+          "sha256": "6e87cd9e06c0651b892defd7327a756185f669c816288bbcc993b9ccf51a3b76"
+        },
+        {
+          "path": "checks-2026-10-21/rule7-final.log",
+          "bytes": 112,
+          "sha256": "09e98af991fb5a72af146cc497eb2f50752742f9cfbc1c7b4e60e326b1643921"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/assets-verify.log",
+          "bytes": 751,
+          "sha256": "665f0d907e75dd4140702f598cf4468d9652668e94b6c770374083c6f499ab70"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/payload-inventory.json",
+          "bytes": 3360,
+          "sha256": "96ada8f0f7567f6b1bfdbd4e8529c0e0da7c7e4d2add825da29e8170148d2580"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/payload/hil-domain-seed-oct19-archive.json",
+          "bytes": 110778,
+          "sha256": "72a7dcd3936696ee37232ef98d5f195f2e746f75aed9b3806278d8e122a69b03"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/payload/hil-domain-seed-oct19-output.tar.gz",
+          "bytes": 32444430,
+          "sha256": "c05a27060f30f7ba91a96aa21a8b145511cd3f01069625c7b2d2a0ab0e8f866f"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/payload/hil-exploration-oct10-archive.json",
+          "bytes": 79741,
+          "sha256": "28309eaa81b965a7b9ff4eb056e683e8ccbb67cebe86e430f8488fa5cfcfc0cb"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/payload/hil-exploration-oct10-output.tar.gz",
+          "bytes": 16071714,
+          "sha256": "2d522feff8f77758b8cbb6068494866a8a30b90a95393faacac25ac7940e9f6f"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/payload/hil-facet-pressure-oct19-archive.json",
+          "bytes": 118126,
+          "sha256": "b13c56780885371badd6797bd7dd56087fd9fdb8099f91258df10670ee0fd013"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/payload/hil-facet-pressure-oct19-output.tar.gz",
+          "bytes": 22494285,
+          "sha256": "db3c5f050c644f380635a57d3b5297abb68951a0f01e7097db49cb3edb3e9490"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/payload/hil-large-batch-oct11-archive.json",
+          "bytes": 841632,
+          "sha256": "b1306bb0960d4d0de0fc3ccd9cc01b193cea391d5209a2c3da239ea13d5715fd"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/payload/hil-large-batch-oct11-output.tar.gz",
+          "bytes": 169805041,
+          "sha256": "8264fa65d556181793a12443b208ed7de87a4d1faccd648fb18fb1202f38aa60"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/payload/hil-supplement-archive.json",
+          "bytes": 58341,
+          "sha256": "ec509421b565b0f5446f4582cb5e00977c4bdc5d034b329ba033b17e595b9c9c"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/payload/hil-supplement-output.tar.gz",
+          "bytes": 11571931,
+          "sha256": "06c684ac44bd105596c09c2d8a4d9c71095e27ccb8fe987aadad4753d355ac13"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/payload/hil-two-day-oct12-archive.json",
+          "bytes": 1632910,
+          "sha256": "0c6ba9611284a0667ce622696a221a9a6fd742648170b33261c4f198ac8135d2"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/payload/hil-two-day-oct12-output.tar.gz",
+          "bytes": 330543167,
+          "sha256": "e2b051e8dbfdcc5e6e15dd9720760e05bf09e0e020c20d58de4d8ac0f76a58bc"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/payload/hil-warm-refinement-archive.json",
+          "bytes": 152648,
+          "sha256": "cfc46a5f7c0f4dd680b2b3abe738662a45b66639fc1e70a06a8647184f8c554d"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/payload/hil-warm-refinement-output.tar.gz",
+          "bytes": 147454214,
+          "sha256": "327aa73d4d206a6cc5bd493bc0bfbdb10383e13a06c842d0872ec6d2c63b8944"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/payload/primary-science-support-archive.json",
+          "bytes": 49059,
+          "sha256": "7d4e30f139850b603955bfc2406b2fca6bddb06ca33b342bb65c33cfd4aca115"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/payload/primary-science-support-output.tar.gz",
+          "bytes": 5207144,
+          "sha256": "c0feb49fcf0c1ddf46f3381554bc7d109dc2d26b7cee8fc18e418db06de350bf"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/payload/review-analysis-archive.json",
+          "bytes": 5185,
+          "sha256": "1e2e800bdb71f96aaf98fa6798905aa0ee7cd0dcba99395415ebdb7f5f3772a5"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/payload/review-analysis-output.tar.gz",
+          "bytes": 824999,
+          "sha256": "a3d0a91824c3cec935c50d89b06e2f2924f81ca0ae70a1aa0b7b078539764a8b"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/prepared.json",
+          "bytes": 283,
+          "sha256": "78fcfbc730430f065a217758d7e5899e213b800b3d602610c52a840469e0c311"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/publication.json",
+          "bytes": 1697,
+          "sha256": "98f606e921e0ddc8268bc606ed877703779c25afd79c6ea3217a5b7964a917bc"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/publish-retry.stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/publish-retry.stdout.log",
+          "bytes": 1501,
+          "sha256": "91955ef433fedbf93cda8c016a747b7d298953e219d931a59b21144117596a7b"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/publish.stderr.log",
+          "bytes": 1104,
+          "sha256": "d48cd009c59453ea1479c6a9b958dc8ab1ee67c1c8272f295f4bd90938556d23"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/publish.stdout.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/registration.json",
+          "bytes": 598,
+          "sha256": "efb539acfd389e3a574c2a9afe71347bf0ae16bb6e94dc681daeb573e8220345"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/restore.json",
+          "bytes": 1525,
+          "sha256": "7b7b08d4685734b17bd2269788690c5c792987dadae04e70be1e35f467ba0713"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/restore.stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/restore.stdout.log",
+          "bytes": 1389,
+          "sha256": "a361db1393d7b707f4199d8a9561c70be16c6f6b76433fb89122bb6449cce05a"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/restored-members.json",
+          "bytes": 2250,
+          "sha256": "a5a083577a5b51c40ee4f3e6a65b39685449187c3d8778f17126f09b58c9b305"
+        },
+        {
+          "path": "nas-save-hil-exploration-2026-10-21/verify-restored.log",
+          "bytes": 711,
+          "sha256": "40519e7a44b1e8edd48aed25d9177f030f7313e2f7f11704700713fe9409bd6b"
+        },
+        {
+          "path": "restores/hil-exploration-results-2026-10-21/hil-domain-seed-oct19-archive.json",
+          "bytes": 110778,
+          "sha256": "72a7dcd3936696ee37232ef98d5f195f2e746f75aed9b3806278d8e122a69b03"
+        },
+        {
+          "path": "restores/hil-exploration-results-2026-10-21/hil-domain-seed-oct19-output.tar.gz",
+          "bytes": 32444430,
+          "sha256": "c05a27060f30f7ba91a96aa21a8b145511cd3f01069625c7b2d2a0ab0e8f866f"
+        },
+        {
+          "path": "restores/hil-exploration-results-2026-10-21/hil-exploration-oct10-archive.json",
+          "bytes": 79741,
+          "sha256": "28309eaa81b965a7b9ff4eb056e683e8ccbb67cebe86e430f8488fa5cfcfc0cb"
+        },
+        {
+          "path": "restores/hil-exploration-results-2026-10-21/hil-exploration-oct10-output.tar.gz",
+          "bytes": 16071714,
+          "sha256": "2d522feff8f77758b8cbb6068494866a8a30b90a95393faacac25ac7940e9f6f"
+        },
+        {
+          "path": "restores/hil-exploration-results-2026-10-21/hil-facet-pressure-oct19-archive.json",
+          "bytes": 118126,
+          "sha256": "b13c56780885371badd6797bd7dd56087fd9fdb8099f91258df10670ee0fd013"
+        },
+        {
+          "path": "restores/hil-exploration-results-2026-10-21/hil-facet-pressure-oct19-output.tar.gz",
+          "bytes": 22494285,
+          "sha256": "db3c5f050c644f380635a57d3b5297abb68951a0f01e7097db49cb3edb3e9490"
+        },
+        {
+          "path": "restores/hil-exploration-results-2026-10-21/hil-large-batch-oct11-archive.json",
+          "bytes": 841632,
+          "sha256": "b1306bb0960d4d0de0fc3ccd9cc01b193cea391d5209a2c3da239ea13d5715fd"
+        },
+        {
+          "path": "restores/hil-exploration-results-2026-10-21/hil-large-batch-oct11-output.tar.gz",
+          "bytes": 169805041,
+          "sha256": "8264fa65d556181793a12443b208ed7de87a4d1faccd648fb18fb1202f38aa60"
+        },
+        {
+          "path": "restores/hil-exploration-results-2026-10-21/hil-supplement-archive.json",
+          "bytes": 58341,
+          "sha256": "ec509421b565b0f5446f4582cb5e00977c4bdc5d034b329ba033b17e595b9c9c"
+        },
+        {
+          "path": "restores/hil-exploration-results-2026-10-21/hil-supplement-output.tar.gz",
+          "bytes": 11571931,
+          "sha256": "06c684ac44bd105596c09c2d8a4d9c71095e27ccb8fe987aadad4753d355ac13"
+        },
+        {
+          "path": "restores/hil-exploration-results-2026-10-21/hil-two-day-oct12-archive.json",
+          "bytes": 1632910,
+          "sha256": "0c6ba9611284a0667ce622696a221a9a6fd742648170b33261c4f198ac8135d2"
+        },
+        {
+          "path": "restores/hil-exploration-results-2026-10-21/hil-two-day-oct12-output.tar.gz",
+          "bytes": 330543167,
+          "sha256": "e2b051e8dbfdcc5e6e15dd9720760e05bf09e0e020c20d58de4d8ac0f76a58bc"
+        },
+        {
+          "path": "restores/hil-exploration-results-2026-10-21/hil-warm-refinement-archive.json",
+          "bytes": 152648,
+          "sha256": "cfc46a5f7c0f4dd680b2b3abe738662a45b66639fc1e70a06a8647184f8c554d"
+        },
+        {
+          "path": "restores/hil-exploration-results-2026-10-21/hil-warm-refinement-output.tar.gz",
+          "bytes": 147454214,
+          "sha256": "327aa73d4d206a6cc5bd493bc0bfbdb10383e13a06c842d0872ec6d2c63b8944"
+        },
+        {
+          "path": "restores/hil-exploration-results-2026-10-21/primary-science-support-archive.json",
+          "bytes": 49059,
+          "sha256": "7d4e30f139850b603955bfc2406b2fca6bddb06ca33b342bb65c33cfd4aca115"
+        },
+        {
+          "path": "restores/hil-exploration-results-2026-10-21/primary-science-support-output.tar.gz",
+          "bytes": 5207144,
+          "sha256": "c0feb49fcf0c1ddf46f3381554bc7d109dc2d26b7cee8fc18e418db06de350bf"
+        },
+        {
+          "path": "restores/hil-exploration-results-2026-10-21/review-analysis-archive.json",
+          "bytes": 5185,
+          "sha256": "1e2e800bdb71f96aaf98fa6798905aa0ee7cd0dcba99395415ebdb7f5f3772a5"
+        },
+        {
+          "path": "restores/hil-exploration-results-2026-10-21/review-analysis-output.tar.gz",
+          "bytes": 824999,
+          "sha256": "a3d0a91824c3cec935c50d89b06e2f2924f81ca0ae70a1aa0b7b078539764a8b"
+        }
+      ],
+      "otherCoverage": "Prepared/restored NAS payload duplicates and compact tracked controls; complete out retained locally.",
+      "after": {
+        "files": 76,
+        "bytes": 1487229925,
+        "treeSha256": "532737c888c88d0ab381082cd9bd3ed22a498951b9185789154ee47b4b973710"
+      },
+      "exactMatch": true
+    }
+  ],
+  "compactControls": [
+    {
+      "source": "out/nas-save-hil-exploration-2026-10-21/assets-verify.log",
+      "trackedPath": "evidence/hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/assets-verify.log",
+      "bytes": 751,
+      "sha256": "665f0d907e75dd4140702f598cf4468d9652668e94b6c770374083c6f499ab70"
+    },
+    {
+      "source": "out/nas-save-hil-exploration-2026-10-21/payload-inventory.json",
+      "trackedPath": "evidence/hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/payload-inventory.json",
+      "bytes": 3360,
+      "sha256": "96ada8f0f7567f6b1bfdbd4e8529c0e0da7c7e4d2add825da29e8170148d2580"
+    },
+    {
+      "source": "out/nas-save-hil-exploration-2026-10-21/prepared.json",
+      "trackedPath": "evidence/hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/prepared.json",
+      "bytes": 283,
+      "sha256": "78fcfbc730430f065a217758d7e5899e213b800b3d602610c52a840469e0c311"
+    },
+    {
+      "source": "out/nas-save-hil-exploration-2026-10-21/publication.json",
+      "trackedPath": "evidence/hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/publication.json",
+      "bytes": 1697,
+      "sha256": "98f606e921e0ddc8268bc606ed877703779c25afd79c6ea3217a5b7964a917bc"
+    },
+    {
+      "source": "out/nas-save-hil-exploration-2026-10-21/publish-retry.stderr.log",
+      "trackedPath": "evidence/hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/publish-retry.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "out/nas-save-hil-exploration-2026-10-21/publish-retry.stdout.log",
+      "trackedPath": "evidence/hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/publish-retry.stdout.log",
+      "bytes": 1501,
+      "sha256": "91955ef433fedbf93cda8c016a747b7d298953e219d931a59b21144117596a7b"
+    },
+    {
+      "source": "out/nas-save-hil-exploration-2026-10-21/publish.stderr.log",
+      "trackedPath": "evidence/hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/publish.stderr.log",
+      "bytes": 1104,
+      "sha256": "d48cd009c59453ea1479c6a9b958dc8ab1ee67c1c8272f295f4bd90938556d23"
+    },
+    {
+      "source": "out/nas-save-hil-exploration-2026-10-21/publish.stdout.log",
+      "trackedPath": "evidence/hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/publish.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "out/nas-save-hil-exploration-2026-10-21/registration.json",
+      "trackedPath": "evidence/hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/registration.json",
+      "bytes": 598,
+      "sha256": "efb539acfd389e3a574c2a9afe71347bf0ae16bb6e94dc681daeb573e8220345"
+    },
+    {
+      "source": "out/nas-save-hil-exploration-2026-10-21/restore.json",
+      "trackedPath": "evidence/hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/restore.json",
+      "bytes": 1525,
+      "sha256": "7b7b08d4685734b17bd2269788690c5c792987dadae04e70be1e35f467ba0713"
+    },
+    {
+      "source": "out/nas-save-hil-exploration-2026-10-21/restore.stderr.log",
+      "trackedPath": "evidence/hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/restore.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "out/nas-save-hil-exploration-2026-10-21/restore.stdout.log",
+      "trackedPath": "evidence/hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/restore.stdout.log",
+      "bytes": 1389,
+      "sha256": "a361db1393d7b707f4199d8a9561c70be16c6f6b76433fb89122bb6449cce05a"
+    },
+    {
+      "source": "out/nas-save-hil-exploration-2026-10-21/restored-members.json",
+      "trackedPath": "evidence/hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/restored-members.json",
+      "bytes": 2250,
+      "sha256": "a5a083577a5b51c40ee4f3e6a65b39685449187c3d8778f17126f09b58c9b305"
+    },
+    {
+      "source": "out/nas-save-hil-exploration-2026-10-21/verify-restored.log",
+      "trackedPath": "evidence/hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/verify-restored.log",
+      "bytes": 711,
+      "sha256": "40519e7a44b1e8edd48aed25d9177f030f7313e2f7f11704700713fe9409bd6b"
+    },
+    {
+      "source": "out/checks-2026-10-21/metadata-result.json",
+      "trackedPath": "evidence/hil-results-review-2026-10-21/closeout-controls/checks-2026-10-21/metadata-result.json",
+      "bytes": 319,
+      "sha256": "cd6738a109cdd7b03891717de92f40a6ade8218280658bb89758d74543ea882c"
+    },
+    {
+      "source": "out/checks-2026-10-21/npm-test-result.json",
+      "trackedPath": "evidence/hil-results-review-2026-10-21/closeout-controls/checks-2026-10-21/npm-test-result.json",
+      "bytes": 315,
+      "sha256": "be4a5a804ae35225eaf3ecbfcd003440269bfd27473d489995a0fb67501fe65d"
+    }
+  ],
+  "limits": "File ordering normalized to ordinal POSIX relative paths; all member sets, lengths and hashes agree. No source files changed.",
+  "relocatedAt": "2026-10-21T16:53:26.049524+00:00",
+  "totals": {
+    "files": 10137,
+    "bytes": 8057995736
+  },
+  "review": {
+    "model": "Codex/GPT-6",
+    "sharedContext": true,
+    "scope": "One read-only branch/process/ignored-path audit and operational-output classification; root directly rehashed source/NAS-member and before/after relocation identities. No solver or new scientific review."
+  },
+  "unmergedRemoteRetained": {
+    "ref": "origin/explore/film-part1-plan",
+    "head": "4f7a03207f8e42f650074a1d7601d2f126800320",
+    "commitsAbsentFromMain": 148,
+    "reason": "Independent education/film work; no deletion or integration."
+  },
+  "disposition": "All eight out trees retained under primary; source checkouts ready for archive after committed integration; no useful data pruned."
+}

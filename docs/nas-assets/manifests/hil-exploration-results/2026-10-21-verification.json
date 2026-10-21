@@ -142,7 +142,10 @@
     "sourceRecord": "docs/nas-assets/manifests/hil-exploration-results/2026-10-21-sources.json",
     "originalsRetained": true,
     "preparedPayload": "C:\\Users\\biao3\\.codex\\worktrees\\hil-results-preserve-oct21\\snowflake\\out\\nas-save-hil-exploration-2026-10-21\\payload",
-    "allSourceFilesRehashedAfterPacking": true
+    "allSourceFilesRehashedAfterPacking": true,
+    "currentLocationsRecord": "evidence/hil-results-review-2026-10-21/closeout.json",
+    "currentRoot": "C:/Users/biao3/Documents/GitHub/snowflake/out/hil-retired-2026-10-21",
+    "relocatedWithoutPruning": true
   },
   "limits": [
     "All original worktrees and outputs retained; no pruning or closure.",

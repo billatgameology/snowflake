@@ -1,0 +1,5 @@
+
+> virtual-cloud-chamber@0.0.0 assets:verify-restored
+> node scripts/nas-asset-restore.ts verify --collection hil-exploration-results@2026-10-21 --from out/restores/hil-exploration-results-2026-10-21
+
+{"format":"snowflake-nas-legacy-restore-report-v1","command":"verify","ok":true,"collection":"hil-exploration-results@2026-10-21","destinationScope":"repo-out-restores","fileCount":18,"totalBytes":739465345,"treeSha256":"e0686876c3fab6a25e45114a3b8b1414abfe99ae80962fa753579afb5dc84b15","durableReceiptWritten":false,"pruneAuthorized":false,"limits":["This result verifies one fresh local staging tree and is not a durable publication receipt.","This command never grants local or NAS prune authority."]}

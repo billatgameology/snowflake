@@ -1,0 +1,26 @@
+{
+  "transactionId": "hil-exploration-results-20261021-restore",
+  "identity": "hil-exploration-results@2026-10-21",
+  "destinationPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-results-preserve-oct21\\snowflake\\out\\restores\\hil-exploration-results-2026-10-21",
+  "restoreReceiptPath": "_control/receipts/restore/hil-exploration-results/2026-10-21/hil-exploration-results-20261021-restore.json",
+  "restoreReceiptSha256": "7e63f3756b98bb3c386803f69bc2c222605fcc47029a7527869bf8d843c07776",
+  "receipt": {
+    "format": "snowflake-nas-restore-receipt-v1",
+    "transactionId": "hil-exploration-results-20261021-restore",
+    "identity": "hil-exploration-results@2026-10-21",
+    "locator": "collections/hil-exploration-results/2026-10-21/payload",
+    "publicationTransactionId": "hil-exploration-results-20261021-publish",
+    "publicationReceiptPath": "_control/receipts/publication/hil-exploration-results/2026-10-21/hil-exploration-results-20261021-publish.json",
+    "publicationReceiptSha256": "ebc8fd31f155c139ead2369a93036b79e722636619814db6dbb8a827fc33145e",
+    "restored": {
+      "fileCount": 18,
+      "totalBytes": 739465345,
+      "treeSha256": "e0686876c3fab6a25e45114a3b8b1414abfe99ae80962fa753579afb5dc84b15"
+    },
+    "verifiedAt": "2026-10-21T16:26:56.682Z",
+    "limits": [
+      "The receipt binds exact restored bytes but omits the host destination and all private filenames.",
+      "Claim-specific verifier adapters and tracked catalogue registration are outside this fixture core."
+    ]
+  }
+}

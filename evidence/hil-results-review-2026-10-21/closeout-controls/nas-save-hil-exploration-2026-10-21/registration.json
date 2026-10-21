@@ -1,0 +1,13 @@
+{
+  "identity": "hil-exploration-results@2026-10-21",
+  "manifest": "docs/nas-assets/manifests/hil-exploration-results/2026-10-21.json",
+  "manifestBytes": 4331,
+  "manifestSha256": "e5af6d59a51bf37cfce6e649a3ef931554975f8341bcbffa9c60b74d3fb5a2e6",
+  "payload": {
+    "fileCount": 18,
+    "totalBytes": 739465345,
+    "treeSha256": "e0686876c3fab6a25e45114a3b8b1414abfe99ae80962fa753579afb5dc84b15"
+  },
+  "publicationReceiptSha256": "ebc8fd31f155c139ead2369a93036b79e722636619814db6dbb8a827fc33145e",
+  "restoreReceiptSha256": "7e63f3756b98bb3c386803f69bc2c222605fcc47029a7527869bf8d843c07776"
+}

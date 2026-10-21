@@ -1,0 +1,10 @@
+{
+  "preparedAt": "2026-10-21T16:26:03.761Z",
+  "identity": "hil-exploration-results@2026-10-21",
+  "payload": {
+    "fileCount": 18,
+    "totalBytes": 739465345,
+    "treeSha256": "e0686876c3fab6a25e45114a3b8b1414abfe99ae80962fa753579afb5dc84b15"
+  },
+  "originalsRetained": true
+}

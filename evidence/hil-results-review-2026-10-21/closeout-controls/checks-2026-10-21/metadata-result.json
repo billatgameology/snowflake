@@ -1,0 +1,7 @@
+{
+  "command": "npx.cmd vitest run runner/test/nas-assets-catalog.test.ts runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts",
+  "startedUtc": "2026-10-21T16:44:07.9301260Z",
+  "finishedUtc": "2026-10-21T16:44:11.3540127Z",
+  "exitCode": 0,
+  "log": "out/checks-2026-10-21/metadata.log"
+}

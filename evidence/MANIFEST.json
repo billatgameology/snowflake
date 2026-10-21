@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1244,
- "totalBytes": 325750993,
+ "fileCount": 1261,
+ "totalBytes": 325795906,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -4981,6 +4981,74 @@
   "hil-results-review-2026-10-21/rule7-final.log": {
    "bytes": 112,
    "sha256": "09e98af991fb5a72af146cc497eb2f50752742f9cfbc1c7b4e60e326b1643921"
+  },
+  "hil-results-review-2026-10-21/closeout.json": {
+   "bytes": 29110,
+   "sha256": "58c40d86c461c1c946c8ca074606be15d998a6b38dc7b461d8f1fe258f36f31b"
+  },
+  "hil-results-review-2026-10-21/closeout-controls/checks-2026-10-21/metadata-result.json": {
+   "bytes": 319,
+   "sha256": "cd6738a109cdd7b03891717de92f40a6ade8218280658bb89758d74543ea882c"
+  },
+  "hil-results-review-2026-10-21/closeout-controls/checks-2026-10-21/npm-test-result.json": {
+   "bytes": 315,
+   "sha256": "be4a5a804ae35225eaf3ecbfcd003440269bfd27473d489995a0fb67501fe65d"
+  },
+  "hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/assets-verify.log": {
+   "bytes": 751,
+   "sha256": "665f0d907e75dd4140702f598cf4468d9652668e94b6c770374083c6f499ab70"
+  },
+  "hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/payload-inventory.json": {
+   "bytes": 3360,
+   "sha256": "96ada8f0f7567f6b1bfdbd4e8529c0e0da7c7e4d2add825da29e8170148d2580"
+  },
+  "hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/prepared.json": {
+   "bytes": 283,
+   "sha256": "78fcfbc730430f065a217758d7e5899e213b800b3d602610c52a840469e0c311"
+  },
+  "hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/publication.json": {
+   "bytes": 1697,
+   "sha256": "98f606e921e0ddc8268bc606ed877703779c25afd79c6ea3217a5b7964a917bc"
+  },
+  "hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/publish-retry.stderr.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/publish-retry.stdout.log": {
+   "bytes": 1501,
+   "sha256": "91955ef433fedbf93cda8c016a747b7d298953e219d931a59b21144117596a7b"
+  },
+  "hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/publish.stderr.log": {
+   "bytes": 1104,
+   "sha256": "d48cd009c59453ea1479c6a9b958dc8ab1ee67c1c8272f295f4bd90938556d23"
+  },
+  "hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/publish.stdout.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/registration.json": {
+   "bytes": 598,
+   "sha256": "efb539acfd389e3a574c2a9afe71347bf0ae16bb6e94dc681daeb573e8220345"
+  },
+  "hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/restore.json": {
+   "bytes": 1525,
+   "sha256": "7b7b08d4685734b17bd2269788690c5c792987dadae04e70be1e35f467ba0713"
+  },
+  "hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/restore.stderr.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/restore.stdout.log": {
+   "bytes": 1389,
+   "sha256": "a361db1393d7b707f4199d8a9561c70be16c6f6b76433fb89122bb6449cce05a"
+  },
+  "hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/restored-members.json": {
+   "bytes": 2250,
+   "sha256": "a5a083577a5b51c40ee4f3e6a65b39685449187c3d8778f17126f09b58c9b305"
+  },
+  "hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/verify-restored.log": {
+   "bytes": 711,
+   "sha256": "40519e7a44b1e8edd48aed25d9177f030f7313e2f7f11704700713fe9409bd6b"
   }
  }
 }

@@ -1,0 +1,9 @@
+{
+  "command": "npm.cmd test",
+  "startedUtc": "2026-10-21T16:27:40.0539895Z",
+  "finishedUtc": "2026-10-21T16:43:00.1459959Z",
+  "head": "b53d6bea106cc8ead6fc1c24333cb4608b771621",
+  "indexTree": "2296dccb1a64ba7faae52fee02a517a7a58f270a",
+  "exitCode": 1,
+  "log": "out/checks-2026-10-21/npm-test.log"
+}

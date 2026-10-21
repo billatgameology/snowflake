@@ -224,10 +224,29 @@ and exact local disposition are committed to main; delete each merged local bran
 The final record must show a single registered primary worktree, one local branch main, clean
 status and remote main equality.
 
-- [ ] Verify exact NAS coverage, classify review staging and retain all local output in primary.
+- [x] Verify exact NAS coverage, classify review staging and retain all local output in primary.
 - [ ] Commit relocation/recovery bindings, archive the seven producer checkouts, then the review checkout.
 - [ ] Remove merged local task refs, publish final closeout and verify one clean main.
 
 Tried and rejected for closeout: deleting useful ignored data with the checkout; treating branch
 ancestry as an output backup; deleting the unmerged independent remote film branch; republishing
 identical immutable payloads or building another verifier solely for closure.
+
+### Executed closeout preservation
+
+The [closeout receipt](../../evidence/hil-results-review-2026-10-21/closeout.json) records
+exact before/after output identities and all relocation destinations. All eight complete out
+trees now reside under primary `out/hil-retired-2026-10-21/<label>/out/`:10,137 files /
+8,057,995,736 bytes, including duplicate prepared/restored payload staging. Every tree hash matches
+before/after, and all seven campaign trees plus review-analysis match their existing NAS members.
+Current full NAS verification passes for18 payload files/739,465,345 bytes. The previously executed
+fresh restore/member check is reused without republishing identical immutable data.
+
+The review checkout's16 small raw operational files (14 publication controls and2 check-result
+JSONs) are preserved as compact Git records in `evidence/hil-results-review-2026-10-21/closeout-controls/`;
+its other3 check logs already match tracked evidence. The empty worker-progress test tree has no
+payload. Prepared/restored archives are verified duplicate collection bytes. Thus no useful output
+remains solely in a closing checkout, and the independent C-drive copy remains available.
+An initial comparison encountered Windows Path ordering versus ordinal manifest ordering;
+normalizing only relative-path ordering showed no missing, extra or changed bytes. No scientific
+producer or archive bytes were altered. Archives may now close after this receipt is integrated.
