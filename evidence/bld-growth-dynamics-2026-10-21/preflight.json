@@ -1,0 +1,33 @@
+{
+  "schema": "bld-growth-dynamics-preflight-v1",
+  "capturedAt": "2026-10-21T21:25:44.499Z",
+  "gitHead": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+  "node": "v24.13.1",
+  "v8": "13.6.233.17-node.40",
+  "host": {
+    "hostname": "BLD",
+    "platform": "win32",
+    "arch": "x64",
+    "cpuModels": [
+      "AMD Ryzen 9 5900XT 16-Core Processor           "
+    ],
+    "logicalProcessors": 32,
+    "totalMemoryBytes": 68602580992
+  },
+  "sample": {
+    "capturedUtc": "2026-10-21T21:25:44.4420107Z",
+    "availablePhysicalBytes": 45342138368,
+    "commitHeadroomBytes": 67975184384,
+    "children": []
+  },
+  "memoryFailure": null,
+  "nas": "s:/",
+  "freeDiskBytes": 612761272320,
+  "existingProcesses": [],
+  "rows": 92,
+  "workerCeiling": 32,
+  "rosterSha256": "eb709ce428bd99c022b506b83cddb7c8370d40f63ccbd8c85f2734553a609357",
+  "testedImplementation": "5e03d71d57e0a302e79bcb8bd4b656cc4339b760",
+  "executableDiff": "",
+  "authorization": "Maker confirmed S:/ and approved executing the run after the recorded test outcome. No Windows settings changed; full-suite-green is not claimed."
+}

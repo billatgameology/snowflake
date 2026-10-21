@@ -622,9 +622,10 @@ retains complete stdout/stderr and the command/timing. The progress index exceed
 its subsequent correction and evidence integrity passed18 focused tests. Rule7 passed; exact
 log bytes retain diagnostic whitespace. Two existing comparison-builder tests failed
 before exercising their assertions because Windows denied file/directory symlink creation.
-No production or test guard was weakened. Developer Mode approval is pending; no machine
-setting was changed. Resolve that host permission and rerun the affected tests and exact
-full check before dispatch. This is not a full-suite-green or scientific result claim.
+No production or test guard was weakened. A local prelaunch hold initially requested Developer
+Mode and another full check; the maker subsequently explicitly approved execution after the
+recorded outcome, as documented below. No Windows setting changed. The failed full check remains
+recorded, with no full-suite-green or scientific result claim.
 The implementation and records remain local: automatic approval review rejected the Git push
 because the maker explicitly named NAS publication/local commit rather than a remote branch
 update. Separate Git push approval is pending; no remote ref was changed.
@@ -646,6 +647,52 @@ files under `out/bld-growth-dynamics-oct21-controls/`; row logs live under each 
 After launch, keep this execution checkout fixed and record status from primary `main`.
 NAS publication of the finished output remains under `bld-growth-dynamics@2026-10-21-v1`, followed
 by fresh recovery and committed bindings before worktree closure; local originals remain.
+
+### BLD launch — October21
+
+The maker confirmed `S:/` as the NAS path and explicitly approved executing the run after the
+reported test outcome. This supersedes the local prelaunch hold for the two unchanged gallery
+symlink setup failures; the progress defect is corrected. The required exact full check was
+executed, and queue/recovery/readout checks passed. No test, solver or publication guard changed,
+no Windows setting changed, and no full-suite-green claim is made. The scientific protocol,
+complete-cycle restart witnesses and later NAS verification obligations remain unchanged.
+
+[Preflight](../../evidence/bld-growth-dynamics-2026-10-21/preflight.json) observed BLD's Ryzen9
+5900XT/32 logical processors, Node24.13.1/V8 13.6.233.17-node.40, no existing Node workers,
+45342138368 B available RAM, 67975184384 B commit headroom and 612761272320 B free local disk.
+The resolver verified the marked `s:/` share. All executable source paths match the tested
+`5e03d71` implementation; only records changed before producer `d7f76cb` was frozen.
+
+The [launch receipt](../../evidence/bld-growth-dynamics-2026-10-21/launch.json) binds the exact
+command, cwd, process tree and live checkpoint observations. The hidden wrapper started at
+2026-10-21T21:26:01.1671046Z; wrapper25720 owns coordinator37800. At the 21:28:30 UTC observation,
+32 actual workers were running, 60 rows were queued, and all32 active rows had pointer-matching
+checkpoint manifests. Of those32, 28 had advanced to tick1; the receipt lists every witness.
+The associated resource sample remained above the existing memory floors. This is a live
+execution observation, not a completed row, scientific result or stable publication inventory.
+
+Keep this execution worktree/branch at `d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365` and its runtime
+fixed. Record later status in primary main. Coordinator stdout/stderr are under
+`out/bld-growth-dynamics-oct21-controls/campaign-launch-20261021T142601525.*.log`; the wrapper
+will write its separate exit file, and rows keep labeled `attempts/initial/` logs. If interrupted,
+check for existing writers before the exact resume command from the execution directory:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start-bld-growth-dynamics-oct21.ps1 -Mode resume -Workers 32
+```
+
+After the finite queue terminates, check all terminal/unresolved dispositions and reconstruct
+retained readouts. Preserve exactly `out/bld-growth-dynamics-oct21` and
+`out/bld-growth-dynamics-oct21-controls` in external-evidence collection
+`bld-growth-dynamics@2026-10-21-v1`, using the existing bounded NAS transaction/archive procedure.
+Exclude restored historical input duplicates, which already have immutable collection coverage.
+Catalogue/owner-manifest registration, publication, fresh restore/member verification and
+committed recovery bindings are still pending; no new BLD output has yet been published.
+Retain the workstation originals/worktree. HIL's fresh recovery remains a separate handoff
+check. The Git remote push also still awaits its separate approval; local commits are retained.
+Launch-record verification passed the existing evidence-integrity/progress checks (18 tests),
+Rule7 (2843 files) and prose/JSON diff checks; original captured Windows command bytes retain
+their original line endings. This does not replace the earlier full-check outcome.
 
 ### HIL executable and recovery — October21
 
@@ -691,7 +738,7 @@ the N126 restart-witness producer found no change in core/solver/discovery/check
 - [x] Implement and verify the independent HIL roster/entry and minimal individual readout selection.
 - [x] Commit/push HIL producer `2f2d605`; record the implemented exact commands above.
 - [x] Record HIL local observations and dispatch its 20-worker/24-row queue.
-- [ ] Obtain BLD producer, verification and dispatch receipts; reconcile its 92 rows without changing a running producer.
+- [x] Record BLD producer, verification disposition and dispatch receipts for its unchanged 92-row queue.
 - [ ] Analyze completed matched blocks; record predictions before any reserve dispatch.
 - [ ] Publish/recover retained output on NAS, reconcile concise findings and next experiment.
 
@@ -743,8 +790,9 @@ transplant, external-source acquisition/provider contact, automatic endless fan-
 
 - **Initial BLD full check with missing Windows symlink privilege:** the exact run at `5e03d71`
   exited 1 with two setup failures in the existing comparison-builder suite and one progress-length
-  assertion. The progress correction is retained; keep the failing receipt and resolve host
-  permission before another full check. Do not skip the tests or weaken publication guards.
+  assertion. The progress correction and failing receipt are retained. The maker then explicitly
+  approved execution; the initial local hold is superseded by the scoped launch disposition above.
+  No test was skipped or publication guard weakened; no full-suite-green claim is made.
 
 - **Keeping long fine-grid work on both hosts:** superseded before launch by the maker's shutdown
   preference. All fine-grid and larger-history cases now run on HIL; BLD has a closed shorter
@@ -783,8 +831,7 @@ transplant, external-source acquisition/provider contact, automatic endless fan-
 
 ## Open questions
 
-The scientific roster needs no further maker decision. BLD launch currently awaits the Windows
-symlink-permission decision and a successful full check; new mature durations and scientific
-outcomes are unknown. Exact reused-control bindings and executable readout/routing checks
+The maker approved BLD execution and the queue is running. Mature durations and scientific
+outcomes remain unknown; completed-row analysis and NAS recovery remain pending. Exact reused-control bindings and executable readout/routing checks
 are recorded above. Resource pauses may require a
 lower operational worker allocation; scientific conclusions may select none of the reserve.

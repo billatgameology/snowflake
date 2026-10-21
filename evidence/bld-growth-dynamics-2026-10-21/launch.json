@@ -1,0 +1,1191 @@
+{
+  "schema": "bld-growth-dynamics-launch-v1",
+  "capturedAt": "2026-10-21T21:28:30.804Z",
+  "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+  "cwd": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21",
+  "campaign": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21",
+  "controls": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21-controls",
+  "preflight": {
+    "schema": "bld-growth-dynamics-preflight-v1",
+    "capturedAt": "2026-10-21T21:25:44.499Z",
+    "gitHead": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+    "node": "v24.13.1",
+    "v8": "13.6.233.17-node.40",
+    "host": {
+      "hostname": "BLD",
+      "platform": "win32",
+      "arch": "x64",
+      "cpuModels": [
+        "AMD Ryzen 9 5900XT 16-Core Processor           "
+      ],
+      "logicalProcessors": 32,
+      "totalMemoryBytes": 68602580992
+    },
+    "sample": {
+      "capturedUtc": "2026-10-21T21:25:44.4420107Z",
+      "availablePhysicalBytes": 45342138368,
+      "commitHeadroomBytes": 67975184384,
+      "children": []
+    },
+    "memoryFailure": null,
+    "nas": "s:/",
+    "freeDiskBytes": 612761272320,
+    "existingProcesses": [],
+    "rows": 92,
+    "workerCeiling": 32,
+    "rosterSha256": "eb709ce428bd99c022b506b83cddb7c8370d40f63ccbd8c85f2734553a609357",
+    "testedImplementation": "5e03d71d57e0a302e79bcb8bd4b656cc4339b760",
+    "executableDiff": "",
+    "authorization": "Maker confirmed S:/ and approved executing the run after the recorded test outcome. No Windows settings changed; full-suite-green is not claimed."
+  },
+  "background": {
+    "startedUtc": "2026-10-21T21:26:01.1671046Z",
+    "cwd": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21",
+    "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+    "wrapperPid": 25720,
+    "command": [
+      "powershell.exe",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "\"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\scripts\\start-bld-growth-dynamics-oct21.ps1\"",
+      "-Mode",
+      "launch",
+      "-Workers",
+      "32"
+    ],
+    "nasRoot": "S:/",
+    "requestedWorkers": 32
+  },
+  "coordinator": {
+    "source": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+    "stderr": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21-controls\\campaign-launch-20261021T142601525.stderr.log",
+    "wrapperPid": 25720,
+    "stdout": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21-controls\\campaign-launch-20261021T142601525.stdout.log",
+    "command": [
+      "C:\\nvm4w\\nodejs\\node.exe",
+      "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts",
+      "launch",
+      "BLD",
+      "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21",
+      "--workers",
+      "32"
+    ],
+    "mode": "launch",
+    "coordinatorPid": 37800,
+    "PSModulePath": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+    "startedUtc": "2026-10-21T21:26:01.5254581Z"
+  },
+  "processes": {
+    "capturedUtc": "2026-10-21T21:28:28.8449315Z",
+    "processes": [
+      {
+        "ProcessId": 37800,
+        "ParentProcessId": 25720,
+        "CommandLine": "\"C:\\nvm4w\\nodejs\\node.exe\" \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" \"launch\" \"BLD\" \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\" \"--workers\" \"32\" "
+      },
+      {
+        "ProcessId": 32684,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-f0-basal-only \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-f0-basal-only\""
+      },
+      {
+        "ProcessId": 28564,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-f0-neither \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-f0-neither\""
+      },
+      {
+        "ProcessId": 12476,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-c0-neither \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-c0-neither\""
+      },
+      {
+        "ProcessId": 21968,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-c0-basal-only \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-c0-basal-only\""
+      },
+      {
+        "ProcessId": 37840,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-c0-prism-only \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-c0-prism-only\""
+      },
+      {
+        "ProcessId": 2820,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-c0-both \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-c0-both\""
+      },
+      {
+        "ProcessId": 25828,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t4p5-c025-broad \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-broad\""
+      },
+      {
+        "ProcessId": 6040,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t4p5-c025-full-w3 \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-full-w3\""
+      },
+      {
+        "ProcessId": 20268,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t4p5-c025-late20-w3 \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-late20-w3\""
+      },
+      {
+        "ProcessId": 13912,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t4p5-c025-early1-w3 \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early1-w3\""
+      },
+      {
+        "ProcessId": 14220,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t4p5-c025-early5-w3 \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early5-w3\""
+      },
+      {
+        "ProcessId": 19796,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t4p5-c025-early10-w3 \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early10-w3\""
+      },
+      {
+        "ProcessId": 36880,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t4p5-c025-early20-w3 \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early20-w3\""
+      },
+      {
+        "ProcessId": 27028,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t4p5-c025-early40-w3 \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early40-w3\""
+      },
+      {
+        "ProcessId": 37008,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t5-c025-broad \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-broad\""
+      },
+      {
+        "ProcessId": 1012,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t5-c025-full-w3 \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-full-w3\""
+      },
+      {
+        "ProcessId": 17604,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t5-c025-late20-w3 \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-late20-w3\""
+      },
+      {
+        "ProcessId": 36504,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t5-c025-early1-w3 \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early1-w3\""
+      },
+      {
+        "ProcessId": 29260,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t5-c025-early5-w3 \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early5-w3\""
+      },
+      {
+        "ProcessId": 25840,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t5-c025-early10-w3 \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early10-w3\""
+      },
+      {
+        "ProcessId": 19676,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t5-c025-early20-w3 \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early20-w3\""
+      },
+      {
+        "ProcessId": 4440,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t5-c025-early40-w3 \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early40-w3\""
+      },
+      {
+        "ProcessId": 37088,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-f1-t6p5-basal-only \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-f1-t6p5-basal-only\""
+      },
+      {
+        "ProcessId": 35988,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-f1-t6p5-prism-only \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-f1-t6p5-prism-only\""
+      },
+      {
+        "ProcessId": 13792,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-f1-t9p5-basal-only \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-f1-t9p5-basal-only\""
+      },
+      {
+        "ProcessId": 7536,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-f1-t9p5-prism-only \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-f1-t9p5-prism-only\""
+      },
+      {
+        "ProcessId": 15608,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t4p5-c05-full-w3 \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c05-full-w3\""
+      },
+      {
+        "ProcessId": 32028,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t4p5-c05-late20-w3 \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c05-late20-w3\""
+      },
+      {
+        "ProcessId": 33168,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t4p5-c05-early1-w3 \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c05-early1-w3\""
+      },
+      {
+        "ProcessId": 29460,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t4p5-c05-early5-w3 \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c05-early5-w3\""
+      },
+      {
+        "ProcessId": 21260,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t4p5-c05-early10-w3 \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c05-early10-w3\""
+      },
+      {
+        "ProcessId": 12620,
+        "ParentProcessId": 37800,
+        "CommandLine": "C:\\nvm4w\\nodejs\\node.exe \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts\" run-row gd21-bld-w1-t4p5-c05-early40-w3 \"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c05-early40-w3\""
+      }
+    ]
+  },
+  "actualWorkers": 32,
+  "totalRows": 92,
+  "queuedRows": 60,
+  "initialCheckpointCount": 32,
+  "checkpoints": [
+    {
+      "rowId": "gd21-bld-f0-basal-only",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-f0-basal-only\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-b06875ad-526f-4cd3-81e1-60efb927defd",
+        "manifestSha256": "0788f18c551b22bf48ce86f71eac3c922223d0c32b815fddc5ceb1df4916e1c2"
+      },
+      "manifestSha256": "0788f18c551b22bf48ce86f71eac3c922223d0c32b815fddc5ceb1df4916e1c2",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 6888,
+      "activeWallSeconds": 115.676,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-f0-neither",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-f0-neither\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-a306987a-4d86-4b19-9ab0-b05e2e3ceadb",
+        "manifestSha256": "55bcaf387789e1bbe6b47b058dfcc6fafc401996d9bdc0e4e3f2e4a1be06d7e7"
+      },
+      "manifestSha256": "55bcaf387789e1bbe6b47b058dfcc6fafc401996d9bdc0e4e3f2e4a1be06d7e7",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 6902,
+      "activeWallSeconds": 119.529,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-c0-neither",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-c0-neither\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-e13655b7-a8a5-489a-b49a-bcb7715ab67f",
+        "manifestSha256": "c5cbbc166fa0740e92d442ad19a78a1adf3808d3e6534d1f8b7ce2600488fb45"
+      },
+      "manifestSha256": "c5cbbc166fa0740e92d442ad19a78a1adf3808d3e6534d1f8b7ce2600488fb45",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7222,
+      "activeWallSeconds": 120.422,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-c0-basal-only",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-c0-basal-only\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-e80c2942-7ea4-47ce-85cc-e8f264210066",
+        "manifestSha256": "1833269d21ef42aa07da12c39fab411d586427f5bef51727a3537a9af30bbe12"
+      },
+      "manifestSha256": "1833269d21ef42aa07da12c39fab411d586427f5bef51727a3537a9af30bbe12",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7222,
+      "activeWallSeconds": 128.271,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-c0-prism-only",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-c0-prism-only\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-a3b023ea-3046-4fcb-8020-ce6de85eb62a",
+        "manifestSha256": "47266453ed8d9ed9524cc5e9ccaa46e8539fcb22af09bfe337dd39a669282c5a"
+      },
+      "manifestSha256": "47266453ed8d9ed9524cc5e9ccaa46e8539fcb22af09bfe337dd39a669282c5a",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7168,
+      "activeWallSeconds": 126.836,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-c0-both",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-c0-both\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-b8b85973-5365-46e2-bf32-14f5466fe3d6",
+        "manifestSha256": "08e24e33a6ca78212f9c53a3aba658369acd8fe05663eebde4f1801a369e5c7d"
+      },
+      "manifestSha256": "08e24e33a6ca78212f9c53a3aba658369acd8fe05663eebde4f1801a369e5c7d",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7168,
+      "activeWallSeconds": 119.095,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c025-broad",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-broad\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-38a0089b-e341-4c5d-8d8c-3919a5706b31",
+        "manifestSha256": "a3e7c1cc6023da7c818071a8e1abba040477324e2e34ccf0b416f71fae2c868b"
+      },
+      "manifestSha256": "a3e7c1cc6023da7c818071a8e1abba040477324e2e34ccf0b416f71fae2c868b",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7212,
+      "activeWallSeconds": 124.765,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c025-full-w3",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-full-w3\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-2ea79e6e-7342-4dad-8fd0-e412a7ef8b4f",
+        "manifestSha256": "70c7fab1b51b67918070e3ab5547d7d2df3fde58faca9d090d502336bfd4b02f"
+      },
+      "manifestSha256": "70c7fab1b51b67918070e3ab5547d7d2df3fde58faca9d090d502336bfd4b02f",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7139,
+      "activeWallSeconds": 138.216,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c025-late20-w3",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-late20-w3\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-1682c5c5-5105-43ee-b28d-885588266f1f",
+        "manifestSha256": "f4f4f86098308d06bd00194180a05953d78f20adc1708c99242e7b030540ed53"
+      },
+      "manifestSha256": "f4f4f86098308d06bd00194180a05953d78f20adc1708c99242e7b030540ed53",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7212,
+      "activeWallSeconds": 126.544,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c025-early1-w3",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early1-w3\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-e4089bba-df93-47ef-8385-9bf736754a3e",
+        "manifestSha256": "402cf91b4e24d07e3b10bf4e44e36401a2911dfd0384b922e9c0108f59bf4c9c"
+      },
+      "manifestSha256": "402cf91b4e24d07e3b10bf4e44e36401a2911dfd0384b922e9c0108f59bf4c9c",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7139,
+      "activeWallSeconds": 124.442,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c025-early5-w3",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early5-w3\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-bf4fca45-5495-4be5-ade9-ee186135661a",
+        "manifestSha256": "a159126bcb579d92333c6d49cc64da310298d82565f82e27769b6644764529b8"
+      },
+      "manifestSha256": "a159126bcb579d92333c6d49cc64da310298d82565f82e27769b6644764529b8",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7139,
+      "activeWallSeconds": 126.313,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c025-early10-w3",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early10-w3\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-4447da42-7308-40cd-9bae-498d85364206",
+        "manifestSha256": "e088d6612232085758c380c5dce21dad6c9df749456ddfaf51a4a54928f0f601"
+      },
+      "manifestSha256": "e088d6612232085758c380c5dce21dad6c9df749456ddfaf51a4a54928f0f601",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7139,
+      "activeWallSeconds": 120.461,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c025-early20-w3",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early20-w3\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-9c40168b-74dd-410d-a22f-c65d6b96e4dc",
+        "manifestSha256": "0f3f9bcf3633d0660f3dd02b46a66a15f8225282f94575d5ecabfa47d38780b3"
+      },
+      "manifestSha256": "0f3f9bcf3633d0660f3dd02b46a66a15f8225282f94575d5ecabfa47d38780b3",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7139,
+      "activeWallSeconds": 125.269,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c025-early40-w3",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early40-w3\\resume\\latest.json",
+      "current": {
+        "directory": "generation-0-4d327c7e-4244-4664-8a09-e1f228ee932b",
+        "manifestSha256": "20c2467bb02ee6fc579115958bd00fd3d7dd9972f50e8c4020d34e6e3e01aa11"
+      },
+      "manifestSha256": "20c2467bb02ee6fc579115958bd00fd3d7dd9972f50e8c4020d34e6e3e01aa11",
+      "tick": 0,
+      "completedCycleRecords": 0,
+      "totalSweeps": 0,
+      "activeWallSeconds": 0.037,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c025-broad",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-broad\\resume\\latest.json",
+      "current": {
+        "directory": "generation-0-053b1a61-53ed-48ce-aa9a-fc5d6cb296a4",
+        "manifestSha256": "23dca5ce90525e6dee03058aa363aa5c77d3b31301048a3a7caaf027b05b31f8"
+      },
+      "manifestSha256": "23dca5ce90525e6dee03058aa363aa5c77d3b31301048a3a7caaf027b05b31f8",
+      "tick": 0,
+      "completedCycleRecords": 0,
+      "totalSweeps": 0,
+      "activeWallSeconds": 0.035,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c025-full-w3",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-full-w3\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-4c053d97-b210-4bd5-8649-7cb109d6e825",
+        "manifestSha256": "5b5decd8a058a33ab45c91fb6d1d441635f2263499b45e6cea6562dee86d1c15"
+      },
+      "manifestSha256": "5b5decd8a058a33ab45c91fb6d1d441635f2263499b45e6cea6562dee86d1c15",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7145,
+      "activeWallSeconds": 129.389,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c025-late20-w3",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-late20-w3\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-cf1704c8-5cb6-4553-838c-abe6e78730f2",
+        "manifestSha256": "ae187614b9e9a2345945770efdbe1e72711a40d2397007b784e76ae88cb48cff"
+      },
+      "manifestSha256": "ae187614b9e9a2345945770efdbe1e72711a40d2397007b784e76ae88cb48cff",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7215,
+      "activeWallSeconds": 127.187,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c025-early1-w3",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early1-w3\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-8fcb3e8d-3a47-4db2-92b4-85929c0ae942",
+        "manifestSha256": "97de96fa14abde3d0066744450f04389d13cbbca53c0f9ae208b262fba7a3787"
+      },
+      "manifestSha256": "97de96fa14abde3d0066744450f04389d13cbbca53c0f9ae208b262fba7a3787",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7145,
+      "activeWallSeconds": 138.11,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c025-early5-w3",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early5-w3\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-05e1298b-82e5-4ccc-982e-ac73a46a0a5b",
+        "manifestSha256": "f7e9e969671495266691f15b77a56cc45d9bce1e96204d015ada74e09bc0129d"
+      },
+      "manifestSha256": "f7e9e969671495266691f15b77a56cc45d9bce1e96204d015ada74e09bc0129d",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7145,
+      "activeWallSeconds": 138.188,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c025-early10-w3",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early10-w3\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-8314c6f2-8f38-4171-96a0-d6a5069c7981",
+        "manifestSha256": "ce43d37d37dbfca9d8fb7b24b2df0bb81252e848502dfc2a4301005c6a2bb395"
+      },
+      "manifestSha256": "ce43d37d37dbfca9d8fb7b24b2df0bb81252e848502dfc2a4301005c6a2bb395",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7145,
+      "activeWallSeconds": 142.083,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c025-early20-w3",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early20-w3\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-2c4b0ed2-cc2c-4804-b795-7ee2db09e2d8",
+        "manifestSha256": "30fcc5eb460182c3385840fa16017c91a91e060a9af221679345c59a7aa27cf6"
+      },
+      "manifestSha256": "30fcc5eb460182c3385840fa16017c91a91e060a9af221679345c59a7aa27cf6",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7145,
+      "activeWallSeconds": 127.491,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c025-early40-w3",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early40-w3\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-1c123fa0-f96b-454f-8691-0122e1475a79",
+        "manifestSha256": "f5caeffe3d70dfd18ca6025096e3233b19a945a2afe4298a547c3555faa71a9a"
+      },
+      "manifestSha256": "f5caeffe3d70dfd18ca6025096e3233b19a945a2afe4298a547c3555faa71a9a",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7145,
+      "activeWallSeconds": 133.316,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-f1-t6p5-basal-only",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-f1-t6p5-basal-only\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-92c932ce-a120-4f88-9e01-54eafdb2d7ce",
+        "manifestSha256": "b195fe567ad44f2eb4d9baa9c0525efe43e949be2668e14e8d5e076eb2ff5894"
+      },
+      "manifestSha256": "b195fe567ad44f2eb4d9baa9c0525efe43e949be2668e14e8d5e076eb2ff5894",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7167,
+      "activeWallSeconds": 129.203,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-f1-t6p5-prism-only",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-f1-t6p5-prism-only\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-f280075f-264b-4b22-a886-6d28354a7b70",
+        "manifestSha256": "7c576d19fc3981e1679a5155be65b925fffc3db8f2118482a0a78a28e7fa5d21"
+      },
+      "manifestSha256": "7c576d19fc3981e1679a5155be65b925fffc3db8f2118482a0a78a28e7fa5d21",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7180,
+      "activeWallSeconds": 130.43,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-f1-t9p5-basal-only",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-f1-t9p5-basal-only\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-528dbf6c-9459-444a-814e-a7d9e03c1c36",
+        "manifestSha256": "21ed8c251162eae7fcbbd893b1bf66c8064b16f0495f18fd17ad52ee431fcf94"
+      },
+      "manifestSha256": "21ed8c251162eae7fcbbd893b1bf66c8064b16f0495f18fd17ad52ee431fcf94",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7202,
+      "activeWallSeconds": 131.252,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-f1-t9p5-prism-only",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-f1-t9p5-prism-only\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-6d94d572-fdc0-4bb3-9334-6fb90200f7a8",
+        "manifestSha256": "97d8a07b838b845a96cb075cce76e2340187a47134717ef4268a80fda6f69dc8"
+      },
+      "manifestSha256": "97d8a07b838b845a96cb075cce76e2340187a47134717ef4268a80fda6f69dc8",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7171,
+      "activeWallSeconds": 130.169,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c05-full-w3",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c05-full-w3\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-50e0ac1e-490e-4b21-8890-683d5470dd71",
+        "manifestSha256": "80d874b73ea15df330fb42ce2495413a2f2e53f37cf978102da2b9aff4073f6e"
+      },
+      "manifestSha256": "80d874b73ea15df330fb42ce2495413a2f2e53f37cf978102da2b9aff4073f6e",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7139,
+      "activeWallSeconds": 125.41,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c05-late20-w3",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c05-late20-w3\\resume\\latest.json",
+      "current": {
+        "directory": "generation-0-6b054691-d33f-487e-9666-a545fe454994",
+        "manifestSha256": "6d68d986608c69a1e4a6bea6e895e1f1d56e82fe850636b7f6a663c55184baa3"
+      },
+      "manifestSha256": "6d68d986608c69a1e4a6bea6e895e1f1d56e82fe850636b7f6a663c55184baa3",
+      "tick": 0,
+      "completedCycleRecords": 0,
+      "totalSweeps": 0,
+      "activeWallSeconds": 0.047,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c05-early1-w3",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c05-early1-w3\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-d321fdd3-7f74-48d9-ab06-8a89ce44c488",
+        "manifestSha256": "7a87950dae96ac881cad1bc4f9f950e96d63bb9004da9b1c783b78b3cabc64a1"
+      },
+      "manifestSha256": "7a87950dae96ac881cad1bc4f9f950e96d63bb9004da9b1c783b78b3cabc64a1",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7139,
+      "activeWallSeconds": 127.112,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c05-early5-w3",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c05-early5-w3\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-bdfad4b6-477b-40f5-b1e2-d8acd02e4d2f",
+        "manifestSha256": "dfb8ef1474f3a793e94caa7d0772514c86f561c6160b42915f0f8735daacf753"
+      },
+      "manifestSha256": "dfb8ef1474f3a793e94caa7d0772514c86f561c6160b42915f0f8735daacf753",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7139,
+      "activeWallSeconds": 143.007,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c05-early10-w3",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c05-early10-w3\\resume\\latest.json",
+      "current": {
+        "directory": "generation-0-7c4125d2-e538-4ff4-8252-cc5e70d8d3b8",
+        "manifestSha256": "7d4a7f2b2f34b04119fa56da7e3fb1d342b96891b773e7e3b65c98dedd602d62"
+      },
+      "manifestSha256": "7d4a7f2b2f34b04119fa56da7e3fb1d342b96891b773e7e3b65c98dedd602d62",
+      "tick": 0,
+      "completedCycleRecords": 0,
+      "totalSweeps": 0,
+      "activeWallSeconds": 0.046,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c05-early40-w3",
+      "state": "checkpoint-observed",
+      "pointerPath": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c05-early40-w3\\resume\\latest.json",
+      "current": {
+        "directory": "generation-1-d04e6b7a-fc39-45bb-a35e-d9ac8c1e3564",
+        "manifestSha256": "7b4c873fd2ad386c60b24cb7e51c093e4b9822070ebc33bdfab4b4dd664c4467"
+      },
+      "manifestSha256": "7b4c873fd2ad386c60b24cb7e51c093e4b9822070ebc33bdfab4b4dd664c4467",
+      "tick": 1,
+      "completedCycleRecords": 1,
+      "totalSweeps": 7139,
+      "activeWallSeconds": 142.895,
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c05-broad",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c05-full-w3",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c05-late20-w3",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c05-early1-w3",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c05-early5-w3",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c05-early10-w3",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c05-early20-w3",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c05-early40-w3",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w2-t4p5-w2-full",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w2-t4p5-w2-early5",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w2-t4p5-w2-early20",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w2-t4p5-w4-full",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w2-t4p5-w4-early5",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w2-t4p5-w4-early20",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w2-t5-w2-full",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w2-t5-w2-early5",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w2-t5-w2-early20",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w2-t5-w4-full",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w2-t5-w4-early5",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w2-t5-w4-early20",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w3-pHalf-broad",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w3-pHalf-early20-w3",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w3-pDouble-broad",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w3-pDouble-early20-w3",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w3-fLow-broad",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w3-fLow-early20-w3",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w3-fHigh-broad",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-w3-fHigh-early20-w3",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f2-t7p5-r3-h1-neither",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f2-t7p5-r3-h1-basal-only",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f2-t7p5-r3-h1-prism-only",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f2-t7p5-r3-h1-both",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f2-t7p5-r1-h5-neither",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f2-t7p5-r1-h5-basal-only",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f2-t7p5-r1-h5-prism-only",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f2-t7p5-r1-h5-both",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f2-t8p5-r3-h1-neither",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f2-t8p5-r3-h1-basal-only",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f2-t8p5-r3-h1-prism-only",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f2-t8p5-r3-h1-both",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f2-t8p5-r1-h5-neither",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f2-t8p5-r1-h5-basal-only",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f2-t8p5-r1-h5-prism-only",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f2-t8p5-r1-h5-both",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f3-t6p5-f10-neither",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f3-t6p5-f10-basal-only",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f3-t6p5-f10-prism-only",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f3-t6p5-f10-both",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f3-t6p5-f20-neither",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f3-t6p5-f20-basal-only",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f3-t6p5-f20-prism-only",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f3-t6p5-f20-both",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f3-t9p5-f10-neither",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f3-t9p5-f10-basal-only",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f3-t9p5-f10-prism-only",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f3-t9p5-f10-both",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f3-t9p5-f20-neither",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f3-t9p5-f20-basal-only",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f3-t9p5-f20-prism-only",
+      "state": "queued"
+    },
+    {
+      "rowId": "gd21-bld-f3-t9p5-f20-both",
+      "state": "queued"
+    }
+  ],
+  "latestResource": {
+    "capturedUtc": "2026-10-21T21:28:22.6130150Z",
+    "availablePhysicalBytes": 43111145472,
+    "commitHeadroomBytes": 65307955200,
+    "children": [
+      {
+        "Id": 1012,
+        "CPU": 117.015625,
+        "WorkingSet64": 108974080,
+        "PeakWorkingSet64": 113414144
+      },
+      {
+        "Id": 2820,
+        "CPU": 117.71875,
+        "WorkingSet64": 114479104,
+        "PeakWorkingSet64": 121151488
+      },
+      {
+        "Id": 4440,
+        "CPU": 115.8125,
+        "WorkingSet64": 108937216,
+        "PeakWorkingSet64": 116273152
+      },
+      {
+        "Id": 6040,
+        "CPU": 112.609375,
+        "WorkingSet64": 108724224,
+        "PeakWorkingSet64": 112812032
+      },
+      {
+        "Id": 7536,
+        "CPU": 111.75,
+        "WorkingSet64": 99643392,
+        "PeakWorkingSet64": 103522304
+      },
+      {
+        "Id": 12476,
+        "CPU": 118,
+        "WorkingSet64": 114876416,
+        "PeakWorkingSet64": 122286080
+      },
+      {
+        "Id": 12620,
+        "CPU": 110.046875,
+        "WorkingSet64": 108183552,
+        "PeakWorkingSet64": 113209344
+      },
+      {
+        "Id": 13792,
+        "CPU": 113.875,
+        "WorkingSet64": 108785664,
+        "PeakWorkingSet64": 112037888
+      },
+      {
+        "Id": 13912,
+        "CPU": 117.3125,
+        "WorkingSet64": 115298304,
+        "PeakWorkingSet64": 121352192
+      },
+      {
+        "Id": 14220,
+        "CPU": 115.640625,
+        "WorkingSet64": 114970624,
+        "PeakWorkingSet64": 121794560
+      },
+      {
+        "Id": 15608,
+        "CPU": 116.765625,
+        "WorkingSet64": 114450432,
+        "PeakWorkingSet64": 119398400
+      },
+      {
+        "Id": 17604,
+        "CPU": 115.765625,
+        "WorkingSet64": 113721344,
+        "PeakWorkingSet64": 118718464
+      },
+      {
+        "Id": 19676,
+        "CPU": 114.65625,
+        "WorkingSet64": 113631232,
+        "PeakWorkingSet64": 118222848
+      },
+      {
+        "Id": 19796,
+        "CPU": 118.234375,
+        "WorkingSet64": 114622464,
+        "PeakWorkingSet64": 124284928
+      },
+      {
+        "Id": 20268,
+        "CPU": 114.703125,
+        "WorkingSet64": 114425856,
+        "PeakWorkingSet64": 121352192
+      },
+      {
+        "Id": 21260,
+        "CPU": 106.140625,
+        "WorkingSet64": 108384256,
+        "PeakWorkingSet64": 111726592
+      },
+      {
+        "Id": 21968,
+        "CPU": 117.140625,
+        "WorkingSet64": 115142656,
+        "PeakWorkingSet64": 121352192
+      },
+      {
+        "Id": 25828,
+        "CPU": 115,
+        "WorkingSet64": 115130368,
+        "PeakWorkingSet64": 124526592
+      },
+      {
+        "Id": 25840,
+        "CPU": 108.21875,
+        "WorkingSet64": 108838912,
+        "PeakWorkingSet64": 111996928
+      },
+      {
+        "Id": 27028,
+        "CPU": 113.96875,
+        "WorkingSet64": 109166592,
+        "PeakWorkingSet64": 113487872
+      },
+      {
+        "Id": 28564,
+        "CPU": 114.75,
+        "WorkingSet64": 114552832,
+        "PeakWorkingSet64": 119304192
+      },
+      {
+        "Id": 29260,
+        "CPU": 111.03125,
+        "WorkingSet64": 108613632,
+        "PeakWorkingSet64": 113618944
+      },
+      {
+        "Id": 29460,
+        "CPU": 108.046875,
+        "WorkingSet64": 108224512,
+        "PeakWorkingSet64": 112730112
+      },
+      {
+        "Id": 32028,
+        "CPU": 107.625,
+        "WorkingSet64": 108310528,
+        "PeakWorkingSet64": 112660480
+      },
+      {
+        "Id": 32684,
+        "CPU": 117.671875,
+        "WorkingSet64": 114921472,
+        "PeakWorkingSet64": 122396672
+      },
+      {
+        "Id": 33168,
+        "CPU": 117.234375,
+        "WorkingSet64": 114036736,
+        "PeakWorkingSet64": 123441152
+      },
+      {
+        "Id": 35988,
+        "CPU": 114.328125,
+        "WorkingSet64": 108376064,
+        "PeakWorkingSet64": 112902144
+      },
+      {
+        "Id": 36504,
+        "CPU": 114.796875,
+        "WorkingSet64": 108326912,
+        "PeakWorkingSet64": 111329280
+      },
+      {
+        "Id": 36880,
+        "CPU": 115.15625,
+        "WorkingSet64": 113577984,
+        "PeakWorkingSet64": 119955456
+      },
+      {
+        "Id": 37008,
+        "CPU": 115.203125,
+        "WorkingSet64": 108199936,
+        "PeakWorkingSet64": 112267264
+      },
+      {
+        "Id": 37088,
+        "CPU": 113.5,
+        "WorkingSet64": 108937216,
+        "PeakWorkingSet64": 113827840
+      },
+      {
+        "Id": 37840,
+        "CPU": 114.640625,
+        "WorkingSet64": 114245632,
+        "PeakWorkingSet64": 121094144
+      }
+    ]
+  },
+  "resumeCommand": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start-bld-growth-dynamics-oct21.ps1 -Mode resume -Workers 32",
+  "limits": "Live observations only, not final scientific outcomes or a stable NAS publication inventory. Existing Windows symlink fixture failures remain recorded; maker explicitly approved execution.",
+  "recordVerification": {
+    "command": "npx.cmd --no-install vitest run runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts",
+    "cwd": "G:\\Code Files\\snowflake",
+    "startedLocal": "2026-10-21T14:30:53-07:00",
+    "exitCode": 0,
+    "filesPassed": 2,
+    "testsPassed": 18,
+    "rule7": {
+      "command": "npm.cmd run lint:rule7",
+      "exitCode": 0,
+      "filesScanned": 2843
+    },
+    "limits": "Launch record checks only; the earlier full-check outcome is unchanged."
+  }
+}

@@ -42,7 +42,7 @@
         "reason": "Windows EPERM while the existing tests create directory/file symlinks; host permission unresolved, assertions unchanged."
       }
     ],
-    "next": "Resolve Windows symlink permission, run the affected tests and exact npm.cmd test on the clean execution producer before launch."
+    "next": "Superseded by executionDisposition: monitor the launched queue, then check terminal/unresolved dispositions and publish/restore retained output on S:/ before closeout."
   },
   "review": "review.json",
   "retainedReadoutExercise": "readout-retained-demo.json",
@@ -72,5 +72,14 @@
     "gitRemoteUpdated": false,
     "newNasCollectionPublished": false,
     "gitPushBlocker": "Automatic approval review rejected the remote branch mutation as outside the explicitly requested NAS/local-commit scope. Separate user approval is pending."
+  },
+  "executionDisposition": {
+    "approvedBy": "Maker: S:/ is the NAS path; approval to execute the run.",
+    "source": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+    "launchReceipt": "launch.json",
+    "startedUtc": "2026-10-21T21:26:01.5254581Z",
+    "windowsSettingsChanged": false,
+    "fullSuiteGreen": false,
+    "reason": "After the recorded full-check outcome, maker explicitly approved execution. The progress defect is corrected; unchanged gallery symlink setup failures remain recorded. Queue, recovery-routing and retained-readout checks passed. This supersedes the local prelaunch hold, without changing tests or scientific/publication contracts."
   }
 }

@@ -1,0 +1,20 @@
+{
+  "startedUtc": "2026-10-21T21:26:01.1671046Z",
+  "cwd": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21",
+  "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+  "wrapperPid": 25720,
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "\"G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\scripts\\start-bld-growth-dynamics-oct21.ps1\"",
+    "-Mode",
+    "launch",
+    "-Workers",
+    "32"
+  ],
+  "nasRoot": "S:/",
+  "requestedWorkers": 32
+}
