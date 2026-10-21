@@ -1,12 +1,112 @@
 # Phase 10 adaptive exploration
 
-**Status:** Phase 10 remains active under [ADR 0062](../decisions/0062-continue-phase10-exploration.md) until the maker accepts multiple distinct promising leads. The October joint and saved-data reviews are complete; warm refinement and the October 10 ten-row wave are running, and supplement endpoints await matched analysis. Their task plans retain exact execution state. Historical statements below retain their earlier decision context.
+**Status:** Phase 10 remains active under [ADR 0062](../decisions/0062-continue-phase10-exploration.md). The October21 comparisons and NAS preservation are complete. The maker has endorsed the growth-dynamics direction below: warm history is the first concrete case, with facet and transport comparisons providing complementary evidence. Next is a bounded experiment design for discussion; no successor batch is frozen or launched. Historical statements below retain their earlier decision context.
 **Publication destination:** `origin/main`
 **Plan authoring branch:** `docs/hil-bld-workload-2026-10-07`, based on `fe15b74`; direct main publication, no PR
 **Former execution worktree:** `G:\Code Files\snowflake-science-exploration` (reconciled in October consolidation)
 **Former branch:** `explore/post-phase10-discovery` (merged and removed after preservation)
 **Base:** `ba99d81`
 **Claim level:** exploratory model-development evidence only
+
+## Growth dynamics and morphology selection — direction agreed October21
+
+The research focus is **how local attachment rules, vapor transport and changing geometry
+establish and sustain a crystal's growth pattern**. The maker asked to preserve this framing
+after distinguishing it from explaining the entire Nakaya diagram. Warm early-growth history
+is the first concrete case; the facet, cold-structure and pressure/history leads remain useful
+complementary directions within the existing Phase10 portfolio.
+
+Attachment changes the shape; the shape changes vapor delivery; vapor delivery changes
+subsequent attachment and growth. Knowing a local surface-growth law does not by itself tell
+us which whole-crystal structure will emerge. The scientific opportunity is to understand
+that feedback well enough to predict when a pattern forms, persists, changes or disappears.
+
+### Relationship to Nakaya and existing physics
+
+Two connected questions should remain distinct:
+
+1. Why do temperature and surface structure change the relative attachment behavior of basal
+   and prism faces? This concerns the physical origin of the local growth laws.
+2. Given specified local laws, how do transport and evolving geometry produce a plate, column,
+   hollow structure or another growth pattern? This is the immediate research focus.
+
+Nakaya is a valuable morphology comparison for this broader problem. Our
+[accepted Phase6 result](../../evidence/phase6-three-arm-report/report.md) showed that the
+tested implementation and parameter families failed its registered habit comparison, with
+unresolved numerical convergence. It did not establish that available physics cannot explain
+the diagram. M1's temperature-dependent dip forms and placement are Nakaya-informed inputs;
+understanding their consequences does not derive those inputs from first principles.
+
+The broader feedback problem already has a research history, including
+[diffusion coupled to structure-dependent attachment](https://arxiv.org/abs/1209.4932) and
+[semi-empirical morphology models](https://arxiv.org/abs/1910.09067). These sources establish
+prior context, not novelty or validation of our implementation. A specific robust mechanism,
+predictive boundary or informative failure could contribute without explaining the entire diagram.
+
+### Questions and evidence motivating the direction
+
+- **Establishment:** which early conditions create a structure that can continue developing?
+- **Persistence:** must an attachment enhancement stay active, or can the state it creates
+  support continued growth after it ends?
+- **History dependence:** can different preparations lead to different subsequent growth
+  under the same current environment, and which inherited state differences matter?
+- **Boundaries:** which changes suppress, reverse or otherwise alter the growth pattern?
+
+The [warm comparison](../../evidence/hil-results-review-2026-10-21/warm/notes.md) is the clearest
+starting point: open structures keep advancing after the early intervention ends, across the
+tested coarse and finer seed representations, unlike their matched broad controls. Here memory
+means inherited geometry/evolution state, not an identified molecular memory mechanism. The
+intervention initially selects almost all basal demand; the result does not isolate a narrow-edge
+law. Timestep, width-threshold/cutoff and representation sensitivity remain relevant alternatives.
+
+The [facet comparison](../../evidence/hil-results-review-2026-10-21/facet/README.md) separates
+opposing axial responses, but its temperature-dependent contrast is not a classified habit flip.
+The [cold](../../evidence/hil-results-review-2026-10-21/cold/README.md) and
+[history/pressure](../../evidence/hil-results-review-2026-10-21/history-pressure/README.md)
+comparisons help locate transport, geometry and observation-stage questions. These are already
+structured combinations of variables within one coupled model family. Grid/domain/timestep
+changes test reliability; they are not competing physical theories. Existing history pairs
+inherit different shapes, so they do not isolate geometry from all other state differences.
+
+### What would count as progress and the next decision
+
+A useful outcome is a scoped effect or failure that changes the next experiment. A substantial
+model advance would explain the effect, survive the relevant numerical checks, distinguish
+plausible alternatives and predict a new condition before its result is examined. A claim of
+new ice physics additionally needs a novelty assessment and compatible independent physical
+evidence not used to develop the account. Current leads are development evidence at the first
+level; this direction does not close Phase10 or grant a validation label.
+
+The next deliverable is a costed, bounded warm-history comparison proposal in
+[the warm plan](hil-warm-refinement.md). Consider a coarse early/control pair at a smaller
+timestep, then the smallest width-threshold/cutoff comparison that separates preparation
+duration from width selection. Name what each possible outcome would change. A later controlled
+continuation from a shared geometry could help distinguish inherited-shape and attachment
+responses, but would require explicit treatment of the other evolution state and a registered
+intervention. No new continuation semantics or run roster is authorized by this discussion.
+
+Reuse existing trajectories, readouts and restart evidence where applicable. Present measured
+predecessor costs and uncertainty before choosing another expensive fine-grid run; resource
+admission alone is not a duration forecast. Keep a complementary facet/transport question in
+view without expanding into another broad sweep. The next move is experimental design for maker
+discussion, followed by a committed protocol and execution only after selection.
+
+Documentation scope: solo scientific research; hostile actors excluded. This is a focused
+maker-requested explanation and priority within ADR0062, with no charter or solver change.
+Lessons E1/E5 and C3 govern scoped interpretation and matched controls. The shortest checks are
+Rule7, local links/diff and the existing progress-index test; no scientific suite or gate is needed.
+The temporary docs checkout has no useful output payload; check logs stay in primary custody.
+
+Documentation verification, October21: `node scripts/lint-rule7.mjs` exited0.
+`node C:/Users/biao3/Documents/GitHub/snowflake/node_modules/vitest/vitest.mjs run runner/test/progress-index.test.ts --config C:/Users/biao3/Documents/GitHub/snowflake/vitest.config.ts --root C:/Users/biao3/.codex/worktrees/growth-dynamics-direction/snowflake --no-cache`
+exited0 with all11 tests passing. Exact logs
+are primary `out/growth-dynamics-direction-2026-10-21/{rule7,progress-index}.log`; changed local
+links/anchors and `git -c core.whitespace=cr-at-eol diff --check` passed. One bounded Codex/GPT-6
+shared-context read-only review found no material issue against the previously inspected source
+reports; it did not recompute trajectories, verify external papers or execute tests. This is
+prose verification, not a scientific gate or full-suite result. Task branch
+`codex/growth-dynamics-direction` uses `C:/Users/biao3/.codex/worktrees/growth-dynamics-direction/snowflake`
+from `b28d50f`; reconcile it into main and close the payload-free checkout/ref at publication.
 
 ## Continuing Phase 10 scope — maker direction 2026-10-10
 
@@ -2772,6 +2872,11 @@ row ceiling.
 - no fitted dip location, pressure law, or parameter optimization against a target habit.
 
 ## Tried and rejected
+
+- Treating a failed Nakaya comparison as failure of all available physics, or treating an
+  advancing hollow structure as an explanation of the entire diagram (October21 direction).
+  The selected focus is the establishment and persistence of growth patterns; its mechanism
+  and physical scope must be tested rather than inferred from an appealing endpoint.
 
 - Splitting the six-case candidate as two coarse HIL cases and four fine BLD cases solely to use
   both computers (2026-10-07): the current single-threaded-per-case path supplies only six main

@@ -1,7 +1,7 @@
 # Plan — HIL warm-cavity representation qualification
 
 - **Phase:** active Phase 10 model-development exploration; charter sections 2.5/3.2 and accepted decisions 0058, 0059, 0060 and 0062.
-- **Status:** all six checked endpoints, registered paired/cross-grid readout and verified NAS preservation complete; task-level verification recorded with corrected metadata failures; portfolio discussion next.
+- **Status:** all six checked endpoints, registered paired/cross-grid readout and verified NAS preservation complete. The maker endorsed growth dynamics and morphology selection as the next research focus; a bounded warm-history comparison design is next, with no new batch selected.
 - **Started / last touched:** 2026-10-08 / 2026-10-21 by Codex/GPT-6.
 - **Branch / checkout:** `codex/hil-warm-refinement`, `C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake`, from `0be1d4e`.
 - **Authority:** maker accepted the saved-data follow-up recommendation and directed proceeding. HIL owns execution; propose BLD only if representative timing supports multiple days.
@@ -456,8 +456,10 @@ grid-error estimate, seed independence or physical SDAK. Sparse fields do not id
 causality. The author's proportionate skeptical pass and exact reproduction commands are in
 [the warm note](../../evidence/hil-results-review-2026-10-21/warm/notes.md); no new gate was run.
 
-Next: discuss the full portfolio and choose one bounded warm discriminator before writing a
-new protocol. Coarse timestep or width-threshold/cutoff comparisons are options; neither a
+Next: prepare a bounded comparison proposal under the maker-endorsed
+[growth-dynamics direction](post-phase10-adaptive-discovery.md#growth-dynamics-and-morphology-selection--direction-agreed-october21),
+asking how a growth pattern is established and sustained after early preparation ends.
+Coarse timestep or width-threshold/cutoff comparisons are options; neither a
 repeat fine batch nor target extension is selected. Present measured predecessor cost and
 uncertainty explicitly before any launch. The [preservation task](hil-results-preservation-oct21.md)
 published `hil-exploration-results@2026-10-21` and verified fresh recovery, all archive members
