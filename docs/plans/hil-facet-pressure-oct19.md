@@ -1,8 +1,8 @@
 # Plan — HIL facet attribution and pressure/history timestep comparison
 
 - **Phase:** active Phase 10 exploration; charter sections 2.5 and 3.2, accepted ADRs 0011, 0055, 0060 and 0062.
-- **Status:** twelve workers launched and checkpointing; four earlier workers continue.
-- **Started / last touched:** 2026-10-19 by Codex/GPT-6.
+- **Status:** twelve checked size endpoints; registered facet and pressure/history readouts and NAS preservation pending.
+- **Started / last touched:** 2026-10-19 / 2026-10-21 by Codex/GPT-6.
 - **Authority:** maker: "ok, proceed with all 12 runs on HIL. Keep them resumable with no time limit, and let the current runs continue."
 - **Branch / checkout:** `codex/hil-facet-pressure-oct19`, `C:/Users/biao3/.codex/worktrees/hil-facet-pressure-oct19/snowflake`, from `12219f5`.
 
@@ -249,3 +249,28 @@ Launch-record checks in primary passed the same2 files/18 tests and Rule7. Exact
 real exits and unique logs are `out/hil-facet-pressure-oct19-records/{metadata,rule7}{.log,-result.json}`.
 The scoped staged diff check passed with raw verification logs excluded to preserve their bytes.
 The fixed producer was not changed.
+
+## Terminal status — 2026-10-21
+
+The [09:07 PDT status receipt](../../evidence/hil-facet-pressure-2026-10-19/status-2026-10-21.json)
+binds the existing summarize command, complete event/result/spec hashes and exact producer.
+All twelve rows are checked extent29 size endpoints with exit0 and no reported evidence errors.
+The last finished on October19 at20:49:06 PDT; campaign elapsed time was4.1143617 hours.
+Four facet cases took2.2872528–4.1138264 hours each (12.9195672 worker-hours); eight pressure
+cases took1.4187606–3.1635061 hours (18.6099564 worker-hours). Their maxima are below the
+registered7.1277882/4.7763736-hour scenarios. No unstarted rows or campaign abort were recorded.
+These are actual completed costs, not future runtime guarantees.
+
+Producer73eb358 remains clean; no restart, new simulation, target change or capacity probe
+was performed. This status rechecked numerical event evidence and terminal agreement, not
+the registered morphology comparisons or checkpoint payload hashes. Next deliverable: execute
+the sixteen-row facet attribution and twelve-history pressure/timestep readouts above, preserving
+matched physical-age brackets and explicit unavailable static windows. All required new endpoints
+are present. Bulk output remains local; publish and freshly restore under ADRs0051/0061 before
+closing the output-owning worktree.
+
+Status-record checks passed: evidence integrity/progress index2 files/18 tests, Rule7 and scoped
+staged whitespace check. Exact commands, unique logs and real exits are in primary
+`out/status-2026-10-21/{metadata,rule7}{.log,-result.json}`. This is a records-only update;
+no solver suite or scientific comparison was run. Codex/GPT-6 and a shared-context subagent
+inspected endpoint artifacts and processes; neither performed the pending morphology readouts.

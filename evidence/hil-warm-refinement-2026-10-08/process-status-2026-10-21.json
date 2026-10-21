@@ -1,0 +1,8 @@
+{
+  "observedAtUtc": "2026-10-21T16:08:06.3702650Z",
+  "observedAtLocal": "2026-10-21T09:08:06.3720024-07:00",
+  "relevantScienceNodes": [],
+  "historicalWarmCoordinatorPid": 13260,
+  "historicalDomainSeedCoordinatorPid": 24168,
+  "interpretation": "Both campaign source path matches absent; no live row requires CPU sampling."
+}

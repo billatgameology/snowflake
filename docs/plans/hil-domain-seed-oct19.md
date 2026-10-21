@@ -1,8 +1,8 @@
 # Plan — HIL cold domain comparison and seed timestep companion
 
 - **Phase:** Phase 10 exploration, charter section 2.5 and accepted ADRs 0055, 0060 and 0062.
-- **Status:** ten checked endpoints; two cold cases continue; seed companion and registered matched analysis complete; cold comparison pending.
-- **Started / last touched:** 2026-10-19 by Codex/GPT-6.
+- **Status:** twelve checked endpoints; seed analysis complete; cold matched analysis and NAS preservation pending.
+- **Started / last touched:** 2026-10-19 / 2026-10-21 by Codex/GPT-6.
 - **Authority:** maker: "let the two remaining finish, do the new recommended experiment and plus small alternative companion."
 - **Branch / checkout:** `codex/hil-domain-seed-oct19`, `C:/Users/biao3/.codex/worktrees/hil-domain-seed-oct19/snowflake`, from `d2360e2`.
 
@@ -248,3 +248,19 @@ Next: discuss/select these options while the two cold and two warm trajectories 
 completed N96 cold arms have prism dips enabled; the prism-on/off domain contrast needs the missing
 members. Defer further cold/warm expansion until their comparisons finish. No solver, metric module,
 live producer, capacity probe, retry or queue changed; no new runs or commits were made.
+
+## Terminal status — 2026-10-21
+
+The [09:07 PDT receipt](../../evidence/hil-domain-seed-2026-10-19/status-2026-10-21.json)
+rechecks all twelve size endpoints with existing summary/completion functions: exit0, no errors
+or missing members. Cold basal-only completed extent29/update845 on October20 at00:06:28 PDT
+in17.5879567 hours; neither completed extent29/update851 at00:09:22 in17.6363339 hours.
+Cold quartet cost47.1927606 worker-hours, seed companion27.9676728, total75.1604333. The longest
+cold case exceeded the simpler8.4862425-hour scenario but remained below19.0940456 hours and
+the23.8675570-hour slowdown scenario; assumptions never imposed a scientific deadline.
+
+Producerff7b1a8 remains clean. No restart or new run occurred; there are no active/unstarted
+rows. Next: execute the registered eight-row N64/N96 cold ring/core/tip comparison at common
+plateau and physical-age brackets. The complete quartet now supports that analysis; completion
+alone establishes no domain robustness. Seed readout remains as recorded above. Bulk bytes stay
+local pending governed NAS publication and fresh recovery before checkout closure.

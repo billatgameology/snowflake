@@ -1,8 +1,8 @@
 # Plan — HIL warm-cavity representation qualification
 
 - **Phase:** post-Phase-10 model-development exploration; charter section 2.5 and accepted decisions 0058, 0059 and 0060.
-- **Status:** both coarse and both fine broad cases complete; two fine early-width cases continue from unchanged producer 838c294.
-- **Started / last touched:** 2026-10-08 / 2026-10-18 by Codex/GPT-6.
+- **Status:** all six checked size endpoints complete; full paired/cross-grid readout and NAS preservation pending.
+- **Started / last touched:** 2026-10-08 / 2026-10-21 by Codex/GPT-6.
 - **Branch / checkout:** `codex/hil-warm-refinement`, `C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake`, from `0be1d4e`.
 - **Authority:** maker accepted the saved-data follow-up recommendation and directed proceeding. HIL owns execution; propose BLD only if representative timing supports multiple days.
 
@@ -413,3 +413,20 @@ The maker directed letting both remaining cases finish while launching the [cold
 ## Status — 2026-10-19 afternoon
 
 The [afternoon receipt](../../evidence/hil-domain-seed-2026-10-19/status-2026-10-19-pm.json) records both fine early cases at extent53/57: thin update2517, thick update2493. Original PIDs14528/24776 and coordinator13260 remain live; both CPU counters advance, completed checkpoint convergence remains true, error arrays/stderr empty, and neither row has a terminal result. No pause/restart or producer change. Continue to the existing targets; no reliable ETA or completed fine early/broad contrast yet.
+
+## Terminal status — 2026-10-21
+
+The [09:07 PDT receipt](../../evidence/hil-warm-refinement-2026-10-08/status-2026-10-21.json)
+rechecks all six size endpoints with existing summary/completion functions: exit0 and no errors.
+Thin early reached extent57/update2694 on October20 at05:21:18 PDT; thick early reached
+extent57/update2731 at09:57:15 PDT. Their result records report224.4220808/228.9480086 hours
+of accumulated active wall time, respectively; these are not elapsed calendar durations.
+The [process observation](../../evidence/hil-warm-refinement-2026-10-08/process-status-2026-10-21.json)
+finds no remaining warm/domain science nodes. Current-attempt stderr files are empty.
+
+Producer838c294 remains clean. No restart, new run, capacity probe or cutoff change occurred.
+Next deliverable: complete the registered six-row warm early/broad and cross-grid/seed readout
+with the existing cavity analyzer, physical-size/age brackets and post-switch increments.
+The completed endpoints enable this comparison; they do not establish persistence or physical
+validation. Bulk output remains local until governed NAS publication/fresh recovery; keep the
+output-owning checkout open.

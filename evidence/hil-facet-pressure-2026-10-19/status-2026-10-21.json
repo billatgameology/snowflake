@@ -1,0 +1,491 @@
+{
+  "schema": "hil-operational-status-v1",
+  "observedAt": "2026-10-21T16:07:14.998932+00:00",
+  "checker": {
+    "command": "node runner/src/hil-facet-pressure-oct19-main.ts summarize out/hil-facet-pressure-oct19",
+    "cwd": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake",
+    "exitCode": 0,
+    "generatedAt": "2026-10-21T16:06:15.807Z",
+    "summary": {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\summary.json",
+      "bytes": 25967,
+      "sha256": "b823852dcfe484147cdad8323f825b7fcd1d4541cfafe84ba61c76b62754f43c"
+    }
+  },
+  "producer": "73eb358c7c720a7f1608df5b26f0a8438ae6be92",
+  "sourceClean": true,
+  "completed": 12,
+  "total": 12,
+  "campaignFinishedAt": "2026-10-20T03:49:06.000Z",
+  "campaignElapsedHours": 4.1143616666666665,
+  "unstartedRowIds": [],
+  "abortReason": null,
+  "blocks": {
+    "facet": {
+      "count": 4,
+      "successfulEndpoints": 4,
+      "minWallHours": 2.287252777777778,
+      "maxWallHours": 4.113826388888889,
+      "totalWorkerHours": 12.919567222222222,
+      "registeredLongestCaseScenarioHours": 7.1277881944,
+      "scenarioExceeded": false,
+      "longestRowId": "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-basal-only"
+    },
+    "pressure": {
+      "count": 8,
+      "successfulEndpoints": 8,
+      "minWallHours": 1.4187605555555554,
+      "maxWallHours": 3.163506111111111,
+      "totalWorkerHours": 18.60995638888889,
+      "registeredLongestCaseScenarioHours": 4.7763736111,
+      "scenarioExceeded": false,
+      "longestRowId": "oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e7-p50662p5-m1-cfl0p025"
+    }
+  },
+  "rows": [
+    {
+      "rowId": "oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-basal-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1496,
+      "physicalTimeSeconds": 30.23109825706661,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "wallSeconds": 12797.128,
+      "startedAt": "2026-10-19T23:42:15.847Z",
+      "finishedAt": "2026-10-20T03:15:33.229Z",
+      "bindings": {
+        "spec.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-basal-only\\spec.json",
+          "bytes": 1075,
+          "sha256": "6d30438c7871cf0b96a4160e333d037574aa6c75e775aea4852b9a7d37f8420e"
+        },
+        "result.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-basal-only\\result.json",
+          "bytes": 3348,
+          "sha256": "a9eed4c1a7e757936cbf87e0df03df172abeeb9a6a4338bd7388e68f556f44ee"
+        },
+        "exit.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-basal-only\\exit.json",
+          "bytes": 393,
+          "sha256": "b15b13fa12c32cb224cd63c349b4d2da9dac2fd3555e016e8d6e41772dbb3c33"
+        },
+        "events.jsonl": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-basal-only\\events.jsonl",
+          "bytes": 5045475,
+          "sha256": "dfbd5519a183c63e026d3d4b4ad935130caeb582a08e11fd5a080c0b77942590"
+        }
+      }
+    },
+    {
+      "rowId": "oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-prism-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1323,
+      "physicalTimeSeconds": 24.66502526793853,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "wallSeconds": 10669.429,
+      "startedAt": "2026-10-19T23:42:15.856Z",
+      "finishedAt": "2026-10-20T02:40:05.556Z",
+      "bindings": {
+        "spec.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-prism-only\\spec.json",
+          "bytes": 1075,
+          "sha256": "b37d78b6343d7eedbbe82e90679c295f8914c6dc0bab49ab23e5cd8169669729"
+        },
+        "result.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-prism-only\\result.json",
+          "bytes": 3344,
+          "sha256": "e0250f1d5ce153f500a2c8e1eb6de3ba7f1247239964032888ea7fe4cf5edb43"
+        },
+        "exit.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-prism-only\\exit.json",
+          "bytes": 391,
+          "sha256": "77bbbcdb4081acbdd30ffefd108c36422e567f08b153ad260abffff8118aba61"
+        },
+        "events.jsonl": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-prism-only\\events.jsonl",
+          "bytes": 4198076,
+          "sha256": "cc97245ba899cd866615c76eabc3c6cf35fee7a996fdf97afe53ee4621db205a"
+        }
+      }
+    },
+    {
+      "rowId": "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-basal-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1815,
+      "physicalTimeSeconds": 32.23189554687414,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "wallSeconds": 14809.775,
+      "startedAt": "2026-10-19T23:42:15.865Z",
+      "finishedAt": "2026-10-20T03:49:05.910Z",
+      "bindings": {
+        "spec.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-basal-only\\spec.json",
+          "bytes": 1075,
+          "sha256": "344eceff5890ba26ad8699fee4fb34edb7e85e0d03c49afae427e426fdf47ac3"
+        },
+        "result.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-basal-only\\result.json",
+          "bytes": 3334,
+          "sha256": "68bfeb1605bc3ed31b7131f0d7210629c341be0899e8f230df840d3d2d8ae220"
+        },
+        "exit.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-basal-only\\exit.json",
+          "bytes": 393,
+          "sha256": "4c0ec4d07cf9de6950bdb74e7fccce6ad21e8463ce5d779b26b4fdc1aa402cfa"
+        },
+        "events.jsonl": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-basal-only\\events.jsonl",
+          "bytes": 5984177,
+          "sha256": "34671325f50e35614fa4e6801dd83cdbc609582116850a9355f570e6db53af28"
+        }
+      }
+    },
+    {
+      "rowId": "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-prism-only",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1012,
+      "physicalTimeSeconds": 16.499190872203283,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "wallSeconds": 8234.11,
+      "startedAt": "2026-10-19T23:42:15.874Z",
+      "finishedAt": "2026-10-20T01:59:30.231Z",
+      "bindings": {
+        "spec.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-prism-only\\spec.json",
+          "bytes": 1075,
+          "sha256": "b996e57e3f33a02a57078b41b9544cb28110d7a56a0c14f10a03373024e93fe3"
+        },
+        "result.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-prism-only\\result.json",
+          "bytes": 3340,
+          "sha256": "8acdec1fed3edf7ab4371d9c15648fe091904335276680888912419323222fed"
+        },
+        "exit.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-prism-only\\exit.json",
+          "bytes": 392,
+          "sha256": "fc19109f68362a9a609ff7687b04376a6262de49bd3b393853431a57a7bfa154"
+        },
+        "events.jsonl": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-prism-only\\events.jsonl",
+          "bytes": 3168124,
+          "sha256": "9c2d1922c2437347e660ca2ec4297741e2f7efa61451476259f2202746b6a428"
+        }
+      }
+    },
+    {
+      "rowId": "oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e15-p202650-m1-cfl0p025",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 973,
+      "physicalTimeSeconds": 27.147150563413927,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "wallSeconds": 7668.135,
+      "startedAt": "2026-10-19T23:42:15.928Z",
+      "finishedAt": "2026-10-20T01:50:04.343Z",
+      "bindings": {
+        "spec.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e15-p202650-m1-cfl0p025\\spec.json",
+          "bytes": 1070,
+          "sha256": "7a9b9578d258d52ba8f4a061856153682a1074061d888d6b69e3f00121ff5b2f"
+        },
+        "result.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e15-p202650-m1-cfl0p025\\result.json",
+          "bytes": 6830,
+          "sha256": "fdb8b92d91e0c1b586c45f65e1711fb5bb6445b08522fe9b00f35bdae65aef74"
+        },
+        "exit.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e15-p202650-m1-cfl0p025\\exit.json",
+          "bytes": 313,
+          "sha256": "3e36e82b270df80b77f34eb46aa20fba2bd7adda38b3db35547d29fcce897f44"
+        },
+        "events.jsonl": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e15-p202650-m1-cfl0p025\\events.jsonl",
+          "bytes": 2989649,
+          "sha256": "e0873868b62f8e6c0f7c41481b32085b62e2528fe8918d3a6042ac665ec01fa7"
+        }
+      }
+    },
+    {
+      "rowId": "oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e15-p50662p5-m1-cfl0p025",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1065,
+      "physicalTimeSeconds": 9.032812598211367,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "wallSeconds": 9052.893,
+      "startedAt": "2026-10-19T23:42:15.893Z",
+      "finishedAt": "2026-10-20T02:13:09.035Z",
+      "bindings": {
+        "spec.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e15-p50662p5-m1-cfl0p025\\spec.json",
+          "bytes": 1073,
+          "sha256": "6cad3f8edfb3808c83a96654005f545349e571d48469dc6c34c861b66061aabf"
+        },
+        "result.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e15-p50662p5-m1-cfl0p025\\result.json",
+          "bytes": 6841,
+          "sha256": "40daa6838c884fe403ef3efbbf10e2d8ab844ffea64e58c367945ebdae2e6071"
+        },
+        "exit.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e15-p50662p5-m1-cfl0p025\\exit.json",
+          "bytes": 314,
+          "sha256": "19c20bde46e433891b0f7e1b2d49ef6fc518dfde3523f3f418b66b63a2ab3f2a"
+        },
+        "events.jsonl": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e15-p50662p5-m1-cfl0p025\\events.jsonl",
+          "bytes": 3395856,
+          "sha256": "95526297da2ae1e6c13c7f079113931ce8f8ccfb02083e89970b9cb05f4adfee"
+        }
+      }
+    },
+    {
+      "rowId": "oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e7-p202650-m1-cfl0p025",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1129,
+      "physicalTimeSeconds": 34.43351090626898,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "wallSeconds": 9383.434,
+      "startedAt": "2026-10-19T23:42:15.920Z",
+      "finishedAt": "2026-10-20T02:18:39.623Z",
+      "bindings": {
+        "spec.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e7-p202650-m1-cfl0p025\\spec.json",
+          "bytes": 1068,
+          "sha256": "1e7f0ea2ad95609534507aa8dca77885882a75da9ae2996379f7ea360d527bef"
+        },
+        "result.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e7-p202650-m1-cfl0p025\\result.json",
+          "bytes": 6805,
+          "sha256": "f96bbd9d4563c515ac258f57d50be79698a2644653f9c341d075efe95e152071"
+        },
+        "exit.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e7-p202650-m1-cfl0p025\\exit.json",
+          "bytes": 312,
+          "sha256": "8875fe2fdd73b1afa296b78d489a9d331479cb15d98ce7baff4ff3a131fab953"
+        },
+        "events.jsonl": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e7-p202650-m1-cfl0p025\\events.jsonl",
+          "bytes": 3607751,
+          "sha256": "90e7b5daeb33b89c7f657d4f339affcd83cd02b37df019f90026673055320a1b"
+        }
+      }
+    },
+    {
+      "rowId": "oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e7-p50662p5-m1-cfl0p025",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1227,
+      "physicalTimeSeconds": 11.199454228813165,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "wallSeconds": 11388.622,
+      "startedAt": "2026-10-19T23:42:15.884Z",
+      "finishedAt": "2026-10-20T02:52:04.773Z",
+      "bindings": {
+        "spec.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e7-p50662p5-m1-cfl0p025\\spec.json",
+          "bytes": 1071,
+          "sha256": "c773480629fa276ff53043254638406ccf23264af8a751f997d2bb7602de3c68"
+        },
+        "result.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e7-p50662p5-m1-cfl0p025\\result.json",
+          "bytes": 6808,
+          "sha256": "88cee50eb0c5259eade9fba3e067c07cd347cc33c3cd1fee8449b0e6e0c24947"
+        },
+        "exit.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e7-p50662p5-m1-cfl0p025\\exit.json",
+          "bytes": 314,
+          "sha256": "707013a19940ec5057cc3b4829fee17f744f064f02835139575479c136e0035a"
+        },
+        "events.jsonl": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e7-p50662p5-m1-cfl0p025\\events.jsonl",
+          "bytes": 4071874,
+          "sha256": "35d294c28fc3a81e9720ce0419e1f36f0b2b09f528a9f97f70ccd0f5671a9baf"
+        }
+      }
+    },
+    {
+      "rowId": "oct19-hil-pressure-step-static-t14p4-f0p2-p202650-m1-cfl0p025",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 687,
+      "physicalTimeSeconds": 14.207431468610224,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "wallSeconds": 5107.538,
+      "startedAt": "2026-10-19T23:42:15.937Z",
+      "finishedAt": "2026-10-20T01:07:23.741Z",
+      "bindings": {
+        "spec.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-static-t14p4-f0p2-p202650-m1-cfl0p025\\spec.json",
+          "bytes": 945,
+          "sha256": "454ae25a3fa1911a8d4d7450ecefbb9eb1ac6446f66e8e5d4e484ee8688034f6"
+        },
+        "result.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-static-t14p4-f0p2-p202650-m1-cfl0p025\\result.json",
+          "bytes": 3272,
+          "sha256": "eb87c3f440e68966c8d0f04c4c46f8eafa57ddb48f2046701b5011c63d5bcc44"
+        },
+        "exit.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-static-t14p4-f0p2-p202650-m1-cfl0p025\\exit.json",
+          "bytes": 302,
+          "sha256": "22cb7e948cb4e10f101a6043833b4ec1ebd49ef8a677ded9394145d5897daf73"
+        },
+        "events.jsonl": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-static-t14p4-f0p2-p202650-m1-cfl0p025\\events.jsonl",
+          "bytes": 1945652,
+          "sha256": "84460c86b1d6c66b1933b431a0a91da5d6369a2a54538b601354ee0c3eca3865"
+        }
+      }
+    },
+    {
+      "rowId": "oct19-hil-pressure-step-static-t14p4-f0p2-p50662p5-m1-cfl0p025",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 692,
+      "physicalTimeSeconds": 4.292872348401459,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "wallSeconds": 5319.445,
+      "startedAt": "2026-10-19T23:42:15.903Z",
+      "finishedAt": "2026-10-20T01:10:55.600Z",
+      "bindings": {
+        "spec.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-static-t14p4-f0p2-p50662p5-m1-cfl0p025\\spec.json",
+          "bytes": 948,
+          "sha256": "afb880197ac43c01231f8d957519f5010aa9b4d22cb75b04ddb5c3d020ca4206"
+        },
+        "result.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-static-t14p4-f0p2-p50662p5-m1-cfl0p025\\result.json",
+          "bytes": 3273,
+          "sha256": "919ea7d34752f81eda60adf12c6e9b4438295a4f58774d5e9438fc20a37192b3"
+        },
+        "exit.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-static-t14p4-f0p2-p50662p5-m1-cfl0p025\\exit.json",
+          "bytes": 303,
+          "sha256": "dccb4440aa4080701a86fc4a93e280b5006a86cd1eb9901b44c716bb60f11e6e"
+        },
+        "events.jsonl": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-static-t14p4-f0p2-p50662p5-m1-cfl0p025\\events.jsonl",
+          "bytes": 1968261,
+          "sha256": "fad8cced6d9767ddb0350c59e257071a1547f80c912c9aa4b20b39d81e4f52de"
+        }
+      }
+    },
+    {
+      "rowId": "oct19-hil-pressure-step-static-t6-f0p2-p202650-m1-cfl0p025",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1021,
+      "physicalTimeSeconds": 30.953987351167722,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "wallSeconds": 8766.517,
+      "startedAt": "2026-10-19T23:42:15.944Z",
+      "finishedAt": "2026-10-20T02:08:22.721Z",
+      "bindings": {
+        "spec.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-static-t6-f0p2-p202650-m1-cfl0p025\\spec.json",
+          "bytes": 926,
+          "sha256": "6337520cf74f139e4aba5973aa154a1d90a765f6e5562e919c03841bbd53e026"
+        },
+        "result.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-static-t6-f0p2-p202650-m1-cfl0p025\\result.json",
+          "bytes": 3258,
+          "sha256": "50bb726d9e92962737c9c99ed8105edfbdaa8a7873df98570ab28b0e3d30a878"
+        },
+        "exit.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-static-t6-f0p2-p202650-m1-cfl0p025\\exit.json",
+          "bytes": 299,
+          "sha256": "5477f36fcaf5e6d3308b2350c5affa7d2415325e4a763da88efd8d8c17e87631"
+        },
+        "events.jsonl": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-static-t6-f0p2-p202650-m1-cfl0p025\\events.jsonl",
+          "bytes": 3194362,
+          "sha256": "220a9c5aa141b85f15e18f5e079eb4a8702c6d22f82a2d01179595c809338854"
+        }
+      }
+    },
+    {
+      "rowId": "oct19-hil-pressure-step-static-t6-f0p2-p50662p5-m1-cfl0p025",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1129,
+      "physicalTimeSeconds": 10.237920158454433,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "wallSeconds": 10309.259,
+      "startedAt": "2026-10-19T23:42:15.911Z",
+      "finishedAt": "2026-10-20T02:34:05.429Z",
+      "bindings": {
+        "spec.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-static-t6-f0p2-p50662p5-m1-cfl0p025\\spec.json",
+          "bytes": 929,
+          "sha256": "a2e96a82d208b6c6073c14e5eabe1833ba2ddf83b2ec0a980911f7902114b78d"
+        },
+        "result.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-static-t6-f0p2-p50662p5-m1-cfl0p025\\result.json",
+          "bytes": 3277,
+          "sha256": "738de6ee16448b3e2154ae1f13bd8346a63563c79c30781e9957f1bfbacb1e10"
+        },
+        "exit.json": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-static-t6-f0p2-p50662p5-m1-cfl0p025\\exit.json",
+          "bytes": 301,
+          "sha256": "875ae6885f521fc5cfff3d19db70899821bc52ab80587c78784545e92a2d0e5b"
+        },
+        "events.jsonl": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19\\rows\\oct19-hil-pressure-step-static-t6-f0p2-p50662p5-m1-cfl0p025\\events.jsonl",
+          "bytes": 3688194,
+          "sha256": "6e9a35a019988aff15908efa64548a5e6298523c8e296d094d9e7f112596e24c"
+        }
+      }
+    }
+  ],
+  "limits": "Existing endpoint summarizer rechecked published numerical event evidence and terminal agreement. No matched morphology readout, checkpoint payload rehash, new simulation or NAS publication in this status check.",
+  "processObservation": {
+    "observedAt": "2026-10-21T16:07:22.0503498Z",
+    "scope": "All Win32_Process entries named node.exe; command lines containing snowflake",
+    "matchingProcesses": [],
+    "source": {
+      "path": "out\\status-2026-10-21\\node-processes.json",
+      "bytes": 4861,
+      "sha256": "277912188af386776dfa913bc46ca9b605e2a0966b49efada7f8637d1b7a795e"
+    },
+    "limit": "A bounded live process snapshot; all twelve expected endpoints are separately checked above."
+  }
+}

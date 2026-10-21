@@ -21,3 +21,5 @@ They select only this batch; they do not own the continuing cold or warm produce
 `campaign.json`, `launch.json`, `invocation.json`, `wrapper-invocation.json` and
 `launch-observation.json` bind the actual 16:42 PDT launch and sixteen-worker observation.
 Fixed producer: `73eb358c7c720a7f1608df5b26f0a8438ae6be92`. No elapsed-time stop is configured.
+`status-2026-10-21.json` records all twelve checked size endpoints, completion times, actual
+costs and input hashes. Registered matched readouts and NAS bulk preservation remain pending.

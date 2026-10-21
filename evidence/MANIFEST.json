@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1211,
- "totalBytes": 323474531,
+ "fileCount": 1215,
+ "totalBytes": 323594434,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -4759,8 +4759,8 @@
    "sha256": "5776e699a74fac9f6b2b2eccee353116bf95501187bfc8bab8a8e6566159e702"
   },
   "hil-facet-pressure-2026-10-19/README.md": {
-   "bytes": 1745,
-   "sha256": "199738d5f9cf8c153ac90e4737872674bdbd35e837b96941c678dab954f3dc59"
+   "bytes": 1932,
+   "sha256": "b20b582c2070916dc1a91aa85d6114fd3326185157664173d6c4dbdea8e7531e"
   },
   "hil-facet-pressure-2026-10-19/verification/cli-list-result.json": {
    "bytes": 195,
@@ -4849,6 +4849,22 @@
   "hil-facet-pressure-2026-10-19/wrapper-invocation.json": {
    "bytes": 1034,
    "sha256": "d08edf45d4428ad4c873fccb61e532ae4840fd28c4457b5f2e058cb8634aeae1"
+  },
+  "hil-facet-pressure-2026-10-19/status-2026-10-21.json": {
+   "bytes": 25370,
+   "sha256": "cb086a76b6db26d48e7dc045f74220027bd6ab558b5c934e715b908777d4497c"
+  },
+  "hil-domain-seed-2026-10-19/status-2026-10-21.json": {
+   "bytes": 66279,
+   "sha256": "c28ed435ab3bc815c8cd16a73f2f387839ce488b697a8062a30a64fe27a3358d"
+  },
+  "hil-warm-refinement-2026-10-08/status-2026-10-21.json": {
+   "bytes": 27729,
+   "sha256": "1458d48371be893508545b08727cc6814e50c2078620b23e92b99c49830c9372"
+  },
+  "hil-warm-refinement-2026-10-08/process-status-2026-10-21.json": {
+   "bytes": 338,
+   "sha256": "7d79553325098a7d2db15ab9ac7b3d4e8f9f2c3ba60b3106c02364428404a169"
   }
  }
 }
