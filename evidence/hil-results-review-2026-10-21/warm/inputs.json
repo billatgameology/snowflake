@@ -1,0 +1,333 @@
+{
+  "schema": "warm-six-row-inputs-v1",
+  "campaign": {
+    "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\campaign.json",
+    "byteLength": 9462,
+    "sha256": "407a0ae128cfd991aea8d5e3a7a98ebba27af984532c1d9f26f8f4bbb322745f"
+  },
+  "scientificInputs": [
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\spec.json",
+      "byteLength": 859,
+      "sha256": "bf700130d58fa7c4495f99324782cd86642f30ba2b4a28d938333c5cbd7dabd7"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\result.json",
+      "byteLength": 2202,
+      "sha256": "617c4c9228304d957d8decd6b9297353760206293cfc1e91871fd6a64b5f79bd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\exit.json",
+      "byteLength": 269,
+      "sha256": "bf393b0941294b9d4e1fc8b97b89401e646b931da64a7329bed5555f7189cbc4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\events.jsonl",
+      "byteLength": 2010461,
+      "sha256": "d1db0ba891e8119fcbb11d77450d59a2eaa362ad90c77d6462dab7ef1db52220"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\boundary-e5.json",
+      "byteLength": 21573,
+      "sha256": "e21441eb60ee42151625436861f1fc4c761915493285f652f24f5f7a717d7a61"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\boundary-e9.json",
+      "byteLength": 43921,
+      "sha256": "7d441f1e61b42b7199fd225d08d29bf5dd5abe0eb26e8203ef6978694ad4b2a7"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\boundary-e13.json",
+      "byteLength": 115028,
+      "sha256": "8497e8eb7e69e4bd994adbeb00ce3850bb8e5b702bf02c0f4c9fae9c2194a38c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\boundary-e17.json",
+      "byteLength": 247245,
+      "sha256": "306e9ca8eadc81872c49f7a95ba2a7435d518bf1b94e5c0a3c1f6efb864e7977"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\boundary-e21.json",
+      "byteLength": 394840,
+      "sha256": "f8575950d0f6925557e10a5b22f2d839d39e16729a5193a7bc070fdb24fa0c4b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\boundary-e25.json",
+      "byteLength": 584246,
+      "sha256": "c4245820818ff182604eb634be8b8e01bd2c7945fe0d184c11d0ed0b6a5d940b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\spec.json",
+      "byteLength": 1166,
+      "sha256": "50678cef43f37fb212fb0fe58ada68a77bfaa39d0b1122c613e721581f00980e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\result.json",
+      "byteLength": 2393,
+      "sha256": "cd48db47a8453c156e421cec2132752a94f62a3888480d07992c75a03029b911"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\exit.json",
+      "byteLength": 455,
+      "sha256": "36d4ab9417c6761b96250967ddc10d5224bdbca4ce4c76582154b5bd38a7fa2a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\events.jsonl",
+      "byteLength": 3834904,
+      "sha256": "281cfd238272ee030fe8a21bafc824848ccfd72200299a392c096e607a1a9100"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\boundary-e5.json",
+      "byteLength": 24164,
+      "sha256": "5bbf9d8678b698b60fa94de2c95c3d919c5b5c34ee71093ced935ad13daf1e26"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\boundary-e9.json",
+      "byteLength": 103391,
+      "sha256": "1830f7605b1148c49278c9b1f4d262701f25fd16f12ceb9884ca468ab7866cb9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\boundary-e13.json",
+      "byteLength": 185374,
+      "sha256": "c4cd6071f301386c5b43ca8b6386c449738e2c08570652fa5a9b8719f9b2cbe0"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\boundary-e17.json",
+      "byteLength": 335498,
+      "sha256": "c95fdeae69040e2ea3bd5eafd53c00469b18339f5f357a786d00f5d743e67ed4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\boundary-e21.json",
+      "byteLength": 719516,
+      "sha256": "fe4c1ac4693739473c34b5a716dd3ff7aa90ed44ef1c638acf43b8f52956f15f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\boundary-e25.json",
+      "byteLength": 988181,
+      "sha256": "b85a97b060798b73a087722fb1188dabbdf122d7505cd2949dbc5fbef7f94b0c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\spec.json",
+      "byteLength": 865,
+      "sha256": "370fa34f7f86fe73211c9f8ec6a7456d75d7f84192b4667b4fdab9292c6257c1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\result.json",
+      "byteLength": 2216,
+      "sha256": "337ff8ca868136b2739cd68fce14cf84bc6d658462aaabf5499d7385f4cab3e8"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\exit.json",
+      "byteLength": 288,
+      "sha256": "5d96b66d1e0715608b2a21d3254d4b3774db1e92d067a62fc27263e6f8bb2052"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\events.jsonl",
+      "byteLength": 7958533,
+      "sha256": "071cb36b2af45526ef8b3ddb6731c6f0d07933fd65f13ac93ac7a0371505b28f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\boundary-e9.json",
+      "byteLength": 57825,
+      "sha256": "2bb1d60316041bc29ede7b1db5494c25198cdd1285bee4223b2f60edffb91dec"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\boundary-e17.json",
+      "byteLength": 190785,
+      "sha256": "e5ea94098313dbbe7610f51587ee081dd5e07bace3f22e13ec8af468e292e350"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\boundary-e25.json",
+      "byteLength": 541801,
+      "sha256": "81ad826d62baef6d2207cffc1216b90afe9a121fc77e69b68dad567fedd52162"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\boundary-e33.json",
+      "byteLength": 991939,
+      "sha256": "544b4526647a6cb2515033f6aa8f268e7d7c85a4f0899061db1a75493307d45e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\boundary-e41.json",
+      "byteLength": 1619127,
+      "sha256": "752cafa875f88350af6eb69171a2c3e0ba85e46a1b192f74744209b708e04d08"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\boundary-e49.json",
+      "byteLength": 2295967,
+      "sha256": "471648b7c12a809628f22264c5f7032f9de9501b23cd54b1a1ff0367ce38e04e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\spec.json",
+      "byteLength": 1172,
+      "sha256": "4afc9fa4d9eea293479c3e3cc4b09c7012ce6faadac55881cd210e5e50272eb5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\result.json",
+      "byteLength": 2402,
+      "sha256": "8101525fad6f825b1c3fc1ad7ba1050c62ba6fd1ae403ec41efd88f6b9839a6d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\exit.json",
+      "byteLength": 475,
+      "sha256": "20f816073ab450575272f4e135306a2c1daa7b8beec4a58a99474595bbe69899"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\events.jsonl",
+      "byteLength": 16166604,
+      "sha256": "ab25113ccaa83286c3a797d50e2439667f9b4ed70eff85d02b61bf52e875dd8d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\boundary-e9.json",
+      "byteLength": 65712,
+      "sha256": "2b6955fdf046b623304999279002c37749ecb1e2408c75c48b61ba1c7aa2e23b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\boundary-e17.json",
+      "byteLength": 408303,
+      "sha256": "7af94fcc77cd72fb7c4b9e71c228876ad09701c90fd249e77a5615c881a08026"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\boundary-e25.json",
+      "byteLength": 697016,
+      "sha256": "27a49e078ace319bb26ce880efc96fe57cc0ff232b7f60713d5e4df18388aa1a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\boundary-e33.json",
+      "byteLength": 1115023,
+      "sha256": "91bec9c2aead6329fe693c2043bf0e24d503178231ee8ad975d684d543ba1d60"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\boundary-e41.json",
+      "byteLength": 1985439,
+      "sha256": "f51ac7fbd7722448952b6a478c6d1b558abde31ebd08531bae612a2ba4e08d01"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\boundary-e49.json",
+      "byteLength": 4360919,
+      "sha256": "7d8e0dcbb3464ba9cede611bcd466bd5431084c5d6115bf07181e664c7e6c259"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\spec.json",
+      "byteLength": 866,
+      "sha256": "0c548a510668b767dd88b88f8d65c95f74e565dd19d6bda1c7ed899bc9726b0f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\result.json",
+      "byteLength": 2218,
+      "sha256": "ec8183d4bb820db5cb7155fa1b329e9043d5735d50e0f66379ad4060ca8e6546"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\exit.json",
+      "byteLength": 291,
+      "sha256": "db1f95da85d23ca05abe7dedc5e91f997a38688de26e301277217dafe2cec050"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\events.jsonl",
+      "byteLength": 8526812,
+      "sha256": "a84980ea55ed66a7b629c535a886430824dc710f96409e5772fca53f9f85925e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\boundary-e9.json",
+      "byteLength": 80373,
+      "sha256": "bba1dcbb51ed5f3469fa6f935ae7681bc1d18fa372454b1eb386ad18fdad4372"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\boundary-e17.json",
+      "byteLength": 234532,
+      "sha256": "c8162633981d78fba1ee08436298edc79bfa72d402d898810ff2303c270bd6f0"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\boundary-e25.json",
+      "byteLength": 584512,
+      "sha256": "5b0aa795b2e0ebb43924a3660a8860aa68fdd5e299e8702ef2e684981465e527"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\boundary-e33.json",
+      "byteLength": 1083914,
+      "sha256": "28312dc7c3574fc7fadf6b709121d7614f77981d79af06e051530efa975baaa4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\boundary-e41.json",
+      "byteLength": 1713227,
+      "sha256": "22ac7e228b092c4c899c6f22bfc2e509aabbb2987dd2767e84d549efa630e20b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\boundary-e49.json",
+      "byteLength": 2408449,
+      "sha256": "8adb0b2c11ebb0b7dafe58c580e396b53d981bbb5a0c69609435695c967e7667"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\spec.json",
+      "byteLength": 1173,
+      "sha256": "bcf0027eae0b7580f8d2ce0218a2036b5c02f0460662cae1a1fa7c80dbe43e66"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\result.json",
+      "byteLength": 2407,
+      "sha256": "7198f31b54b3cc5f75bc0ce6c184e4a30e43e2d8d9c74ff4196e9350189b556f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\exit.json",
+      "byteLength": 476,
+      "sha256": "58f82f409507ce36ab13bc3bca6ccb73169a181567e9374c0267a9268e768289"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\events.jsonl",
+      "byteLength": 16513805,
+      "sha256": "f51153c206aa1cb361ae754a752497331425f8d462b90a49e691d616c167a7c5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\boundary-e9.json",
+      "byteLength": 88184,
+      "sha256": "908aca146ca997c11d1e044c5e4bfc3e1f4240d2503d538733859301c622b17d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\boundary-e17.json",
+      "byteLength": 351514,
+      "sha256": "cf79338a12f2876544820073e4b30e85bbf16eca28a05d2c69bb2122527ec346"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\boundary-e25.json",
+      "byteLength": 668749,
+      "sha256": "22b028388ee6c52c8cfbeb4d4dbef155771f234d924e743993ce3562aca8a63d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\boundary-e33.json",
+      "byteLength": 1017521,
+      "sha256": "4f6a6f7c89876bfb2265fd4c3deb8234682d16bea06a49e220d2b078d55b66a6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\boundary-e41.json",
+      "byteLength": 1544362,
+      "sha256": "e468c74961aa0ff2c2f9bfa7fb69375d15cef5a0c2911f4de0943630841b3233"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\boundary-e49.json",
+      "byteLength": 3648570,
+      "sha256": "23db7d4fca25ccc690391c17020afc51205fec02024323b183edc02ce5cccaf5"
+    }
+  ],
+  "analyzerSources": [
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-results-preserve-oct21\\snowflake\\runner\\src\\post-phase10-cavity-analysis.ts",
+      "byteLength": 58285,
+      "sha256": "4528db126429a2eb5956a8a1509f075b5d3b9246deb32133059b7c23ce1baeed"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-results-preserve-oct21\\snowflake\\runner\\src\\post-phase10-cavity-geometry.ts",
+      "byteLength": 8242,
+      "sha256": "fc56525367cda1b99c0d2141d0e3675477581f12c8185a3f6e30a58ce4abcff6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-results-preserve-oct21\\snowflake\\runner\\src\\post-phase10-cavity-spatial.ts",
+      "byteLength": 7107,
+      "sha256": "63fa1d6c04afbc33339a95c742a2d885098f01222bd6c3442033690a4fb08f52"
+    }
+  ],
+  "recipe": {
+    "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-results-preserve-oct21\\snowflake\\evidence\\hil-results-review-2026-10-21\\warm\\analyze.mjs",
+    "byteLength": 9594,
+    "sha256": "04531ccd18bb6cdf24be0891b51ca9bf1f913716a0bc16b8fd4a8ead9e014cec"
+  },
+  "priorEndpointCheck": "Primary out/status-2026-10-21/warm.json used summarizeFirstBatchRow/firstBatchRowIsComplete under fixed 838c294; six size endpoints, zero errors."
+}

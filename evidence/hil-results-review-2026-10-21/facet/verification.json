@@ -1,0 +1,106 @@
+{
+  "author": "Codex (GPT-6 family; model variant not independently exposed)",
+  "sharedContext": true,
+  "reviewScope": "Author skeptical pass for internal decision support; not an independent or chartered adversarial review.",
+  "runtime": "v24.13.1",
+  "readoutCommand": [
+    "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+    "C:\\Users\\biao3\\.codex\\worktrees\\hil-results-preserve-oct21\\snowflake\\evidence\\hil-results-review-2026-10-21\\facet\\readout.mjs",
+    "C:/Users/biao3/.codex/worktrees/hil-large-batch-oct11/snowflake/out/hil-large-batch-oct11",
+    "C:/Users/biao3/.codex/worktrees/hil-domain-seed-oct19/snowflake/out/hil-domain-seed-oct19",
+    "C:/Users/biao3/.codex/worktrees/hil-facet-pressure-oct19/snowflake/out/hil-facet-pressure-oct19",
+    "out/analysis-2026-10-21/facet/readout.json"
+  ],
+  "readoutExitCode": 0,
+  "compactCommand": [
+    "node",
+    "evidence/hil-results-review-2026-10-21/facet/compact.mjs",
+    "out/analysis-2026-10-21/facet/readout.json",
+    "evidence/hil-results-review-2026-10-21/facet/decision-summary.json",
+    "evidence/hil-results-review-2026-10-21/facet/inputs.json"
+  ],
+  "compactExitCode": 0,
+  "methodReuse": {
+    "source": {
+      "path": "evidence/hil-results-review-2026-10-18/seed/analyze.mjs",
+      "sha256": "a75904f73b24279744e05e097c55f4506a1b7502f88ce28cccb1f125c7d5ed62"
+    },
+    "comparison": "Exact readRow through contrast text equality after CRLF normalization",
+    "equal": true,
+    "sha256": "ea8265070b52c7fbb31d30883b43efa2ba18ae0ff0f46b30880d712a8e5d6da8"
+  },
+  "sourceParity": [
+    {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+        "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+        "--",
+        "core",
+        "solver-cpu",
+        "runner/src/post-phase10-discovery.ts",
+        "runner/src/post-phase10-cavity-analysis.ts"
+      ],
+      "exitCode": 0,
+      "stdout": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+        "73eb358c7c720a7f1608df5b26f0a8438ae6be92",
+        "--",
+        "core",
+        "solver-cpu",
+        "runner/src/post-phase10-discovery.ts",
+        "runner/src/post-phase10-cavity-analysis.ts"
+      ],
+      "exitCode": 0,
+      "stdout": ""
+    }
+  ],
+  "historicalCost": {
+    "newFourHybrids": [
+      {
+        "rowId": "oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-basal-only",
+        "wallSeconds": 12797.128
+      },
+      {
+        "rowId": "oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-prism-only",
+        "wallSeconds": 10669.429
+      },
+      {
+        "rowId": "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-basal-only",
+        "wallSeconds": 14809.775
+      },
+      {
+        "rowId": "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-prism-only",
+        "wallSeconds": 8234.11
+      }
+    ],
+    "newFourHybridsWorkerHours": 12.919567222222224,
+    "selectedPairAtCfl025": [
+      {
+        "rowId": "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-neither",
+        "wallSeconds": 13859.634
+      },
+      {
+        "rowId": "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-basal-only",
+        "wallSeconds": 14809.775
+      }
+    ],
+    "selectedPairAtCfl025WorkerHours": 7.9637247222222225,
+    "transferLimit": "Historical observed times only, not a measurement or assurance for CFL .0125, different grids, domains, concurrency, or elapsed completion time."
+  },
+  "scopeOfChanges": "New fixed selection/output recipe reuses unchanged readRow/increments/window/contrast functions; compact recipe only selects/renames fields and packages hashes. No new metric module, solver or runtime production change.",
+  "limits": [
+    "No independent solver rerun or new simulation.",
+    "No full-suite result claimed by this subtask; root owns stable Rule 6 checks.",
+    "Matched code interventions characterize this implementation, not physical causality.",
+    "Endpoint alternatives are recorded-event sensitivity, not continuous-time bounds."
+  ]
+}

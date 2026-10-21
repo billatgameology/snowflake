@@ -1,0 +1,14 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+const input=path.resolve(process.argv[2]??'out/analysis-2026-10-21/history-pressure/readout-final.json');
+const output=path.resolve(process.argv[3]??'out/analysis-2026-10-21/history-pressure/summary');
+const bytes=fs.readFileSync(input),a=JSON.parse(bytes),sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const keys=['axialCells','lateralCartesianCells','attachedCount'],windowNames=['full','early','later','q1','q2','q3','q4'];
+const window=w=>w.available?{available:true,startSeconds:w.start.requestedTimeSeconds,endSeconds:w.end.requestedTimeSeconds,startBrackets:[w.start.atOrBefore.cycle,w.start.nextEvent?.cycle??null],endBrackets:[w.end.atOrBefore.cycle,w.end.nextEvent?.cycle??null],exactStart:w.start.exactEventTime,exactEnd:w.end.exactEventTime,atOrBefore:Object.fromEntries(keys.map(k=>[k,w.atOrBefore[k]])),endpointSensitivity:Object.fromEntries(keys.map(k=>[k,w.endpointSensitivity[k]]))}:w;
+const packed=windows=>Object.fromEntries(Object.entries(windows).map(([name,w])=>[name,window(w)]));
+const cflCensus=Object.fromEntries(keys.map(k=>[k,Object.fromEntries(windowNames.map(w=>[w,{pairs:a.cflSmallMinusLarge.length,equalAtOrBefore:a.cflSmallMinusLarge.filter(p=>p.windows[w][k].aMinusB===0).length,bracketDifferenceExactlyZero:a.cflSmallMinusLarge.filter(p=>p.windows[w][k].min===0&&p.windows[w][k].max===0).length}]))]));
+const summary={createdAt:new Date().toISOString(),input:{path:input,bytes:bytes.length,sha256:sha(bytes)},scope:a.scope,script:a.script,reusedDefinitions:a.reusedDefinitions,sourceParity:a.sourceParity,definitions:a.definitions,commonPostEventSeconds:a.commonPostEventSeconds,census:a.census,specPairs:a.specPairs,sourceChecks:a.sourceChecks,rows:a.rows.map(({spec,...r})=>({...r,pressurePa:spec.row.pressurePa,cflFill:spec.row.cflFill,tempC:spec.row.tempC,switchExtent:spec.row.timelineEvent?.triggerLargestExtent??null})),historyReadouts:a.historyReadouts.map(r=>({...r,windows:packed(r.windows)})),staticReferences:a.staticReferences.map(r=>({...r,continuedSourceWindows:packed(r.continuedSourceWindows),freshSeedDestinationWindows:packed(r.freshSeedDestinationWindows)})),earlyMinusLate:a.earlyMinusLate,cflSmallMinusLarge:a.cflSmallMinusLarge,pressureMinusNormal:a.pressureMinusNormal,cflCensus};
+fs.mkdirSync(output,{recursive:true});
+for(const [name,data] of [['summary.json',summary],['input-hashes.json',{scope:a.scope,inputs:a.sources}]])fs.writeFileSync(path.join(output,name),JSON.stringify(data)+'\n',{flag:'wx'});
+console.log(JSON.stringify({output,inputSha256:summary.input.sha256,summaryBytes:fs.statSync(path.join(output,'summary.json')).size,cflCensus},null,2));

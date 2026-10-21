@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+const input=path.resolve(process.argv[2]??'out/analysis-2026-10-21/cold/readout-final.json');
+const output=path.resolve(process.argv[3]??'out/analysis-2026-10-21/cold/summary');
+const bytes=fs.readFileSync(input),a=JSON.parse(bytes),sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const state=s=>s===null?null:{cycle:s.cycle,simTimeSeconds:s.simTimeSeconds,extent:s.extent,attachedCount:s.attachedCount,centralPlaneAttached:s.centralPlaneAttached,core:s.core,tip:s.tip,gap:s.gap,centralPlaneRingCounts:s.centralPlaneRingCounts};
+const selected=r=>({id:r.id,N:r.N,arm:r.arm,requestedTimeSeconds:r.requestedTimeSeconds,atOrBefore:state(r.atOrBefore),next:state(r.next)});
+const summary={createdAt:new Date().toISOString(),input:{path:input,bytes:bytes.length,sha256:sha(bytes)},scope:a.scope,script:a.script,reusedDefinitions:a.reusedDefinitions,sourceParity:a.sourceParity,definitions:a.definitions,armOrder:a.armOrder,domainOrder:a.domainOrder,census:{rows:a.rows.length,updates:a.checks.reduce((n,r)=>n+r.completedUpdates,0),snapshots:a.rows.reduce((n,r)=>n+r.snapshotCount,0),dispositions:a.checks.map(r=>({id:r.rowId,disposition:r.disposition,errors:r.errors}))},rows:a.rows.map(r=>({id:r.id,N:r.N,arm:r.arm,producer:r.producer,node:r.node,terminal:state(r.terminal)})),stages:a.stages.map(s=>({...s,selections:s.selections?.map(t=>({...t,rows:t.rows.map(selected)}))})),commonTimeSeconds:a.commonTimeSeconds,absoluteAgeSelections:a.absoluteAgeSelections.map(t=>({...t,rows:t.rows.map(selected)})),commonCrossings:a.commonCrossings,crossingSummaries:a.crossingComparisons.map(c=>({triggerExtent:c.triggerExtent,rows:c.rows.map(r=>({id:r.id,N:r.N,arm:r.arm,state:state(r.state),boundaryCount:r.boundaryCount,facetCounts:r.facetCounts,centralPrism:r.centralPrism}))})),detailedProfiles:'The bound derived readout retains every crossing central-ring and axial-plane field profile. This small summary retains all crossing ring geometry and central-prism field statistics; null means no qualifying cells, not zero transport.'};
+fs.mkdirSync(output,{recursive:true});
+for(const [name,data] of [['summary.json',summary],['input-hashes.json',{scope:a.scope,inputs:a.inputs}]])fs.writeFileSync(path.join(output,name),JSON.stringify(data)+'\n',{flag:'wx'});
+console.log(JSON.stringify({output,inputSha256:summary.input.sha256,rows:summary.census.rows,summaryBytes:fs.statSync(path.join(output,'summary.json')).size},null,2));

@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1215,
- "totalBytes": 323594434,
+ "fileCount": 1241,
+ "totalBytes": 325644938,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -4865,6 +4865,110 @@
   "hil-warm-refinement-2026-10-08/process-status-2026-10-21.json": {
    "bytes": 338,
    "sha256": "7d79553325098a7d2db15ab9ac7b3d4e8f9f2c3ba60b3106c02364428404a169"
+  },
+  "hil-results-review-2026-10-21/author-axial-recomputation.json": {
+   "bytes": 2495,
+   "sha256": "9c2d192bce0fcb78e3e8cd3e595b8b753368fff4e294e231b7ad3cf9fd5de9ac"
+  },
+  "hil-results-review-2026-10-21/cold/input-hashes.json": {
+   "bytes": 32540,
+   "sha256": "649df76a7e3fbac442761ce726be98ed5cae72dbefc9d1e078e79f08120953e4"
+  },
+  "hil-results-review-2026-10-21/cold/README.md": {
+   "bytes": 6858,
+   "sha256": "7de286ffe516033688f3ef57719f462e3a219d4cd8c888dcde25a54239040e71"
+  },
+  "hil-results-review-2026-10-21/cold/readout.mjs": {
+   "bytes": 12784,
+   "sha256": "13fb410e244e8c399be890a0708db1564673c63bdde8480599b46e425278f5dd"
+  },
+  "hil-results-review-2026-10-21/cold/summarize.mjs": {
+   "bytes": 2521,
+   "sha256": "31259fe81b3d1620a176a4f05f0a42c0d2b3ca481ab05e8b594993c14ab5075e"
+  },
+  "hil-results-review-2026-10-21/cold/summary.json": {
+   "bytes": 223036,
+   "sha256": "8b116b8066c6f8bc59ee66825cca329989ee405f54a908af643281322af7a490"
+  },
+  "hil-results-review-2026-10-21/facet/compact.mjs": {
+   "bytes": 3329,
+   "sha256": "f148ea0791c68126bb72afd4e7d65eafe4fdf2bc380614c9bbd3da818a8b1255"
+  },
+  "hil-results-review-2026-10-21/facet/decision-summary.json": {
+   "bytes": 149452,
+   "sha256": "54ebe6f5f0a47dffffe381218d23f6612e839ac893172d56b09a63cdf350916f"
+  },
+  "hil-results-review-2026-10-21/facet/inputs.json": {
+   "bytes": 21166,
+   "sha256": "cc31d31f80494b4306a9132e3c950ebabd7d6425a35cbeb8722bbd45ddc58d80"
+  },
+  "hil-results-review-2026-10-21/facet/README.md": {
+   "bytes": 7418,
+   "sha256": "0f6c01290cea8e3b5166330aacbc598b300b7d5d397beb28f30390310011a81a"
+  },
+  "hil-results-review-2026-10-21/facet/readout.mjs": {
+   "bytes": 13008,
+   "sha256": "6e90738dbfad56d88609543e506c795576f0870d71c9b6aee6a9c91bebf5ac26"
+  },
+  "hil-results-review-2026-10-21/facet/verification.json": {
+   "bytes": 4118,
+   "sha256": "d787bec7c2afc89f60596ae25a016508e0f0e04c8ca371add7b538217f5661af"
+  },
+  "hil-results-review-2026-10-21/history-pressure/input-hashes.json": {
+   "bytes": 26129,
+   "sha256": "957ee86da5a8d70c8104ae354be9accc5d9df2c7c4b09aefab54cdf027b2992e"
+  },
+  "hil-results-review-2026-10-21/history-pressure/README.md": {
+   "bytes": 7820,
+   "sha256": "aa16fbb9270325e133edca139324bc67999454001f3f8c0f5c46c78d005e4eca"
+  },
+  "hil-results-review-2026-10-21/history-pressure/readout.mjs": {
+   "bytes": 15196,
+   "sha256": "7526c47a93666f351a57f8a99f69455641134a54382697e60109bf719243fffe"
+  },
+  "hil-results-review-2026-10-21/history-pressure/summarize.mjs": {
+   "bytes": 2723,
+   "sha256": "458aa9511bb5e64cc93bbe8de788c30e8497f538882bbc8b1bea08106b0f9fb5"
+  },
+  "hil-results-review-2026-10-21/history-pressure/summary.json": {
+   "bytes": 166491,
+   "sha256": "a714300605751cdceb89a70b239e9404760058830330f3390e81039c1b68de3e"
+  },
+  "hil-results-review-2026-10-21/README.md": {
+   "bytes": 5680,
+   "sha256": "9cca007ef171cadda0370d1ebd64ffd9f4a09353edcb3062a59a0d7dd9012abd"
+  },
+  "hil-results-review-2026-10-21/warm/analyze.mjs": {
+   "bytes": 9594,
+   "sha256": "04531ccd18bb6cdf24be0891b51ca9bf1f913716a0bc16b8fd4a8ead9e014cec"
+  },
+  "hil-results-review-2026-10-21/warm/execution.json": {
+   "bytes": 5074,
+   "sha256": "791e5b630d7b44915f71eefc1821f7f507694eacfec4992c2c66319232adba7a"
+  },
+  "hil-results-review-2026-10-21/warm/inputs.json": {
+   "bytes": 18970,
+   "sha256": "77e3cd03e6a690efa7ff565c50f736ccbd1ccbd09b3edb8b8de2e3e6fffca48c"
+  },
+  "hil-results-review-2026-10-21/warm/notes.md": {
+   "bytes": 7190,
+   "sha256": "068c20098c2e7173d974217f1a661e66462a8ae82209c7ae14b6a4fd2155a6d9"
+  },
+  "hil-results-review-2026-10-21/warm/render-slices.mjs": {
+   "bytes": 3250,
+   "sha256": "33d04d05fc766328808181a5ec46ef52ae10397d79d0b04b980fe5e9e2b6e6e1"
+  },
+  "hil-results-review-2026-10-21/warm/summary.json": {
+   "bytes": 581173,
+   "sha256": "34ff33499917f4b2d4c1b336a4331df8796d1bf97c9a5ae17c9fb735d56f39f4"
+  },
+  "hil-results-review-2026-10-21/warm/terminal-slices.png": {
+   "bytes": 82836,
+   "sha256": "ddd5dd5d665bd36774665bed303c920976c3966324f984fb95001ceabeef6a4d"
+  },
+  "hil-results-review-2026-10-21/warm/terminal-slices.svg": {
+   "bytes": 639653,
+   "sha256": "513fdf0fb77ee7ce17c95bafbdc5cb1ae1131ea287aaa001e061a33d3bc33caf"
   }
  }
 }

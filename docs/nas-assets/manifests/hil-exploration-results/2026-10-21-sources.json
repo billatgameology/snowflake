@@ -1,0 +1,109 @@
+{
+  "collection": "hil-exploration-results@2026-10-21",
+  "sources": [
+    {
+      "label": "hil-warm-refinement",
+      "root": "C:\\Users\\biao3\\.codex\\worktrees\\hil-warm-refinement\\snowflake\\out",
+      "include": [
+        "."
+      ],
+      "producer": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+      "role": "Complete scientific campaign, retained attempts, checkpoints, probes and operational controls"
+    },
+    {
+      "label": "hil-supplement",
+      "root": "C:\\Users\\biao3\\.codex\\worktrees\\hil-supplement\\snowflake\\out",
+      "include": [
+        "."
+      ],
+      "producer": "7ea25824e3d2a3a3f3e488b463689d56d5d06997",
+      "role": "Complete scientific campaign, retained attempts, checkpoints, probes and operational controls"
+    },
+    {
+      "label": "hil-exploration-oct10",
+      "root": "C:\\Users\\biao3\\.codex\\worktrees\\hil-exploration-oct10\\snowflake\\out",
+      "include": [
+        "."
+      ],
+      "producer": "33832e20a386c52d830e2dd338a1f8671a25db8f",
+      "role": "Complete scientific campaign, retained attempts, checkpoints, probes and operational controls"
+    },
+    {
+      "label": "hil-large-batch-oct11",
+      "root": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out",
+      "include": [
+        "."
+      ],
+      "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+      "role": "Complete scientific campaign, retained attempts, checkpoints, probes and operational controls"
+    },
+    {
+      "label": "hil-two-day-oct12",
+      "root": "C:\\Users\\biao3\\.codex\\worktrees\\hil-two-day-oct12\\snowflake\\out",
+      "include": [
+        "."
+      ],
+      "producer": "0161a5126ea47d565db7d6534ed7b56c743c0ffc",
+      "role": "Complete scientific campaign, retained attempts, checkpoints, probes and operational controls"
+    },
+    {
+      "label": "hil-domain-seed-oct19",
+      "root": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out",
+      "include": [
+        "."
+      ],
+      "producer": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+      "role": "Complete scientific campaign, retained attempts, checkpoints, probes and operational controls"
+    },
+    {
+      "label": "hil-facet-pressure-oct19",
+      "root": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out",
+      "include": [
+        "."
+      ],
+      "producer": "73eb358c7c720a7f1608df5b26f0a8438ae6be92",
+      "role": "Complete scientific campaign, retained attempts, checkpoints, probes and operational controls"
+    },
+    {
+      "label": "primary-science-support",
+      "root": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out",
+      "include": [
+        "analysis-2026-10-18",
+        "analysis-2026-10-19",
+        "hil-domain-seed-oct19-closeout",
+        "hil-facet-pressure-oct19-preflight",
+        "hil-facet-pressure-oct19-records",
+        "hil-large-batch-design-2026-10-11",
+        "hil-two-day-design-2026-10-12",
+        "next-hil-design-2026-10-10",
+        "phase10-exploration-docs",
+        "reboot-recovery-2026-10-14",
+        "reboot-recovery-2026-10-15",
+        "run-history-guide",
+        "status-2026-10-11",
+        "status-2026-10-12-evening",
+        "status-2026-10-13-morning",
+        "status-2026-10-18",
+        "status-2026-10-19-1602",
+        "status-2026-10-21",
+        "status-current-hil-20261011T185909736Z",
+        "status-current-hil-20261011T185924Z",
+        "status-current-hil-20261012T155416Z",
+        "status-current-hil-20261012T155425800Z"
+      ],
+      "producer": "5163d13c0f04ba4fbae07dd393936d001c7b2d8e",
+      "role": "Retained science analysis, design, status and reboot recovery support"
+    },
+    {
+      "label": "review-analysis",
+      "root": "C:\\Users\\biao3\\.codex\\worktrees\\hil-results-preserve-oct21\\snowflake\\out\\analysis-2026-10-21",
+      "include": [
+        "."
+      ],
+      "producer": "see final analysis recipe commit and tracked input records",
+      "role": "Detailed completed comparison outputs; concise claims and recipes remain Git authority"
+    }
+  ],
+  "originalsRetained": true,
+  "exclusions": "Dependencies, rebuildable builds, unrelated product/education/private-source material and previously preserved earlier HIL/BLD originals. Empty test scratch directories may appear as directory entries."
+}

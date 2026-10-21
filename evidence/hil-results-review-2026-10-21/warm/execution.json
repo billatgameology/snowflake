@@ -1,0 +1,120 @@
+{
+  "schema": "warm-analysis-execution-v1",
+  "completedAt": "2026-10-21T16:21:57.421Z",
+  "analyst": {
+    "model": "Codex/GPT-6 (parent-inherited)",
+    "sharedContext": true,
+    "scope": "Author of this bounded packaging/interpretation; prior registered roster context shared"
+  },
+  "registeredRows": 6,
+  "completedUpdates": 10624,
+  "analysis": "Existing analyzeCavityRows, measureCavityGeometry and summarizeCavityBoundary unchanged; six-row common group plus three two-row common-age groups.",
+  "executedCommands": [
+    "node C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake/runner/src/post-phase10-cavity-analysis.ts campaign C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake/out/warm-refinement-hil out/analysis-2026-10-21/warm/cavity-readout.json",
+    "node evidence/hil-results-review-2026-10-21/warm/analyze.mjs C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake/out/warm-refinement-hil out/analysis-2026-10-21/warm/paired evidence/hil-results-review-2026-10-21/warm out/analysis-2026-10-21/warm/cavity-readout.json",
+    "node evidence/hil-results-review-2026-10-21/warm/render-slices.mjs <registered-campaign> <new-SVG>"
+  ],
+  "exits": [
+    0,
+    0,
+    0
+  ],
+  "sourceParity": {
+    "against": "838c294",
+    "unchanged": [
+      "runner/src/post-phase10-cavity-analysis.ts",
+      "runner/src/post-phase10-cavity-geometry.ts",
+      "runner/src/post-phase10-cavity-spatial.ts"
+    ]
+  },
+  "independentTargetedChecks": [
+    {
+      "rowId": "warm-refine-coarse-t4p5-broad",
+      "rawTerminalAttachedCount": 6041,
+      "rawTerminalAxialCenterSpanUm": 3.5,
+      "matchesAnalyzer": true
+    },
+    {
+      "rowId": "warm-refine-coarse-t4p5-early",
+      "rawTerminalAttachedCount": 12373,
+      "rawTerminalAxialCenterSpanUm": 7.699999999999999,
+      "matchesAnalyzer": true
+    },
+    {
+      "rowId": "warm-refine-fine-thin-t4p5-broad",
+      "rawTerminalAttachedCount": 47301,
+      "rawTerminalAxialCenterSpanUm": 3.5,
+      "matchesAnalyzer": true
+    },
+    {
+      "rowId": "warm-refine-fine-thin-t4p5-early",
+      "rawTerminalAttachedCount": 107601,
+      "rawTerminalAxialCenterSpanUm": 8.75,
+      "matchesAnalyzer": true
+    },
+    {
+      "rowId": "warm-refine-fine-thick-t4p5-broad",
+      "rawTerminalAttachedCount": 51683,
+      "rawTerminalAxialCenterSpanUm": 3.8499999999999996,
+      "matchesAnalyzer": true
+    },
+    {
+      "rowId": "warm-refine-fine-thick-t4p5-early",
+      "rawTerminalAttachedCount": 110999,
+      "rawTerminalAxialCenterSpanUm": 9.1,
+      "matchesAnalyzer": true
+    }
+  ],
+  "visualReview": "Rendered actual central-plane SVG with PyMuPDF; viewed PNG; corrected row-label spacing and rendered final PNG.",
+  "skepticalPass": [
+    "Kept matched-size unequal ages distinct from all-six and pair-specific common ages.",
+    "Checked next-event alternatives; depth/axial headline unchanged.",
+    "Reported coarse/fine waist/depth differences instead of claiming convergence.",
+    "Zero post-cutoff selected demand does not erase inherited geometry/partial fill.",
+    "Selected pre-cutoff basal demand exceeds99percent; avoided rim-only/molecular law interpretation.",
+    "No five-arm width-three verdict applied."
+  ],
+  "files": [
+    {
+      "path": "evidence\\hil-results-review-2026-10-21\\warm\\analyze.mjs",
+      "bytes": 9594,
+      "sha256": "04531ccd18bb6cdf24be0891b51ca9bf1f913716a0bc16b8fd4a8ead9e014cec"
+    },
+    {
+      "path": "evidence\\hil-results-review-2026-10-21\\warm\\inputs.json",
+      "bytes": 18970,
+      "sha256": "77e3cd03e6a690efa7ff565c50f736ccbd1ccbd09b3edb8b8de2e3e6fffca48c"
+    },
+    {
+      "path": "evidence\\hil-results-review-2026-10-21\\warm\\notes.md",
+      "bytes": 7190,
+      "sha256": "068c20098c2e7173d974217f1a661e66462a8ae82209c7ae14b6a4fd2155a6d9"
+    },
+    {
+      "path": "evidence\\hil-results-review-2026-10-21\\warm\\render-slices.mjs",
+      "bytes": 3250,
+      "sha256": "33d04d05fc766328808181a5ec46ef52ae10397d79d0b04b980fe5e9e2b6e6e1"
+    },
+    {
+      "path": "evidence\\hil-results-review-2026-10-21\\warm\\summary.json",
+      "bytes": 581173,
+      "sha256": "34ff33499917f4b2d4c1b336a4331df8796d1bf97c9a5ae17c9fb735d56f39f4"
+    },
+    {
+      "path": "evidence\\hil-results-review-2026-10-21\\warm\\terminal-slices.png",
+      "bytes": 82836,
+      "sha256": "ddd5dd5d665bd36774665bed303c920976c3966324f984fb95001ceabeef6a4d"
+    },
+    {
+      "path": "evidence\\hil-results-review-2026-10-21\\warm\\terminal-slices.svg",
+      "bytes": 639653,
+      "sha256": "513fdf0fb77ee7ce17c95bafbdc5cb1ae1131ea287aaa001e061a33d3bc33caf"
+    }
+  ],
+  "limits": [
+    "No simulations, worker/codec changes or new launch.",
+    "No independent physical validation, complete-field causal identification, convergence order or domain-independence claim.",
+    "Original per-row endpoint checks were completed separately; no new suite claim. Root owns exact npm test and preservation.",
+    "Full per-event cavity reconstruction and pair reports are local bulk inputs awaiting root NAS preservation."
+  ]
+}

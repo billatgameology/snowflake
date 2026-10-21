@@ -1,0 +1,128 @@
+{
+  "scope": "Author targeted raw-event recomputation, separate from the analysis window functions. Seed thickness1 and exact integer axial extrema; last event at/before each age; no interpolation. Checks headline axial quantities only, not cavity geometry, cold fields, complete brackets or all occupancy claims.",
+  "facetCommonAgeSeconds": 16.499190872203283,
+  "facet": [
+    {
+      "tempC": -6.5,
+      "cfl": 0.05,
+      "ageSeconds": 16.499190872203283,
+      "basalMinusNeitherLayers": 6,
+      "prismMinusNeitherLayers": -2,
+      "bothMinusNeitherLayers": 4
+    },
+    {
+      "tempC": -6.5,
+      "cfl": 0.025,
+      "ageSeconds": 16.499190872203283,
+      "basalMinusNeitherLayers": 6,
+      "prismMinusNeitherLayers": -2,
+      "bothMinusNeitherLayers": 4
+    },
+    {
+      "tempC": -9.5,
+      "cfl": 0.05,
+      "ageSeconds": 16.499190872203283,
+      "basalMinusNeitherLayers": 2,
+      "prismMinusNeitherLayers": -4,
+      "bothMinusNeitherLayers": -2
+    },
+    {
+      "tempC": -9.5,
+      "cfl": 0.025,
+      "ageSeconds": 16.499190872203283,
+      "basalMinusNeitherLayers": 2,
+      "prismMinusNeitherLayers": -4,
+      "bothMinusNeitherLayers": -2
+    }
+  ],
+  "pressureCommonPostEventSeconds": 7.547248938077988,
+  "pressureWindowOrder": [
+    "full",
+    "first-half",
+    "second-half",
+    "quarter1",
+    "quarter2",
+    "quarter3",
+    "quarter4"
+  ],
+  "pressure": [
+    {
+      "pressurePa": 50662.5,
+      "cfl": 0.05,
+      "earlyMinusLateAxialLayers": [
+        6,
+        4,
+        2,
+        4,
+        0,
+        0,
+        2
+      ]
+    },
+    {
+      "pressurePa": 50662.5,
+      "cfl": 0.025,
+      "earlyMinusLateAxialLayers": [
+        6,
+        4,
+        2,
+        4,
+        0,
+        0,
+        2
+      ]
+    },
+    {
+      "pressurePa": 101325,
+      "cfl": 0.05,
+      "earlyMinusLateAxialLayers": [
+        6,
+        4,
+        2,
+        2,
+        2,
+        0,
+        2
+      ]
+    },
+    {
+      "pressurePa": 101325,
+      "cfl": 0.025,
+      "earlyMinusLateAxialLayers": [
+        6,
+        4,
+        2,
+        2,
+        2,
+        0,
+        2
+      ]
+    },
+    {
+      "pressurePa": 202650,
+      "cfl": 0.05,
+      "earlyMinusLateAxialLayers": [
+        4,
+        2,
+        2,
+        2,
+        0,
+        0,
+        2
+      ]
+    },
+    {
+      "pressurePa": 202650,
+      "cfl": 0.025,
+      "earlyMinusLateAxialLayers": [
+        4,
+        2,
+        2,
+        2,
+        0,
+        0,
+        2
+      ]
+    }
+  ]
+}

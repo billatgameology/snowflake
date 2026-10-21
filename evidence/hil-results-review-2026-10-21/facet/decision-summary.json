@@ -1,0 +1,6249 @@
+{
+  "schema": "facet-attribution-compact-oct21-v1",
+  "scope": "Registered sixteen-row completed-data facet attribution at two temperatures, four preparations and two timesteps. Wide seed only; internal implemented-model evidence, no physical or validation claim.",
+  "definitions": {
+    "geometry": "Exact seed plus attachment-coordinate reconstruction; subtract own initial occupied count and axial/maximum Cartesian lateral center spans. Occupied cells are not mass.",
+    "time": "Existing window/contrast and bracketCavityTime definitions unchanged. At-or-before state plus next recorded event; exact time uses exact state only. No interpolation or confidence interval.",
+    "comparisons": "Common age uses the minimum terminal physical age across all sixteen rows. Cumulative and consecutive quarter windows are distinct. Five registered contrasts do not assume preparation effects add linearly.",
+    "limits": "No grid/domain qualification, physical causal mechanism or interpolation between temperatures. Axial stability does not imply occupied-count stability.",
+    "triplet": "[at-or-before value, minimum, maximum over adjacent recorded endpoint alternatives]; not a confidence interval or a continuous-time bound.",
+    "axialCells": "Change in total occupied axial layer count after subtracting initial seed; each layer equals 0.35 micrometres of total axial center span.",
+    "lateralCartesianCenterSpanUm": "Change in maximum Cartesian lateral occupied center span, in micrometres.",
+    "attachedCount": "New attached lattice sites after subtracting the initial 37 sites; not deposited mass."
+  },
+  "fullReadout": {
+    "path": "out/analysis-2026-10-21/facet/readout.json",
+    "bytes": 862577,
+    "sha256": "8e82be945b74def9cf98c52ea44cdbd7634779333eb7cf663cda216c4da4bdeb"
+  },
+  "methodSource": {
+    "path": "evidence/hil-results-review-2026-10-18/seed/analyze.mjs",
+    "sha256": "a75904f73b24279744e05e097c55f4506a1b7502f88ce28cccb1f125c7d5ed62"
+  },
+  "readoutScript": {
+    "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-results-preserve-oct21\\snowflake\\evidence\\hil-results-review-2026-10-21\\facet\\readout.mjs",
+    "sha256": "6e90738dbfad56d88609543e506c795576f0870d71c9b6aee6a9c91bebf5ac26"
+  },
+  "exactReadoutCommand": [
+    "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+    "C:\\Users\\biao3\\.codex\\worktrees\\hil-results-preserve-oct21\\snowflake\\evidence\\hil-results-review-2026-10-21\\facet\\readout.mjs",
+    "C:/Users/biao3/.codex/worktrees/hil-large-batch-oct11/snowflake/out/hil-large-batch-oct11",
+    "C:/Users/biao3/.codex/worktrees/hil-domain-seed-oct19/snowflake/out/hil-domain-seed-oct19",
+    "C:/Users/biao3/.codex/worktrees/hil-facet-pressure-oct19/snowflake/out/hil-facet-pressure-oct19",
+    "out/analysis-2026-10-21/facet/readout.json"
+  ],
+  "producers": [
+    {
+      "gitHead": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+      "campaignRoot": "C:\\Users\\biao3\\.codex\\worktrees\\hil-large-batch-oct11\\snowflake\\out\\hil-large-batch-oct11",
+      "rows": [
+        "oct11-hil-seed-t6p5-f0p15-r3-h1-both",
+        "oct11-hil-seed-t6p5-f0p15-r3-h1-neither",
+        "oct11-hil-seed-t6p5-f0p15-r3-h1-basal-only",
+        "oct11-hil-seed-t6p5-f0p15-r3-h1-prism-only",
+        "oct11-hil-seed-t9p5-f0p15-r3-h1-both",
+        "oct11-hil-seed-t9p5-f0p15-r3-h1-neither",
+        "oct11-hil-seed-t9p5-f0p15-r3-h1-basal-only",
+        "oct11-hil-seed-t9p5-f0p15-r3-h1-prism-only"
+      ]
+    },
+    {
+      "gitHead": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+      "campaignRoot": "C:\\Users\\biao3\\.codex\\worktrees\\hil-domain-seed-oct19\\snowflake\\out\\hil-domain-seed-oct19",
+      "rows": [
+        "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-both",
+        "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-neither",
+        "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-both",
+        "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-neither"
+      ]
+    },
+    {
+      "gitHead": "73eb358c7c720a7f1608df5b26f0a8438ae6be92",
+      "campaignRoot": "C:\\Users\\biao3\\.codex\\worktrees\\hil-facet-pressure-oct19\\snowflake\\out\\hil-facet-pressure-oct19",
+      "rows": [
+        "oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-basal-only",
+        "oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-prism-only",
+        "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-basal-only",
+        "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-prism-only"
+      ]
+    }
+  ],
+  "census": {
+    "rows": 16,
+    "controls": 12,
+    "newHybrids": 4,
+    "cycles": 16697,
+    "newAttachedSites": 165484,
+    "allEventGeometryReconstructed": true,
+    "allEndpointsChecked": true
+  },
+  "compatibility": [
+    {
+      "tempC": -6.5,
+      "arm": "neither",
+      "rowIds": [
+        "oct11-hil-seed-t6p5-f0p15-r3-h1-neither",
+        "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-neither"
+      ],
+      "onlyDifferences": [
+        "id",
+        "cflFill"
+      ]
+    },
+    {
+      "tempC": -6.5,
+      "arm": "basal-only",
+      "rowIds": [
+        "oct11-hil-seed-t6p5-f0p15-r3-h1-basal-only",
+        "oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-basal-only"
+      ],
+      "onlyDifferences": [
+        "id",
+        "cflFill"
+      ]
+    },
+    {
+      "tempC": -6.5,
+      "arm": "prism-only",
+      "rowIds": [
+        "oct11-hil-seed-t6p5-f0p15-r3-h1-prism-only",
+        "oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-prism-only"
+      ],
+      "onlyDifferences": [
+        "id",
+        "cflFill"
+      ]
+    },
+    {
+      "tempC": -6.5,
+      "arm": "both",
+      "rowIds": [
+        "oct11-hil-seed-t6p5-f0p15-r3-h1-both",
+        "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-both"
+      ],
+      "onlyDifferences": [
+        "id",
+        "cflFill"
+      ]
+    },
+    {
+      "tempC": -9.5,
+      "arm": "neither",
+      "rowIds": [
+        "oct11-hil-seed-t9p5-f0p15-r3-h1-neither",
+        "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-neither"
+      ],
+      "onlyDifferences": [
+        "id",
+        "cflFill"
+      ]
+    },
+    {
+      "tempC": -9.5,
+      "arm": "basal-only",
+      "rowIds": [
+        "oct11-hil-seed-t9p5-f0p15-r3-h1-basal-only",
+        "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-basal-only"
+      ],
+      "onlyDifferences": [
+        "id",
+        "cflFill"
+      ]
+    },
+    {
+      "tempC": -9.5,
+      "arm": "prism-only",
+      "rowIds": [
+        "oct11-hil-seed-t9p5-f0p15-r3-h1-prism-only",
+        "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-prism-only"
+      ],
+      "onlyDifferences": [
+        "id",
+        "cflFill"
+      ]
+    },
+    {
+      "tempC": -9.5,
+      "arm": "both",
+      "rowIds": [
+        "oct11-hil-seed-t9p5-f0p15-r3-h1-both",
+        "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-both"
+      ],
+      "onlyDifferences": [
+        "id",
+        "cflFill"
+      ]
+    }
+  ],
+  "commonAgeSeconds": 16.499190872203283,
+  "commonAgeWitness": [
+    "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-prism-only"
+  ],
+  "quarterAges": [
+    4.124797718050821,
+    8.249595436101641,
+    12.374393154152461,
+    16.499190872203283
+  ],
+  "anchorReadout": {
+    "available": false,
+    "requestedSeconds": 16.6289686258,
+    "commonAgeSeconds": 16.499190872203283
+  },
+  "endpoints": [
+    {
+      "rowId": "oct11-hil-seed-t6p5-f0p15-r3-h1-both",
+      "tempC": -6.5,
+      "cflFill": 0.05,
+      "arm": "both",
+      "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+      "wallSeconds": 8432.162,
+      "terminalSeconds": 30.203119891183874,
+      "terminalCycles": 724,
+      "initial": {
+        "cycle": 0,
+        "simTimeSeconds": 0,
+        "dxUm": 0.35,
+        "attachedCount": 37,
+        "extent": 7,
+        "iCells": 7,
+        "jCells": 7,
+        "axialCells": 1,
+        "lateralCartesianCells": 7,
+        "hexRadius": 3,
+        "axialCenterSpanUm": 0,
+        "lateralCartesianCenterSpanUm": 2.0999999999999996,
+        "aspectRatio": 0.14285714285714285,
+        "kMin": 32,
+        "kMax": 32
+      },
+      "disposition": "size-endpoint"
+    },
+    {
+      "rowId": "oct11-hil-seed-t6p5-f0p15-r3-h1-neither",
+      "tempC": -6.5,
+      "cflFill": 0.05,
+      "arm": "neither",
+      "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+      "wallSeconds": 8091.398,
+      "terminalSeconds": 27.845837085544776,
+      "terminalCycles": 715,
+      "initial": {
+        "cycle": 0,
+        "simTimeSeconds": 0,
+        "dxUm": 0.35,
+        "attachedCount": 37,
+        "extent": 7,
+        "iCells": 7,
+        "jCells": 7,
+        "axialCells": 1,
+        "lateralCartesianCells": 7,
+        "hexRadius": 3,
+        "axialCenterSpanUm": 0,
+        "lateralCartesianCenterSpanUm": 2.0999999999999996,
+        "aspectRatio": 0.14285714285714285,
+        "kMin": 32,
+        "kMax": 32
+      },
+      "disposition": "size-endpoint"
+    },
+    {
+      "rowId": "oct11-hil-seed-t6p5-f0p15-r3-h1-basal-only",
+      "tempC": -6.5,
+      "cflFill": 0.05,
+      "arm": "basal-only",
+      "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+      "wallSeconds": 8798.428,
+      "terminalSeconds": 30.373625459438504,
+      "terminalCycles": 751,
+      "initial": {
+        "cycle": 0,
+        "simTimeSeconds": 0,
+        "dxUm": 0.35,
+        "attachedCount": 37,
+        "extent": 7,
+        "iCells": 7,
+        "jCells": 7,
+        "axialCells": 1,
+        "lateralCartesianCells": 7,
+        "hexRadius": 3,
+        "axialCenterSpanUm": 0,
+        "lateralCartesianCenterSpanUm": 2.0999999999999996,
+        "aspectRatio": 0.14285714285714285,
+        "kMin": 32,
+        "kMax": 32
+      },
+      "disposition": "size-endpoint"
+    },
+    {
+      "rowId": "oct11-hil-seed-t6p5-f0p15-r3-h1-prism-only",
+      "tempC": -6.5,
+      "cflFill": 0.05,
+      "arm": "prism-only",
+      "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+      "wallSeconds": 7657.266,
+      "terminalSeconds": 24.75941604118983,
+      "terminalCycles": 664,
+      "initial": {
+        "cycle": 0,
+        "simTimeSeconds": 0,
+        "dxUm": 0.35,
+        "attachedCount": 37,
+        "extent": 7,
+        "iCells": 7,
+        "jCells": 7,
+        "axialCells": 1,
+        "lateralCartesianCells": 7,
+        "hexRadius": 3,
+        "axialCenterSpanUm": 0,
+        "lateralCartesianCenterSpanUm": 2.0999999999999996,
+        "aspectRatio": 0.14285714285714285,
+        "kMin": 32,
+        "kMax": 32
+      },
+      "disposition": "size-endpoint"
+    },
+    {
+      "rowId": "oct11-hil-seed-t9p5-f0p15-r3-h1-both",
+      "tempC": -9.5,
+      "cflFill": 0.05,
+      "arm": "both",
+      "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+      "wallSeconds": 5813.768,
+      "terminalSeconds": 17.712247502792568,
+      "terminalCycles": 525,
+      "initial": {
+        "cycle": 0,
+        "simTimeSeconds": 0,
+        "dxUm": 0.35,
+        "attachedCount": 37,
+        "extent": 7,
+        "iCells": 7,
+        "jCells": 7,
+        "axialCells": 1,
+        "lateralCartesianCells": 7,
+        "hexRadius": 3,
+        "axialCenterSpanUm": 0,
+        "lateralCartesianCenterSpanUm": 2.0999999999999996,
+        "aspectRatio": 0.14285714285714285,
+        "kMin": 32,
+        "kMax": 32
+      },
+      "disposition": "size-endpoint"
+    },
+    {
+      "rowId": "oct11-hil-seed-t9p5-f0p15-r3-h1-neither",
+      "tempC": -9.5,
+      "cflFill": 0.05,
+      "arm": "neither",
+      "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+      "wallSeconds": 8681.195,
+      "terminalSeconds": 30.05888379140327,
+      "terminalCycles": 788,
+      "initial": {
+        "cycle": 0,
+        "simTimeSeconds": 0,
+        "dxUm": 0.35,
+        "attachedCount": 37,
+        "extent": 7,
+        "iCells": 7,
+        "jCells": 7,
+        "axialCells": 1,
+        "lateralCartesianCells": 7,
+        "hexRadius": 3,
+        "axialCenterSpanUm": 0,
+        "lateralCartesianCenterSpanUm": 2.0999999999999996,
+        "aspectRatio": 0.14285714285714285,
+        "kMin": 32,
+        "kMax": 32
+      },
+      "disposition": "size-endpoint"
+    },
+    {
+      "rowId": "oct11-hil-seed-t9p5-f0p15-r3-h1-basal-only",
+      "tempC": -9.5,
+      "cflFill": 0.05,
+      "arm": "basal-only",
+      "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+      "wallSeconds": 10264.015,
+      "terminalSeconds": 32.56023322625152,
+      "terminalCycles": 927,
+      "initial": {
+        "cycle": 0,
+        "simTimeSeconds": 0,
+        "dxUm": 0.35,
+        "attachedCount": 37,
+        "extent": 7,
+        "iCells": 7,
+        "jCells": 7,
+        "axialCells": 1,
+        "lateralCartesianCells": 7,
+        "hexRadius": 3,
+        "axialCenterSpanUm": 0,
+        "lateralCartesianCenterSpanUm": 2.0999999999999996,
+        "aspectRatio": 0.14285714285714285,
+        "kMin": 32,
+        "kMax": 32
+      },
+      "disposition": "size-endpoint"
+    },
+    {
+      "rowId": "oct11-hil-seed-t9p5-f0p15-r3-h1-prism-only",
+      "tempC": -9.5,
+      "cflFill": 0.05,
+      "arm": "prism-only",
+      "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+      "wallSeconds": 5652.068,
+      "terminalSeconds": 16.628968625798624,
+      "terminalCycles": 510,
+      "initial": {
+        "cycle": 0,
+        "simTimeSeconds": 0,
+        "dxUm": 0.35,
+        "attachedCount": 37,
+        "extent": 7,
+        "iCells": 7,
+        "jCells": 7,
+        "axialCells": 1,
+        "lateralCartesianCells": 7,
+        "hexRadius": 3,
+        "axialCenterSpanUm": 0,
+        "lateralCartesianCenterSpanUm": 2.0999999999999996,
+        "aspectRatio": 0.14285714285714285,
+        "kMin": 32,
+        "kMax": 32
+      },
+      "disposition": "size-endpoint"
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-both",
+      "tempC": -6.5,
+      "cflFill": 0.025,
+      "arm": "both",
+      "producer": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+      "wallSeconds": 14117.256,
+      "terminalSeconds": 29.90749525154989,
+      "terminalCycles": 1433,
+      "initial": {
+        "cycle": 0,
+        "simTimeSeconds": 0,
+        "dxUm": 0.35,
+        "attachedCount": 37,
+        "extent": 7,
+        "iCells": 7,
+        "jCells": 7,
+        "axialCells": 1,
+        "lateralCartesianCells": 7,
+        "hexRadius": 3,
+        "axialCenterSpanUm": 0,
+        "lateralCartesianCenterSpanUm": 2.0999999999999996,
+        "aspectRatio": 0.14285714285714285,
+        "kMin": 32,
+        "kMax": 32
+      },
+      "disposition": "size-endpoint"
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-neither",
+      "tempC": -6.5,
+      "cflFill": 0.025,
+      "arm": "neither",
+      "producer": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+      "wallSeconds": 12238.816,
+      "terminalSeconds": 27.525830381027188,
+      "terminalCycles": 1420,
+      "initial": {
+        "cycle": 0,
+        "simTimeSeconds": 0,
+        "dxUm": 0.35,
+        "attachedCount": 37,
+        "extent": 7,
+        "iCells": 7,
+        "jCells": 7,
+        "axialCells": 1,
+        "lateralCartesianCells": 7,
+        "hexRadius": 3,
+        "axialCenterSpanUm": 0,
+        "lateralCartesianCenterSpanUm": 2.0999999999999996,
+        "aspectRatio": 0.14285714285714285,
+        "kMin": 32,
+        "kMax": 32
+      },
+      "disposition": "size-endpoint"
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-both",
+      "tempC": -9.5,
+      "cflFill": 0.025,
+      "arm": "both",
+      "producer": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+      "wallSeconds": 9458.406,
+      "terminalSeconds": 17.570948037089007,
+      "terminalCycles": 1041,
+      "initial": {
+        "cycle": 0,
+        "simTimeSeconds": 0,
+        "dxUm": 0.35,
+        "attachedCount": 37,
+        "extent": 7,
+        "iCells": 7,
+        "jCells": 7,
+        "axialCells": 1,
+        "lateralCartesianCells": 7,
+        "hexRadius": 3,
+        "axialCenterSpanUm": 0,
+        "lateralCartesianCenterSpanUm": 2.0999999999999996,
+        "aspectRatio": 0.14285714285714285,
+        "kMin": 32,
+        "kMax": 32
+      },
+      "disposition": "size-endpoint"
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-neither",
+      "tempC": -9.5,
+      "cflFill": 0.025,
+      "arm": "neither",
+      "producer": "ff7b1a88bc62335216b9edb23d487eec82868e3a",
+      "wallSeconds": 13859.634,
+      "terminalSeconds": 29.773601548014586,
+      "terminalCycles": 1553,
+      "initial": {
+        "cycle": 0,
+        "simTimeSeconds": 0,
+        "dxUm": 0.35,
+        "attachedCount": 37,
+        "extent": 7,
+        "iCells": 7,
+        "jCells": 7,
+        "axialCells": 1,
+        "lateralCartesianCells": 7,
+        "hexRadius": 3,
+        "axialCenterSpanUm": 0,
+        "lateralCartesianCenterSpanUm": 2.0999999999999996,
+        "aspectRatio": 0.14285714285714285,
+        "kMin": 32,
+        "kMax": 32
+      },
+      "disposition": "size-endpoint"
+    },
+    {
+      "rowId": "oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-basal-only",
+      "tempC": -6.5,
+      "cflFill": 0.025,
+      "arm": "basal-only",
+      "producer": "73eb358c7c720a7f1608df5b26f0a8438ae6be92",
+      "wallSeconds": 12797.128,
+      "terminalSeconds": 30.23109825706661,
+      "terminalCycles": 1496,
+      "initial": {
+        "cycle": 0,
+        "simTimeSeconds": 0,
+        "dxUm": 0.35,
+        "attachedCount": 37,
+        "extent": 7,
+        "iCells": 7,
+        "jCells": 7,
+        "axialCells": 1,
+        "lateralCartesianCells": 7,
+        "hexRadius": 3,
+        "axialCenterSpanUm": 0,
+        "lateralCartesianCenterSpanUm": 2.0999999999999996,
+        "aspectRatio": 0.14285714285714285,
+        "kMin": 32,
+        "kMax": 32
+      },
+      "disposition": "size-endpoint"
+    },
+    {
+      "rowId": "oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-prism-only",
+      "tempC": -6.5,
+      "cflFill": 0.025,
+      "arm": "prism-only",
+      "producer": "73eb358c7c720a7f1608df5b26f0a8438ae6be92",
+      "wallSeconds": 10669.429,
+      "terminalSeconds": 24.66502526793853,
+      "terminalCycles": 1323,
+      "initial": {
+        "cycle": 0,
+        "simTimeSeconds": 0,
+        "dxUm": 0.35,
+        "attachedCount": 37,
+        "extent": 7,
+        "iCells": 7,
+        "jCells": 7,
+        "axialCells": 1,
+        "lateralCartesianCells": 7,
+        "hexRadius": 3,
+        "axialCenterSpanUm": 0,
+        "lateralCartesianCenterSpanUm": 2.0999999999999996,
+        "aspectRatio": 0.14285714285714285,
+        "kMin": 32,
+        "kMax": 32
+      },
+      "disposition": "size-endpoint"
+    },
+    {
+      "rowId": "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-basal-only",
+      "tempC": -9.5,
+      "cflFill": 0.025,
+      "arm": "basal-only",
+      "producer": "73eb358c7c720a7f1608df5b26f0a8438ae6be92",
+      "wallSeconds": 14809.775,
+      "terminalSeconds": 32.23189554687414,
+      "terminalCycles": 1815,
+      "initial": {
+        "cycle": 0,
+        "simTimeSeconds": 0,
+        "dxUm": 0.35,
+        "attachedCount": 37,
+        "extent": 7,
+        "iCells": 7,
+        "jCells": 7,
+        "axialCells": 1,
+        "lateralCartesianCells": 7,
+        "hexRadius": 3,
+        "axialCenterSpanUm": 0,
+        "lateralCartesianCenterSpanUm": 2.0999999999999996,
+        "aspectRatio": 0.14285714285714285,
+        "kMin": 32,
+        "kMax": 32
+      },
+      "disposition": "size-endpoint"
+    },
+    {
+      "rowId": "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-prism-only",
+      "tempC": -9.5,
+      "cflFill": 0.025,
+      "arm": "prism-only",
+      "producer": "73eb358c7c720a7f1608df5b26f0a8438ae6be92",
+      "wallSeconds": 8234.11,
+      "terminalSeconds": 16.499190872203283,
+      "terminalCycles": 1012,
+      "initial": {
+        "cycle": 0,
+        "simTimeSeconds": 0,
+        "dxUm": 0.35,
+        "attachedCount": 37,
+        "extent": 7,
+        "iCells": 7,
+        "jCells": 7,
+        "axialCells": 1,
+        "lateralCartesianCells": 7,
+        "hexRadius": 3,
+        "axialCenterSpanUm": 0,
+        "lateralCartesianCenterSpanUm": 2.0999999999999996,
+        "aspectRatio": 0.14285714285714285,
+        "kMin": 32,
+        "kMax": 32
+      },
+      "disposition": "size-endpoint"
+    }
+  ],
+  "commonEndGrowth": [
+    {
+      "rowId": "oct11-hil-seed-t6p5-f0p15-r3-h1-both",
+      "values": {
+        "axialCells": [
+          16,
+          16,
+          16
+        ],
+        "lateralCartesianCenterSpanUm": [
+          4.8999999999999995,
+          4.8999999999999995,
+          4.8999999999999995
+        ],
+        "attachedCount": [
+          4834,
+          4834,
+          4858
+        ]
+      }
+    },
+    {
+      "rowId": "oct11-hil-seed-t6p5-f0p15-r3-h1-neither",
+      "values": {
+        "axialCells": [
+          12,
+          12,
+          12
+        ],
+        "lateralCartesianCenterSpanUm": [
+          4.8999999999999995,
+          4.8999999999999995,
+          4.8999999999999995
+        ],
+        "attachedCount": [
+          3772,
+          3772,
+          3844
+        ]
+      }
+    },
+    {
+      "rowId": "oct11-hil-seed-t6p5-f0p15-r3-h1-basal-only",
+      "values": {
+        "axialCells": [
+          18,
+          18,
+          18
+        ],
+        "lateralCartesianCenterSpanUm": [
+          4.55,
+          4.55,
+          4.55
+        ],
+        "attachedCount": [
+          4522,
+          4522,
+          4570
+        ]
+      }
+    },
+    {
+      "rowId": "oct11-hil-seed-t6p5-f0p15-r3-h1-prism-only",
+      "values": {
+        "axialCells": [
+          10,
+          10,
+          10
+        ],
+        "lateralCartesianCenterSpanUm": [
+          5.6,
+          5.6,
+          5.6
+        ],
+        "attachedCount": [
+          4138,
+          4138,
+          4162
+        ]
+      }
+    },
+    {
+      "rowId": "oct11-hil-seed-t9p5-f0p15-r3-h1-both",
+      "values": {
+        "axialCells": [
+          12,
+          12,
+          12
+        ],
+        "lateralCartesianCenterSpanUm": [
+          7,
+          7,
+          7
+        ],
+        "attachedCount": [
+          6148,
+          6148,
+          6196
+        ]
+      }
+    },
+    {
+      "rowId": "oct11-hil-seed-t9p5-f0p15-r3-h1-neither",
+      "values": {
+        "axialCells": [
+          14,
+          14,
+          14
+        ],
+        "lateralCartesianCenterSpanUm": [
+          4.8999999999999995,
+          4.8999999999999995,
+          4.8999999999999995
+        ],
+        "attachedCount": [
+          4710,
+          4710,
+          4722
+        ]
+      }
+    },
+    {
+      "rowId": "oct11-hil-seed-t9p5-f0p15-r3-h1-basal-only",
+      "values": {
+        "axialCells": [
+          16,
+          16,
+          16
+        ],
+        "lateralCartesianCenterSpanUm": [
+          4.55,
+          4.55,
+          4.55
+        ],
+        "attachedCount": [
+          4748,
+          4748,
+          4796
+        ]
+      }
+    },
+    {
+      "rowId": "oct11-hil-seed-t9p5-f0p15-r3-h1-prism-only",
+      "values": {
+        "axialCells": [
+          10,
+          10,
+          10
+        ],
+        "lateralCartesianCenterSpanUm": [
+          7,
+          7,
+          7
+        ],
+        "attachedCount": [
+          5656,
+          5656,
+          5680
+        ]
+      }
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-both",
+      "values": {
+        "axialCells": [
+          16,
+          16,
+          16
+        ],
+        "lateralCartesianCenterSpanUm": [
+          4.8999999999999995,
+          4.8999999999999995,
+          4.8999999999999995
+        ],
+        "attachedCount": [
+          4906,
+          4906,
+          4906
+        ]
+      }
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t6p5-f0p15-r3-h1-cfl0p025-neither",
+      "values": {
+        "axialCells": [
+          12,
+          12,
+          12
+        ],
+        "lateralCartesianCenterSpanUm": [
+          4.8999999999999995,
+          4.8999999999999995,
+          4.8999999999999995
+        ],
+        "attachedCount": [
+          3940,
+          3940,
+          3964
+        ]
+      }
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-both",
+      "values": {
+        "axialCells": [
+          12,
+          12,
+          12
+        ],
+        "lateralCartesianCenterSpanUm": [
+          7,
+          7,
+          7
+        ],
+        "attachedCount": [
+          6244,
+          6244,
+          6292
+        ]
+      }
+    },
+    {
+      "rowId": "oct19-hil-seed-step-t9p5-f0p15-r3-h1-cfl0p025-neither",
+      "values": {
+        "axialCells": [
+          14,
+          14,
+          14
+        ],
+        "lateralCartesianCenterSpanUm": [
+          4.8999999999999995,
+          4.8999999999999995,
+          4.8999999999999995
+        ],
+        "attachedCount": [
+          4758,
+          4758,
+          4758
+        ]
+      }
+    },
+    {
+      "rowId": "oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-basal-only",
+      "values": {
+        "axialCells": [
+          18,
+          18,
+          18
+        ],
+        "lateralCartesianCenterSpanUm": [
+          4.55,
+          4.55,
+          4.55
+        ],
+        "attachedCount": [
+          4696,
+          4696,
+          4696
+        ]
+      }
+    },
+    {
+      "rowId": "oct19-hil-facet-step-t6p5-f0p15-r3-h1-cfl0p025-prism-only",
+      "values": {
+        "axialCells": [
+          10,
+          10,
+          10
+        ],
+        "lateralCartesianCenterSpanUm": [
+          5.6,
+          5.6,
+          5.6
+        ],
+        "attachedCount": [
+          4162,
+          4162,
+          4186
+        ]
+      }
+    },
+    {
+      "rowId": "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-basal-only",
+      "values": {
+        "axialCells": [
+          16,
+          16,
+          16
+        ],
+        "lateralCartesianCenterSpanUm": [
+          4.55,
+          4.55,
+          4.55
+        ],
+        "attachedCount": [
+          4916,
+          4916,
+          4922
+        ]
+      }
+    },
+    {
+      "rowId": "oct19-hil-facet-step-t9p5-f0p15-r3-h1-cfl0p025-prism-only",
+      "values": {
+        "axialCells": [
+          10,
+          10,
+          10
+        ],
+        "lateralCartesianCenterSpanUm": [
+          7,
+          7,
+          7
+        ],
+        "attachedCount": [
+          5752,
+          5752,
+          5752
+        ]
+      }
+    }
+  ],
+  "cumulative": [
+    {
+      "startSeconds": 0,
+      "endSeconds": 4.124797718050821,
+      "facets": [
+        {
+          "tempC": -6.5,
+          "cflFill": 0.05,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.1373066958946425,
+                  -0.1373066958946425,
+                  -0.1373066958946425
+                ],
+                "attachedCount": [
+                  40,
+                  40,
+                  52
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.21269330410535758,
+                  0.21269330410535758,
+                  0.21269330410535758
+                ],
+                "attachedCount": [
+                  -14,
+                  -14,
+                  10
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.1373066958946425,
+                  -0.1373066958946425,
+                  -0.1373066958946425
+                ],
+                "attachedCount": [
+                  52,
+                  52,
+                  52
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  12,
+                  0,
+                  12
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.3500000000000001,
+                  -0.3500000000000001,
+                  -0.3500000000000001
+                ],
+                "attachedCount": [
+                  66,
+                  42,
+                  66
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -6.5,
+          "cflFill": 0.025,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.1373066958946425,
+                  -0.1373066958946425,
+                  -0.1373066958946425
+                ],
+                "attachedCount": [
+                  52,
+                  52,
+                  52
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.21269330410535758,
+                  0.21269330410535758,
+                  0.21269330410535758
+                ],
+                "attachedCount": [
+                  10,
+                  10,
+                  10
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.1373066958946425,
+                  -0.1373066958946425,
+                  0
+                ],
+                "attachedCount": [
+                  52,
+                  52,
+                  58
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0.1373066958946425
+                ],
+                "attachedCount": [
+                  0,
+                  0,
+                  6
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.3500000000000001,
+                  -0.3500000000000001,
+                  -0.21269330410535758
+                ],
+                "attachedCount": [
+                  42,
+                  42,
+                  48
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -9.5,
+          "cflFill": 0.05,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  0,
+                  0,
+                  12
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.7435244785437498,
+                  0.7435244785437498,
+                  0.7435244785437498
+                ],
+                "attachedCount": [
+                  132,
+                  132,
+                  144
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.7435244785437498,
+                  0.7435244785437498,
+                  0.7435244785437498
+                ],
+                "attachedCount": [
+                  108,
+                  108,
+                  120
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.7435244785437498,
+                  0.7435244785437498,
+                  0.7435244785437498
+                ],
+                "attachedCount": [
+                  108,
+                  96,
+                  120
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  -24,
+                  -36,
+                  -12
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -9.5,
+          "cflFill": 0.025,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  12,
+                  12,
+                  12
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.7435244785437498,
+                  0.7435244785437498,
+                  0.7435244785437498
+                ],
+                "attachedCount": [
+                  144,
+                  144,
+                  144
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.7435244785437498,
+                  0.7435244785437498,
+                  0.7435244785437498
+                ],
+                "attachedCount": [
+                  132,
+                  132,
+                  156
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.7435244785437498,
+                  0.7435244785437498,
+                  0.7435244785437498
+                ],
+                "attachedCount": [
+                  120,
+                  120,
+                  144
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  -12,
+                  -12,
+                  12
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "timestep": [
+        {
+          "tempC": -6.5,
+          "arm": "neither",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "basal-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              12,
+              0,
+              12
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "prism-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              24,
+              0,
+              24
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "both",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0.1373066958946425
+            ],
+            "attachedCount": [
+              0,
+              0,
+              6
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "neither",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "basal-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              12,
+              0,
+              12
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "prism-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              12,
+              0,
+              12
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "both",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              24,
+              12,
+              48
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "startSeconds": 0,
+      "endSeconds": 8.249595436101641,
+      "facets": [
+        {
+          "tempC": -6.5,
+          "cflFill": 0.05,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  4,
+                  4,
+                  4
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  316,
+                  304,
+                  316
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.3500000000000001,
+                  0.3500000000000001,
+                  0.3500000000000001
+                ],
+                "attachedCount": [
+                  156,
+                  144,
+                  156
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  4,
+                  4,
+                  4
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  352,
+                  340,
+                  352
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  36,
+                  36,
+                  36
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  4,
+                  4,
+                  4
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.3500000000000001,
+                  -0.3500000000000001,
+                  -0.3500000000000001
+                ],
+                "attachedCount": [
+                  196,
+                  196,
+                  196
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -6.5,
+          "cflFill": 0.025,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  4,
+                  4,
+                  4
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  316,
+                  316,
+                  316
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.3500000000000001,
+                  0.3500000000000001,
+                  0.3500000000000001
+                ],
+                "attachedCount": [
+                  144,
+                  144,
+                  144
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  4,
+                  4,
+                  4
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  340,
+                  340,
+                  340
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  24,
+                  24,
+                  24
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  4,
+                  4,
+                  4
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.3500000000000001,
+                  -0.3500000000000001,
+                  -0.3500000000000001
+                ],
+                "attachedCount": [
+                  196,
+                  196,
+                  196
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -9.5,
+          "cflFill": 0.05,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  -24,
+                  -24,
+                  0
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  1.3999999999999995,
+                  1.3999999999999995,
+                  1.3999999999999995
+                ],
+                "attachedCount": [
+                  238,
+                  238,
+                  238
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  1.3999999999999995,
+                  1.3999999999999995,
+                  1.3999999999999995
+                ],
+                "attachedCount": [
+                  232,
+                  232,
+                  292
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  1.3999999999999995,
+                  1.3999999999999995,
+                  1.3999999999999995
+                ],
+                "attachedCount": [
+                  256,
+                  232,
+                  316
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  -6,
+                  -6,
+                  54
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -9.5,
+          "cflFill": 0.025,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  -12,
+                  -12,
+                  -12
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  1.3999999999999995,
+                  1.3999999999999995,
+                  1.3999999999999995
+                ],
+                "attachedCount": [
+                  262,
+                  262,
+                  262
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  1.3999999999999995,
+                  1.3999999999999995,
+                  1.3999999999999995
+                ],
+                "attachedCount": [
+                  292,
+                  292,
+                  304
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  1.3999999999999995,
+                  1.3999999999999995,
+                  1.3999999999999995
+                ],
+                "attachedCount": [
+                  304,
+                  304,
+                  316
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  30,
+                  30,
+                  42
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "timestep": [
+        {
+          "tempC": -6.5,
+          "arm": "neither",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              12,
+              0,
+              12
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "basal-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              12,
+              12,
+              12
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "prism-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "both",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "neither",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "basal-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              -2,
+              -2,
+              -2
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              12,
+              -12,
+              12
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "prism-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              24,
+              24,
+              24
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "both",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              60,
+              0,
+              72
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "startSeconds": 0,
+      "endSeconds": 12.374393154152461,
+      "facets": [
+        {
+          "tempC": -6.5,
+          "cflFill": 0.05,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  6,
+                  6,
+                  6
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.6999999999999993,
+                  -0.6999999999999993,
+                  -0.6999999999999993
+                ],
+                "attachedCount": [
+                  494,
+                  482,
+                  494
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  114,
+                  102,
+                  150
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  6,
+                  6,
+                  6
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.34999999999999964,
+                  -0.34999999999999964,
+                  -0.34999999999999964
+                ],
+                "attachedCount": [
+                  710,
+                  698,
+                  710
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.34999999999999964,
+                  0.34999999999999964,
+                  0.34999999999999964
+                ],
+                "attachedCount": [
+                  216,
+                  216,
+                  216
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  6,
+                  6,
+                  6
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.34999999999999964,
+                  -0.34999999999999964,
+                  -0.34999999999999964
+                ],
+                "attachedCount": [
+                  596,
+                  560,
+                  596
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -6.5,
+          "cflFill": 0.025,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  6,
+                  6,
+                  6
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.6999999999999993,
+                  -0.6999999999999993,
+                  -0.6999999999999993
+                ],
+                "attachedCount": [
+                  506,
+                  506,
+                  530
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  96,
+                  96,
+                  102
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  6,
+                  6,
+                  6
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  740,
+                  740,
+                  788
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.6999999999999993,
+                  0.6999999999999993,
+                  0.6999999999999993
+                ],
+                "attachedCount": [
+                  234,
+                  210,
+                  282
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  6,
+                  6,
+                  6
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  644,
+                  638,
+                  692
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -9.5,
+          "cflFill": 0.05,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.34999999999999964,
+                  -0.34999999999999964,
+                  -0.34999999999999964
+                ],
+                "attachedCount": [
+                  240,
+                  228,
+                  240
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  1.75,
+                  1.75,
+                  1.75
+                ],
+                "attachedCount": [
+                  892,
+                  880,
+                  928
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  1.75,
+                  1.75,
+                  1.75
+                ],
+                "attachedCount": [
+                  1210,
+                  1198,
+                  1210
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  2.0999999999999996,
+                  2.0999999999999996,
+                  2.0999999999999996
+                ],
+                "attachedCount": [
+                  970,
+                  970,
+                  970
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  318,
+                  282,
+                  318
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -9.5,
+          "cflFill": 0.025,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.34999999999999964,
+                  -0.34999999999999964,
+                  -0.34999999999999964
+                ],
+                "attachedCount": [
+                  36,
+                  36,
+                  36
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  1.75,
+                  1.75,
+                  1.75
+                ],
+                "attachedCount": [
+                  796,
+                  796,
+                  796
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  1.75,
+                  1.75,
+                  1.75
+                ],
+                "attachedCount": [
+                  1042,
+                  1042,
+                  1042
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  2.0999999999999996,
+                  2.0999999999999996,
+                  2.0999999999999996
+                ],
+                "attachedCount": [
+                  1006,
+                  1006,
+                  1006
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  246,
+                  246,
+                  246
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "timestep": [
+        {
+          "tempC": -6.5,
+          "arm": "neither",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              12,
+              0,
+              12
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "basal-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              24,
+              24,
+              48
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "prism-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              -6,
+              -42,
+              0
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "both",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0.34999999999999964,
+              0.34999999999999964,
+              0.34999999999999964
+            ],
+            "attachedCount": [
+              42,
+              42,
+              90
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "neither",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              204,
+              192,
+              204
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "basal-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "prism-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              108,
+              72,
+              108
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "both",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              36,
+              36,
+              36
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "startSeconds": 0,
+      "endSeconds": 16.499190872203283,
+      "facets": [
+        {
+          "tempC": -6.5,
+          "cflFill": 0.05,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  6,
+                  6,
+                  6
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.34999999999999964,
+                  -0.34999999999999964,
+                  -0.34999999999999964
+                ],
+                "attachedCount": [
+                  750,
+                  678,
+                  798
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.7000000000000002,
+                  0.7000000000000002,
+                  0.7000000000000002
+                ],
+                "attachedCount": [
+                  366,
+                  294,
+                  390
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  4,
+                  4,
+                  4
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  1062,
+                  990,
+                  1086
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.34999999999999964,
+                  0.34999999999999964,
+                  0.34999999999999964
+                ],
+                "attachedCount": [
+                  312,
+                  264,
+                  336
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  6,
+                  6,
+                  6
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.7000000000000002,
+                  -0.7000000000000002,
+                  -0.7000000000000002
+                ],
+                "attachedCount": [
+                  696,
+                  672,
+                  720
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -6.5,
+          "cflFill": 0.025,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  6,
+                  6,
+                  6
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.34999999999999964,
+                  -0.34999999999999964,
+                  -0.34999999999999964
+                ],
+                "attachedCount": [
+                  756,
+                  732,
+                  756
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.7000000000000002,
+                  0.7000000000000002,
+                  0.7000000000000002
+                ],
+                "attachedCount": [
+                  222,
+                  198,
+                  246
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  4,
+                  4,
+                  4
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  966,
+                  942,
+                  966
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.34999999999999964,
+                  0.34999999999999964,
+                  0.34999999999999964
+                ],
+                "attachedCount": [
+                  210,
+                  210,
+                  210
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  6,
+                  6,
+                  6
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.7000000000000002,
+                  -0.7000000000000002,
+                  -0.7000000000000002
+                ],
+                "attachedCount": [
+                  744,
+                  720,
+                  744
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -9.5,
+          "cflFill": 0.05,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.34999999999999964,
+                  -0.34999999999999964,
+                  -0.34999999999999964
+                ],
+                "attachedCount": [
+                  38,
+                  26,
+                  86
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -4,
+                  -4,
+                  -4
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  2.1000000000000005,
+                  2.1000000000000005,
+                  2.1000000000000005
+                ],
+                "attachedCount": [
+                  946,
+                  934,
+                  970
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  2.1000000000000005,
+                  2.1000000000000005,
+                  2.1000000000000005
+                ],
+                "attachedCount": [
+                  1438,
+                  1426,
+                  1486
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  -4,
+                  -4,
+                  -4
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  2.45,
+                  2.45,
+                  2.45
+                ],
+                "attachedCount": [
+                  1400,
+                  1352,
+                  1448
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  492,
+                  468,
+                  540
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -9.5,
+          "cflFill": 0.025,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.34999999999999964,
+                  -0.34999999999999964,
+                  -0.34999999999999964
+                ],
+                "attachedCount": [
+                  158,
+                  158,
+                  164
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -4,
+                  -4,
+                  -4
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  2.1000000000000005,
+                  2.1000000000000005,
+                  2.1000000000000005
+                ],
+                "attachedCount": [
+                  994,
+                  994,
+                  994
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  2.1000000000000005,
+                  2.1000000000000005,
+                  2.1000000000000005
+                ],
+                "attachedCount": [
+                  1486,
+                  1486,
+                  1534
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  -4,
+                  -4,
+                  -4
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  2.45,
+                  2.45,
+                  2.45
+                ],
+                "attachedCount": [
+                  1328,
+                  1322,
+                  1376
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  492,
+                  492,
+                  540
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "timestep": [
+        {
+          "tempC": -6.5,
+          "arm": "neither",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              168,
+              96,
+              192
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "basal-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              174,
+              126,
+              174
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "prism-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              24,
+              0,
+              48
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "both",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              72,
+              48,
+              72
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "neither",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              48,
+              36,
+              48
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "basal-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              168,
+              120,
+              174
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "prism-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              96,
+              72,
+              96
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "both",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              96,
+              48,
+              144
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "consecutive": [
+    {
+      "startSeconds": 0,
+      "endSeconds": 4.124797718050821,
+      "facets": [
+        {
+          "tempC": -6.5,
+          "cflFill": 0.05,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.1373066958946425,
+                  -0.1373066958946425,
+                  -0.1373066958946425
+                ],
+                "attachedCount": [
+                  40,
+                  40,
+                  52
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.21269330410535758,
+                  0.21269330410535758,
+                  0.21269330410535758
+                ],
+                "attachedCount": [
+                  -14,
+                  -14,
+                  10
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.1373066958946425,
+                  -0.1373066958946425,
+                  -0.1373066958946425
+                ],
+                "attachedCount": [
+                  52,
+                  52,
+                  52
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  12,
+                  0,
+                  12
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.3500000000000001,
+                  -0.3500000000000001,
+                  -0.3500000000000001
+                ],
+                "attachedCount": [
+                  66,
+                  42,
+                  66
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -6.5,
+          "cflFill": 0.025,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.1373066958946425,
+                  -0.1373066958946425,
+                  -0.1373066958946425
+                ],
+                "attachedCount": [
+                  52,
+                  52,
+                  52
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.21269330410535758,
+                  0.21269330410535758,
+                  0.21269330410535758
+                ],
+                "attachedCount": [
+                  10,
+                  10,
+                  10
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.1373066958946425,
+                  -0.1373066958946425,
+                  0
+                ],
+                "attachedCount": [
+                  52,
+                  52,
+                  58
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0.1373066958946425
+                ],
+                "attachedCount": [
+                  0,
+                  0,
+                  6
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.3500000000000001,
+                  -0.3500000000000001,
+                  -0.21269330410535758
+                ],
+                "attachedCount": [
+                  42,
+                  42,
+                  48
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -9.5,
+          "cflFill": 0.05,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  0,
+                  0,
+                  12
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.7435244785437498,
+                  0.7435244785437498,
+                  0.7435244785437498
+                ],
+                "attachedCount": [
+                  132,
+                  132,
+                  144
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.7435244785437498,
+                  0.7435244785437498,
+                  0.7435244785437498
+                ],
+                "attachedCount": [
+                  108,
+                  108,
+                  120
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.7435244785437498,
+                  0.7435244785437498,
+                  0.7435244785437498
+                ],
+                "attachedCount": [
+                  108,
+                  96,
+                  120
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  -24,
+                  -36,
+                  -12
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -9.5,
+          "cflFill": 0.025,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  12,
+                  12,
+                  12
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.7435244785437498,
+                  0.7435244785437498,
+                  0.7435244785437498
+                ],
+                "attachedCount": [
+                  144,
+                  144,
+                  144
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.7435244785437498,
+                  0.7435244785437498,
+                  0.7435244785437498
+                ],
+                "attachedCount": [
+                  132,
+                  132,
+                  156
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.7435244785437498,
+                  0.7435244785437498,
+                  0.7435244785437498
+                ],
+                "attachedCount": [
+                  120,
+                  120,
+                  144
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  -12,
+                  -12,
+                  12
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "timestep": [
+        {
+          "tempC": -6.5,
+          "arm": "neither",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "basal-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              12,
+              0,
+              12
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "prism-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              24,
+              0,
+              24
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "both",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0.1373066958946425
+            ],
+            "attachedCount": [
+              0,
+              0,
+              6
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "neither",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "basal-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              12,
+              0,
+              12
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "prism-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              12,
+              0,
+              12
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "both",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              24,
+              12,
+              48
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "startSeconds": 4.124797718050821,
+      "endSeconds": 8.249595436101641,
+      "facets": [
+        {
+          "tempC": -6.5,
+          "cflFill": 0.05,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.1373066958946425,
+                  0.1373066958946425,
+                  0.1373066958946425
+                ],
+                "attachedCount": [
+                  276,
+                  252,
+                  276
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.1373066958946425,
+                  0.1373066958946425,
+                  0.1373066958946425
+                ],
+                "attachedCount": [
+                  170,
+                  134,
+                  170
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.1373066958946425,
+                  0.1373066958946425,
+                  0.1373066958946425
+                ],
+                "attachedCount": [
+                  300,
+                  288,
+                  300
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  24,
+                  24,
+                  36
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  130,
+                  130,
+                  154
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -6.5,
+          "cflFill": 0.025,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.1373066958946425,
+                  0.1373066958946425,
+                  0.1373066958946425
+                ],
+                "attachedCount": [
+                  264,
+                  264,
+                  264
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.1373066958946425,
+                  0.1373066958946425,
+                  0.1373066958946425
+                ],
+                "attachedCount": [
+                  134,
+                  134,
+                  134
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.1373066958946425,
+                  0,
+                  0.1373066958946425
+                ],
+                "attachedCount": [
+                  288,
+                  282,
+                  288
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  -0.1373066958946425,
+                  0
+                ],
+                "attachedCount": [
+                  24,
+                  18,
+                  24
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  -0.1373066958946425,
+                  0
+                ],
+                "attachedCount": [
+                  154,
+                  148,
+                  154
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -9.5,
+          "cflFill": 0.05,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  -24,
+                  -36,
+                  0
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.6564755214562501,
+                  0.6564755214562501,
+                  0.6564755214562501
+                ],
+                "attachedCount": [
+                  106,
+                  94,
+                  106
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.6564755214562501,
+                  0.6564755214562501,
+                  0.6564755214562501
+                ],
+                "attachedCount": [
+                  124,
+                  112,
+                  184
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.6564755214562501,
+                  0.6564755214562501,
+                  0.6564755214562501
+                ],
+                "attachedCount": [
+                  148,
+                  112,
+                  220
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  18,
+                  6,
+                  90
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -9.5,
+          "cflFill": 0.025,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  -24,
+                  -24,
+                  -24
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.6564755214562501,
+                  0.6564755214562501,
+                  0.6564755214562501
+                ],
+                "attachedCount": [
+                  118,
+                  118,
+                  118
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.6564755214562501,
+                  0.6564755214562501,
+                  0.6564755214562501
+                ],
+                "attachedCount": [
+                  160,
+                  136,
+                  172
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.6564755214562501,
+                  0.6564755214562501,
+                  0.6564755214562501
+                ],
+                "attachedCount": [
+                  184,
+                  160,
+                  196
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  42,
+                  18,
+                  54
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "timestep": [
+        {
+          "tempC": -6.5,
+          "arm": "neither",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              12,
+              0,
+              12
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "basal-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              0,
+              0,
+              12
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "prism-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              -24,
+              -24,
+              0
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "both",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              -0.1373066958946425,
+              0
+            ],
+            "attachedCount": [
+              0,
+              -6,
+              0
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "neither",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "basal-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              -2,
+              -2,
+              -2
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              0,
+              -24,
+              12
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "prism-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              12,
+              12,
+              24
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "both",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              36,
+              -48,
+              60
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "startSeconds": 8.249595436101641,
+      "endSeconds": 12.374393154152461,
+      "facets": [
+        {
+          "tempC": -6.5,
+          "cflFill": 0.05,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.7,
+                  -0.7,
+                  -0.7
+                ],
+                "attachedCount": [
+                  178,
+                  166,
+                  190
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.3500000000000001,
+                  -0.3500000000000001,
+                  -0.3500000000000001
+                ],
+                "attachedCount": [
+                  -42,
+                  -54,
+                  6
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.3500000000000001,
+                  -0.3500000000000001,
+                  -0.3500000000000001
+                ],
+                "attachedCount": [
+                  358,
+                  346,
+                  370
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.34999999999999987,
+                  0.34999999999999987,
+                  0.34999999999999987
+                ],
+                "attachedCount": [
+                  180,
+                  180,
+                  180
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  400,
+                  364,
+                  400
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -6.5,
+          "cflFill": 0.025,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.7,
+                  -0.7,
+                  -0.7
+                ],
+                "attachedCount": [
+                  190,
+                  190,
+                  214
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.3500000000000001,
+                  -0.3500000000000001,
+                  -0.3500000000000001
+                ],
+                "attachedCount": [
+                  -48,
+                  -48,
+                  -42
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  400,
+                  400,
+                  448
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.7,
+                  0.7,
+                  0.7
+                ],
+                "attachedCount": [
+                  210,
+                  186,
+                  258
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.3500000000000001,
+                  0.3500000000000001,
+                  0.3500000000000001
+                ],
+                "attachedCount": [
+                  448,
+                  442,
+                  496
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -9.5,
+          "cflFill": 0.05,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.34999999999999987,
+                  -0.34999999999999987,
+                  -0.34999999999999987
+                ],
+                "attachedCount": [
+                  264,
+                  228,
+                  264
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.3500000000000001,
+                  0.3500000000000001,
+                  0.3500000000000001
+                ],
+                "attachedCount": [
+                  654,
+                  642,
+                  690
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.3500000000000001,
+                  0.3500000000000001,
+                  0.3500000000000001
+                ],
+                "attachedCount": [
+                  978,
+                  906,
+                  978
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.7,
+                  0.7,
+                  0.7
+                ],
+                "attachedCount": [
+                  714,
+                  654,
+                  738
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  324,
+                  228,
+                  324
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -9.5,
+          "cflFill": 0.025,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  2,
+                  2,
+                  2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.34999999999999987,
+                  -0.34999999999999987,
+                  -0.34999999999999987
+                ],
+                "attachedCount": [
+                  48,
+                  48,
+                  48
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.3500000000000001,
+                  0.3500000000000001,
+                  0.3500000000000001
+                ],
+                "attachedCount": [
+                  534,
+                  534,
+                  534
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.3500000000000001,
+                  0.3500000000000001,
+                  0.3500000000000001
+                ],
+                "attachedCount": [
+                  750,
+                  738,
+                  750
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.7,
+                  0.7,
+                  0.7
+                ],
+                "attachedCount": [
+                  702,
+                  690,
+                  702
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  216,
+                  204,
+                  216
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "timestep": [
+        {
+          "tempC": -6.5,
+          "arm": "neither",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              0,
+              -12,
+              12
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "basal-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              12,
+              12,
+              36
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "prism-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              -6,
+              -42,
+              0
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "both",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0.3500000000000001,
+              0.3500000000000001,
+              0.3500000000000001
+            ],
+            "attachedCount": [
+              42,
+              42,
+              90
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "neither",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              204,
+              192,
+              204
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "basal-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              2,
+              2,
+              2
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              -12,
+              -12,
+              12
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "prism-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              84,
+              48,
+              84
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "both",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              -24,
+              -36,
+              36
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "startSeconds": 12.374393154152461,
+      "endSeconds": 16.499190872203283,
+      "facets": [
+        {
+          "tempC": -6.5,
+          "cflFill": 0.05,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.34999999999999987,
+                  0.34999999999999987,
+                  0.34999999999999987
+                ],
+                "attachedCount": [
+                  256,
+                  184,
+                  316
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.7,
+                  0.7,
+                  0.7
+                ],
+                "attachedCount": [
+                  252,
+                  144,
+                  288
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.34999999999999987,
+                  0.34999999999999987,
+                  0.34999999999999987
+                ],
+                "attachedCount": [
+                  352,
+                  280,
+                  388
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  96,
+                  48,
+                  120
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.3500000000000001,
+                  -0.3500000000000001,
+                  -0.3500000000000001
+                ],
+                "attachedCount": [
+                  100,
+                  76,
+                  160
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -6.5,
+          "cflFill": 0.025,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.34999999999999987,
+                  0.34999999999999987,
+                  0.34999999999999987
+                ],
+                "attachedCount": [
+                  250,
+                  202,
+                  250
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.7,
+                  0.7,
+                  0.7
+                ],
+                "attachedCount": [
+                  126,
+                  96,
+                  150
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  226,
+                  154,
+                  226
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.34999999999999987,
+                  -0.34999999999999987,
+                  -0.34999999999999987
+                ],
+                "attachedCount": [
+                  -24,
+                  -72,
+                  0
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  -0.7,
+                  -0.7,
+                  -0.7
+                ],
+                "attachedCount": [
+                  100,
+                  28,
+                  106
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -9.5,
+          "cflFill": 0.05,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  -202,
+                  -214,
+                  -142
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.3500000000000001,
+                  0.3500000000000001,
+                  0.3500000000000001
+                ],
+                "attachedCount": [
+                  54,
+                  6,
+                  90
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.3500000000000001,
+                  0.3500000000000001,
+                  0.3500000000000001
+                ],
+                "attachedCount": [
+                  228,
+                  216,
+                  288
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.3500000000000001,
+                  0.3500000000000001,
+                  0.3500000000000001
+                ],
+                "attachedCount": [
+                  430,
+                  382,
+                  478
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  174,
+                  150,
+                  258
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "tempC": -9.5,
+          "cflFill": 0.025,
+          "contrasts": [
+            {
+              "armMinusArm": [
+                "basal-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  122,
+                  122,
+                  128
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "prism-only",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.3500000000000001,
+                  0.3500000000000001,
+                  0.3500000000000001
+                ],
+                "attachedCount": [
+                  198,
+                  198,
+                  198
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "neither"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.3500000000000001,
+                  0.3500000000000001,
+                  0.3500000000000001
+                ],
+                "attachedCount": [
+                  444,
+                  444,
+                  492
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "basal-only"
+              ],
+              "values": {
+                "axialCells": [
+                  -2,
+                  -2,
+                  -2
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0.3500000000000001,
+                  0.3500000000000001,
+                  0.3500000000000001
+                ],
+                "attachedCount": [
+                  322,
+                  316,
+                  370
+                ]
+              }
+            },
+            {
+              "armMinusArm": [
+                "both",
+                "prism-only"
+              ],
+              "values": {
+                "axialCells": [
+                  0,
+                  0,
+                  0
+                ],
+                "lateralCartesianCenterSpanUm": [
+                  0,
+                  0,
+                  0
+                ],
+                "attachedCount": [
+                  246,
+                  246,
+                  294
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "timestep": [
+        {
+          "tempC": -6.5,
+          "arm": "neither",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              156,
+              84,
+              192
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "basal-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              150,
+              78,
+              150
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "prism-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              30,
+              0,
+              90
+            ]
+          }
+        },
+        {
+          "tempC": -6.5,
+          "arm": "both",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              -0.34999999999999987,
+              -0.34999999999999987,
+              -0.34999999999999987
+            ],
+            "attachedCount": [
+              30,
+              -42,
+              30
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "neither",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              -156,
+              -168,
+              -144
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "basal-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              168,
+              120,
+              174
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "prism-only",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              -12,
+              -36,
+              24
+            ]
+          }
+        },
+        {
+          "tempC": -9.5,
+          "arm": "both",
+          "halfCflMinusOriginal": {
+            "axialCells": [
+              0,
+              0,
+              0
+            ],
+            "lateralCartesianCenterSpanUm": [
+              0,
+              0,
+              0
+            ],
+            "attachedCount": [
+              60,
+              12,
+              108
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
