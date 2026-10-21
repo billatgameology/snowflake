@@ -1,7 +1,7 @@
 # Plan — HIL and BLD growth dynamics campaign
 
 - **Phase:** active Phase 10 exploration under charter sections 2.5/3.2 and ADRs 0011, 0055, 0058–0060 and 0062.
-- **Status:** HIL's independent 24-row execution slice is being implemented and verified; HIL has not launched. The maker reports BLD running independently from `48a8ffb`; its unpublished producer and actual process state are not visible on HIL.
+- **Status:** HIL launched its tested 24-row queue at 2026-10-21 20:32 UTC: 20 live workers and four queued cases, all initial checkpoints observed. The maker clarified BLD was awaiting instructions; its independent 92-row implementation/launch instructions were supplied. No BLD producer/process receipt is yet verified here.
 - **Started / last touched:** 2026-10-21 by Codex/GPT-6.
 - **Authority:** maker requests full useful use of HIL's 20-worker allocation and BLD's 32-worker allocation, detailed long queues, resumability and no wall-clock cutoff. The subsequent October21 direction puts all longest/least-predictable work on HIL so BLD can finish and shut down. This supersedes the initial 60/56 host split and the October8 HIL-only default.
 - **Publication:** `origin/main`; planning branch `codex/phase10-two-host-growth`, based on `8e008644085f075922cfccd8a296b0dd248beb60`.
@@ -418,6 +418,40 @@ durable publication, not active checkpoint writes. No new disk supervisor or sch
 
 ## Execution implementation and exact-command handoff
 
+### BLD implementation and launch assignment — October21
+
+The maker authorizes BLD to proceed independently in its existing isolated worktree. Start from
+the registered scientific protocol at `48a8ffb` and incorporate this instruction record. HIL's
+new HIL-prefixed entry is not a BLD executable; BLD must implement its own thin named roster
+and explicit-budget entry using the existing discovery queue and complete-cycle runner. Do not
+wait for HIL's simulations or an additional shared executable. If BLD has already started science,
+keep its tested execution producer/runtime fixed and report that fact instead of rebuilding it.
+
+Execute exactly the 92 BLD base rows and queue order registered above: W1 30, W2 12, W3 8,
+F0 2, C0 4, and F1-F3 36. Do not dispatch HIL's W4/C1/H1 or any conditional reserve. Use at most
+32 simultaneous independent workers with automatic queue refill, complete-cycle checkpoints and
+no production wall deadline. Retain all registered finite scientific targets, step caps,
+convergence and contact classifications. A slow row is not a reason to terminate it.
+
+Before launch, verify exact roster/operands, host routing, observation/readout selection and
+recovery routing under this plan's verification scope; commit the tested producer. Make one
+current resource/process/runtime/disk observation, using Node24.13.1, locked dependencies and
+the existing memory floors. Reuse applicable unchanged restart witnesses; do not repeat a
+capacity or restart ladder without a changed contract. The existing plan specifies the minimum
+readout exercise and source/runtime limits. No solver/codec change is needed for this assignment.
+
+Then launch BLD's queue and retain its exact cwd, producer, command, actual worker count,
+stdout/stderr/exit files and initial/advancing checkpoint observations. Record the exact resume
+command and push the implementation, verification and progress records. Bulk output stays out
+of Git/GitHub. HIL will compare numerical source identity and registered scientific operands when
+integrating the independently produced results; matching wrapper commits is not required.
+
+After BLD's finite queue finishes, check terminal/unresolved dispositions, publish retained
+output through the NAS lifecycle and verify fresh recovery for HIL's analysis. Retain the local
+originals until separately authorized pruning. BLD may then shut down without waiting for HIL;
+all longest cases and conditional follow-ups belong to HIL. Do not claim launch readiness from
+this instruction document alone: the BLD executable and actual dispatch receipt are its deliverables.
+
 ### Independent HIL execution slice — October21
 
 The maker reports BLD is working from `48a8ffb` in its own worktree and directs HIL to start
@@ -539,12 +573,51 @@ closure. Review of new physical measurements or a new law is separate work.
 
 ## Steps and current record
 
+### HIL executable and recovery — October21
+
+HIL's producer is `2f2d605f0ed8fdb8d78cdea02a58102a7001cb53`, on
+`codex/hil-growth-dynamics-oct21` at
+`C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake`.
+Keep that execution checkout and Node24.13.1/V8 13.6.233.17-node.40 fixed. Primary `main`
+holds later status/receipts; moving primary does not move this execution checkout.
+
+From that execution directory, the implemented commands are:
+
+```powershell
+node runner/src/hil-growth-dynamics-oct21-main.ts list HIL
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start-hil-growth-dynamics-oct21.ps1 -Mode launch -Workers 20
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start-hil-growth-dynamics-oct21.ps1 -Mode resume -Workers 20
+node runner/src/hil-growth-dynamics-oct21-main.ts summarize out/hil-growth-dynamics-oct21
+node runner/src/hil-growth-dynamics-oct21-readout.ts campaign out/hil-growth-dynamics-oct21 out/hil-growth-dynamics-control/readout-new.json
+```
+
+Launch is for an absent campaign directory; after interruption, check for existing workers and
+use resume. The wrapper writes labeled coordinator stdout/stderr/invocation/exit files under
+`out/hil-growth-dynamics-oct21-controls/`; each row retains separate attempt logs under
+`out/hil-growth-dynamics-oct21/rows/<id>/attempts/<attempt>/`. Only the operational `-Workers`
+value may be reduced to 1..20 on resource recovery. Do not change row operands, source/runtime
+bindings, or discard failed scientific evidence. HIL launched after the full check passed. The
+[launch receipt](../../evidence/hil-growth-dynamics-2026-10-21/launch.json) binds actual commands,
+processes, logs and checkpoint observations; no conditional reserve was dispatched.
+
+The retained readout exercise is pinned in
+[`readout-retained-demo.json`](../../evidence/hil-growth-dynamics-2026-10-21/readout-retained-demo.json):
+three original endpoints and 2269 reconstructed updates. Exact `npm.cmd test` at `2f2d605`
+passed 244 files / 3088 tests, with 23 skipped and exit0; the
+[verification receipt](../../evidence/hil-growth-dynamics-2026-10-21/verification.json) preserves
+its command, timing and full stdout/stderr. This exercises selection and individual
+reconstruction, not the still-pending W4/C1/H1 complete cohort comparisons. The
+[`bounded implementation review`](../../evidence/hil-growth-dynamics-2026-10-21/review.json)
+records no launch blocker and its shared-context/execution limits. Exact source comparison to
+the N126 restart-witness producer found no change in core/solver/discovery/checkpoint code.
+
 - [x] Read completed comparisons, governing contracts, known failures and current source versions.
 - [x] Select 116 explicit new rows, amended 24/92 host allocation and a finite conditional reserve.
 - [x] Finish bounded design review and prose checks; publish this plan before implementation.
-- [ ] Implement roster, two-host entry and minimal readout selection; verify at the stable checkpoint.
-- [ ] Commit/push executable producer; replace proposed commands with tested exact instructions.
-- [ ] Record HIL/BLD local observations and actual dispatch/resume details; start host-owned queues.
+- [x] Implement and verify the independent HIL roster/entry and minimal individual readout selection.
+- [x] Commit/push HIL producer `2f2d605`; record the implemented exact commands above.
+- [x] Record HIL local observations and dispatch its 20-worker/24-row queue.
+- [ ] Obtain BLD producer, verification and dispatch receipts; reconcile its 92 rows without changing a running producer.
 - [ ] Analyze completed matched blocks; record predictions before any reserve dispatch.
 - [ ] Publish/recover retained output on NAS, reconcile concise findings and next experiment.
 
@@ -602,7 +675,12 @@ transplant, external-source acquisition/provider contact, automatic endless fan-
   This roster supplies complete independent scientific groups to 20/32 worker ceilings.
 - **A portfolio document advertised as launch-ready:** BLD previously pulled approval without a
   tested runner/named executable workload. This record explicitly marks the remaining executable
-  work and requires a pinned, tested handoff before saying BLD can start.
+  work and requires a pinned, tested handoff before saying BLD can start. The same communication
+  failure recurred at `48a8ffb`: the maker expected fetch-and-launch, while the commit only held
+  the protocol. The October21 correction gives BLD explicit authority to implement/test/launch
+  its own 92 rows and makes HIL independent. Future handoffs must say either "implement this
+  protocol" or provide an already exercised executable command and producer; a plan is not a
+  launchable campaign.
 - **Four-hour production cutoff / observational logs as restart:** cannot preserve multi-day
   scientific progression. Use existing complete-cycle checkpoints; no production wall timeout.
 - **Repeated short capacity ladders:** BLD's 28-worker speed timeout and HIL's N126 watchdog were

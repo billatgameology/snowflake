@@ -1,0 +1,23 @@
+{
+  "schema": "hil-growth-dynamics-verification-v1",
+  "createdAt": "2026-10-21T20:33:22.073Z",
+  "producer": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+  "fullCheck": {
+    "startedUtc": "2026-10-21T20:15:14.3025609Z",
+    "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-control\\npm-test-20261021T131514301.stdout.log",
+    "command": "npm.cmd test",
+    "gitHead": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+    "finishedUtc": "2026-10-21T20:30:59.9234868Z",
+    "exitCode": 0,
+    "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-control\\npm-test-20261021T131514301.stderr.log",
+    "filesPassed": 244,
+    "testsPassed": 3088,
+    "testsSkipped": 23,
+    "retainedStdout": "npm-test.stdout.log",
+    "retainedStderr": "npm-test.stderr.log"
+  },
+  "review": "review.json",
+  "retainedReadoutExercise": "readout-retained-demo.json",
+  "preflight": "preflight.json",
+  "limits": "Full suite is implementation verification, not a scientific gate or outcome. Existing actual restart witnesses reused because continuation code is unchanged. Full frozen cohort comparisons remain pending completed data."
+}

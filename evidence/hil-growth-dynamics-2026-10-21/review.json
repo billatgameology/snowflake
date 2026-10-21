@@ -1,0 +1,60 @@
+{
+  "schema": "hil-growth-dynamics-prelaunch-review-v1",
+  "createdAt": "2026-10-21T20:16:43.336Z",
+  "producer": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+  "reviewer": "Codex/GPT-6",
+  "sharedContext": true,
+  "verdict": "No launch-blocking defect found",
+  "reviewed": [
+    "registered W4/C1/H1 operands and order",
+    "no production wall timer",
+    "worker ceiling and operational recovery count",
+    "existing source/runtime/host and row checkpoint bindings",
+    "readout limitations and unresolved outcomes",
+    "PowerShell launcher syntax"
+  ],
+  "independentlyExecuted": [
+    "list HIL",
+    "PowerShell parser"
+  ],
+  "notExecuted": [
+    "production dispatch",
+    "new restart qualification",
+    "retained-data analysis by reviewer",
+    "full suite by reviewer"
+  ],
+  "sourceParity": {
+    "reference": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+    "paths": [
+      "core/src",
+      "solver-cpu/src",
+      "runner/src/post-phase10-discovery.ts",
+      "runner/src/discovery-resume-io.ts"
+    ],
+    "changedPaths": []
+  },
+  "retainedExercise": {
+    "path": "out/hil-growth-dynamics-control/readout-retained-demo.json",
+    "sha256": "5715ae45c383d465fb400b9c6f6b61cfc74d73437540b748967135beedbfb7e6",
+    "census": {
+      "requestedRows": 3,
+      "sizeEndpoints": 3,
+      "missingOrUnresolved": []
+    },
+    "reconstructedUpdates": 2269,
+    "command": [
+      "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-readout.ts",
+      "retained",
+      "out/hil-growth-dynamics-control/readout-retained-demo.json",
+      "C:/Users/biao3/Documents/GitHub/snowflake/out/hil-retired-2026-10-21/hil-warm-refinement/out/warm-refinement-hil/rows/warm-refine-coarse-t4p5-early",
+      "C:/Users/biao3/Documents/GitHub/snowflake/out/hil-retired-2026-10-21/hil-domain-seed-oct19/out/hil-domain-seed-oct19/rows/oct19-hil-cold-domain-t14p4-f0p1-n96-prism-only",
+      "C:/Users/biao3/Documents/GitHub/snowflake/out/hil-retired-2026-10-21/hil-facet-pressure-oct19/out/hil-facet-pressure-oct19/rows/oct19-hil-pressure-step-history-t14p4-to-t6-f0p2-e15-p202650-m1-cfl0p025"
+    ],
+    "limit": "Old identities preserved; full registered cohort comparisons remain pending."
+  },
+  "reusedRestartWitnesses": [
+    "evidence/discovery-resume-2026-10-07/verification.json",
+    "evidence/hil-warm-refinement-2026-10-08/n126-witness-receipt.json"
+  ]
+}

@@ -1,0 +1,2221 @@
+{
+  "schema": "hil-growth-dynamics-launch-v1",
+  "recordedUtc": "2026-10-21T20:36:25.150Z",
+  "producer": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+  "executionDirectory": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake",
+  "campaignDirectory": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21",
+  "command": [
+    "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+    "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+    "launch",
+    "HIL",
+    "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21",
+    "--workers",
+    "20"
+  ],
+  "resumeCommand": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "scripts/start-hil-growth-dynamics-oct21.ps1",
+    "-Mode",
+    "resume",
+    "-Workers",
+    "20"
+  ],
+  "invocation": {
+    "source": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+    "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21-controls\\campaign-launch-20261021T133246846.stderr.log",
+    "wrapperPid": 28688,
+    "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21-controls\\campaign-launch-20261021T133246846.stdout.log",
+    "command": [
+      "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+      "launch",
+      "HIL",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21",
+      "--workers",
+      "20"
+    ],
+    "mode": "launch",
+    "coordinatorPid": 26752,
+    "PSModulePath": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+    "startedUtc": "2026-10-21T20:32:46.8464325Z"
+  },
+  "launch": {
+    "schema": "post-phase10-discovery-launch-v1",
+    "experimentalRows": [
+      {
+        "rowId": "gd21-hil-w4-h1-early20-w6",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        }
+      },
+      {
+        "rowId": "gd21-hil-w4-h3-early20-w6",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        }
+      },
+      {
+        "rowId": "gd21-hil-c1-h1-neither",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "neither"
+      },
+      {
+        "rowId": "gd21-hil-c1-h1-basal-only",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "basal-only"
+      },
+      {
+        "rowId": "gd21-hil-c1-h1-prism-only",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "prism-only"
+      },
+      {
+        "rowId": "gd21-hil-c1-h1-both",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both"
+      },
+      {
+        "rowId": "gd21-hil-c1-h3-neither",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "neither"
+      },
+      {
+        "rowId": "gd21-hil-c1-h3-basal-only",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "basal-only"
+      },
+      {
+        "rowId": "gd21-hil-c1-h3-prism-only",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "prism-only"
+      },
+      {
+        "rowId": "gd21-hil-c1-h3-both",
+        "experimentId": "post-phase10-facet-isolation-v1",
+        "experimentalFacetDips": "both"
+      }
+    ],
+    "launchName": "hil-growth-dynamics-oct21-HIL-initial",
+    "gitHead": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+    "node": "v24.13.1",
+    "attemptName": "initial",
+    "resumeExistingRows": false,
+    "requestedConcurrency": 20,
+    "rowIds": [
+      "gd21-hil-w4-h1-broad",
+      "gd21-hil-w4-h1-early20-w6",
+      "gd21-hil-w4-h3-broad",
+      "gd21-hil-w4-h3-early20-w6",
+      "gd21-hil-c1-h1-neither",
+      "gd21-hil-c1-h1-basal-only",
+      "gd21-hil-c1-h1-prism-only",
+      "gd21-hil-c1-h1-both",
+      "gd21-hil-c1-h3-neither",
+      "gd21-hil-c1-h3-basal-only",
+      "gd21-hil-c1-h3-prism-only",
+      "gd21-hil-c1-h3-both",
+      "gd21-hil-h1-p50662p5-switch7",
+      "gd21-hil-h1-p50662p5-switch15",
+      "gd21-hil-h1-p50662p5-source",
+      "gd21-hil-h1-p50662p5-destination",
+      "gd21-hil-h1-p101325-switch7",
+      "gd21-hil-h1-p101325-switch15",
+      "gd21-hil-h1-p101325-source",
+      "gd21-hil-h1-p101325-destination",
+      "gd21-hil-h1-p202650-switch7",
+      "gd21-hil-h1-p202650-switch15",
+      "gd21-hil-h1-p202650-source",
+      "gd21-hil-h1-p202650-destination"
+    ],
+    "exactWorkerCommandTemplate": "Exact row-specific command is recorded in each rows/<row-id>/process.json and its named attempt",
+    "launchedAt": "2026-10-21T20:32:47.101Z"
+  },
+  "binding": {
+    "schema": "hil-growth-dynamics-oct21-campaign-v1",
+    "batchId": "hil-growth-dynamics-2026-10-21",
+    "checkpointFormat": "discovery-resume-v1",
+    "host": "HIL",
+    "gitHead": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+    "node": "v24.13.1",
+    "v8": "13.6.233.17-node.40",
+    "hostIdentity": {
+      "hostname": "HIL",
+      "platform": "win32",
+      "arch": "x64",
+      "cpuModels": [
+        "Intel(R) Core(TM) Ultra 9 285K"
+      ],
+      "logicalProcessors": 24,
+      "totalMemoryBytes": 68023050240
+    },
+    "rosterSha256": "1591a135ea020742e8fb30deae32f8d73db9bc9f02e08d34237f5f8f2a501fef",
+    "workerCeiling": 20,
+    "rows": [
+      {
+        "conditional": false,
+        "dimsN": 126,
+        "dxUm": 0.175,
+        "seedRadius": 4,
+        "pressurePa": 101325,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "id": "gd21-hil-w4-h1-broad",
+        "lane": "cavity-mechanism",
+        "tempC": -4.5,
+        "fraction": 0.075,
+        "sigmaInfinity": 0.003375,
+        "seedThickness": 1,
+        "paramSet": "M1_NO_DIP_ABLATION",
+        "spatialSampleExtents": [
+          9,
+          17,
+          25,
+          33,
+          41,
+          49
+        ]
+      },
+      {
+        "conditional": false,
+        "dimsN": 126,
+        "dxUm": 0.175,
+        "seedRadius": 4,
+        "pressurePa": 101325,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "id": "gd21-hil-w4-h1-early20-w6",
+        "lane": "cavity-mechanism",
+        "tempC": -4.5,
+        "fraction": 0.075,
+        "sigmaInfinity": 0.003375,
+        "seedThickness": 1,
+        "paramSet": "M1",
+        "spatialSampleExtents": [
+          9,
+          17,
+          25,
+          33,
+          41,
+          49
+        ],
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        }
+      },
+      {
+        "conditional": false,
+        "dimsN": 126,
+        "dxUm": 0.175,
+        "seedRadius": 4,
+        "pressurePa": 101325,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "id": "gd21-hil-w4-h3-broad",
+        "lane": "cavity-mechanism",
+        "tempC": -4.5,
+        "fraction": 0.075,
+        "sigmaInfinity": 0.003375,
+        "seedThickness": 3,
+        "paramSet": "M1_NO_DIP_ABLATION",
+        "spatialSampleExtents": [
+          9,
+          17,
+          25,
+          33,
+          41,
+          49
+        ]
+      },
+      {
+        "conditional": false,
+        "dimsN": 126,
+        "dxUm": 0.175,
+        "seedRadius": 4,
+        "pressurePa": 101325,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "id": "gd21-hil-w4-h3-early20-w6",
+        "lane": "cavity-mechanism",
+        "tempC": -4.5,
+        "fraction": 0.075,
+        "sigmaInfinity": 0.003375,
+        "seedThickness": 3,
+        "paramSet": "M1",
+        "spatialSampleExtents": [
+          9,
+          17,
+          25,
+          33,
+          41,
+          49
+        ],
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        }
+      },
+      {
+        "conditional": false,
+        "dimsN": 126,
+        "dxUm": 0.175,
+        "seedRadius": 4,
+        "pressurePa": 101325,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "id": "gd21-hil-c1-h1-neither",
+        "lane": "cavity-mechanism",
+        "tempC": -14.4,
+        "fraction": 0.1,
+        "sigmaInfinity": 0.015040000000000001,
+        "seedThickness": 1,
+        "paramSet": "M1",
+        "experimentalFacetDips": "neither",
+        "spatialSampleExtents": [
+          9,
+          13,
+          17,
+          21,
+          25,
+          29,
+          33,
+          37,
+          41,
+          45,
+          49,
+          53
+        ]
+      },
+      {
+        "conditional": false,
+        "dimsN": 126,
+        "dxUm": 0.175,
+        "seedRadius": 4,
+        "pressurePa": 101325,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "id": "gd21-hil-c1-h1-basal-only",
+        "lane": "cavity-mechanism",
+        "tempC": -14.4,
+        "fraction": 0.1,
+        "sigmaInfinity": 0.015040000000000001,
+        "seedThickness": 1,
+        "paramSet": "M1",
+        "experimentalFacetDips": "basal-only",
+        "spatialSampleExtents": [
+          9,
+          13,
+          17,
+          21,
+          25,
+          29,
+          33,
+          37,
+          41,
+          45,
+          49,
+          53
+        ]
+      },
+      {
+        "conditional": false,
+        "dimsN": 126,
+        "dxUm": 0.175,
+        "seedRadius": 4,
+        "pressurePa": 101325,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "id": "gd21-hil-c1-h1-prism-only",
+        "lane": "cavity-mechanism",
+        "tempC": -14.4,
+        "fraction": 0.1,
+        "sigmaInfinity": 0.015040000000000001,
+        "seedThickness": 1,
+        "paramSet": "M1",
+        "experimentalFacetDips": "prism-only",
+        "spatialSampleExtents": [
+          9,
+          13,
+          17,
+          21,
+          25,
+          29,
+          33,
+          37,
+          41,
+          45,
+          49,
+          53
+        ]
+      },
+      {
+        "conditional": false,
+        "dimsN": 126,
+        "dxUm": 0.175,
+        "seedRadius": 4,
+        "pressurePa": 101325,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "id": "gd21-hil-c1-h1-both",
+        "lane": "cavity-mechanism",
+        "tempC": -14.4,
+        "fraction": 0.1,
+        "sigmaInfinity": 0.015040000000000001,
+        "seedThickness": 1,
+        "paramSet": "M1",
+        "experimentalFacetDips": "both",
+        "spatialSampleExtents": [
+          9,
+          13,
+          17,
+          21,
+          25,
+          29,
+          33,
+          37,
+          41,
+          45,
+          49,
+          53
+        ]
+      },
+      {
+        "conditional": false,
+        "dimsN": 126,
+        "dxUm": 0.175,
+        "seedRadius": 4,
+        "pressurePa": 101325,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "id": "gd21-hil-c1-h3-neither",
+        "lane": "cavity-mechanism",
+        "tempC": -14.4,
+        "fraction": 0.1,
+        "sigmaInfinity": 0.015040000000000001,
+        "seedThickness": 3,
+        "paramSet": "M1",
+        "experimentalFacetDips": "neither",
+        "spatialSampleExtents": [
+          9,
+          13,
+          17,
+          21,
+          25,
+          29,
+          33,
+          37,
+          41,
+          45,
+          49,
+          53
+        ]
+      },
+      {
+        "conditional": false,
+        "dimsN": 126,
+        "dxUm": 0.175,
+        "seedRadius": 4,
+        "pressurePa": 101325,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "id": "gd21-hil-c1-h3-basal-only",
+        "lane": "cavity-mechanism",
+        "tempC": -14.4,
+        "fraction": 0.1,
+        "sigmaInfinity": 0.015040000000000001,
+        "seedThickness": 3,
+        "paramSet": "M1",
+        "experimentalFacetDips": "basal-only",
+        "spatialSampleExtents": [
+          9,
+          13,
+          17,
+          21,
+          25,
+          29,
+          33,
+          37,
+          41,
+          45,
+          49,
+          53
+        ]
+      },
+      {
+        "conditional": false,
+        "dimsN": 126,
+        "dxUm": 0.175,
+        "seedRadius": 4,
+        "pressurePa": 101325,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "id": "gd21-hil-c1-h3-prism-only",
+        "lane": "cavity-mechanism",
+        "tempC": -14.4,
+        "fraction": 0.1,
+        "sigmaInfinity": 0.015040000000000001,
+        "seedThickness": 3,
+        "paramSet": "M1",
+        "experimentalFacetDips": "prism-only",
+        "spatialSampleExtents": [
+          9,
+          13,
+          17,
+          21,
+          25,
+          29,
+          33,
+          37,
+          41,
+          45,
+          49,
+          53
+        ]
+      },
+      {
+        "conditional": false,
+        "dimsN": 126,
+        "dxUm": 0.175,
+        "seedRadius": 4,
+        "pressurePa": 101325,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "id": "gd21-hil-c1-h3-both",
+        "lane": "cavity-mechanism",
+        "tempC": -14.4,
+        "fraction": 0.1,
+        "sigmaInfinity": 0.015040000000000001,
+        "seedThickness": 3,
+        "paramSet": "M1",
+        "experimentalFacetDips": "both",
+        "spatialSampleExtents": [
+          9,
+          13,
+          17,
+          21,
+          25,
+          29,
+          33,
+          37,
+          41,
+          45,
+          49,
+          53
+        ]
+      },
+      {
+        "id": "gd21-hil-h1-p50662p5-switch7",
+        "lane": "followup-history",
+        "conditional": false,
+        "tempC": -14.4,
+        "fraction": 0.2,
+        "sigmaInfinity": 0.030080000000000003,
+        "pressurePa": 50662.5,
+        "paramSet": "M1",
+        "dimsN": 96,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27,
+          29,
+          31,
+          33,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          47,
+          49,
+          51,
+          53,
+          55
+        ],
+        "timelineEvent": {
+          "triggerLargestExtent": 7,
+          "tempC": -6,
+          "sigmaInfinity": 0.01208
+        }
+      },
+      {
+        "id": "gd21-hil-h1-p50662p5-switch15",
+        "lane": "followup-history",
+        "conditional": false,
+        "tempC": -14.4,
+        "fraction": 0.2,
+        "sigmaInfinity": 0.030080000000000003,
+        "pressurePa": 50662.5,
+        "paramSet": "M1",
+        "dimsN": 96,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27,
+          29,
+          31,
+          33,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          47,
+          49,
+          51,
+          53,
+          55
+        ],
+        "timelineEvent": {
+          "triggerLargestExtent": 15,
+          "tempC": -6,
+          "sigmaInfinity": 0.01208
+        }
+      },
+      {
+        "id": "gd21-hil-h1-p50662p5-source",
+        "lane": "followup-history",
+        "conditional": false,
+        "tempC": -14.4,
+        "fraction": 0.2,
+        "sigmaInfinity": 0.030080000000000003,
+        "pressurePa": 50662.5,
+        "paramSet": "M1",
+        "dimsN": 96,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27,
+          29,
+          31,
+          33,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          47,
+          49,
+          51,
+          53,
+          55
+        ]
+      },
+      {
+        "id": "gd21-hil-h1-p50662p5-destination",
+        "lane": "followup-history",
+        "conditional": false,
+        "tempC": -6,
+        "fraction": 0.2,
+        "sigmaInfinity": 0.01208,
+        "pressurePa": 50662.5,
+        "paramSet": "M1",
+        "dimsN": 96,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27,
+          29,
+          31,
+          33,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          47,
+          49,
+          51,
+          53,
+          55
+        ]
+      },
+      {
+        "id": "gd21-hil-h1-p101325-switch7",
+        "lane": "followup-history",
+        "conditional": false,
+        "tempC": -14.4,
+        "fraction": 0.2,
+        "sigmaInfinity": 0.030080000000000003,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 96,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27,
+          29,
+          31,
+          33,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          47,
+          49,
+          51,
+          53,
+          55
+        ],
+        "timelineEvent": {
+          "triggerLargestExtent": 7,
+          "tempC": -6,
+          "sigmaInfinity": 0.01208
+        }
+      },
+      {
+        "id": "gd21-hil-h1-p101325-switch15",
+        "lane": "followup-history",
+        "conditional": false,
+        "tempC": -14.4,
+        "fraction": 0.2,
+        "sigmaInfinity": 0.030080000000000003,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 96,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27,
+          29,
+          31,
+          33,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          47,
+          49,
+          51,
+          53,
+          55
+        ],
+        "timelineEvent": {
+          "triggerLargestExtent": 15,
+          "tempC": -6,
+          "sigmaInfinity": 0.01208
+        }
+      },
+      {
+        "id": "gd21-hil-h1-p101325-source",
+        "lane": "followup-history",
+        "conditional": false,
+        "tempC": -14.4,
+        "fraction": 0.2,
+        "sigmaInfinity": 0.030080000000000003,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 96,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27,
+          29,
+          31,
+          33,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          47,
+          49,
+          51,
+          53,
+          55
+        ]
+      },
+      {
+        "id": "gd21-hil-h1-p101325-destination",
+        "lane": "followup-history",
+        "conditional": false,
+        "tempC": -6,
+        "fraction": 0.2,
+        "sigmaInfinity": 0.01208,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 96,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27,
+          29,
+          31,
+          33,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          47,
+          49,
+          51,
+          53,
+          55
+        ]
+      },
+      {
+        "id": "gd21-hil-h1-p202650-switch7",
+        "lane": "followup-history",
+        "conditional": false,
+        "tempC": -14.4,
+        "fraction": 0.2,
+        "sigmaInfinity": 0.030080000000000003,
+        "pressurePa": 202650,
+        "paramSet": "M1",
+        "dimsN": 96,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27,
+          29,
+          31,
+          33,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          47,
+          49,
+          51,
+          53,
+          55
+        ],
+        "timelineEvent": {
+          "triggerLargestExtent": 7,
+          "tempC": -6,
+          "sigmaInfinity": 0.01208
+        }
+      },
+      {
+        "id": "gd21-hil-h1-p202650-switch15",
+        "lane": "followup-history",
+        "conditional": false,
+        "tempC": -14.4,
+        "fraction": 0.2,
+        "sigmaInfinity": 0.030080000000000003,
+        "pressurePa": 202650,
+        "paramSet": "M1",
+        "dimsN": 96,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27,
+          29,
+          31,
+          33,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          47,
+          49,
+          51,
+          53,
+          55
+        ],
+        "timelineEvent": {
+          "triggerLargestExtent": 15,
+          "tempC": -6,
+          "sigmaInfinity": 0.01208
+        }
+      },
+      {
+        "id": "gd21-hil-h1-p202650-source",
+        "lane": "followup-history",
+        "conditional": false,
+        "tempC": -14.4,
+        "fraction": 0.2,
+        "sigmaInfinity": 0.030080000000000003,
+        "pressurePa": 202650,
+        "paramSet": "M1",
+        "dimsN": 96,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27,
+          29,
+          31,
+          33,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          47,
+          49,
+          51,
+          53,
+          55
+        ]
+      },
+      {
+        "id": "gd21-hil-h1-p202650-destination",
+        "lane": "followup-history",
+        "conditional": false,
+        "tempC": -6,
+        "fraction": 0.2,
+        "sigmaInfinity": 0.01208,
+        "pressurePa": 202650,
+        "paramSet": "M1",
+        "dimsN": 96,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "cflFill": 0.025,
+        "targetExtent": 57,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27,
+          29,
+          31,
+          33,
+          35,
+          37,
+          39,
+          41,
+          43,
+          45,
+          47,
+          49,
+          51,
+          53,
+          55
+        ]
+      }
+    ],
+    "createdAt": "2026-10-21T20:32:47.098Z",
+    "exactLaunchCommand": [
+      "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+      "launch",
+      "HIL",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21",
+      "--workers",
+      "20"
+    ],
+    "plan": "docs/plans/hil-bld-growth-dynamics-oct21.md",
+    "budgetBasis": "Maker-assigned ceiling 20; twelve N126 fine rows first, then twelve N96 histories/statics. Direct host observation and existing 12 GiB available RAM / 8 GiB commit-headroom guard. No speed qualification or production wall deadline. Four final pressure rows initially queued."
+  },
+  "preflight": "preflight.json",
+  "verification": "verification.json",
+  "observations": [
+    {
+      "capturedUtc": "2026-10-21T20:33:06.480Z",
+      "rows": [
+        {
+          "id": "gd21-hil-w4-h1-broad",
+          "status": "running",
+          "pid": 16800,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-w4-h1-broad",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-broad"
+          ],
+          "checkpoint": {
+            "tick": 0,
+            "previous": null,
+            "manifestSha256": "8f31d3dca1dcfbc532371f7fe9af5100bb2bace59c863c2865a2b6792df8c6f2",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-w4-h1-early20-w6",
+          "status": "running",
+          "pid": 13800,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-w4-h1-early20-w6",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-early20-w6"
+          ],
+          "checkpoint": {
+            "tick": 0,
+            "previous": null,
+            "manifestSha256": "d3ae3259a128ad50db84d6b81e4c47f1e69d9c31c013eb1db36a5847d123d4f5",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-w4-h3-broad",
+          "status": "running",
+          "pid": 28644,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-w4-h3-broad",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-broad"
+          ],
+          "checkpoint": {
+            "tick": 0,
+            "previous": null,
+            "manifestSha256": "871124123d93143e24e2b62111b215ec88e6d798d2fe42a20ef774eccd4fe5b8",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-w4-h3-early20-w6",
+          "status": "running",
+          "pid": 33008,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-w4-h3-early20-w6",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-early20-w6"
+          ],
+          "checkpoint": {
+            "tick": 0,
+            "previous": null,
+            "manifestSha256": "abff5e142a079a6cbddf41944b0c76d85f7084f4e57fb38e9ce859b1e099dd31",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-c1-h1-neither",
+          "status": "running",
+          "pid": 7204,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-c1-h1-neither",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-neither"
+          ],
+          "checkpoint": {
+            "tick": 0,
+            "previous": null,
+            "manifestSha256": "b1aff97461f26fed79ef5658adc7af65b6f96f44472d79e1d363c25912f95720",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-c1-h1-basal-only",
+          "status": "running",
+          "pid": 29156,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-c1-h1-basal-only",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-basal-only"
+          ],
+          "checkpoint": {
+            "tick": 0,
+            "previous": null,
+            "manifestSha256": "b13ab1e2263ea8b7fde257383f8b75881b75920e88c3c83d602aa5eda4b89da4",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-c1-h1-prism-only",
+          "status": "running",
+          "pid": 26048,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-c1-h1-prism-only",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-prism-only"
+          ],
+          "checkpoint": {
+            "tick": 0,
+            "previous": null,
+            "manifestSha256": "6b325f6290e9a19b71cb29457e9287562bafca69471071fd35c4f66b30b99335",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-c1-h1-both",
+          "status": "running",
+          "pid": 21088,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-c1-h1-both",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-both"
+          ],
+          "checkpoint": {
+            "tick": 0,
+            "previous": null,
+            "manifestSha256": "f4436f7065b1c26abcad70d00a29d8d67cd8c08ee3f8c8afcae6a99e0a9d290a",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-c1-h3-neither",
+          "status": "running",
+          "pid": 34448,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-c1-h3-neither",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-neither"
+          ],
+          "checkpoint": {
+            "tick": 0,
+            "previous": null,
+            "manifestSha256": "361678bb1d2924236369d3207d2b0a9c39c9b47f2f121ee66295110a9e3887f8",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-c1-h3-basal-only",
+          "status": "running",
+          "pid": 31116,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-c1-h3-basal-only",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-basal-only"
+          ],
+          "checkpoint": {
+            "tick": 0,
+            "previous": null,
+            "manifestSha256": "aa0c14e165701cf4cccefa6cd4a636e113d04ec525a95e3a34a6598b098be2e1",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-c1-h3-prism-only",
+          "status": "running",
+          "pid": 11828,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-c1-h3-prism-only",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-prism-only"
+          ],
+          "checkpoint": {
+            "tick": 0,
+            "previous": null,
+            "manifestSha256": "cb37be44122b50e48321cacae67baf65786ad5101d19f112e4686fce61edb43f",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-c1-h3-both",
+          "status": "running",
+          "pid": 592,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-c1-h3-both",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-both"
+          ],
+          "checkpoint": {
+            "tick": 0,
+            "previous": null,
+            "manifestSha256": "f95b8cb6b391c1a93b06a522e641a35f57822f60e63171f3172d3648397c85dd",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-h1-p50662p5-switch7",
+          "status": "running",
+          "pid": 30636,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-h1-p50662p5-switch7",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p50662p5-switch7"
+          ],
+          "checkpoint": {
+            "tick": 0,
+            "previous": null,
+            "manifestSha256": "dacae20fdd98ba46845d00157ff276547cd43bc95bf41035476ca06b70350059",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-h1-p50662p5-switch15",
+          "status": "running",
+          "pid": 31672,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-h1-p50662p5-switch15",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p50662p5-switch15"
+          ],
+          "checkpoint": {
+            "tick": 0,
+            "previous": null,
+            "manifestSha256": "4c6ac72b0b642345d7476776fd206727ce26fdb0900c4431b7f47975429c4954",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-h1-p50662p5-source",
+          "status": "running",
+          "pid": 33016,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-h1-p50662p5-source",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p50662p5-source"
+          ],
+          "checkpoint": {
+            "tick": 0,
+            "previous": null,
+            "manifestSha256": "275c73b1b09aa74d916bf62cf1f79648faa769d4c629b5425ca4828ee5dc8532",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-h1-p50662p5-destination",
+          "status": "running",
+          "pid": 23084,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-h1-p50662p5-destination",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p50662p5-destination"
+          ],
+          "checkpoint": {
+            "tick": 0,
+            "previous": null,
+            "manifestSha256": "2408e6b2c4a49c2fb62601438a6e38ca1534cb26bd0816f0123b033ee8307d92",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-h1-p101325-switch7",
+          "status": "running",
+          "pid": 30308,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-h1-p101325-switch7",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p101325-switch7"
+          ],
+          "checkpoint": {
+            "tick": 0,
+            "previous": null,
+            "manifestSha256": "789ff6495bf3ed9e5d1eeda9dfd56286d9e4bd9af5b090cff80c2211cf770b82",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-h1-p101325-switch15",
+          "status": "running",
+          "pid": 2988,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-h1-p101325-switch15",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p101325-switch15"
+          ],
+          "checkpoint": {
+            "tick": 0,
+            "previous": null,
+            "manifestSha256": "6e04fa34d58ec73f712dc08ca4bb47fe09822c5c27b8758e0b5c4f2af28b707d",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-h1-p101325-source",
+          "status": "running",
+          "pid": 13860,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-h1-p101325-source",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p101325-source"
+          ],
+          "checkpoint": {
+            "tick": 0,
+            "previous": null,
+            "manifestSha256": "a88765705b90a9fa6b78033a73cbb64c3e7d2763708adcb1b2971088a0b2b514",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-h1-p101325-destination",
+          "status": "running",
+          "pid": 33492,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-h1-p101325-destination",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p101325-destination"
+          ],
+          "checkpoint": {
+            "tick": 0,
+            "previous": null,
+            "manifestSha256": "b1562ef5ec014e571bfe1a6305a794ba22b63edddf79f3d05913a5986dc43865",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-h1-p202650-switch7",
+          "status": "queued"
+        },
+        {
+          "id": "gd21-hil-h1-p202650-switch15",
+          "status": "queued"
+        },
+        {
+          "id": "gd21-hil-h1-p202650-source",
+          "status": "queued"
+        },
+        {
+          "id": "gd21-hil-h1-p202650-destination",
+          "status": "queued"
+        }
+      ],
+      "running": 20,
+      "queued": 4,
+      "checkpoints": 20
+    },
+    {
+      "capturedUtc": "2026-10-21T20:35:03.741Z",
+      "rows": [
+        {
+          "id": "gd21-hil-w4-h1-broad",
+          "status": "running",
+          "pid": 16800,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-w4-h1-broad",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-broad"
+          ],
+          "stderrBytes": 0,
+          "checkpoint": {
+            "tick": 0,
+            "current": "generation-0-6c995009-f709-4fa4-b67c-e15a6cb2d0bb",
+            "previous": null,
+            "manifestSha256": "8f31d3dca1dcfbc532371f7fe9af5100bb2bace59c863c2865a2b6792df8c6f2",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-w4-h1-early20-w6",
+          "status": "running",
+          "pid": 13800,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-w4-h1-early20-w6",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-early20-w6"
+          ],
+          "stderrBytes": 0,
+          "checkpoint": {
+            "tick": 0,
+            "current": "generation-0-0bb213f0-269a-4ddc-9722-237c8c6fcfd5",
+            "previous": null,
+            "manifestSha256": "d3ae3259a128ad50db84d6b81e4c47f1e69d9c31c013eb1db36a5847d123d4f5",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-w4-h3-broad",
+          "status": "running",
+          "pid": 28644,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-w4-h3-broad",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-broad"
+          ],
+          "stderrBytes": 0,
+          "checkpoint": {
+            "tick": 0,
+            "current": "generation-0-ec8989ec-2bc5-49e3-9888-257338b5c5e1",
+            "previous": null,
+            "manifestSha256": "871124123d93143e24e2b62111b215ec88e6d798d2fe42a20ef774eccd4fe5b8",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-w4-h3-early20-w6",
+          "status": "running",
+          "pid": 33008,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-w4-h3-early20-w6",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-early20-w6"
+          ],
+          "stderrBytes": 0,
+          "checkpoint": {
+            "tick": 0,
+            "current": "generation-0-a2308c7f-b678-43ca-9b56-1caf8b59c25b",
+            "previous": null,
+            "manifestSha256": "abff5e142a079a6cbddf41944b0c76d85f7084f4e57fb38e9ce859b1e099dd31",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-c1-h1-neither",
+          "status": "running",
+          "pid": 7204,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-c1-h1-neither",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-neither"
+          ],
+          "stderrBytes": 0,
+          "checkpoint": {
+            "tick": 0,
+            "current": "generation-0-1f2ba7fa-ec0e-4a62-9a4b-b2f55b21f452",
+            "previous": null,
+            "manifestSha256": "b1aff97461f26fed79ef5658adc7af65b6f96f44472d79e1d363c25912f95720",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-c1-h1-basal-only",
+          "status": "running",
+          "pid": 29156,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-c1-h1-basal-only",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-basal-only"
+          ],
+          "stderrBytes": 0,
+          "checkpoint": {
+            "tick": 0,
+            "current": "generation-0-5137759e-f142-478c-84d6-135d16804229",
+            "previous": null,
+            "manifestSha256": "b13ab1e2263ea8b7fde257383f8b75881b75920e88c3c83d602aa5eda4b89da4",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-c1-h1-prism-only",
+          "status": "running",
+          "pid": 26048,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-c1-h1-prism-only",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-prism-only"
+          ],
+          "stderrBytes": 0,
+          "checkpoint": {
+            "tick": 0,
+            "current": "generation-0-7f953419-0156-4084-9f47-6c7d9fcfe07a",
+            "previous": null,
+            "manifestSha256": "6b325f6290e9a19b71cb29457e9287562bafca69471071fd35c4f66b30b99335",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-c1-h1-both",
+          "status": "running",
+          "pid": 21088,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-c1-h1-both",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-both"
+          ],
+          "stderrBytes": 0,
+          "checkpoint": {
+            "tick": 0,
+            "current": "generation-0-4f6a5f3f-b130-4b65-8ba5-316da1dac61b",
+            "previous": null,
+            "manifestSha256": "f4436f7065b1c26abcad70d00a29d8d67cd8c08ee3f8c8afcae6a99e0a9d290a",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-c1-h3-neither",
+          "status": "running",
+          "pid": 34448,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-c1-h3-neither",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-neither"
+          ],
+          "stderrBytes": 0,
+          "checkpoint": {
+            "tick": 0,
+            "current": "generation-0-79c8fccd-1ade-4bba-a958-90814ae4e92f",
+            "previous": null,
+            "manifestSha256": "361678bb1d2924236369d3207d2b0a9c39c9b47f2f121ee66295110a9e3887f8",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-c1-h3-basal-only",
+          "status": "running",
+          "pid": 31116,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-c1-h3-basal-only",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-basal-only"
+          ],
+          "stderrBytes": 0,
+          "checkpoint": {
+            "tick": 0,
+            "current": "generation-0-ba0aa078-7c63-431f-8d73-46b7d9afd830",
+            "previous": null,
+            "manifestSha256": "aa0c14e165701cf4cccefa6cd4a636e113d04ec525a95e3a34a6598b098be2e1",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-c1-h3-prism-only",
+          "status": "running",
+          "pid": 11828,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-c1-h3-prism-only",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-prism-only"
+          ],
+          "stderrBytes": 0,
+          "checkpoint": {
+            "tick": 0,
+            "current": "generation-0-975623ff-b336-4e7d-83e3-57692709d8f3",
+            "previous": null,
+            "manifestSha256": "cb37be44122b50e48321cacae67baf65786ad5101d19f112e4686fce61edb43f",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-c1-h3-both",
+          "status": "running",
+          "pid": 592,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-c1-h3-both",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-both"
+          ],
+          "stderrBytes": 0,
+          "checkpoint": {
+            "tick": 0,
+            "current": "generation-0-84206459-7d99-46ca-a660-c35833326629",
+            "previous": null,
+            "manifestSha256": "f95b8cb6b391c1a93b06a522e641a35f57822f60e63171f3172d3648397c85dd",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-h1-p50662p5-switch7",
+          "status": "running",
+          "pid": 30636,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-h1-p50662p5-switch7",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p50662p5-switch7"
+          ],
+          "stderrBytes": 0,
+          "checkpoint": {
+            "tick": 0,
+            "current": "generation-0-38cc3f47-b484-4ec2-9bb9-b122129177c5",
+            "previous": null,
+            "manifestSha256": "dacae20fdd98ba46845d00157ff276547cd43bc95bf41035476ca06b70350059",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-h1-p50662p5-switch15",
+          "status": "running",
+          "pid": 31672,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-h1-p50662p5-switch15",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p50662p5-switch15"
+          ],
+          "stderrBytes": 0,
+          "checkpoint": {
+            "tick": 0,
+            "current": "generation-0-f473dd69-fb99-43aa-9c09-725284775283",
+            "previous": null,
+            "manifestSha256": "4c6ac72b0b642345d7476776fd206727ce26fdb0900c4431b7f47975429c4954",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-h1-p50662p5-source",
+          "status": "running",
+          "pid": 33016,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-h1-p50662p5-source",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p50662p5-source"
+          ],
+          "stderrBytes": 0,
+          "checkpoint": {
+            "tick": 0,
+            "current": "generation-0-6687c03f-e185-4964-a5e8-eabc14a534cc",
+            "previous": null,
+            "manifestSha256": "275c73b1b09aa74d916bf62cf1f79648faa769d4c629b5425ca4828ee5dc8532",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-h1-p50662p5-destination",
+          "status": "running",
+          "pid": 23084,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-h1-p50662p5-destination",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p50662p5-destination"
+          ],
+          "stderrBytes": 0,
+          "checkpoint": {
+            "tick": 0,
+            "current": "generation-0-c41ddcb5-9d37-4a47-ab7f-e840c6ab1f0c",
+            "previous": null,
+            "manifestSha256": "2408e6b2c4a49c2fb62601438a6e38ca1534cb26bd0816f0123b033ee8307d92",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-h1-p101325-switch7",
+          "status": "running",
+          "pid": 30308,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-h1-p101325-switch7",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p101325-switch7"
+          ],
+          "stderrBytes": 0,
+          "checkpoint": {
+            "tick": 0,
+            "current": "generation-0-d68c256d-492c-4fdf-acc4-90ede87268bc",
+            "previous": null,
+            "manifestSha256": "789ff6495bf3ed9e5d1eeda9dfd56286d9e4bd9af5b090cff80c2211cf770b82",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-h1-p101325-switch15",
+          "status": "running",
+          "pid": 2988,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-h1-p101325-switch15",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p101325-switch15"
+          ],
+          "stderrBytes": 0,
+          "checkpoint": {
+            "tick": 0,
+            "current": "generation-0-837faebd-bb85-4c06-a29d-40d2a926175f",
+            "previous": null,
+            "manifestSha256": "6e04fa34d58ec73f712dc08ca4bb47fe09822c5c27b8758e0b5c4f2af28b707d",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-h1-p101325-source",
+          "status": "running",
+          "pid": 13860,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-h1-p101325-source",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p101325-source"
+          ],
+          "stderrBytes": 0,
+          "checkpoint": {
+            "tick": 0,
+            "current": "generation-0-9f0d134e-d326-499c-8b12-c99591201101",
+            "previous": null,
+            "manifestSha256": "a88765705b90a9fa6b78033a73cbb64c3e7d2763708adcb1b2971088a0b2b514",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-h1-p101325-destination",
+          "status": "running",
+          "pid": 33492,
+          "command": [
+            "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\runner\\src\\hil-growth-dynamics-oct21-main.ts",
+            "run-row",
+            "gd21-hil-h1-p101325-destination",
+            "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p101325-destination"
+          ],
+          "stderrBytes": 0,
+          "checkpoint": {
+            "tick": 0,
+            "current": "generation-0-4b2f21b7-1ad5-4fc1-8710-edc9d8d66d2b",
+            "previous": null,
+            "manifestSha256": "b1562ef5ec014e571bfe1a6305a794ba22b63edddf79f3d05913a5986dc43865",
+            "pointerDigestMatches": true
+          }
+        },
+        {
+          "id": "gd21-hil-h1-p202650-switch7",
+          "status": "queued"
+        },
+        {
+          "id": "gd21-hil-h1-p202650-switch15",
+          "status": "queued"
+        },
+        {
+          "id": "gd21-hil-h1-p202650-source",
+          "status": "queued"
+        },
+        {
+          "id": "gd21-hil-h1-p202650-destination",
+          "status": "queued"
+        }
+      ],
+      "running": 20,
+      "queued": 4,
+      "checkpoints": 20,
+      "advancedCheckpoints": 0,
+      "resourceSample": {
+        "capturedUtc": "2026-10-21T20:35:02.8292748Z",
+        "availablePhysicalBytes": 48293974016,
+        "commitHeadroomBytes": 49269579776,
+        "children": [
+          {
+            "Id": 592,
+            "CPU": 131.46875,
+            "WorkingSet64": 219713536,
+            "PeakWorkingSet64": 255201280
+          },
+          {
+            "Id": 2988,
+            "CPU": 131.296875,
+            "WorkingSet64": 148373504,
+            "PeakWorkingSet64": 172101632
+          },
+          {
+            "Id": 7204,
+            "CPU": 131.484375,
+            "WorkingSet64": 220221440,
+            "PeakWorkingSet64": 256053248
+          },
+          {
+            "Id": 11828,
+            "CPU": 131.375,
+            "WorkingSet64": 220848128,
+            "PeakWorkingSet64": 257089536
+          },
+          {
+            "Id": 13800,
+            "CPU": 131.34375,
+            "WorkingSet64": 219996160,
+            "PeakWorkingSet64": 255455232
+          },
+          {
+            "Id": 13860,
+            "CPU": 131.1875,
+            "WorkingSet64": 164368384,
+            "PeakWorkingSet64": 178737152
+          },
+          {
+            "Id": 16800,
+            "CPU": 131.453125,
+            "WorkingSet64": 219443200,
+            "PeakWorkingSet64": 255946752
+          },
+          {
+            "Id": 21088,
+            "CPU": 131.375,
+            "WorkingSet64": 220090368,
+            "PeakWorkingSet64": 255836160
+          },
+          {
+            "Id": 23084,
+            "CPU": 131.109375,
+            "WorkingSet64": 164839424,
+            "PeakWorkingSet64": 179195904
+          },
+          {
+            "Id": 26048,
+            "CPU": 131.484375,
+            "WorkingSet64": 220012544,
+            "PeakWorkingSet64": 256356352
+          },
+          {
+            "Id": 28644,
+            "CPU": 131.3125,
+            "WorkingSet64": 219500544,
+            "PeakWorkingSet64": 255848448
+          },
+          {
+            "Id": 29156,
+            "CPU": 131.453125,
+            "WorkingSet64": 219844608,
+            "PeakWorkingSet64": 255672320
+          },
+          {
+            "Id": 30308,
+            "CPU": 131.296875,
+            "WorkingSet64": 164630528,
+            "PeakWorkingSet64": 172425216
+          },
+          {
+            "Id": 30636,
+            "CPU": 131.234375,
+            "WorkingSet64": 165371904,
+            "PeakWorkingSet64": 179908608
+          },
+          {
+            "Id": 31116,
+            "CPU": 131.453125,
+            "WorkingSet64": 219992064,
+            "PeakWorkingSet64": 255569920
+          },
+          {
+            "Id": 31672,
+            "CPU": 131.1875,
+            "WorkingSet64": 149262336,
+            "PeakWorkingSet64": 166838272
+          },
+          {
+            "Id": 33008,
+            "CPU": 131.578125,
+            "WorkingSet64": 220311552,
+            "PeakWorkingSet64": 255717376
+          },
+          {
+            "Id": 33016,
+            "CPU": 131.515625,
+            "WorkingSet64": 164167680,
+            "PeakWorkingSet64": 171290624
+          },
+          {
+            "Id": 33492,
+            "CPU": 131.296875,
+            "WorkingSet64": 164827136,
+            "PeakWorkingSet64": 172244992
+          },
+          {
+            "Id": 34448,
+            "CPU": 131.3125,
+            "WorkingSet64": 219983872,
+            "PeakWorkingSet64": 257789952
+          }
+        ]
+      },
+      "minimumObservedAvailableBytes": 47880069120,
+      "minimumObservedCommitHeadroomBytes": 49131716608
+    }
+  ],
+  "heartbeatSnapshots": [
+    {
+      "rowId": "gd21-hil-w4-h1-broad",
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21/rows/gd21-hil-w4-h1-broad/attempts/initial/stdout.log",
+      "lastLines": [
+        "2026-10-21T20:34:04.942Z relax row=gd21-hil-w4-h1-broad cycle=1 sweeps=2048 residual=0.000005978133956870392 divergence=0.6079409113058534",
+        "2026-10-21T20:35:20.003Z relax row=gd21-hil-w4-h1-broad cycle=1 sweeps=4096 residual=0.0000016740598727208415 divergence=0.19879303048687896"
+      ]
+    },
+    {
+      "rowId": "gd21-hil-w4-h1-early20-w6",
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21/rows/gd21-hil-w4-h1-early20-w6/attempts/initial/stdout.log",
+      "lastLines": [
+        "2026-10-21T20:34:04.339Z relax row=gd21-hil-w4-h1-early20-w6 experimentId=post-phase10-basal-width-history-v1 experimentalBasalWidthCells=6 experimentalBasalWidthHistory=early-only cutoffSeconds=20 cycle=1 sweeps=2048 residual=0.000009717974460380321 divergence=0.6032998233998759",
+        "2026-10-21T20:35:19.107Z relax row=gd21-hil-w4-h1-early20-w6 experimentId=post-phase10-basal-width-history-v1 experimentalBasalWidthCells=6 experimentalBasalWidthHistory=early-only cutoffSeconds=20 cycle=1 sweeps=4096 residual=0.0000027048272053201664 divergence=0.19498896917764766"
+      ]
+    },
+    {
+      "rowId": "gd21-hil-w4-h3-broad",
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21/rows/gd21-hil-w4-h3-broad/attempts/initial/stdout.log",
+      "lastLines": [
+        "2026-10-21T20:34:04.282Z relax row=gd21-hil-w4-h3-broad cycle=1 sweeps=2048 residual=0.000007395411797739488 divergence=0.599110922186985",
+        "2026-10-21T20:35:19.217Z relax row=gd21-hil-w4-h3-broad cycle=1 sweeps=4096 residual=0.0000020559748221034755 divergence=0.19253258681912255"
+      ]
+    },
+    {
+      "rowId": "gd21-hil-w4-h3-early20-w6",
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21/rows/gd21-hil-w4-h3-early20-w6/attempts/initial/stdout.log",
+      "lastLines": [
+        "2026-10-21T20:34:04.723Z relax row=gd21-hil-w4-h3-early20-w6 experimentId=post-phase10-basal-width-history-v1 experimentalBasalWidthCells=6 experimentalBasalWidthHistory=early-only cutoffSeconds=20 cycle=1 sweeps=2048 residual=0.000010648835186586489 divergence=0.5954171960200575",
+        "2026-10-21T20:35:19.492Z relax row=gd21-hil-w4-h3-early20-w6 experimentId=post-phase10-basal-width-history-v1 experimentalBasalWidthCells=6 experimentalBasalWidthHistory=early-only cutoffSeconds=20 cycle=1 sweeps=4096 residual=0.0000029432752642004295 divergence=0.18935075242765737"
+      ]
+    },
+    {
+      "rowId": "gd21-hil-c1-h1-neither",
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21/rows/gd21-hil-c1-h1-neither/attempts/initial/stdout.log",
+      "lastLines": [
+        "2026-10-21T20:34:04.451Z relax row=gd21-hil-c1-h1-neither experimentId=post-phase10-facet-isolation-v1 experimentalFacetDips=neither cycle=1 sweeps=2048 residual=0.000005124055299751042 divergence=0.6104533040810528",
+        "2026-10-21T20:35:19.532Z relax row=gd21-hil-c1-h1-neither experimentId=post-phase10-facet-isolation-v1 experimentalFacetDips=neither cycle=1 sweeps=4096 residual=0.0000014390309387041532 divergence=0.20056925064362854"
+      ]
+    },
+    {
+      "rowId": "gd21-hil-c1-h1-basal-only",
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21/rows/gd21-hil-c1-h1-basal-only/attempts/initial/stdout.log",
+      "lastLines": [
+        "2026-10-21T20:34:04.363Z relax row=gd21-hil-c1-h1-basal-only experimentId=post-phase10-facet-isolation-v1 experimentalFacetDips=basal-only cycle=1 sweeps=2048 residual=0.000005202504898006411 divergence=0.6103011434824558",
+        "2026-10-21T20:35:19.089Z relax row=gd21-hil-c1-h1-basal-only experimentId=post-phase10-facet-isolation-v1 experimentalFacetDips=basal-only cycle=1 sweeps=4096 residual=0.00000146081173358756 divergence=0.20044349985087365"
+      ]
+    },
+    {
+      "rowId": "gd21-hil-c1-h1-prism-only",
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21/rows/gd21-hil-c1-h1-prism-only/attempts/initial/stdout.log",
+      "lastLines": [
+        "2026-10-21T20:34:03.883Z relax row=gd21-hil-c1-h1-prism-only experimentId=post-phase10-facet-isolation-v1 experimentalFacetDips=prism-only cycle=1 sweeps=2048 residual=0.000008132092142480934 divergence=0.6054794523573618",
+        "2026-10-21T20:35:18.709Z relax row=gd21-hil-c1-h1-prism-only experimentId=post-phase10-facet-isolation-v1 experimentalFacetDips=prism-only cycle=1 sweeps=4096 residual=0.000002271941881034583 divergence=0.19710600993229577"
+      ]
+    },
+    {
+      "rowId": "gd21-hil-c1-h1-both",
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21/rows/gd21-hil-c1-h1-both/attempts/initial/stdout.log",
+      "lastLines": [
+        "2026-10-21T20:34:08.391Z relax row=gd21-hil-c1-h1-both experimentId=post-phase10-facet-isolation-v1 experimentalFacetDips=both cycle=1 sweeps=2048 residual=0.000008188880246846332 divergence=0.6053280758310258",
+        "2026-10-21T20:35:27.512Z relax row=gd21-hil-c1-h1-both experimentId=post-phase10-facet-isolation-v1 experimentalFacetDips=both cycle=1 sweeps=4096 residual=0.0000022872906046610617 divergence=0.19697563781363026"
+      ]
+    },
+    {
+      "rowId": "gd21-hil-c1-h3-neither",
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21/rows/gd21-hil-c1-h3-neither/attempts/initial/stdout.log",
+      "lastLines": [
+        "2026-10-21T20:34:04.299Z relax row=gd21-hil-c1-h3-neither experimentId=post-phase10-facet-isolation-v1 experimentalFacetDips=neither cycle=1 sweeps=2048 residual=0.000005764238779703166 divergence=0.6033979262734155",
+        "2026-10-21T20:35:19.326Z relax row=gd21-hil-c1-h3-neither experimentId=post-phase10-facet-isolation-v1 experimentalFacetDips=neither cycle=1 sweeps=4096 residual=0.000001611429745758286 divergence=0.19559787653354618"
+      ]
+    },
+    {
+      "rowId": "gd21-hil-c1-h3-basal-only",
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21/rows/gd21-hil-c1-h3-basal-only/attempts/initial/stdout.log",
+      "lastLines": [
+        "2026-10-21T20:34:04.481Z relax row=gd21-hil-c1-h3-basal-only experimentId=post-phase10-facet-isolation-v1 experimentalFacetDips=basal-only cycle=1 sweeps=2048 residual=0.000005834414629910853 divergence=0.6032745190069176",
+        "2026-10-21T20:35:19.803Z relax row=gd21-hil-c1-h3-basal-only experimentId=post-phase10-facet-isolation-v1 experimentalFacetDips=basal-only cycle=1 sweeps=4096 residual=0.0000016307940056721864 divergence=0.19549143057520524"
+      ]
+    },
+    {
+      "rowId": "gd21-hil-c1-h3-prism-only",
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21/rows/gd21-hil-c1-h3-prism-only/attempts/initial/stdout.log",
+      "lastLines": [
+        "2026-10-21T20:34:04.415Z relax row=gd21-hil-c1-h3-prism-only experimentId=post-phase10-facet-isolation-v1 experimentalFacetDips=prism-only cycle=1 sweeps=2048 residual=0.000010714369813553586 divergence=0.5954302453921183",
+        "2026-10-21T20:35:19.466Z relax row=gd21-hil-c1-h3-prism-only experimentId=post-phase10-facet-isolation-v1 experimentalFacetDips=prism-only cycle=1 sweeps=4096 residual=0.000002964305071630438 divergence=0.189941859237293"
+      ]
+    },
+    {
+      "rowId": "gd21-hil-c1-h3-both",
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21/rows/gd21-hil-c1-h3-both/attempts/initial/stdout.log",
+      "lastLines": [
+        "2026-10-21T20:34:04.469Z relax row=gd21-hil-c1-h3-both experimentId=post-phase10-facet-isolation-v1 experimentalFacetDips=both cycle=1 sweeps=2048 residual=0.000010756357494131655 divergence=0.5952967125874288",
+        "2026-10-21T20:35:19.597Z relax row=gd21-hil-c1-h3-both experimentId=post-phase10-facet-isolation-v1 experimentalFacetDips=both cycle=1 sweeps=4096 residual=0.000002975281243650886 divergence=0.1898258671878885"
+      ]
+    },
+    {
+      "rowId": "gd21-hil-h1-p50662p5-switch7",
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21/rows/gd21-hil-h1-p50662p5-switch7/attempts/initial/stdout.log",
+      "lastLines": [
+        "2026-10-21T20:35:03.758Z relax row=gd21-hil-h1-p50662p5-switch7 cycle=1 sweeps=9216 residual=4.202877310915539e-9 divergence=0.00023107914474390051",
+        "2026-10-21T20:36:05.400Z relax row=gd21-hil-h1-p50662p5-switch7 cycle=1 sweeps=13312 residual=7.32514669488802e-11 divergence=0.000004027473715648708"
+      ]
+    },
+    {
+      "rowId": "gd21-hil-h1-p50662p5-switch15",
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21/rows/gd21-hil-h1-p50662p5-switch15/attempts/initial/stdout.log",
+      "lastLines": [
+        "2026-10-21T20:35:18.489Z relax row=gd21-hil-h1-p50662p5-switch15 cycle=1 sweeps=10240 residual=1.527088263946078e-9 divergence=0.00008396142167500945",
+        "2026-10-21T20:36:21.427Z relax row=gd21-hil-h1-p50662p5-switch15 cycle=1 sweeps=14336 residual=2.6615317884012773e-11 divergence=0.0000014633561339390468"
+      ]
+    },
+    {
+      "rowId": "gd21-hil-h1-p50662p5-source",
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21/rows/gd21-hil-h1-p50662p5-source/attempts/initial/stdout.log",
+      "lastLines": [
+        "2026-10-21T20:35:18.497Z relax row=gd21-hil-h1-p50662p5-source cycle=1 sweeps=10240 residual=1.527088263946078e-9 divergence=0.00008396142167500945",
+        "2026-10-21T20:36:21.567Z relax row=gd21-hil-h1-p50662p5-source cycle=1 sweeps=14336 residual=2.6615317884012773e-11 divergence=0.0000014633561339390468"
+      ]
+    },
+    {
+      "rowId": "gd21-hil-h1-p50662p5-destination",
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21/rows/gd21-hil-h1-p50662p5-destination/attempts/initial/stdout.log",
+      "lastLines": [
+        "2026-10-21T20:34:53.972Z relax row=gd21-hil-h1-p50662p5-destination cycle=1 sweeps=8192 residual=1.2542238707556524e-8 divergence=0.0006212073086001608",
+        "2026-10-21T20:35:58.535Z relax row=gd21-hil-h1-p50662p5-destination cycle=1 sweeps=12288 residual=2.157763367357608e-10 divergence=0.000010687421514995167"
+      ]
+    },
+    {
+      "rowId": "gd21-hil-h1-p101325-switch7",
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21/rows/gd21-hil-h1-p101325-switch7/attempts/initial/stdout.log",
+      "lastLines": [
+        "2026-10-21T20:35:18.142Z relax row=gd21-hil-h1-p101325-switch7 cycle=1 sweeps=10240 residual=1.6446802548705724e-9 divergence=0.0000776618174449162",
+        "2026-10-21T20:36:20.443Z relax row=gd21-hil-h1-p101325-switch7 cycle=1 sweeps=14336 residual=2.773619838531215e-11 divergence=0.0000013097023906881915"
+      ]
+    },
+    {
+      "rowId": "gd21-hil-h1-p101325-switch15",
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21/rows/gd21-hil-h1-p101325-switch15/attempts/initial/stdout.log",
+      "lastLines": [
+        "2026-10-21T20:35:03.709Z relax row=gd21-hil-h1-p101325-switch15 cycle=1 sweeps=9216 residual=4.563945930880001e-9 divergence=0.00021550865962905493",
+        "2026-10-21T20:36:05.609Z relax row=gd21-hil-h1-p101325-switch15 cycle=1 sweeps=13312 residual=7.696705086211936e-11 divergence=0.0000036343903615666997"
+      ]
+    },
+    {
+      "rowId": "gd21-hil-h1-p101325-source",
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21/rows/gd21-hil-h1-p101325-source/attempts/initial/stdout.log",
+      "lastLines": [
+        "2026-10-21T20:35:03.966Z relax row=gd21-hil-h1-p101325-source cycle=1 sweeps=9216 residual=4.563945930880001e-9 divergence=0.00021550865962905493",
+        "2026-10-21T20:36:05.681Z relax row=gd21-hil-h1-p101325-source cycle=1 sweeps=13312 residual=7.696705086211936e-11 divergence=0.0000036343903615666997"
+      ]
+    },
+    {
+      "rowId": "gd21-hil-h1-p101325-destination",
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21/rows/gd21-hil-h1-p101325-destination/attempts/initial/stdout.log",
+      "lastLines": [
+        "2026-10-21T20:35:18.210Z relax row=gd21-hil-h1-p101325-destination cycle=1 sweeps=10240 residual=1.7437102913617494e-9 divergence=0.00007577783212017099",
+        "2026-10-21T20:36:21.123Z relax row=gd21-hil-h1-p101325-destination cycle=1 sweeps=14336 residual=2.9095534618471595e-11 divergence=0.000001264427062460309"
+      ]
+    }
+  ],
+  "checkpointObservationLimit": "Both observations initially found tick0 complete initialization checkpoints. Relaxation heartbeats and CPU samples show work in progress; these are not completed scientific endpoints. No new pause/resume experiment was run.",
+  "retention": "Active output remains local in this open execution worktree. Provisional NAS collection hil-growth-dynamics@2026-10-21-v1; publish and fresh-restore before closeout. Not yet a NAS backup."
+}

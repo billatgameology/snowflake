@@ -1,0 +1,30 @@
+{
+  "schema": "hil-growth-dynamics-preflight-v1",
+  "capturedAt": "2026-10-21T20:32:38.861Z",
+  "gitHead": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+  "node": "v24.13.1",
+  "v8": "13.6.233.17-node.40",
+  "host": {
+    "hostname": "HIL",
+    "platform": "win32",
+    "arch": "x64",
+    "cpuModels": [
+      "Intel(R) Core(TM) Ultra 9 285K"
+    ],
+    "logicalProcessors": 24,
+    "totalMemoryBytes": 68023050240
+  },
+  "sample": {
+    "capturedUtc": "2026-10-21T20:32:38.8153560Z",
+    "availablePhysicalBytes": 51318341632,
+    "commitHeadroomBytes": 52650262528,
+    "children": []
+  },
+  "memoryFailure": null,
+  "nas": "z:/",
+  "freeDiskBytes": 3422758526976,
+  "existingProcesses": [],
+  "rows": 24,
+  "workerCeiling": 20,
+  "rosterSha256": "1591a135ea020742e8fb30deae32f8d73db9bc9f02e08d34237f5f8f2a501fef"
+}

@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1261,
- "totalBytes": 325802694,
+ "fileCount": 1269,
+ "totalBytes": 326121652,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -5049,6 +5049,38 @@
   "hil-results-review-2026-10-21/closeout-controls/nas-save-hil-exploration-2026-10-21/verify-restored.log": {
    "bytes": 711,
    "sha256": "40519e7a44b1e8edd48aed25d9177f030f7313e2f7f11704700713fe9409bd6b"
+  },
+  "hil-growth-dynamics-2026-10-21/review.json": {
+   "bytes": 2520,
+   "sha256": "62b6a875ef96d68cf447cf2f21bb919f64ad8e922925bccf5d340f077bdbc619"
+  },
+  "hil-growth-dynamics-2026-10-21/readout-retained-demo.json": {
+   "bytes": 129617,
+   "sha256": "5715ae45c383d465fb400b9c6f6b61cfc74d73437540b748967135beedbfb7e6"
+  },
+  "hil-growth-dynamics-2026-10-21/npm-test.stdout.log": {
+   "bytes": 70582,
+   "sha256": "a923488f4a102602ec8a41fbef6e209f8fd813a101eaa02283e6d13792a79201"
+  },
+  "hil-growth-dynamics-2026-10-21/npm-test.stderr.log": {
+   "bytes": 33325,
+   "sha256": "7f16cbf02832d13e7c43c1044b9ae5c799e74f166dd36d42a75caba5b3cee250"
+  },
+  "hil-growth-dynamics-2026-10-21/preflight.json": {
+   "bytes": 816,
+   "sha256": "5e9e655676a583f01c9ac8eb487b6a762ab8066b4c8ecaab78a3841d68d1e09e"
+  },
+  "hil-growth-dynamics-2026-10-21/background-launch.json": {
+   "bytes": 471,
+   "sha256": "9e4b2c3d5298302aee820e5a14d297c85b5ff5918a4963c11787552e2fc02f7f"
+  },
+  "hil-growth-dynamics-2026-10-21/verification.json": {
+   "bytes": 1233,
+   "sha256": "6b91bc5787aa1c3d23dded0de0786b8c63963b367290510410fa63f6064fa37b"
+  },
+  "hil-growth-dynamics-2026-10-21/launch.json": {
+   "bytes": 80394,
+   "sha256": "5865b15dad3274ebbdec1b9fbfd8c3e63ceb6d012fa37ca462c0fe9af6827199"
   }
  }
 }

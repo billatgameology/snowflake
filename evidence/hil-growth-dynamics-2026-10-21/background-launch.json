@@ -1,0 +1,17 @@
+{
+  "wrapperPid": 28688,
+  "startedUtc": "2026-10-21T20:32:46.6189042Z",
+  "command": [
+    "powershell.exe",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "\"C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\scripts\\start-hil-growth-dynamics-oct21.ps1\"",
+    "-Mode",
+    "launch",
+    "-Workers",
+    "20"
+  ],
+  "cwd": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake"
+}
