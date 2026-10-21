@@ -1,11 +1,11 @@
 # Plan — HIL and BLD growth dynamics campaign
 
 - **Phase:** active Phase 10 exploration under charter sections 2.5/3.2 and ADRs 0011, 0055, 0058–0060 and 0062.
-- **Status:** scientific design selected and documented; implementation, executable roster/readout checks and dispatch remain pending. No new simulations have started.
+- **Status:** HIL's independent 24-row execution slice is being implemented and verified; HIL has not launched. The maker reports BLD running independently from `48a8ffb`; its unpublished producer and actual process state are not visible on HIL.
 - **Started / last touched:** 2026-10-21 by Codex/GPT-6.
 - **Authority:** maker requests full useful use of HIL's 20-worker allocation and BLD's 32-worker allocation, detailed long queues, resumability and no wall-clock cutoff. The subsequent October21 direction puts all longest/least-predictable work on HIL so BLD can finish and shut down. This supersedes the initial 60/56 host split and the October8 HIL-only default.
 - **Publication:** `origin/main`; planning branch `codex/phase10-two-host-growth`, based on `8e008644085f075922cfccd8a296b0dd248beb60`.
-- **Immediate deliverable:** a complete finite two-host experiment plan. The next implementation deliverable is the same committed roster and tested shared launcher/readout entry usable on either host, followed by host-local dispatch. Solo scientific research; hostile actors excluded.
+- **Immediate deliverable:** HIL's registered 24-row queue running and checkpointing, using the independent execution amendment below. BLD owns its 92-row implementation and dispatch. Solo scientific research; hostile actors excluded.
 
 ## Goal
 

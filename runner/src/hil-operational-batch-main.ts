@@ -13,6 +13,8 @@ export interface HilOperationalBatch {
   readonly batch: DiscoveryBatchDefinition;
   readonly entryPath: string;
   readonly concurrency: number;
+  /** Opt-in: bind the ceiling, recording the selected worker count per attempt instead. */
+  readonly workerCeiling?: number;
   readonly campaignSchema: string;
   readonly label: string;
   readonly plan: string;
@@ -26,7 +28,9 @@ export function hilOperationalCampaignBinding(config: HilOperationalBatch) {
     checkpointFormat: "discovery-resume-v1" as const, host: "HIL" as const,
     gitHead: batchGitHead(), node: process.version, v8: process.versions.v8,
     hostIdentity: batchHostIdentity(), rosterSha256: firstBatchRosterSha256("HIL", config.batch),
-    requestedConcurrency: config.concurrency, rows: config.batch.rows.map(({ row }) => row),
+    ...(config.workerCeiling === undefined ? { requestedConcurrency: config.concurrency }
+      : { workerCeiling: config.workerCeiling }),
+    rows: config.batch.rows.map(({ row }) => row),
   };
 }
 
@@ -43,7 +47,7 @@ export function validateHilOperationalCampaign(value: unknown, config: HilOperat
   }
 }
 
-async function launch(output: string, resuming: boolean, config: HilOperationalBatch): Promise<void> {
+async function launch(output: string, resuming: boolean, config: HilOperationalBatch, concurrency: number): Promise<void> {
   if (execFileSync("git", ["status", "--porcelain"], { encoding: "utf8" }).trim() !== "") {
     throw new Error(`Commit the tested implementation before ${config.label} launch or resume`);
   }
@@ -69,12 +73,12 @@ async function launch(output: string, resuming: boolean, config: HilOperationalB
     const launchName = `${config.batch.launchPrefix}-HIL-${attemptName}`;
     writeBatchJson(resolve(directory, `${launchName}-invocation.json`), {
       command: process.argv, pid: process.pid, startedAt: new Date().toISOString(),
-      requestedConcurrency: config.concurrency, attemptName, skippedRowIds: selected.skippedRowIds,
+      requestedConcurrency: concurrency, attemptName, skippedRowIds: selected.skippedRowIds,
       pending: selected.pending.map(({ row, command }) => ({ rowId: row.id, command })),
     });
     const exits = await launchDiscoveryRows({
       campaignDirectory: directory, launchName, rows: selected.pending.map(({ row }) => row),
-      concurrency: config.concurrency, entryPath: config.entryPath, attemptName, resumeExistingRows: resuming,
+      concurrency, entryPath: config.entryPath, attemptName, resumeExistingRows: resuming,
       workerArguments: (row, rowDirectory) => [commands.get(row.id)!, row.id, rowDirectory],
       stopOnWorkerFailure: false, monitor: { sample: sampleBatchHost },
     });
@@ -92,12 +96,28 @@ async function launch(output: string, resuming: boolean, config: HilOperationalB
 
 export async function runHilOperationalBatch(config: HilOperationalBatch): Promise<void> {
   const [command, ...args] = process.argv.slice(2);
-  if ((command === "launch" || command === "resume") && args.length === 2) {
+  if ((command === "launch" || command === "resume") && (args.length === 2 || args.length === 4)) {
     if (args[0] !== "HIL") throw new Error(`${config.label} is assigned only to HIL`);
-    return launch(args[1], command === "resume", config);
+    const concurrency = hilOperationalWorkers(args.slice(2), config);
+    return launch(args[1], command === "resume", config, concurrency);
   }
   if (command !== undefined && ["list", "summarize", "run-row", "resume-row"].includes(command)) {
     return runNamedDiscoveryBatch(config.batch, config.entryPath);
   }
-  throw new Error(`Usage: node ${config.entryPath} list HIL | launch HIL <new-directory> | resume HIL <campaign-directory> | summarize <campaign-directory>`);
+  throw new Error(`Usage: node ${config.entryPath} list HIL | launch HIL <new-directory> | resume HIL <campaign-directory> | summarize <campaign-directory>` +
+    (config.workerCeiling === undefined ? "" : `; launch/resume accepts --workers 1..${config.workerCeiling}`));
+}
+
+/** Existing fixed-budget campaigns keep their immutable count and reject the new option. */
+export function hilOperationalWorkers(args: readonly string[], config: HilOperationalBatch): number {
+  if (args.length === 0) return config.concurrency;
+  if (config.workerCeiling === undefined) throw new Error("this campaign has a fixed worker count");
+  if (args.length !== 2 || args[0] !== "--workers" || !/^[1-9][0-9]*$/.test(args[1])) {
+    throw new Error("expected --workers and a positive integer");
+  }
+  const workers = Number(args[1]);
+  if (!Number.isSafeInteger(workers) || workers > config.workerCeiling) {
+    throw new Error(`workers must be between 1 and ${config.workerCeiling}`);
+  }
+  return workers;
 }
