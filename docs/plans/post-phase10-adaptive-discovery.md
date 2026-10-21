@@ -1,6 +1,6 @@
 # Phase 10 adaptive exploration
 
-**Status:** Phase 10 remains active under [ADR 0062](../decisions/0062-continue-phase10-exploration.md). The October21 comparisons and NAS preservation are complete. The maker has endorsed the growth-dynamics direction below: warm history is the first concrete case, with facet and transport comparisons providing complementary evidence. Next is a bounded experiment design for discussion; no successor batch is frozen or launched. Historical statements below retain their earlier decision context.
+**Status:** Phase 10 remains active under [ADR 0062](../decisions/0062-continue-phase10-exploration.md). The October21 comparisons and NAS preservation are complete. The maker selected a [116-row HIL/BLD growth-dynamics campaign](hil-bld-growth-dynamics-oct21.md), with up to 20/32 workers and no production wall timeout. The detailed scientific plan is recorded; executable roster/readout/host routing and launch remain pending. Historical statements below retain their earlier decision context.
 **Publication destination:** `origin/main`
 **Plan authoring branch:** `docs/hil-bld-workload-2026-10-07`, based on `fe15b74`; direct main publication, no PR
 **Former execution worktree:** `G:\Code Files\snowflake-science-exploration` (reconciled in October consolidation)
@@ -77,19 +77,18 @@ new ice physics additionally needs a novelty assessment and compatible independe
 evidence not used to develop the account. Current leads are development evidence at the first
 level; this direction does not close Phase10 or grant a validation label.
 
-The next deliverable is a costed, bounded warm-history comparison proposal in
-[the warm plan](hil-warm-refinement.md). Consider a coarse early/control pair at a smaller
-timestep, then the smallest width-threshold/cutoff comparison that separates preparation
-duration from width selection. Name what each possible outcome would change. A later controlled
-continuation from a shared geometry could help distinguish inherited-shape and attachment
-responses, but would require explicit treatment of the other evolution state and a registered
-intervention. No new continuation semantics or run roster is authorized by this discussion.
+The maker subsequently requested full useful use of HIL and BLD, long queues and no wall limit.
+The [selected two-host plan](hil-bld-growth-dynamics-oct21.md) now owns exact operands, queue order,
+cost uncertainty and decisions: warm duration/width/transport and fine timestep work, facet
+qualification, cold refinement and longer histories. Its 116 new rows reuse named completed controls;
+at most 22 additional rows require outcome-based selection and a prediction before dispatch.
+No new scientific run has launched. The next deliverable is a tested executable roster/host entry
+and minimally adapted readout before either host is called ready to run.
 
-Reuse existing trajectories, readouts and restart evidence where applicable. Present measured
-predecessor costs and uncertainty before choosing another expensive fine-grid run; resource
-admission alone is not a duration forecast. Keep a complementary facet/transport question in
-view without expanding into another broad sweep. The next move is experimental design for maker
-discussion, followed by a committed protocol and execution only after selection.
+Existing trajectories and unchanged restart evidence are reused; capacity ladders are not routine
+launch requirements. Fine predecessor cases took roughly 6–10 active days each, with new costs
+unmeasured. A later continuation from shared geometry remains a separate state-intervention
+question requiring explicit field/fill/lag/ledger semantics and a registered governing contract.
 
 Documentation scope: solo scientific research; hostile actors excluded. This is a focused
 maker-requested explanation and priority within ADR0062, with no charter or solver change.

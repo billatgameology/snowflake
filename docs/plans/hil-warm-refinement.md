@@ -1,7 +1,7 @@
 # Plan — HIL warm-cavity representation qualification
 
 - **Phase:** active Phase 10 model-development exploration; charter sections 2.5/3.2 and accepted decisions 0058, 0059, 0060 and 0062.
-- **Status:** all six checked endpoints, registered paired/cross-grid readout and verified NAS preservation complete. The maker endorsed growth dynamics and morphology selection as the next research focus; a bounded warm-history comparison design is next, with no new batch selected.
+- **Status:** all six checked endpoints, registered paired/cross-grid readout and verified NAS preservation complete. The selected [HIL/BLD successor](hil-bld-growth-dynamics-oct21.md) now owns warm duration/width/transport and fine timestep work; its implementation/launch remain pending. This six-row campaign is not reopened.
 - **Started / last touched:** 2026-10-08 / 2026-10-21 by Codex/GPT-6.
 - **Branch / checkout:** `codex/hil-warm-refinement`, `C:/Users/biao3/.codex/worktrees/hil-warm-refinement/snowflake`, from `0be1d4e`.
 - **Authority:** maker accepted the saved-data follow-up recommendation and directed proceeding. HIL owns execution; propose BLD only if representative timing supports multiple days.
