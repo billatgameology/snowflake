@@ -573,6 +573,66 @@ closure. Review of new physical measurements or a new law is separate work.
 
 ## Steps and current record
 
+### BLD execution preparation — October21
+
+BLD fetched `aa2f96b` and adopted the explicit independent implementation assignment in its
+existing `codex/bld-growth-dynamics-oct21` worktree at
+`G:/Code Files/snowflake/.worktrees/bld-growth-dynamics-oct21`. The registered 92-row queue is
+unchanged. The vertical deliverable is that queue running with complete-cycle checkpoints;
+the shortest implementation checks cover its exact roster, BLD-only routing, lower-worker
+resume and saved warm/facet/cold reconstruction. Exact `npm.cmd test` is required at the stable
+scientific-readout checkpoint. No simulation has launched at this preparation record.
+
+Reuse the explicit-budget coordinator with an optional host defaulting to HIL, preserving its
+old callers. The BLD entry binds its own host/ceiling/roster/producer and logs each attempt's
+worker count. This addresses wrong-host dispatch and lost recovery identity at the existing
+boundary; it adds no scheduler or numerical/codec change. Lessons C3/C6/E1/E5 and Rule6 apply
+to row selection and subsequent interpretation; the existing resume witness remains applicable
+when the numerical and continuation source comparison is unchanged. Solo scientific research;
+hostile actors excluded. Full frozen-cohort comparisons remain a results-stage obligation.
+
+Historical operands are restored from `hil-exploration-results@2026-10-21` into
+`out/restores/hil-exploration-results-bld-oct21`; selected campaign archives expand under
+`out/restores/bld-gd21-inputs/`. Retain those original producer identities. These are recovery
+inputs, not new BLD outcomes. The default Python interpreter lacks `hashlib.file_digest`; use
+`C:/Users/biao3/AppData/Local/Programs/Python/Python313/python.exe` for the existing archive
+member verifier. The failed default invocation did not invalidate the verified NAS payload.
+
+The [retained readout](../../evidence/bld-growth-dynamics-2026-10-21/readout-retained-demo.json)
+reconstructs four checked endpoints and 4166 updates (two warm, one facet, one cold), preserving
+original identities and explicitly leaving cohort comparisons pending. The two W1 reused
+operands have exact configuration/input bindings and unchanged numerical/continuation source
+paths in [reused-controls.json](../../evidence/bld-growth-dynamics-2026-10-21/reused-controls.json).
+Historical recovery checked every archive member in the registered collection; its
+[receipt](../../evidence/bld-growth-dynamics-2026-10-21/historical-recovery.json) names commands.
+
+Author focused checks passed three roster/dispatch files with 16 tests and two readout files
+with 12 tests, plus the root TypeScript check. The initial sandboxed process fixtures hit a
+temporary-file rename permission error in both new BLD and unchanged HIL tests; the same
+dispatch command passed outside that sandbox. No production guard was relaxed.
+The [bounded review](../../evidence/bld-growth-dynamics-2026-10-21/review.json) by a non-author
+Codex/GPT-6 reviewer with shared context found no material implementation finding. It independently
+checked historical HIL binding compatibility and reconstructed the four retained endpoints;
+its record states what was not executed. Exact `npm.cmd test` remains the prelaunch checkpoint.
+
+Implemented commands from this execution worktree:
+
+```powershell
+node runner/src/bld-growth-dynamics-oct21-main.ts list BLD
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start-bld-growth-dynamics-oct21.ps1 -Mode launch -Workers 32
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start-bld-growth-dynamics-oct21.ps1 -Mode resume -Workers 32
+node runner/src/bld-growth-dynamics-oct21-main.ts summarize out/bld-growth-dynamics-oct21
+node runner/src/bld-growth-dynamics-oct21-readout.ts campaign out/bld-growth-dynamics-oct21 out/bld-growth-dynamics-oct21-controls/readout-new.json
+```
+
+Launch requires an absent campaign directory and a clean committed producer. Resume requires
+that same producer/runtime and checks for existing writers; only `-Workers` may be reduced within
+1..32 for resource recovery. The wrapper retains separate coordinator invocation/stdout/stderr/exit
+files under `out/bld-growth-dynamics-oct21-controls/`; row logs live under each row's `attempts/`.
+After launch, keep this execution checkout fixed and record status from primary `main`.
+NAS publication of the finished output remains under `bld-growth-dynamics@2026-10-21-v1`, followed
+by fresh recovery and committed bindings before worktree closure; local originals remain.
+
 ### HIL executable and recovery — October21
 
 HIL's producer is `2f2d605f0ed8fdb8d78cdea02a58102a7001cb53`, on

@@ -1,0 +1,173 @@
+{
+  "schema": "bld-growth-dynamics-reused-controls-v1",
+  "createdAt": "2026-10-21T20:43:46.374Z",
+  "collection": "hil-exploration-results@2026-10-21",
+  "records": [
+    {
+      "retainedRowId": "warm-refine-coarse-t4p5-broad",
+      "registeredOperand": "gd21-bld-w1-t4p5-c05-broad",
+      "directory": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\restores\\bld-gd21-inputs\\hil-warm-refinement\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad",
+      "fullConfiguration": {
+        "id": "warm-refine-coarse-t4p5-broad",
+        "lane": "cavity-mechanism",
+        "conditional": false,
+        "tempC": -4.5,
+        "fraction": 0.075,
+        "sigmaInfinity": 0.003375,
+        "pressurePa": 101325,
+        "cflFill": 0.05,
+        "maxSteps": 100000,
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "paramSet": "M1_NO_DIP_ABLATION"
+      },
+      "configurationComparison": {
+        "comparedTo": "gd21-bld-w1-t4p5-c025-broad",
+        "changes": [
+          "id",
+          "cflFill: 0.025 to 0.05"
+        ],
+        "equal": true
+      },
+      "producer": {
+        "gitHead": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+        "node": "v24.13.1"
+      },
+      "sourceComparison": {
+        "against": "aa2f96b0ac5be92e418368ffa57cb6c72cea8e7b",
+        "paths": [
+          "core",
+          "solver-cpu",
+          "runner/src/post-phase10-discovery.ts",
+          "runner/src/discovery-resume-io.ts",
+          "runner/src/phase6-protocol.ts"
+        ],
+        "changedPaths": []
+      },
+      "inputs": [
+        {
+          "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\restores\\bld-gd21-inputs\\hil-warm-refinement\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\spec.json",
+          "bytes": 859,
+          "sha256": "bf700130d58fa7c4495f99324782cd86642f30ba2b4a28d938333c5cbd7dabd7"
+        },
+        {
+          "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\restores\\bld-gd21-inputs\\hil-warm-refinement\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\result.json",
+          "bytes": 2202,
+          "sha256": "617c4c9228304d957d8decd6b9297353760206293cfc1e91871fd6a64b5f79bd"
+        },
+        {
+          "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\restores\\bld-gd21-inputs\\hil-warm-refinement\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\events.jsonl",
+          "bytes": 2010461,
+          "sha256": "d1db0ba891e8119fcbb11d77450d59a2eaa362ad90c77d6462dab7ef1db52220"
+        },
+        {
+          "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\restores\\bld-gd21-inputs\\hil-warm-refinement\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\host.json",
+          "bytes": 347,
+          "sha256": "13cf9cdd75154bb0ec947f1494a008550066f08074489d3a2b300f94a3e199a5"
+        },
+        {
+          "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\restores\\bld-gd21-inputs\\hil-warm-refinement\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\exit.json",
+          "bytes": 269,
+          "sha256": "bf393b0941294b9d4e1fc8b97b89401e646b931da64a7329bed5555f7189cbc4"
+        }
+      ]
+    },
+    {
+      "retainedRowId": "warm-refine-coarse-t4p5-early",
+      "registeredOperand": "gd21-bld-w1-t4p5-c05-early20-w3",
+      "directory": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\restores\\bld-gd21-inputs\\hil-warm-refinement\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early",
+      "fullConfiguration": {
+        "id": "warm-refine-coarse-t4p5-early",
+        "lane": "cavity-mechanism",
+        "conditional": false,
+        "tempC": -4.5,
+        "fraction": 0.075,
+        "sigmaInfinity": 0.003375,
+        "pressurePa": 101325,
+        "cflFill": 0.05,
+        "maxSteps": 100000,
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "paramSet": "M1",
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 20
+        }
+      },
+      "configurationComparison": {
+        "comparedTo": "gd21-bld-w1-t4p5-c025-early20-w3",
+        "changes": [
+          "id",
+          "cflFill: 0.025 to 0.05"
+        ],
+        "equal": true
+      },
+      "producer": {
+        "gitHead": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+        "node": "v24.13.1"
+      },
+      "sourceComparison": {
+        "against": "aa2f96b0ac5be92e418368ffa57cb6c72cea8e7b",
+        "paths": [
+          "core",
+          "solver-cpu",
+          "runner/src/post-phase10-discovery.ts",
+          "runner/src/discovery-resume-io.ts",
+          "runner/src/phase6-protocol.ts"
+        ],
+        "changedPaths": []
+      },
+      "inputs": [
+        {
+          "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\restores\\bld-gd21-inputs\\hil-warm-refinement\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\spec.json",
+          "bytes": 1166,
+          "sha256": "50678cef43f37fb212fb0fe58ada68a77bfaa39d0b1122c613e721581f00980e"
+        },
+        {
+          "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\restores\\bld-gd21-inputs\\hil-warm-refinement\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\result.json",
+          "bytes": 2393,
+          "sha256": "cd48db47a8453c156e421cec2132752a94f62a3888480d07992c75a03029b911"
+        },
+        {
+          "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\restores\\bld-gd21-inputs\\hil-warm-refinement\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\events.jsonl",
+          "bytes": 3834904,
+          "sha256": "281cfd238272ee030fe8a21bafc824848ccfd72200299a392c096e607a1a9100"
+        },
+        {
+          "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\restores\\bld-gd21-inputs\\hil-warm-refinement\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\host.json",
+          "bytes": 532,
+          "sha256": "9ac3a7122e29f25002c7a22d4ef2760ff7d534a382c1321621935da544ddeaa3"
+        },
+        {
+          "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\restores\\bld-gd21-inputs\\hil-warm-refinement\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\exit.json",
+          "bytes": 455,
+          "sha256": "36d4ab9417c6761b96250967ddc10d5224bdbca4ce4c76582154b5bd38a7fa2a"
+        }
+      ]
+    }
+  ],
+  "limits": "Historical evidence inputs only; no old checkpoints resumed. Exact numerical/continuation paths compared as listed; this is not a cross-host bitwise validation claim."
+}

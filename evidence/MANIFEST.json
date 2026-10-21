@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1269,
- "totalBytes": 326121652,
+ "fileCount": 1273,
+ "totalBytes": 326333554,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -5081,6 +5081,22 @@
   "hil-growth-dynamics-2026-10-21/launch.json": {
    "bytes": 80394,
    "sha256": "5865b15dad3274ebbdec1b9fbfd8c3e63ceb6d012fa37ca462c0fe9af6827199"
+  },
+  "bld-growth-dynamics-2026-10-21/historical-recovery.json": {
+   "bytes": 2947,
+   "sha256": "38a932253c2d27d1752be6922be377aaa104545bea68803ed5ace5ea092af5b2"
+  },
+  "bld-growth-dynamics-2026-10-21/readout-retained-demo.json": {
+   "bytes": 200510,
+   "sha256": "601742b9900b56eb2ee6874bb4bfb8e509234537d82c59904e35f9c26a0e7481"
+  },
+  "bld-growth-dynamics-2026-10-21/reused-controls.json": {
+   "bytes": 7164,
+   "sha256": "9d81f101c305c16d7df878fe2d29ffc4b5e847f2509722e003a96d8a936c3861"
+  },
+  "bld-growth-dynamics-2026-10-21/review.json": {
+   "bytes": 1281,
+   "sha256": "e0ad9f081f4850b24e021f65ceda950718ed6e58f095cd3fceb55296b7733a4e"
   }
  }
 }

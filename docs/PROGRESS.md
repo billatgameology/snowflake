@@ -229,6 +229,15 @@ The [compact Run B volume plan](plans/explore-gutcheck-growth-volume.md) is impl
 
 ## Next step
 
+**BLD local execution:** finish the registered implementation checks in
+`G:/Code Files/snowflake/.worktrees/bld-growth-dynamics-oct21` on
+`codex/bld-growth-dynamics-oct21`, then commit and launch the 92-row queue through
+`scripts/start-bld-growth-dynamics-oct21.ps1 -Mode launch -Workers 32`.
+HIL's `aa2f96b` explicitly assigns this independent implementation; no BLD simulation has
+launched yet. The [preparation record](plans/hil-bld-growth-dynamics-oct21.md#bld-execution-preparation--october21)
+names restored inputs and the verification boundary. Keep numerical and complete-cycle resume
+code unchanged, do not run a capacity ladder, and retain the execution checkout after launch.
+
 **Monitor the running [HIL growth-dynamics queue](plans/hil-bld-growth-dynamics-oct21.md#hil-executable-and-recovery--october21), then analyze completed matched groups.** It registers 116 new rows (HIL 24/BLD 92), up to 20/32 workers, finite scientific targets, completed-cycle resume and no wall deadline. HIL owns all fine-grid and larger-history cases; BLD owns the fixed N64 warm/facet/sentinel queue and can shut down after verified output handoff, without waiting for HIL. All 22 conditional reserve rows belong to HIL and require recorded selection/prediction before dispatch. HIL is running on `codex/hil-growth-dynamics-oct21` at `2f2d605f0ed8fdb8d78cdea02a58102a7001cb53`, with 20 live workers/four queued and 20 initial checkpoints observed. BLD independently owns its 92-row implementation; obtain its producer/launch receipt when available. Previous campaigns remain complete. Phase10 remains open under ADR0062.
 
 - **Warm history:** the [six-row comparison](plans/hil-warm-refinement.md#completed-representation-readout--2026-10-21) gives early-only open-envelope depths 3.5/4.025/4.025 um at common largest center span 9.8 um, versus zero in all broad controls. Common-age and post-switch observations support continued growth in the coarse and both fine seed representations. This is a model history lead, not continuum convergence or a physical width law.

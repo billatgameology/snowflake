@@ -1,0 +1,77 @@
+{
+  "createdAt": "2026-10-21T20:44:30.150Z",
+  "collection": "hil-exploration-results@2026-10-21",
+  "restoreCommand": "npm.cmd run assets:restore -- --collection hil-exploration-results@2026-10-21 --to out/restores/hil-exploration-results-bld-oct21",
+  "verifyCommand": "npm.cmd run assets:verify-restored -- --collection hil-exploration-results@2026-10-21 --from out/restores/hil-exploration-results-bld-oct21",
+  "memberCommand": "C:/Users/biao3/AppData/Local/Programs/Python/Python313/python.exe docs/nas-assets/manifests/hil-exploration-results/2026-10-21-verify-archives.py out/restores/hil-exploration-results-bld-oct21",
+  "allCommandsExit": 0,
+  "restoredPayload": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\restores\\hil-exploration-results-bld-oct21",
+  "archives": [
+    {
+      "label": "hil-warm-refinement",
+      "files": 506,
+      "bytes": 1236895495,
+      "archiveSha256": "327aa73d4d206a6cc5bd493bc0bfbdb10383e13a06c842d0872ec6d2c63b8944",
+      "allMembersMatch": true
+    },
+    {
+      "label": "hil-supplement",
+      "files": 197,
+      "bytes": 98361997,
+      "archiveSha256": "06c684ac44bd105596c09c2d8a4d9c71095e27ccb8fe987aadad4753d355ac13",
+      "allMembersMatch": true
+    },
+    {
+      "label": "hil-exploration-oct10",
+      "files": 273,
+      "bytes": 142764740,
+      "archiveSha256": "2d522feff8f77758b8cbb6068494866a8a30b90a95393faacac25ac7940e9f6f",
+      "allMembersMatch": true
+    },
+    {
+      "label": "hil-large-batch-oct11",
+      "files": 2886,
+      "bytes": 1580563997,
+      "archiveSha256": "8264fa65d556181793a12443b208ed7de87a4d1faccd648fb18fb1202f38aa60",
+      "allMembersMatch": true
+    },
+    {
+      "label": "hil-two-day-oct12",
+      "files": 5467,
+      "bytes": 3027531421,
+      "archiveSha256": "e2b051e8dbfdcc5e6e15dd9720760e05bf09e0e020c20d58de4d8ac0f76a58bc",
+      "allMembersMatch": true
+    },
+    {
+      "label": "hil-domain-seed-oct19",
+      "files": 365,
+      "bytes": 291428860,
+      "archiveSha256": "c05a27060f30f7ba91a96aa21a8b145511cd3f01069625c7b2d2a0ab0e8f866f",
+      "allMembersMatch": true
+    },
+    {
+      "label": "hil-facet-pressure-oct19",
+      "files": 367,
+      "bytes": 193219301,
+      "archiveSha256": "db3c5f050c644f380635a57d3b5297abb68951a0f01e7097db49cb3edb3e9490",
+      "allMembersMatch": true
+    },
+    {
+      "label": "primary-science-support",
+      "files": 209,
+      "bytes": 51596782,
+      "archiveSha256": "c0feb49fcf0c1ddf46f3381554bc7d109dc2d26b7cee8fc18e418db06de350bf",
+      "allMembersMatch": true
+    },
+    {
+      "label": "review-analysis",
+      "files": 21,
+      "bytes": 8178553,
+      "archiveSha256": "a3d0a91824c3cec935c50d89b06e2f2924f81ca0ae70a1aa0b7b078539764a8b",
+      "allMembersMatch": true
+    }
+  ],
+  "files": 10291,
+  "bytes": 6630541146,
+  "limits": "Fresh historical-input recovery on BLD, not publication of new simulation output; original identities retained."
+}

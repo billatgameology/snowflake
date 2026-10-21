@@ -101,7 +101,8 @@ function reconstruct(row: DiscoveryRow, events: readonly Event[], result: Discov
 }
 
 /** Missing/live rows are listed without parsing their changing event stream. */
-export function readGrowthDynamicsRow(directory: string, expected: DiscoveryRow) {
+export function readGrowthDynamicsRow(directory: string, expected: DiscoveryRow,
+  options: { cavity?: boolean } = {}) {
   const inputs: Input[] = [], base = { rowId: expected.id, directory: resolve(directory), row: expected };
   const specPath = resolve(directory, "spec.json");
   if (!existsSync(specPath)) return { ...base, status: "pending", reason: "no immutable row spec yet", inputs };
@@ -121,8 +122,8 @@ export function readGrowthDynamicsRow(directory: string, expected: DiscoveryRow)
   const events = readInput(resolve(directory, "events.jsonl"), inputs).toString("utf8")
     .split(/\r?\n/).filter(Boolean).map((line) => JSON.parse(line) as Event);
   const reconstruction = reconstruct(expected, events, result);
-  const warm = expected.tempC > -10 && expected.timelineEvent === undefined &&
-    !expected.id.startsWith("gd21-hil-h1-") && !expected.id.includes("static");
+  const warm = options.cavity ?? (expected.tempC > -10 && expected.timelineEvent === undefined &&
+    !expected.id.startsWith("gd21-hil-h1-") && !expected.id.includes("static"));
   // A one-row cavity call supplies per-row witnesses only, never the frozen multi-row cohort age.
   const cavity = warm ? analyzeCavityRows([directory], { centerSpansUm: [9.8] }).rows[0].analysis : null;
   return { ...base, status: "size-endpoint", stopReason: result.stopReason,

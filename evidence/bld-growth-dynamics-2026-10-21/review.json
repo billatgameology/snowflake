@@ -1,0 +1,35 @@
+{
+  "schema": "bld-growth-dynamics-bounded-review-v1",
+  "createdAt": "2026-10-21T20:44:30.148Z",
+  "reviewer": "Codex/GPT-6",
+  "sharedContext": true,
+  "author": false,
+  "base": "aa2f96b",
+  "verdict": "no material implementation findings or launch blockers in reviewed code",
+  "reviewed": [
+    "92-row roster and first32/remaining60 queue",
+    "BLD routing and worker ceiling/recovery",
+    "existing HIL callers",
+    "individual readout selection and limits"
+  ],
+  "independentlyExecuted": {
+    "command": "Read-only Node assertion script",
+    "exitCode": 0,
+    "historicalHilBatchDefinitions": 7,
+    "implicitAndExplicitHilBindingsEqual": true,
+    "legacyFixedConcurrencyPreserved": true,
+    "retainedInputHashesMatch": true,
+    "reconstructedEndpoints": 4,
+    "reconstructedUpdates": 4166,
+    "endpointQuantities": [
+      "occupancy",
+      "largest coordinate extent",
+      "axial center span"
+    ]
+  },
+  "limits": [
+    "No reviewer rerun of author tests/full suite, production solver, interruption witness or NAS transaction.",
+    "Historical numerical-source compatibility is bound separately in reused-controls.json.",
+    "Complete frozen-cohort analyses remain a results-stage obligation; no scientific outcome or physical-validation claim."
+  ]
+}

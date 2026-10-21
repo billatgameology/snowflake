@@ -6,11 +6,12 @@ import { acquireFirstBatchLease, firstBatchRosterSha256, planFirstBatchResume,
   runNamedDiscoveryBatch } from "./hil-bld-batch-main.ts";
 import { batchGitHead, batchHostIdentity, launchDiscoveryRows, sampleBatchHost,
   writeBatchJson } from "./hil-bld-batch-execution.ts";
-import type { DiscoveryBatchDefinition } from "./hil-bld-batch-roster.ts";
+import { namedBatchRows, type DiscoveryBatchDefinition, type FirstBatchHost } from "./hil-bld-batch-roster.ts";
 
-/** Named HIL jobs reuse the supplement's existing explicit-budget coordinator. */
+/** Named jobs reuse the supplement's explicit-budget coordinator; older callers remain HIL. */
 export interface HilOperationalBatch {
   readonly batch: DiscoveryBatchDefinition;
+  readonly host?: FirstBatchHost;
   readonly entryPath: string;
   readonly concurrency: number;
   /** Opt-in: bind the ceiling, recording the selected worker count per attempt instead. */
@@ -23,14 +24,15 @@ export interface HilOperationalBatch {
 const readJson = (path: string): unknown => JSON.parse(readFileSync(path, "utf8"));
 
 export function hilOperationalCampaignBinding(config: HilOperationalBatch) {
+  const host = config.host ?? "HIL";
   return {
     schema: config.campaignSchema, batchId: config.batch.id,
-    checkpointFormat: "discovery-resume-v1" as const, host: "HIL" as const,
+    checkpointFormat: "discovery-resume-v1" as const, host,
     gitHead: batchGitHead(), node: process.version, v8: process.versions.v8,
-    hostIdentity: batchHostIdentity(), rosterSha256: firstBatchRosterSha256("HIL", config.batch),
+    hostIdentity: batchHostIdentity(), rosterSha256: firstBatchRosterSha256(host, config.batch),
     ...(config.workerCeiling === undefined ? { requestedConcurrency: config.concurrency }
       : { workerCeiling: config.workerCeiling }),
-    rows: config.batch.rows.map(({ row }) => row),
+    rows: namedBatchRows(config.batch, host).map(({ row }) => row),
   };
 }
 
@@ -48,6 +50,7 @@ export function validateHilOperationalCampaign(value: unknown, config: HilOperat
 }
 
 async function launch(output: string, resuming: boolean, config: HilOperationalBatch, concurrency: number): Promise<void> {
+  const host = config.host ?? "HIL";
   if (execFileSync("git", ["status", "--porcelain"], { encoding: "utf8" }).trim() !== "") {
     throw new Error(`Commit the tested implementation before ${config.label} launch or resume`);
   }
@@ -65,12 +68,12 @@ async function launch(output: string, resuming: boolean, config: HilOperationalB
       exactLaunchCommand: process.argv, plan: config.plan,
       budgetBasis: config.budgetBasis,
     });
-    const rows = config.batch.rows.map(({ row }) => row);
+    const rows = namedBatchRows(config.batch, host).map(({ row }) => row);
     const selected = resuming ? planFirstBatchResume(directory, rows)
       : { pending: rows.map((row) => ({ row, command: "run-row" as const })), skippedRowIds: [] };
     const commands = new Map(selected.pending.map(({ row, command }) => [row.id, command]));
     const attemptName = resuming ? `resume-${Date.now()}-${randomUUID()}` : "initial";
-    const launchName = `${config.batch.launchPrefix}-HIL-${attemptName}`;
+    const launchName = `${config.batch.launchPrefix}-${host}-${attemptName}`;
     writeBatchJson(resolve(directory, `${launchName}-invocation.json`), {
       command: process.argv, pid: process.pid, startedAt: new Date().toISOString(),
       requestedConcurrency: concurrency, attemptName, skippedRowIds: selected.skippedRowIds,
@@ -95,16 +98,17 @@ async function launch(output: string, resuming: boolean, config: HilOperationalB
 }
 
 export async function runHilOperationalBatch(config: HilOperationalBatch): Promise<void> {
+  const host = config.host ?? "HIL";
   const [command, ...args] = process.argv.slice(2);
   if ((command === "launch" || command === "resume") && (args.length === 2 || args.length === 4)) {
-    if (args[0] !== "HIL") throw new Error(`${config.label} is assigned only to HIL`);
+    if (args[0] !== host) throw new Error(`${config.label} is assigned only to ${host}`);
     const concurrency = hilOperationalWorkers(args.slice(2), config);
     return launch(args[1], command === "resume", config, concurrency);
   }
   if (command !== undefined && ["list", "summarize", "run-row", "resume-row"].includes(command)) {
     return runNamedDiscoveryBatch(config.batch, config.entryPath);
   }
-  throw new Error(`Usage: node ${config.entryPath} list HIL | launch HIL <new-directory> | resume HIL <campaign-directory> | summarize <campaign-directory>` +
+  throw new Error(`Usage: node ${config.entryPath} list ${host} | launch ${host} <new-directory> | resume ${host} <campaign-directory> | summarize <campaign-directory>` +
     (config.workerCeiling === undefined ? "" : `; launch/resume accepts --workers 1..${config.workerCeiling}`));
 }
 
