@@ -1,6 +1,6 @@
 # Phase 10 adaptive exploration
 
-**Status:** Phase 10 remains active under [ADR 0062](../decisions/0062-continue-phase10-exploration.md). The October21 comparisons and NAS preservation are complete. The maker selected a [116-row HIL/BLD growth-dynamics campaign](hil-bld-growth-dynamics-oct21.md), with up to 20/32 workers and no production wall timeout. The detailed scientific plan is recorded; executable roster/readout/host routing and launch remain pending. Historical statements below retain their earlier decision context.
+**Status:** Phase 10 remains active under [ADR 0062](../decisions/0062-continue-phase10-exploration.md). The October21 comparisons and NAS preservation are complete. The maker selected a [116-row HIL/BLD growth-dynamics campaign](hil-bld-growth-dynamics-oct21.md), with up to 20/32 workers and no production wall timeout. HIL owns all 24 long/uncertain cases and all follow-ups; BLD owns 92 shorter cases and can shut down after verified output handoff. The detailed scientific plan is recorded; executable roster/readout/host routing and launch remain pending. Historical statements below retain their earlier decision context.
 **Publication destination:** `origin/main`
 **Plan authoring branch:** `docs/hil-bld-workload-2026-10-07`, based on `fe15b74`; direct main publication, no PR
 **Former execution worktree:** `G:\Code Files\snowflake-science-exploration` (reconciled in October consolidation)
@@ -79,7 +79,9 @@ level; this direction does not close Phase10 or grant a validation label.
 
 The maker subsequently requested full useful use of HIL and BLD, long queues and no wall limit.
 The [selected two-host plan](hil-bld-growth-dynamics-oct21.md) now owns exact operands, queue order,
-cost uncertainty and decisions: warm duration/width/transport and fine timestep work, facet
+cost uncertainty and decisions. HIL owns the 24 fine-grid/larger-history cases and all follow-ups;
+BLD owns 92 shorter cases and has no dependency on HIL completion before output handoff/shutdown.
+The scientific blocks remain warm duration/width/transport and fine timestep work, facet
 qualification, cold refinement and longer histories. Its 116 new rows reuse named completed controls;
 at most 22 additional rows require outcome-based selection and a prediction before dispatch.
 No new scientific run has launched. The next deliverable is a tested executable roster/host entry

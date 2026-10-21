@@ -3,7 +3,7 @@
 - **Phase:** active Phase 10 exploration under charter sections 2.5/3.2 and ADRs 0011, 0055, 0058–0060 and 0062.
 - **Status:** scientific design selected and documented; implementation, executable roster/readout checks and dispatch remain pending. No new simulations have started.
 - **Started / last touched:** 2026-10-21 by Codex/GPT-6.
-- **Authority:** maker requests full useful use of HIL's 20-worker allocation and BLD's 32-worker allocation, detailed long queues, resumability and no wall-clock cutoff. This supersedes the October 8 HIL-only default for this campaign.
+- **Authority:** maker requests full useful use of HIL's 20-worker allocation and BLD's 32-worker allocation, detailed long queues, resumability and no wall-clock cutoff. The subsequent October21 direction puts all longest/least-predictable work on HIL so BLD can finish and shut down. This supersedes the initial 60/56 host split and the October8 HIL-only default.
 - **Publication:** `origin/main`; planning branch `codex/phase10-two-host-growth`, based on `8e008644085f075922cfccd8a296b0dd248beb60`.
 - **Immediate deliverable:** a complete finite two-host experiment plan. The next implementation deliverable is the same committed roster and tested shared launcher/readout entry usable on either host, followed by host-local dispatch. Solo scientific research; hostile actors excluded.
 
@@ -31,15 +31,15 @@ recovery. A launch or a producer's success flag is insufficient.
 
 ## Approach and allocation
 
-Run four connected studies through existing scientific seams. Start expensive representation work
-early, alongside short discriminators; refill every free worker from one queue per host. Keep new
+Run four connected studies through existing scientific seams. HIL starts the expensive representation
+and larger-history work; BLD runs the shorter discriminators. Refill free workers from one queue per host. Keep new
 matched groups together. Analyze completed groups while other rows continue. Follow-ups below are
 finite reserves requiring a written selection before launch, not an automatic Cartesian expansion.
 
 | Host | Maximum simultaneous workers | Base new runs | Work |
 |---|---:|---:|---|
-| HIL | 20 | 60 | 50 coarse warm history/width/transport; 4 fine warm timestep; 2 facet and 4 cold numerical sentinels |
-| BLD | 32 | 56 | 36 facet qualification; 8 cold representation; 12 longer pressure/history |
+| HIL | 20 | 24 | All long/uncertain work: 4 fine warm timestep, 8 cold representation, 12 larger pressure/history |
+| BLD | 32 | 92 | Fixed shorter queue: 50 coarse warm history/width/transport, 36 facet qualification, 2 facet and 4 cold numerical sentinels |
 | Total | 52 | 116 | Plus two reused warm operands and other named historical controls; no full-run repeats merely for utilization |
 
 These are worker allocations. HIL's retained hardware record is a Core Ultra 9 285K with 24 cores/
@@ -47,7 +47,9 @@ These are worker allocations. HIL's retained hardware record is a Core Ultra 9 2
 32 logical processors and `totalMemoryBytes=68602580992`. Current BLD availability must be observed
 locally. SMT and shared memory/cache contention mean 32 workers do not imply 32 physical-core
 throughput. Aim for 20/32 while ready work and memory permit; do not invent useless rows to keep
-the final tail full. The expensive rows can last weeks. There is no calendar completion promise.
+the final tail full. The expensive rows can last weeks and all belong to HIL. BLD receives no
+new work after its fixed queue unless the maker requests it. Smaller N64 cases can still surprise;
+the allocation aims to let BLD finish first, without promising a shutdown date.
 
 ## Common scientific contract
 
@@ -79,7 +81,52 @@ nonconvergence, resource pause or integrity failure retains its actual meaning. 
 or unavailable comparison coverage is unresolved, never evidence of no effect. No target or
 scientific control may be changed inside a resume. Any larger successor gets a new registered row.
 
-## HIL roster — 60 new rows
+Facet arms throughout this plan use M1 base plus explicit `experimentalFacetDips`, ordered
+`neither`, `basal-only`, `prism-only`, `both`. Existing .05/.025 controls are reused as below.
+
+## HIL roster — 24 long or uncertain rows
+
+### W4: fine warm timestep challenge — 4 new, expensive
+
+Temperature-4.5, fraction .075, CFL .025, N126/.175 um, seed radius 4, thickness{1,3}, arms{broad,
+early 20-w 6}; target 57, max 100000. IDs: `gd21-hil-w4-h{1|3}-{broad|early20-w6}`.
+Compare each to the exact corresponding completed CFL .05 `warm-refine-fine-thin-*` or
+`warm-refine-fine-thick-*`, and compare the new coarse/fine .025 groups separately.
+
+N64/.35 and N126/.175 share shell-coordinate half-length 10.85 um, seed radius .7 um and target
+center span 9.8 um. Fine seed thicknesses.175/.525 um bracket coarse.35 um; they do not match
+voxelized shape/volume or bound nonlinear outcomes. Two spacings do not establish convergence.
+
+### C1: cold representation — 8 new, expensive
+
+Temperature-14.4, fraction .10, N126/.175, seed radius 4/thickness{1,3}, all 4 explicit facet arms,
+CFL .025, target 57, max 100000. IDs `gd21-hil-c1-h{1|3}-{arm}`. Compare to the existing N64/.35,
+radius 2/thickness 1, same-temperature/fraction/CFL quartet. Match physical stage and distance;
+the seed-thickness caveat in W4 applies. Earlier N96/.35 results examine domain size and do not
+qualify fine-grid domain independence. Cold mature N126 cost is unmeasured.
+
+### H1: longer pressure/history — 12 new
+
+For each pressure{50662.5,101325,202650} Pa, run these four M1 rows:
+
+- `switch7`: -14.4 C to -6 C at completed largest-extent trigger 7.
+- `switch15`: the same change at largest extent 15.
+- `source`: static -14.4 C.
+- `destination`: static -6 C.
+
+All use fraction .20 at each environment, N96/.35, seed 2/1, CFL .025, target 57 =19.6 um center
+span, max 100000. IDs `gd21-hil-h1-p{50662p5|101325|202650}-{switch7|switch15|source|destination}`.
+For histories the full post-event environment uses the -6 C table value times.20; pressure stays
+fixed. ADR0011 density-conserving event semantics and ADR0060 schedule resume apply. No facet/
+width option is combined with these events.
+
+These are new larger-domain/larger-target runs from the registered seed, not edited continuations
+of old N64 checkpoints. Target 57 is nominally below the N96 contact condition `extent > .65*96`
+(first integer 63); a growth-step overshoot can still cause contact, evaluated before size success.
+Larger target does not guarantee a specified physical duration or domain adequacy. New matched
+statics are necessary; older smaller-domain source histories are contextual comparisons only.
+
+## BLD roster — 92 shorter rows
 
 ### W1: preparation duration and timestep — 30 new, 2 reused
 
@@ -104,7 +151,7 @@ Reuse `warm-refine-coarse-t4p5-broad` and `warm-refine-coarse-t4p5-early` for th
 and early 20 operands. W1 has 32 scientific operands but 30 newly launched rows. Do not reuse on
 label alone: bind full row configuration, retained input hashes and unchanged numerical paths.
 
-IDs: `gd21-hil-w1-t{4p5|5}-c{05|025}-{arm}`, excluding those two reused operands. Arm ordering
+IDs: `gd21-bld-w1-t{4p5|5}-c{05|025}-{arm}`, excluding those two reused operands. Arm ordering
 above and ordered sets printed here define a unique roster; broad has no fictitious width setting.
 
 Question: how much early preparation is sufficient for advancing open growth, and does that
@@ -116,7 +163,7 @@ leaves insufficient post-switch development before target 29, report unresolved 
 
 Temperature{-4.5,-5}, CFL .025, width{2,4}, arms{full,early 5,early 20}; fraction .075, target 29,
 max 100000. All are M1-base width experiments. Reuse W1 width 3 and broad at the same temperature/
-CFL as controls. IDs: `gd21-hil-w2-t{4p5|5}-w{2|4}-{full|early5|early20}`.
+CFL as controls. IDs: `gd21-bld-w2-t{4p5|5}-w{2|4}-{full|early5|early20}`.
 This tests the discrete geometric selection rule; threshold times spacing is an inclusive chord
 scale, not a measured molecular width law or proof that only a rim was changed.
 
@@ -131,34 +178,18 @@ Temperature-4.5, CFL .025, target 29, max 100000; each condition has matched `br
 | fLow | 101325 | .05 |
 | fHigh | 101325 | .10 |
 
-IDs: `gd21-hil-w3-{condition}-{broad|early20-w3}`. W1 supplies normal-pressure/.075 controls.
+IDs: `gd21-bld-w3-{condition}-{broad|early20-w3}`. W1 supplies normal-pressure/.075 controls.
 Vary pressure or forcing separately. Pressure uses the existing inverse-pressure diffusivity
 closure; this is a model transport contrast, not a new atmospheric-pressure validation.
-
-### W4: fine warm timestep challenge — 4 new, expensive
-
-Temperature-4.5, fraction .075, CFL .025, N126/.175 um, seed radius 4, thickness{1,3}, arms{broad,
-early 20-w 6}; target 57, max 100000. IDs: `gd21-hil-w4-h{1|3}-{broad|early20-w6}`.
-Compare each to the exact corresponding completed CFL .05 `warm-refine-fine-thin-*` or
-`warm-refine-fine-thick-*`, and compare the new coarse/fine .025 groups separately.
-
-N64/.35 and N126/.175 share shell-coordinate half-length 10.85 um, seed radius .7 um and target
-center span 9.8 um. Fine seed thicknesses.175/.525 um bracket coarse.35 um; they do not match
-voxelized shape/volume or bound nonlinear outcomes. Two spacings do not establish convergence.
 
 ### F0 and C0: numerical sentinels — 6 new
 
 - F0: temperature-9.5, fraction .15, seed 3/1, explicit facet arms{basal-only,neither}, CFL .0125,
-  target 29, max 20000. IDs `gd21-hil-f0-{arm}`. Resolve the observed occupancy sign reversal
+  target 29, max 20000. IDs `gd21-bld-f0-{arm}`. Resolve the observed occupancy sign reversal
   between .05 and .025 without relying on agreement of axial spans.
 - C0: temperature-20, fraction .15, seed 2/1, all four explicit facet arms, CFL .0125,
-  target 29, max 20000. IDs `gd21-hil-c0-{arm}`. Test the tip 9 feature that differs between .05
+  target 29, max 20000. IDs `gd21-bld-c0-{arm}`. Test the tip 9 feature that differs between .05
   and .025, retaining tip 8 as a separate observation.
-
-Facet arms throughout this plan use M1 base plus explicit `experimentalFacetDips`, ordered
-`neither`, `basal-only`, `prism-only`, `both`. Existing .05/.025 controls are reused as below.
-
-## BLD roster — 56 new rows
 
 ### F1–F3: qualify facet balance over shape, temperature and forcing — 36 new
 
@@ -176,54 +207,45 @@ observations, not a new blind temperature sweep. Test whether opposing facet con
 catch-up and forcing response survive the smaller timestep. A seed comparison changes initial
 volume and shape together; do not call it an isolated aspect-ratio or width mechanism.
 
-### C1: cold representation — 8 new, expensive
-
-Temperature-14.4, fraction .10, N126/.175, seed radius 4/thickness{1,3}, all 4 explicit facet arms,
-CFL .025, target 57, max 100000. IDs `gd21-bld-c1-h{1|3}-{arm}`. Compare to the existing N64/.35,
-radius 2/thickness 1, same-temperature/fraction/CFL quartet. Match physical stage and distance;
-the seed-thickness caveat in W4 applies. Earlier N96/.35 results examine domain size and do not
-qualify fine-grid domain independence. Cold mature N126 cost is unmeasured.
-
-### H1: longer pressure/history — 12 new
-
-For each pressure{50662.5,101325,202650} Pa, run these four M1 rows:
-
-- `switch7`: -14.4 C to -6 C at completed largest-extent trigger 7.
-- `switch15`: the same change at largest extent 15.
-- `source`: static -14.4 C.
-- `destination`: static -6 C.
-
-All use fraction .20 at each environment, N96/.35, seed 2/1, CFL .025, target 57 =19.6 um center
-span, max 100000. IDs `gd21-bld-h1-p{50662p5|101325|202650}-{switch7|switch15|source|destination}`.
-For histories the full post-event environment uses the -6 C table value times.20; pressure stays
-fixed. ADR0011 density-conserving event semantics and ADR0060 schedule resume apply. No facet/
-width option is combined with these events.
-
-These are new larger-domain/larger-target runs from the registered seed, not edited continuations
-of old N64 checkpoints. Target 57 is nominally below the N96 contact condition `extent > .65*96`
-(first integer 63); a growth-step overshoot can still cause contact, evaluated before size success.
-Larger target does not guarantee a specified physical duration or domain adequacy. New matched
-statics are necessary; older smaller-domain source histories are contextual comparisons only.
-
 ## Queue order and keeping useful work moving
 
 Use the listed nested-set order unless overridden below; round-robin matched groups within a
 priority band so all controls start early. One coordinator per host owns the aggregate ceiling.
 
-**HIL initial 20:** W4's four rows, F0's two, C0's four, all eight W1 -4.5/.025 rows, and W1
--5/.025 broad plus early 20. Then finish the remaining six -5/.025 W1 rows, the fourteen new
-W1/.05 rows, all W2, then W3. These totals are 20 initially plus 40 queued. A freed slot takes
-the next pending row immediately; it does not wait for the entire preceding block to finish.
+**HIL initial 20:** all four W4 and eight C1 fine-grid rows, then all four H1 rows at half
+pressure 50662.5 Pa and all four at normal pressure 101325 Pa, following the printed pressure order.
+Queue the four H1 double-pressure rows next; no measured pressure-cost ranking is assumed.
+These totals are 20 initially plus 4 queued. All twelve fine-grid cases start first; N96 histories
+fill the remaining slots and their own replacements. Do not postpone long work until BLD finishes.
+A freed slot takes the next pending row immediately.
 
-**BLD initial 32:** all eight C1, all twelve H1, all four F1, and all eight F2 at-7.5. Then
-queue the eight F2 at-8.5 and sixteen F3. These totals are 32 initially plus 24 queued.
-The long 12 HIL/BLD fine rows begin alongside quicker comparisons; no hidden fine-grid wave is
-added after the maker was shown a short-run estimate.
+**BLD initial 32:** F0's two, C0's four, all sixteen W1/.025 rows, all four F1, and six new
+W1 -4.5/.05 rows (the broad/early20 operands are reused, not relaunched). Then queue eight
+W1 -5/.05 rows, twelve W2, eight W3, sixteen F2, and sixteen F3. These totals are 32 initially
+plus 60 queued. Every new matched pair/quartet stays on one host; field/geometry comparisons
+between coarse and fine groups can be completed later on HIL from preserved BLD output.
 
 Review at completed matched blocks, not at a fixed day. Keep the other independent groups running.
-At queue exhaustion, use the reserve decision below or finish the tail. Pending, never-started
-complete matched groups may be reassigned by a committed allocation amendment before execution;
-already-started checkpoints stay on their host. Do not silently transfer or duplicate them.
+At HIL queue exhaustion, select a justified reserve below or finish the tail. At BLD queue
+exhaustion, perform the completion handoff below; reserve selection must not keep BLD running.
+Pending, never-started complete matched groups may move from BLD to HIL through a committed
+allocation amendment if costs warrant it. Moving long work back to BLD requires new maker
+direction. Already-started checkpoints stay on their host; never silently transfer or duplicate them.
+
+### BLD completion and shutdown handoff
+
+BLD does not depend on HIL finishing, a cross-host final report, or reserve selection. Once its
+92 rows have checked terminal dispositions (with scientific failures/coverage gaps explicit),
+stop its coordinator after confirming no workers or output writers remain. An interrupted
+unfinished row is not a completed result; resume locally or record an intentional unresolved
+pause, preserving its checkpoint and exact future resume command.
+
+Publish the stable BLD output under its registered external-evidence collection, with the
+existing NAS lifecycle, hashes, recovery receipt and committed bindings. Verify a fresh restore
+on HIL covering the BLD bytes needed for continuing analysis and restart records; retain BLD's
+local originals. HIL can then analyze completed data while its long runs continue. BLD can be
+turned off after this handoff, without waiting for final scientific interpretation. Do not add
+new BLD rows or an automatic power-off action. Worktree closure and pruning remain separate.
 
 ## Reused evidence and comparison bindings
 
@@ -247,7 +269,7 @@ bitwise cross-engine claim.
 | H1 | Exact-condition old N64 histories/statics in [history-pressure inputs/readout](../../evidence/hil-results-review-2026-10-21/history-pressure/README.md); new N96 source and destination statics are the actual matched controls |
 
 The implementation expands every set to one explicit row list and validates 116 unique IDs,
-60 HIL/56 BLD, all two-arm/four-arm groups and exact numerical operands. Bind reused controls
+24 HIL/92 BLD, all two-arm/four-arm groups and exact numerical operands. Bind reused controls
 once, with a source-path/configuration comparison. If numerical compatibility is absent, record
 the missing comparison and amend the roster before adding a fresh control; do not treat matching
 labels as evidence. Counts above exclude historical controls and all conditional reserves.
@@ -335,7 +357,8 @@ secondary windows are labeled separately and cannot support a cross-cohort contr
 These are options selected after base readout, not queued now. Write the chosen exact rows,
 prediction and comparison inputs into this plan before inspecting their outcomes. Reuse the
 base producer if the numerical contract is unchanged; a new batch identity holds the selected
-roster. No automatic expansion solely because workers become idle.
+roster. All reserves run on HIL so BLD's completion remains final for this allocation.
+No automatic expansion solely because workers become idle.
 
 | Reserve | Owner / maximum | Selection and exact candidates |
 |---|---|---|
@@ -343,9 +366,9 @@ roster. No automatic expansion solely because workers become idle.
 | R2 duration boundary | HIL /4 | After timestep-qualified W1, select at most two early-only cutoffs per temperature from{2.5,7.5,15,30}s, strictly between adjacent tested{1,5,10,20,40}s with contrasting outcomes. Width 3/CFL .025/fraction .075/N64/target 29/max 100000. Record a prediction before execution; do not assume a monotone boundary. |
 | R3 seed robustness | HIL /8 | If a W1 early cutoff yields qualified persistence, take that one cutoff per temperature{-4.5,-5} with broad controls for seeds{2/3,3/1}, width 3/CFL .025/fraction .075/N64/target 29/max 100000. One selected cutoff per temperature; shape and volume change together. |
 | R4 fine width | HIL /4 | If W2 width 2/3/4 changes early 20 persistence and W4 supports the .025 numerical comparison, add -4.5 fine-thin/fine-thick early 20 at widths 4 and 8, CFL .025/fraction .075/N126/.175/target 57/max 100000. W4 supplies width 6 and broad controls. This is explicitly expensive. |
-| R5 facet numerical follow-up | BLD /4 | If F2 -8.5 wide-seed axial/catch-up interpretation changes from .05 to .025, run its same four-arm group at .0125, fraction .15/N64/.35/seed 3/1/target 29/max 20000. |
+| R5 facet numerical follow-up | HIL /4 | If F2 -8.5 wide-seed axial/catch-up interpretation changes from .05 to .025, run its same four-arm group at .0125, fraction .15/N64/.35/seed 3/1/target 29/max 20000. |
 
-If all 22 are selected, the finite envelope is 138 new runs: HIL78 and BLD60. Selection can also be
+If all 22 are selected, the finite envelope is 138 new runs: HIL 46 and BLD 92. Selection can also be
 zero. Other follow-ups require a plan amendment; no blanket permission for an endless sweep.
 A controlled shared-state branch could be more discriminating than more parameter rows, but
 requires an explicit state-intervention contract and governing amendment. It is outside this queue.
@@ -491,7 +514,7 @@ closure. Review of new physical measurements or a new law is separate work.
 ## Steps and current record
 
 - [x] Read completed comparisons, governing contracts, known failures and current source versions.
-- [x] Select 116 explicit new rows, 60/56 host allocation and a finite conditional reserve.
+- [x] Select 116 explicit new rows, amended 24/92 host allocation and a finite conditional reserve.
 - [x] Finish bounded design review and prose checks; publish this plan before implementation.
 - [ ] Implement roster, two-host entry and minimal readout selection; verify at the stable checkpoint.
 - [ ] Commit/push executable producer; replace proposed commands with tested exact instructions.
@@ -510,14 +533,31 @@ immutable-producer handling is also clarified. This is an internal design review
 validation or a launch audit; implementation behavior and actual new-host resource use remain
 unverified. No second review layer is requested.
 
-Planning verification: `npm.cmd run lint:rule7` passed; locked Vitest
+Original planning verification (before the host-allocation amendment): `npm.cmd run lint:rule7` passed; locked Vitest
 `npx.cmd --no-install vitest run runner/test/progress-index.test.ts` passed 11 tests;
 `git diff --check` passed. A read-only document check resolved 138 local file links and expanded
-116 unique planned IDs with the 60/56 split and 138-row maximum reserve envelope. These are prose/
+116 unique planned IDs with the then-current 60/56 split and 138-row maximum reserve envelope. These are prose/
 plan checks, not full-suite or scientific results. The first test invocation could not load the
 worktree's missing Vitest dependency and ran no tests; `npm.cmd ci --ignore-scripts` installed
 the locked dependencies, after which the check above passed. No dependency files changed.
 This planning worktree contains no useful untracked output payload; dependencies are rebuildable.
+
+### Allocation amendment — longest work on HIL, October21
+
+Maker requested that BLD be able to finish and turn off while HIL continues the longest work.
+Before any launch, this amendment moves W1/W2/W3/F0/C0 to BLD, C1/H1 to HIL, and R5 to HIL;
+W4 stays on HIL and F1–F3 stay on BLD. The relocated prospective row IDs now name their actual
+host. The 116 scientific operands, endpoints and comparison definitions are unchanged. All22
+conditional reserves now belong to HIL; no pending HIL result or follow-up keeps BLD's queue open.
+
+Work was isolated on `codex/hil-long-run-allocation` from `b6c5ffa`. A shared-context Codex/GPT-6
+read-only allocation check confirmed the24/92 split, whole matched groups and shutdown dependency;
+it executed no solver, scientific readout, NAS transaction or live BLD check. The author separately
+compared all eight scientific block definitions to `b6c5ffa` after normalizing only relocated
+host prefixes, and checked the20/32 initial slots,4/60 queued rows and46/92 maximum envelope.
+`npm.cmd run lint:rule7`, `npx.cmd --no-install vitest run runner/test/progress-index.test.ts`
+(11 tests) and `git diff --check` passed. No numerical code or execution readiness claim changed.
+The amendment checkout has no useful untracked output; installed dependencies are rebuildable.
 
 ## Out of scope
 
@@ -527,6 +567,10 @@ S6 reopening, environment events combined with width/facet flags, arbitrary chec
 transplant, external-source acquisition/provider contact, automatic endless fan-out or data pruning.
 
 ## Tried and rejected
+
+- **Keeping long fine-grid work on both hosts:** superseded before launch by the maker's shutdown
+  preference. All fine-grid and larger-history cases now run on HIL; BLD has a closed shorter
+  queue and hands its data back for analysis. This is an allocation decision, not a failed experiment.
 
 - **Two tiny coarse cases as a two-computer program:** previously left most useful capacity idle.
   This roster supplies complete independent scientific groups to 20/32 worker ceilings.
