@@ -189,5 +189,13 @@
       "trackedLog": "evidence/hil-results-review-2026-10-21/rule7-final.log",
       "logSha256": "09e98af991fb5a72af146cc497eb2f50752742f9cfbc1c7b4e60e326b1643921"
     }
+  },
+  "repositoryPublication": {
+    "publishedCommit": "81ce8c66e1bc40249e18492719a347383e25437d",
+    "branch": "main",
+    "command": "git push origin main",
+    "exitCode": 0,
+    "recordedAt": "2026-10-21T16:46:19.288466+00:00",
+    "limits": "This records the successful result/recovery publication; a subsequent metadata-only commit records this receipt."
   }
 }

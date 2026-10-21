@@ -1,7 +1,7 @@
 # Plan — Completed HIL comparisons and NAS preservation
 
 - **Phase:** active Phase 10 model development; no new campaign or gate.
-- **Status:** analysis, NAS preservation and verification recorded; main publication next.
+- **Status:** complete; analysis, verified NAS recovery, regression outcome and main publication saved.
 - **Started / last touched:** 2026-10-21 by Codex/GPT-6.
 - **Authority:** maker: "let's look at the result, tell me what you think. save all progress including uploading output to NAS".
 - **Branch / checkout:** `codex/hil-results-preserve-oct21`, `C:/Users/biao3/.codex/worktrees/hil-results-preserve-oct21/snowflake`, from `5163d13`.
@@ -70,7 +70,7 @@ scientific gate. No repeat capacity or pause/resume probe.
 - [x] Execute the registered analyses and retain concise findings plus input bindings.
 - [x] Pack stable sources, publish, register and verify fresh NAS recovery.
 - [x] Complete required checks and record the corrected metadata failures.
-- [ ] Save records in main and publish concise Git progress.
+- [x] Save records in main and publish concise Git progress.
 
 ## Out of scope
 
@@ -152,7 +152,7 @@ publication was accepted and no existing immutable target was merged or replaced
 ## Open questions
 
 The maker has not accepted the broader Phase10 portfolio. Select the next discriminating question
-before freezing costs, targets or launching another batch. Repository verification is recorded below; final main publication is the remaining task action.
+before freezing costs, targets or launching another batch. Repository verification and successful main publication are recorded below.
 Neither creates a new scientific gate result.
 
 ## Repository verification — executed October21
@@ -168,3 +168,13 @@ final Rule7 passed. Their [focused log](../../evidence/hil-results-review-2026-1
 and [Rule7 log](../../evidence/hil-results-review-2026-10-21/rule7-final.log) remain tracked.
 The full suite was not rerun for these metadata corrections; no full-suite-green claim is made.
 No new test/validator or scientific gate was added. Scoped whitespace and local-link checks pass.
+
+## Main publication
+
+Primary main fast-forwarded to `81ce8c6` and `git push origin main` succeeded on October21,
+publishing these results/recovery records and the preceding local HIL progress commits.
+Both primary and the task checkout retain the same scientific code. All seven source worktrees
+and this review checkout remain open with their original useful output; no archival or pruning
+was performed. The only next scientific action is the maker discussion named in PROGRESS.
+Raw test logs retain their exact diagnostic whitespace; the scoped prose/code whitespace check
+excludes those three preserved log files.
