@@ -3268,7 +3268,9 @@
           "Forward intent only; no publication or recovery credit yet."
         ]
       },
-      "storageDomains": [],
+      "storageDomains": [
+        "snowcrystal-nas"
+      ],
       "backup": {
         "status": "required-missing",
         "independentDomains": [],

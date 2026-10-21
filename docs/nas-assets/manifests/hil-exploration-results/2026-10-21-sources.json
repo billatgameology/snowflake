@@ -100,7 +100,7 @@
       "include": [
         "."
       ],
-      "producer": "see final analysis recipe commit and tracked input records",
+      "producer": "25f9bd1aa2946ce8ef1498d286d03183832dec12",
       "role": "Detailed completed comparison outputs; concise claims and recipes remain Git authority"
     }
   ],
