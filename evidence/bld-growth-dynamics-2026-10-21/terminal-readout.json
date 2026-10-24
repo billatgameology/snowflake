@@ -1,0 +1,154 @@
+{
+  "schema": "bld-growth-dynamics-terminal-readout-receipt-v1",
+  "createdAt": "2026-10-24T19:41:01.773Z",
+  "cwd": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21",
+  "gitHead": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+  "node": "v24.13.1",
+  "v8": "13.6.233.17-node.40",
+  "command": [
+    "C:\\nvm4w\\nodejs\\node.exe",
+    "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21-controls\\terminal-readout-2026-10-24-r1.mjs"
+  ],
+  "scope": "Existing summary evaluator and individual row reconstruction; no frozen cohort comparisons, new solver work or physical inference.",
+  "evaluator": "summarizeFirstBatchRow; the plan name checkFirstBatchRow is not implemented under that name.",
+  "receipts": [
+    {
+      "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21-controls\\terminal-readout-2026-10-24-r1-summary-exit.json",
+      "bytes": 1497,
+      "sha256": "6f76be96312de2e3f69273400068356af1d1814d356441e5aa1e681a314bc9fd"
+    },
+    {
+      "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21-controls\\terminal-readout-2026-10-24-r1-campaign-exit.json",
+      "bytes": 1659,
+      "sha256": "6672b2da53964ee6971f6cd4fcef3ec55f875f7fa803d5e541eba73b506b2a62"
+    }
+  ],
+  "summary": {
+    "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21-controls\\terminal-readout-2026-10-24-r1-summary.json",
+    "bytes": 154622,
+    "sha256": "87acb8aa9f57e686cde5d3f262181b7da4f9234b7686fef3ff0035e26f690ee9"
+  },
+  "readout": {
+    "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21-controls\\terminal-readout-2026-10-24-r1-campaign.json",
+    "bytes": 4825754,
+    "sha256": "72fb3a95a640daa31b4a923fe57adc1a7ea560d93fd73394e85ecce78c06d562"
+  },
+  "readoutExit": 1,
+  "requestedRows": 92,
+  "summaryDispositionCounts": {
+    "size-endpoint": 91,
+    "invalid": 1
+  },
+  "readoutCensus": {
+    "requestedRows": 92,
+    "sizeEndpoints": 91,
+    "missing": [],
+    "pending": [],
+    "invalid": [
+      {
+        "rowId": "gd21-bld-w3-pDouble-early20-w3",
+        "directory": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-pDouble-early20-w3"
+      }
+    ],
+    "unresolvedTerminal": [],
+    "kinds": [
+      {
+        "kind": "warm",
+        "requested": 50,
+        "sizeEndpoints": 49
+      },
+      {
+        "kind": "facet",
+        "requested": 38,
+        "sizeEndpoints": 38
+      },
+      {
+        "kind": "cold",
+        "requested": 4,
+        "sizeEndpoints": 4
+      }
+    ]
+  },
+  "independentlyReconstructedUpdates": 132290,
+  "failedRow": {
+    "rowId": "gd21-bld-w3-pDouble-early20-w3",
+    "result": {
+      "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-pDouble-early20-w3\\result.json",
+      "bytes": 3303,
+      "sha256": "33e858132a9341441276814b042871512429ccc06558a18701e1f2a1c0cbad98"
+    },
+    "exit": {
+      "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-pDouble-early20-w3\\exit.json",
+      "bytes": 457,
+      "sha256": "4c697db848fc2a388369d7f4e7460e118caf89519c79aead74ba63a469afb747"
+    },
+    "events": {
+      "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-pDouble-early20-w3\\events.jsonl",
+      "bytes": 1651498,
+      "sha256": "d3a66b13212ea650106c173d683f1cdcf32de82691f25c285b35b41e82a589fb"
+    },
+    "stopReason": "solver-error",
+    "completedUpdates": 505,
+    "extent": 13,
+    "simTimeSeconds": 34.45725867784839,
+    "integrityErrors": [
+      "Error: aggregate boundary solve did not converge (cell 149472: sigma_b 1e-323 vs iterate 0)\n    at LKSolver.solveAggregateBoundary (file:///G:/Code%20Files/snowflake/.worktrees/bld-growth-dynamics-oct21/solver-cpu/src/lk-solver.ts:1729:13)\n    at LKSolver.sweepAggregate (file:///G:/Code%20Files/snowflake/.worktrees/bld-growth-dynamics-oct21/solver-cpu/src/lk-solver.ts:2006:29)\n    at LKSolver.sweep (file:///G:/Code%20Files/snowflake/.worktrees/bld-growth-dynamics-oct21/solver-cpu/src/lk-solver.ts:2069:17)\n    at LKSolver.relaxField (file:///G:/Code%20Files/snowflake/.worktrees/bld-growth-dynamics-oct21/solver-cpu/src/lk-solver.ts:2108:75)\n    at runDiscoveryRow (file:///G:/Code%20Files/snowflake/.worktrees/bld-growth-dynamics-oct21/runner/src/post-phase10-discovery.ts:901:33)\n    at runPostPhase10DiscoveryRow (file:///G:/Code%20Files/snowflake/.worktrees/bld-growth-dynamics-oct21/runner/src/post-phase10-discovery.ts:646:16)\n    at runNamedDiscoveryBatch (file:///G:/Code%20Files/snowflake/.worktrees/bld-growth-dynamics-oct21/runner/src/hil-bld-batch-main.ts:386:20)\n    at runHilOperationalBatch (file:///G:/Code%20Files/snowflake/.worktrees/bld-growth-dynamics-oct21/runner/src/hil-operational-batch-main.ts:109:12)\n    at file:///G:/Code%20Files/snowflake/.worktrees/bld-growth-dynamics-oct21/runner/src/bld-growth-dynamics-oct21-main.ts:21:3\n    at ModuleJob.run (node:internal/modules/esm/module_job:430:25)"
+    ],
+    "latestCheckpointLoadPassed": true,
+    "latestCheckpointTick": 505,
+    "generations": [
+      {
+        "directory": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-pDouble-early20-w3\\resume\\generation-505-e79ff3f5-793f-487f-b8ea-0c0094680ecf",
+        "tick": 505,
+        "manifest": {
+          "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-pDouble-early20-w3\\resume\\generation-505-e79ff3f5-793f-487f-b8ea-0c0094680ecf\\manifest.json",
+          "bytes": 3034,
+          "sha256": "1fd19a297262ffc78b2ce24f6a582609c201e74c690098b381afa6a66a19d96e"
+        },
+        "solver": {
+          "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-pDouble-early20-w3\\resume\\generation-505-e79ff3f5-793f-487f-b8ea-0c0094680ecf\\solver.bin",
+          "bytes": 4461377,
+          "sha256": "46e2a7739dc839804e81777acd5f5ab945bdff1957171dfc2bbab63785eec786"
+        },
+        "eventPrefix": {
+          "bytes": 1651498,
+          "sha256": "d3a66b13212ea650106c173d683f1cdcf32de82691f25c285b35b41e82a589fb"
+        },
+        "runnerTerminalStopReason": null,
+        "runnerIntegrityErrors": []
+      },
+      {
+        "directory": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-pDouble-early20-w3\\resume\\generation-504-cead780b-dcb1-4f9f-9274-1a9b44d8d5e0",
+        "tick": 504,
+        "manifest": {
+          "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-pDouble-early20-w3\\resume\\generation-504-cead780b-dcb1-4f9f-9274-1a9b44d8d5e0\\manifest.json",
+          "bytes": 3035,
+          "sha256": "4424bd6b682946dd950a523b4a136d5fe327ed42b07e021da87b8a33814d3251"
+        },
+        "solver": {
+          "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-pDouble-early20-w3\\resume\\generation-504-cead780b-dcb1-4f9f-9274-1a9b44d8d5e0\\solver.bin",
+          "bytes": 4461369,
+          "sha256": "7e798be50d8dd721b3655c004fa7afd73e215e2e6f60dba94e03f458300a505c"
+        },
+        "eventPrefix": {
+          "bytes": 1647512,
+          "sha256": "9ed1d79389ba7718c73de12b0631d54c5de67da15800ea907e105b76b8816d82"
+        },
+        "runnerTerminalStopReason": null,
+        "runnerIntegrityErrors": []
+      }
+    ],
+    "classification": "Numerical aggregate-boundary nonconvergence during the next relaxation after completed cycle505; not a missing file, resource pause, step cap, or target endpoint. Saved completed-state checkpoint is intact; no recovery or retry was executed.",
+    "comparisonLimit": "W3 double-pressure complete four-member cohort is unavailable. The failed prefix is not evidence of no effect; no unchanged retry or numerical correction is authorized here."
+  },
+  "frozenCohortComparisons": {
+    "available": false,
+    "reason": "This launch slice reconstructs individuals; complete cohorts, including bound historical controls, remain pending.",
+    "pending": [
+      "W1 16-member and W2 10-member temperature cohorts, warm switch windows",
+      "W3 four-member pressure/forcing cohorts",
+      "F0 six-member and F1-F3 eight-member common-age cohorts",
+      "C0 twelve-member exact-tip-8/9 plateaus and common-age cohort"
+    ]
+  }
+}

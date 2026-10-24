@@ -1,0 +1,17 @@
+{
+  "collection": "bld-growth-dynamics@2026-10-21-v1",
+  "sources": [
+    {
+      "label": "bld-growth-dynamics-oct21",
+      "root": "G:/Code Files/snowflake/.worktrees/bld-growth-dynamics-oct21/out",
+      "include": [
+        "bld-growth-dynamics-oct21",
+        "bld-growth-dynamics-oct21-controls"
+      ],
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+      "role": "Complete BLD scientific campaign and operational controls, including failed attempts, both retained checkpoint generations, events, snapshots and completed readouts"
+    }
+  ],
+  "originalsRetained": true,
+  "exclusions": "Restored historical inputs under out/restores/hil-exploration-results-bld-oct21 and out/restores/bld-gd21-inputs remain covered by hil-exploration-results@2026-10-21. Dependencies, rebuildable builds, empty test scratch and publication/fresh-restore staging are outside the selected sources."
+}

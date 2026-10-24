@@ -1,0 +1,18 @@
+{
+  "format": "snowflake-nas-ledger-v1",
+  "collection": "bld-growth-dynamics@2026-10-21-v1",
+  "locator": "collections/bld-growth-dynamics/2026-10-21-v1/payload",
+  "treeSha256": "768f8b0b8dcefa92efd8da0ee4006c8e6e755c5d172fe9d750ea842ec4db2753",
+  "files": [
+    {
+      "path": "collections/bld-growth-dynamics/2026-10-21-v1/payload/bld-growth-dynamics-oct21-archive.json",
+      "bytes": 671603,
+      "sha256": "ed15fd1dcf220fc3cdf6ee194a82c35873b07f4bdd8681b391f1196cf3f8ab60"
+    },
+    {
+      "path": "collections/bld-growth-dynamics/2026-10-21-v1/payload/bld-growth-dynamics-oct21-output.tar.gz",
+      "bytes": 195369455,
+      "sha256": "1ea7534583258c46c585c478571ee6bd117044968b0c0d5d82c15563df601173"
+    }
+  ]
+}

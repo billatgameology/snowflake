@@ -3304,17 +3304,30 @@
     {
       "assetId": "bld-growth-dynamics",
       "version": "2026-10-21-v1",
-      "state": "provisional",
+      "state": "active",
       "ownerWorkstream": "hil-bld-growth-dynamics-oct21",
       "locator": "collections/bld-growth-dynamics/2026-10-21-v1/payload",
       "historicalRepoPath": null,
       "legacyAliases": [],
       "storageClass": "external-evidence",
       "aggregate": {
-        "files": 0,
-        "bytes": 0
+        "files": 2,
+        "bytes": 196041058
       },
-      "ownerManifest": null,
+      "ownerManifest": {
+        "storage": "tracked",
+        "path": "docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 728,
+        "sha256": "d24e34bd68e6ea731da0170cfdddb9feba50e2e719866626ded61cc1c960aad4",
+        "selector": {
+          "kind": "path-prefixes",
+          "include": [
+            "collections/bld-growth-dynamics/2026-10-21-v1/payload"
+          ],
+          "exclude": []
+        }
+      },
       "rights": {
         "kind": "project-owned",
         "redistribution": "allowed"
@@ -3357,33 +3370,38 @@
         "record": "docs/plans/hil-bld-growth-dynamics-oct21.md"
       },
       "restore": {
-        "status": "documented",
+        "status": "tested",
         "command": "npm run assets:restore -- --collection bld-growth-dynamics@2026-10-21-v1 --to out/restores/bld-growth-dynamics-2026-10-21-v1",
         "verifyCommand": "npm run assets:verify-restored -- --collection bld-growth-dynamics@2026-10-21-v1 --from out/restores/bld-growth-dynamics-2026-10-21-v1",
         "record": "docs/plans/hil-bld-growth-dynamics-oct21.md"
       },
       "verification": {
-        "status": "unavailable",
-        "at": null,
-        "host": null,
-        "receipt": null,
+        "status": "full-hash",
+        "at": "2026-10-24",
+        "host": "BLD",
+        "receipt": "_control/receipts/publication/bld-growth-dynamics/2026-10-21-v1/bld-growth-dynamics-20261024-v1-publish.json",
         "limits": [
-          "Provisional intent only; no NAS preservation or recovery claim."
+          "Publication receipt SHA-256 cb1fc315130f3ebefb8a8e2b84f8045b64da90c078607830742d549553a25088.",
+          "Restore receipt _control/receipts/restore/bld-growth-dynamics/2026-10-21-v1/bld-growth-dynamics-20261024-v1-restore.json SHA-256 c9a0713c4d8127565db34b2e8861d7269c7dc59f864a2d3d5fa22cb9a1451778.",
+          "Detailed checks: docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-verification.json.",
+          "Windows SMB durability is verification-based. Original workstation files remain; no pruning or off-site recovery claim.",
+          "Complete BLD growth-dynamics campaign and controls, including failed attempts; historical restored inputs retain their existing collection binding. All workstation originals remain."
         ]
       },
       "storageDomains": [
-        "bld-workstation-g"
+        "snowcrystal-nas"
       ],
       "backup": {
-        "status": "required-missing",
-        "independentDomains": [],
-        "receipts": []
+        "status": "verified",
+        "independentDomains": [
+          "bld-workstation-g"
+        ],
+        "receipts": [
+          "docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-verification.json"
+        ]
       },
       "supersedes": [],
-      "unresolved": [
-        "Stable packing, NAS publication, fresh restore/member verification and committed recovery bindings pending.",
-        "Zero aggregate is provisional, not a measured source/payload count; replace with packed inventory before activation."
-      ]
+      "unresolved": []
     }
   ],
   "overlays": [

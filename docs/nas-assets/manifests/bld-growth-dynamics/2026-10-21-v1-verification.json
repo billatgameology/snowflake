@@ -1,0 +1,188 @@
+{
+  "identity": "bld-growth-dynamics@2026-10-21-v1",
+  "verifiedAt": "2026-10-24T19:47:33.821951+00:00",
+  "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+  "payload": {
+    "fileCount": 2,
+    "totalBytes": 196041058,
+    "treeSha256": "768f8b0b8dcefa92efd8da0ee4006c8e6e755c5d172fe9d750ea842ec4db2753"
+  },
+  "publicationReceiptPath": "_control/receipts/publication/bld-growth-dynamics/2026-10-21-v1/bld-growth-dynamics-20261024-v1-publish.json",
+  "publicationReceiptSha256": "cb1fc315130f3ebefb8a8e2b84f8045b64da90c078607830742d549553a25088",
+  "restoreReceiptPath": "_control/receipts/restore/bld-growth-dynamics/2026-10-21-v1/bld-growth-dynamics-20261024-v1-restore.json",
+  "restoreReceiptSha256": "c9a0713c4d8127565db34b2e8861d7269c7dc59f864a2d3d5fa22cb9a1451778",
+  "archiveMemberCheck": {
+    "command": [
+      "C:\\Users\\biao3\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-verify-archives.py",
+      "out/restores/bld-growth-dynamics-2026-10-21-v1"
+    ],
+    "cwd": "G:\\Code Files\\snowflake",
+    "startedUtc": "2026-10-24T19:47:09.440995+00:00",
+    "finishedUtc": "2026-10-24T19:47:12.631592+00:00",
+    "exitCode": 0,
+    "restoredPayload": "G:\\Code Files\\snowflake\\out\\restores\\bld-growth-dynamics-2026-10-21-v1",
+    "archives": [
+      {
+        "label": "bld-growth-dynamics-oct21",
+        "files": 2308,
+        "bytes": 1609093065,
+        "archiveSha256": "1ea7534583258c46c585c478571ee6bd117044968b0c0d5d82c15563df601173",
+        "allMembersMatch": true
+      }
+    ],
+    "files": 2308,
+    "bytes": 1609093065
+  },
+  "commands": [
+    {
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-pack.py",
+        "bld-growth-dynamics-oct21"
+      ],
+      "cwd": "G:\\Code Files\\snowflake",
+      "startedUtc": "2026-10-24T19:46:03.290671+00:00",
+      "finishedUtc": "2026-10-24T19:46:22.423941+00:00",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "C:/nvm4w/nodejs/node.exe",
+        "docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-preserve.mjs",
+        "prepare"
+      ],
+      "cwd": "G:\\Code Files\\snowflake",
+      "startedUtc": "2026-10-24T19:46:42.156054+00:00",
+      "finishedUtc": "2026-10-24T19:46:42.484427+00:00",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "C:/nvm4w/nodejs/node.exe",
+        "docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-preserve.mjs",
+        "publish"
+      ],
+      "cwd": "G:\\Code Files\\snowflake",
+      "startedUtc": "2026-10-24T19:46:50.713091+00:00",
+      "finishedUtc": "2026-10-24T19:46:58.458258+00:00",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "C:/nvm4w/nodejs/node.exe",
+        "docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-preserve.mjs",
+        "restore"
+      ],
+      "cwd": "G:\\Code Files\\snowflake",
+      "startedUtc": "2026-10-24T19:46:58.458881+00:00",
+      "finishedUtc": "2026-10-24T19:47:01.412272+00:00",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "C:/nvm4w/nodejs/node.exe",
+        "docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-preserve.mjs",
+        "register"
+      ],
+      "cwd": "G:\\Code Files\\snowflake",
+      "startedUtc": "2026-10-24T19:47:17.410661+00:00",
+      "finishedUtc": "2026-10-24T19:47:17.549718+00:00",
+      "exitCode": 0
+    }
+  ],
+  "checks": [
+    {
+      "command": [
+        "C:/nvm4w/nodejs/npm.cmd",
+        "run",
+        "assets:verify",
+        "--",
+        "--collection",
+        "bld-growth-dynamics@2026-10-21-v1",
+        "--full"
+      ],
+      "cwd": "G:\\Code Files\\snowflake",
+      "startedUtc": "2026-10-24T19:47:44.473766+00:00",
+      "finishedUtc": "2026-10-24T19:47:47.222115+00:00",
+      "exitCode": 0,
+      "logSha256": "3f1ada1f13c315b9422b5ec79cce0a0576b6e3f7f53966b8aba2df1e2e572a6a",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "report": {
+        "format": "snowflake-nas-assets-readonly-report-v1",
+        "command": "verify",
+        "ok": true,
+        "scope": "explicit-single-collection-full-hash",
+        "mount": "attached",
+        "collections": [
+          {
+            "identity": "bld-growth-dynamics@2026-10-21-v1",
+            "state": "active",
+            "manifest": "verified",
+            "aggregate": "verified",
+            "payload": "verified-full"
+          }
+        ],
+        "overlays": [],
+        "defects": [],
+        "limitations": [],
+        "fullPayloadTotals": {
+          "files": 2,
+          "bytes": 196041058
+        },
+        "limits": [
+          "Payload hashing was limited to the one explicitly selected collection and its registered selector rows.",
+          "No publication, restoration, movement, quarantine, or deletion is available in this command."
+        ]
+      }
+    },
+    {
+      "command": [
+        "C:/nvm4w/nodejs/npm.cmd",
+        "run",
+        "assets:verify-restored",
+        "--",
+        "--collection",
+        "bld-growth-dynamics@2026-10-21-v1",
+        "--from",
+        "out/restores/bld-growth-dynamics-2026-10-21-v1"
+      ],
+      "cwd": "G:\\Code Files\\snowflake",
+      "startedUtc": "2026-10-24T19:47:47.222537+00:00",
+      "finishedUtc": "2026-10-24T19:47:48.045107+00:00",
+      "exitCode": 0,
+      "logSha256": "7e3175ff902929c968b239af66f28128ae3afd6c55f6471ab47efc377f4ada3f",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "report": {
+        "format": "snowflake-nas-legacy-restore-report-v1",
+        "command": "verify",
+        "ok": true,
+        "collection": "bld-growth-dynamics@2026-10-21-v1",
+        "destinationScope": "repo-out-restores",
+        "fileCount": 2,
+        "totalBytes": 196041058,
+        "treeSha256": "768f8b0b8dcefa92efd8da0ee4006c8e6e755c5d172fe9d750ea842ec4db2753",
+        "durableReceiptWritten": false,
+        "pruneAuthorized": false,
+        "limits": [
+          "This result verifies one fresh local staging tree and is not a durable publication receipt.",
+          "This command never grants local or NAS prune authority."
+        ]
+      }
+    }
+  ],
+  "independentWorkstationCopy": {
+    "domain": "bld-workstation-g",
+    "sourceRecord": "docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-sources.json",
+    "originalsRetained": true,
+    "preparedPayload": "G:\\Code Files\\snowflake\\out\\nas-save-bld-growth-dynamics-2026-10-21-v1\\payload",
+    "allSourceFilesRehashedAfterPacking": true
+  },
+  "limits": [
+    "All execution outputs and the original worktree remain; no pruning, closure or shutdown was executed.",
+    "Fresh restore and archive members were verified on BLD. HIL recovery remains pending.",
+    "Windows SMB durability is reopen/hash verified, not hardware crash-certified or off-site recovery.",
+    "Preserves 91 checked endpoints and one failed row. Full frozen cohort comparisons and physical validation are not established.",
+    "Git remote publication was not performed; local records will be committed."
+  ]
+}

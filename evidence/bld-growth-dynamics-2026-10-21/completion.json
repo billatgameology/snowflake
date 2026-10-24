@@ -1,0 +1,203 @@
+{
+  "schema": "bld-growth-dynamics-completion-v1",
+  "recordedAt": "2026-10-24T19:47:09.066Z",
+  "scope": "Internal terminal-disposition and preservation handoff. Individual saved-row reconstruction, not frozen-cohort analysis or physical validation.",
+  "producer": {
+    "gitHead": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+    "node": "v24.13.1",
+    "v8": "13.6.233.17-node.40",
+    "host": "BLD",
+    "executionDirectory": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21"
+  },
+  "launch": {
+    "command": [
+      "C:\\nvm4w\\nodejs\\node.exe",
+      "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\runner\\src\\bld-growth-dynamics-oct21-main.ts",
+      "launch",
+      "BLD",
+      "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21",
+      "--workers",
+      "32"
+    ],
+    "requestedWorkers": 32,
+    "maximumConcurrentWorkers": 32,
+    "coordinatorPid": 37800,
+    "queueStartedUtc": "2026-10-21T21:26:01.853Z",
+    "queueFinishedUtc": "2026-10-24T04:25:38.309Z",
+    "elapsedSeconds": 197976.456,
+    "elapsedDefinition": "Queue finishedAt minus launchedAt, using millisecond UTC timestamps; elapsed wall duration, not CPU time.",
+    "attemptName": "initial",
+    "coordinatorExitCode": 2,
+    "abortReason": null,
+    "unstartedRowIds": [],
+    "rowExitCounts": {
+      "0": 91,
+      "1": 1
+    },
+    "signals": [],
+    "terminations": []
+  },
+  "observations": {
+    "requestedRows": 92,
+    "endpointRows": 91,
+    "evaluatorDispositionCounts": {
+      "size-endpoint": 91,
+      "invalid": 1
+    },
+    "kinds": [
+      {
+        "kind": "warm",
+        "requested": 50,
+        "sizeEndpoints": 49
+      },
+      {
+        "kind": "facet",
+        "requested": 38,
+        "sizeEndpoints": 38
+      },
+      {
+        "kind": "cold",
+        "requested": 4,
+        "sizeEndpoints": 4
+      }
+    ],
+    "missing": [],
+    "pending": [],
+    "reconstructedEndpointUpdates": 132290,
+    "summaryExitCode": 0,
+    "readoutExitCode": 1,
+    "exitMeaning": "Summary completed normally. The readout exits 1 because its invalid-row census contains the recorded numerical solver failure; this does not identify a file-integrity failure."
+  },
+  "resourceObservations": {
+    "sampleCount": 26245,
+    "firstSampleUtc": "2026-10-21T21:26:03.6805985Z",
+    "lastSampleUtc": "2026-10-24T04:25:36.2687364Z",
+    "minimumAvailablePhysicalBytes": {
+      "value": 36941287424,
+      "sampleNumber": 4046,
+      "capturedUtc": "2026-10-22T07:52:28.5608152Z"
+    },
+    "minimumCommitHeadroomBytes": {
+      "value": 59708850176,
+      "sampleNumber": 4046,
+      "capturedUtc": "2026-10-22T07:52:28.5608152Z"
+    },
+    "maximumObservedWorkers": {
+      "value": 32,
+      "sampleNumber": 2,
+      "capturedUtc": "2026-10-21T21:26:20.1878143Z"
+    },
+    "maximumSampledChildRssBytes": {
+      "value": 344997888,
+      "sampleNumber": 17186,
+      "capturedUtc": "2026-10-23T16:09:02.4769300Z",
+      "pid": 22024,
+      "field": "PeakWorkingSet64"
+    },
+    "publishedCompletionFieldsAgree": true,
+    "limitation": "Extrema cover the complete retained sample log, not continuous-time extrema or transfer to other workloads."
+  },
+  "failure": {
+    "rowId": "gd21-bld-w3-pDouble-early20-w3",
+    "stopReason": "solver-error",
+    "completedUpdates": 505,
+    "extent": 13,
+    "physicalTimeSeconds": 34.45725867784839,
+    "message": "Error: aggregate boundary solve did not converge (cell 149472: sigma_b 1e-323 vs iterate 0)",
+    "checkpointTicks": [
+      505,
+      504
+    ],
+    "latestCheckpointLoadPassed": true,
+    "checkpointInspection": "Current store.load plus both manifest/payload/committed-prefix hashes and codecs; recover was not called and no solver step was executed.",
+    "next": "Retain the failed attempt and checkpoints. Diagnose separately before any numerical change or newly identified rerun; the complete W3 double-pressure cohort remains unavailable."
+  },
+  "comparisons": {
+    "available": false,
+    "pending": [
+      "W1 16-member and W2 10-member temperature cohorts, warm switch windows",
+      "W3 four-member pressure/forcing cohorts",
+      "F0 six-member and F1-F3 eight-member common-age cohorts",
+      "C0 twelve-member exact-tip-8/9 plateaus and common-age cohort"
+    ],
+    "scope": "No common-cohort contrast, exact-tip plateau result, timestep qualification, representation independence or physical interpretation is claimed."
+  },
+  "preservation": {
+    "collection": "bld-growth-dynamics@2026-10-21-v1",
+    "status": "verified-publication-and-fresh-recovery-on-BLD-HIL-recovery-pending",
+    "sourceBinding": "../../docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-sources.json",
+    "originalsRetained": true,
+    "worktreeClosureAuthorized": false,
+    "pruningAuthorized": false,
+    "verificationRecord": "../../docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-verification.json",
+    "verifiedAt": "2026-10-24T19:47:33.821951+00:00",
+    "sourceFiles": 2308,
+    "sourceBytes": 1609093065,
+    "payloadFiles": 2,
+    "payloadBytes": 196041058,
+    "payloadTreeSha256": "768f8b0b8dcefa92efd8da0ee4006c8e6e755c5d172fe9d750ea842ec4db2753",
+    "publicationReceiptSha256": "cb1fc315130f3ebefb8a8e2b84f8045b64da90c078607830742d549553a25088",
+    "restoreReceiptSha256": "c9a0713c4d8127565db34b2e8861d7269c7dc59f864a2d3d5fa22cb9a1451778",
+    "limits": "Fresh restore and all archive members verified on BLD; HIL-side restore, full cohort interpretation and any pruning remain separate."
+  },
+  "verification": {
+    "kind": "author-proportionate-skeptical-pass",
+    "author": "Codex/GPT-6",
+    "sharedContext": true,
+    "performed": [
+      "Re-executed the existing 92-row summary evaluator and saved-row readout.",
+      "Reconciled exact row coverage and 92 terminal exits.",
+      "Recomputed sampled resource extrema from the complete retained sample log, retaining witnesses and matching producer fields.",
+      "Verified the failed row current and previous checkpoint hashes/codecs and committed event prefixes without recovery or evolution.",
+      "Checked that completion wording does not imply complete cohorts or successful numerical completion of the failed row."
+    ],
+    "notPerformed": [
+      "No new solver run, resume/retry, numerical correction, full-suite rerun, independent adversarial review, full cohort analysis, or NAS recovery certification."
+    ],
+    "historicalFullSuite": "verification.json retains the non-green prelaunch full check and subsequent maker-authorized execution disposition."
+  },
+  "sources": {
+    "backgroundLaunch": {
+      "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21-controls\\background-launch.json",
+      "relativeToExecution": "out/bld-growth-dynamics-oct21-controls/background-launch.json",
+      "bytes": 560,
+      "sha256": "8b5b42548b31b435fab4e488f7c841d1ba74c79e1ec9659f580259b827b76280"
+    },
+    "coordinatorInvocation": {
+      "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21-controls\\campaign-launch-20261021T142601525-invocation.json",
+      "relativeToExecution": "out/bld-growth-dynamics-oct21-controls/campaign-launch-20261021T142601525-invocation.json",
+      "bytes": 1092,
+      "sha256": "69cdbaf25f300be1875e28e05fe731ad34d8a5b69f4106f5d291c507c040b112"
+    },
+    "coordinatorExit": {
+      "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21-controls\\campaign-launch-20261021T142601525-exit.json",
+      "relativeToExecution": "out/bld-growth-dynamics-oct21-controls/campaign-launch-20261021T142601525-exit.json",
+      "bytes": 499,
+      "sha256": "101985c196b2a8ae007fab70faf941bf116f32c04da38641a1b85685fff746d8"
+    },
+    "queueInvocation": {
+      "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\bld-growth-dynamics-oct21-BLD-initial-invocation.json",
+      "relativeToExecution": "out/bld-growth-dynamics-oct21/bld-growth-dynamics-oct21-BLD-initial-invocation.json",
+      "bytes": 8477,
+      "sha256": "54a94ad3e7918d6a48184bbe83c68350d4c2547fc8eb02ac7052631776815509"
+    },
+    "queueCompletion": {
+      "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\bld-growth-dynamics-oct21-BLD-initial-complete.json",
+      "relativeToExecution": "out/bld-growth-dynamics-oct21/bld-growth-dynamics-oct21-BLD-initial-complete.json",
+      "bytes": 51219,
+      "sha256": "131a54bc08dd47986fe83642cc5cb3e811e3edf2a462714f8fb7926ed07276f7"
+    },
+    "resourceSamples": {
+      "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21\\bld-growth-dynamics-oct21-BLD-initial-resources.jsonl",
+      "relativeToExecution": "out/bld-growth-dynamics-oct21/bld-growth-dynamics-oct21-BLD-initial-resources.jsonl",
+      "bytes": 61775451,
+      "sha256": "75cbef42c67548c676e988ea267d84bd17015c4e4110ac86e2a25649a896f13b"
+    },
+    "terminalReadout": {
+      "path": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out\\bld-growth-dynamics-oct21-controls\\terminal-readout-2026-10-24-r1-result.json",
+      "relativeToExecution": "out/bld-growth-dynamics-oct21-controls/terminal-readout-2026-10-24-r1-result.json",
+      "bytes": 8863,
+      "sha256": "e98f86c4a7c3bda50c70ecc6cf72f4d04b6b7e04aa7d3df64da97238e8259c17"
+    }
+  }
+}

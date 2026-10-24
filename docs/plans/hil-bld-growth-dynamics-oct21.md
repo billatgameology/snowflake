@@ -688,8 +688,8 @@ retained readouts. Preserve exactly `out/bld-growth-dynamics-oct21` and
 `out/bld-growth-dynamics-oct21-controls` in external-evidence collection
 `bld-growth-dynamics@2026-10-21-v1`, using the existing bounded NAS transaction/archive procedure.
 Exclude restored historical input duplicates, which already have immutable collection coverage.
-Catalogue/owner-manifest registration, publication, fresh restore/member verification and
-committed recovery bindings are still pending; no new BLD output has yet been published.
+At launch, catalogue/owner-manifest registration, publication, fresh restore/member verification
+and committed recovery bindings were pending; see the October24 preservation record below.
 Retain the workstation originals/worktree. HIL's fresh recovery remains a separate handoff
 check. The Git remote push also still awaits its separate approval; local commits are retained.
 Launch-record verification passed the existing evidence-integrity/progress checks (18 tests),
@@ -697,6 +697,15 @@ Rule7 (2843 files) and prose/JSON diff checks; original captured Windows command
 their original line endings. This does not replace the earlier full-check outcome.
 
 ### BLD finished-output preservation — October24
+
+The [terminal readout](../../evidence/bld-growth-dynamics-2026-10-21/terminal-readout.json)
+checked all 92 rows: 91 size endpoints (49/50 warm, 38/38 facet, 4/4 cold), no missing or pending
+rows, and 132290 independently reconstructed updates. The one invalid row,
+`gd21-bld-w3-pDouble-early20-w3`, failed boundary convergence after 505 completed updates at
+extent13 and simulated age34.45725867784839 s (`sigma_b` 1e-323 versus iterate0 at cell149472).
+Both retained checkpoint generations (505 and504) passed hash/codec/event-prefix checks.
+No recovery or retry ran; complete W3 double-pressure comparison is unavailable. The existing
+individual-row reader does not implement the complete frozen matched-cohort comparisons.
 
 Continue the maker's original authorization to publish findings to NAS and commit when done.
 One deliverable is the completed BLD output preserved on the confirmed `S:/` NAS with verified
@@ -748,8 +757,31 @@ npm.cmd run assets:verify-restored -- --collection bld-growth-dynamics@2026-10-2
 ```
 
 The member-check JSON must be saved as the recipe's `restored-members.json` before registration.
-These are planned until their execution receipts are recorded. Use the installed Python3.13 path
-above rather than this host's older default Python.
+All commands above executed successfully; [recovery verification](../nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-verification.json)
+records exact executable paths, times and exit codes. Python3.13 was selected explicitly.
+
+The source pack contains 2308 files / 1609093065 bytes; its archive plus inventory occupy
+196041058 bytes across two payload files. Every restored archive member matched. Full collection
+hash verification and destination verification both exited0. Payload tree SHA-256:
+`768f8b0b8dcefa92efd8da0ee4006c8e6e755c5d172fe9d750ea842ec4db2753`.
+The immutable NAS location is `S:/collections/bld-growth-dynamics/2026-10-21-v1/payload`.
+Original campaign/control files remain in the fixed execution worktree; prepared archive and
+fresh restore remain under primary `out/`. No output/worktree was removed.
+
+HIL recovery is still pending. From its current primary checkout with the marked NAS mounted,
+use a fresh absent destination (do not merge it with an existing restore):
+
+```powershell
+npm.cmd run assets:restore -- --collection bld-growth-dynamics@2026-10-21-v1 --to out/restores/bld-growth-dynamics-oct21-hil
+npm.cmd run assets:verify-restored -- --collection bld-growth-dynamics@2026-10-21-v1 --from out/restores/bld-growth-dynamics-oct21-hil
+python docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-verify-archives.py out/restores/bld-growth-dynamics-oct21-hil
+```
+
+Use Python3.13 there too. Verify archived members before extracting for registered matched-cohort
+analysis. Retain the failed row as unresolved, without changing convergence or retrying unchanged.
+BLD recovery does not assert HIL recovery or completion of the joint scientific comparisons.
+The required full repository check is pending; its exact receipt will be appended to the recovery
+record. No numerical behavior or frozen protocol was changed for preservation.
 
 ### HIL executable and recovery — October21
 
@@ -888,7 +920,8 @@ transplant, external-source acquisition/provider contact, automatic endless fan-
 
 ## Open questions
 
-The maker approved BLD execution and the queue is running. Mature durations and scientific
-outcomes remain unknown; completed-row analysis and NAS recovery remain pending. Exact reused-control bindings and executable readout/routing checks
-are recorded above. Resource pauses may require a
-lower operational worker allocation; scientific conclusions may select none of the reserve.
+BLD completed its fixed queue with 91 checked size endpoints and one numerical failure;
+[terminal reconstruction](../../evidence/bld-growth-dynamics-2026-10-21/terminal-readout.json)
+records the complete census and the intact failed-row checkpoints. NAS preservation and fresh BLD recovery passed below; full frozen matched-cohort comparisons and fresh HIL recovery remain pending.
+Do not retry the failed double-pressure case unchanged or infer a null effect from its prefix.
+HIL status requires a host-side observation; scientific conclusions may select none of the reserve.
