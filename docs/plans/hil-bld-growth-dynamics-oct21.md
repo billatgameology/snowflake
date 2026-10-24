@@ -826,6 +826,32 @@ matches before/after, the recovery record/progress state and exact later removal
 committed, and both checkouts are clean. Leave branch/worktree removal and source pruning
 unexecuted; local Git publication remains separate from a Git remote update.
 
+Preparation completed: the entire local `out/` tree now resides at the retained primary path
+above. Before/after stable inventories match all11552 files /8386768624 bytes, tree SHA-256
+`d086de9ec931b4c6be0d85703b763bcc1061ffcdf990cf1e146c079fb7cb2b90`.
+This larger local tree includes historical restored inputs; the new BLD collection still covers
+exactly2308 campaign/control files. The [recovery record](../nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-verification.json)
+binds the fresh NAS/source checks, relocation receipt and inventory identities. Only rebuildable
+`app/dist/` and reinstallable `node_modules/` remain ignored in the task checkout. Its stale
+`origin/main` upstream was cleared; no remote ref changed. Main contains the full task branch.
+
+The branch and worktree are ready for a later requested closure and remain present now. Later,
+from primary main, use ordinary removal of the exact task worktree and merged local branch:
+
+```powershell
+git worktree remove "G:/Code Files/snowflake/.worktrees/bld-growth-dynamics-oct21"
+git branch -d codex/bld-growth-dynamics-oct21
+```
+
+If ordinary removal refuses any new state, inspect it rather than forcing removal. Retain
+`G:/Code Files/snowflake/out/bld-retired-2026-10-24/out` and primary publication/fresh-restore
+staging. Closure is not permission to prune those copies. HIL recovery and matched-cohort
+interpretation are pending independently of BLD's operational retirement.
+
+Closeout-record checks passed Rule7 (2854 files), all11 progress-index tests and diff checks.
+The existing full-check outcome above remains unchanged; this custody/prose step needs no new
+solver suite. The recovery record retains the command/exit outcomes.
+
 ### HIL executable and recovery — October21
 
 HIL's producer is `2f2d605f0ed8fdb8d78cdea02a58102a7001cb53`, on

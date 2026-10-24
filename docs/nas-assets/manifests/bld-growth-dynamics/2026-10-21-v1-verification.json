@@ -176,7 +176,10 @@
     "sourceRecord": "docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-sources.json",
     "originalsRetained": true,
     "preparedPayload": "G:\\Code Files\\snowflake\\out\\nas-save-bld-growth-dynamics-2026-10-21-v1\\payload",
-    "allSourceFilesRehashedAfterPacking": true
+    "allSourceFilesRehashedAfterPacking": true,
+    "currentRoot": "G:\\Code Files\\snowflake\\out\\bld-retired-2026-10-24\\out",
+    "relocatedWithoutPruning": true,
+    "currentLocationsRecord": "docs/plans/hil-bld-growth-dynamics-oct21.md#bld-branchworktree-closeout-preparation--october24"
   },
   "limits": [
     "All execution outputs and the original worktree remain; no pruning, closure or shutdown was executed.",
@@ -273,5 +276,110 @@
     "localFindingsCommit": "c73c29618f6fd880ceffeb3ec933301b84c95dd3",
     "gitRemoteUpdated": false,
     "reason": "Original authorization covers NAS publication and local commits. Separate Git push approval remains pending after the earlier auto-review rejection."
+  },
+  "closeoutPreparation": {
+    "preparedAt": "2026-10-24T20:24:07.542670+00:00",
+    "status": "ready-for-requested-later-removal",
+    "worktreeRemoved": false,
+    "branchDeleted": false,
+    "worktree": "G:/Code Files/snowflake/.worktrees/bld-growth-dynamics-oct21",
+    "branch": "codex/bld-growth-dynamics-oct21",
+    "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+    "integrationVerifiedAtMain": "9f2a0c4452983cb3f03d5e2c8bd88e3685dc4b65",
+    "gitChecks": [
+      {
+        "command": "git merge-base --is-ancestor codex/bld-growth-dynamics-oct21 main",
+        "exitCode": 0
+      },
+      {
+        "command": "git log main..codex/bld-growth-dynamics-oct21",
+        "exitCode": 0,
+        "stdout": ""
+      },
+      {
+        "command": "git branch --unset-upstream codex/bld-growth-dynamics-oct21",
+        "exitCode": 0,
+        "reason": "Clear stale origin/main tracking; later ordinary deletion can use current main as its merge base."
+      }
+    ],
+    "sourceCoverage": {
+      "checkedAt": "2026-10-24T20:20:13.268812+00:00",
+      "method": "Existing pack.selected / pack.digest compared every source entry, kind, size and SHA-256 to published archive inventory",
+      "root": "G:/Code Files/snowflake/.worktrees/bld-growth-dynamics-oct21/out",
+      "include": [
+        "bld-growth-dynamics-oct21",
+        "bld-growth-dynamics-oct21-controls"
+      ],
+      "files": 2308,
+      "bytes": 1609093065,
+      "allSourceEntriesMatch": true,
+      "archiveInventorySha256": "ed15fd1dcf220fc3cdf6ee194a82c35873b07f4bdd8681b391f1196cf3f8ab60"
+    },
+    "nasFullHashRecheck": {
+      "command": [
+        "C:/nvm4w/nodejs/npm.cmd",
+        "run",
+        "assets:verify",
+        "--",
+        "--collection",
+        "bld-growth-dynamics@2026-10-21-v1",
+        "--full"
+      ],
+      "cwd": "G:\\Code Files\\snowflake",
+      "startedUtc": "2026-10-24T20:20:13.269668+00:00",
+      "finishedUtc": "2026-10-24T20:20:15.641143+00:00",
+      "exitCode": 0,
+      "stdoutSha256": "3f1ada1f13c315b9422b5ec79cce0a0576b6e3f7f53966b8aba2df1e2e572a6a",
+      "capturedStdout": "\n> virtual-cloud-chamber@0.0.0 assets:verify\n> node scripts/nas-assets.ts verify --collection bld-growth-dynamics@2026-10-21-v1 --full\n\n{\"format\":\"snowflake-nas-assets-readonly-report-v1\",\"command\":\"verify\",\"ok\":true,\"scope\":\"explicit-single-collection-full-hash\",\"mount\":\"attached\",\"collections\":[{\"identity\":\"bld-growth-dynamics@2026-10-21-v1\",\"state\":\"active\",\"manifest\":\"verified\",\"aggregate\":\"verified\",\"payload\":\"verified-full\"}],\"overlays\":[],\"defects\":[],\"limitations\":[],\"fullPayloadTotals\":{\"files\":2,\"bytes\":196041058},\"limits\":[\"Payload hashing was limited to the one explicitly selected collection and its registered selector rows.\",\"No publication, restoration, movement, quarantine, or deletion is available in this command.\"]}\n",
+      "capturedStderr": ""
+    },
+    "retainedOutputMove": {
+      "source": "G:\\Code Files\\snowflake\\.worktrees\\bld-growth-dynamics-oct21\\out",
+      "destination": "G:\\Code Files\\snowflake\\out\\bld-retired-2026-10-24\\out",
+      "startedUtc": "2026-10-24T20:22:31.1540181Z",
+      "finishedUtc": "2026-10-24T20:22:31.1807449Z",
+      "operation": "Move-Item -LiteralPath source -Destination absent-destination",
+      "originalsRetained": true,
+      "sourcePruned": false
+    },
+    "retainedLocalTree": {
+      "fileCount": 11552,
+      "totalBytes": 8386768624,
+      "treeSha256": "d086de9ec931b4c6be0d85703b763bcc1061ffcdf990cf1e146c079fb7cb2b90"
+    },
+    "beforeInventorySha256": "21519cfef5fa87b657144ace1ae5d05331ad3192b1db563326280db1bab101b6",
+    "afterInventorySha256": "00a1a9a22ab61684243d97ff64aa70b851026ba9282cf3ad64f4421e6c4984f0",
+    "wholeLocalInventoryMatched": true,
+    "remainingIgnoredInTask": [
+      "app/dist/ (rebuildable)",
+      "node_modules/ (reinstallable)"
+    ],
+    "limits": [
+      "Operational closeout readiness only; all originals remain in primary out/bld-retired-2026-10-24/out.",
+      "Existing verified NAS publication/fresh restore cover the same scientific bytes; no duplicate publication or repeated restore.",
+      "HIL recovery, registered matched-cohort comparisons and Git remote publication remain pending.",
+      "No branch/worktree removal, source pruning or numerical retry was executed."
+    ],
+    "recordChecks": {
+      "checkedAt": "2026-10-24T20:25:19.936525+00:00",
+      "checks": [
+        {
+          "command": "npm.cmd run lint:rule7",
+          "exitCode": 0,
+          "filesScanned": 2854
+        },
+        {
+          "command": "npx.cmd --no-install vitest run runner/test/progress-index.test.ts",
+          "exitCode": 0,
+          "filesPassed": 1,
+          "testsPassed": 11
+        },
+        {
+          "command": "git diff --check",
+          "exitCode": 0
+        }
+      ],
+      "scope": "Operational custody/readiness and pure records; no numerical, analysis or publication runtime changes, and no new full-suite run."
+    }
   }
 }
