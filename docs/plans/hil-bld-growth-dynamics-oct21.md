@@ -877,6 +877,80 @@ commands above. Its running execution producer `2f2d605` and runtime remain fixe
 recovery and frozen matched-cohort analysis remain pending. This subsection and the current-state
 correction are metadata-only records of the successful publication.
 
+### HIL verification and interpretation — October24
+
+Maker-requested saved-data analysis, not a new run protocol. HIL recovered
+`bld-growth-dynamics@2026-10-21-v1` through the marked `Z:/` mount into primary
+`out/restores/bld-growth-dynamics-hil-20261024T2048/`. Full catalogue verification,
+fresh-stage verification and all 2308 archive members / 1609093065 original bytes matched.
+The existing endpoint evaluator independently reproduced 91 size endpoints and one invalid
+row, agreeing with all 92 published dispositions. The producer and preservation commits are
+ancestors of main `0e31be396bba1058a44d0051c69f900c79edb9db`. The local
+`handoff-verification-final.json` there records the exact recovery checks. This supersedes
+earlier statements that fresh HIL recovery and BLD matched-cohort interpretation are pending.
+
+The concise findings below are transcribed from primary
+`out/bld-results-review-2026-10-24/`: `warm/warm-comparisons.json`,
+`facet/calculations.json`, `cold/readout.json` and `independent-f0-count.json`.
+The adjacent recipes, input hashes and lane findings retain the detailed local analysis;
+these newly generated analysis files have not been NAS-published. Scientific source bytes
+remain in the registered BLD collection and `hil-exploration-results@2026-10-21`.
+Read this subsection as the durable internal interpretation, not a new gate artifact.
+
+- **Warm W1:** at exact largest lattice-coordinate center span 9.8 um, early1/5/10/20/40
+  cavity depths are 0/2.10/2.80/3.50/4.55 um at -4.5 C and
+  0/2.45/3.15/3.85/4.55 um at -5 C. Each table entry agrees at CFL .05/.025;
+  broad and late20 controls have zero depth. All 20 early W1 switches were observed.
+  After cutoff, selected kinetic demand is zero, while the 5–40 s cases retain and advance
+  openings. This is persistence of an evolving prepared state, not attribution to geometry
+  alone. Full-width time to size at -4.5 C still changes from 65.45642003632683 to
+  55.41259724182945 s under timestep halving; terminal-depth agreement is not general convergence.
+- **Warm W2:** at each complete ten-row cohort's shared age, early5 widths2/3/4 give
+  depths 0/1.75/0 um at both tested temperatures, unchanged by adjacent-event alternatives.
+  Width4 receives more selected demand than width3 before cutoff yet loses the deep opening.
+  Longer width4 early20 preparation does retain it. Thus accumulated selected demand alone
+  does not order these outcomes. W3's three complete transport/forcing comparisons retain
+  the prepared-state lead; the double-pressure cohort remains unavailable.
+- **Facet F0–F3:** 98 distinct inputs / 107918 updates were reconstructed. In the frozen
+  12.374393154152461–16.499190872203283 s F0 window, basal-minus-neither new occupied
+  sites are -202/+122/+248 at CFL .05/.025/.0125. An independent direct sum of attachment
+  lists reproduced these values without the comparison/window helper. Both finer steps give
+  the positive sign, but their adjacent-event ranges [122,128] and [224,248] do not overlap.
+  Axial agreement does not qualify occupancy convergence. Complete shared-age unions show
+  combined facet effects depend on seed and forcing; the combined response is not generally
+  the sum of the individual responses. Tall -8.5 timestep sensitivity does not automatically
+  select R5, which names the wide seed.
+- **Cold C0:** all 12 rows / 20126 updates were reconstructed. At tip8, the shared sampling
+  duration (minimum over all 12 completed plateaus) is 2.0801195934708687 s. At its halfway sample the control core/tip gap is zero
+  and the prism-enabled gap one cell at all three CFLs; all are zero at three quarters.
+  This repeats a transient delay in core filling, not a permanent hollow core. The full tip9
+  comparison is unavailable: six control rows stop at their size target without an observed
+  plateau exit. Do not substitute terminal time for exit or shrink the cohort.
+
+The failed `gd21-bld-w3-pDouble-early20-w3` has 505 completed updates, extent13 and
+34.45725867784839 s; boundary solve failed at cell149472 (`sigma_b 1e-323 vs iterate 0`).
+Both saved checkpoint generations (505/504) pass codec/digest and event-prefix checks.
+This is a preserved numerical failure, not a null physical result or a qualified cross-host
+restart. Do not retry unchanged. Exact numerical-source comparisons for the five reused
+producer revisions against `d7f76cb` found no changes in core, solver-cpu or the named
+discovery/checkpoint/protocol modules (`root-verification.json`).
+
+**Next discussion:** inspect saved switch-near geometry, partial fill and field diagnostics
+for width3 versus width4 early5 and early1 versus early5. The distinction is where growth
+continues, not simply whether total axial growth is faster. This is the most discriminating
+next question from BLD; HIL's fine/history groups supply separate qualifications. Register a
+prediction before any reserve dispatch; no new simulation, reserve selection, physics
+validation or full Nakaya explanation follows from these findings.
+
+Review limits: three shared-context GPT-6-family analysis lanes executed saved-byte
+reconstructions; the parent inspected the methods, checked source parity and checkpoints,
+and independently recomputed the F0 count contrast. No independent simulations, external
+physical validation or new full test suite ran. The known lessons on matched ages, complete
+cohorts, failed prefixes and quantity-specific convergence remain applicable. This records
+solo scientific exploration, with hostile machine control outside scope under Rule14A.
+The documentation task checkout contains no useful output payload; all analysis staging
+remains in primary, and the active HIL execution checkout is unchanged.
+
 ### HIL executable and recovery — October21
 
 HIL's producer is `2f2d605f0ed8fdb8d78cdea02a58102a7001cb53`, on
@@ -1019,6 +1093,6 @@ transplant, external-source acquisition/provider contact, automatic endless fan-
 
 BLD completed its fixed queue with 91 checked size endpoints and one numerical failure;
 [terminal reconstruction](../../evidence/bld-growth-dynamics-2026-10-21/terminal-readout.json)
-records the complete census and the intact failed-row checkpoints. NAS preservation and fresh BLD recovery passed below; full frozen matched-cohort comparisons and fresh HIL recovery remain pending.
+records the complete census and the intact failed-row checkpoints. NAS preservation, fresh BLD/HIL recovery and BLD frozen-cohort interpretation are complete as recorded above; unavailable comparisons remain explicitly unavailable.
 Do not retry the failed double-pressure case unchanged or infer a null effect from its prefix.
 HIL status requires a host-side observation; scientific conclusions may select none of the reserve.
