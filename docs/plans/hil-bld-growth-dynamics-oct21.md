@@ -796,6 +796,36 @@ passed diff checks; raw test logs retain original diagnostic whitespace and line
 Findings and recovery bindings are locally committed as `c73c296`; Git remote publication and
 HIL fresh recovery remain pending. Source files and the execution worktree remain on BLD.
 
+### BLD branch/worktree closeout preparation — October24
+
+The maker requests confirmation of NAS preservation, committed integration and readiness to close
+this task. One deliverable is a reconciled task checkout with useful originals retained outside
+its directory. Solo scientific research; hostile actors excluded. This is operational preparation,
+not completion of the pending HIL recovery or frozen matched-cohort scientific comparisons.
+
+Read-only checks confirm task producer `d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365` is an ancestor
+of primary `main` at `9f2a0c4452983cb3f03d5e2c8bd88e3685dc4b65`; `main..task` is empty and
+both tracked checkouts are clean. All 2308 campaign/control files /1609093065 bytes still match
+the published archive inventory; the fresh full NAS hash check exited0. Reuse collection
+`bld-growth-dynamics@2026-10-21-v1` and its successful publication/fresh-stage/member receipts,
+without duplicating NAS payloads or repeating a restore solely for closeout.
+
+Prepare local custody by moving exactly
+`G:/Code Files/snowflake/.worktrees/bld-growth-dynamics-oct21/out` to the absent target
+`G:/Code Files/snowflake/out/bld-retired-2026-10-24/out`, after resolving both paths inside the
+workspace and recording a complete stable inventory. Recompute that inventory after the move.
+This retains every original campaign/control file plus the historical input restore directories
+and the empty test-scratch directory. Historical inputs keep their existing
+`hil-exploration-results@2026-10-21` binding; the new BLD collection covers exactly the two
+campaign/control roots. Reinstallable `node_modules/` and rebuildable `app/dist/` need no backup.
+
+Lessons A1/A2/C4 and Rules15/16 govern exact coverage and custody. Existing archive inventory,
+NAS full-hash check and stable-tree inventory address accidental omission or changed bytes.
+No new verifier, full scientific check or numerical rerun is needed. Done when local custody
+matches before/after, the recovery record/progress state and exact later removal targets are
+committed, and both checkouts are clean. Leave branch/worktree removal and source pruning
+unexecuted; local Git publication remains separate from a Git remote update.
+
 ### HIL executable and recovery — October21
 
 HIL's producer is `2f2d605f0ed8fdb8d78cdea02a58102a7001cb53`, on
