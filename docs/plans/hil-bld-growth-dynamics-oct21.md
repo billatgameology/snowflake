@@ -628,9 +628,9 @@ No production or test guard was weakened. A local prelaunch hold initially reque
 Mode and another full check; the maker subsequently explicitly approved execution after the
 recorded outcome, as documented below. No Windows setting changed. The failed full check remains
 recorded, with no full-suite-green or scientific result claim.
-The implementation and records remain local: automatic approval review rejected the Git push
+At this preparation record, the implementation and records remained local: automatic approval review rejected the Git push
 because the maker explicitly named NAS publication/local commit rather than a remote branch
-update. Separate Git push approval is pending; no remote ref was changed.
+update. Separate Git push approval was pending then; the October24 GitHub publication record below supersedes that hold.
 
 Implemented commands from this execution worktree:
 
@@ -691,7 +691,7 @@ Exclude restored historical input duplicates, which already have immutable colle
 At launch, catalogue/owner-manifest registration, publication, fresh restore/member verification
 and committed recovery bindings were pending; see the October24 preservation record below.
 Retain the workstation originals/worktree. HIL's fresh recovery remains a separate handoff
-check. The Git remote push also still awaits its separate approval; local commits are retained.
+check. At launch, the Git remote push still awaited separate approval; the October24 publication record below supersedes that hold.
 Launch-record verification passed the existing evidence-integrity/progress checks (18 tests),
 Rule7 (2843 files) and prose/JSON diff checks; original captured Windows command bytes retain
 their original line endings. This does not replace the earlier full-check outcome.
@@ -793,8 +793,9 @@ frozen protocol, test assertion or Windows setting was changed for preservation.
 Final record checks passed all27 NAS-catalogue/evidence-integrity/progress tests and Rule7
 (2854 scanned files); exact command/output receipts are in the recovery record. Edited prose/JSON
 passed diff checks; raw test logs retain original diagnostic whitespace and line endings.
-Findings and recovery bindings are locally committed as `c73c296`; Git remote publication and
-HIL fresh recovery remain pending. Source files and the execution worktree remain on BLD.
+Findings and recovery bindings were locally committed as `c73c296`; the October24 GitHub
+publication below includes that commit. HIL fresh recovery remains pending. Source files and
+the execution worktree remain on BLD.
 
 ### BLD branch/worktree closeout preparation — October24
 
@@ -851,6 +852,30 @@ interpretation are pending independently of BLD's operational retirement.
 Closeout-record checks passed Rule7 (2854 files), all11 progress-index tests and diff checks.
 The existing full-check outcome above remains unchanged; this custody/prose step needs no new
 solver suite. The recovery record retains the command/exit outcomes.
+
+### GitHub publication for HIL — October24
+
+The maker explicitly requested pushing to GitHub so HIL can see BLD's work. This supersedes
+the earlier Git-push scope rejection. `git fetch origin` found no newer remote commits; local
+main was eight commits ahead with no remote-only commits. Both task checkouts were clean,
+the task branch was already included in main, and its only ignored contents were rebuildable
+dependencies/build output. A bounded shared-context Codex/GPT-6 read-only diff audit found no
+bulk payloads or sensitive-filename blocker; it did not perform an exhaustive secret audit or
+rerun science/NAS checks. No executable/scientific source changed after tested `c73c296`.
+
+Normal `git push origin main` succeeded at 2026-10-24T22:07:09.165045Z, moving GitHub main from
+`aa2f96b0ac5be92e418368ffa57cb6c72cea8e7b` to
+`e6a9a52a471fa5620522d5a623b8013a188e95f4`. The
+[recovery record](../nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-verification.json)
+binds the exact command, exit and stdout/stderr. Source, concise findings, NAS owner/catalogue
+bindings, recovery commands, tests and closeout custody are now available on GitHub. Bulk output
+remains in the registered NAS collection. No force push, remote task branch, new simulation,
+worktree removal or local source pruning was needed.
+
+HIL should fetch/update its primary checkout, then use the existing BLD restore/member-verification
+commands above. Its running execution producer `2f2d605` and runtime remain fixed. Fresh HIL
+recovery and frozen matched-cohort analysis remain pending. This subsection and the current-state
+correction are metadata-only records of the successful publication.
 
 ### HIL executable and recovery — October21
 

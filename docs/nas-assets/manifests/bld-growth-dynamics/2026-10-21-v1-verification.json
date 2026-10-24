@@ -186,7 +186,7 @@
     "Fresh restore and archive members were verified on BLD. HIL recovery remains pending.",
     "Windows SMB durability is reopen/hash verified, not hardware crash-certified or off-site recovery.",
     "Preserves 91 checked endpoints and one failed row. Full frozen cohort comparisons and physical validation are not established.",
-    "Git remote publication was not performed; findings and recovery bindings were committed locally as c73c296."
+    "Source, findings and recovery records were published to GitHub main at e6a9a52; bulk run payloads remain on NAS."
   ],
   "repositoryVerification": {
     "fullCheck": {
@@ -274,8 +274,28 @@
   },
   "repositoryPublication": {
     "localFindingsCommit": "c73c29618f6fd880ceffeb3ec933301b84c95dd3",
-    "gitRemoteUpdated": false,
-    "reason": "Original authorization covers NAS publication and local commits. Separate Git push approval remains pending after the earlier auto-review rejection."
+    "gitRemoteUpdated": true,
+    "reason": "The October24 explicit GitHub push request supersedes the earlier scope rejection. Normal fast-forward push succeeded.",
+    "command": [
+      "git",
+      "push",
+      "origin",
+      "main"
+    ],
+    "cwd": "G:\\Code Files\\snowflake",
+    "branch": "main",
+    "publishedCommit": "e6a9a52a471fa5620522d5a623b8013a188e95f4",
+    "remoteMainBefore": "aa2f96b0ac5be92e418368ffa57cb6c72cea8e7b",
+    "startedUtc": "2026-10-24T22:07:06.384340+00:00",
+    "finishedUtc": "2026-10-24T22:07:09.165045+00:00",
+    "exitCode": 0,
+    "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "",
+    "stderrSha256": "bf5bd28e110032c07caef8aea521f25a896d308d6f033463254aa3bcdaaaab00",
+    "stderr": "To https://github.com/billatgameology/snowflake.git\n   aa2f96b..e6a9a52  main -> main\n",
+    "repository": "https://github.com/billatgameology/snowflake",
+    "approvedBy": "Maker: can you push to github so HIL can see your work",
+    "scope": "Publishes the source/findings/recovery/closeout snapshot at the named commit; this receipt is a subsequent metadata-only record."
   },
   "closeoutPreparation": {
     "preparedAt": "2026-10-24T20:24:07.542670+00:00",
@@ -357,7 +377,7 @@
     "limits": [
       "Operational closeout readiness only; all originals remain in primary out/bld-retired-2026-10-24/out.",
       "Existing verified NAS publication/fresh restore cover the same scientific bytes; no duplicate publication or repeated restore.",
-      "HIL recovery, registered matched-cohort comparisons and Git remote publication remain pending.",
+      "HIL recovery and registered matched-cohort comparisons remain pending. Git remote publication succeeded at e6a9a52.",
       "No branch/worktree removal, source pruning or numerical retry was executed."
     ],
     "recordChecks": {
