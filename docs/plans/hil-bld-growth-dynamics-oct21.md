@@ -1,11 +1,11 @@
 # Plan — HIL and BLD growth dynamics campaign
 
 - **Phase:** active Phase 10 exploration under charter sections 2.5/3.2 and ADRs 0011, 0055, 0058–0060 and 0062.
-- **Status:** BLD's finite queue has ended; saved-row verification and NAS preservation are in progress on October24. HIL's latest locally recorded launch remains October21; no new live HIL observation is claimed.
+- **Status:** BLD's finite queue has ended with 91 checked endpoints/one failure, verified NAS publication and fresh BLD recovery on October24. HIL's latest locally recorded launch remains October21; no new live HIL observation is claimed.
 - **Started / last touched:** 2026-10-21 / 2026-10-24 by Codex/GPT-6.
 - **Authority:** maker requests full useful use of HIL's 20-worker allocation and BLD's 32-worker allocation, detailed long queues, resumability and no wall-clock cutoff. The subsequent October21 direction puts all longest/least-predictable work on HIL so BLD can finish and shut down. This supersedes the initial 60/56 host split and the October8 HIL-only default.
 - **Publication:** `origin/main`; planning branch `codex/phase10-two-host-growth`, based on `8e008644085f075922cfccd8a296b0dd248beb60`.
-- **Immediate deliverable:** HIL's registered 24-row queue running and checkpointing, using the independent execution amendment below. BLD owns its 92-row implementation and dispatch. Solo scientific research; hostile actors excluded.
+- **Immediate deliverable:** HIL freshly recovers the preserved BLD collection and completes the registered matched-cohort comparisons; observe HIL's current queue before further dispatch. BLD's finite run/preservation slice is complete. Solo scientific research; hostile actors excluded.
 
 ## Goal
 
@@ -780,8 +780,21 @@ python docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-verify-archiv
 Use Python3.13 there too. Verify archived members before extracting for registered matched-cohort
 analysis. Retain the failed row as unresolved, without changing convergence or retrying unchanged.
 BLD recovery does not assert HIL recovery or completion of the joint scientific comparisons.
-The required full repository check is pending; its exact receipt will be appended to the recovery
-record. No numerical behavior or frozen protocol was changed for preservation.
+The exact `npm.cmd test` at `c73c29618f6fd880ceffeb3ec933301b84c95dd3` ran from
+2026-10-24T19:49:09.319099Z to20:14:59.785572Z, exiting1: 246 passing/one failing test file;
+3070 passed, two failed and53 skipped tests. Both failures are the existing comparison-builder
+file/directory symlink setup failures (Windows EPERM, lines581/644), also recorded on October21.
+Rule7 and both TypeScript checks passed; NAS catalogue/transaction, evidence-integrity, progress
+and BLD readout tests passed. Exact logs are retained in
+[evidence](../../evidence/bld-growth-dynamics-2026-10-21/npm-test-preservation.stdout.log) with
+[stderr](../../evidence/bld-growth-dynamics-2026-10-21/npm-test-preservation.stderr.log), and their
+hashes/exit are bound by the recovery record. No full-suite-green claim. No numerical behavior,
+frozen protocol, test assertion or Windows setting was changed for preservation.
+Final record checks passed all27 NAS-catalogue/evidence-integrity/progress tests and Rule7
+(2854 scanned files); exact command/output receipts are in the recovery record. Edited prose/JSON
+passed diff checks; raw test logs retain original diagnostic whitespace and line endings.
+Findings and recovery bindings are locally committed as `c73c296`; Git remote publication and
+HIL fresh recovery remain pending. Source files and the execution worktree remain on BLD.
 
 ### HIL executable and recovery — October21
 
@@ -877,6 +890,9 @@ transplant, external-source acquisition/provider contact, automatic endless fan-
 
 ## Tried and rejected
 
+- **October24 preservation check with unchanged Windows symlink privilege:** the exact full
+  check above again reached both comparison-builder fixture EPERM failures. The 246 other files
+  passed; keep the receipt and do not weaken tests or repeat the full run for unchanged permissions.
 - **Initial BLD full check with missing Windows symlink privilege:** the exact run at `5e03d71`
   exited 1 with two setup failures in the existing comparison-builder suite and one progress-length
   assertion. The progress correction and failing receipt are retained. The maker then explicitly

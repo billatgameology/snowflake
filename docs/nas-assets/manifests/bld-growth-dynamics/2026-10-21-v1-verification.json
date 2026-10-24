@@ -183,6 +183,95 @@
     "Fresh restore and archive members were verified on BLD. HIL recovery remains pending.",
     "Windows SMB durability is reopen/hash verified, not hardware crash-certified or off-site recovery.",
     "Preserves 91 checked endpoints and one failed row. Full frozen cohort comparisons and physical validation are not established.",
-    "Git remote publication was not performed; local records will be committed."
-  ]
+    "Git remote publication was not performed; findings and recovery bindings were committed locally as c73c296."
+  ],
+  "repositoryVerification": {
+    "fullCheck": {
+      "command": [
+        "C:/nvm4w/nodejs/npm.cmd",
+        "test"
+      ],
+      "cwd": "G:\\Code Files\\snowflake",
+      "head": "c73c29618f6fd880ceffeb3ec933301b84c95dd3",
+      "startedUtc": "2026-10-24T19:49:09.319099+00:00",
+      "stdout": "G:\\Code Files\\snowflake\\out\\nas-save-bld-growth-dynamics-2026-10-21-v1\\npm-test-stdout.log",
+      "stderr": "G:\\Code Files\\snowflake\\out\\nas-save-bld-growth-dynamics-2026-10-21-v1\\npm-test-stderr.log",
+      "finishedUtc": "2026-10-24T20:14:59.785572+00:00",
+      "exitCode": 1,
+      "stdoutTracked": "evidence/bld-growth-dynamics-2026-10-21/npm-test-preservation.stdout.log",
+      "stdoutSha256": "26d3482694f5eed9867994bb8e3a96d360f7ce72753db6d47a2654e42d0ba064",
+      "stderrTracked": "evidence/bld-growth-dynamics-2026-10-21/npm-test-preservation.stderr.log",
+      "stderrSha256": "a5b23b8cb50fdfb02d54835c3ed01d33b0d5cd5146dfe388031fe948e1e2afbc",
+      "files": {
+        "passed": 246,
+        "failed": 1,
+        "total": 247
+      },
+      "tests": {
+        "passed": 3070,
+        "failed": 2,
+        "skipped": 53,
+        "total": 3125
+      }
+    },
+    "fullSuiteGreen": false,
+    "failures": [
+      {
+        "file": "runner/test/gutcheck-growth-comparison-builder.test.ts",
+        "lines": [
+          581,
+          644
+        ],
+        "count": 2,
+        "reason": "Existing file/directory symlink fixtures fail setup with Windows EPERM, as on October21. Assertions and Windows settings unchanged."
+      }
+    ],
+    "scope": "Rule7, both TypeScript checks and all Vitest suites executed. NAS catalogue/transaction, evidence-integrity, progress and BLD readout tests passed. No numerical behavior or frozen protocol changed; actual NAS publication, fresh recovery and all archive-member checks passed separately.",
+    "focusedMetadataCheck": {
+      "command": [
+        "C:/nvm4w/nodejs/npx.cmd",
+        "--no-install",
+        "vitest",
+        "run",
+        "runner/test/nas-assets-catalog.test.ts",
+        "runner/test/evidence-integrity.test.ts",
+        "runner/test/progress-index.test.ts"
+      ],
+      "cwd": "G:\\Code Files\\snowflake",
+      "startedUtc": "2026-10-24T20:16:22.812805+00:00",
+      "finishedUtc": "2026-10-24T20:16:31.827235+00:00",
+      "exitCode": 0,
+      "stdout": "G:\\Code Files\\snowflake\\out\\nas-save-bld-growth-dynamics-2026-10-21-v1\\metadata-final-stdout.log",
+      "stdoutSha256": "edc21338c14c2322d4656a1b41df3dc1479c549134ed06f4acec340426c6d541",
+      "stderr": "G:\\Code Files\\snowflake\\out\\nas-save-bld-growth-dynamics-2026-10-21-v1\\metadata-final-stderr.log",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "capturedStdout": "\n RUN  v3.2.7 G:/Code Files/snowflake\n\n \u2713 runner/test/nas-assets-catalog.test.ts (9 tests) 1936ms\n   \u2713 tracked NAS asset catalogue > re-derives every machine-readable tracked owner selection  624ms\n   \u2713 tracked NAS asset catalogue > assigns every live ledger row to exactly one collection owner  1238ms\n \u2713 runner/test/evidence-integrity.test.ts (7 tests) 879ms\n   \u2713 evidence integrity (Phase 6 lessons, enforced) > every file in the manifest exists and matches its digest  758ms\n \u2713 runner/test/progress-index.test.ts (11 tests) 387ms\n\n Test Files  3 passed (3)\n      Tests  27 passed (27)\n   Start at  13:16:27\n   Duration  3.80s (transform 73ms, setup 0ms, collect 98ms, tests 3.20s, environment 0ms, prepare 208ms)\n\n",
+      "capturedStderr": "",
+      "filesPassed": 3,
+      "testsPassed": 27
+    },
+    "finalRule7": {
+      "command": [
+        "C:/nvm4w/nodejs/npm.cmd",
+        "run",
+        "lint:rule7"
+      ],
+      "cwd": "G:\\Code Files\\snowflake",
+      "startedUtc": "2026-10-24T20:16:31.827734+00:00",
+      "finishedUtc": "2026-10-24T20:16:35.996667+00:00",
+      "exitCode": 0,
+      "stdout": "G:\\Code Files\\snowflake\\out\\nas-save-bld-growth-dynamics-2026-10-21-v1\\rule7-final-stdout.log",
+      "stdoutSha256": "6e020baf121ff86770e129829d77a87c9cbc52df000315fe5d38dc5e0bfb70d8",
+      "stderr": "G:\\Code Files\\snowflake\\out\\nas-save-bld-growth-dynamics-2026-10-21-v1\\rule7-final-stderr.log",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "capturedStdout": "\n> virtual-cloud-chamber@0.0.0 lint:rule7\n> node scripts/lint-rule7.mjs\n\nrule7: clean (2854 files scanned)\n",
+      "capturedStderr": ""
+    },
+    "finalDiffCheck": "Edited prose/JSON passed git diff --cached --check. Captured test logs retain exact original diagnostic whitespace and CRLF."
+  },
+  "repositoryPublication": {
+    "localFindingsCommit": "c73c29618f6fd880ceffeb3ec933301b84c95dd3",
+    "gitRemoteUpdated": false,
+    "reason": "Original authorization covers NAS publication and local commits. Separate Git push approval remains pending after the earlier auto-review rejection."
+  }
 }
