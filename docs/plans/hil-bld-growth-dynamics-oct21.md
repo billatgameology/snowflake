@@ -1,8 +1,8 @@
 # Plan — HIL and BLD growth dynamics campaign
 
 - **Phase:** active Phase 10 exploration under charter sections 2.5/3.2 and ADRs 0011, 0055, 0058–0060 and 0062.
-- **Status:** HIL launched its tested 24-row queue at 2026-10-21 20:32 UTC: 20 live workers and four queued cases, all initial checkpoints observed. The maker clarified BLD was awaiting instructions; its independent 92-row implementation/launch instructions were supplied. No BLD producer/process receipt is yet verified here.
-- **Started / last touched:** 2026-10-21 by Codex/GPT-6.
+- **Status:** BLD's finite queue has ended; saved-row verification and NAS preservation are in progress on October24. HIL's latest locally recorded launch remains October21; no new live HIL observation is claimed.
+- **Started / last touched:** 2026-10-21 / 2026-10-24 by Codex/GPT-6.
 - **Authority:** maker requests full useful use of HIL's 20-worker allocation and BLD's 32-worker allocation, detailed long queues, resumability and no wall-clock cutoff. The subsequent October21 direction puts all longest/least-predictable work on HIL so BLD can finish and shut down. This supersedes the initial 60/56 host split and the October8 HIL-only default.
 - **Publication:** `origin/main`; planning branch `codex/phase10-two-host-growth`, based on `8e008644085f075922cfccd8a296b0dd248beb60`.
 - **Immediate deliverable:** HIL's registered 24-row queue running and checkpointing, using the independent execution amendment below. BLD owns its 92-row implementation and dispatch. Solo scientific research; hostile actors excluded.
@@ -276,7 +276,9 @@ labels as evidence. Counts above exclude historical controls and all conditional
 
 ## Readouts, expected effects and decisions
 
-The row producer is `runPostPhase10DiscoveryRow` and endpoint checker is `checkFirstBatchRow`.
+The row producer is `runPostPhase10DiscoveryRow`; the implemented endpoint checker is
+`summarizeFirstBatchRow`, invoked by the summary/readout path. The earlier `checkFirstBatchRow`
+name was a stale plan reference, not a separate executed checker.
 They supply events, row specification, convergence/ledger/CFL/symmetry records, complete-cycle
 restart and sampled fields. Existing October 21 analysis CLIs hardcode historical row selectors;
 passing a new root alone does not analyze this campaign. Reuse their reconstruction/window
@@ -693,6 +695,61 @@ check. The Git remote push also still awaits its separate approval; local commit
 Launch-record verification passed the existing evidence-integrity/progress checks (18 tests),
 Rule7 (2843 files) and prose/JSON diff checks; original captured Windows command bytes retain
 their original line endings. This does not replace the earlier full-check outcome.
+
+### BLD finished-output preservation — October24
+
+Continue the maker's original authorization to publish findings to NAS and commit when done.
+One deliverable is the completed BLD output preserved on the confirmed `S:/` NAS with verified
+fresh recovery and concise terminal/unresolved results. Solo scientific research; hostile actors
+excluded. Keep the execution producer fixed; primary main owns these records. No rerun, numerical
+fix, new comparison definition, Windows setting, Git remote update, worktree closure or pruning.
+
+Use provisional identity `bld-growth-dynamics@2026-10-21-v1`, external evidence under ADR0061
+and this plan: project-owned/public metadata, serving denied, immutable, permanent retention,
+no automatic garbage collection. The actual publication date is October24; the previously named
+version identity is retained. BLD's original G-drive files/prepared archive are the independent
+`bld-workstation-g` storage domain; no same-NAS copy or local restore counts as another domain.
+
+Adapt only constants/source selection in the existing HIL October21 pack/preserve/member-check
+recipes into `docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-*`. The sole source is
+`G:/Code Files/snowflake/.worktrees/bld-growth-dynamics-oct21/out`, selecting exactly
+`bld-growth-dynamics-oct21` and `bld-growth-dynamics-oct21-controls`. Preserve the failed row,
+attempt logs, both retained checkpoint generations, events, snapshots and completed readouts.
+Historical restored input duplicates remain covered by their existing immutable collection.
+Publication and fresh-restore staging stay outside the selected source directories.
+
+Rule14A: accidental source omission, an active writer, partial copying or archive corruption can
+lose expensive completed results. Existing stable source inventories, endpoint reconstruction and
+NAS transaction/member verification cover these boundaries; only bounded recipe adaptation is
+needed. Lessons A1/A2/C4/E1 and Rules6/9 govern bytes, complete-set status and scoped conclusions.
+No new transport/checker or adversarial review layer is warranted. The adapted publication recipe
+requires exact `npm.cmd test` at a stable checkpoint; report any failures without a green claim.
+
+Steps: finish saved-row checks; confirm writers stopped; pack with before/after source hashes;
+publish copy-first into absent immutable `collections/bld-growth-dynamics/2026-10-21-v1/payload`;
+verify final bytes; transactionally restore to fresh local staging and verify every archive member;
+activate the catalogue binding and run full collection/destination verification; commit concise
+results, commands, owner manifest and recovery receipts. Done when those records show the exact
+source coverage and successful BLD recovery, with the scientific failure explicit. HIL's fresh
+recovery and frozen matched-cohort interpretation remain separately named pending work. No HIL
+recovery, scientific null, physical validation or completed joint comparison is inferred here.
+
+Planned commands use Python3.13 and the existing transaction helpers:
+
+```powershell
+python docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-pack.py bld-growth-dynamics-oct21
+node docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-preserve.mjs prepare
+node docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-preserve.mjs publish
+node docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-preserve.mjs restore
+python docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-verify-archives.py out/restores/bld-growth-dynamics-2026-10-21-v1
+node docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-preserve.mjs register
+npm.cmd run assets:verify -- --collection bld-growth-dynamics@2026-10-21-v1 --full
+npm.cmd run assets:verify-restored -- --collection bld-growth-dynamics@2026-10-21-v1 --from out/restores/bld-growth-dynamics-2026-10-21-v1
+```
+
+The member-check JSON must be saved as the recipe's `restored-members.json` before registration.
+These are planned until their execution receipts are recorded. Use the installed Python3.13 path
+above rather than this host's older default Python.
 
 ### HIL executable and recovery — October21
 

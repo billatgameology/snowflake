@@ -3300,6 +3300,90 @@
       },
       "supersedes": [],
       "unresolved": []
+    },
+    {
+      "assetId": "bld-growth-dynamics",
+      "version": "2026-10-21-v1",
+      "state": "provisional",
+      "ownerWorkstream": "hil-bld-growth-dynamics-oct21",
+      "locator": "collections/bld-growth-dynamics/2026-10-21-v1/payload",
+      "historicalRepoPath": null,
+      "legacyAliases": [],
+      "storageClass": "external-evidence",
+      "aggregate": {
+        "files": 0,
+        "bytes": 0
+      },
+      "ownerManifest": null,
+      "rights": {
+        "kind": "project-owned",
+        "redistribution": "allowed"
+      },
+      "privacy": "public",
+      "serve": {
+        "policy": "deny",
+        "prefixes": []
+      },
+      "retention": {
+        "policy": "permanent",
+        "garbageCollection": {
+          "policy": "never",
+          "graceDays": null,
+          "approver": "maker"
+        }
+      },
+      "mutability": "immutable",
+      "externalEvidenceAuthority": {
+        "charterRefs": [
+          "project charter.md"
+        ],
+        "decisionRefs": [
+          "docs/decisions/0061-nas-backup-before-worktree-closeout.md"
+        ],
+        "planRefs": [
+          "docs/plans/hil-bld-growth-dynamics-oct21.md"
+        ],
+        "claimRefs": [
+          "docs/plans/hil-bld-growth-dynamics-oct21.md"
+        ]
+      },
+      "provenance": {
+        "record": "docs/plans/hil-bld-growth-dynamics-oct21.md",
+        "producerCommit": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+        "command": "python docs/nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-pack.py bld-growth-dynamics-oct21"
+      },
+      "reproducibility": {
+        "kind": "exact-recipe",
+        "record": "docs/plans/hil-bld-growth-dynamics-oct21.md"
+      },
+      "restore": {
+        "status": "documented",
+        "command": "npm run assets:restore -- --collection bld-growth-dynamics@2026-10-21-v1 --to out/restores/bld-growth-dynamics-2026-10-21-v1",
+        "verifyCommand": "npm run assets:verify-restored -- --collection bld-growth-dynamics@2026-10-21-v1 --from out/restores/bld-growth-dynamics-2026-10-21-v1",
+        "record": "docs/plans/hil-bld-growth-dynamics-oct21.md"
+      },
+      "verification": {
+        "status": "unavailable",
+        "at": null,
+        "host": null,
+        "receipt": null,
+        "limits": [
+          "Provisional intent only; no NAS preservation or recovery claim."
+        ]
+      },
+      "storageDomains": [
+        "bld-workstation-g"
+      ],
+      "backup": {
+        "status": "required-missing",
+        "independentDomains": [],
+        "receipts": []
+      },
+      "supersedes": [],
+      "unresolved": [
+        "Stable packing, NAS publication, fresh restore/member verification and committed recovery bindings pending.",
+        "Zero aggregate is provisional, not a measured source/payload count; replace with packed inventory before activation."
+      ]
     }
   ],
   "overlays": [
