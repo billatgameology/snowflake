@@ -951,6 +951,13 @@ solo scientific exploration, with hostile machine control outside scope under Ru
 The documentation task checkout contains no useful output payload; all analysis staging
 remains in primary, and the active HIL execution checkout is unchanged.
 
+Prose verification: `node scripts/lint-rule7.mjs` passed (2854 files), `git diff --check`
+passed, and primary `npx.cmd --no-install vitest run runner/test/progress-index.test.ts`
+passed all 11 tests at `7a28b80`. The first focused-check invocation in the documentation
+worktree could not resolve its absent Vitest dependency and ran no tests; the installed
+primary runtime supplied the successful check after fast-forward integration. No dependencies
+or scientific code were changed, and this is not a full-suite-green claim.
+
 ### HIL executable and recovery — October21
 
 HIL's producer is `2f2d605f0ed8fdb8d78cdea02a58102a7001cb53`, on
