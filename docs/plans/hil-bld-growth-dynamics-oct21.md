@@ -1,7 +1,7 @@
 # Plan — HIL and BLD growth dynamics campaign
 
 - **Phase:** active Phase 10 exploration under charter sections 2.5/3.2 and ADRs 0011, 0055, 0058–0060 and 0062.
-- **Status:** BLD's finite queue has ended with 91 checked endpoints/one failure, verified NAS publication and fresh BLD recovery on October24. HIL's latest locally recorded launch remains October21; no new live HIL observation is claimed.
+- **Status:** BLD's finite queue has ended with 91 checked endpoints/one failure, verified NAS publication, fresh BLD recovery and completed local Git closeout on October24. HIL's latest locally recorded launch remains October21; no new live HIL observation is claimed.
 - **Started / last touched:** 2026-10-21 / 2026-10-24 by Codex/GPT-6.
 - **Authority:** maker requests full useful use of HIL's 20-worker allocation and BLD's 32-worker allocation, detailed long queues, resumability and no wall-clock cutoff. The subsequent October21 direction puts all longest/least-predictable work on HIL so BLD can finish and shut down. This supersedes the initial 60/56 host split and the October8 HIL-only default.
 - **Publication:** `origin/main`; planning branch `codex/phase10-two-host-growth`, based on `8e008644085f075922cfccd8a296b0dd248beb60`.
@@ -836,8 +836,9 @@ binds the fresh NAS/source checks, relocation receipt and inventory identities. 
 `app/dist/` and reinstallable `node_modules/` remain ignored in the task checkout. Its stale
 `origin/main` upstream was cleared; no remote ref changed. Main contains the full task branch.
 
-The branch and worktree are ready for a later requested closure and remain present now. Later,
-from primary main, use ordinary removal of the exact task worktree and merged local branch:
+At preparation, the branch/worktree were ready and remained present. The later maker-authorized
+closure is recorded below. The planned ordinary removal commands from
+primary main were:
 
 ```powershell
 git worktree remove "G:/Code Files/snowflake/.worktrees/bld-growth-dynamics-oct21"
@@ -876,6 +877,33 @@ HIL should fetch/update its primary checkout, then use the existing BLD restore/
 commands above. Its running execution producer `2f2d605` and runtime remain fixed. Fresh HIL
 recovery and frozen matched-cohort analysis remain pending. This subsection and the current-state
 correction are metadata-only records of the successful publication.
+
+### BLD local Git closeout — October24
+
+The maker explicitly authorized cleaning branches/worktrees so only main remains. The task
+producer was already an ancestor of published main, both tracked checkouts were clean, task
+`out/` was absent and only reinstallable dependencies/build output were ignored. No BLD worker
+was running. The fresh `assets:verify --collection bld-growth-dynamics@2026-10-21-v1 --full`
+check exited0 on the attached NAS. Reuse the existing successful fresh-restore/member receipt;
+no duplicate NAS publication or repeated restore was needed.
+
+Ordinary `git worktree remove` removed the task's Git registration but returned Directory not
+empty on Windows. The residual exact directory was re-audited without following links: 2622
+dependency files and408 previously clean committed source files, no unknown regular files and
+no output or `.git` root. Native PowerShell then removed only the resolved workspace-contained
+`G:/Code Files/snowflake/.worktrees/bld-growth-dynamics-oct21` directory. The original output,
+prepared archive and fresh restore all remain outside that target. `git branch -d
+codex/bld-growth-dynamics-oct21` then succeeded; its complete tip `d7f76cb` remains in main history.
+No force branch deletion or remote branch deletion occurred.
+
+Final state: one registered worktree, `G:/Code Files/snowflake`, on the sole local branch `main`;
+the task path is absent. [Recovery/custody record](../nas-assets/manifests/bld-growth-dynamics/2026-10-21-v1-verification.json)
+contains the exact operations and outcomes. Retain primary `out/bld-retired-2026-10-24/out`,
+`out/nas-save-bld-growth-dynamics-2026-10-21-v1` and
+`out/restores/bld-growth-dynamics-2026-10-21-v1`. HIL fresh recovery and registered matched-cohort
+analysis remain pending; local Git retirement neither completes those scientific obligations nor
+authorizes pruning retained output. Closeout-record checks passed Rule7 (2854 files), all11
+progress-index tests and diff checks; no executable behavior changed and no full suite was repeated.
 
 ### HIL executable and recovery — October21
 
@@ -971,6 +999,9 @@ transplant, external-source acquisition/provider contact, automatic endless fan-
 
 ## Tried and rejected
 
+- **Ordinary worktree removal left Windows directory remnants:** Git unregistered the checkout
+  but returned Directory not empty. Inspect/classify the exact residual target before native
+  cleanup; all retained output was already outside it and no unknown regular files remained.
 - **October24 preservation check with unchanged Windows symlink privilege:** the exact full
   check above again reached both comparison-builder fixture EPERM failures. The 246 other files
   passed; keep the receipt and do not weaken tests or repeat the full run for unchanged permissions.

@@ -182,7 +182,7 @@
     "currentLocationsRecord": "docs/plans/hil-bld-growth-dynamics-oct21.md#bld-branchworktree-closeout-preparation--october24"
   },
   "limits": [
-    "All execution outputs and the original worktree remain; no pruning, closure or shutdown was executed.",
+    "All execution outputs remain in primary out/bld-retired-2026-10-24/out. The merged task worktree and branch were removed under later explicit maker authorization; retained output was not pruned.",
     "Fresh restore and archive members were verified on BLD. HIL recovery remains pending.",
     "Windows SMB durability is reopen/hash verified, not hardware crash-certified or off-site recovery.",
     "Preserves 91 checked endpoints and one failed row. Full frozen cohort comparisons and physical validation are not established.",
@@ -299,9 +299,9 @@
   },
   "closeoutPreparation": {
     "preparedAt": "2026-10-24T20:24:07.542670+00:00",
-    "status": "ready-for-requested-later-removal",
-    "worktreeRemoved": false,
-    "branchDeleted": false,
+    "status": "completed-local-closeout",
+    "worktreeRemoved": true,
+    "branchDeleted": true,
     "worktree": "G:/Code Files/snowflake/.worktrees/bld-growth-dynamics-oct21",
     "branch": "codex/bld-growth-dynamics-oct21",
     "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
@@ -370,15 +370,12 @@
     "beforeInventorySha256": "21519cfef5fa87b657144ace1ae5d05331ad3192b1db563326280db1bab101b6",
     "afterInventorySha256": "00a1a9a22ab61684243d97ff64aa70b851026ba9282cf3ad64f4421e6c4984f0",
     "wholeLocalInventoryMatched": true,
-    "remainingIgnoredInTask": [
-      "app/dist/ (rebuildable)",
-      "node_modules/ (reinstallable)"
-    ],
+    "remainingIgnoredInTask": [],
     "limits": [
       "Operational closeout readiness only; all originals remain in primary out/bld-retired-2026-10-24/out.",
       "Existing verified NAS publication/fresh restore cover the same scientific bytes; no duplicate publication or repeated restore.",
       "HIL recovery and registered matched-cohort comparisons remain pending. Git remote publication succeeded at e6a9a52.",
-      "No branch/worktree removal, source pruning or numerical retry was executed."
+      "The branch and worktree were removed under the later maker authorization. No retained output pruning or numerical retry was executed."
     ],
     "recordChecks": {
       "checkedAt": "2026-10-24T20:25:19.936525+00:00",
@@ -400,6 +397,76 @@
         }
       ],
       "scope": "Operational custody/readiness and pure records; no numerical, analysis or publication runtime changes, and no new full-suite run."
+    },
+    "closedAt": "2026-10-25T00:55:43.854086+00:00",
+    "execution": {
+      "authorizedBy": "Maker: you are okay to clean branches, and worktree so that only main is remain",
+      "mainAtRemoval": "0e31be396bba1058a44d0051c69f900c79edb9db",
+      "nasRecheck": {
+        "command": "npm.cmd run assets:verify -- --collection bld-growth-dynamics@2026-10-21-v1 --full",
+        "exitCode": 0,
+        "payloadFiles": 2,
+        "payloadBytes": 196041058,
+        "mount": "attached"
+      },
+      "commands": [
+        {
+          "command": "git worktree remove \"G:/Code Files/snowflake/.worktrees/bld-growth-dynamics-oct21\"",
+          "exitCode": 1,
+          "result": "Git removed worktree registration but reported Directory not empty; audited residual directory separately."
+        },
+        {
+          "command": "Remove-Item -LiteralPath resolved-task-root -Recurse -Force",
+          "resolvedTarget": "G:/Code Files/snowflake/.worktrees/bld-growth-dynamics-oct21",
+          "exitCode": 0,
+          "guard": "Resolved exact absolute target within workspace; out and .git absent; task unregistered; no active task executable. All residual regular files were reinstallable dependencies or previously clean committed source.",
+          "residualRegularFiles": 3030,
+          "dependencyFiles": 2622,
+          "trackedSourceRemnants": 408,
+          "unknownFiles": 0,
+          "retainedOriginalsOutsideTarget": true
+        },
+        {
+          "command": "git branch -d codex/bld-growth-dynamics-oct21",
+          "exitCode": 0,
+          "deletedTip": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365"
+        }
+      ],
+      "finalLocalBranches": [
+        "main"
+      ],
+      "finalWorktrees": [
+        {
+          "path": "G:/Code Files/snowflake",
+          "branch": "main"
+        }
+      ],
+      "taskDirectoryAbsent": true,
+      "retainedOriginalRoot": "G:/Code Files/snowflake/out/bld-retired-2026-10-24/out",
+      "retainedOriginalRootPresent": true,
+      "freshNasRestoreReused": true,
+      "remoteBranchesDeleted": false,
+      "limits": "Local Git cleanup only. HIL recovery and registered cohort science remain pending; all retained outputs, prepared NAS archive and fresh restore stay in primary.",
+      "recordChecks": {
+        "checkedAt": "2026-10-25T00:56:50.161248+00:00",
+        "checks": [
+          {
+            "command": "npm.cmd run lint:rule7",
+            "exitCode": 0,
+            "filesScanned": 2854
+          },
+          {
+            "command": "npx.cmd --no-install vitest run runner/test/progress-index.test.ts",
+            "exitCode": 0,
+            "testsPassed": 11
+          },
+          {
+            "command": "git diff --check",
+            "exitCode": 0
+          }
+        ],
+        "scope": "Local Git cleanup and pure records; no executable or scientific behavior changes."
+      }
     }
   }
 }
