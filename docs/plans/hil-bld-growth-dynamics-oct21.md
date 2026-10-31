@@ -958,6 +958,51 @@ worktree could not resolve its absent Vitest dependency and ran no tests; the in
 primary runtime supplied the successful check after fast-forward integration. No dependencies
 or scientific code were changed, and this is not a full-suite-green claim.
 
+### HIL interruption and resume — October31
+
+At 16:15 UTC (09:15 Pacific), status inspection found the original coordinator, wrapper and
+eight worker PIDs absent. The old status still reported 16 completed/eight active; its last
+resource sample was 16:14:37 UTC. Windows reported last boot October15 and no recent reboot
+event. The termination cause is unknown; it is not recorded as a scientific solver failure.
+The 16 completed rows remain size endpoints: all 12 H1 and the four prism-enabled C1 rows.
+Their existing endpoint checks passed during the October25–28 observations; no unchanged
+endpoint suite was repeated for this recovery.
+
+All eight remaining rows had clean resume metadata, no terminal reason or integrity errors,
+converged completed relaxations and empty initial stderr. Saved cycles/extents before resume:
+W4 thin-broad 2705/49, thin-early 2570/43, thick-broad 2604/47, thick-early 2628/45;
+C1 thin-neither 2887/37, thin-basal 2888/39, thick-neither 2868/39, thick-basal 2902/41.
+All target 57. The execution checkout was clean at `2f2d605`, with unchanged Node24.13.1 /
+V8 13.6.233.17-node.40. No live campaign process or wrapper remained before restart.
+
+Under the maker's continuing instruction to let the campaign finish, the existing wrapper
+was launched hidden at 16:17:22 UTC with:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start-hil-growth-dynamics-oct21.ps1 -Mode resume -Workers 20
+```
+
+It dispatched exactly the eight unfinished rows, no reserve or duplicate completed case.
+Wrapper PID22560, coordinator3624; actual workers 20824/31140/27880/8616 (W4) and
+16924/24520/21928/31800 (C1). The launch invocation, stdout and stderr are under execution
+`out/hil-growth-dynamics-oct21-controls/campaign-resume-20261031T091722553*`.
+The campaign attempt is `resume-1793463443695-60cb3457-a33d-4ef6-8d83-4577afeb9824`;
+each row's `attempts/<attempt>/` preserves separate process/stdout/stderr files, and the
+campaign root holds its matching invocation/launch/resource records. At 16:18:04 UTC all
+eight processes were consuming CPU after the existing strict resume loader accepted state.
+At 16:19 UTC, each new stdout showed relaxation progress at its saved cycle plus one, with
+empty stderr. The resume loader archives old status files; a row's new status appears after
+its first resumed completed cycle, so use its attempt log/checkpoint meanwhile.
+The completed-cycle checkpoint remains the recovery boundary; work inside an interrupted
+relaxation is recomputed. This is recovery of the original runs, not a fresh capacity probe
+or changed numerical protocol.
+
+Next: observe advancement in the resumed attempts, leave W4/C1 running, and analyze the
+complete H1 cohort using its frozen common windows. Never infer live activity solely from
+the old initial status file. No scientific code or execution bindings changed. This small
+documentation checkout contains no useful output payload; execution output stays in its
+open owning worktree, with NAS closeout still required when that campaign ends.
+
 ### HIL executable and recovery — October21
 
 HIL's producer is `2f2d605f0ed8fdb8d78cdea02a58102a7001cb53`, on
