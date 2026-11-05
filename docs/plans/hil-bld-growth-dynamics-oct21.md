@@ -1003,6 +1003,26 @@ the old initial status file. No scientific code or execution bindings changed. T
 documentation checkout contains no useful output payload; execution output stays in its
 open owning worktree, with NAS closeout still required when that campaign ends.
 
+### HIL status — November4
+
+At November 5 04:11 UTC (November 4 20:11 Pacific), the original 24 rows contained 18
+completed size endpoints and six unfinished rows. Both W4 broad controls are newly complete:
+`gd21-hil-w4-h1-broad` at November3 22:11:20 UTC and `gd21-hil-w4-h3-broad` at
+November4 23:24:10 UTC. The existing `summarizeFirstBatchRow` independently checked both
+as size endpoints with no errors. Their `rows/<id>/result.json`, event and snapshot bytes
+remain in the execution campaign. No unchanged endpoint checks or full test suite were repeated.
+
+The complete unfinished set at this observation was W4 thin/thick early20 at extents 47/49,
+and C1 thin basal/neither 49/47, thick basal/neither 51/49, all targeting 57. These values come
+from each row's current `status.json`. The October31 resume status reports two completions
+and six active out of its eight-row attempt; do not confuse that denominator with the whole
+24-row campaign or reuse the stale initial status. Coordinator 3624 and its six named workers
+were live, and the resume resource record was current at 04:11:29 UTC. At 04:12 UTC all six
+current checkpoint runner records had convergence/D6h checks true, no integrity errors or
+terminal stop, and empty current-attempt stderr; stdout showed ongoing relaxation. This is
+metadata/log inspection, not a new full checkpoint audit. No additional run or
+restart was launched. H1 matched interpretation remains pending; W4/C1 remain incomplete.
+
 ### HIL executable and recovery — October21
 
 HIL's producer is `2f2d605f0ed8fdb8d78cdea02a58102a7001cb53`, on
