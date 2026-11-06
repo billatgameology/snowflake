@@ -1053,6 +1053,40 @@ terminal stop, and empty current-attempt stderr; stdout showed ongoing relaxatio
 metadata/log inspection, not a new full checkpoint audit. No additional run or
 restart was launched. H1 matched interpretation remains pending; W4/C1 remain incomplete.
 
+### HIL interruption and resume — November6
+
+The maker asked whether the process had stopped. At 22:12 UTC (14:12 Pacific), all six
+unfinished workers, coordinator 3624 and the prior wrapper were absent. Last resource activity
+was 15:10:33 UTC (07:10 Pacific), despite the old attempt status still reporting six active.
+The 18 completed endpoints were unchanged. Windows still reported its October 15 boot, with
+no recent restart event. Initial/current attempt stderr contained no errors. A later Windows
+Application 1001 `RADAR_PRE_LEAK_64` diagnostic for Node 24.13.1 at 16:34:50 UTC does not identify
+the termination cause; the last resource sample had ample free memory. Cause remains unknown.
+
+All six pointer-to-manifest hashes matched. Saved runner metadata had convergence/D6h true,
+no integrity errors and no terminal stop, bound to clean HIL producer `2f2d605` and unchanged
+Node 24.13.1/V8 13.6.233.17-node.40. Last saved cycle/extent pairs were W4 thin-early 4255/47,
+thick-early 4296/51; C1 thin-neither 4809/51, thin-basal 4862/53, thick-neither 4692/53,
+thick-basal 4736/55. Target remains 57. No completed endpoint or scientific configuration changed.
+
+The continuing campaign authorization was used to resume exactly those six rows at 22:13:41
+UTC (14:13 Pacific), with the existing hidden PowerShell wrapper and exact flags
+`-Mode resume -Workers 20`. The full command is unchanged from the October31 section.
+Wrapper 36932 launched coordinator 31888; actual workers were 25652/4156 for W4 and
+27620/19728/12660/20176 for C1. Invocation, stdout and stderr are under execution
+`out/hil-growth-dynamics-oct21-controls/campaign-resume-20261106T141341213*`.
+The attempt is `resume-1794003222577-d8a225c5-f888-4440-b5a2-1eff0fbe9800`; each row's
+`attempts/<attempt>/` and the campaign's matching launch/resource files own ongoing state.
+The existing strict loader validates saved solver and event-prefix bytes during resume.
+At 22:14:42 UTC its resource record showed all six workers consuming CPU after successful
+loader acceptance, with empty current-attempt stderr and normal row-start messages.
+
+This is the second simultaneous loss of the campaign processes without an observed OS reboot;
+process-lifetime diagnosis remains separate from numerical changes. Do not infer live activity
+from stale status, add new cases, or modify the execution checkout to address an unproven cause.
+Leave the six original rows running and retain all checkpoints/logs. The documentation task
+contains no useful output payload; source output remains in the open execution worktree.
+
 ### HIL executable and recovery — October21
 
 HIL's producer is `2f2d605f0ed8fdb8d78cdea02a58102a7001cb53`, on
