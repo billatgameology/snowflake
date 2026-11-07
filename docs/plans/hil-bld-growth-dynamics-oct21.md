@@ -1,8 +1,8 @@
 # Plan — HIL and BLD growth dynamics campaign
 
 - **Phase:** active Phase 10 exploration under charter sections 2.5/3.2 and ADRs 0011, 0055, 0058–0060 and 0062.
-- **Status:** BLD's finite queue, NAS recovery and local Git closeout are complete; HIL has recovered and analyzed BLD's 91 checked endpoints/one preserved failure. HIL's November4 observation records 18 checked endpoints and six active rows following the October31 resume. H1 matched interpretation and completion of W4/C1 remain pending.
-- **Started / last touched:** 2026-10-21 / 2026-11-04 by Codex/GPT-6.
+- **Status:** BLD's finite queue, NAS recovery and local Git closeout are complete; HIL has recovered and analyzed BLD's 91 checked endpoints/one preserved failure. HIL has 18 checked endpoints and six rows resumed on November7 after another interruption. H1 matched interpretation and completion of W4/C1 remain pending.
+- **Started / last touched:** 2026-10-21 / 2026-11-07 by Codex/GPT-6.
 - **Authority:** maker requests full useful use of HIL's 20-worker allocation and BLD's 32-worker allocation, detailed long queues, resumability and no wall-clock cutoff. The subsequent October21 direction puts all longest/least-predictable work on HIL so BLD can finish and shut down. This supersedes the initial 60/56 host split and the October8 HIL-only default.
 - **Publication:** `origin/main`; planning branch `codex/phase10-two-host-growth`, based on `8e008644085f075922cfccd8a296b0dd248beb60`.
 - **Immediate deliverable:** Analyze HIL's complete H1 pressure/history cohort using its frozen windows while W4/C1 continue; the saved BLD width/history state remains the next mechanism question. Observe live workers before any resume or further dispatch. BLD's finite run/preservation slice is complete. Solo scientific research; hostile actors excluded.
@@ -1087,6 +1087,39 @@ from stale status, add new cases, or modify the execution checkout to address an
 Leave the six original rows running and retain all checkpoints/logs. The documentation task
 contains no useful output payload; source output remains in the open execution worktree.
 
+### HIL interruption and resume — November7
+
+The maker requested resume after another stop. At 14:30 UTC (06:30 Pacific), the prior six
+workers, coordinator and wrapper were absent; last resource activity was 14:21:16 UTC.
+No OS reboot occurred. All six checkpoint manifest hashes matched their pointers, with clean
+convergence/D6h flags, no integrity errors or terminal reason, original HIL producer `2f2d605`
+and Node24.13.1/V8 13.6.233.17-node.40. Saved cycle/extent pairs were W4 thin/thick early
+4456/49 and 4502/51; C1 thin basal/neither 5076/55 and 5003/53, thick basal/neither
+4978/55 and 4948/55. The 18 terminal rows remained complete.
+
+The first unchanged resume command at 14:31:12 UTC exited 1 before dispatch: the existing
+live-worker guard found PID 20824 in completed `gd21-hil-w4-h1-broad/process.json`. CIM showed
+that PID now belonged to the Codex artifact-session host daemon created November7 14:21:30 UTC,
+whereas the saved worker started October31 and finished November3. No unrelated process was
+stopped. The exact stale record was moved within that row to
+`process-retired-pid-20824-20261107.json`, with before/after SHA256
+`097c82d71838f6d3790c58e539d3dbac79378bd71c718b826057407da9358fda` matching.
+This retains the original operational record without changing the solver, guard or completed
+scientific bytes. The original attempt process record also remains in its attempt directory.
+
+The same hidden wrapper with `-Mode resume -Workers 20` then dispatched exactly six rows at
+14:32:45 UTC (06:32 Pacific). Wrapper 18864/coordinator 14852 launched W4 workers 4564/14372
+and C1 workers 34964/36500/8060/24288. Its receipt and stdout/stderr are under execution
+`out/hil-growth-dynamics-oct21-controls/campaign-resume-20261107T063245893*`; the refused
+attempt remains beside it under prefix `campaign-resume-20261107T063112959`.
+The active row attempt is `resume-1794061967044-d641aadd-d36f-48f3-809a-78bfc01336db`.
+At 14:33:59 UTC, its resource record showed all six workers consuming CPU after strict loader
+acceptance, with empty current-attempt stderr and normal row-start messages.
+The original command, scientific targets, runtime and source remain unchanged; no new case
+or capacity probe was added. Process-loss cause remains unresolved, and PID reuse explains
+the resume refusal, not the preceding stop. Keep this execution worktree open and retain its
+complete output for later NAS publication. This documentation checkout has no output payload.
+
 ### HIL executable and recovery — October21
 
 HIL's producer is `2f2d605f0ed8fdb8d78cdea02a58102a7001cb53`, on
@@ -1181,6 +1214,10 @@ transplant, external-source acquisition/provider contact, automatic endless fan-
 
 ## Tried and rejected
 
+- **November7 unchanged resume met a reused PID:** a completed row's stale process record
+  matched an unrelated new artifact-session daemon. The guarded resume refused before dispatch.
+  Confirm actual executable/creation time, retain the exact obsolete record, and retry the
+  unchanged producer; never kill an unrelated process or weaken the guard on a PID match alone.
 - **Ordinary worktree removal left Windows directory remnants:** Git unregistered the checkout
   but returned Directory not empty. Inspect/classify the exact residual target before native
   cleanup; all retained output was already outside it and no unknown regular files remained.
