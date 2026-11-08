@@ -1,7 +1,7 @@
 # Plan — HIL and BLD growth dynamics campaign
 
 - **Phase:** active Phase 10 exploration under charter sections 2.5/3.2 and ADRs 0011, 0055, 0058–0060 and 0062.
-- **Status:** BLD's finite queue, NAS recovery and local Git closeout are complete; HIL has recovered and analyzed BLD's 91 checked endpoints/one preserved failure. HIL has 18 checked endpoints and six rows resumed on November7 after another interruption. H1 matched interpretation and completion of W4/C1 remain pending.
+- **Status:** BLD's finite queue, NAS recovery and local Git closeout are complete; HIL has recovered and analyzed BLD's 91 checked endpoints/one preserved failure. HIL has 21 checked endpoints and three active rows at November 8 19:58 UTC. H1 matched interpretation and completion of W4/C1 remain pending.
 - **Started / last touched:** 2026-10-21 / 2026-11-07 by Codex/GPT-6.
 - **Authority:** maker requests full useful use of HIL's 20-worker allocation and BLD's 32-worker allocation, detailed long queues, resumability and no wall-clock cutoff. The subsequent October21 direction puts all longest/least-predictable work on HIL so BLD can finish and shut down. This supersedes the initial 60/56 host split and the October8 HIL-only default.
 - **Publication:** `origin/main`; planning branch `codex/phase10-two-host-growth`, based on `8e008644085f075922cfccd8a296b0dd248beb60`.
@@ -1119,6 +1119,35 @@ The original command, scientific targets, runtime and source remain unchanged; n
 or capacity probe was added. Process-loss cause remains unresolved, and PID reuse explains
 the resume refusal, not the preceding stop. Keep this execution worktree open and retain its
 complete output for later NAS publication. This documentation checkout has no output payload.
+
+### HIL progress — November 8
+
+At 19:58 UTC (11:58 Pacific), the original 24-row campaign had 21 checked size endpoints,
+three running rows and no recorded failed rows. The existing `summarizeFirstBatchRow` reader
+was executed from primary main on the three new endpoints: `gd21-hil-c1-h1-basal-only`,
+`gd21-hil-c1-h3-basal-only` and `gd21-hil-c1-h3-neither`. Each returned `size-endpoint`
+with an empty error list. Their row status files record extent 57 and completion times
+2026-11-08T03:11:03.245Z, 2026-11-07T14:47:22.945Z and 2026-11-08T07:55:08.885Z,
+respectively. This is endpoint verification, not a matched scientific interpretation.
+
+The unchanged execution root is
+`C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake/out/hil-growth-dynamics-oct21`.
+Its row `status.json` files and current checkpoint metadata supplied the following snapshot:
+
+| Remaining row | Completed cycle | Extent / target | Simulated time (s) | Worker PID |
+|---|---:|---:|---:|---:|
+| `gd21-hil-c1-h1-neither` | 5461 | 55 / 57 | 45.67844867670924 | 34964 |
+| `gd21-hil-w4-h1-early20-w6` | 4862 | 53 / 57 | 70.98635313542674 | 4564 |
+| `gd21-hil-w4-h3-early20-w6` | 4903 | 53 / 57 | 71.50238912508331 | 14372 |
+
+Coordinator 14852 and all three workers were live; the current resume resource sample at
+19:58:25 UTC showed CPU use by each. All three attempt logs advanced through 19:58 UTC,
+their stderr files were empty, and saved checkpoint flags retained convergence and D6h true,
+no integrity errors and no terminal reason. No restart, new row or capacity probe was needed.
+The census is H1 12/12, C1 7/8 and W4 2/4 complete. The thick-seed C1 quartet is now complete;
+full C1 and W4 comparisons still await the remaining rows. Next: analyze the already complete
+H1 group using the frozen matched readout above while these original runs continue. Keep all
+output in its open execution checkout pending campaign NAS publication and verified recovery.
 
 ### HIL executable and recovery — October21
 
