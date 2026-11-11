@@ -1,7 +1,7 @@
 # Plan — HIL central-filling and growth-memory wave
 
 - **Phase:** active Phase 10, charter sections 2.5/3.2; accepted ADRs 0058–0060/0062.
-- **Status:** protocol registered; implementation and launch pending.
+- **Status:** implemented and verified; dispatch is the next action.
 - **Started / last touched:** 2026-11-11 by Codex.
 - **Authority:** maker requests the next wave entirely on HIL, using its 20-worker allocation,
   with a finite queue as large as scientifically useful. Existing resumability/no wall-limit direction remains.
@@ -166,11 +166,26 @@ November11 bounded source-currency check reopened [M1 v2](https://arxiv.org/abs/
 2019-11-13 and2023-06-22; no replacement was identified in this bounded check. This is no
 novelty assessment or change to frozen parameter mappings. All scientific constants are reused.
 
+## Executed readiness � November 11
+
+Implementation `203e55d` passed exact `npm test`: 250 files / 3114 tests, 23 skipped, 993.24s.
+The [verification bundle](../../evidence/hil-central-filling-2026-11-11/README.md) retains logs,
+review and the real N64 witness: 96 scientific updates, 17 full states and two solved boundary
+maps match across separate processes paused at cycles57/58 then resumed to96. New capture
+fault/configuration checks passed. The readout reopened all17 states without advancing them.
+
+The latest W4 artifacts report13.063/14.115 active days for broad and19.105/19.121 for early20;
+[bound inputs](../../evidence/hil-central-filling-2026-11-11/comparison-inputs.json) preserve exact
+seconds/hashes. These observations do not forecast the new cases; a multi-week fine tail remains plausible.
+This checkout will remain fixed at its final production commit. Main's PROGRESS and the campaign
+receipts carry live status; do not move this execution checkout merely to update prose. Retain
+out/hil-central-filling-nov11-witness and verification output alongside campaign bytes for NAS.
+
 ## Steps
 
 - [x] Register finite roster, predictions, permanent capture timing and scope before implementation.
-- [ ] Implement smallest observation seam, roster/entry and retained readout.
-- [ ] Execute short capture/restart witness, required checks and bounded review.
+- [x] Implement smallest observation seam, roster/entry and retained readout.
+- [x] Execute short capture/restart witness, required checks and bounded review.
 - [ ] Commit/publish producer and launch20workers; record actual restart and log paths.
 - [ ] Analyze complete matched groups; preserve full output on NAS and verify recovery.
 

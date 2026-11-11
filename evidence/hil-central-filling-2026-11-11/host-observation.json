@@ -1,0 +1,31 @@
+{
+  "gitHead": "203e55dec51774133eb26eade2315faeef02fd4f",
+  "memory": {
+    "FreePhysicalMemory": 50472840,
+    "TotalVisibleMemorySize": 66428760,
+    "FreeVirtualMemory": 53769176
+  },
+  "disk": [
+    {
+      "Name": "C",
+      "Used": 779059982336,
+      "Free": 3181064486912
+    },
+    {
+      "Name": "Z",
+      "Used": 22561964281856,
+      "Free": 46516571721728
+    }
+  ],
+  "v8": "13.6.233.17-node.40",
+  "requestedScienceWorkers": 20,
+  "cpu": {
+    "Name": "Intel(R) Core(TM) Ultra 9 285K",
+    "NumberOfCores": 24,
+    "NumberOfLogicalProcessors": 24
+  },
+  "scope": "Preparation observation during full regression and N64 witness; repeat direct availability observation at dispatch, no capacity ladder.",
+  "node": "v24.13.1",
+  "observedUtc": "2026-11-11T22:44:07.1838429Z",
+  "activeScienceWorkers": []
+}

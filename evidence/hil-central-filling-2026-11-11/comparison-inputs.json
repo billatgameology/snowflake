@@ -1,0 +1,131 @@
+{
+  "scope": "Existing explicit primary and contextual operands; no result regeneration or resumed old producers",
+  "rows": [
+    {
+      "role": "primary coarse early5 representation operand",
+      "rowId": "gd21-bld-w1-t4p5-c025-early5-w3",
+      "collection": "bld-growth-dynamics@2026-10-21-v1",
+      "spec": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early5-w3\\spec.json",
+        "bytes": 1167,
+        "sha256": "922ac5d28cba7ad137ffd908f9521bb8b50fe73c4703a166460e6ed645b6497a"
+      },
+      "result": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early5-w3\\result.json",
+        "bytes": 2393,
+        "sha256": "dd55c5fe66d00af0b43183c901f54f7b277b5f4bdfa62c0d2d1d1776e77fc0ae"
+      },
+      "events": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early5-w3\\events.jsonl",
+        "bytes": 5361421,
+        "sha256": "c53833c2deb2c4098ad481bbc0f2b3d827c41ca936a9cf08cc68c758d7805bae"
+      }
+    },
+    {
+      "role": "primary coarse early5 representation operand",
+      "rowId": "gd21-bld-w2-t4p5-w4-early5",
+      "collection": "bld-growth-dynamics@2026-10-21-v1",
+      "spec": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t4p5-w4-early5\\spec.json",
+        "bytes": 1162,
+        "sha256": "2066d5d5f95278105867245688557f7c109042f1fef0cfa93abd0cba24cbf573"
+      },
+      "result": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t4p5-w4-early5\\result.json",
+        "bytes": 2388,
+        "sha256": "67e04fe307cc6be5293b4d9dc912624ecfb545d6359d862775befad2134fa6b2"
+      },
+      "events": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t4p5-w4-early5\\events.jsonl",
+        "bytes": 5523477,
+        "sha256": "72d6a7a292bf25ec01144c19e237a51a5adb972f9bc5388db2017b2e6d62ed29"
+      }
+    },
+    {
+      "role": "separate fine broad contextual baseline",
+      "rowId": "gd21-hil-w4-h1-broad",
+      "preservation": "local original, October21 HIL NAS publication pending",
+      "spec": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-broad\\spec.json",
+        "bytes": 854,
+        "sha256": "19c4614d4fc21eddbb19d4ea96a4d9ce2e5d4d216932f771ba42020ae2d4905c"
+      },
+      "result": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-broad\\result.json",
+        "bytes": 2207,
+        "sha256": "428106753df6bdbb59bf180d6ed791182f736d21f910fc530c09b03f1a2b5dd4"
+      },
+      "events": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-broad\\events.jsonl",
+        "bytes": 12518211,
+        "sha256": "62db72d9de52878c3bf0cfc8a5038ac0e1926215a2bfb641a774e3b36e38060e"
+      }
+    },
+    {
+      "role": "separate fine broad contextual baseline",
+      "rowId": "gd21-hil-w4-h3-broad",
+      "preservation": "local original, October21 HIL NAS publication pending",
+      "spec": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-broad\\spec.json",
+        "bytes": 854,
+        "sha256": "e6c92c631b1cd71849ea0a6a8268249e2c104588e266e05364cf3e0a3ff2eb9e"
+      },
+      "result": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-broad\\result.json",
+        "bytes": 2207,
+        "sha256": "160bc892269578a059f686c7a5d5656b69b95929f3fb6664a0725f7e23ec3c9e"
+      },
+      "events": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-broad\\events.jsonl",
+        "bytes": 13309361,
+        "sha256": "f36f23c4e5f10da45868de8682a4bb442ed4db6abbd31885798151ef1b588c1e"
+      }
+    }
+  ],
+  "costContext": [
+    {
+      "rowId": "gd21-hil-w4-h1-broad",
+      "wallSeconds": 1128674.281,
+      "activeDays": 13.063359733796295,
+      "source": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-broad\\result.json",
+        "bytes": 2207,
+        "sha256": "428106753df6bdbb59bf180d6ed791182f736d21f910fc530c09b03f1a2b5dd4"
+      },
+      "transferableForecast": false
+    },
+    {
+      "rowId": "gd21-hil-w4-h1-early20-w6",
+      "wallSeconds": 1650682.618,
+      "activeDays": 19.10512289351852,
+      "source": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-early20-w6\\result.json",
+        "bytes": 2396,
+        "sha256": "c297debaa2144cce9a06377928a1e8a7a8c923188995317c5775bdddf5ee0acc"
+      },
+      "transferableForecast": false
+    },
+    {
+      "rowId": "gd21-hil-w4-h3-broad",
+      "wallSeconds": 1219544.401,
+      "activeDays": 14.115097233796297,
+      "source": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-broad\\result.json",
+        "bytes": 2207,
+        "sha256": "160bc892269578a059f686c7a5d5656b69b95929f3fb6664a0725f7e23ec3c9e"
+      },
+      "transferableForecast": false
+    },
+    {
+      "rowId": "gd21-hil-w4-h3-early20-w6",
+      "wallSeconds": 1652033.3260000001,
+      "activeDays": 19.120756087962963,
+      "source": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-early20-w6\\result.json",
+        "bytes": 2406,
+        "sha256": "35099fbf37d29f8308a6f51c00eb1f5b77368b7b5065ac68a60df811254985db"
+      },
+      "transferableForecast": false
+    }
+  ]
+}

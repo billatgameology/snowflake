@@ -1,0 +1,224 @@
+{
+  "schema": "hil-central-filling-capture-witness-v1",
+  "startedAt": "2026-11-11T22:43:22.635Z",
+  "finishedAt": "2026-11-11T22:54:17.754Z",
+  "gitHead": "203e55dec51774133eb26eade2315faeef02fd4f",
+  "node": "v24.13.1",
+  "v8": "13.6.233.17-node.40",
+  "scriptSha256": "50dbe71547bccd4a91ff66c4c4c2377df8b957633b9725c48d0d114a8f381dae",
+  "row": {
+    "conditional": false,
+    "lane": "cavity-mechanism",
+    "fraction": 0.075,
+    "pressurePa": 101325,
+    "paramSet": "M1",
+    "maxSteps": 100000,
+    "id": "cf11-hil-a-t4p5-w4-s2p5",
+    "tempC": -4.5,
+    "sigmaInfinity": 0.003375,
+    "dimsN": 64,
+    "dxUm": 0.35,
+    "seedRadius": 2,
+    "seedThickness": 1,
+    "cflFill": 0.025,
+    "targetExtent": 29,
+    "spatialSampleExtents": [
+      5,
+      9,
+      13,
+      17,
+      21,
+      25
+    ],
+    "experimentalBasalWidthCells": 4,
+    "experimentalBasalWidthHistory": {
+      "mode": "early-only",
+      "cutoffSeconds": 2.5
+    }
+  },
+  "observationSettings": {
+    "ageSeconds": [
+      1,
+      2,
+      2.25,
+      2.5,
+      2.75,
+      3,
+      4,
+      5,
+      10
+    ],
+    "widthHistorySwitch": true,
+    "centralAttachments": {
+      "maxHexRadiusCells": 1,
+      "absoluteZOffsets": [
+        1
+      ]
+    }
+  },
+  "commands": [
+    {
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\scripts\\witness-central-filling-nov11.mjs",
+        "child",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11-witness\\uninterrupted",
+        "create",
+        "96"
+      ],
+      "startedAt": "2026-11-11T22:43:22.636Z",
+      "finishedAt": "2026-11-11T22:48:43.703Z",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "create-full-96.stdout.log",
+      "stderr": "create-full-96.stderr.log"
+    },
+    {
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\scripts\\witness-central-filling-nov11.mjs",
+        "child",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11-witness\\resumed",
+        "create",
+        "57"
+      ],
+      "startedAt": "2026-11-11T22:48:43.705Z",
+      "finishedAt": "2026-11-11T22:51:19.196Z",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "create-split-57.stdout.log",
+      "stderr": "create-split-57.stderr.log"
+    },
+    {
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\scripts\\witness-central-filling-nov11.mjs",
+        "child",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11-witness\\resumed",
+        "resume",
+        "58"
+      ],
+      "startedAt": "2026-11-11T22:51:19.196Z",
+      "finishedAt": "2026-11-11T22:51:34.468Z",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "resume-split-58.stdout.log",
+      "stderr": "resume-split-58.stderr.log"
+    },
+    {
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\scripts\\witness-central-filling-nov11.mjs",
+        "child",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11-witness\\resumed",
+        "resume",
+        "96"
+      ],
+      "startedAt": "2026-11-11T22:51:34.468Z",
+      "finishedAt": "2026-11-11T22:54:17.673Z",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "resume-split-96.stdout.log",
+      "stderr": "resume-split-96.stderr.log"
+    }
+  ],
+  "transitionCycle": 58,
+  "comparedScientificUpdates": 96,
+  "retained": [
+    {
+      "directory": "tick-0",
+      "bytes": 4458605,
+      "sha256": "bc34bcb5a167a6f72bd073f6f8055a6e20ccee6f18b0d035952e2348b334ea23"
+    },
+    {
+      "directory": "tick-22",
+      "bytes": 4458969,
+      "sha256": "908412be6cb141697b828edf9b9d0dc038da840284732ac53a5e70dc15942aa1"
+    },
+    {
+      "directory": "tick-23",
+      "bytes": 4458969,
+      "sha256": "0c1bc514e76dcbf7a4a5cb5aa3047cc1f36e63131f9ba7948816299bdc16b968"
+    },
+    {
+      "directory": "tick-45",
+      "bytes": 4459113,
+      "sha256": "9711e65fc9765e63ad18d789d91acfb2473d38fb394df13f4934ffdf95e29437"
+    },
+    {
+      "directory": "tick-46",
+      "bytes": 4459113,
+      "sha256": "b927b9cdfffb7004b6759e2151f2e213e91f46d363314ca789984b576ffc0955"
+    },
+    {
+      "directory": "tick-51",
+      "bytes": 4459113,
+      "sha256": "8bb5dfbe249923329ff07a507e4a451bfc14cec80c7c7f9699ce55d63cdaa336"
+    },
+    {
+      "directory": "tick-52",
+      "bytes": 4459113,
+      "sha256": "e1aa6cd3968647eca5d1c55dace5af7591c6739c57db995c1137b403c19b44bb"
+    },
+    {
+      "directory": "tick-55",
+      "bytes": 4459113,
+      "sha256": "75da29f1f8a83f7da24b968bb325b072ea5094de0a6da4cb1ab40331ad6f6e41"
+    },
+    {
+      "directory": "tick-56",
+      "bytes": 4459161,
+      "sha256": "15b57e3e22f72e38b23ce2398f8ffc3ef99dcf904f19b39c6fa92ac15a6d8a82"
+    },
+    {
+      "directory": "tick-57",
+      "bytes": 4459121,
+      "sha256": "b6d0e8da9faf030f5c6639c75158ad68c1510c0803c99ac3b8c616ca26ab7df1"
+    },
+    {
+      "directory": "tick-58",
+      "bytes": 4459113,
+      "sha256": "6fce557983cbebd6f582b3e7ac53f0042f67c8a3c30bc6f7f05f8f7c1bcb8f4c"
+    },
+    {
+      "directory": "tick-60",
+      "bytes": 4459113,
+      "sha256": "8974070813c475093b30aa1b3a2151b193a542285a6f933c986eb96b1f1e8da3"
+    },
+    {
+      "directory": "tick-61",
+      "bytes": 4459113,
+      "sha256": "5acf6ed2cf6e6553cc1f864100390138077f26c83d14d437631ea242efe488d4"
+    },
+    {
+      "directory": "tick-64",
+      "bytes": 4459113,
+      "sha256": "40fdc379832fbd379b073a293f396e557862c80618fcfec29fcdf08e78689a86"
+    },
+    {
+      "directory": "tick-65",
+      "bytes": 4459113,
+      "sha256": "04ebd7120885f43cf0f7c3f4accd509d63540c6c52df48d93754ca87b5d27058"
+    },
+    {
+      "directory": "tick-94",
+      "bytes": 4459281,
+      "sha256": "bdefcf15e0522c1776925879523bd0cfe26ed3ba92c58757d81c3765d1e6c5de"
+    },
+    {
+      "directory": "tick-95",
+      "bytes": 4459281,
+      "sha256": "db7c9a08fef9d0507bfb5f9af2d29b04820f89f36715be51b62b8abdd20b3718"
+    }
+  ],
+  "solvedBoundaryMaps": [
+    "cycle-57.json",
+    "cycle-58.json"
+  ],
+  "eventPrefixEqualExceptRss": true,
+  "retainedStateBytesEqual": true,
+  "boundaryMapsByteEqual": true,
+  "finalStateBytesEqual": true,
+  "finalSolverSha256": "a0ede0f325822f6bf5d34cb774ac468308b6d80afdc6418a70a24bffd4bb80c9",
+  "scope": "Fresh N64 processes, explicit completed-cycle pauses before/after the switch, then rotation. Existing interruption witnesses and focused copy-recovery test cover interruption; no physical gate."
+}

@@ -1,0 +1,29 @@
+{
+  "scope": "One bounded implementation review of new capture seam, roster, dispatch, readout and witness against registered plan.",
+  "reviewer": "Codex reviewer; exact model identifier not exposed",
+  "context": "Inherited/shared project context",
+  "verdict": "No launch-blocking defect in reviewed scope",
+  "independentlyExecuted": {
+    "command": "npx.cmd --no-install vitest run runner/test/discovery-retained-observations.test.ts runner/test/hil-central-filling-nov11.test.ts runner/test/hil-central-filling-nov11-readout.test.ts",
+    "filesPassed": 3,
+    "testsPassed": 12,
+    "durationSeconds": 4.68,
+    "startedLocal": "2026-11-11T14:43:24-08:00"
+  },
+  "notExecuted": [
+    "Real N64 process witness",
+    "Full regression",
+    "Production launch",
+    "NAS publication"
+  ],
+  "checked": [
+    "Exact40 operands/order and HIL20 ceiling",
+    "No production wall limit",
+    "Opt-in spec binding and historical absent-option behavior",
+    "Request before checkpoint and synchronous copies before rotation",
+    "Resume reconciliation before advance",
+    "Solved pre-fill boundary timing distinct from full cycle states",
+    "No numerical solver or codec edits"
+  ],
+  "limits": "Internal development controls, no physical gate or geometry-only causal identification."
+}

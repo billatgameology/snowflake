@@ -1,0 +1,29 @@
+# HIL central-filling wave — November 11
+
+The maker authorized all forty new cases on HIL with twenty concurrent workers and no wall
+cutoff. The [registered plan](../../docs/plans/hil-central-filling-nov11.md) contains the exact
+24 timing, 12 smaller-timestep and 4 finer-representation cases, predictions and comparison cohorts.
+This bundle records implementation readiness; production launch has a separate receipt.
+
+The new optional recorder retains full completed-cycle states around named ages, central
+attachment batches and the early-only switch, outside rolling restart generations. It also saves
+last-active and first-inactive converged boundary maps before growth. These boundary values are
+not interchangeable with completed-cycle lattice supersaturation. Ordinary callers, numerical
+operators and checkpoint codecs are unchanged.
+
+[Capture witness](capture-witness.json): fresh N64 processes compare an uninterrupted 96-update
+prefix with pauses at cycles 57 and 58 followed by continuation to 96. All scientific events
+except operational RSS, all 17 retained full solver states, both accepted boundary maps and the
+final solver bytes match. The real cutoff transition is cycle 58. This is operational/scientific
+state preservation, not a size endpoint or a new physical finding. [Readout](witness-readout.json)
+reopens the saved arrays without advancing them and explicitly lists unachieved ages.
+
+[Verification](verification.json): exact `npm test` on `203e55d` passed 250 files / 3114 tests,
+23 skipped, in 993.24 seconds. Raw output is retained. The [bounded review](review.json) states
+its shared-context provenance, independently executed checks and limits. [Comparison inputs](comparison-inputs.json)
+bind the existing coarse early5 operands and contextual fine broad controls; prior fine active
+costs are observations, not transferable forecasts.
+
+Bulk output remains in the open execution checkout until governed NAS publication and fresh
+recovery. No output was pruned or worktree closed. The separate old October21 HIL output still
+requires its own NAS publication. No BLD work or new scientific-law intervention is included.

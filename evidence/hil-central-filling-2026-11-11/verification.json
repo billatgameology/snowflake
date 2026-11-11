@@ -1,0 +1,51 @@
+{
+  "scope": "HIL central-filling launch verification; optional scientific recording/readout, unchanged numerical solver and checkpoint codec",
+  "fullRegression": {
+    "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11-verification\\npm-test-20261111T144322679.stderr.log",
+    "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11-verification\\npm-test-20261111T144322679.stdout.log",
+    "cwd": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+    "startedUtc": "2026-11-11T22:43:22.6809533Z",
+    "wrapperPid": 9440,
+    "gitHead": "203e55dec51774133eb26eade2315faeef02fd4f",
+    "command": "npm test",
+    "finishedUtc": "2026-11-11T23:00:08.5881139Z",
+    "exitCode": 0,
+    "filesPassed": 250,
+    "testsPassed": 3114,
+    "testsSkipped": 23,
+    "vitestDurationSeconds": 993.24,
+    "retainedStdout": "npm-test.stdout.log",
+    "retainedStderr": "npm-test.stderr.log"
+  },
+  "captureWitness": {
+    "receipt": "capture-witness.json",
+    "updatesCompared": 96,
+    "fullStatesCompared": 17,
+    "boundaryMapsCompared": 2,
+    "exitCodes": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "source": "203e55dec51774133eb26eade2315faeef02fd4f",
+    "readout": "witness-readout.json",
+    "notScientificEndpoint": true
+  },
+  "review": "review.json",
+  "scopeLimits": [
+    "No physical gate or validation claim",
+    "Matched A/B/C comparisons await completed new rows",
+    "No new capacity ladder",
+    "No numerical implementation change after this full regression; later publication metadata is checked separately",
+    "Bulk N64 witness bytes remain in execution checkout out/hil-central-filling-nov11-witness and are included in future campaign NAS preservation; local originals retained"
+  ],
+  "publicationMetadata": {
+    "command": "npx.cmd --no-install vitest run runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts",
+    "exitCode": 0,
+    "filesPassed": 2,
+    "testsPassed": 18,
+    "startedLocal": "2026-11-11T15:01:23-08:00",
+    "durationSeconds": 1.21
+  }
+}

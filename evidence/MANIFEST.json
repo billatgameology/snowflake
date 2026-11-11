@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1328,
- "totalBytes": 327764409,
+ "fileCount": 1337,
+ "totalBytes": 328149250,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -5317,6 +5317,42 @@
   "warm-switch-analysis-2026-11-11/verification.json": {
    "bytes": 3176,
    "sha256": "cc04d5faa7d25c6ebd616db20e17a59bc4585b1e01a21d54880896ac5729d78f"
+  },
+  "hil-central-filling-2026-11-11/capture-witness.json": {
+   "bytes": 7093,
+   "sha256": "d4d3659c577c5ce6a8de9097d1dfe56f959fafd6e056ebe2c3d7a971e8e0c8d9"
+  },
+  "hil-central-filling-2026-11-11/comparison-inputs.json": {
+   "bytes": 6756,
+   "sha256": "302a732a14e50bf145cf167f5c00bbe74927dbc966310b3ff9601d6a8e2a9711"
+  },
+  "hil-central-filling-2026-11-11/host-observation.json": {
+   "bytes": 853,
+   "sha256": "83edc075be9341504c5fec95fe16f56b43e54f779a59ea813030226f1a29a924"
+  },
+  "hil-central-filling-2026-11-11/npm-test.stderr.log": {
+   "bytes": 33324,
+   "sha256": "38e887d54aa3ee66f8122ad73849a35a55f261c3025720febba8664c318c056c"
+  },
+  "hil-central-filling-2026-11-11/npm-test.stdout.log": {
+   "bytes": 76040,
+   "sha256": "ce61989da8acf84b983eab631d9ee95292a588a35ff551d2c90e29b4e3239764"
+  },
+  "hil-central-filling-2026-11-11/README.md": {
+   "bytes": 2178,
+   "sha256": "f3f9bfe5e33f74361d89b8b8ea20204f7cbda75f26be991d26c47e59504ce41c"
+  },
+  "hil-central-filling-2026-11-11/review.json": {
+   "bytes": 1321,
+   "sha256": "86c119e2890905654b4069aef356e1d0ef6b6bae097e64540241ee45c0dd6b50"
+  },
+  "hil-central-filling-2026-11-11/verification.json": {
+   "bytes": 2206,
+   "sha256": "3df0a8c3f18d30415d9b1d86b7cb6e13dca218c8056338d1559fab584cd6bcfe"
+  },
+  "hil-central-filling-2026-11-11/witness-readout.json": {
+   "bytes": 255070,
+   "sha256": "5d9384a5c0cffada4b59980285e64676312eb79c14d365b984189065b2e6af8f"
   }
  }
 }
