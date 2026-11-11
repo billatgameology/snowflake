@@ -1,0 +1,179 @@
+{
+  "scope": "Independent direct coordinate-set calculation at age5.05s using last event at/before age; no geometry or cavity helper. Does not verify other readouts or physical causality.",
+  "results": [
+    {
+      "temperatureTag": "4p5",
+      "width3Sites": 109,
+      "width4Sites": 123,
+      "width4OnlyCoordinates": [
+        [
+          -1,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1
+        ],
+        [
+          -1,
+          1,
+          1
+        ],
+        [
+          0,
+          -1,
+          -1
+        ],
+        [
+          0,
+          -1,
+          1
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          -1
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          1,
+          -1,
+          -1
+        ],
+        [
+          1,
+          -1,
+          1
+        ],
+        [
+          1,
+          0,
+          -1
+        ],
+        [
+          1,
+          0,
+          1
+        ]
+      ],
+      "width3OnlyCoordinates": []
+    },
+    {
+      "temperatureTag": "5",
+      "width3Sites": 109,
+      "width4Sites": 123,
+      "width4OnlyCoordinates": [
+        [
+          -1,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1
+        ],
+        [
+          -1,
+          1,
+          1
+        ],
+        [
+          0,
+          -1,
+          -1
+        ],
+        [
+          0,
+          -1,
+          1
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          -1
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          1,
+          -1,
+          -1
+        ],
+        [
+          1,
+          -1,
+          1
+        ],
+        [
+          1,
+          0,
+          -1
+        ],
+        [
+          1,
+          0,
+          1
+        ]
+      ],
+      "width3OnlyCoordinates": []
+    }
+  ],
+  "inputs": [
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early5-w3\\events.jsonl",
+      "sha256": "c53833c2deb2c4098ad481bbc0f2b3d827c41ca936a9cf08cc68c758d7805bae"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t4p5-w4-early5\\events.jsonl",
+      "sha256": "72d6a7a292bf25ec01144c19e237a51a5adb972f9bc5388db2017b2e6d62ed29"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early5-w3\\events.jsonl",
+      "sha256": "cfa77e20586e4c4040734dfbe0cfb1ff1c428f4bc3bd0e45c6494a08d87395b9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t5-w4-early5\\events.jsonl",
+      "sha256": "58dc0afc948a5a32ff794a73c35871cbe5d982b5a92a980e55b5bb687f188c31"
+    }
+  ]
+}

@@ -5,7 +5,7 @@
 - **Started / last touched:** 2026-10-21 / 2026-11-11 by Codex/GPT-6.
 - **Authority:** maker requests full useful use of HIL's 20-worker allocation and BLD's 32-worker allocation, detailed long queues, resumability and no wall-clock cutoff. The subsequent October21 direction puts all longest/least-predictable work on HIL so BLD can finish and shut down. This supersedes the initial 60/56 host split and the October8 HIL-only default.
 - **Publication:** `origin/main`; planning branch `codex/phase10-two-host-growth`, based on `8e008644085f075922cfccd8a296b0dd248beb60`.
-- **Immediate deliverable:** Reconstruct BLD switch-time geometry and aggregate diagnostics, then inspect later boundary profiles to distinguish placement/exposure from total selected demand, and preserve complete HIL output plus detailed analyses on NAS before closeout. Do not resume the completed queue or dispatch unselected reserves. BLD's finite run/preservation slice is complete. Solo scientific research; hostile actors excluded.
+- **Immediate deliverable:** Discuss a narrow prediction around the now-localized central-patch filling sequence; the six short switch-state replays and saved-data analysis are complete. Preserve the separate long HIL output plus its detailed analyses on NAS before closeout. Do not resume the completed queue or dispatch unselected reserves. BLD's finite run/preservation slice is complete. Solo scientific research; hostile actors excluded.
 
 ## Goal
 
@@ -1285,6 +1285,41 @@ states costs much less than repeating long runs. Lessons A1, B1/B2 and C1 apply.
 Done when the saved-data comparison, six checked replay prefixes/twelve retained states and
 honest reconstruction limits are recorded, with next discriminating action and preservation
 status explicit. No new long campaign or reserve selection is part of this recovery.
+
+**Executed result:** all six workers exited zero after the registered 589 updates. Every
+scientific event except operational RSS matched its original BLD prefix, all shared boundary
+snapshots matched, and both complete-state generations per row passed digest/codec/tick checks.
+The actual producer is `698ca5100510e7513cbe4ec6a8389cc7d3f22b68`, Node v24.13.1 / V8
+13.6.233.17-node.40, six concurrent workers, no wall cutoff. Exact arguments, PIDs, source
+parity and array hashes are in the [recovery receipt](../../evidence/warm-switch-analysis-2026-11-11/recovery.json).
+The launch receipt records 50981944 KB free physical memory; no new capacity ladder ran.
+
+The [saved-data analysis](../../evidence/warm-switch-analysis-2026-11-11/findings.md) shows the
+same contrast at both -4.5/-5 C: early1 ends before any attachment; at early5 cutoff width3 has
+109 sites/.35 um waist/.35 um opening depth, width4 has 123 sites/1.05 um waist/zero positive
+depth, despite equal overall spans. Width4-only sites are exactly two radius-1 seven-site
+central patches at z=+/-1, attached around 2.3-2.5 s. A post-hoc 5.05 s shared-age check and
+adjacent-event alternatives preserve the contrast. Parent directly reproduced the coordinate
+sets without the cavity helper. This is a candidate mechanism location, not geometry-only causality.
+
+[Read-only recovered-state analysis](../../evidence/warm-switch-analysis-2026-11-11/recovered-state/findings.md)
+finds width3 central axis fill at cutoff .5755063242444574/.5784542757072474. Its first inactive
+update adds only about 6.44e-9/7.71e-9 per axis-floor cell, versus .00272/.00269 on each surrounding
+patch cell. The later sampled floor is close but not identical to cutoff fill; tiny residual
+accumulation remains. Checkpoint lattice supersaturation is not solved boundary supersaturation.
+No recovered state was relaxed, advanced or transplanted for this readout.
+
+The [NAS preservation plan](warm-switch-recovery-preservation.md) binds the short replay collection,
+not the separate long HIL output. Parent executed the portable array readout against the freshly
+restored NAS payload; all six numerical rows/twelve states match the original local readout,
+excluding only relocated paths ([receipt](../../evidence/warm-switch-analysis-2026-11-11/restored-readout-check.json)).
+The new short-state NAS collection contains 103 files / 56,351,044 bytes with successful fresh
+restore. Exact `npm test` on unchanged primary source `44b3065` passed 247 files / 3102 tests,
+23 skipped, in 988.57 s; final evidence/progress/catalogue checks passed 27 tests. Raw logs
+and scope are pinned in the follow-up verification receipt. Keep the preserved replay states
+frozen. Next, discuss a predicted outcome for a narrow observation
+or intervention around the central-patch filling sequence; no long queue or reserve was launched.
+
 
 ### HIL executable and recovery — October21
 

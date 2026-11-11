@@ -1,0 +1,5513 @@
+{
+  "scope": "Read-only restored cycle-boundary state analysis; solver restore/array reads only, no relaxation or growth.",
+  "recipe": {
+    "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-state-readout-2026-11-11\\readout.mjs",
+    "sha256": "2b79ce8c209993397366e541fab36b69c23a4359558d62574d1f124e125f746b"
+  },
+  "definitions": {
+    "phase": "C is the completed active crossing update at the actual cutoff boundary; C+1 is after one inactive relaxation and growth update.",
+    "sigma": "Checkpoint sigma is a lattice-cell supersaturation field from cycle-boundary state, not solved boundary sigma_b or a newly converged solution for the post-update geometry. Attached-cell field values are omitted as nonphysical.",
+    "fill": "f is the preserved per-cell fill fraction. Attached cells have f=1; comparisons concern explicitly unattached cells.",
+    "patch": "Fourteen sites: radius<=1 in z=-1,+1 relative to the seed center. Rim summaries are fixed-coordinate rings radius2 in z=-1,+1 or -2,+2, not inferred facet classes.",
+    "recovery": "Replay matched original scientific event prefixes; original complete switch states were absent, so there is no independent full-state comparison to an original checkpoint.",
+    "causality": "Comparing states from different histories does not isolate geometry, fill or vapor causality. No state was transplanted or changed."
+  },
+  "rows": [
+    {
+      "id": "gd21-bld-w1-t4p5-c025-early1-w3",
+      "patchFillAdvance": [
+        {
+          "offset": [
+            -1,
+            0,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.09438174209229533,
+          "fillAfter": 0.10636921538262423,
+          "deltaFill": 0.011987473290328898
+        },
+        {
+          "offset": [
+            -1,
+            1,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.09438174209229533,
+          "fillAfter": 0.10636921538262423,
+          "deltaFill": 0.011987473290328898
+        },
+        {
+          "offset": [
+            0,
+            -1,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.09438174209229533,
+          "fillAfter": 0.10636921538262423,
+          "deltaFill": 0.011987473290328898
+        },
+        {
+          "offset": [
+            0,
+            0,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.1028518741151866,
+          "fillAfter": 0.11449873375651114,
+          "deltaFill": 0.01164685964132453
+        },
+        {
+          "offset": [
+            0,
+            1,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.09438174209229533,
+          "fillAfter": 0.10636921538262423,
+          "deltaFill": 0.011987473290328898
+        },
+        {
+          "offset": [
+            1,
+            -1,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.09438174209229533,
+          "fillAfter": 0.10636921538262423,
+          "deltaFill": 0.011987473290328898
+        },
+        {
+          "offset": [
+            1,
+            0,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.09438174209229533,
+          "fillAfter": 0.10636921538262423,
+          "deltaFill": 0.011987473290328898
+        },
+        {
+          "offset": [
+            -1,
+            0,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.09438174209229533,
+          "fillAfter": 0.10636921538262423,
+          "deltaFill": 0.011987473290328898
+        },
+        {
+          "offset": [
+            -1,
+            1,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.09438174209229533,
+          "fillAfter": 0.10636921538262423,
+          "deltaFill": 0.011987473290328898
+        },
+        {
+          "offset": [
+            0,
+            -1,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.09438174209229533,
+          "fillAfter": 0.10636921538262423,
+          "deltaFill": 0.011987473290328898
+        },
+        {
+          "offset": [
+            0,
+            0,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.1028518741151866,
+          "fillAfter": 0.11449873375651114,
+          "deltaFill": 0.01164685964132453
+        },
+        {
+          "offset": [
+            0,
+            1,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.09438174209229533,
+          "fillAfter": 0.10636921538262423,
+          "deltaFill": 0.011987473290328898
+        },
+        {
+          "offset": [
+            1,
+            -1,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.09438174209229533,
+          "fillAfter": 0.10636921538262423,
+          "deltaFill": 0.011987473290328898
+        },
+        {
+          "offset": [
+            1,
+            0,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.09438174209229533,
+          "fillAfter": 0.10636921538262423,
+          "deltaFill": 0.011987473290328898
+        }
+      ],
+      "receipt": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w1-t4p5-c025-early1-w3\\recovery-verification.json",
+        "eventsMatched": 27,
+        "scope": "Fresh HIL replay; exact scientific event prefix matches BLD except operational RSS. Original full switch state absent, so no independent original full-state equality claim.",
+        "producer": "698ca5100510e7513cbe4ec6a8389cc7d3f22b68",
+        "node": "v24.13.1"
+      },
+      "states": [
+        {
+          "phase": "switch-boundary",
+          "tick": 26,
+          "simTimeSeconds": 1.0338799885228636,
+          "attachedCount": 19,
+          "patch": [
+            {
+              "offset": [
+                -1,
+                0,
+                -1
+              ],
+              "index": 129055,
+              "attached": false,
+              "fill": 0.09438174209229533,
+              "latticeCellSigma": 0.0017337271148484188,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                -1
+              ],
+              "index": 129119,
+              "attached": false,
+              "fill": 0.09438174209229533,
+              "latticeCellSigma": 0.0017337271148484188,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                -1
+              ],
+              "index": 128992,
+              "attached": false,
+              "fill": 0.09438174209229533,
+              "latticeCellSigma": 0.0017337271148484188,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": false,
+              "fill": 0.1028518741151866,
+              "latticeCellSigma": 0.001768756980999299,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                1,
+                -1
+              ],
+              "index": 129120,
+              "attached": false,
+              "fill": 0.09438174209229533,
+              "latticeCellSigma": 0.0017337271148484188,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                -1
+              ],
+              "index": 128993,
+              "attached": false,
+              "fill": 0.09438174209229533,
+              "latticeCellSigma": 0.0017337271148484188,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                0,
+                -1
+              ],
+              "index": 129057,
+              "attached": false,
+              "fill": 0.09438174209229533,
+              "latticeCellSigma": 0.0017337271148484188,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                0,
+                1
+              ],
+              "index": 137247,
+              "attached": false,
+              "fill": 0.09438174209229533,
+              "latticeCellSigma": 0.0017337271148484188,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                1
+              ],
+              "index": 137311,
+              "attached": false,
+              "fill": 0.09438174209229533,
+              "latticeCellSigma": 0.0017337271148484188,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                1
+              ],
+              "index": 137184,
+              "attached": false,
+              "fill": 0.09438174209229533,
+              "latticeCellSigma": 0.0017337271148484188,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": false,
+              "fill": 0.1028518741151866,
+              "latticeCellSigma": 0.001768756980999299,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                1,
+                1
+              ],
+              "index": 137312,
+              "attached": false,
+              "fill": 0.09438174209229533,
+              "latticeCellSigma": 0.0017337271148484188,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                1
+              ],
+              "index": 137185,
+              "attached": false,
+              "fill": 0.09438174209229533,
+              "latticeCellSigma": 0.0017337271148484188,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                0,
+                1
+              ],
+              "index": 137249,
+              "attached": false,
+              "fill": 0.09438174209229533,
+              "latticeCellSigma": 0.0017337271148484188,
+              "attachedSigmaOmitted": false
+            }
+          ],
+          "patchSummary": {
+            "cells": 14,
+            "attached": 0,
+            "unattached": 14,
+            "unattachedFill": {
+              "min": 0.09438174209229533,
+              "max": 0.1028518741151866,
+              "mean": 0.09559176095270838
+            },
+            "unattachedLatticeSigma": {
+              "min": 0.0017337271148484188,
+              "max": 0.001768756980999299,
+              "mean": 0.0017387313814414018
+            }
+          },
+          "axis": [
+            {
+              "offset": [
+                0,
+                0,
+                -3
+              ],
+              "index": 120864,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.002217830009252199,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -2
+              ],
+              "index": 124960,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0019340753547760505,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": false,
+              "fill": 0.1028518741151866,
+              "latticeCellSigma": 0.001768756980999299,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                0
+              ],
+              "index": 133152,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": false,
+              "fill": 0.1028518741151866,
+              "latticeCellSigma": 0.001768756980999299,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                2
+              ],
+              "index": 141344,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0019340753547760505,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                3
+              ],
+              "index": 145440,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.002217830009252199,
+              "attachedSigmaOmitted": false
+            }
+          ],
+          "rimAtAdjacentPlanes": {
+            "cells": 24,
+            "attached": 0,
+            "unattached": 24,
+            "unattachedFill": {
+              "min": 0.6324840652603818,
+              "max": 0.6500000000000002,
+              "mean": 0.6412420326301911
+            },
+            "unattachedLatticeSigma": {
+              "min": 0.0009301726867558949,
+              "max": 0.0009443768277176101,
+              "mean": 0.0009372747572367526
+            }
+          },
+          "rimAtOuterPlanes": {
+            "cells": 24,
+            "attached": 0,
+            "unattached": 24,
+            "unattachedFill": {
+              "min": 0,
+              "max": 0,
+              "mean": 0
+            },
+            "unattachedLatticeSigma": {
+              "min": 0.001948103822800558,
+              "max": 0.0019904870687596637,
+              "mean": 0.0019692954457801106
+            }
+          },
+          "solverSource": {
+            "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w1-t4p5-c025-early1-w3\\resume\\generation-26-2830b12f-d1fe-47d5-88e7-5cb105d92cd4\\solver.bin",
+            "bytes": 4458969,
+            "sha256": "071c2e2ee9664ee3c7181ee1990ecd3279e7665bda73ad8ff771a8ebd2d10e1d"
+          }
+        },
+        {
+          "phase": "first-inactive-update-complete",
+          "tick": 27,
+          "simTimeSeconds": 1.0950629739480553,
+          "attachedCount": 19,
+          "patch": [
+            {
+              "offset": [
+                -1,
+                0,
+                -1
+              ],
+              "index": 129055,
+              "attached": false,
+              "fill": 0.10636921538262423,
+              "latticeCellSigma": 0.0020959480271056457,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                -1
+              ],
+              "index": 129119,
+              "attached": false,
+              "fill": 0.10636921538262423,
+              "latticeCellSigma": 0.0020959480271056457,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                -1
+              ],
+              "index": 128992,
+              "attached": false,
+              "fill": 0.10636921538262423,
+              "latticeCellSigma": 0.0020959480271056457,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": false,
+              "fill": 0.11449873375651114,
+              "latticeCellSigma": 0.0020799775130228865,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                1,
+                -1
+              ],
+              "index": 129120,
+              "attached": false,
+              "fill": 0.10636921538262423,
+              "latticeCellSigma": 0.0020959480271056457,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                -1
+              ],
+              "index": 128993,
+              "attached": false,
+              "fill": 0.10636921538262423,
+              "latticeCellSigma": 0.0020959480271056457,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                0,
+                -1
+              ],
+              "index": 129057,
+              "attached": false,
+              "fill": 0.10636921538262423,
+              "latticeCellSigma": 0.0020959480271056457,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                0,
+                1
+              ],
+              "index": 137247,
+              "attached": false,
+              "fill": 0.10636921538262423,
+              "latticeCellSigma": 0.0020959480271056457,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                1
+              ],
+              "index": 137311,
+              "attached": false,
+              "fill": 0.10636921538262423,
+              "latticeCellSigma": 0.0020959480271056457,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                1
+              ],
+              "index": 137184,
+              "attached": false,
+              "fill": 0.10636921538262423,
+              "latticeCellSigma": 0.0020959480271056457,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": false,
+              "fill": 0.11449873375651114,
+              "latticeCellSigma": 0.0020799775130228865,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                1,
+                1
+              ],
+              "index": 137312,
+              "attached": false,
+              "fill": 0.10636921538262423,
+              "latticeCellSigma": 0.0020959480271056457,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                1
+              ],
+              "index": 137185,
+              "attached": false,
+              "fill": 0.10636921538262423,
+              "latticeCellSigma": 0.0020959480271056457,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                0,
+                1
+              ],
+              "index": 137249,
+              "attached": false,
+              "fill": 0.10636921538262423,
+              "latticeCellSigma": 0.0020959480271056457,
+              "attachedSigmaOmitted": false
+            }
+          ],
+          "patchSummary": {
+            "cells": 14,
+            "attached": 0,
+            "unattached": 14,
+            "unattachedFill": {
+              "min": 0.10636921538262423,
+              "max": 0.11449873375651114,
+              "mean": 0.10753057515032236
+            },
+            "unattachedLatticeSigma": {
+              "min": 0.0020799775130228865,
+              "max": 0.0020959480271056457,
+              "mean": 0.0020936665250938227
+            }
+          },
+          "axis": [
+            {
+              "offset": [
+                0,
+                0,
+                -3
+              ],
+              "index": 120864,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.002626269377484114,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -2
+              ],
+              "index": 124960,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.002396998075195932,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": false,
+              "fill": 0.11449873375651114,
+              "latticeCellSigma": 0.0020799775130228865,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                0
+              ],
+              "index": 133152,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": false,
+              "fill": 0.11449873375651114,
+              "latticeCellSigma": 0.0020799775130228865,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                2
+              ],
+              "index": 141344,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.002396998075195932,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                3
+              ],
+              "index": 145440,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.002626269377484114,
+              "attachedSigmaOmitted": false
+            }
+          ],
+          "rimAtAdjacentPlanes": {
+            "cells": 24,
+            "attached": 0,
+            "unattached": 24,
+            "unattachedFill": {
+              "min": 0.6452967382948364,
+              "max": 0.663253957094452,
+              "mean": 0.6542753476946445
+            },
+            "unattachedLatticeSigma": {
+              "min": 0.002133655481615237,
+              "max": 0.002153288172835355,
+              "mean": 0.002143471827225296
+            }
+          },
+          "rimAtOuterPlanes": {
+            "cells": 24,
+            "attached": 0,
+            "unattached": 24,
+            "unattachedFill": {
+              "min": 0,
+              "max": 0,
+              "mean": 0
+            },
+            "unattachedLatticeSigma": {
+              "min": 0.0024824087879494294,
+              "max": 0.0025140529676811758,
+              "mean": 0.0024982308778153015
+            }
+          },
+          "solverSource": {
+            "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w1-t4p5-c025-early1-w3\\resume\\generation-27-a2d91fae-534d-4424-96dc-d7e380c8dae1\\solver.bin",
+            "bytes": 4458969,
+            "sha256": "80fa1bf28c2db1bc59e9f7d1f532b7a59001ffd9c18f6d0413849d15fe832781"
+          }
+        }
+      ],
+      "laterBoundarySnapshots": [
+        {
+          "record": {
+            "path": "boundary-e9.json",
+            "triggerExtent": 9,
+            "actualExtent": 9,
+            "completedCycles": 146,
+            "simTimeSeconds": 6.041899816739159
+          },
+          "axisBasal": [
+            {
+              "offset": 2,
+              "fill": 0.2510795228782685,
+              "solvedBoundarySigma": 0.0019126757634452616,
+              "alphaHKBoundary": 0.048688959837776935
+            },
+            {
+              "offset": -2,
+              "fill": 0.2510795228782685,
+              "solvedBoundarySigma": 0.0019126757634452616,
+              "alphaHKBoundary": 0.048688959837776935
+            }
+          ]
+        },
+        {
+          "record": {
+            "path": "boundary-e13.json",
+            "triggerExtent": 13,
+            "actualExtent": 13,
+            "completedCycles": 371,
+            "simTimeSeconds": 15.215276613740023
+          },
+          "axisBasal": [
+            {
+              "offset": 3,
+              "fill": 0.4342005472625305,
+              "solvedBoundarySigma": 0.0017831417083109748,
+              "alphaHKBoundary": 0.039091340127221166
+            },
+            {
+              "offset": -3,
+              "fill": 0.4342005472625305,
+              "solvedBoundarySigma": 0.0017831417083109748,
+              "alphaHKBoundary": 0.039091340127221166
+            }
+          ]
+        }
+      ],
+      "axisFloorFillComparisons": [
+        {
+          "phase": "switch-boundary",
+          "axis": [
+            {
+              "offset": -1,
+              "fill": 0.1028518741151866,
+              "laterComparisons": [
+                {
+                  "record": {
+                    "path": "boundary-e9.json",
+                    "triggerExtent": 9,
+                    "actualExtent": 9,
+                    "completedCycles": 146,
+                    "simTimeSeconds": 6.041899816739159
+                  },
+                  "available": false
+                },
+                {
+                  "record": {
+                    "path": "boundary-e13.json",
+                    "triggerExtent": 13,
+                    "actualExtent": 13,
+                    "completedCycles": 371,
+                    "simTimeSeconds": 15.215276613740023
+                  },
+                  "available": false
+                }
+              ]
+            },
+            {
+              "offset": 1,
+              "fill": 0.1028518741151866,
+              "laterComparisons": [
+                {
+                  "record": {
+                    "path": "boundary-e9.json",
+                    "triggerExtent": 9,
+                    "actualExtent": 9,
+                    "completedCycles": 146,
+                    "simTimeSeconds": 6.041899816739159
+                  },
+                  "available": false
+                },
+                {
+                  "record": {
+                    "path": "boundary-e13.json",
+                    "triggerExtent": 13,
+                    "actualExtent": 13,
+                    "completedCycles": 371,
+                    "simTimeSeconds": 15.215276613740023
+                  },
+                  "available": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "phase": "first-inactive-update-complete",
+          "axis": [
+            {
+              "offset": -1,
+              "fill": 0.11449873375651114,
+              "laterComparisons": [
+                {
+                  "record": {
+                    "path": "boundary-e9.json",
+                    "triggerExtent": 9,
+                    "actualExtent": 9,
+                    "completedCycles": 146,
+                    "simTimeSeconds": 6.041899816739159
+                  },
+                  "available": false
+                },
+                {
+                  "record": {
+                    "path": "boundary-e13.json",
+                    "triggerExtent": 13,
+                    "actualExtent": 13,
+                    "completedCycles": 371,
+                    "simTimeSeconds": 15.215276613740023
+                  },
+                  "available": false
+                }
+              ]
+            },
+            {
+              "offset": 1,
+              "fill": 0.11449873375651114,
+              "laterComparisons": [
+                {
+                  "record": {
+                    "path": "boundary-e9.json",
+                    "triggerExtent": 9,
+                    "actualExtent": 9,
+                    "completedCycles": 146,
+                    "simTimeSeconds": 6.041899816739159
+                  },
+                  "available": false
+                },
+                {
+                  "record": {
+                    "path": "boundary-e13.json",
+                    "triggerExtent": 13,
+                    "actualExtent": 13,
+                    "completedCycles": 371,
+                    "simTimeSeconds": 15.215276613740023
+                  },
+                  "available": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gd21-bld-w1-t4p5-c025-early5-w3",
+      "patchFillAdvance": [
+        {
+          "offset": [
+            -1,
+            0,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6237108339704877,
+          "fillAfter": 0.6264326528791229,
+          "deltaFill": 0.0027218189086352096
+        },
+        {
+          "offset": [
+            -1,
+            1,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6237108339704877,
+          "fillAfter": 0.6264326528791229,
+          "deltaFill": 0.0027218189086352096
+        },
+        {
+          "offset": [
+            0,
+            -1,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6237108339704877,
+          "fillAfter": 0.6264326528791229,
+          "deltaFill": 0.0027218189086352096
+        },
+        {
+          "offset": [
+            0,
+            0,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.5755063242444574,
+          "fillAfter": 0.5755063306871173,
+          "deltaFill": 6.442659961081176e-9
+        },
+        {
+          "offset": [
+            0,
+            1,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6237108339704877,
+          "fillAfter": 0.6264326528791229,
+          "deltaFill": 0.0027218189086352096
+        },
+        {
+          "offset": [
+            1,
+            -1,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6237108339704877,
+          "fillAfter": 0.6264326528791229,
+          "deltaFill": 0.0027218189086352096
+        },
+        {
+          "offset": [
+            1,
+            0,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6237108339704877,
+          "fillAfter": 0.6264326528791229,
+          "deltaFill": 0.0027218189086352096
+        },
+        {
+          "offset": [
+            -1,
+            0,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6237108339704877,
+          "fillAfter": 0.6264326528791229,
+          "deltaFill": 0.0027218189086352096
+        },
+        {
+          "offset": [
+            -1,
+            1,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6237108339704877,
+          "fillAfter": 0.6264326528791229,
+          "deltaFill": 0.0027218189086352096
+        },
+        {
+          "offset": [
+            0,
+            -1,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6237108339704877,
+          "fillAfter": 0.6264326528791229,
+          "deltaFill": 0.0027218189086352096
+        },
+        {
+          "offset": [
+            0,
+            0,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.5755063242444574,
+          "fillAfter": 0.5755063306871173,
+          "deltaFill": 6.442659961081176e-9
+        },
+        {
+          "offset": [
+            0,
+            1,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6237108339704877,
+          "fillAfter": 0.6264326528791229,
+          "deltaFill": 0.0027218189086352096
+        },
+        {
+          "offset": [
+            1,
+            -1,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6237108339704877,
+          "fillAfter": 0.6264326528791229,
+          "deltaFill": 0.0027218189086352096
+        },
+        {
+          "offset": [
+            1,
+            0,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6237108339704877,
+          "fillAfter": 0.6264326528791229,
+          "deltaFill": 0.0027218189086352096
+        }
+      ],
+      "receipt": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w1-t4p5-c025-early5-w3\\recovery-verification.json",
+        "eventsMatched": 132,
+        "scope": "Fresh HIL replay; exact scientific event prefix matches BLD except operational RSS. Original full switch state absent, so no independent original full-state equality claim.",
+        "producer": "698ca5100510e7513cbe4ec6a8389cc7d3f22b68",
+        "node": "v24.13.1"
+      },
+      "states": [
+        {
+          "phase": "switch-boundary",
+          "tick": 131,
+          "simTimeSeconds": 5.021064751997452,
+          "attachedCount": 109,
+          "patch": [
+            {
+              "offset": [
+                -1,
+                0,
+                -1
+              ],
+              "index": 129055,
+              "attached": false,
+              "fill": 0.6237108339704877,
+              "latticeCellSigma": 0.000030369821985368453,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                -1
+              ],
+              "index": 129119,
+              "attached": false,
+              "fill": 0.6237108339704877,
+              "latticeCellSigma": 0.000030369821985368453,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                -1
+              ],
+              "index": 128992,
+              "attached": false,
+              "fill": 0.6237108339704877,
+              "latticeCellSigma": 0.000030369821985368453,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": false,
+              "fill": 0.5755063242444574,
+              "latticeCellSigma": 0.0002126965098648723,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                1,
+                -1
+              ],
+              "index": 129120,
+              "attached": false,
+              "fill": 0.6237108339704877,
+              "latticeCellSigma": 0.000030369821985368453,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                -1
+              ],
+              "index": 128993,
+              "attached": false,
+              "fill": 0.6237108339704877,
+              "latticeCellSigma": 0.000030369821985368453,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                0,
+                -1
+              ],
+              "index": 129057,
+              "attached": false,
+              "fill": 0.6237108339704877,
+              "latticeCellSigma": 0.000030369821985368453,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                0,
+                1
+              ],
+              "index": 137247,
+              "attached": false,
+              "fill": 0.6237108339704877,
+              "latticeCellSigma": 0.000030369821985368453,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                1
+              ],
+              "index": 137311,
+              "attached": false,
+              "fill": 0.6237108339704877,
+              "latticeCellSigma": 0.000030369821985368453,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                1
+              ],
+              "index": 137184,
+              "attached": false,
+              "fill": 0.6237108339704877,
+              "latticeCellSigma": 0.000030369821985368453,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": false,
+              "fill": 0.5755063242444574,
+              "latticeCellSigma": 0.0002126965098648723,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                1,
+                1
+              ],
+              "index": 137312,
+              "attached": false,
+              "fill": 0.6237108339704877,
+              "latticeCellSigma": 0.000030369821985368453,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                1
+              ],
+              "index": 137185,
+              "attached": false,
+              "fill": 0.6237108339704877,
+              "latticeCellSigma": 0.000030369821985368453,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                0,
+                1
+              ],
+              "index": 137249,
+              "attached": false,
+              "fill": 0.6237108339704877,
+              "latticeCellSigma": 0.000030369821985368453,
+              "attachedSigmaOmitted": false
+            }
+          ],
+          "patchSummary": {
+            "cells": 14,
+            "attached": 0,
+            "unattached": 14,
+            "unattachedFill": {
+              "min": 0.5755063242444574,
+              "max": 0.6237108339704877,
+              "mean": 0.6168244754381975
+            },
+            "unattachedLatticeSigma": {
+              "min": 0.000030369821985368453,
+              "max": 0.0002126965098648723,
+              "mean": 0.00005641649168244045
+            }
+          },
+          "axis": [
+            {
+              "offset": [
+                0,
+                0,
+                -3
+              ],
+              "index": 120864,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0007552996892928112,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -2
+              ],
+              "index": 124960,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.00022794948023891287,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": false,
+              "fill": 0.5755063242444574,
+              "latticeCellSigma": 0.0002126965098648723,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                0
+              ],
+              "index": 133152,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": false,
+              "fill": 0.5755063242444574,
+              "latticeCellSigma": 0.0002126965098648723,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                2
+              ],
+              "index": 141344,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.00022794948023891287,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                3
+              ],
+              "index": 145440,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0007552996892928112,
+              "attachedSigmaOmitted": false
+            }
+          ],
+          "rimAtAdjacentPlanes": {
+            "cells": 24,
+            "attached": 24,
+            "unattached": 0,
+            "unattachedFill": null,
+            "unattachedLatticeSigma": null
+          },
+          "rimAtOuterPlanes": {
+            "cells": 24,
+            "attached": 24,
+            "unattached": 0,
+            "unattachedFill": null,
+            "unattachedLatticeSigma": null
+          },
+          "solverSource": {
+            "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w1-t4p5-c025-early5-w3\\resume\\generation-131-69076862-0f6f-4591-bd80-ab8e0d5c904d\\solver.bin",
+            "bytes": 4459377,
+            "sha256": "c38dac1d81e855f8617c8a47a88be739eded4afa63ef81e9c23df378639fe5fa"
+          }
+        },
+        {
+          "phase": "first-inactive-update-complete",
+          "tick": 132,
+          "simTimeSeconds": 5.053675364495798,
+          "attachedCount": 109,
+          "patch": [
+            {
+              "offset": [
+                -1,
+                0,
+                -1
+              ],
+              "index": 129055,
+              "attached": false,
+              "fill": 0.6264326528791229,
+              "latticeCellSigma": 0.000056622230661488026,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                -1
+              ],
+              "index": 129119,
+              "attached": false,
+              "fill": 0.6264326528791229,
+              "latticeCellSigma": 0.000056622230661488026,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                -1
+              ],
+              "index": 128992,
+              "attached": false,
+              "fill": 0.6264326528791229,
+              "latticeCellSigma": 0.000056622230661488026,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": false,
+              "fill": 0.5755063306871173,
+              "latticeCellSigma": 0.0003884936094307818,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                1,
+                -1
+              ],
+              "index": 129120,
+              "attached": false,
+              "fill": 0.6264326528791229,
+              "latticeCellSigma": 0.000056622230661488026,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                -1
+              ],
+              "index": 128993,
+              "attached": false,
+              "fill": 0.6264326528791229,
+              "latticeCellSigma": 0.000056622230661488026,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                0,
+                -1
+              ],
+              "index": 129057,
+              "attached": false,
+              "fill": 0.6264326528791229,
+              "latticeCellSigma": 0.000056622230661488026,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                0,
+                1
+              ],
+              "index": 137247,
+              "attached": false,
+              "fill": 0.6264326528791229,
+              "latticeCellSigma": 0.000056622230661488026,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                1
+              ],
+              "index": 137311,
+              "attached": false,
+              "fill": 0.6264326528791229,
+              "latticeCellSigma": 0.000056622230661488026,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                1
+              ],
+              "index": 137184,
+              "attached": false,
+              "fill": 0.6264326528791229,
+              "latticeCellSigma": 0.000056622230661488026,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": false,
+              "fill": 0.5755063306871173,
+              "latticeCellSigma": 0.0003884936094307818,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                1,
+                1
+              ],
+              "index": 137312,
+              "attached": false,
+              "fill": 0.6264326528791229,
+              "latticeCellSigma": 0.000056622230661488026,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                1
+              ],
+              "index": 137185,
+              "attached": false,
+              "fill": 0.6264326528791229,
+              "latticeCellSigma": 0.000056622230661488026,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                0,
+                1
+              ],
+              "index": 137249,
+              "attached": false,
+              "fill": 0.6264326528791229,
+              "latticeCellSigma": 0.000056622230661488026,
+              "attachedSigmaOmitted": false
+            }
+          ],
+          "patchSummary": {
+            "cells": 14,
+            "attached": 0,
+            "unattached": 14,
+            "unattachedFill": {
+              "min": 0.5755063306871173,
+              "max": 0.6264326528791229,
+              "mean": 0.6191574639945506
+            },
+            "unattachedLatticeSigma": {
+              "min": 0.000056622230661488026,
+              "max": 0.0003884936094307818,
+              "mean": 0.00010403242762853001
+            }
+          },
+          "axis": [
+            {
+              "offset": [
+                0,
+                0,
+                -3
+              ],
+              "index": 120864,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0011703211684425735,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -2
+              ],
+              "index": 124960,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0003884939384456363,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": false,
+              "fill": 0.5755063306871173,
+              "latticeCellSigma": 0.0003884936094307818,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                0
+              ],
+              "index": 133152,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": false,
+              "fill": 0.5755063306871173,
+              "latticeCellSigma": 0.0003884936094307818,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                2
+              ],
+              "index": 141344,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0003884939384456363,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                3
+              ],
+              "index": 145440,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0011703211684425735,
+              "attachedSigmaOmitted": false
+            }
+          ],
+          "rimAtAdjacentPlanes": {
+            "cells": 24,
+            "attached": 24,
+            "unattached": 0,
+            "unattachedFill": null,
+            "unattachedLatticeSigma": null
+          },
+          "rimAtOuterPlanes": {
+            "cells": 24,
+            "attached": 24,
+            "unattached": 0,
+            "unattachedFill": null,
+            "unattachedLatticeSigma": null
+          },
+          "solverSource": {
+            "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w1-t4p5-c025-early5-w3\\resume\\generation-132-0c0d5aad-794f-4840-b4b5-5f29f26a0d15\\solver.bin",
+            "bytes": 4459377,
+            "sha256": "049fd3e1e75254ab8e503c33cf8c304ee10ef7d5bebd642b1f57dfba113cebf8"
+          }
+        }
+      ],
+      "laterBoundarySnapshots": [
+        {
+          "record": {
+            "path": "boundary-e9.json",
+            "triggerExtent": 9,
+            "actualExtent": 9,
+            "completedCycles": 199,
+            "simTimeSeconds": 7.2809576307613115
+          },
+          "axisBasal": [
+            {
+              "offset": 1,
+              "fill": 0.5755068476213967,
+              "solvedBoundarySigma": 0.000041064417426571856,
+              "alphaHKBoundary": 7.309073597367201e-62
+            },
+            {
+              "offset": -1,
+              "fill": 0.5755068476213967,
+              "solvedBoundarySigma": 0.000041064417426571856,
+              "alphaHKBoundary": 7.309073597367201e-62
+            }
+          ]
+        },
+        {
+          "record": {
+            "path": "boundary-e13.json",
+            "triggerExtent": 13,
+            "actualExtent": 13,
+            "completedCycles": 467,
+            "simTimeSeconds": 17.821408020443698
+          },
+          "axisBasal": [
+            {
+              "offset": 1,
+              "fill": 0.5755068476213967,
+              "solvedBoundarySigma": 5e-324,
+              "alphaHKBoundary": 0
+            },
+            {
+              "offset": -1,
+              "fill": 0.5755068476213967,
+              "solvedBoundarySigma": 5e-324,
+              "alphaHKBoundary": 0
+            }
+          ]
+        }
+      ],
+      "axisFloorFillComparisons": [
+        {
+          "phase": "switch-boundary",
+          "axis": [
+            {
+              "offset": -1,
+              "fill": 0.5755063242444574,
+              "laterComparisons": [
+                {
+                  "record": {
+                    "path": "boundary-e9.json",
+                    "triggerExtent": 9,
+                    "actualExtent": 9,
+                    "completedCycles": 199,
+                    "simTimeSeconds": 7.2809576307613115
+                  },
+                  "available": true,
+                  "laterFill": 0.5755068476213967,
+                  "equalBinary64": false,
+                  "laterMinusCurrentFill": 5.233769393431231e-7
+                },
+                {
+                  "record": {
+                    "path": "boundary-e13.json",
+                    "triggerExtent": 13,
+                    "actualExtent": 13,
+                    "completedCycles": 467,
+                    "simTimeSeconds": 17.821408020443698
+                  },
+                  "available": true,
+                  "laterFill": 0.5755068476213967,
+                  "equalBinary64": false,
+                  "laterMinusCurrentFill": 5.233769393431231e-7
+                }
+              ]
+            },
+            {
+              "offset": 1,
+              "fill": 0.5755063242444574,
+              "laterComparisons": [
+                {
+                  "record": {
+                    "path": "boundary-e9.json",
+                    "triggerExtent": 9,
+                    "actualExtent": 9,
+                    "completedCycles": 199,
+                    "simTimeSeconds": 7.2809576307613115
+                  },
+                  "available": true,
+                  "laterFill": 0.5755068476213967,
+                  "equalBinary64": false,
+                  "laterMinusCurrentFill": 5.233769393431231e-7
+                },
+                {
+                  "record": {
+                    "path": "boundary-e13.json",
+                    "triggerExtent": 13,
+                    "actualExtent": 13,
+                    "completedCycles": 467,
+                    "simTimeSeconds": 17.821408020443698
+                  },
+                  "available": true,
+                  "laterFill": 0.5755068476213967,
+                  "equalBinary64": false,
+                  "laterMinusCurrentFill": 5.233769393431231e-7
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "phase": "first-inactive-update-complete",
+          "axis": [
+            {
+              "offset": -1,
+              "fill": 0.5755063306871173,
+              "laterComparisons": [
+                {
+                  "record": {
+                    "path": "boundary-e9.json",
+                    "triggerExtent": 9,
+                    "actualExtent": 9,
+                    "completedCycles": 199,
+                    "simTimeSeconds": 7.2809576307613115
+                  },
+                  "available": true,
+                  "laterFill": 0.5755068476213967,
+                  "equalBinary64": false,
+                  "laterMinusCurrentFill": 5.16934279382042e-7
+                },
+                {
+                  "record": {
+                    "path": "boundary-e13.json",
+                    "triggerExtent": 13,
+                    "actualExtent": 13,
+                    "completedCycles": 467,
+                    "simTimeSeconds": 17.821408020443698
+                  },
+                  "available": true,
+                  "laterFill": 0.5755068476213967,
+                  "equalBinary64": false,
+                  "laterMinusCurrentFill": 5.16934279382042e-7
+                }
+              ]
+            },
+            {
+              "offset": 1,
+              "fill": 0.5755063306871173,
+              "laterComparisons": [
+                {
+                  "record": {
+                    "path": "boundary-e9.json",
+                    "triggerExtent": 9,
+                    "actualExtent": 9,
+                    "completedCycles": 199,
+                    "simTimeSeconds": 7.2809576307613115
+                  },
+                  "available": true,
+                  "laterFill": 0.5755068476213967,
+                  "equalBinary64": false,
+                  "laterMinusCurrentFill": 5.16934279382042e-7
+                },
+                {
+                  "record": {
+                    "path": "boundary-e13.json",
+                    "triggerExtent": 13,
+                    "actualExtent": 13,
+                    "completedCycles": 467,
+                    "simTimeSeconds": 17.821408020443698
+                  },
+                  "available": true,
+                  "laterFill": 0.5755068476213967,
+                  "equalBinary64": false,
+                  "laterMinusCurrentFill": 5.16934279382042e-7
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gd21-bld-w2-t4p5-w4-early5",
+      "patchFillAdvance": [
+        {
+          "offset": [
+            -1,
+            0,
+            -1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            -1,
+            1,
+            -1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            0,
+            -1,
+            -1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            0,
+            0,
+            -1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            0,
+            1,
+            -1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            1,
+            -1,
+            -1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            1,
+            0,
+            -1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            -1,
+            0,
+            1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            -1,
+            1,
+            1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            0,
+            -1,
+            1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            0,
+            0,
+            1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            0,
+            1,
+            1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            1,
+            -1,
+            1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            1,
+            0,
+            1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        }
+      ],
+      "receipt": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w2-t4p5-w4-early5\\recovery-verification.json",
+        "eventsMatched": 128,
+        "scope": "Fresh HIL replay; exact scientific event prefix matches BLD except operational RSS. Original full switch state absent, so no independent original full-state equality claim.",
+        "producer": "698ca5100510e7513cbe4ec6a8389cc7d3f22b68",
+        "node": "v24.13.1"
+      },
+      "states": [
+        {
+          "phase": "switch-boundary",
+          "tick": 127,
+          "simTimeSeconds": 5.026772717363253,
+          "attachedCount": 123,
+          "patch": [
+            {
+              "offset": [
+                -1,
+                0,
+                -1
+              ],
+              "index": 129055,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                -1
+              ],
+              "index": 129119,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                -1
+              ],
+              "index": 128992,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                1,
+                -1
+              ],
+              "index": 129120,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                -1
+              ],
+              "index": 128993,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                1,
+                0,
+                -1
+              ],
+              "index": 129057,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                -1,
+                0,
+                1
+              ],
+              "index": 137247,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                1
+              ],
+              "index": 137311,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                1
+              ],
+              "index": 137184,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                1,
+                1
+              ],
+              "index": 137312,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                1
+              ],
+              "index": 137185,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                1,
+                0,
+                1
+              ],
+              "index": 137249,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            }
+          ],
+          "patchSummary": {
+            "cells": 14,
+            "attached": 14,
+            "unattached": 0,
+            "unattachedFill": null,
+            "unattachedLatticeSigma": null
+          },
+          "axis": [
+            {
+              "offset": [
+                0,
+                0,
+                -3
+              ],
+              "index": 120864,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0007973767399306672,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -2
+              ],
+              "index": 124960,
+              "attached": false,
+              "fill": 0.3162570260397501,
+              "latticeCellSigma": 0.0005102198595768087,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                0
+              ],
+              "index": 133152,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                2
+              ],
+              "index": 141344,
+              "attached": false,
+              "fill": 0.3162570260397501,
+              "latticeCellSigma": 0.0005102198595768087,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                3
+              ],
+              "index": 145440,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0007973767399306672,
+              "attachedSigmaOmitted": false
+            }
+          ],
+          "rimAtAdjacentPlanes": {
+            "cells": 24,
+            "attached": 24,
+            "unattached": 0,
+            "unattachedFill": null,
+            "unattachedLatticeSigma": null
+          },
+          "rimAtOuterPlanes": {
+            "cells": 24,
+            "attached": 24,
+            "unattached": 0,
+            "unattachedFill": null,
+            "unattachedLatticeSigma": null
+          },
+          "solverSource": {
+            "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w2-t4p5-w4-early5\\resume\\generation-127-d2e7b71c-c0ed-4537-8272-c918c9f6ac64\\solver.bin",
+            "bytes": 4459329,
+            "sha256": "c3c8284f88045727bd82c3578d9b7efaf11c00373a299aabb1f040da48d8a604"
+          }
+        },
+        {
+          "phase": "first-inactive-update-complete",
+          "tick": 128,
+          "simTimeSeconds": 5.059360116787433,
+          "attachedCount": 123,
+          "patch": [
+            {
+              "offset": [
+                -1,
+                0,
+                -1
+              ],
+              "index": 129055,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                -1
+              ],
+              "index": 129119,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                -1
+              ],
+              "index": 128992,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                1,
+                -1
+              ],
+              "index": 129120,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                -1
+              ],
+              "index": 128993,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                1,
+                0,
+                -1
+              ],
+              "index": 129057,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                -1,
+                0,
+                1
+              ],
+              "index": 137247,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                1
+              ],
+              "index": 137311,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                1
+              ],
+              "index": 137184,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                1,
+                1
+              ],
+              "index": 137312,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                1
+              ],
+              "index": 137185,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                1,
+                0,
+                1
+              ],
+              "index": 137249,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            }
+          ],
+          "patchSummary": {
+            "cells": 14,
+            "attached": 14,
+            "unattached": 0,
+            "unattachedFill": null,
+            "unattachedLatticeSigma": null
+          },
+          "axis": [
+            {
+              "offset": [
+                0,
+                0,
+                -3
+              ],
+              "index": 120864,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0012744826082566759,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -2
+              ],
+              "index": 124960,
+              "attached": false,
+              "fill": 0.3168329316745586,
+              "latticeCellSigma": 0.001245051211143577,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                0
+              ],
+              "index": 133152,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                2
+              ],
+              "index": 141344,
+              "attached": false,
+              "fill": 0.3168329316745586,
+              "latticeCellSigma": 0.001245051211143577,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                3
+              ],
+              "index": 145440,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0012744826082566759,
+              "attachedSigmaOmitted": false
+            }
+          ],
+          "rimAtAdjacentPlanes": {
+            "cells": 24,
+            "attached": 24,
+            "unattached": 0,
+            "unattachedFill": null,
+            "unattachedLatticeSigma": null
+          },
+          "rimAtOuterPlanes": {
+            "cells": 24,
+            "attached": 24,
+            "unattached": 0,
+            "unattachedFill": null,
+            "unattachedLatticeSigma": null
+          },
+          "solverSource": {
+            "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w2-t4p5-w4-early5\\resume\\generation-128-c2357e22-f257-4ee0-84d5-03c59be08d34\\solver.bin",
+            "bytes": 4459329,
+            "sha256": "c76318f0e8b8c2307065b675524abf12b5e82bd8f4d98cf5e11ffe71bfd4a3be"
+          }
+        }
+      ],
+      "laterBoundarySnapshots": [
+        {
+          "record": {
+            "path": "boundary-e9.json",
+            "triggerExtent": 9,
+            "actualExtent": 9,
+            "completedCycles": 191,
+            "simTimeSeconds": 7.257675843878523
+          },
+          "axisBasal": [
+            {
+              "offset": 3,
+              "fill": 0.22119970037305794,
+              "solvedBoundarySigma": 0.0010438259247056829,
+              "alphaHKBoundary": 0.0039344719051230045
+            },
+            {
+              "offset": -3,
+              "fill": 0.22119970037305794,
+              "solvedBoundarySigma": 0.0010438259247056829,
+              "alphaHKBoundary": 0.0039344719051230045
+            }
+          ]
+        },
+        {
+          "record": {
+            "path": "boundary-e13.json",
+            "triggerExtent": 13,
+            "actualExtent": 13,
+            "completedCycles": 468,
+            "simTimeSeconds": 17.87747443478767
+          },
+          "axisBasal": [
+            {
+              "offset": 5,
+              "fill": 0.012086395010746192,
+              "solvedBoundarySigma": 0.0016715629387370774,
+              "alphaHKBoundary": 0.03148475365216584
+            },
+            {
+              "offset": -5,
+              "fill": 0.012086395010746192,
+              "solvedBoundarySigma": 0.0016715629387370774,
+              "alphaHKBoundary": 0.03148475365216584
+            }
+          ]
+        }
+      ],
+      "axisFloorFillComparisons": [
+        {
+          "phase": "switch-boundary",
+          "axis": []
+        },
+        {
+          "phase": "first-inactive-update-complete",
+          "axis": []
+        }
+      ]
+    },
+    {
+      "id": "gd21-bld-w1-t5-c025-early1-w3",
+      "patchFillAdvance": [
+        {
+          "offset": [
+            -1,
+            0,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.10955827637623304,
+          "fillAfter": 0.12266135616990684,
+          "deltaFill": 0.013103079793673797
+        },
+        {
+          "offset": [
+            -1,
+            1,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.10955827637623304,
+          "fillAfter": 0.12266135616990684,
+          "deltaFill": 0.013103079793673797
+        },
+        {
+          "offset": [
+            0,
+            -1,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.10955827637623304,
+          "fillAfter": 0.12266135616990684,
+          "deltaFill": 0.013103079793673797
+        },
+        {
+          "offset": [
+            0,
+            0,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.11808321685683548,
+          "fillAfter": 0.13080214646668367,
+          "deltaFill": 0.01271892960984819
+        },
+        {
+          "offset": [
+            0,
+            1,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.10955827637623304,
+          "fillAfter": 0.12266135616990684,
+          "deltaFill": 0.013103079793673797
+        },
+        {
+          "offset": [
+            1,
+            -1,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.10955827637623304,
+          "fillAfter": 0.12266135616990684,
+          "deltaFill": 0.013103079793673797
+        },
+        {
+          "offset": [
+            1,
+            0,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.10955827637623304,
+          "fillAfter": 0.12266135616990684,
+          "deltaFill": 0.013103079793673797
+        },
+        {
+          "offset": [
+            -1,
+            0,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.10955827637623304,
+          "fillAfter": 0.12266135616990684,
+          "deltaFill": 0.013103079793673797
+        },
+        {
+          "offset": [
+            -1,
+            1,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.10955827637623304,
+          "fillAfter": 0.12266135616990684,
+          "deltaFill": 0.013103079793673797
+        },
+        {
+          "offset": [
+            0,
+            -1,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.10955827637623304,
+          "fillAfter": 0.12266135616990684,
+          "deltaFill": 0.013103079793673797
+        },
+        {
+          "offset": [
+            0,
+            0,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.11808321685683548,
+          "fillAfter": 0.13080214646668367,
+          "deltaFill": 0.01271892960984819
+        },
+        {
+          "offset": [
+            0,
+            1,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.10955827637623304,
+          "fillAfter": 0.12266135616990684,
+          "deltaFill": 0.013103079793673797
+        },
+        {
+          "offset": [
+            1,
+            -1,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.10955827637623304,
+          "fillAfter": 0.12266135616990684,
+          "deltaFill": 0.013103079793673797
+        },
+        {
+          "offset": [
+            1,
+            0,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.10955827637623304,
+          "fillAfter": 0.12266135616990684,
+          "deltaFill": 0.013103079793673797
+        }
+      ],
+      "receipt": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w1-t5-c025-early1-w3\\recovery-verification.json",
+        "eventsMatched": 28,
+        "scope": "Fresh HIL replay; exact scientific event prefix matches BLD except operational RSS. Original full switch state absent, so no independent original full-state equality claim.",
+        "producer": "698ca5100510e7513cbe4ec6a8389cc7d3f22b68",
+        "node": "v24.13.1"
+      },
+      "states": [
+        {
+          "phase": "switch-boundary",
+          "tick": 27,
+          "simTimeSeconds": 1.0328772117737612,
+          "attachedCount": 19,
+          "patch": [
+            {
+              "offset": [
+                -1,
+                0,
+                -1
+              ],
+              "index": 129055,
+              "attached": false,
+              "fill": 0.10955827637623304,
+              "latticeCellSigma": 0.0019469903339925903,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                -1
+              ],
+              "index": 129119,
+              "attached": false,
+              "fill": 0.10955827637623304,
+              "latticeCellSigma": 0.0019469903339925903,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                -1
+              ],
+              "index": 128992,
+              "attached": false,
+              "fill": 0.10955827637623304,
+              "latticeCellSigma": 0.0019469903339925903,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": false,
+              "fill": 0.11808321685683548,
+              "latticeCellSigma": 0.0019818297626104163,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                1,
+                -1
+              ],
+              "index": 129120,
+              "attached": false,
+              "fill": 0.10955827637623304,
+              "latticeCellSigma": 0.0019469903339925903,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                -1
+              ],
+              "index": 128993,
+              "attached": false,
+              "fill": 0.10955827637623304,
+              "latticeCellSigma": 0.0019469903339925903,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                0,
+                -1
+              ],
+              "index": 129057,
+              "attached": false,
+              "fill": 0.10955827637623304,
+              "latticeCellSigma": 0.0019469903339925903,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                0,
+                1
+              ],
+              "index": 137247,
+              "attached": false,
+              "fill": 0.10955827637623304,
+              "latticeCellSigma": 0.0019469903339925903,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                1
+              ],
+              "index": 137311,
+              "attached": false,
+              "fill": 0.10955827637623304,
+              "latticeCellSigma": 0.0019469903339925903,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                1
+              ],
+              "index": 137184,
+              "attached": false,
+              "fill": 0.10955827637623304,
+              "latticeCellSigma": 0.0019469903339925903,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": false,
+              "fill": 0.11808321685683548,
+              "latticeCellSigma": 0.0019818297626104163,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                1,
+                1
+              ],
+              "index": 137312,
+              "attached": false,
+              "fill": 0.10955827637623304,
+              "latticeCellSigma": 0.0019469903339925903,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                1
+              ],
+              "index": 137185,
+              "attached": false,
+              "fill": 0.10955827637623304,
+              "latticeCellSigma": 0.0019469903339925903,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                0,
+                1
+              ],
+              "index": 137249,
+              "attached": false,
+              "fill": 0.10955827637623304,
+              "latticeCellSigma": 0.0019469903339925903,
+              "attachedSigmaOmitted": false
+            }
+          ],
+          "patchSummary": {
+            "cells": 14,
+            "attached": 0,
+            "unattached": 14,
+            "unattachedFill": {
+              "min": 0.10955827637623304,
+              "max": 0.11808321685683548,
+              "mean": 0.1107761250163191
+            },
+            "unattachedLatticeSigma": {
+              "min": 0.0019469903339925903,
+              "max": 0.0019818297626104163,
+              "mean": 0.0019519673952237081
+            }
+          },
+          "axis": [
+            {
+              "offset": [
+                0,
+                0,
+                -3
+              ],
+              "index": 120864,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0024944815195115703,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -2
+              ],
+              "index": 124960,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0021797715292025018,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": false,
+              "fill": 0.11808321685683548,
+              "latticeCellSigma": 0.0019818297626104163,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                0
+              ],
+              "index": 133152,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": false,
+              "fill": 0.11808321685683548,
+              "latticeCellSigma": 0.0019818297626104163,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                2
+              ],
+              "index": 141344,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0021797715292025018,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                3
+              ],
+              "index": 145440,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0024944815195115703,
+              "attachedSigmaOmitted": false
+            }
+          ],
+          "rimAtAdjacentPlanes": {
+            "cells": 24,
+            "attached": 0,
+            "unattached": 24,
+            "unattachedFill": {
+              "min": 0.6564211726756797,
+              "max": 0.6750000000000003,
+              "mean": 0.6657105863378402
+            },
+            "unattachedLatticeSigma": {
+              "min": 0.0011010848285034592,
+              "max": 0.0011174583990888358,
+              "mean": 0.0011092716137961476
+            }
+          },
+          "rimAtOuterPlanes": {
+            "cells": 24,
+            "attached": 0,
+            "unattached": 24,
+            "unattachedFill": {
+              "min": 0,
+              "max": 0,
+              "mean": 0
+            },
+            "unattachedLatticeSigma": {
+              "min": 0.002202670019444048,
+              "max": 0.00225020994980947,
+              "mean": 0.002226439984626759
+            }
+          },
+          "solverSource": {
+            "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w1-t5-c025-early1-w3\\resume\\generation-27-cd4369de-0a1c-467f-a9b9-7bc197f69aa5\\solver.bin",
+            "bytes": 4458969,
+            "sha256": "81023c68404f7d5c042141c09b7f830326d07da0d3a258fed7b5ebfe1d7fdcc1"
+          }
+        },
+        {
+          "phase": "first-inactive-update-complete",
+          "tick": 28,
+          "simTimeSeconds": 1.0941096160762638,
+          "attachedCount": 19,
+          "patch": [
+            {
+              "offset": [
+                -1,
+                0,
+                -1
+              ],
+              "index": 129055,
+              "attached": false,
+              "fill": 0.12266135616990684,
+              "latticeCellSigma": 0.002322920331159924,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                -1
+              ],
+              "index": 129119,
+              "attached": false,
+              "fill": 0.12266135616990684,
+              "latticeCellSigma": 0.002322920331159924,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                -1
+              ],
+              "index": 128992,
+              "attached": false,
+              "fill": 0.12266135616990684,
+              "latticeCellSigma": 0.002322920331159924,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": false,
+              "fill": 0.13080214646668367,
+              "latticeCellSigma": 0.002304521057897529,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                1,
+                -1
+              ],
+              "index": 129120,
+              "attached": false,
+              "fill": 0.12266135616990684,
+              "latticeCellSigma": 0.002322920331159924,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                -1
+              ],
+              "index": 128993,
+              "attached": false,
+              "fill": 0.12266135616990684,
+              "latticeCellSigma": 0.002322920331159924,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                0,
+                -1
+              ],
+              "index": 129057,
+              "attached": false,
+              "fill": 0.12266135616990684,
+              "latticeCellSigma": 0.002322920331159924,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                0,
+                1
+              ],
+              "index": 137247,
+              "attached": false,
+              "fill": 0.12266135616990684,
+              "latticeCellSigma": 0.002322920331159924,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                1
+              ],
+              "index": 137311,
+              "attached": false,
+              "fill": 0.12266135616990684,
+              "latticeCellSigma": 0.002322920331159924,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                1
+              ],
+              "index": 137184,
+              "attached": false,
+              "fill": 0.12266135616990684,
+              "latticeCellSigma": 0.002322920331159924,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": false,
+              "fill": 0.13080214646668367,
+              "latticeCellSigma": 0.002304521057897529,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                1,
+                1
+              ],
+              "index": 137312,
+              "attached": false,
+              "fill": 0.12266135616990684,
+              "latticeCellSigma": 0.002322920331159924,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                1
+              ],
+              "index": 137185,
+              "attached": false,
+              "fill": 0.12266135616990684,
+              "latticeCellSigma": 0.002322920331159924,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                0,
+                1
+              ],
+              "index": 137249,
+              "attached": false,
+              "fill": 0.12266135616990684,
+              "latticeCellSigma": 0.002322920331159924,
+              "attachedSigmaOmitted": false
+            }
+          ],
+          "patchSummary": {
+            "cells": 14,
+            "attached": 0,
+            "unattached": 14,
+            "unattachedFill": {
+              "min": 0.12266135616990684,
+              "max": 0.13080214646668367,
+              "mean": 0.12382432621230352
+            },
+            "unattachedLatticeSigma": {
+              "min": 0.002304521057897529,
+              "max": 0.002322920331159924,
+              "mean": 0.002320291863551011
+            }
+          },
+          "axis": [
+            {
+              "offset": [
+                0,
+                0,
+                -3
+              ],
+              "index": 120864,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0029237039769534935,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -2
+              ],
+              "index": 124960,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.002664856967108209,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": false,
+              "fill": 0.13080214646668367,
+              "latticeCellSigma": 0.002304521057897529,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                0
+              ],
+              "index": 133152,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": false,
+              "fill": 0.13080214646668367,
+              "latticeCellSigma": 0.002304521057897529,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                2
+              ],
+              "index": 141344,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.002664856967108209,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                3
+              ],
+              "index": 145440,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0029237039769534935,
+              "attachedSigmaOmitted": false
+            }
+          ],
+          "rimAtAdjacentPlanes": {
+            "cells": 24,
+            "attached": 0,
+            "unattached": 24,
+            "unattachedFill": {
+              "min": 0.6704605788721947,
+              "max": 0.6895354874464561,
+              "mean": 0.6799980331593254
+            },
+            "unattachedLatticeSigma": {
+              "min": 0.0023665922054654683,
+              "max": 0.0023891039113733813,
+              "mean": 0.0023778480584194244
+            }
+          },
+          "rimAtOuterPlanes": {
+            "cells": 24,
+            "attached": 0,
+            "unattached": 24,
+            "unattachedFill": {
+              "min": 0,
+              "max": 0,
+              "mean": 0
+            },
+            "unattachedLatticeSigma": {
+              "min": 0.002764338112690414,
+              "max": 0.0028009041371395167,
+              "mean": 0.002782621124914966
+            }
+          },
+          "solverSource": {
+            "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w1-t5-c025-early1-w3\\resume\\generation-28-dd8dfd8e-7002-4f2d-9f98-91622a81c145\\solver.bin",
+            "bytes": 4458969,
+            "sha256": "d5f52fb718d36ae0ad119beda530c271188e64a7012513c245123e2bc07bf37e"
+          }
+        }
+      ],
+      "laterBoundarySnapshots": [
+        {
+          "record": {
+            "path": "boundary-e9.json",
+            "triggerExtent": 9,
+            "actualExtent": 9,
+            "completedCycles": 151,
+            "simTimeSeconds": 6.119488824637335
+          },
+          "axisBasal": [
+            {
+              "offset": 2,
+              "fill": 0.34669938205748063,
+              "solvedBoundarySigma": 0.002116864248498689,
+              "alphaHKBoundary": 0.04994940883470111
+            },
+            {
+              "offset": -2,
+              "fill": 0.34669938205748063,
+              "solvedBoundarySigma": 0.002116864248498689,
+              "alphaHKBoundary": 0.04994940883470111
+            }
+          ]
+        },
+        {
+          "record": {
+            "path": "boundary-e13.json",
+            "triggerExtent": 13,
+            "actualExtent": 13,
+            "completedCycles": 401,
+            "simTimeSeconds": 15.363063450232016
+          },
+          "axisBasal": [
+            {
+              "offset": 3,
+              "fill": 0.6406103618135348,
+              "solvedBoundarySigma": 0.0019755431964982076,
+              "alphaHKBoundary": 0.04031153597522176
+            },
+            {
+              "offset": -3,
+              "fill": 0.6406103618135348,
+              "solvedBoundarySigma": 0.0019755431964982076,
+              "alphaHKBoundary": 0.04031153597522176
+            }
+          ]
+        }
+      ],
+      "axisFloorFillComparisons": [
+        {
+          "phase": "switch-boundary",
+          "axis": [
+            {
+              "offset": -1,
+              "fill": 0.11808321685683548,
+              "laterComparisons": [
+                {
+                  "record": {
+                    "path": "boundary-e9.json",
+                    "triggerExtent": 9,
+                    "actualExtent": 9,
+                    "completedCycles": 151,
+                    "simTimeSeconds": 6.119488824637335
+                  },
+                  "available": false
+                },
+                {
+                  "record": {
+                    "path": "boundary-e13.json",
+                    "triggerExtent": 13,
+                    "actualExtent": 13,
+                    "completedCycles": 401,
+                    "simTimeSeconds": 15.363063450232016
+                  },
+                  "available": false
+                }
+              ]
+            },
+            {
+              "offset": 1,
+              "fill": 0.11808321685683548,
+              "laterComparisons": [
+                {
+                  "record": {
+                    "path": "boundary-e9.json",
+                    "triggerExtent": 9,
+                    "actualExtent": 9,
+                    "completedCycles": 151,
+                    "simTimeSeconds": 6.119488824637335
+                  },
+                  "available": false
+                },
+                {
+                  "record": {
+                    "path": "boundary-e13.json",
+                    "triggerExtent": 13,
+                    "actualExtent": 13,
+                    "completedCycles": 401,
+                    "simTimeSeconds": 15.363063450232016
+                  },
+                  "available": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "phase": "first-inactive-update-complete",
+          "axis": [
+            {
+              "offset": -1,
+              "fill": 0.13080214646668367,
+              "laterComparisons": [
+                {
+                  "record": {
+                    "path": "boundary-e9.json",
+                    "triggerExtent": 9,
+                    "actualExtent": 9,
+                    "completedCycles": 151,
+                    "simTimeSeconds": 6.119488824637335
+                  },
+                  "available": false
+                },
+                {
+                  "record": {
+                    "path": "boundary-e13.json",
+                    "triggerExtent": 13,
+                    "actualExtent": 13,
+                    "completedCycles": 401,
+                    "simTimeSeconds": 15.363063450232016
+                  },
+                  "available": false
+                }
+              ]
+            },
+            {
+              "offset": 1,
+              "fill": 0.13080214646668367,
+              "laterComparisons": [
+                {
+                  "record": {
+                    "path": "boundary-e9.json",
+                    "triggerExtent": 9,
+                    "actualExtent": 9,
+                    "completedCycles": 151,
+                    "simTimeSeconds": 6.119488824637335
+                  },
+                  "available": false
+                },
+                {
+                  "record": {
+                    "path": "boundary-e13.json",
+                    "triggerExtent": 13,
+                    "actualExtent": 13,
+                    "completedCycles": 401,
+                    "simTimeSeconds": 15.363063450232016
+                  },
+                  "available": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gd21-bld-w1-t5-c025-early5-w3",
+      "patchFillAdvance": [
+        {
+          "offset": [
+            -1,
+            0,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6818848783639184,
+          "fillAfter": 0.6845753148855726,
+          "deltaFill": 0.002690436521654127
+        },
+        {
+          "offset": [
+            -1,
+            1,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6818848783639184,
+          "fillAfter": 0.6845753148855726,
+          "deltaFill": 0.002690436521654127
+        },
+        {
+          "offset": [
+            0,
+            -1,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6818848783639184,
+          "fillAfter": 0.6845753148855726,
+          "deltaFill": 0.002690436521654127
+        },
+        {
+          "offset": [
+            0,
+            0,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.5784542757072474,
+          "fillAfter": 0.5784542834151263,
+          "deltaFill": 7.7078788907059e-9
+        },
+        {
+          "offset": [
+            0,
+            1,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6818848783639184,
+          "fillAfter": 0.6845753148855726,
+          "deltaFill": 0.002690436521654127
+        },
+        {
+          "offset": [
+            1,
+            -1,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6818848783639184,
+          "fillAfter": 0.6845753148855726,
+          "deltaFill": 0.002690436521654127
+        },
+        {
+          "offset": [
+            1,
+            0,
+            -1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6818848783639184,
+          "fillAfter": 0.6845753148855726,
+          "deltaFill": 0.002690436521654127
+        },
+        {
+          "offset": [
+            -1,
+            0,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6818848783639184,
+          "fillAfter": 0.6845753148855726,
+          "deltaFill": 0.002690436521654127
+        },
+        {
+          "offset": [
+            -1,
+            1,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6818848783639184,
+          "fillAfter": 0.6845753148855726,
+          "deltaFill": 0.002690436521654127
+        },
+        {
+          "offset": [
+            0,
+            -1,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6818848783639184,
+          "fillAfter": 0.6845753148855726,
+          "deltaFill": 0.002690436521654127
+        },
+        {
+          "offset": [
+            0,
+            0,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.5784542757072474,
+          "fillAfter": 0.5784542834151263,
+          "deltaFill": 7.7078788907059e-9
+        },
+        {
+          "offset": [
+            0,
+            1,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6818848783639184,
+          "fillAfter": 0.6845753148855726,
+          "deltaFill": 0.002690436521654127
+        },
+        {
+          "offset": [
+            1,
+            -1,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6818848783639184,
+          "fillAfter": 0.6845753148855726,
+          "deltaFill": 0.002690436521654127
+        },
+        {
+          "offset": [
+            1,
+            0,
+            1
+          ],
+          "attachedBefore": false,
+          "attachedAfter": false,
+          "fillBefore": 0.6818848783639184,
+          "fillAfter": 0.6845753148855726,
+          "deltaFill": 0.002690436521654127
+        }
+      ],
+      "receipt": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w1-t5-c025-early5-w3\\recovery-verification.json",
+        "eventsMatched": 139,
+        "scope": "Fresh HIL replay; exact scientific event prefix matches BLD except operational RSS. Original full switch state absent, so no independent original full-state equality claim.",
+        "producer": "698ca5100510e7513cbe4ec6a8389cc7d3f22b68",
+        "node": "v24.13.1"
+      },
+      "states": [
+        {
+          "phase": "switch-boundary",
+          "tick": 138,
+          "simTimeSeconds": 5.017293754009521,
+          "attachedCount": 109,
+          "patch": [
+            {
+              "offset": [
+                -1,
+                0,
+                -1
+              ],
+              "index": 129055,
+              "attached": false,
+              "fill": 0.6818848783639184,
+              "latticeCellSigma": 0.000035532580019021403,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                -1
+              ],
+              "index": 129119,
+              "attached": false,
+              "fill": 0.6818848783639184,
+              "latticeCellSigma": 0.000035532580019021403,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                -1
+              ],
+              "index": 128992,
+              "attached": false,
+              "fill": 0.6818848783639184,
+              "latticeCellSigma": 0.000035532580019021403,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": false,
+              "fill": 0.5784542757072474,
+              "latticeCellSigma": 0.0002514171317669247,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                1,
+                -1
+              ],
+              "index": 129120,
+              "attached": false,
+              "fill": 0.6818848783639184,
+              "latticeCellSigma": 0.000035532580019021403,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                -1
+              ],
+              "index": 128993,
+              "attached": false,
+              "fill": 0.6818848783639184,
+              "latticeCellSigma": 0.000035532580019021403,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                0,
+                -1
+              ],
+              "index": 129057,
+              "attached": false,
+              "fill": 0.6818848783639184,
+              "latticeCellSigma": 0.000035532580019021403,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                0,
+                1
+              ],
+              "index": 137247,
+              "attached": false,
+              "fill": 0.6818848783639184,
+              "latticeCellSigma": 0.000035532580019021403,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                1
+              ],
+              "index": 137311,
+              "attached": false,
+              "fill": 0.6818848783639184,
+              "latticeCellSigma": 0.000035532580019021403,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                1
+              ],
+              "index": 137184,
+              "attached": false,
+              "fill": 0.6818848783639184,
+              "latticeCellSigma": 0.000035532580019021403,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": false,
+              "fill": 0.5784542757072474,
+              "latticeCellSigma": 0.0002514171317669247,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                1,
+                1
+              ],
+              "index": 137312,
+              "attached": false,
+              "fill": 0.6818848783639184,
+              "latticeCellSigma": 0.000035532580019021403,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                1
+              ],
+              "index": 137185,
+              "attached": false,
+              "fill": 0.6818848783639184,
+              "latticeCellSigma": 0.000035532580019021403,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                0,
+                1
+              ],
+              "index": 137249,
+              "attached": false,
+              "fill": 0.6818848783639184,
+              "latticeCellSigma": 0.000035532580019021403,
+              "attachedSigmaOmitted": false
+            }
+          ],
+          "patchSummary": {
+            "cells": 14,
+            "attached": 0,
+            "unattached": 14,
+            "unattachedFill": {
+              "min": 0.5784542757072474,
+              "max": 0.6818848783639184,
+              "mean": 0.667109077984394
+            },
+            "unattachedLatticeSigma": {
+              "min": 0.000035532580019021403,
+              "max": 0.0002514171317669247,
+              "mean": 0.00006637323026872189
+            }
+          },
+          "axis": [
+            {
+              "offset": [
+                0,
+                0,
+                -3
+              ],
+              "index": 120864,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0008659166310993613,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -2
+              ],
+              "index": 124960,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.000263566101136716,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": false,
+              "fill": 0.5784542757072474,
+              "latticeCellSigma": 0.0002514171317669247,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                0
+              ],
+              "index": 133152,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": false,
+              "fill": 0.5784542757072474,
+              "latticeCellSigma": 0.0002514171317669247,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                2
+              ],
+              "index": 141344,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.000263566101136716,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                3
+              ],
+              "index": 145440,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0008659166310993613,
+              "attachedSigmaOmitted": false
+            }
+          ],
+          "rimAtAdjacentPlanes": {
+            "cells": 24,
+            "attached": 24,
+            "unattached": 0,
+            "unattachedFill": null,
+            "unattachedLatticeSigma": null
+          },
+          "rimAtOuterPlanes": {
+            "cells": 24,
+            "attached": 24,
+            "unattached": 0,
+            "unattachedFill": null,
+            "unattachedLatticeSigma": null
+          },
+          "solverSource": {
+            "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w1-t5-c025-early5-w3\\resume\\generation-138-44997e2b-515f-406b-88a6-a689d3e2cdb9\\solver.bin",
+            "bytes": 4459377,
+            "sha256": "df3a0590eead5c3358b38bd957d1bd5a2f4166045b13a9f782128464ccaa330b"
+          }
+        },
+        {
+          "phase": "first-inactive-update-complete",
+          "tick": 139,
+          "simTimeSeconds": 5.0475132940360075,
+          "attachedCount": 109,
+          "patch": [
+            {
+              "offset": [
+                -1,
+                0,
+                -1
+              ],
+              "index": 129055,
+              "attached": false,
+              "fill": 0.6845753148855726,
+              "latticeCellSigma": 0.00006297311310632911,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                -1
+              ],
+              "index": 129119,
+              "attached": false,
+              "fill": 0.6845753148855726,
+              "latticeCellSigma": 0.00006297311310632911,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                -1
+              ],
+              "index": 128992,
+              "attached": false,
+              "fill": 0.6845753148855726,
+              "latticeCellSigma": 0.00006297311310632911,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": false,
+              "fill": 0.5784542834151263,
+              "latticeCellSigma": 0.0004318845020615405,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                1,
+                -1
+              ],
+              "index": 129120,
+              "attached": false,
+              "fill": 0.6845753148855726,
+              "latticeCellSigma": 0.00006297311310632911,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                -1
+              ],
+              "index": 128993,
+              "attached": false,
+              "fill": 0.6845753148855726,
+              "latticeCellSigma": 0.00006297311310632911,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                0,
+                -1
+              ],
+              "index": 129057,
+              "attached": false,
+              "fill": 0.6845753148855726,
+              "latticeCellSigma": 0.00006297311310632911,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                0,
+                1
+              ],
+              "index": 137247,
+              "attached": false,
+              "fill": 0.6845753148855726,
+              "latticeCellSigma": 0.00006297311310632911,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                1
+              ],
+              "index": 137311,
+              "attached": false,
+              "fill": 0.6845753148855726,
+              "latticeCellSigma": 0.00006297311310632911,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                1
+              ],
+              "index": 137184,
+              "attached": false,
+              "fill": 0.6845753148855726,
+              "latticeCellSigma": 0.00006297311310632911,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": false,
+              "fill": 0.5784542834151263,
+              "latticeCellSigma": 0.0004318845020615405,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                1,
+                1
+              ],
+              "index": 137312,
+              "attached": false,
+              "fill": 0.6845753148855726,
+              "latticeCellSigma": 0.00006297311310632911,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                1
+              ],
+              "index": 137185,
+              "attached": false,
+              "fill": 0.6845753148855726,
+              "latticeCellSigma": 0.00006297311310632911,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                1,
+                0,
+                1
+              ],
+              "index": 137249,
+              "attached": false,
+              "fill": 0.6845753148855726,
+              "latticeCellSigma": 0.00006297311310632911,
+              "attachedSigmaOmitted": false
+            }
+          ],
+          "patchSummary": {
+            "cells": 14,
+            "attached": 0,
+            "unattached": 14,
+            "unattachedFill": {
+              "min": 0.5784542834151263,
+              "max": 0.6845753148855726,
+              "mean": 0.6694151675326516
+            },
+            "unattachedLatticeSigma": {
+              "min": 0.00006297311310632911,
+              "max": 0.0004318845020615405,
+              "mean": 0.00011567474009993073
+            }
+          },
+          "axis": [
+            {
+              "offset": [
+                0,
+                0,
+                -3
+              ],
+              "index": 120864,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0013014666187931025,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -2
+              ],
+              "index": 124960,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0004318849445330632,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": false,
+              "fill": 0.5784542834151263,
+              "latticeCellSigma": 0.0004318845020615405,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                0
+              ],
+              "index": 133152,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": false,
+              "fill": 0.5784542834151263,
+              "latticeCellSigma": 0.0004318845020615405,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                2
+              ],
+              "index": 141344,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0004318849445330632,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                3
+              ],
+              "index": 145440,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0013014666187931025,
+              "attachedSigmaOmitted": false
+            }
+          ],
+          "rimAtAdjacentPlanes": {
+            "cells": 24,
+            "attached": 24,
+            "unattached": 0,
+            "unattachedFill": null,
+            "unattachedLatticeSigma": null
+          },
+          "rimAtOuterPlanes": {
+            "cells": 24,
+            "attached": 24,
+            "unattached": 0,
+            "unattachedFill": null,
+            "unattachedLatticeSigma": null
+          },
+          "solverSource": {
+            "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w1-t5-c025-early5-w3\\resume\\generation-139-b77f1e95-200f-4b4a-a89a-dee54e8076f3\\solver.bin",
+            "bytes": 4459377,
+            "sha256": "02468db6c8f47843760abc6c5846aa21b378158a1b255cddfc062affa960e278"
+          }
+        }
+      ],
+      "laterBoundarySnapshots": [
+        {
+          "record": {
+            "path": "boundary-e9.json",
+            "triggerExtent": 9,
+            "actualExtent": 9,
+            "completedCycles": 218,
+            "simTimeSeconds": 7.422305748007743
+          },
+          "axisBasal": [
+            {
+              "offset": 1,
+              "fill": 0.5784545733091957,
+              "solvedBoundarySigma": 0.00005018820695924253,
+              "alphaHKBoundary": 1.2762552732842145e-55
+            },
+            {
+              "offset": -1,
+              "fill": 0.5784545733091957,
+              "solvedBoundarySigma": 0.00005018820695924253,
+              "alphaHKBoundary": 1.2762552732842145e-55
+            }
+          ]
+        },
+        {
+          "record": {
+            "path": "boundary-e13.json",
+            "triggerExtent": 13,
+            "actualExtent": 13,
+            "completedCycles": 505,
+            "simTimeSeconds": 18.1337914206259
+          },
+          "axisBasal": [
+            {
+              "offset": 1,
+              "fill": 0.5784545733091957,
+              "solvedBoundarySigma": 5e-324,
+              "alphaHKBoundary": 0
+            },
+            {
+              "offset": -1,
+              "fill": 0.5784545733091957,
+              "solvedBoundarySigma": 5e-324,
+              "alphaHKBoundary": 0
+            }
+          ]
+        }
+      ],
+      "axisFloorFillComparisons": [
+        {
+          "phase": "switch-boundary",
+          "axis": [
+            {
+              "offset": -1,
+              "fill": 0.5784542757072474,
+              "laterComparisons": [
+                {
+                  "record": {
+                    "path": "boundary-e9.json",
+                    "triggerExtent": 9,
+                    "actualExtent": 9,
+                    "completedCycles": 218,
+                    "simTimeSeconds": 7.422305748007743
+                  },
+                  "available": true,
+                  "laterFill": 0.5784545733091957,
+                  "equalBinary64": false,
+                  "laterMinusCurrentFill": 2.976019483069692e-7
+                },
+                {
+                  "record": {
+                    "path": "boundary-e13.json",
+                    "triggerExtent": 13,
+                    "actualExtent": 13,
+                    "completedCycles": 505,
+                    "simTimeSeconds": 18.1337914206259
+                  },
+                  "available": true,
+                  "laterFill": 0.5784545733091957,
+                  "equalBinary64": false,
+                  "laterMinusCurrentFill": 2.976019483069692e-7
+                }
+              ]
+            },
+            {
+              "offset": 1,
+              "fill": 0.5784542757072474,
+              "laterComparisons": [
+                {
+                  "record": {
+                    "path": "boundary-e9.json",
+                    "triggerExtent": 9,
+                    "actualExtent": 9,
+                    "completedCycles": 218,
+                    "simTimeSeconds": 7.422305748007743
+                  },
+                  "available": true,
+                  "laterFill": 0.5784545733091957,
+                  "equalBinary64": false,
+                  "laterMinusCurrentFill": 2.976019483069692e-7
+                },
+                {
+                  "record": {
+                    "path": "boundary-e13.json",
+                    "triggerExtent": 13,
+                    "actualExtent": 13,
+                    "completedCycles": 505,
+                    "simTimeSeconds": 18.1337914206259
+                  },
+                  "available": true,
+                  "laterFill": 0.5784545733091957,
+                  "equalBinary64": false,
+                  "laterMinusCurrentFill": 2.976019483069692e-7
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "phase": "first-inactive-update-complete",
+          "axis": [
+            {
+              "offset": -1,
+              "fill": 0.5784542834151263,
+              "laterComparisons": [
+                {
+                  "record": {
+                    "path": "boundary-e9.json",
+                    "triggerExtent": 9,
+                    "actualExtent": 9,
+                    "completedCycles": 218,
+                    "simTimeSeconds": 7.422305748007743
+                  },
+                  "available": true,
+                  "laterFill": 0.5784545733091957,
+                  "equalBinary64": false,
+                  "laterMinusCurrentFill": 2.898940694162633e-7
+                },
+                {
+                  "record": {
+                    "path": "boundary-e13.json",
+                    "triggerExtent": 13,
+                    "actualExtent": 13,
+                    "completedCycles": 505,
+                    "simTimeSeconds": 18.1337914206259
+                  },
+                  "available": true,
+                  "laterFill": 0.5784545733091957,
+                  "equalBinary64": false,
+                  "laterMinusCurrentFill": 2.898940694162633e-7
+                }
+              ]
+            },
+            {
+              "offset": 1,
+              "fill": 0.5784542834151263,
+              "laterComparisons": [
+                {
+                  "record": {
+                    "path": "boundary-e9.json",
+                    "triggerExtent": 9,
+                    "actualExtent": 9,
+                    "completedCycles": 218,
+                    "simTimeSeconds": 7.422305748007743
+                  },
+                  "available": true,
+                  "laterFill": 0.5784545733091957,
+                  "equalBinary64": false,
+                  "laterMinusCurrentFill": 2.898940694162633e-7
+                },
+                {
+                  "record": {
+                    "path": "boundary-e13.json",
+                    "triggerExtent": 13,
+                    "actualExtent": 13,
+                    "completedCycles": 505,
+                    "simTimeSeconds": 18.1337914206259
+                  },
+                  "available": true,
+                  "laterFill": 0.5784545733091957,
+                  "equalBinary64": false,
+                  "laterMinusCurrentFill": 2.898940694162633e-7
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gd21-bld-w2-t5-w4-early5",
+      "patchFillAdvance": [
+        {
+          "offset": [
+            -1,
+            0,
+            -1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            -1,
+            1,
+            -1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            0,
+            -1,
+            -1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            0,
+            0,
+            -1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            0,
+            1,
+            -1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            1,
+            -1,
+            -1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            1,
+            0,
+            -1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            -1,
+            0,
+            1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            -1,
+            1,
+            1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            0,
+            -1,
+            1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            0,
+            0,
+            1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            0,
+            1,
+            1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            1,
+            -1,
+            1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        },
+        {
+          "offset": [
+            1,
+            0,
+            1
+          ],
+          "attachedBefore": true,
+          "attachedAfter": true,
+          "fillBefore": 1,
+          "fillAfter": 1,
+          "deltaFill": 0
+        }
+      ],
+      "receipt": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w2-t5-w4-early5\\recovery-verification.json",
+        "eventsMatched": 135,
+        "scope": "Fresh HIL replay; exact scientific event prefix matches BLD except operational RSS. Original full switch state absent, so no independent original full-state equality claim.",
+        "producer": "698ca5100510e7513cbe4ec6a8389cc7d3f22b68",
+        "node": "v24.13.1"
+      },
+      "states": [
+        {
+          "phase": "switch-boundary",
+          "tick": 134,
+          "simTimeSeconds": 5.024371940920387,
+          "attachedCount": 123,
+          "patch": [
+            {
+              "offset": [
+                -1,
+                0,
+                -1
+              ],
+              "index": 129055,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                -1
+              ],
+              "index": 129119,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                -1
+              ],
+              "index": 128992,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                1,
+                -1
+              ],
+              "index": 129120,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                -1
+              ],
+              "index": 128993,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                1,
+                0,
+                -1
+              ],
+              "index": 129057,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                -1,
+                0,
+                1
+              ],
+              "index": 137247,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                1
+              ],
+              "index": 137311,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                1
+              ],
+              "index": 137184,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                1,
+                1
+              ],
+              "index": 137312,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                1
+              ],
+              "index": 137185,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                1,
+                0,
+                1
+              ],
+              "index": 137249,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            }
+          ],
+          "patchSummary": {
+            "cells": 14,
+            "attached": 14,
+            "unattached": 0,
+            "unattachedFill": null,
+            "unattachedLatticeSigma": null
+          },
+          "axis": [
+            {
+              "offset": [
+                0,
+                0,
+                -3
+              ],
+              "index": 120864,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.000916497036507709,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -2
+              ],
+              "index": 124960,
+              "attached": false,
+              "fill": 0.3612188575661868,
+              "latticeCellSigma": 0.0006143908183679312,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                0
+              ],
+              "index": 133152,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                2
+              ],
+              "index": 141344,
+              "attached": false,
+              "fill": 0.3612188575661868,
+              "latticeCellSigma": 0.0006143908183679312,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                3
+              ],
+              "index": 145440,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.000916497036507709,
+              "attachedSigmaOmitted": false
+            }
+          ],
+          "rimAtAdjacentPlanes": {
+            "cells": 24,
+            "attached": 24,
+            "unattached": 0,
+            "unattachedFill": null,
+            "unattachedLatticeSigma": null
+          },
+          "rimAtOuterPlanes": {
+            "cells": 24,
+            "attached": 24,
+            "unattached": 0,
+            "unattachedFill": null,
+            "unattachedLatticeSigma": null
+          },
+          "solverSource": {
+            "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w2-t5-w4-early5\\resume\\generation-134-b738e1d9-b4c1-47ef-887c-baeceb95bdfe\\solver.bin",
+            "bytes": 4459329,
+            "sha256": "33abbb5676eac413d23a643c5cea13d114aadad28cdb76bca6a71d458b35b024"
+          }
+        },
+        {
+          "phase": "first-inactive-update-complete",
+          "tick": 135,
+          "simTimeSeconds": 5.054570856015226,
+          "attachedCount": 123,
+          "patch": [
+            {
+              "offset": [
+                -1,
+                0,
+                -1
+              ],
+              "index": 129055,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                -1
+              ],
+              "index": 129119,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                -1
+              ],
+              "index": 128992,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                1,
+                -1
+              ],
+              "index": 129120,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                -1
+              ],
+              "index": 128993,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                1,
+                0,
+                -1
+              ],
+              "index": 129057,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                -1,
+                0,
+                1
+              ],
+              "index": 137247,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                -1,
+                1,
+                1
+              ],
+              "index": 137311,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                -1,
+                1
+              ],
+              "index": 137184,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                1,
+                1
+              ],
+              "index": 137312,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                1,
+                -1,
+                1
+              ],
+              "index": 137185,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                1,
+                0,
+                1
+              ],
+              "index": 137249,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            }
+          ],
+          "patchSummary": {
+            "cells": 14,
+            "attached": 14,
+            "unattached": 0,
+            "unattachedFill": null,
+            "unattachedLatticeSigma": null
+          },
+          "axis": [
+            {
+              "offset": [
+                0,
+                0,
+                -3
+              ],
+              "index": 120864,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0014170948686535352,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -2
+              ],
+              "index": 124960,
+              "attached": false,
+              "fill": 0.3618192438208014,
+              "latticeCellSigma": 0.001382606099754595,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                -1
+              ],
+              "index": 129056,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                0
+              ],
+              "index": 133152,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                1
+              ],
+              "index": 137248,
+              "attached": true,
+              "fill": 1,
+              "latticeCellSigma": null,
+              "attachedSigmaOmitted": true
+            },
+            {
+              "offset": [
+                0,
+                0,
+                2
+              ],
+              "index": 141344,
+              "attached": false,
+              "fill": 0.3618192438208014,
+              "latticeCellSigma": 0.001382606099754595,
+              "attachedSigmaOmitted": false
+            },
+            {
+              "offset": [
+                0,
+                0,
+                3
+              ],
+              "index": 145440,
+              "attached": false,
+              "fill": 0,
+              "latticeCellSigma": 0.0014170948686535352,
+              "attachedSigmaOmitted": false
+            }
+          ],
+          "rimAtAdjacentPlanes": {
+            "cells": 24,
+            "attached": 24,
+            "unattached": 0,
+            "unattachedFill": null,
+            "unattachedLatticeSigma": null
+          },
+          "rimAtOuterPlanes": {
+            "cells": 24,
+            "attached": 24,
+            "unattached": 0,
+            "unattachedFill": null,
+            "unattachedLatticeSigma": null
+          },
+          "solverSource": {
+            "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w2-t5-w4-early5\\resume\\generation-135-9206c23c-c045-4b38-8e0b-fcc5d4e1f456\\solver.bin",
+            "bytes": 4459329,
+            "sha256": "7f5bdf66018b4e563dbc4c28f4b4880f4fa36b0c9d9266f63dea52353ba1b5bb"
+          }
+        }
+      ],
+      "laterBoundarySnapshots": [
+        {
+          "record": {
+            "path": "boundary-e9.json",
+            "triggerExtent": 9,
+            "actualExtent": 9,
+            "completedCycles": 215,
+            "simTimeSeconds": 7.467178625855335
+          },
+          "axisBasal": [
+            {
+              "offset": 3,
+              "fill": 0.15104303852346396,
+              "solvedBoundarySigma": 0.0013983551421974253,
+              "alphaHKBoundary": 0.010710343149502408
+            },
+            {
+              "offset": -3,
+              "fill": 0.15104303852346396,
+              "solvedBoundarySigma": 0.0013983551421974253,
+              "alphaHKBoundary": 0.010710343149502408
+            }
+          ]
+        },
+        {
+          "record": {
+            "path": "boundary-e13.json",
+            "triggerExtent": 13,
+            "actualExtent": 13,
+            "completedCycles": 502,
+            "simTimeSeconds": 18.21300658226991
+          },
+          "axisBasal": [
+            {
+              "offset": 5,
+              "fill": 0.2722857938331994,
+              "solvedBoundarySigma": 0.0019500761337261003,
+              "alphaHKBoundary": 0.03865600062820599
+            },
+            {
+              "offset": -5,
+              "fill": 0.2722857938331994,
+              "solvedBoundarySigma": 0.0019500761337261003,
+              "alphaHKBoundary": 0.03865600062820599
+            }
+          ]
+        }
+      ],
+      "axisFloorFillComparisons": [
+        {
+          "phase": "switch-boundary",
+          "axis": []
+        },
+        {
+          "phase": "first-inactive-update-complete",
+          "axis": []
+        }
+      ]
+    }
+  ]
+}

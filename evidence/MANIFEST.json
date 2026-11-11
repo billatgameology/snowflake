@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1308,
- "totalBytes": 327271719,
+ "fileCount": 1328,
+ "totalBytes": 327764409,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -5237,6 +5237,86 @@
   "hil-results-review-2026-11-11/verification.json": {
    "bytes": 2287,
    "sha256": "a7a8afb7029dadc6654c05f3a97af335a111fd732c11b5bcad070aa8ebd4917f"
+  },
+  "warm-switch-analysis-2026-11-11/analyze.mjs": {
+   "bytes": 8160,
+   "sha256": "4b2ea50f9ab25ac7a36a57ae5517a4e4ccefc114121329d06cd7c80cb6b5c121"
+  },
+  "warm-switch-analysis-2026-11-11/execution.json": {
+   "bytes": 1535,
+   "sha256": "5cf155dc46c7f4858094374d0d2d0d47047c74dc9ea42f7f3bd4d45d4156fa31"
+  },
+  "warm-switch-analysis-2026-11-11/findings.md": {
+   "bytes": 7168,
+   "sha256": "772d07420290bebfb57b1d7261bbc0bda5b2ca3b0a71c508176ed3f3081feac4"
+  },
+  "warm-switch-analysis-2026-11-11/independent-patches.json": {
+   "bytes": 3635,
+   "sha256": "d1d7271d507351a9d7495c22148e1c18b98c6657915d6e0a338bf81b1138d2eb"
+  },
+  "warm-switch-analysis-2026-11-11/independent-patches.py": {
+   "bytes": 1545,
+   "sha256": "723527a2fa73f9271fb789d647e2ffef9ca12c3c532105301862e7a7caf8cdd2"
+  },
+  "warm-switch-analysis-2026-11-11/inputs.json": {
+   "bytes": 17704,
+   "sha256": "97232cfd6dd892566c6478a922ea7d38c703b5e1714bea54de3543dca6788a15"
+  },
+  "warm-switch-analysis-2026-11-11/README.md": {
+   "bytes": 7194,
+   "sha256": "7d5cea0fd7f52bbe63b1b3634764335cf8df661244840b34b6398f29cac49c26"
+  },
+  "warm-switch-analysis-2026-11-11/recovered-state-readout.mjs": {
+   "bytes": 6129,
+   "sha256": "48c80cc099fc78a8536c5c705c4e2d46394168582435b2e68ad78175a784504b"
+  },
+  "warm-switch-analysis-2026-11-11/recovery.json": {
+   "bytes": 32018,
+   "sha256": "9b148e42cebddd4da815fd01696ce0f33cab996adfe55d6b3e9e2e7071fa1ca3"
+  },
+  "warm-switch-analysis-2026-11-11/replay-worker.mjs": {
+   "bytes": 4187,
+   "sha256": "e880f13aa157700c98eb9dbb75d6b60f858350fcde21be44fedbfa1cfdeb032a"
+  },
+  "warm-switch-analysis-2026-11-11/restored-readout-check.json": {
+   "bytes": 903,
+   "sha256": "8dfa276a4fa7db78b5ff792b0c93c15632ac1380d6fc8d895c3a2b534e7da369"
+  },
+  "warm-switch-analysis-2026-11-11/summarize.py": {
+   "bytes": 1418,
+   "sha256": "4d91ab11813391f07a2adefb3f237e05a060010d24e0d5ad9a3f297b3d01c754"
+  },
+  "warm-switch-analysis-2026-11-11/summary.json": {
+   "bytes": 118727,
+   "sha256": "d1fb723842f62d50026d81fd3ad80502847b8cc78f6cb7bcca0916f0a62f50e6"
+  },
+  "warm-switch-analysis-2026-11-11/recovered-state/execution.json": {
+   "bytes": 1090,
+   "sha256": "6a6241865adfd184bd74a6b20b37f2fd2ad566bbd2a8e69d6bf1c9ec76c8ef23"
+  },
+  "warm-switch-analysis-2026-11-11/recovered-state/findings.md": {
+   "bytes": 4144,
+   "sha256": "e1d6bd3a62c0b6417e7b57980df9abcac8bd24dcf9f96383cdabc2585967a75d"
+  },
+  "warm-switch-analysis-2026-11-11/recovered-state/inputs.json": {
+   "bytes": 11436,
+   "sha256": "8b7e95d5cdcd86370629632c3bc4063bba699faaf7f16cd6aca0d03b82ce0e44"
+  },
+  "warm-switch-analysis-2026-11-11/recovered-state/summary.json": {
+   "bytes": 155360,
+   "sha256": "637f340ab2fcbc131c0ad378887ef7ca7200c163811032559a3c4d48921e6839"
+  },
+  "warm-switch-analysis-2026-11-11/npm-test.stderr.log": {
+   "bytes": 33325,
+   "sha256": "395cd4d5b6a45141580ecc8091af9ac2c33ad2d83b4e5f5c0a7dc523e0b1db06"
+  },
+  "warm-switch-analysis-2026-11-11/npm-test.stdout.log": {
+   "bytes": 73836,
+   "sha256": "8977a7a91e3a9c71a44d86162b77ca4605e4f6486d03e41d33d30a70634363a8"
+  },
+  "warm-switch-analysis-2026-11-11/verification.json": {
+   "bytes": 3176,
+   "sha256": "cc04d5faa7d25c6ebd616db20e17a59bc4585b1e01a21d54880896ac5729d78f"
   }
  }
 }

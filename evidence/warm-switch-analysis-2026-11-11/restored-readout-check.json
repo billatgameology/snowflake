@@ -1,0 +1,20 @@
+{
+  "command": "node evidence/warm-switch-analysis-2026-11-11/recovered-state-readout.mjs <fresh-restore>/replays <new-output> <original-BLD-rows>",
+  "exitCode": 0,
+  "rows": 6,
+  "states": 12,
+  "numericalRowsIdentical": true,
+  "ignoredFields": [
+    "rows[].receipt.path",
+    "rows[].states[].solverSource.path"
+  ],
+  "original": {
+    "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-state-readout-2026-11-11\\summary.json",
+    "sha256": "637f340ab2fcbc131c0ad378887ef7ca7200c163811032559a3c4d48921e6839"
+  },
+  "restored": {
+    "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-state-restored-check-2026-11-11\\summary.json",
+    "sha256": "90d2074d7e4e19d67c6885b48ada590a2896e8d3eee2361d3cfc2c94a725490a"
+  },
+  "limit": "Readout of NAS-recovered checkpoint bytes, not an independent comparison to missing original BLD switch-state bytes."
+}

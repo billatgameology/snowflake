@@ -1,0 +1,727 @@
+{
+  "scope": "Six separately identified short HIL replays, twelve full states; event-prefix equality does not independently compare missing original full-state bytes.",
+  "replayedUpdates": 589,
+  "states": 12,
+  "allProcessExitsZero": true,
+  "launch": {
+    "producer": "698ca5100510e7513cbe4ec6a8389cc7d3f22b68",
+    "rows": [
+      {
+        "switchCycle": 26,
+        "pid": 6904,
+        "pauseCycle": 27,
+        "rowId": "gd21-bld-w1-t4p5-c025-early1-w3",
+        "arguments": [
+          "C:/Users/biao3/Documents/GitHub/snowflake/out/warm-switch-replay-worker-2026-11-11.mjs",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+          "C:/Users/biao3/Documents/GitHub/snowflake/out/restores/bld-growth-dynamics-hil-20261024T2048/extracted/bld-growth-dynamics-oct21/rows",
+          "C:/Users/biao3/Documents/GitHub/snowflake/out/warm-switch-replay-2026-11-11",
+          "gd21-bld-w1-t4p5-c025-early1-w3",
+          "26"
+        ]
+      },
+      {
+        "switchCycle": 27,
+        "pid": 12804,
+        "pauseCycle": 28,
+        "rowId": "gd21-bld-w1-t5-c025-early1-w3",
+        "arguments": [
+          "C:/Users/biao3/Documents/GitHub/snowflake/out/warm-switch-replay-worker-2026-11-11.mjs",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+          "C:/Users/biao3/Documents/GitHub/snowflake/out/restores/bld-growth-dynamics-hil-20261024T2048/extracted/bld-growth-dynamics-oct21/rows",
+          "C:/Users/biao3/Documents/GitHub/snowflake/out/warm-switch-replay-2026-11-11",
+          "gd21-bld-w1-t5-c025-early1-w3",
+          "27"
+        ]
+      },
+      {
+        "switchCycle": 131,
+        "pid": 10988,
+        "pauseCycle": 132,
+        "rowId": "gd21-bld-w1-t4p5-c025-early5-w3",
+        "arguments": [
+          "C:/Users/biao3/Documents/GitHub/snowflake/out/warm-switch-replay-worker-2026-11-11.mjs",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+          "C:/Users/biao3/Documents/GitHub/snowflake/out/restores/bld-growth-dynamics-hil-20261024T2048/extracted/bld-growth-dynamics-oct21/rows",
+          "C:/Users/biao3/Documents/GitHub/snowflake/out/warm-switch-replay-2026-11-11",
+          "gd21-bld-w1-t4p5-c025-early5-w3",
+          "131"
+        ]
+      },
+      {
+        "switchCycle": 138,
+        "pid": 24592,
+        "pauseCycle": 139,
+        "rowId": "gd21-bld-w1-t5-c025-early5-w3",
+        "arguments": [
+          "C:/Users/biao3/Documents/GitHub/snowflake/out/warm-switch-replay-worker-2026-11-11.mjs",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+          "C:/Users/biao3/Documents/GitHub/snowflake/out/restores/bld-growth-dynamics-hil-20261024T2048/extracted/bld-growth-dynamics-oct21/rows",
+          "C:/Users/biao3/Documents/GitHub/snowflake/out/warm-switch-replay-2026-11-11",
+          "gd21-bld-w1-t5-c025-early5-w3",
+          "138"
+        ]
+      },
+      {
+        "switchCycle": 127,
+        "pid": 22116,
+        "pauseCycle": 128,
+        "rowId": "gd21-bld-w2-t4p5-w4-early5",
+        "arguments": [
+          "C:/Users/biao3/Documents/GitHub/snowflake/out/warm-switch-replay-worker-2026-11-11.mjs",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+          "C:/Users/biao3/Documents/GitHub/snowflake/out/restores/bld-growth-dynamics-hil-20261024T2048/extracted/bld-growth-dynamics-oct21/rows",
+          "C:/Users/biao3/Documents/GitHub/snowflake/out/warm-switch-replay-2026-11-11",
+          "gd21-bld-w2-t4p5-w4-early5",
+          "127"
+        ]
+      },
+      {
+        "switchCycle": 134,
+        "pid": 27632,
+        "pauseCycle": 135,
+        "rowId": "gd21-bld-w2-t5-w4-early5",
+        "arguments": [
+          "C:/Users/biao3/Documents/GitHub/snowflake/out/warm-switch-replay-worker-2026-11-11.mjs",
+          "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+          "C:/Users/biao3/Documents/GitHub/snowflake/out/restores/bld-growth-dynamics-hil-20261024T2048/extracted/bld-growth-dynamics-oct21/rows",
+          "C:/Users/biao3/Documents/GitHub/snowflake/out/warm-switch-replay-2026-11-11",
+          "gd21-bld-w2-t5-w4-early5",
+          "134"
+        ]
+      }
+    ],
+    "sourceRoot": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+    "availablePhysicalKB": 50981944,
+    "actualConcurrency": 6,
+    "startedUtc": "2026-11-11T19:04:55.6628425Z"
+  },
+  "rows": [
+    {
+      "scope": "Fresh HIL replay; exact scientific event prefix matches BLD except operational RSS. Original full switch state absent, so no independent original full-state equality claim.",
+      "rowId": "gd21-bld-w1-t4p5-c025-early1-w3",
+      "sourceRoot": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+      "producer": "698ca5100510e7513cbe4ec6a8389cc7d3f22b68",
+      "originalProducer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+      "node": "v24.13.1",
+      "v8": "13.6.233.17-node.40",
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-worker-2026-11-11.mjs",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+        "C:/Users/biao3/Documents/GitHub/snowflake/out/restores/bld-growth-dynamics-hil-20261024T2048/extracted/bld-growth-dynamics-oct21/rows",
+        "C:/Users/biao3/Documents/GitHub/snowflake/out/warm-switch-replay-2026-11-11",
+        "gd21-bld-w1-t4p5-c025-early1-w3",
+        "26"
+      ],
+      "sourceParityCommand": [
+        "git",
+        "diff",
+        "--name-only",
+        "d7f76cb",
+        "HEAD",
+        "--",
+        "core/src",
+        "solver-cpu/src",
+        "runner/src/post-phase10-discovery.ts",
+        "runner/src/discovery-resume-io.ts"
+      ],
+      "eventsMatched": 27,
+      "originalEvents": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early1-w3\\events.jsonl",
+        "bytes": 4598525,
+        "sha256": "7fe4c75af597f7ecc17983e8f6a5c7ab3738daaa19589b30bf29a68f283b32f8"
+      },
+      "snapshots": [
+        {
+          "path": "boundary-e5.json",
+          "bytes": 24165,
+          "sha256": "b9544d1591febcd617df72e5f1e2f917354fd1f9d2275bac17a1c098dbe263e7"
+        }
+      ],
+      "states": [
+        {
+          "phase": "switch-boundary",
+          "tick": 26,
+          "simTimeSeconds": 1.0338799885228636,
+          "solverFile": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w1-t4p5-c025-early1-w3\\resume\\generation-26-2830b12f-d1fe-47d5-88e7-5cb105d92cd4\\solver.bin",
+          "solverBytes": 4458969,
+          "solverSha256": "071c2e2ee9664ee3c7181ee1990ecd3279e7665bda73ad8ff771a8ebd2d10e1d",
+          "manifestSha256": "9e16711f1563e984aeb035af3bdd821a5b9f9a4172adddc484b2973324d6c430",
+          "arrays": {
+            "a": {
+              "elements": 262144,
+              "bytes": 262144,
+              "sha256": "8ccb3a34ee6461e0aa2f81d457b0c6c016a66a73ae4187f16c45eef73ee80c51"
+            },
+            "f": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "96269fa453d58700e6970c51f08c6cf2ccca0d82f9cd395ab127431867d4a966"
+            },
+            "sigma": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "e322a536bb32e63b38818c16fc88e1c3fe88d93a8c6163692fcf6acfe238d206"
+            }
+          }
+        },
+        {
+          "phase": "first-inactive-update-complete",
+          "tick": 27,
+          "simTimeSeconds": 1.0950629739480553,
+          "solverFile": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w1-t4p5-c025-early1-w3\\resume\\generation-27-a2d91fae-534d-4424-96dc-d7e380c8dae1\\solver.bin",
+          "solverBytes": 4458969,
+          "solverSha256": "80fa1bf28c2db1bc59e9f7d1f532b7a59001ffd9c18f6d0413849d15fe832781",
+          "manifestSha256": "02bb3efe316d67e3d4c08d0aef111a8924beb537f7d6514a3c98c7d09000e852",
+          "arrays": {
+            "a": {
+              "elements": 262144,
+              "bytes": 262144,
+              "sha256": "8ccb3a34ee6461e0aa2f81d457b0c6c016a66a73ae4187f16c45eef73ee80c51"
+            },
+            "f": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "d57512ae32dfd1ba14ee144da239f9122996ee881beff4441e0039cc8c00de27"
+            },
+            "sigma": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "91b60a8044955e943da37b9ae4247f420cc198367b64d5e34791e60bc7418a07"
+            }
+          }
+        }
+      ],
+      "stopReason": "checkpoint-pause"
+    },
+    {
+      "scope": "Fresh HIL replay; exact scientific event prefix matches BLD except operational RSS. Original full switch state absent, so no independent original full-state equality claim.",
+      "rowId": "gd21-bld-w1-t4p5-c025-early5-w3",
+      "sourceRoot": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+      "producer": "698ca5100510e7513cbe4ec6a8389cc7d3f22b68",
+      "originalProducer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+      "node": "v24.13.1",
+      "v8": "13.6.233.17-node.40",
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-worker-2026-11-11.mjs",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+        "C:/Users/biao3/Documents/GitHub/snowflake/out/restores/bld-growth-dynamics-hil-20261024T2048/extracted/bld-growth-dynamics-oct21/rows",
+        "C:/Users/biao3/Documents/GitHub/snowflake/out/warm-switch-replay-2026-11-11",
+        "gd21-bld-w1-t4p5-c025-early5-w3",
+        "131"
+      ],
+      "sourceParityCommand": [
+        "git",
+        "diff",
+        "--name-only",
+        "d7f76cb",
+        "HEAD",
+        "--",
+        "core/src",
+        "solver-cpu/src",
+        "runner/src/post-phase10-discovery.ts",
+        "runner/src/discovery-resume-io.ts"
+      ],
+      "eventsMatched": 132,
+      "originalEvents": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early5-w3\\events.jsonl",
+        "bytes": 5361421,
+        "sha256": "c53833c2deb2c4098ad481bbc0f2b3d827c41ca936a9cf08cc68c758d7805bae"
+      },
+      "snapshots": [
+        {
+          "path": "boundary-e5.json",
+          "bytes": 24165,
+          "sha256": "3d106d0d39026b025a0734b173bbeb33d153549355e7edc1a105248eb499994a"
+        }
+      ],
+      "states": [
+        {
+          "phase": "switch-boundary",
+          "tick": 131,
+          "simTimeSeconds": 5.021064751997452,
+          "solverFile": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w1-t4p5-c025-early5-w3\\resume\\generation-131-69076862-0f6f-4591-bd80-ab8e0d5c904d\\solver.bin",
+          "solverBytes": 4459377,
+          "solverSha256": "c38dac1d81e855f8617c8a47a88be739eded4afa63ef81e9c23df378639fe5fa",
+          "manifestSha256": "0a82ecf3ff648d94ebdf39cc241a4c23f129d1346b75ae1e8622d7c0558c3b4b",
+          "arrays": {
+            "a": {
+              "elements": 262144,
+              "bytes": 262144,
+              "sha256": "2fd5ac02e42d6fd710ce37f67fb8f941e7721c04dc60ecde1cc2f7dfac2835fb"
+            },
+            "f": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "b778c052048690a4ab47c540298a0d57d6ab845d7fd1320549ff3673f8f45123"
+            },
+            "sigma": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "0dd1336e47a9eb5b6bb5f1108f43110ed8e9931c7dfb488f7c553caaec4a3bac"
+            }
+          }
+        },
+        {
+          "phase": "first-inactive-update-complete",
+          "tick": 132,
+          "simTimeSeconds": 5.053675364495798,
+          "solverFile": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w1-t4p5-c025-early5-w3\\resume\\generation-132-0c0d5aad-794f-4840-b4b5-5f29f26a0d15\\solver.bin",
+          "solverBytes": 4459377,
+          "solverSha256": "049fd3e1e75254ab8e503c33cf8c304ee10ef7d5bebd642b1f57dfba113cebf8",
+          "manifestSha256": "965b85f41ad7bff444c227741f9cd1769f224b2153fb4848bd318fe963102a14",
+          "arrays": {
+            "a": {
+              "elements": 262144,
+              "bytes": 262144,
+              "sha256": "2fd5ac02e42d6fd710ce37f67fb8f941e7721c04dc60ecde1cc2f7dfac2835fb"
+            },
+            "f": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "ae1750ecd5e57317606b1e572e81b6ba4355bcb4e128b2042f69d407a2b3aaa5"
+            },
+            "sigma": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "a6456d87c8fa72a89e29a558fee4f4765d68799e6b8402e5de8ed7380ab5dc15"
+            }
+          }
+        }
+      ],
+      "stopReason": "checkpoint-pause"
+    },
+    {
+      "scope": "Fresh HIL replay; exact scientific event prefix matches BLD except operational RSS. Original full switch state absent, so no independent original full-state equality claim.",
+      "rowId": "gd21-bld-w1-t5-c025-early1-w3",
+      "sourceRoot": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+      "producer": "698ca5100510e7513cbe4ec6a8389cc7d3f22b68",
+      "originalProducer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+      "node": "v24.13.1",
+      "v8": "13.6.233.17-node.40",
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-worker-2026-11-11.mjs",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+        "C:/Users/biao3/Documents/GitHub/snowflake/out/restores/bld-growth-dynamics-hil-20261024T2048/extracted/bld-growth-dynamics-oct21/rows",
+        "C:/Users/biao3/Documents/GitHub/snowflake/out/warm-switch-replay-2026-11-11",
+        "gd21-bld-w1-t5-c025-early1-w3",
+        "27"
+      ],
+      "sourceParityCommand": [
+        "git",
+        "diff",
+        "--name-only",
+        "d7f76cb",
+        "HEAD",
+        "--",
+        "core/src",
+        "solver-cpu/src",
+        "runner/src/post-phase10-discovery.ts",
+        "runner/src/discovery-resume-io.ts"
+      ],
+      "eventsMatched": 28,
+      "originalEvents": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early1-w3\\events.jsonl",
+        "bytes": 5044038,
+        "sha256": "5b081f8d18f046d878c81693cb6a2ccb7e26b6a1ed2b98488fbc2c193dc2f6de"
+      },
+      "snapshots": [
+        {
+          "path": "boundary-e5.json",
+          "bytes": 24114,
+          "sha256": "b0a4d275f9010f14448ab4a3e5f680553af69caaf08828647070a4c4aaffa696"
+        }
+      ],
+      "states": [
+        {
+          "phase": "switch-boundary",
+          "tick": 27,
+          "simTimeSeconds": 1.0328772117737612,
+          "solverFile": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w1-t5-c025-early1-w3\\resume\\generation-27-cd4369de-0a1c-467f-a9b9-7bc197f69aa5\\solver.bin",
+          "solverBytes": 4458969,
+          "solverSha256": "81023c68404f7d5c042141c09b7f830326d07da0d3a258fed7b5ebfe1d7fdcc1",
+          "manifestSha256": "9b42e89cf9b8beb8340d7e3b62cb93f6ae23e31c4dc333c400f5b2b09bba7c46",
+          "arrays": {
+            "a": {
+              "elements": 262144,
+              "bytes": 262144,
+              "sha256": "8ccb3a34ee6461e0aa2f81d457b0c6c016a66a73ae4187f16c45eef73ee80c51"
+            },
+            "f": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "e2667dafa8dcd214d4dab1c9ad212e97101af14fe03aec40f6c0019d957ce7ff"
+            },
+            "sigma": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "6fdc11ea4172fb6577a16d235175adb1e68d867870aba61d28153f771d333e3f"
+            }
+          }
+        },
+        {
+          "phase": "first-inactive-update-complete",
+          "tick": 28,
+          "simTimeSeconds": 1.0941096160762638,
+          "solverFile": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w1-t5-c025-early1-w3\\resume\\generation-28-dd8dfd8e-7002-4f2d-9f98-91622a81c145\\solver.bin",
+          "solverBytes": 4458969,
+          "solverSha256": "d5f52fb718d36ae0ad119beda530c271188e64a7012513c245123e2bc07bf37e",
+          "manifestSha256": "77bdb71eea141ac3107a27e717d2e37237fc84833ba5ce10651c3c94db36581c",
+          "arrays": {
+            "a": {
+              "elements": 262144,
+              "bytes": 262144,
+              "sha256": "8ccb3a34ee6461e0aa2f81d457b0c6c016a66a73ae4187f16c45eef73ee80c51"
+            },
+            "f": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "ed00e0e62bd4e367614c5b44a18b0c2a9ffb8fc614638d50ec91e7c07dfa3b62"
+            },
+            "sigma": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "5d411df8d4d62303af6fc25eee5c49ff2830938f3b3809aa8afee7a18e1705a4"
+            }
+          }
+        }
+      ],
+      "stopReason": "checkpoint-pause"
+    },
+    {
+      "scope": "Fresh HIL replay; exact scientific event prefix matches BLD except operational RSS. Original full switch state absent, so no independent original full-state equality claim.",
+      "rowId": "gd21-bld-w1-t5-c025-early5-w3",
+      "sourceRoot": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+      "producer": "698ca5100510e7513cbe4ec6a8389cc7d3f22b68",
+      "originalProducer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+      "node": "v24.13.1",
+      "v8": "13.6.233.17-node.40",
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-worker-2026-11-11.mjs",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+        "C:/Users/biao3/Documents/GitHub/snowflake/out/restores/bld-growth-dynamics-hil-20261024T2048/extracted/bld-growth-dynamics-oct21/rows",
+        "C:/Users/biao3/Documents/GitHub/snowflake/out/warm-switch-replay-2026-11-11",
+        "gd21-bld-w1-t5-c025-early5-w3",
+        "138"
+      ],
+      "sourceParityCommand": [
+        "git",
+        "diff",
+        "--name-only",
+        "d7f76cb",
+        "HEAD",
+        "--",
+        "core/src",
+        "solver-cpu/src",
+        "runner/src/post-phase10-discovery.ts",
+        "runner/src/discovery-resume-io.ts"
+      ],
+      "eventsMatched": 139,
+      "originalEvents": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early5-w3\\events.jsonl",
+        "bytes": 5678891,
+        "sha256": "cfa77e20586e4c4040734dfbe0cfb1ff1c428f4bc3bd0e45c6494a08d87395b9"
+      },
+      "snapshots": [
+        {
+          "path": "boundary-e5.json",
+          "bytes": 24114,
+          "sha256": "a473c6ef63a26d5a4cfe822af54a4e9be170a922e0f57c85295e42db8eec222e"
+        }
+      ],
+      "states": [
+        {
+          "phase": "switch-boundary",
+          "tick": 138,
+          "simTimeSeconds": 5.017293754009521,
+          "solverFile": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w1-t5-c025-early5-w3\\resume\\generation-138-44997e2b-515f-406b-88a6-a689d3e2cdb9\\solver.bin",
+          "solverBytes": 4459377,
+          "solverSha256": "df3a0590eead5c3358b38bd957d1bd5a2f4166045b13a9f782128464ccaa330b",
+          "manifestSha256": "90ca03dbf430ee43a8fbebdc582659286c2e6c6fcaaa4b15466ba49215eddcfa",
+          "arrays": {
+            "a": {
+              "elements": 262144,
+              "bytes": 262144,
+              "sha256": "2fd5ac02e42d6fd710ce37f67fb8f941e7721c04dc60ecde1cc2f7dfac2835fb"
+            },
+            "f": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "e531189f8698d8133e389e25a3ce2dc28c3f49e883c64a3f572017edffca1787"
+            },
+            "sigma": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "5c3ee065a3205e81e0e2207bc58cfbc6678f4af30cdb0a855bbe5b66120406c0"
+            }
+          }
+        },
+        {
+          "phase": "first-inactive-update-complete",
+          "tick": 139,
+          "simTimeSeconds": 5.0475132940360075,
+          "solverFile": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w1-t5-c025-early5-w3\\resume\\generation-139-b77f1e95-200f-4b4a-a89a-dee54e8076f3\\solver.bin",
+          "solverBytes": 4459377,
+          "solverSha256": "02468db6c8f47843760abc6c5846aa21b378158a1b255cddfc062affa960e278",
+          "manifestSha256": "d3f3697c3eee6e29e78a91cdba3792e746f147e2bc07f6c7e0d2e474981925ee",
+          "arrays": {
+            "a": {
+              "elements": 262144,
+              "bytes": 262144,
+              "sha256": "2fd5ac02e42d6fd710ce37f67fb8f941e7721c04dc60ecde1cc2f7dfac2835fb"
+            },
+            "f": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "275eae9f9a9c8e79cbe67cf8c899e98950b3a75410486fc0d200a9cc8a077983"
+            },
+            "sigma": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "ca8362366c4db87d65670990e4db833e631274e8884d3f785e517428add908b1"
+            }
+          }
+        }
+      ],
+      "stopReason": "checkpoint-pause"
+    },
+    {
+      "scope": "Fresh HIL replay; exact scientific event prefix matches BLD except operational RSS. Original full switch state absent, so no independent original full-state equality claim.",
+      "rowId": "gd21-bld-w2-t4p5-w4-early5",
+      "sourceRoot": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+      "producer": "698ca5100510e7513cbe4ec6a8389cc7d3f22b68",
+      "originalProducer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+      "node": "v24.13.1",
+      "v8": "13.6.233.17-node.40",
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-worker-2026-11-11.mjs",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+        "C:/Users/biao3/Documents/GitHub/snowflake/out/restores/bld-growth-dynamics-hil-20261024T2048/extracted/bld-growth-dynamics-oct21/rows",
+        "C:/Users/biao3/Documents/GitHub/snowflake/out/warm-switch-replay-2026-11-11",
+        "gd21-bld-w2-t4p5-w4-early5",
+        "127"
+      ],
+      "sourceParityCommand": [
+        "git",
+        "diff",
+        "--name-only",
+        "d7f76cb",
+        "HEAD",
+        "--",
+        "core/src",
+        "solver-cpu/src",
+        "runner/src/post-phase10-discovery.ts",
+        "runner/src/discovery-resume-io.ts"
+      ],
+      "eventsMatched": 128,
+      "originalEvents": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t4p5-w4-early5\\events.jsonl",
+        "bytes": 5523477,
+        "sha256": "72d6a7a292bf25ec01144c19e237a51a5adb972f9bc5388db2017b2e6d62ed29"
+      },
+      "snapshots": [
+        {
+          "path": "boundary-e5.json",
+          "bytes": 24140,
+          "sha256": "6b8cf8906f2c78ceffa4762fbeb94da9b9f7b8c88ad723c407c6ecff11c008af"
+        }
+      ],
+      "states": [
+        {
+          "phase": "switch-boundary",
+          "tick": 127,
+          "simTimeSeconds": 5.026772717363253,
+          "solverFile": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w2-t4p5-w4-early5\\resume\\generation-127-d2e7b71c-c0ed-4537-8272-c918c9f6ac64\\solver.bin",
+          "solverBytes": 4459329,
+          "solverSha256": "c3c8284f88045727bd82c3578d9b7efaf11c00373a299aabb1f040da48d8a604",
+          "manifestSha256": "71abbca249c7b4291b3823cd52b48725994d4a9eade0dc007a927fff7c2d2c93",
+          "arrays": {
+            "a": {
+              "elements": 262144,
+              "bytes": 262144,
+              "sha256": "25a72b448bc855b207b29ec134d56a423cb96515792b4b0df461124b7de11ccc"
+            },
+            "f": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "4e4d3bcbd3120f20a37d859d036738ddf37518c044e52c4c1a512f198b87ed34"
+            },
+            "sigma": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "a58e8c017cd1c8369393c768969724a3a120e15235864deafe06e51c78a4f06e"
+            }
+          }
+        },
+        {
+          "phase": "first-inactive-update-complete",
+          "tick": 128,
+          "simTimeSeconds": 5.059360116787433,
+          "solverFile": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w2-t4p5-w4-early5\\resume\\generation-128-c2357e22-f257-4ee0-84d5-03c59be08d34\\solver.bin",
+          "solverBytes": 4459329,
+          "solverSha256": "c76318f0e8b8c2307065b675524abf12b5e82bd8f4d98cf5e11ffe71bfd4a3be",
+          "manifestSha256": "46e031cd54dfba7c61c61bcfa0561551ee0617a7ac46f2fd196b669d116283e2",
+          "arrays": {
+            "a": {
+              "elements": 262144,
+              "bytes": 262144,
+              "sha256": "25a72b448bc855b207b29ec134d56a423cb96515792b4b0df461124b7de11ccc"
+            },
+            "f": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "59e4c1a8f2fcb00ea72a150059b6c9ee16e72d03af162118dd76fa218883e743"
+            },
+            "sigma": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "915712c012ca88ffac12b83a86c0e978652e76399cee1d806bd4fc94135706a6"
+            }
+          }
+        }
+      ],
+      "stopReason": "checkpoint-pause"
+    },
+    {
+      "scope": "Fresh HIL replay; exact scientific event prefix matches BLD except operational RSS. Original full switch state absent, so no independent original full-state equality claim.",
+      "rowId": "gd21-bld-w2-t5-w4-early5",
+      "sourceRoot": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+      "producer": "698ca5100510e7513cbe4ec6a8389cc7d3f22b68",
+      "originalProducer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+      "node": "v24.13.1",
+      "v8": "13.6.233.17-node.40",
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-worker-2026-11-11.mjs",
+        "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+        "C:/Users/biao3/Documents/GitHub/snowflake/out/restores/bld-growth-dynamics-hil-20261024T2048/extracted/bld-growth-dynamics-oct21/rows",
+        "C:/Users/biao3/Documents/GitHub/snowflake/out/warm-switch-replay-2026-11-11",
+        "gd21-bld-w2-t5-w4-early5",
+        "134"
+      ],
+      "sourceParityCommand": [
+        "git",
+        "diff",
+        "--name-only",
+        "d7f76cb",
+        "HEAD",
+        "--",
+        "core/src",
+        "solver-cpu/src",
+        "runner/src/post-phase10-discovery.ts",
+        "runner/src/discovery-resume-io.ts"
+      ],
+      "eventsMatched": 135,
+      "originalEvents": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t5-w4-early5\\events.jsonl",
+        "bytes": 5671604,
+        "sha256": "58dc0afc948a5a32ff794a73c35871cbe5d982b5a92a980e55b5bb687f188c31"
+      },
+      "snapshots": [
+        {
+          "path": "boundary-e5.json",
+          "bytes": 24095,
+          "sha256": "a4646ef5cbcd6d7a799b1c5fc3a5d676d1033c47419e1543b7f383d8e1fed7d5"
+        }
+      ],
+      "states": [
+        {
+          "phase": "switch-boundary",
+          "tick": 134,
+          "simTimeSeconds": 5.024371940920387,
+          "solverFile": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w2-t5-w4-early5\\resume\\generation-134-b738e1d9-b4c1-47ef-887c-baeceb95bdfe\\solver.bin",
+          "solverBytes": 4459329,
+          "solverSha256": "33abbb5676eac413d23a643c5cea13d114aadad28cdb76bca6a71d458b35b024",
+          "manifestSha256": "f6da3aba8250875751bedb1805c2421702316cad52962461dc657cc92294e94a",
+          "arrays": {
+            "a": {
+              "elements": 262144,
+              "bytes": 262144,
+              "sha256": "25a72b448bc855b207b29ec134d56a423cb96515792b4b0df461124b7de11ccc"
+            },
+            "f": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "93659cff4b361689882021f7e2f9673168323ac2ba1c7176b6fa349814b3e67d"
+            },
+            "sigma": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "38782dcd32340fabe58a35d91e0619643d5986ed01706c5a25552356ae97b7df"
+            }
+          }
+        },
+        {
+          "phase": "first-inactive-update-complete",
+          "tick": 135,
+          "simTimeSeconds": 5.054570856015226,
+          "solverFile": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11\\gd21-bld-w2-t5-w4-early5\\resume\\generation-135-9206c23c-c045-4b38-8e0b-fcc5d4e1f456\\solver.bin",
+          "solverBytes": 4459329,
+          "solverSha256": "7f5bdf66018b4e563dbc4c28f4b4880f4fa36b0c9d9266f63dea52353ba1b5bb",
+          "manifestSha256": "be9fb132ca7ba7a5e0e66736e904d486ff5c022df50dfddc61877071657b462e",
+          "arrays": {
+            "a": {
+              "elements": 262144,
+              "bytes": 262144,
+              "sha256": "25a72b448bc855b207b29ec134d56a423cb96515792b4b0df461124b7de11ccc"
+            },
+            "f": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "64e50755c9f3b2edf9e8b3bed39382470a52a08f7c6d3a1626effd2e3012b007"
+            },
+            "sigma": {
+              "elements": 262144,
+              "bytes": 2097152,
+              "sha256": "2884d44f6c6b58cc718443a9a9f0f2e261c552189109a2b1d39d2aabe977f295"
+            }
+          }
+        }
+      ],
+      "stopReason": "checkpoint-pause"
+    }
+  ],
+  "processExits": [
+    {
+      "exitCode": 0,
+      "rowId": "gd21-bld-w1-t4p5-c025-early1-w3",
+      "pid": 6904,
+      "observedUtc": "2026-11-11T19:06:12.4667934Z"
+    },
+    {
+      "exitCode": 0,
+      "rowId": "gd21-bld-w1-t4p5-c025-early5-w3",
+      "pid": 10988,
+      "observedUtc": "2026-11-11T19:11:31.5719764Z"
+    },
+    {
+      "exitCode": 0,
+      "rowId": "gd21-bld-w1-t5-c025-early1-w3",
+      "pid": 12804,
+      "observedUtc": "2026-11-11T19:06:19.6579915Z"
+    },
+    {
+      "exitCode": 0,
+      "rowId": "gd21-bld-w1-t5-c025-early5-w3",
+      "pid": 24592,
+      "observedUtc": "2026-11-11T19:11:31.5736210Z"
+    },
+    {
+      "exitCode": 0,
+      "rowId": "gd21-bld-w2-t4p5-w4-early5",
+      "pid": 22116,
+      "observedUtc": "2026-11-11T19:12:34.4196844Z"
+    },
+    {
+      "exitCode": 0,
+      "rowId": "gd21-bld-w2-t5-w4-early5",
+      "pid": 27632,
+      "observedUtc": "2026-11-11T19:12:34.4211236Z"
+    }
+  ]
+}

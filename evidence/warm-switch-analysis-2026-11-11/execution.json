@@ -1,0 +1,53 @@
+{
+  "commands": [
+    "node out/warm-switch-analysis-2026-11-11/analyze.mjs",
+    "python out/warm-switch-analysis-2026-11-11/summarize.py"
+  ],
+  "exitCodes": [
+    0,
+    0
+  ],
+  "limits": "Saved-data triage only; no new solver run, physical validation or NAS publication; full-suite and independent parent check belong to parent task.",
+  "artifacts": [
+    {
+      "path": "analyze.mjs",
+      "bytes": 8160,
+      "sha256": "4b2ea50f9ab25ac7a36a57ae5517a4e4ccefc114121329d06cd7c80cb6b5c121"
+    },
+    {
+      "path": "findings.md",
+      "bytes": 7168,
+      "sha256": "772d07420290bebfb57b1d7261bbc0bda5b2ca3b0a71c508176ed3f3081feac4"
+    },
+    {
+      "path": "inputs.json",
+      "bytes": 17704,
+      "sha256": "97232cfd6dd892566c6478a922ea7d38c703b5e1714bea54de3543dca6788a15"
+    },
+    {
+      "path": "readout.json",
+      "bytes": 610860,
+      "sha256": "68fbd3eebb3bf1427c0d75f2ba4dac7f4281dc1da1a815ce6c559d93f1f17dc2"
+    },
+    {
+      "path": "stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.log",
+      "bytes": 14327,
+      "sha256": "01d64e2adbd4e00c862410c9a4b41dda465ffce0003800cf55dee59ba16adc1d"
+    },
+    {
+      "path": "summarize.py",
+      "bytes": 1418,
+      "sha256": "4d91ab11813391f07a2adefb3f237e05a060010d24e0d5ad9a3f297b3d01c754"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 118727,
+      "sha256": "d1fb723842f62d50026d81fd3ad80502847b8cc78f6cb7bcca0916f0a62f50e6"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "format": "snowflake-nas-publication-receipt-v1",
+  "transactionId": "warm-switch-recovery-20261111-publish",
+  "identity": "warm-switch-recovery@2026-11-11",
+  "locator": "collections/warm-switch-recovery/2026-11-11/payload",
+  "source": {
+    "fileCount": 103,
+    "totalBytes": 56351044,
+    "treeSha256": "f6262190397b3983355c2342f36f44307577e33bee9e709e15daacd629d9111e"
+  },
+  "staged": {
+    "fileCount": 103,
+    "totalBytes": 56351044,
+    "treeSha256": "f6262190397b3983355c2342f36f44307577e33bee9e709e15daacd629d9111e"
+  },
+  "final": {
+    "fileCount": 103,
+    "totalBytes": 56351044,
+    "treeSha256": "f6262190397b3983355c2342f36f44307577e33bee9e709e15daacd629d9111e"
+  },
+  "verifiedAt": "2026-11-11T19:14:28.866Z",
+  "limits": [
+    "This receipt contains aggregate digests only; private filenames and host paths are intentionally omitted.",
+    "Tracked catalogue registration and a committed Git binding are outside this fixture transaction core."
+  ]
+}

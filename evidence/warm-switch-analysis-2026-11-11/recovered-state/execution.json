@@ -1,0 +1,37 @@
+{
+  "command": "node out/warm-switch-state-readout-2026-11-11/readout.mjs",
+  "exitCode": 0,
+  "scope": "Read-only restore and array read; no solver evolution or writes to recovery outputs.",
+  "artifacts": [
+    {
+      "path": "findings.md",
+      "bytes": 4144,
+      "sha256": "e1d6bd3a62c0b6417e7b57980df9abcac8bd24dcf9f96383cdabc2585967a75d"
+    },
+    {
+      "path": "inputs.json",
+      "bytes": 11436,
+      "sha256": "8b7e95d5cdcd86370629632c3bc4063bba699faaf7f16cd6aca0d03b82ce0e44"
+    },
+    {
+      "path": "readout.mjs",
+      "bytes": 6016,
+      "sha256": "2b79ce8c209993397366e541fab36b69c23a4359558d62574d1f124e125f746b"
+    },
+    {
+      "path": "stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.log",
+      "bytes": 29647,
+      "sha256": "edc5333c3e0b9e88d73e871df000021942903dfa8735c228c6e8696948ce2966"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 155360,
+      "sha256": "637f340ab2fcbc131c0ad378887ef7ca7200c163811032559a3c4d48921e6839"
+    }
+  ]
+}

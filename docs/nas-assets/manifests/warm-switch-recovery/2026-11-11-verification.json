@@ -1,0 +1,143 @@
+{
+  "identity": "warm-switch-recovery@2026-11-11",
+  "verifiedAt": "2026-11-11T19:15:28.522Z",
+  "payload": {
+    "fileCount": 103,
+    "totalBytes": 56351044,
+    "treeSha256": "f6262190397b3983355c2342f36f44307577e33bee9e709e15daacd629d9111e"
+  },
+  "sourceRoots": {
+    "replay": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-2026-11-11",
+    "analysis": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-analysis-2026-11-11",
+    "worker": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-replay-worker-2026-11-11.mjs"
+  },
+  "excluded": "analysis/checks live full regression logs; retained separately by parent",
+  "publicationReceiptPath": "_control/receipts/publication/warm-switch-recovery/2026-11-11/warm-switch-recovery-20261111-publish.json",
+  "publicationReceiptSha256": "182af6a16fd697bfed29ef53370c0b9ab5d93264b1ac9b489b1cf845b4dfecb7",
+  "restoreReceiptPath": "_control/receipts/restore/warm-switch-recovery/2026-11-11/warm-switch-recovery-20261111-restore.json",
+  "restoreReceiptSha256": "52ef9af5e8b6e8867f3dfee78256b697b28c32b4d84f7f17435019357d8ae971",
+  "freshRestore": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\warm-switch-recovery-2026-11-11",
+  "manifest": {
+    "path": "docs/nas-assets/manifests/warm-switch-recovery/2026-11-11.json",
+    "bytes": 25789,
+    "sha256": "35a94f595a65e1b1f6ef758d5187dc7913f2c7c0f833bb873ebf84035622b1cd"
+  },
+  "allPayloadFilesRestored": true,
+  "originalsRetained": true,
+  "pruningAuthorized": false,
+  "existingCliChecks": [
+    {
+      "command": "npm.cmd run assets:verify -- --collection warm-switch-recovery@2026-11-11 --full",
+      "cwd": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+      "exitCode": 0,
+      "stdoutSha256": "b79d5564483a483e72b05f11a5ff801ef423d172be83054e398b1cc825d918ff",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "report": {
+        "format": "snowflake-nas-assets-readonly-report-v1",
+        "command": "verify",
+        "ok": true,
+        "scope": "explicit-single-collection-full-hash",
+        "mount": "attached",
+        "collections": [
+          {
+            "identity": "warm-switch-recovery@2026-11-11",
+            "state": "active",
+            "manifest": "verified",
+            "aggregate": "verified",
+            "payload": "verified-full"
+          }
+        ],
+        "overlays": [],
+        "defects": [],
+        "limitations": [],
+        "fullPayloadTotals": {
+          "files": 103,
+          "bytes": 56351044
+        },
+        "limits": [
+          "Payload hashing was limited to the one explicitly selected collection and its registered selector rows.",
+          "No publication, restoration, movement, quarantine, or deletion is available in this command."
+        ]
+      }
+    },
+    {
+      "command": "npm.cmd run assets:restore -- --collection warm-switch-recovery@2026-11-11 --to out/restores/warm-switch-recovery-2026-11-11-cli",
+      "cwd": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+      "exitCode": 0,
+      "stdoutSha256": "51e382de314da0854423de139c5e2f4d8dadb063ecb89b91644d8fecff87da29",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "report": {
+        "format": "snowflake-nas-legacy-restore-report-v1",
+        "command": "restore",
+        "ok": true,
+        "collection": "warm-switch-recovery@2026-11-11",
+        "destinationScope": "repo-out-restores",
+        "fileCount": 103,
+        "totalBytes": 56351044,
+        "treeSha256": "f6262190397b3983355c2342f36f44307577e33bee9e709e15daacd629d9111e",
+        "durableReceiptWritten": false,
+        "pruneAuthorized": false,
+        "limits": [
+          "This result verifies one fresh local staging tree and is not a durable publication receipt.",
+          "This command never grants local or NAS prune authority."
+        ]
+      }
+    },
+    {
+      "command": "npm.cmd run assets:verify-restored -- --collection warm-switch-recovery@2026-11-11 --from out/restores/warm-switch-recovery-2026-11-11-cli",
+      "cwd": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+      "exitCode": 0,
+      "stdoutSha256": "6cc9fb74b3fa603a592dc6e82913b82ac8c4e70ad90c4e883f0ca24631593ce2",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "report": {
+        "format": "snowflake-nas-legacy-restore-report-v1",
+        "command": "verify",
+        "ok": true,
+        "collection": "warm-switch-recovery@2026-11-11",
+        "destinationScope": "repo-out-restores",
+        "fileCount": 103,
+        "totalBytes": 56351044,
+        "treeSha256": "f6262190397b3983355c2342f36f44307577e33bee9e709e15daacd629d9111e",
+        "durableReceiptWritten": false,
+        "pruneAuthorized": false,
+        "limits": [
+          "This result verifies one fresh local staging tree and is not a durable publication receipt.",
+          "This command never grants local or NAS prune authority."
+        ]
+      }
+    },
+    {
+      "command": "npm.cmd run assets:verify-restored -- --collection warm-switch-recovery@2026-11-11 --from C:/Users/biao3/Documents/GitHub/snowflake/out/restores/warm-switch-recovery-2026-11-11",
+      "cwd": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+      "exitCode": 1,
+      "stdoutSha256": "6164a409672c7240432c45ace910014c29a6d8dfd7406a373051bbd190c387b4",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "report": {
+        "format": "snowflake-nas-legacy-restore-report-v1",
+        "command": "verify",
+        "ok": false,
+        "errorCode": "destination-invalid",
+        "destinationReserved": false,
+        "durableReceiptWritten": false,
+        "pruneAuthorized": false
+      }
+    }
+  ],
+  "additionalCliFreshRestore": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\restores\\warm-switch-recovery-2026-11-11-cli",
+  "checksExplanation": "The first cross-checkout verify-restored command correctly rejected an out-of-repository destination; ordinary CLI restore and verify then passed against a new task-local destination. No implementation changes or guard bypasses.",
+  "selectionCounts": {
+    "replays": {
+      "files": 91,
+      "bytes": 55561778,
+      "solverStates": 12
+    },
+    "analysis": {
+      "files": 11,
+      "bytes": 785079
+    },
+    "recipes": {
+      "files": 1,
+      "bytes": 4187
+    }
+  }
+}

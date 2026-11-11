@@ -1,0 +1,65 @@
+{
+  "scope": "Saved-data mechanism triage and bounded switch-state replay recovery; no changed scientific row operands, numerical law or checkpoint format.",
+  "fullRegression": {
+    "startedUtc": "2026-11-11T19:07:11.5007472Z",
+    "head": "44b306508d7e3bd06da48e9facce9b06b8708ea0",
+    "stderr": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-analysis-2026-11-11\\checks\\npm-test-20261111T110711498.stderr.log",
+    "command": "npm test",
+    "node": "v24.13.1",
+    "stdout": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-analysis-2026-11-11\\checks\\npm-test-20261111T110711498.stdout.log",
+    "finishedUtc": "2026-11-11T19:23:53.3266615Z",
+    "exitCode": 0,
+    "filesPassed": 247,
+    "testsPassed": 3102,
+    "testsSkipped": 23,
+    "vitestDurationSeconds": 988.57,
+    "retainedStdout": "npm-test.stdout.log",
+    "retainedStderr": "npm-test.stderr.log"
+  },
+  "metadata": {
+    "command": "npx.cmd --no-install vitest run runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts runner/test/nas-assets-catalog.test.ts",
+    "cwd": "C:/Users/biao3/.codex/worktrees/hil-oct31-resume-record/snowflake",
+    "exitCode": 0,
+    "filesPassed": 3,
+    "testsPassed": 27,
+    "startedLocal": "2026-11-11T11:19:53-08:00",
+    "durationSeconds": 2.7,
+    "initialFailuresCorrected": [
+      "Add new collection to pinned catalogue census.",
+      "Use canonical declared restore destination; preserved payload unchanged."
+    ]
+  },
+  "replay": {
+    "receipt": "recovery.json",
+    "rows": 6,
+    "completedUpdates": 589,
+    "fullStates": 12,
+    "allExitsZero": true,
+    "scientificPrefixesMatch": true,
+    "originalFullStateEquality": "not independently testable: original full switch states were not retained"
+  },
+  "nas": {
+    "collection": "warm-switch-recovery@2026-11-11",
+    "files": 103,
+    "bytes": 56351044,
+    "treeSha256": "f6262190397b3983355c2342f36f44307577e33bee9e709e15daacd629d9111e",
+    "verification": "../../docs/nas-assets/manifests/warm-switch-recovery/2026-11-11-verification.json",
+    "restoredReadout": "restored-readout-check.json"
+  },
+  "review": {
+    "model": "Codex/GPT-6 family, inherited session context",
+    "authorLanes": [
+      "saved-data/recovered-array analysis",
+      "bounded replay feasibility",
+      "NAS publication/recovery"
+    ],
+    "parentIndependent": "Direct coordinate-set recomputation at shared age5.05s reproduces both14site central patches; restored NAS payload reproduces all12 array-readout states.",
+    "notChecked": "No external physical validation, geometry-only causal identification or comparison to missing original full switch-state bytes."
+  },
+  "limits": [
+    "Exact npm test ran on unchanged primary numerical/library source44b3065 while offline recipes and metadata were isolated in the task checkout. Recipes were executed separately and metadata checked at their changed boundary.",
+    "Raw logs retain original final blank lines.",
+    "Only the new short-replay collection is NAS-preserved here; original long HIL campaign preservation remains pending.",
+    "No local output was pruned and no worktree was closed."
+  ]
+}

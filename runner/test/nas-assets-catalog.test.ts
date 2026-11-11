@@ -190,6 +190,7 @@ describe("tracked NAS asset catalogue", () => {
       "hil-completed-runs@2026-10-09": ["active", 6, 135_501_385],
       "hil-exploration-results@2026-10-21": ["active", 18, 739_465_345],
       "bld-growth-dynamics@2026-10-21-v1": ["active", 2, 196_041_058],
+      "warm-switch-recovery@2026-11-11": ["active", 103, 56_351_044],
     } as const;
 
     expect(Object.fromEntries(CATALOG.collections.map((collection) => [

@@ -146,7 +146,7 @@ and the core checkpoint/timeline suites. Tests protect named cases, not every fu
 - Restart retention is not analysis retention. For a transition/mechanism campaign, register
   named before/after full-state captures and their timing, preserve them outside rolling
   current/previous generations, and exercise capture on the existing short witness before
-  multi-day execution. See the November 11 switch-state recovery in the growth-dynamics plan.
+  multi-day execution. See the [switch-state recovery](docs/plans/hil-bld-growth-dynamics-oct21.md#switch-state-analysis-and-bounded-recovery--november-11).
 - `grow` is observational unless its enforcement flag is present; `grow-lk` is exploratory.
   Flagless `gate2b` encodes its registered protocol and is hours-scale evidence, not a smoke test.
   Read state and check for an existing process before launching, killing or replacing a gate.

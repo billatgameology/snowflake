@@ -1,0 +1,19 @@
+{
+  "format": "snowflake-nas-restore-receipt-v1",
+  "transactionId": "warm-switch-recovery-20261111-restore",
+  "identity": "warm-switch-recovery@2026-11-11",
+  "locator": "collections/warm-switch-recovery/2026-11-11/payload",
+  "publicationTransactionId": "warm-switch-recovery-20261111-publish",
+  "publicationReceiptPath": "_control/receipts/publication/warm-switch-recovery/2026-11-11/warm-switch-recovery-20261111-publish.json",
+  "publicationReceiptSha256": "182af6a16fd697bfed29ef53370c0b9ab5d93264b1ac9b489b1cf845b4dfecb7",
+  "restored": {
+    "fileCount": 103,
+    "totalBytes": 56351044,
+    "treeSha256": "f6262190397b3983355c2342f36f44307577e33bee9e709e15daacd629d9111e"
+  },
+  "verifiedAt": "2026-11-11T19:15:24.185Z",
+  "limits": [
+    "The receipt binds exact restored bytes but omits the host destination and all private filenames.",
+    "Claim-specific verifier adapters and tracked catalogue registration are outside this fixture core."
+  ]
+}

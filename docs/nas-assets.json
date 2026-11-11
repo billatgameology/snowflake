@@ -3406,17 +3406,30 @@
     {
       "assetId": "warm-switch-recovery",
       "version": "2026-11-11",
-      "state": "provisional",
+      "state": "active",
       "ownerWorkstream": "hil-bld-growth-dynamics-oct21",
       "locator": "collections/warm-switch-recovery/2026-11-11/payload",
       "historicalRepoPath": null,
       "legacyAliases": [],
       "storageClass": "external-evidence",
       "aggregate": {
-        "files": 0,
-        "bytes": 0
+        "files": 103,
+        "bytes": 56351044
       },
-      "ownerManifest": null,
+      "ownerManifest": {
+        "storage": "tracked",
+        "path": "docs/nas-assets/manifests/warm-switch-recovery/2026-11-11.json",
+        "format": "snowflake-nas-ledger-v1",
+        "bytes": 25789,
+        "sha256": "35a94f595a65e1b1f6ef758d5187dc7913f2c7c0f833bb873ebf84035622b1cd",
+        "selector": {
+          "kind": "path-prefixes",
+          "include": [
+            "collections/warm-switch-recovery/2026-11-11/payload"
+          ],
+          "exclude": []
+        }
+      },
       "rights": {
         "kind": "project-owned",
         "redistribution": "allowed"
@@ -3460,34 +3473,38 @@
         "record": "docs/plans/warm-switch-recovery-preservation.md"
       },
       "restore": {
-        "status": "documented",
-        "command": "npm run assets:restore -- --collection warm-switch-recovery@2026-11-11 --to out/restores/warm-switch-recovery-fresh",
-        "verifyCommand": "npm run assets:verify-restored -- --collection warm-switch-recovery@2026-11-11 --from out/restores/warm-switch-recovery-fresh",
+        "status": "tested",
+        "command": "npm run assets:restore -- --collection warm-switch-recovery@2026-11-11 --to out/restores/warm-switch-recovery-2026-11-11",
+        "verifyCommand": "npm run assets:verify-restored -- --collection warm-switch-recovery@2026-11-11 --from out/restores/warm-switch-recovery-2026-11-11",
         "record": "docs/plans/warm-switch-recovery-preservation.md"
       },
       "verification": {
-        "status": "unavailable",
-        "at": null,
-        "host": null,
-        "receipt": null,
+        "status": "full-hash",
+        "at": "2026-11-11",
+        "host": "HIL",
+        "receipt": "_control/receipts/publication/warm-switch-recovery/2026-11-11/warm-switch-recovery-20261111-publish.json",
         "limits": [
-          "Pending stable-source inventory, publication and fresh restore."
+          "Publication receipt SHA-256 182af6a16fd697bfed29ef53370c0b9ab5d93264b1ac9b489b1cf845b4dfecb7.",
+          "Fresh restore receipt _control/receipts/restore/warm-switch-recovery/2026-11-11/warm-switch-recovery-20261111-restore.json SHA-256 52ef9af5e8b6e8867f3dfee78256b697b28c32b4d84f7f17435019357d8ae971.",
+          "Exact scope and verification: docs/nas-assets/manifests/warm-switch-recovery/2026-11-11-verification.json.",
+          "Original workstation copies retained; NAS and workstation are distinct domains, but no off-site recovery or prune authorization.",
+          "Six short HIL replay prefixes and stable saved-data analysis only; not the original long HIL campaign."
         ]
       },
       "storageDomains": [
         "snowcrystal-nas"
       ],
       "backup": {
-        "status": "required-missing",
+        "status": "verified",
         "independentDomains": [
           "hil-workstation-c"
         ],
-        "receipts": []
+        "receipts": [
+          "docs/nas-assets/manifests/warm-switch-recovery/2026-11-11-verification.json"
+        ]
       },
       "supersedes": [],
-      "unresolved": [
-        "Publication and fresh-stage recovery pending; originals retained."
-      ]
+      "unresolved": []
     }
   ],
   "overlays": [

@@ -1,0 +1,4201 @@
+{
+  "scope": "Post-hoc saved-data mechanism triage, not a new causal intervention or matched-field comparison.",
+  "definitions": {
+    "switch": "Completed boundary before first update starting at/after cutoff. Whole crossing update retains the earlier mode.",
+    "eventDiagnostics": "Boundary/facet/width diagnostics are after relaxation before surface advance; event attached list and geometry are after surface advance. Do not conflate these times.",
+    "snapshot": "Boundary-only spatial samples at recorded ages, not full fields; different row snapshot times are not a shared-age comparison.",
+    "selectedDemand": "Recorded kinetic fill demand, not deposited mass or physical uptake.",
+    "comparison": "Own-switch geometry and diagnostic associations; no attribution to geometry alone. Different actual switch times and states are explicit."
+  },
+  "recipe": {
+    "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\warm-switch-analysis-2026-11-11\\analyze.mjs",
+    "sha256": "4b2ea50f9ab25ac7a36a57ae5517a4e4ccefc114121329d06cd7c80cb6b5c121"
+  },
+  "readout": {
+    "path": "out\\warm-switch-analysis-2026-11-11\\readout.json",
+    "bytes": 610860,
+    "sha256": "68fbd3eebb3bf1427c0d75f2ba4dac7f4281dc1da1a815ce6c559d93f1f17dc2"
+  },
+  "rows": [
+    {
+      "id": "gd21-bld-w1-t4p5-c025-early1-w3",
+      "row": {
+        "conditional": false,
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "cflFill": 0.025,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "gd21-bld-w1-t4p5-c025-early1-w3",
+        "lane": "cavity-mechanism",
+        "tempC": -4.5,
+        "fraction": 0.075,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 1
+        },
+        "sigmaInfinity": 0.003375
+      },
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+      "node": "v24.13.1",
+      "switchCycle": 26,
+      "actualSwitchSeconds": 1.0338799885228636,
+      "firstAttachment": {
+        "cycle": 53,
+        "time": 2.6667585447484012,
+        "count": 24
+      },
+      "selectedDemandBeforeSwitchFill": 15.38980878312458,
+      "selectedDemandAfterSwitchFill": 0,
+      "switchGeometry": {
+        "cycle": 26,
+        "simTimeSeconds": 1.0338799885228636,
+        "attachedCount": 19,
+        "axisOffsets": [
+          0
+        ],
+        "axialSpanUm": 0,
+        "lateralSpanUm": 1.4,
+        "waist": {
+          "probeFullLayerCount": 1,
+          "lowerOffset": 0,
+          "upperOffset": 0,
+          "centerSpanUm": 0,
+          "inclusiveThicknessUm": 0.35
+        },
+        "layers": [
+          {
+            "offset": 0,
+            "count": 19,
+            "lateralVoid": "center-occupied",
+            "directAxialOpening": {
+              "lower": null,
+              "upper": null
+            }
+          }
+        ],
+        "maxOpeningDepthUm": 0
+      },
+      "sharedAgeObservation": {
+        "requestedSeconds": 5.05,
+        "atOrBefore": {
+          "cycle": 133,
+          "simTimeSeconds": 5.017816897403011,
+          "attachedCount": 111,
+          "axisOffsets": [
+            -1,
+            0,
+            1
+          ],
+          "axialSpanUm": 0.7,
+          "lateralSpanUm": 2.0999999999999996,
+          "waist": {
+            "probeFullLayerCount": 3,
+            "lowerOffset": -1,
+            "upperOffset": 1,
+            "centerSpanUm": 0.7,
+            "inclusiveThicknessUm": 1.0499999999999998
+          },
+          "layers": [
+            {
+              "offset": -1,
+              "count": 37,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 0,
+              "count": 37,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 1,
+              "count": 37,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            }
+          ],
+          "maxOpeningDepthUm": 0
+        },
+        "nextEvent": {
+          "cycle": 134,
+          "simTimeSeconds": 5.096887474295323,
+          "attachedCount": 111,
+          "axisOffsets": [
+            -1,
+            0,
+            1
+          ],
+          "axialSpanUm": 0.7,
+          "lateralSpanUm": 2.0999999999999996,
+          "waist": {
+            "probeFullLayerCount": 3,
+            "lowerOffset": -1,
+            "upperOffset": 1,
+            "centerSpanUm": 0.7,
+            "inclusiveThicknessUm": 1.0499999999999998
+          },
+          "layers": [
+            {
+              "offset": -1,
+              "count": 37,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 0,
+              "count": 37,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 1,
+              "count": 37,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            }
+          ],
+          "maxOpeningDepthUm": 0
+        }
+      },
+      "lastActiveFirstInactive": [
+        {
+          "cycle": 26,
+          "startsAt": 0.994081020636497,
+          "endsAt": 1.0338799885228636,
+          "basalWidthObservation": {
+            "timing": "after-converged-relaxation-before-surface-advance",
+            "thresholdCells": 3,
+            "historyActive": true,
+            "completedCyclesBeforeUpdate": 25,
+            "simTimeSecondsBeforeUpdate": 0.994081020636497,
+            "widthHistogram": {
+              "3": 24,
+              "4": 12,
+              "5": 2
+            },
+            "selectedBasalCells": 24,
+            "unselectedBasalCells": 14,
+            "selectedKineticDemandFill": 0.5919188904117825,
+            "unselectedKineticDemandFill": 0.051402572209349885
+          },
+          "attachmentFacets": {
+            "basal": 0,
+            "prism": 0,
+            "inhibited": 0,
+            "rough": 0,
+            "unknown": 0
+          },
+          "surface": {
+            "attachedNow": 0,
+            "maxKineticFillIncrement": 0.025,
+            "holeFillCount": 0,
+            "deltaTimeSeconds": 0.03979896788636667,
+            "stalled": false,
+            "skippedUnconverged": false
+          },
+          "basalFacet": {
+            "count": 38,
+            "sigmaBoundary": {
+              "min": 0.0009301726867558949,
+              "max": 0.001768756980999299,
+              "mean": 0.0012325482503647816
+            },
+            "sigmaOpp": {
+              "min": 0.0018854165765659755,
+              "max": 0.0019904870687596637,
+              "mean": 0.0019409536928175388
+            },
+            "alphaHKBoundary": {
+              "min": 0.03564118358632698,
+              "max": 0.4512420676591798,
+              "mean": 0.2965329283371419
+            },
+            "fill": {
+              "min": 0.09075665900433953,
+              "max": 0.6250000000000002,
+              "mean": 0.4232834729958255
+            }
+          }
+        },
+        {
+          "cycle": 27,
+          "startsAt": 1.0338799885228636,
+          "endsAt": 1.0950629739480553,
+          "basalWidthObservation": {
+            "timing": "after-converged-relaxation-before-surface-advance",
+            "thresholdCells": 3,
+            "historyActive": false,
+            "completedCyclesBeforeUpdate": 26,
+            "simTimeSecondsBeforeUpdate": 1.0338799885228636,
+            "widthHistogram": {
+              "3": 24,
+              "4": 12,
+              "5": 2
+            },
+            "selectedBasalCells": 0,
+            "unselectedBasalCells": 38,
+            "selectedKineticDemandFill": 0,
+            "unselectedKineticDemandFill": 0.47994296031347067
+          },
+          "attachmentFacets": {
+            "basal": 0,
+            "prism": 0,
+            "inhibited": 0,
+            "rough": 0,
+            "unknown": 0
+          },
+          "surface": {
+            "attachedNow": 0,
+            "maxKineticFillIncrement": 0.025,
+            "holeFillCount": 0,
+            "deltaTimeSeconds": 0.06118298542519176,
+            "stalled": false,
+            "skippedUnconverged": false
+          },
+          "basalFacet": {
+            "count": 38,
+            "sigmaBoundary": {
+              "min": 0.0020799775130228865,
+              "max": 0.002153288172835355,
+              "mean": 0.0021251225053873844
+            },
+            "sigmaOpp": {
+              "min": 0.002396998075195932,
+              "max": 0.0025140529676811758,
+              "mean": 0.0024689056813163987
+            },
+            "alphaHKBoundary": {
+              "min": 0.062087795655660805,
+              "max": 0.06824949535039292,
+              "mean": 0.06587316022420467
+            },
+            "fill": {
+              "min": 0.09438174209229533,
+              "max": 0.6500000000000002,
+              "mean": 0.4402129851700658
+            }
+          }
+        }
+      ],
+      "firstTwoLaterSnapshots": [
+        {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early1-w3\\boundary-e9.json",
+          "record": {
+            "path": "boundary-e9.json",
+            "triggerExtent": 9,
+            "actualExtent": 9,
+            "completedCycles": 146,
+            "simTimeSeconds": 6.041899816739159
+          },
+          "timing": "after-converged-relaxation-before-surface-advance",
+          "axisBoundary": [
+            {
+              "index": 141344,
+              "coords": [
+                32,
+                32,
+                34
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.2510795228782685,
+              "sigmaOpp": 0.0021412853310872094,
+              "sigmaBoundary": 0.0019126757634452616,
+              "alphaHKBoundary": 0.048688959837776935,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 7,
+              "basalWidthSelected": false,
+              "offset": 2
+            },
+            {
+              "index": 124960,
+              "coords": [
+                32,
+                32,
+                30
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.2510795228782685,
+              "sigmaOpp": 0.0021412853310872094,
+              "sigmaBoundary": 0.0019126757634452616,
+              "alphaHKBoundary": 0.048688959837776935,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 7,
+              "basalWidthSelected": false,
+              "offset": -2
+            }
+          ],
+          "geometry": {
+            "cycle": 146,
+            "simTimeSeconds": 6.041899816739159,
+            "attachedCount": 117,
+            "axisOffsets": [
+              -1,
+              0,
+              1
+            ],
+            "axialSpanUm": 0.7,
+            "lateralSpanUm": 2.8,
+            "waist": {
+              "probeFullLayerCount": 3,
+              "lowerOffset": -1,
+              "upperOffset": 1,
+              "centerSpanUm": 0.7,
+              "inclusiveThicknessUm": 1.0499999999999998
+            },
+            "layers": [
+              {
+                "offset": -1,
+                "count": 37,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 0,
+                "count": 43,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 1,
+                "count": 37,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              }
+            ],
+            "maxOpeningDepthUm": 0
+          }
+        },
+        {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early1-w3\\boundary-e13.json",
+          "record": {
+            "path": "boundary-e13.json",
+            "triggerExtent": 13,
+            "actualExtent": 13,
+            "completedCycles": 371,
+            "simTimeSeconds": 15.215276613740023
+          },
+          "timing": "after-converged-relaxation-before-surface-advance",
+          "axisBoundary": [
+            {
+              "index": 145440,
+              "coords": [
+                32,
+                32,
+                35
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.4342005472625305,
+              "sigmaOpp": 0.0019542570577553565,
+              "sigmaBoundary": 0.0017831417083109748,
+              "alphaHKBoundary": 0.039091340127221166,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 11,
+              "basalWidthSelected": false,
+              "offset": 3
+            },
+            {
+              "index": 120864,
+              "coords": [
+                32,
+                32,
+                29
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.4342005472625305,
+              "sigmaOpp": 0.0019542570577553565,
+              "sigmaBoundary": 0.0017831417083109748,
+              "alphaHKBoundary": 0.039091340127221166,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 11,
+              "basalWidthSelected": false,
+              "offset": -3
+            }
+          ],
+          "geometry": {
+            "cycle": 371,
+            "simTimeSeconds": 15.215276613740023,
+            "attachedCount": 461,
+            "axisOffsets": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "axialSpanUm": 1.4,
+            "lateralSpanUm": 4.199999999999999,
+            "waist": {
+              "probeFullLayerCount": 5,
+              "lowerOffset": -2,
+              "upperOffset": 2,
+              "centerSpanUm": 1.4,
+              "inclusiveThicknessUm": 1.75
+            },
+            "layers": [
+              {
+                "offset": -2,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": -1,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 0,
+                "count": 97,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 1,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 2,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              }
+            ],
+            "maxOpeningDepthUm": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "gd21-bld-w1-t4p5-c025-early5-w3",
+      "row": {
+        "conditional": false,
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "cflFill": 0.025,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "gd21-bld-w1-t4p5-c025-early5-w3",
+        "lane": "cavity-mechanism",
+        "tempC": -4.5,
+        "fraction": 0.075,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 5
+        },
+        "sigmaInfinity": 0.003375
+      },
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+      "node": "v24.13.1",
+      "switchCycle": 131,
+      "actualSwitchSeconds": 5.021064751997452,
+      "firstAttachment": {
+        "cycle": 40,
+        "time": 1.5910655389643888,
+        "count": 12
+      },
+      "selectedDemandBeforeSwitchFill": 64.74040216304859,
+      "selectedDemandAfterSwitchFill": 0,
+      "switchGeometry": {
+        "cycle": 131,
+        "simTimeSeconds": 5.021064751997452,
+        "attachedCount": 109,
+        "axisOffsets": [
+          0
+        ],
+        "axialSpanUm": 1.4,
+        "lateralSpanUm": 2.0999999999999996,
+        "waist": {
+          "probeFullLayerCount": 1,
+          "lowerOffset": 0,
+          "upperOffset": 0,
+          "centerSpanUm": 0,
+          "inclusiveThicknessUm": 0.35
+        },
+        "layers": [
+          {
+            "offset": -2,
+            "count": 12,
+            "lateralVoid": "enclosed",
+            "directAxialOpening": {
+              "lower": true,
+              "upper": false
+            }
+          },
+          {
+            "offset": -1,
+            "count": 24,
+            "lateralVoid": "enclosed",
+            "directAxialOpening": {
+              "lower": true,
+              "upper": false
+            }
+          },
+          {
+            "offset": 0,
+            "count": 37,
+            "lateralVoid": "center-occupied",
+            "directAxialOpening": {
+              "lower": null,
+              "upper": null
+            }
+          },
+          {
+            "offset": 1,
+            "count": 24,
+            "lateralVoid": "enclosed",
+            "directAxialOpening": {
+              "lower": false,
+              "upper": true
+            }
+          },
+          {
+            "offset": 2,
+            "count": 12,
+            "lateralVoid": "enclosed",
+            "directAxialOpening": {
+              "lower": false,
+              "upper": true
+            }
+          }
+        ],
+        "maxOpeningDepthUm": 0.35
+      },
+      "sharedAgeObservation": {
+        "requestedSeconds": 5.05,
+        "atOrBefore": {
+          "cycle": 131,
+          "simTimeSeconds": 5.021064751997452,
+          "attachedCount": 109,
+          "axisOffsets": [
+            0
+          ],
+          "axialSpanUm": 1.4,
+          "lateralSpanUm": 2.0999999999999996,
+          "waist": {
+            "probeFullLayerCount": 1,
+            "lowerOffset": 0,
+            "upperOffset": 0,
+            "centerSpanUm": 0,
+            "inclusiveThicknessUm": 0.35
+          },
+          "layers": [
+            {
+              "offset": -2,
+              "count": 12,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": true,
+                "upper": false
+              }
+            },
+            {
+              "offset": -1,
+              "count": 24,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": true,
+                "upper": false
+              }
+            },
+            {
+              "offset": 0,
+              "count": 37,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 1,
+              "count": 24,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": false,
+                "upper": true
+              }
+            },
+            {
+              "offset": 2,
+              "count": 12,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": false,
+                "upper": true
+              }
+            }
+          ],
+          "maxOpeningDepthUm": 0.35
+        },
+        "nextEvent": {
+          "cycle": 132,
+          "simTimeSeconds": 5.053675364495798,
+          "attachedCount": 109,
+          "axisOffsets": [
+            0
+          ],
+          "axialSpanUm": 1.4,
+          "lateralSpanUm": 2.0999999999999996,
+          "waist": {
+            "probeFullLayerCount": 1,
+            "lowerOffset": 0,
+            "upperOffset": 0,
+            "centerSpanUm": 0,
+            "inclusiveThicknessUm": 0.35
+          },
+          "layers": [
+            {
+              "offset": -2,
+              "count": 12,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": true,
+                "upper": false
+              }
+            },
+            {
+              "offset": -1,
+              "count": 24,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": true,
+                "upper": false
+              }
+            },
+            {
+              "offset": 0,
+              "count": 37,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 1,
+              "count": 24,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": false,
+                "upper": true
+              }
+            },
+            {
+              "offset": 2,
+              "count": 12,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": false,
+                "upper": true
+              }
+            }
+          ],
+          "maxOpeningDepthUm": 0.35
+        }
+      },
+      "lastActiveFirstInactive": [
+        {
+          "cycle": 131,
+          "startsAt": 4.986332989052437,
+          "endsAt": 5.021064751997452,
+          "basalWidthObservation": {
+            "timing": "after-converged-relaxation-before-surface-advance",
+            "thresholdCells": 3,
+            "historyActive": true,
+            "completedCyclesBeforeUpdate": 130,
+            "simTimeSecondsBeforeUpdate": 4.986332989052437,
+            "widthHistogram": {
+              "1": 24,
+              "3": 2
+            },
+            "selectedBasalCells": 26,
+            "unselectedBasalCells": 0,
+            "selectedKineticDemandFill": 0.37515116311112995,
+            "unselectedKineticDemandFill": 0
+          },
+          "attachmentFacets": {
+            "basal": 0,
+            "prism": 0,
+            "inhibited": 0,
+            "rough": 0,
+            "unknown": 0
+          },
+          "surface": {
+            "attachedNow": 0,
+            "maxKineticFillIncrement": 0.025,
+            "holeFillCount": 0,
+            "deltaTimeSeconds": 0.03473176294501412,
+            "stalled": false,
+            "skippedUnconverged": false
+          },
+          "basalFacet": {
+            "count": 26,
+            "sigmaBoundary": {
+              "min": 0.0002126965098648723,
+              "max": 0.0008004141865838955,
+              "mean": 0.0007451419410303111
+            },
+            "sigmaOpp": {
+              "min": 0.00022794948023891287,
+              "max": 0.0015688170123890643,
+              "mean": 0.0014369974059374876
+            },
+            "alphaHKBoundary": {
+              "min": 0.02921268745009083,
+              "max": 0.391067409815062,
+              "mean": 0.3585488457743372
+            },
+            "fill": {
+              "min": 0.5751882181422124,
+              "max": 0.7725040047868155,
+              "mean": 0.6908827161485903
+            }
+          }
+        },
+        {
+          "cycle": 132,
+          "startsAt": 5.021064751997452,
+          "endsAt": 5.053675364495798,
+          "basalWidthObservation": {
+            "timing": "after-converged-relaxation-before-surface-advance",
+            "thresholdCells": 3,
+            "historyActive": false,
+            "completedCyclesBeforeUpdate": 131,
+            "simTimeSecondsBeforeUpdate": 5.021064751997452,
+            "widthHistogram": {
+              "1": 24,
+              "3": 2
+            },
+            "selectedBasalCells": 0,
+            "unselectedBasalCells": 26,
+            "selectedKineticDemandFill": 0,
+            "unselectedKineticDemandFill": 0.08571058212563092
+          },
+          "attachmentFacets": {
+            "basal": 0,
+            "prism": 0,
+            "inhibited": 0,
+            "rough": 0,
+            "unknown": 0
+          },
+          "surface": {
+            "attachedNow": 0,
+            "maxKineticFillIncrement": 0.025,
+            "holeFillCount": 0,
+            "deltaTimeSeconds": 0.03261061249834615,
+            "stalled": false,
+            "skippedUnconverged": false
+          },
+          "basalFacet": {
+            "count": 26,
+            "sigmaBoundary": {
+              "min": 0.0003884936094307818,
+              "max": 0.0018238031519218112,
+              "mean": 0.0017008132942246653
+            },
+            "sigmaOpp": {
+              "min": 0.0003884939384456363,
+              "max": 0.002011938518846372,
+              "mean": 0.0018691626254603215
+            },
+            "alphaHKBoundary": {
+              "min": 3.4499204095981365e-07,
+              "max": 0.04202134334572529,
+              "mean": 0.03787828648272004
+            },
+            "fill": {
+              "min": 0.5755063242444574,
+              "max": 0.7885293180128152,
+              "mean": 0.7053116070374797
+            }
+          }
+        }
+      ],
+      "firstTwoLaterSnapshots": [
+        {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early5-w3\\boundary-e9.json",
+          "record": {
+            "path": "boundary-e9.json",
+            "triggerExtent": 9,
+            "actualExtent": 9,
+            "completedCycles": 199,
+            "simTimeSeconds": 7.2809576307613115
+          },
+          "timing": "after-converged-relaxation-before-surface-advance",
+          "axisBoundary": [
+            {
+              "index": 137248,
+              "coords": [
+                32,
+                32,
+                33
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.5755068476213967,
+              "sigmaOpp": 4.1064417426571856e-05,
+              "sigmaBoundary": 4.1064417426571856e-05,
+              "alphaHKBoundary": 7.309073597367201e-62,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 3,
+              "basalWidthSelected": false,
+              "offset": 1
+            },
+            {
+              "index": 129056,
+              "coords": [
+                32,
+                32,
+                31
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.5755068476213967,
+              "sigmaOpp": 4.1064417426571856e-05,
+              "sigmaBoundary": 4.1064417426571856e-05,
+              "alphaHKBoundary": 7.309073597367201e-62,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 3,
+              "basalWidthSelected": false,
+              "offset": -1
+            }
+          ],
+          "geometry": {
+            "cycle": 199,
+            "simTimeSeconds": 7.2809576307613115,
+            "attachedCount": 187,
+            "axisOffsets": [
+              0
+            ],
+            "axialSpanUm": 2.0999999999999996,
+            "lateralSpanUm": 2.8,
+            "waist": {
+              "probeFullLayerCount": 1,
+              "lowerOffset": 0,
+              "upperOffset": 0,
+              "centerSpanUm": 0,
+              "inclusiveThicknessUm": 0.35
+            },
+            "layers": [
+              {
+                "offset": -3,
+                "count": 12,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": true,
+                  "upper": false
+                }
+              },
+              {
+                "offset": -2,
+                "count": 30,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": true,
+                  "upper": false
+                }
+              },
+              {
+                "offset": -1,
+                "count": 30,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": true,
+                  "upper": false
+                }
+              },
+              {
+                "offset": 0,
+                "count": 43,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 1,
+                "count": 30,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": false,
+                  "upper": true
+                }
+              },
+              {
+                "offset": 2,
+                "count": 30,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": false,
+                  "upper": true
+                }
+              },
+              {
+                "offset": 3,
+                "count": 12,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": false,
+                  "upper": true
+                }
+              }
+            ],
+            "maxOpeningDepthUm": 0.7
+          }
+        },
+        {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early5-w3\\boundary-e13.json",
+          "record": {
+            "path": "boundary-e13.json",
+            "triggerExtent": 13,
+            "actualExtent": 13,
+            "completedCycles": 467,
+            "simTimeSeconds": 17.821408020443698
+          },
+          "timing": "after-converged-relaxation-before-surface-advance",
+          "axisBoundary": [
+            {
+              "index": 137248,
+              "coords": [
+                32,
+                32,
+                33
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.5755068476213967,
+              "sigmaOpp": 5e-324,
+              "sigmaBoundary": 5e-324,
+              "alphaHKBoundary": 0,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 3,
+              "basalWidthSelected": false,
+              "offset": 1
+            },
+            {
+              "index": 129056,
+              "coords": [
+                32,
+                32,
+                31
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.5755068476213967,
+              "sigmaOpp": 5e-324,
+              "sigmaBoundary": 5e-324,
+              "alphaHKBoundary": 0,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 3,
+              "basalWidthSelected": false,
+              "offset": -1
+            },
+            {
+              "index": 145440,
+              "coords": [
+                32,
+                32,
+                35
+              ],
+              "neighborCounts": [
+                6,
+                0
+              ],
+              "facet": "rough",
+              "fill": 0,
+              "sigmaOpp": 0,
+              "sigmaBoundary": 0,
+              "alphaHKBoundary": 0,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "offset": 3
+            },
+            {
+              "index": 120864,
+              "coords": [
+                32,
+                32,
+                29
+              ],
+              "neighborCounts": [
+                6,
+                0
+              ],
+              "facet": "rough",
+              "fill": 0,
+              "sigmaOpp": 0,
+              "sigmaBoundary": 0,
+              "alphaHKBoundary": 0,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "offset": -3
+            }
+          ],
+          "geometry": {
+            "cycle": 467,
+            "simTimeSeconds": 17.821408020443698,
+            "attachedCount": 709,
+            "axisOffsets": [
+              0
+            ],
+            "axialSpanUm": 2.8,
+            "lateralSpanUm": 4.199999999999999,
+            "waist": {
+              "probeFullLayerCount": 1,
+              "lowerOffset": 0,
+              "upperOffset": 0,
+              "centerSpanUm": 0,
+              "inclusiveThicknessUm": 0.35
+            },
+            "layers": [
+              {
+                "offset": -4,
+                "count": 48,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": true,
+                  "upper": false
+                }
+              },
+              {
+                "offset": -3,
+                "count": 90,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": true,
+                  "upper": false
+                }
+              },
+              {
+                "offset": -2,
+                "count": 84,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": true,
+                  "upper": false
+                }
+              },
+              {
+                "offset": -1,
+                "count": 84,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": true,
+                  "upper": false
+                }
+              },
+              {
+                "offset": 0,
+                "count": 97,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 1,
+                "count": 84,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": false,
+                  "upper": true
+                }
+              },
+              {
+                "offset": 2,
+                "count": 84,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": false,
+                  "upper": true
+                }
+              },
+              {
+                "offset": 3,
+                "count": 90,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": false,
+                  "upper": true
+                }
+              },
+              {
+                "offset": 4,
+                "count": 48,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": false,
+                  "upper": true
+                }
+              }
+            ],
+            "maxOpeningDepthUm": 1.0499999999999998
+          }
+        }
+      ]
+    },
+    {
+      "id": "gd21-bld-w2-t4p5-w4-early5",
+      "row": {
+        "conditional": false,
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "cflFill": 0.025,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "gd21-bld-w2-t4p5-w4-early5",
+        "lane": "cavity-mechanism",
+        "tempC": -4.5,
+        "fraction": 0.075,
+        "experimentalBasalWidthCells": 4,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 5
+        },
+        "sigmaInfinity": 0.003375
+      },
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+      "node": "v24.13.1",
+      "switchCycle": 127,
+      "actualSwitchSeconds": 5.026772717363253,
+      "firstAttachment": {
+        "cycle": 40,
+        "time": 1.7578824639081163,
+        "count": 12
+      },
+      "selectedDemandBeforeSwitchFill": 78.21174802957563,
+      "selectedDemandAfterSwitchFill": 0,
+      "switchGeometry": {
+        "cycle": 127,
+        "simTimeSeconds": 5.026772717363253,
+        "attachedCount": 123,
+        "axisOffsets": [
+          -1,
+          0,
+          1
+        ],
+        "axialSpanUm": 1.4,
+        "lateralSpanUm": 2.0999999999999996,
+        "waist": {
+          "probeFullLayerCount": 3,
+          "lowerOffset": -1,
+          "upperOffset": 1,
+          "centerSpanUm": 0.7,
+          "inclusiveThicknessUm": 1.0499999999999998
+        },
+        "layers": [
+          {
+            "offset": -2,
+            "count": 12,
+            "lateralVoid": "enclosed",
+            "directAxialOpening": {
+              "lower": true,
+              "upper": false
+            }
+          },
+          {
+            "offset": -1,
+            "count": 31,
+            "lateralVoid": "center-occupied",
+            "directAxialOpening": {
+              "lower": null,
+              "upper": null
+            }
+          },
+          {
+            "offset": 0,
+            "count": 37,
+            "lateralVoid": "center-occupied",
+            "directAxialOpening": {
+              "lower": null,
+              "upper": null
+            }
+          },
+          {
+            "offset": 1,
+            "count": 31,
+            "lateralVoid": "center-occupied",
+            "directAxialOpening": {
+              "lower": null,
+              "upper": null
+            }
+          },
+          {
+            "offset": 2,
+            "count": 12,
+            "lateralVoid": "enclosed",
+            "directAxialOpening": {
+              "lower": false,
+              "upper": true
+            }
+          }
+        ],
+        "maxOpeningDepthUm": 0
+      },
+      "sharedAgeObservation": {
+        "requestedSeconds": 5.05,
+        "atOrBefore": {
+          "cycle": 127,
+          "simTimeSeconds": 5.026772717363253,
+          "attachedCount": 123,
+          "axisOffsets": [
+            -1,
+            0,
+            1
+          ],
+          "axialSpanUm": 1.4,
+          "lateralSpanUm": 2.0999999999999996,
+          "waist": {
+            "probeFullLayerCount": 3,
+            "lowerOffset": -1,
+            "upperOffset": 1,
+            "centerSpanUm": 0.7,
+            "inclusiveThicknessUm": 1.0499999999999998
+          },
+          "layers": [
+            {
+              "offset": -2,
+              "count": 12,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": true,
+                "upper": false
+              }
+            },
+            {
+              "offset": -1,
+              "count": 31,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 0,
+              "count": 37,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 1,
+              "count": 31,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 2,
+              "count": 12,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": false,
+                "upper": true
+              }
+            }
+          ],
+          "maxOpeningDepthUm": 0
+        },
+        "nextEvent": {
+          "cycle": 128,
+          "simTimeSeconds": 5.059360116787433,
+          "attachedCount": 123,
+          "axisOffsets": [
+            -1,
+            0,
+            1
+          ],
+          "axialSpanUm": 1.4,
+          "lateralSpanUm": 2.0999999999999996,
+          "waist": {
+            "probeFullLayerCount": 3,
+            "lowerOffset": -1,
+            "upperOffset": 1,
+            "centerSpanUm": 0.7,
+            "inclusiveThicknessUm": 1.0499999999999998
+          },
+          "layers": [
+            {
+              "offset": -2,
+              "count": 12,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": true,
+                "upper": false
+              }
+            },
+            {
+              "offset": -1,
+              "count": 31,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 0,
+              "count": 37,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 1,
+              "count": 31,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 2,
+              "count": 12,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": false,
+                "upper": true
+              }
+            }
+          ],
+          "maxOpeningDepthUm": 0
+        }
+      },
+      "lastActiveFirstInactive": [
+        {
+          "cycle": 127,
+          "startsAt": 4.9920277876925105,
+          "endsAt": 5.026772717363253,
+          "basalWidthObservation": {
+            "timing": "after-converged-relaxation-before-surface-advance",
+            "thresholdCells": 4,
+            "historyActive": true,
+            "completedCyclesBeforeUpdate": 126,
+            "simTimeSecondsBeforeUpdate": 4.9920277876925105,
+            "widthHistogram": {
+              "1": 24,
+              "3": 2
+            },
+            "selectedBasalCells": 26,
+            "unselectedBasalCells": 0,
+            "selectedKineticDemandFill": 0.3883434062091322,
+            "unselectedKineticDemandFill": 0
+          },
+          "attachmentFacets": {
+            "basal": 0,
+            "prism": 0,
+            "inhibited": 0,
+            "rough": 0,
+            "unknown": 0
+          },
+          "surface": {
+            "attachedNow": 0,
+            "maxKineticFillIncrement": 0.024999999999999998,
+            "holeFillCount": 0,
+            "deltaTimeSeconds": 0.03474492967074239,
+            "stalled": false,
+            "skippedUnconverged": false
+          },
+          "basalFacet": {
+            "count": 26,
+            "sigmaBoundary": {
+              "min": 0.0005102198595768087,
+              "max": 0.0008019427969177461,
+              "mean": 0.0007697281676572498
+            },
+            "sigmaOpp": {
+              "min": 0.0007973767399306672,
+              "max": 0.001573192109059254,
+              "mean": 0.0014856414257596307
+            },
+            "alphaHKBoundary": {
+              "min": 0.22926582199369105,
+              "max": 0.3917678993031246,
+              "mean": 0.37472967812931307
+            },
+            "fill": {
+              "min": 0.3102659972184979,
+              "max": 0.6963782279100621,
+              "mean": 0.5880701739617559
+            }
+          }
+        },
+        {
+          "cycle": 128,
+          "startsAt": 5.026772717363253,
+          "endsAt": 5.059360116787433,
+          "basalWidthObservation": {
+            "timing": "after-converged-relaxation-before-surface-advance",
+            "thresholdCells": 4,
+            "historyActive": false,
+            "completedCyclesBeforeUpdate": 127,
+            "simTimeSecondsBeforeUpdate": 5.026772717363253,
+            "widthHistogram": {
+              "1": 24,
+              "3": 2
+            },
+            "selectedBasalCells": 0,
+            "unselectedBasalCells": 26,
+            "selectedKineticDemandFill": 0,
+            "unselectedKineticDemandFill": 0.08927843404848503
+          },
+          "attachmentFacets": {
+            "basal": 0,
+            "prism": 0,
+            "inhibited": 0,
+            "rough": 0,
+            "unknown": 0
+          },
+          "surface": {
+            "attachedNow": 0,
+            "maxKineticFillIncrement": 0.025000000000000005,
+            "holeFillCount": 0,
+            "deltaTimeSeconds": 0.032587399424180534,
+            "stalled": false,
+            "skippedUnconverged": false
+          },
+          "basalFacet": {
+            "count": 26,
+            "sigmaBoundary": {
+              "min": 0.001245051211143577,
+              "max": 0.0018346807916453725,
+              "mean": 0.0017781583666667288
+            },
+            "sigmaOpp": {
+              "min": 0.0012744826082566759,
+              "max": 0.0020275284219396466,
+              "mean": 0.001953640444024636
+            },
+            "alphaHKBoundary": {
+              "min": 0.00962944179857458,
+              "max": 0.04281847953194901,
+              "mean": 0.03945067227782997
+            },
+            "fill": {
+              "min": 0.3162570260397501,
+              "max": 0.7124690032789713,
+              "mean": 0.6030064588159529
+            }
+          }
+        }
+      ],
+      "firstTwoLaterSnapshots": [
+        {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t4p5-w4-early5\\boundary-e9.json",
+          "record": {
+            "path": "boundary-e9.json",
+            "triggerExtent": 9,
+            "actualExtent": 9,
+            "completedCycles": 191,
+            "simTimeSeconds": 7.257675843878523
+          },
+          "timing": "after-converged-relaxation-before-surface-advance",
+          "axisBoundary": [
+            {
+              "index": 145440,
+              "coords": [
+                32,
+                32,
+                35
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.22119970037305794,
+              "sigmaOpp": 0.0010539077015043012,
+              "sigmaBoundary": 0.0010438259247056829,
+              "alphaHKBoundary": 0.0039344719051230045,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 3,
+              "basalWidthSelected": false,
+              "offset": 3
+            },
+            {
+              "index": 120864,
+              "coords": [
+                32,
+                32,
+                29
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.22119970037305794,
+              "sigmaOpp": 0.0010539077015043012,
+              "sigmaBoundary": 0.0010438259247056829,
+              "alphaHKBoundary": 0.0039344719051230045,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 3,
+              "basalWidthSelected": false,
+              "offset": -3
+            }
+          ],
+          "geometry": {
+            "cycle": 191,
+            "simTimeSeconds": 7.257675843878523,
+            "attachedCount": 203,
+            "axisOffsets": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "axialSpanUm": 2.0999999999999996,
+            "lateralSpanUm": 2.8,
+            "waist": {
+              "probeFullLayerCount": 5,
+              "lowerOffset": -2,
+              "upperOffset": 2,
+              "centerSpanUm": 1.4,
+              "inclusiveThicknessUm": 1.75
+            },
+            "layers": [
+              {
+                "offset": -3,
+                "count": 6,
+                "lateralVoid": "open",
+                "directAxialOpening": {
+                  "lower": true,
+                  "upper": false
+                }
+              },
+              {
+                "offset": -2,
+                "count": 37,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": -1,
+                "count": 37,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 0,
+                "count": 43,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 1,
+                "count": 37,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 2,
+                "count": 37,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 3,
+                "count": 6,
+                "lateralVoid": "open",
+                "directAxialOpening": {
+                  "lower": false,
+                  "upper": true
+                }
+              }
+            ],
+            "maxOpeningDepthUm": 0
+          }
+        },
+        {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t4p5-w4-early5\\boundary-e13.json",
+          "record": {
+            "path": "boundary-e13.json",
+            "triggerExtent": 13,
+            "actualExtent": 13,
+            "completedCycles": 468,
+            "simTimeSeconds": 17.87747443478767
+          },
+          "timing": "after-converged-relaxation-before-surface-advance",
+          "axisBoundary": [
+            {
+              "index": 153632,
+              "coords": [
+                32,
+                32,
+                37
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.012086395010746192,
+              "sigmaOpp": 0.001800757902387661,
+              "sigmaBoundary": 0.0016715629387370774,
+              "alphaHKBoundary": 0.03148475365216584,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 9,
+              "basalWidthSelected": false,
+              "offset": 5
+            },
+            {
+              "index": 112672,
+              "coords": [
+                32,
+                32,
+                27
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.012086395010746192,
+              "sigmaOpp": 0.001800757902387661,
+              "sigmaBoundary": 0.0016715629387370774,
+              "alphaHKBoundary": 0.03148475365216584,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 9,
+              "basalWidthSelected": false,
+              "offset": -5
+            }
+          ],
+          "geometry": {
+            "cycle": 468,
+            "simTimeSeconds": 17.87747443478767,
+            "attachedCount": 765,
+            "axisOffsets": [
+              -4,
+              -3,
+              -2,
+              -1,
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "axialSpanUm": 2.8,
+            "lateralSpanUm": 4.199999999999999,
+            "waist": {
+              "probeFullLayerCount": 9,
+              "lowerOffset": -4,
+              "upperOffset": 4,
+              "centerSpanUm": 2.8,
+              "inclusiveThicknessUm": 3.15
+            },
+            "layers": [
+              {
+                "offset": -4,
+                "count": 61,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": -3,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": -2,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": -1,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 0,
+                "count": 97,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 1,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 2,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 3,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 4,
+                "count": 61,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              }
+            ],
+            "maxOpeningDepthUm": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "gd21-bld-w1-t5-c025-early1-w3",
+      "row": {
+        "conditional": false,
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "cflFill": 0.025,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "gd21-bld-w1-t5-c025-early1-w3",
+        "lane": "cavity-mechanism",
+        "tempC": -5,
+        "fraction": 0.075,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 1
+        },
+        "sigmaInfinity": 0.00375
+      },
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+      "node": "v24.13.1",
+      "switchCycle": 27,
+      "actualSwitchSeconds": 1.0328772117737612,
+      "firstAttachment": {
+        "cycle": 50,
+        "time": 2.425338964994586,
+        "count": 12
+      },
+      "selectedDemandBeforeSwitchFill": 15.977054072108153,
+      "selectedDemandAfterSwitchFill": 0,
+      "switchGeometry": {
+        "cycle": 27,
+        "simTimeSeconds": 1.0328772117737612,
+        "attachedCount": 19,
+        "axisOffsets": [
+          0
+        ],
+        "axialSpanUm": 0,
+        "lateralSpanUm": 1.4,
+        "waist": {
+          "probeFullLayerCount": 1,
+          "lowerOffset": 0,
+          "upperOffset": 0,
+          "centerSpanUm": 0,
+          "inclusiveThicknessUm": 0.35
+        },
+        "layers": [
+          {
+            "offset": 0,
+            "count": 19,
+            "lateralVoid": "center-occupied",
+            "directAxialOpening": {
+              "lower": null,
+              "upper": null
+            }
+          }
+        ],
+        "maxOpeningDepthUm": 0
+      },
+      "sharedAgeObservation": {
+        "requestedSeconds": 5.05,
+        "atOrBefore": {
+          "cycle": 137,
+          "simTimeSeconds": 5.021276239282743,
+          "attachedCount": 111,
+          "axisOffsets": [
+            -1,
+            0,
+            1
+          ],
+          "axialSpanUm": 0.7,
+          "lateralSpanUm": 2.0999999999999996,
+          "waist": {
+            "probeFullLayerCount": 3,
+            "lowerOffset": -1,
+            "upperOffset": 1,
+            "centerSpanUm": 0.7,
+            "inclusiveThicknessUm": 1.0499999999999998
+          },
+          "layers": [
+            {
+              "offset": -1,
+              "count": 37,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 0,
+              "count": 37,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 1,
+              "count": 37,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            }
+          ],
+          "maxOpeningDepthUm": 0
+        },
+        "nextEvent": {
+          "cycle": 138,
+          "simTimeSeconds": 5.0997209667332,
+          "attachedCount": 111,
+          "axisOffsets": [
+            -1,
+            0,
+            1
+          ],
+          "axialSpanUm": 0.7,
+          "lateralSpanUm": 2.0999999999999996,
+          "waist": {
+            "probeFullLayerCount": 3,
+            "lowerOffset": -1,
+            "upperOffset": 1,
+            "centerSpanUm": 0.7,
+            "inclusiveThicknessUm": 1.0499999999999998
+          },
+          "layers": [
+            {
+              "offset": -1,
+              "count": 37,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 0,
+              "count": 37,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 1,
+              "count": 37,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            }
+          ],
+          "maxOpeningDepthUm": 0
+        }
+      },
+      "lastActiveFirstInactive": [
+        {
+          "cycle": 27,
+          "startsAt": 0.9945908908201667,
+          "endsAt": 1.0328772117737612,
+          "basalWidthObservation": {
+            "timing": "after-converged-relaxation-before-surface-advance",
+            "thresholdCells": 3,
+            "historyActive": true,
+            "completedCyclesBeforeUpdate": 26,
+            "simTimeSecondsBeforeUpdate": 0.9945908908201667,
+            "widthHistogram": {
+              "3": 24,
+              "4": 12,
+              "5": 2
+            },
+            "selectedBasalCells": 24,
+            "unselectedBasalCells": 14,
+            "selectedKineticDemandFill": 0.591745844066101,
+            "unselectedKineticDemandFill": 0.05737190583986988
+          },
+          "attachmentFacets": {
+            "basal": 0,
+            "prism": 0,
+            "inhibited": 0,
+            "rough": 0,
+            "unknown": 0
+          },
+          "surface": {
+            "attachedNow": 0,
+            "maxKineticFillIncrement": 0.025,
+            "holeFillCount": 0,
+            "deltaTimeSeconds": 0.03828632095359453,
+            "stalled": false,
+            "skippedUnconverged": false
+          },
+          "basalFacet": {
+            "count": 38,
+            "sigmaBoundary": {
+              "min": 0.0011010848285034592,
+              "max": 0.0019818297626104163,
+              "mean": 0.0014197384806378809
+            },
+            "sigmaOpp": {
+              "min": 0.0021306270905869455,
+              "max": 0.00225020994980947,
+              "mean": 0.002193727046749751
+            },
+            "alphaHKBoundary": {
+              "min": 0.038457211352685934,
+              "max": 0.4133189068902222,
+              "mean": 0.2736276362812112
+            },
+            "fill": {
+              "min": 0.10550538506750941,
+              "max": 0.6500000000000002,
+              "mean": 0.4441790019060698
+            }
+          }
+        },
+        {
+          "cycle": 28,
+          "startsAt": 1.0328772117737612,
+          "endsAt": 1.0941096160762638,
+          "basalWidthObservation": {
+            "timing": "after-converged-relaxation-before-surface-advance",
+            "thresholdCells": 3,
+            "historyActive": false,
+            "completedCyclesBeforeUpdate": 27,
+            "simTimeSecondsBeforeUpdate": 1.0328772117737612,
+            "widthHistogram": {
+              "3": 24,
+              "4": 12,
+              "5": 2
+            },
+            "selectedBasalCells": 0,
+            "unselectedBasalCells": 38,
+            "selectedKineticDemandFill": 0,
+            "unselectedKineticDemandFill": 0.5255735404594316
+          },
+          "attachmentFacets": {
+            "basal": 0,
+            "prism": 0,
+            "inhibited": 0,
+            "rough": 0,
+            "unknown": 0
+          },
+          "surface": {
+            "attachedNow": 0,
+            "maxKineticFillIncrement": 0.025,
+            "holeFillCount": 0,
+            "deltaTimeSeconds": 0.06123240430250256,
+            "stalled": false,
+            "skippedUnconverged": false
+          },
+          "basalFacet": {
+            "count": 38,
+            "sigmaBoundary": {
+              "min": 0.002304521057897529,
+              "max": 0.0023891039113733813,
+              "mean": 0.0023566431445205356
+            },
+            "sigmaOpp": {
+              "min": 0.002664856967108209,
+              "max": 0.0028009041371395167,
+              "mean": 0.0027484814379516017
+            },
+            "alphaHKBoundary": {
+              "min": 0.06375420488379135,
+              "max": 0.07028028467024398,
+              "mean": 0.0677661878518306
+            },
+            "fill": {
+              "min": 0.10955827637623304,
+              "max": 0.6750000000000003,
+              "mean": 0.46126104795622724
+            }
+          }
+        }
+      ],
+      "firstTwoLaterSnapshots": [
+        {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early1-w3\\boundary-e9.json",
+          "record": {
+            "path": "boundary-e9.json",
+            "triggerExtent": 9,
+            "actualExtent": 9,
+            "completedCycles": 151,
+            "simTimeSeconds": 6.119488824637335
+          },
+          "timing": "after-converged-relaxation-before-surface-advance",
+          "axisBoundary": [
+            {
+              "index": 141344,
+              "coords": [
+                32,
+                32,
+                34
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.34669938205748063,
+              "sigmaOpp": 0.0023761874591736168,
+              "sigmaBoundary": 0.002116864248498689,
+              "alphaHKBoundary": 0.04994940883470111,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 7,
+              "basalWidthSelected": false,
+              "offset": 2
+            },
+            {
+              "index": 124960,
+              "coords": [
+                32,
+                32,
+                30
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.34669938205748063,
+              "sigmaOpp": 0.0023761874591736168,
+              "sigmaBoundary": 0.002116864248498689,
+              "alphaHKBoundary": 0.04994940883470111,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 7,
+              "basalWidthSelected": false,
+              "offset": -2
+            }
+          ],
+          "geometry": {
+            "cycle": 151,
+            "simTimeSeconds": 6.119488824637335,
+            "attachedCount": 117,
+            "axisOffsets": [
+              -1,
+              0,
+              1
+            ],
+            "axialSpanUm": 0.7,
+            "lateralSpanUm": 2.8,
+            "waist": {
+              "probeFullLayerCount": 3,
+              "lowerOffset": -1,
+              "upperOffset": 1,
+              "centerSpanUm": 0.7,
+              "inclusiveThicknessUm": 1.0499999999999998
+            },
+            "layers": [
+              {
+                "offset": -1,
+                "count": 37,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 0,
+                "count": 43,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 1,
+                "count": 37,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              }
+            ],
+            "maxOpeningDepthUm": 0
+          }
+        },
+        {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early1-w3\\boundary-e13.json",
+          "record": {
+            "path": "boundary-e13.json",
+            "triggerExtent": 13,
+            "actualExtent": 13,
+            "completedCycles": 401,
+            "simTimeSeconds": 15.363063450232016
+          },
+          "timing": "after-converged-relaxation-before-surface-advance",
+          "axisBoundary": [
+            {
+              "index": 145440,
+              "coords": [
+                32,
+                32,
+                35
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.6406103618135348,
+              "sigmaOpp": 0.002170857435399697,
+              "sigmaBoundary": 0.0019755431964982076,
+              "alphaHKBoundary": 0.04031153597522176,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 11,
+              "basalWidthSelected": false,
+              "offset": 3
+            },
+            {
+              "index": 120864,
+              "coords": [
+                32,
+                32,
+                29
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.6406103618135348,
+              "sigmaOpp": 0.002170857435399697,
+              "sigmaBoundary": 0.0019755431964982076,
+              "alphaHKBoundary": 0.04031153597522176,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 11,
+              "basalWidthSelected": false,
+              "offset": -3
+            }
+          ],
+          "geometry": {
+            "cycle": 401,
+            "simTimeSeconds": 15.363063450232016,
+            "attachedCount": 461,
+            "axisOffsets": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "axialSpanUm": 1.4,
+            "lateralSpanUm": 4.199999999999999,
+            "waist": {
+              "probeFullLayerCount": 5,
+              "lowerOffset": -2,
+              "upperOffset": 2,
+              "centerSpanUm": 1.4,
+              "inclusiveThicknessUm": 1.75
+            },
+            "layers": [
+              {
+                "offset": -2,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": -1,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 0,
+                "count": 97,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 1,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 2,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              }
+            ],
+            "maxOpeningDepthUm": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "gd21-bld-w1-t5-c025-early5-w3",
+      "row": {
+        "conditional": false,
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "cflFill": 0.025,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "gd21-bld-w1-t5-c025-early5-w3",
+        "lane": "cavity-mechanism",
+        "tempC": -5,
+        "fraction": 0.075,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 5
+        },
+        "sigmaInfinity": 0.00375
+      },
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+      "node": "v24.13.1",
+      "switchCycle": 138,
+      "actualSwitchSeconds": 5.017293754009521,
+      "firstAttachment": {
+        "cycle": 40,
+        "time": 1.5305993841970862,
+        "count": 12
+      },
+      "selectedDemandBeforeSwitchFill": 66.97727673964856,
+      "selectedDemandAfterSwitchFill": 0,
+      "switchGeometry": {
+        "cycle": 138,
+        "simTimeSeconds": 5.017293754009521,
+        "attachedCount": 109,
+        "axisOffsets": [
+          0
+        ],
+        "axialSpanUm": 1.4,
+        "lateralSpanUm": 2.0999999999999996,
+        "waist": {
+          "probeFullLayerCount": 1,
+          "lowerOffset": 0,
+          "upperOffset": 0,
+          "centerSpanUm": 0,
+          "inclusiveThicknessUm": 0.35
+        },
+        "layers": [
+          {
+            "offset": -2,
+            "count": 12,
+            "lateralVoid": "enclosed",
+            "directAxialOpening": {
+              "lower": true,
+              "upper": false
+            }
+          },
+          {
+            "offset": -1,
+            "count": 24,
+            "lateralVoid": "enclosed",
+            "directAxialOpening": {
+              "lower": true,
+              "upper": false
+            }
+          },
+          {
+            "offset": 0,
+            "count": 37,
+            "lateralVoid": "center-occupied",
+            "directAxialOpening": {
+              "lower": null,
+              "upper": null
+            }
+          },
+          {
+            "offset": 1,
+            "count": 24,
+            "lateralVoid": "enclosed",
+            "directAxialOpening": {
+              "lower": false,
+              "upper": true
+            }
+          },
+          {
+            "offset": 2,
+            "count": 12,
+            "lateralVoid": "enclosed",
+            "directAxialOpening": {
+              "lower": false,
+              "upper": true
+            }
+          }
+        ],
+        "maxOpeningDepthUm": 0.35
+      },
+      "sharedAgeObservation": {
+        "requestedSeconds": 5.05,
+        "atOrBefore": {
+          "cycle": 139,
+          "simTimeSeconds": 5.0475132940360075,
+          "attachedCount": 109,
+          "axisOffsets": [
+            0
+          ],
+          "axialSpanUm": 1.4,
+          "lateralSpanUm": 2.0999999999999996,
+          "waist": {
+            "probeFullLayerCount": 1,
+            "lowerOffset": 0,
+            "upperOffset": 0,
+            "centerSpanUm": 0,
+            "inclusiveThicknessUm": 0.35
+          },
+          "layers": [
+            {
+              "offset": -2,
+              "count": 12,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": true,
+                "upper": false
+              }
+            },
+            {
+              "offset": -1,
+              "count": 24,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": true,
+                "upper": false
+              }
+            },
+            {
+              "offset": 0,
+              "count": 37,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 1,
+              "count": 24,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": false,
+                "upper": true
+              }
+            },
+            {
+              "offset": 2,
+              "count": 12,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": false,
+                "upper": true
+              }
+            }
+          ],
+          "maxOpeningDepthUm": 0.35
+        },
+        "nextEvent": {
+          "cycle": 140,
+          "simTimeSeconds": 5.0776464367428025,
+          "attachedCount": 109,
+          "axisOffsets": [
+            0
+          ],
+          "axialSpanUm": 1.4,
+          "lateralSpanUm": 2.0999999999999996,
+          "waist": {
+            "probeFullLayerCount": 1,
+            "lowerOffset": 0,
+            "upperOffset": 0,
+            "centerSpanUm": 0,
+            "inclusiveThicknessUm": 0.35
+          },
+          "layers": [
+            {
+              "offset": -2,
+              "count": 12,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": true,
+                "upper": false
+              }
+            },
+            {
+              "offset": -1,
+              "count": 24,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": true,
+                "upper": false
+              }
+            },
+            {
+              "offset": 0,
+              "count": 37,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 1,
+              "count": 24,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": false,
+                "upper": true
+              }
+            },
+            {
+              "offset": 2,
+              "count": 12,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": false,
+                "upper": true
+              }
+            }
+          ],
+          "maxOpeningDepthUm": 0.35
+        }
+      },
+      "lastActiveFirstInactive": [
+        {
+          "cycle": 138,
+          "startsAt": 4.985233289830908,
+          "endsAt": 5.017293754009521,
+          "basalWidthObservation": {
+            "timing": "after-converged-relaxation-before-surface-advance",
+            "thresholdCells": 3,
+            "historyActive": true,
+            "completedCyclesBeforeUpdate": 137,
+            "simTimeSecondsBeforeUpdate": 4.985233289830908,
+            "widthHistogram": {
+              "1": 24,
+              "3": 2
+            },
+            "selectedBasalCells": 26,
+            "unselectedBasalCells": 0,
+            "selectedKineticDemandFill": 0.3567287765438089,
+            "unselectedKineticDemandFill": 0
+          },
+          "attachmentFacets": {
+            "basal": 0,
+            "prism": 0,
+            "inhibited": 0,
+            "rough": 0,
+            "unknown": 0
+          },
+          "surface": {
+            "attachedNow": 0,
+            "maxKineticFillIncrement": 0.025,
+            "holeFillCount": 0,
+            "deltaTimeSeconds": 0.03206046417861351,
+            "stalled": false,
+            "skippedUnconverged": false
+          },
+          "basalFacet": {
+            "count": 26,
+            "sigmaBoundary": {
+              "min": 0.0002514171317669247,
+              "max": 0.0009504878292142189,
+              "mean": 0.0008852955008106859
+            },
+            "sigmaOpp": {
+              "min": 0.000263566101136716,
+              "max": 0.0017754677000541637,
+              "mean": 0.0016276875002046412
+            },
+            "alphaHKBoundary": {
+              "min": 0.019702736101508477,
+              "max": 0.35389853330097987,
+              "mean": 0.3237196182403356
+            },
+            "fill": {
+              "min": 0.5782297474783762,
+              "max": 0.8838376988862906,
+              "mean": 0.7898894871619326
+            }
+          }
+        },
+        {
+          "cycle": 139,
+          "startsAt": 5.017293754009521,
+          "endsAt": 5.0475132940360075,
+          "basalWidthObservation": {
+            "timing": "after-converged-relaxation-before-surface-advance",
+            "thresholdCells": 3,
+            "historyActive": false,
+            "completedCyclesBeforeUpdate": 138,
+            "simTimeSecondsBeforeUpdate": 5.017293754009521,
+            "widthHistogram": {
+              "1": 24,
+              "3": 2
+            },
+            "selectedBasalCells": 0,
+            "unselectedBasalCells": 26,
+            "selectedKineticDemandFill": 0,
+            "unselectedKineticDemandFill": 0.08765304927115582
+          },
+          "attachmentFacets": {
+            "basal": 0,
+            "prism": 0,
+            "inhibited": 0,
+            "rough": 0,
+            "unknown": 0
+          },
+          "surface": {
+            "attachedNow": 0,
+            "maxKineticFillIncrement": 0.025,
+            "holeFillCount": 0,
+            "deltaTimeSeconds": 0.030219540026486087,
+            "stalled": false,
+            "skippedUnconverged": false
+          },
+          "basalFacet": {
+            "count": 26,
+            "sigmaBoundary": {
+              "min": 0.0004318845020615405,
+              "max": 0.0020243906835305976,
+              "mean": 0.001887816714735022
+            },
+            "sigmaOpp": {
+              "min": 0.0004318849445330632,
+              "max": 0.0022406585345765666,
+              "mean": 0.0020813448552310316
+            },
+            "alphaHKBoundary": {
+              "min": 4.177338569321886e-07,
+              "max": 0.04355917099232308,
+              "mean": 0.03926777353674627
+            },
+            "fill": {
+              "min": 0.5784542757072474,
+              "max": 0.8990843641478447,
+              "mean": 0.8036098247213102
+            }
+          }
+        }
+      ],
+      "firstTwoLaterSnapshots": [
+        {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early5-w3\\boundary-e9.json",
+          "record": {
+            "path": "boundary-e9.json",
+            "triggerExtent": 9,
+            "actualExtent": 9,
+            "completedCycles": 218,
+            "simTimeSeconds": 7.422305748007743
+          },
+          "timing": "after-converged-relaxation-before-surface-advance",
+          "axisBoundary": [
+            {
+              "index": 137248,
+              "coords": [
+                32,
+                32,
+                33
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.5784545733091957,
+              "sigmaOpp": 5.018820695924253e-05,
+              "sigmaBoundary": 5.018820695924253e-05,
+              "alphaHKBoundary": 1.2762552732842145e-55,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 3,
+              "basalWidthSelected": false,
+              "offset": 1
+            },
+            {
+              "index": 129056,
+              "coords": [
+                32,
+                32,
+                31
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.5784545733091957,
+              "sigmaOpp": 5.018820695924253e-05,
+              "sigmaBoundary": 5.018820695924253e-05,
+              "alphaHKBoundary": 1.2762552732842145e-55,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 3,
+              "basalWidthSelected": false,
+              "offset": -1
+            }
+          ],
+          "geometry": {
+            "cycle": 218,
+            "simTimeSeconds": 7.422305748007743,
+            "attachedCount": 211,
+            "axisOffsets": [
+              0
+            ],
+            "axialSpanUm": 2.0999999999999996,
+            "lateralSpanUm": 2.8,
+            "waist": {
+              "probeFullLayerCount": 1,
+              "lowerOffset": 0,
+              "upperOffset": 0,
+              "centerSpanUm": 0,
+              "inclusiveThicknessUm": 0.35
+            },
+            "layers": [
+              {
+                "offset": -3,
+                "count": 24,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": true,
+                  "upper": false
+                }
+              },
+              {
+                "offset": -2,
+                "count": 30,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": true,
+                  "upper": false
+                }
+              },
+              {
+                "offset": -1,
+                "count": 30,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": true,
+                  "upper": false
+                }
+              },
+              {
+                "offset": 0,
+                "count": 43,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 1,
+                "count": 30,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": false,
+                  "upper": true
+                }
+              },
+              {
+                "offset": 2,
+                "count": 30,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": false,
+                  "upper": true
+                }
+              },
+              {
+                "offset": 3,
+                "count": 24,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": false,
+                  "upper": true
+                }
+              }
+            ],
+            "maxOpeningDepthUm": 0.7
+          }
+        },
+        {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early5-w3\\boundary-e13.json",
+          "record": {
+            "path": "boundary-e13.json",
+            "triggerExtent": 13,
+            "actualExtent": 13,
+            "completedCycles": 505,
+            "simTimeSeconds": 18.1337914206259
+          },
+          "timing": "after-converged-relaxation-before-surface-advance",
+          "axisBoundary": [
+            {
+              "index": 137248,
+              "coords": [
+                32,
+                32,
+                33
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.5784545733091957,
+              "sigmaOpp": 5e-324,
+              "sigmaBoundary": 5e-324,
+              "alphaHKBoundary": 0,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 3,
+              "basalWidthSelected": false,
+              "offset": 1
+            },
+            {
+              "index": 129056,
+              "coords": [
+                32,
+                32,
+                31
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.5784545733091957,
+              "sigmaOpp": 5e-324,
+              "sigmaBoundary": 5e-324,
+              "alphaHKBoundary": 0,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 3,
+              "basalWidthSelected": false,
+              "offset": -1
+            },
+            {
+              "index": 145440,
+              "coords": [
+                32,
+                32,
+                35
+              ],
+              "neighborCounts": [
+                6,
+                0
+              ],
+              "facet": "rough",
+              "fill": 0,
+              "sigmaOpp": 0,
+              "sigmaBoundary": 0,
+              "alphaHKBoundary": 0,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "offset": 3
+            },
+            {
+              "index": 120864,
+              "coords": [
+                32,
+                32,
+                29
+              ],
+              "neighborCounts": [
+                6,
+                0
+              ],
+              "facet": "rough",
+              "fill": 0,
+              "sigmaOpp": 0,
+              "sigmaBoundary": 0,
+              "alphaHKBoundary": 0,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "offset": -3
+            },
+            {
+              "index": 149536,
+              "coords": [
+                32,
+                32,
+                36
+              ],
+              "neighborCounts": [
+                6,
+                0
+              ],
+              "facet": "rough",
+              "fill": 0,
+              "sigmaOpp": 0,
+              "sigmaBoundary": 0,
+              "alphaHKBoundary": 0,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "offset": 4
+            },
+            {
+              "index": 116768,
+              "coords": [
+                32,
+                32,
+                28
+              ],
+              "neighborCounts": [
+                6,
+                0
+              ],
+              "facet": "rough",
+              "fill": 0,
+              "sigmaOpp": 0,
+              "sigmaBoundary": 0,
+              "alphaHKBoundary": 0,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "offset": -4
+            }
+          ],
+          "geometry": {
+            "cycle": 505,
+            "simTimeSeconds": 18.1337914206259,
+            "attachedCount": 793,
+            "axisOffsets": [
+              0
+            ],
+            "axialSpanUm": 2.8,
+            "lateralSpanUm": 4.199999999999999,
+            "waist": {
+              "probeFullLayerCount": 1,
+              "lowerOffset": 0,
+              "upperOffset": 0,
+              "centerSpanUm": 0,
+              "inclusiveThicknessUm": 0.35
+            },
+            "layers": [
+              {
+                "offset": -4,
+                "count": 90,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": true,
+                  "upper": false
+                }
+              },
+              {
+                "offset": -3,
+                "count": 90,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": true,
+                  "upper": false
+                }
+              },
+              {
+                "offset": -2,
+                "count": 84,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": true,
+                  "upper": false
+                }
+              },
+              {
+                "offset": -1,
+                "count": 84,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": true,
+                  "upper": false
+                }
+              },
+              {
+                "offset": 0,
+                "count": 97,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 1,
+                "count": 84,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": false,
+                  "upper": true
+                }
+              },
+              {
+                "offset": 2,
+                "count": 84,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": false,
+                  "upper": true
+                }
+              },
+              {
+                "offset": 3,
+                "count": 90,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": false,
+                  "upper": true
+                }
+              },
+              {
+                "offset": 4,
+                "count": 90,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": false,
+                  "upper": true
+                }
+              }
+            ],
+            "maxOpeningDepthUm": 1.0499999999999998
+          }
+        }
+      ]
+    },
+    {
+      "id": "gd21-bld-w2-t5-w4-early5",
+      "row": {
+        "conditional": false,
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "cflFill": 0.025,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "gd21-bld-w2-t5-w4-early5",
+        "lane": "cavity-mechanism",
+        "tempC": -5,
+        "fraction": 0.075,
+        "experimentalBasalWidthCells": 4,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 5
+        },
+        "sigmaInfinity": 0.00375
+      },
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+      "node": "v24.13.1",
+      "switchCycle": 134,
+      "actualSwitchSeconds": 5.024371940920387,
+      "firstAttachment": {
+        "cycle": 40,
+        "time": 1.685779660913749,
+        "count": 12
+      },
+      "selectedDemandBeforeSwitchFill": 80.98605750486013,
+      "selectedDemandAfterSwitchFill": 0,
+      "switchGeometry": {
+        "cycle": 134,
+        "simTimeSeconds": 5.024371940920387,
+        "attachedCount": 123,
+        "axisOffsets": [
+          -1,
+          0,
+          1
+        ],
+        "axialSpanUm": 1.4,
+        "lateralSpanUm": 2.0999999999999996,
+        "waist": {
+          "probeFullLayerCount": 3,
+          "lowerOffset": -1,
+          "upperOffset": 1,
+          "centerSpanUm": 0.7,
+          "inclusiveThicknessUm": 1.0499999999999998
+        },
+        "layers": [
+          {
+            "offset": -2,
+            "count": 12,
+            "lateralVoid": "enclosed",
+            "directAxialOpening": {
+              "lower": true,
+              "upper": false
+            }
+          },
+          {
+            "offset": -1,
+            "count": 31,
+            "lateralVoid": "center-occupied",
+            "directAxialOpening": {
+              "lower": null,
+              "upper": null
+            }
+          },
+          {
+            "offset": 0,
+            "count": 37,
+            "lateralVoid": "center-occupied",
+            "directAxialOpening": {
+              "lower": null,
+              "upper": null
+            }
+          },
+          {
+            "offset": 1,
+            "count": 31,
+            "lateralVoid": "center-occupied",
+            "directAxialOpening": {
+              "lower": null,
+              "upper": null
+            }
+          },
+          {
+            "offset": 2,
+            "count": 12,
+            "lateralVoid": "enclosed",
+            "directAxialOpening": {
+              "lower": false,
+              "upper": true
+            }
+          }
+        ],
+        "maxOpeningDepthUm": 0
+      },
+      "sharedAgeObservation": {
+        "requestedSeconds": 5.05,
+        "atOrBefore": {
+          "cycle": 134,
+          "simTimeSeconds": 5.024371940920387,
+          "attachedCount": 123,
+          "axisOffsets": [
+            -1,
+            0,
+            1
+          ],
+          "axialSpanUm": 1.4,
+          "lateralSpanUm": 2.0999999999999996,
+          "waist": {
+            "probeFullLayerCount": 3,
+            "lowerOffset": -1,
+            "upperOffset": 1,
+            "centerSpanUm": 0.7,
+            "inclusiveThicknessUm": 1.0499999999999998
+          },
+          "layers": [
+            {
+              "offset": -2,
+              "count": 12,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": true,
+                "upper": false
+              }
+            },
+            {
+              "offset": -1,
+              "count": 31,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 0,
+              "count": 37,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 1,
+              "count": 31,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 2,
+              "count": 12,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": false,
+                "upper": true
+              }
+            }
+          ],
+          "maxOpeningDepthUm": 0
+        },
+        "nextEvent": {
+          "cycle": 135,
+          "simTimeSeconds": 5.054570856015226,
+          "attachedCount": 123,
+          "axisOffsets": [
+            -1,
+            0,
+            1
+          ],
+          "axialSpanUm": 1.4,
+          "lateralSpanUm": 2.0999999999999996,
+          "waist": {
+            "probeFullLayerCount": 3,
+            "lowerOffset": -1,
+            "upperOffset": 1,
+            "centerSpanUm": 0.7,
+            "inclusiveThicknessUm": 1.0499999999999998
+          },
+          "layers": [
+            {
+              "offset": -2,
+              "count": 12,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": true,
+                "upper": false
+              }
+            },
+            {
+              "offset": -1,
+              "count": 31,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 0,
+              "count": 37,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 1,
+              "count": 31,
+              "lateralVoid": "center-occupied",
+              "directAxialOpening": {
+                "lower": null,
+                "upper": null
+              }
+            },
+            {
+              "offset": 2,
+              "count": 12,
+              "lateralVoid": "enclosed",
+              "directAxialOpening": {
+                "lower": false,
+                "upper": true
+              }
+            }
+          ],
+          "maxOpeningDepthUm": 0
+        }
+      },
+      "lastActiveFirstInactive": [
+        {
+          "cycle": 134,
+          "startsAt": 4.992300237178873,
+          "endsAt": 5.024371940920387,
+          "basalWidthObservation": {
+            "timing": "after-converged-relaxation-before-surface-advance",
+            "thresholdCells": 4,
+            "historyActive": true,
+            "completedCyclesBeforeUpdate": 133,
+            "simTimeSecondsBeforeUpdate": 4.992300237178873,
+            "widthHistogram": {
+              "1": 24,
+              "3": 2
+            },
+            "selectedBasalCells": 26,
+            "unselectedBasalCells": 0,
+            "selectedKineticDemandFill": 0.3693920836818399,
+            "unselectedKineticDemandFill": 0
+          },
+          "attachmentFacets": {
+            "basal": 0,
+            "prism": 0,
+            "inhibited": 0,
+            "rough": 0,
+            "unknown": 0
+          },
+          "surface": {
+            "attachedNow": 0,
+            "maxKineticFillIncrement": 0.024999999999999998,
+            "holeFillCount": 0,
+            "deltaTimeSeconds": 0.03207170374151369,
+            "stalled": false,
+            "skippedUnconverged": false
+          },
+          "basalFacet": {
+            "count": 26,
+            "sigmaBoundary": {
+              "min": 0.0006143908183679312,
+              "max": 0.0009524309816984437,
+              "mean": 0.0009153689273374147
+            },
+            "sigmaOpp": {
+              "min": 0.000916497036507709,
+              "max": 0.0017808511909194807,
+              "mean": 0.0016838452603026007
+            },
+            "alphaHKBoundary": {
+              "min": 0.20049194005357196,
+              "max": 0.3546493282856018,
+              "mean": 0.33847019396949446
+            },
+            "fill": {
+              "min": 0.35563359745597833,
+              "max": 0.8046005539786626,
+              "mean": 0.6915148742970784
+            }
+          }
+        },
+        {
+          "cycle": 135,
+          "startsAt": 5.024371940920387,
+          "endsAt": 5.054570856015226,
+          "basalWidthObservation": {
+            "timing": "after-converged-relaxation-before-surface-advance",
+            "thresholdCells": 4,
+            "historyActive": false,
+            "completedCyclesBeforeUpdate": 134,
+            "simTimeSecondsBeforeUpdate": 5.024371940920387,
+            "widthHistogram": {
+              "1": 24,
+              "3": 2
+            },
+            "selectedBasalCells": 0,
+            "unselectedBasalCells": 26,
+            "selectedKineticDemandFill": 0,
+            "unselectedKineticDemandFill": 0.09127415272049323
+          },
+          "attachmentFacets": {
+            "basal": 0,
+            "prism": 0,
+            "inhibited": 0,
+            "rough": 0,
+            "unknown": 0
+          },
+          "surface": {
+            "attachedNow": 0,
+            "maxKineticFillIncrement": 0.025,
+            "holeFillCount": 0,
+            "deltaTimeSeconds": 0.030198915094838505,
+            "stalled": false,
+            "skippedUnconverged": false
+          },
+          "basalFacet": {
+            "count": 26,
+            "sigmaBoundary": {
+              "min": 0.001382606099754595,
+              "max": 0.0020363071358554716,
+              "mean": 0.0019735084355895073
+            },
+            "sigmaOpp": {
+              "min": 0.0014170948686535352,
+              "max": 0.002257874102906731,
+              "mean": 0.002175169202075483
+            },
+            "alphaHKBoundary": {
+              "min": 0.01017094239226669,
+              "max": 0.04436532839442407,
+              "mean": 0.040892004212344304
+            },
+            "fill": {
+              "min": 0.3612188575661868,
+              "max": 0.8199161683925044,
+              "mean": 0.7057222621309951
+            }
+          }
+        }
+      ],
+      "firstTwoLaterSnapshots": [
+        {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t5-w4-early5\\boundary-e9.json",
+          "record": {
+            "path": "boundary-e9.json",
+            "triggerExtent": 9,
+            "actualExtent": 9,
+            "completedCycles": 215,
+            "simTimeSeconds": 7.467178625855335
+          },
+          "timing": "after-converged-relaxation-before-surface-advance",
+          "axisBoundary": [
+            {
+              "index": 145440,
+              "coords": [
+                32,
+                32,
+                35
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.15104303852346396,
+              "sigmaOpp": 0.0014350866620253516,
+              "sigmaBoundary": 0.0013983551421974253,
+              "alphaHKBoundary": 0.010710343149502408,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 3,
+              "basalWidthSelected": false,
+              "offset": 3
+            },
+            {
+              "index": 120864,
+              "coords": [
+                32,
+                32,
+                29
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.15104303852346396,
+              "sigmaOpp": 0.0014350866620253516,
+              "sigmaBoundary": 0.0013983551421974253,
+              "alphaHKBoundary": 0.010710343149502408,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 3,
+              "basalWidthSelected": false,
+              "offset": -3
+            }
+          ],
+          "geometry": {
+            "cycle": 215,
+            "simTimeSeconds": 7.467178625855335,
+            "attachedCount": 239,
+            "axisOffsets": [
+              -2,
+              -1,
+              0,
+              1,
+              2
+            ],
+            "axialSpanUm": 2.0999999999999996,
+            "lateralSpanUm": 2.8,
+            "waist": {
+              "probeFullLayerCount": 5,
+              "lowerOffset": -2,
+              "upperOffset": 2,
+              "centerSpanUm": 1.4,
+              "inclusiveThicknessUm": 1.75
+            },
+            "layers": [
+              {
+                "offset": -3,
+                "count": 24,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": true,
+                  "upper": false
+                }
+              },
+              {
+                "offset": -2,
+                "count": 37,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": -1,
+                "count": 37,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 0,
+                "count": 43,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 1,
+                "count": 37,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 2,
+                "count": 37,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 3,
+                "count": 24,
+                "lateralVoid": "enclosed",
+                "directAxialOpening": {
+                  "lower": false,
+                  "upper": true
+                }
+              }
+            ],
+            "maxOpeningDepthUm": 0
+          }
+        },
+        {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t5-w4-early5\\boundary-e13.json",
+          "record": {
+            "path": "boundary-e13.json",
+            "triggerExtent": 13,
+            "actualExtent": 13,
+            "completedCycles": 502,
+            "simTimeSeconds": 18.21300658226991
+          },
+          "timing": "after-converged-relaxation-before-surface-advance",
+          "axisBoundary": [
+            {
+              "index": 153632,
+              "coords": [
+                32,
+                32,
+                37
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.2722857938331994,
+              "sigmaOpp": 0.0021349546793174305,
+              "sigmaBoundary": 0.0019500761337261003,
+              "alphaHKBoundary": 0.03865600062820599,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 11,
+              "basalWidthSelected": false,
+              "offset": 5
+            },
+            {
+              "index": 112672,
+              "coords": [
+                32,
+                32,
+                27
+              ],
+              "neighborCounts": [
+                0,
+                1
+              ],
+              "facet": "basal",
+              "fill": 0.2722857938331994,
+              "sigmaOpp": 0.0021349546793174305,
+              "sigmaBoundary": 0.0019500761337261003,
+              "alphaHKBoundary": 0.03865600062820599,
+              "robinGeometry": 1,
+              "fillGeometry": 1,
+              "basalWidthCells": 11,
+              "basalWidthSelected": false,
+              "offset": -5
+            }
+          ],
+          "geometry": {
+            "cycle": 502,
+            "simTimeSeconds": 18.21300658226991,
+            "attachedCount": 825,
+            "axisOffsets": [
+              -4,
+              -3,
+              -2,
+              -1,
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "axialSpanUm": 2.8,
+            "lateralSpanUm": 4.199999999999999,
+            "waist": {
+              "probeFullLayerCount": 9,
+              "lowerOffset": -4,
+              "upperOffset": 4,
+              "centerSpanUm": 2.8,
+              "inclusiveThicknessUm": 3.15
+            },
+            "layers": [
+              {
+                "offset": -4,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": -3,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": -2,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": -1,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 0,
+                "count": 97,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 1,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 2,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 3,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              },
+              {
+                "offset": 4,
+                "count": 91,
+                "lateralVoid": "center-occupied",
+                "directAxialOpening": {
+                  "lower": null,
+                  "upper": null
+                }
+              }
+            ],
+            "maxOpeningDepthUm": 0
+          }
+        }
+      ]
+    }
+  ],
+  "pairs": [
+    {
+      "temperatureTag": "4p5",
+      "width3": "gd21-bld-w1-t4p5-c025-early5-w3",
+      "width4": "gd21-bld-w2-t4p5-w4-early5",
+      "scope": "Each own actual switch, not identical absolute times or fields.",
+      "width3OnlyCoordinates": [],
+      "width4OnlyCoordinates": [
+        [
+          0,
+          -1,
+          1
+        ],
+        [
+          0,
+          -1,
+          -1
+        ],
+        [
+          1,
+          -1,
+          1
+        ],
+        [
+          1,
+          -1,
+          -1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          -1
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          -1
+        ],
+        [
+          -1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          -1
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          -1
+        ]
+      ],
+      "width4CentralPatchAttachmentEvents": [
+        {
+          "cycle": 56,
+          "simTimeSeconds": 2.4550216290292517,
+          "coordinates": [
+            [
+              0,
+              -1,
+              1
+            ],
+            [
+              0,
+              -1,
+              -1
+            ],
+            [
+              1,
+              -1,
+              1
+            ],
+            [
+              1,
+              -1,
+              -1
+            ],
+            [
+              -1,
+              0,
+              1
+            ],
+            [
+              -1,
+              0,
+              -1
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              -1
+            ],
+            [
+              -1,
+              1,
+              1
+            ],
+            [
+              -1,
+              1,
+              -1
+            ],
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              1,
+              -1
+            ]
+          ]
+        },
+        {
+          "cycle": 57,
+          "simTimeSeconds": 2.500416126058739,
+          "coordinates": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              -1
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "temperatureTag": "5",
+      "width3": "gd21-bld-w1-t5-c025-early5-w3",
+      "width4": "gd21-bld-w2-t5-w4-early5",
+      "scope": "Each own actual switch, not identical absolute times or fields.",
+      "width3OnlyCoordinates": [],
+      "width4OnlyCoordinates": [
+        [
+          0,
+          -1,
+          1
+        ],
+        [
+          0,
+          -1,
+          -1
+        ],
+        [
+          1,
+          -1,
+          1
+        ],
+        [
+          1,
+          -1,
+          -1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          -1
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          -1
+        ],
+        [
+          -1,
+          1,
+          1
+        ],
+        [
+          -1,
+          1,
+          -1
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          -1
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          -1
+        ]
+      ],
+      "width4CentralPatchAttachmentEvents": [
+        {
+          "cycle": 55,
+          "simTimeSeconds": 2.312863911073845,
+          "coordinates": [
+            [
+              0,
+              -1,
+              1
+            ],
+            [
+              0,
+              -1,
+              -1
+            ],
+            [
+              1,
+              -1,
+              1
+            ],
+            [
+              1,
+              -1,
+              -1
+            ],
+            [
+              -1,
+              0,
+              1
+            ],
+            [
+              -1,
+              0,
+              -1
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              -1
+            ],
+            [
+              -1,
+              1,
+              1
+            ],
+            [
+              -1,
+              1,
+              -1
+            ],
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              1,
+              -1
+            ]
+          ]
+        },
+        {
+          "cycle": 56,
+          "simTimeSeconds": 2.3563336846994494,
+          "coordinates": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              -1
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}
