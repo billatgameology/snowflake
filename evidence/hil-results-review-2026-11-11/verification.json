@@ -1,6 +1,5 @@
 {
   "scope": "Direct saved-data analysis; no solver, checkpoint or simulation changes.",
-  "analysisSourceCommit": "99c0e11",
   "fullCheck": {
     "command": "npm test",
     "head": "b0a4511c0ecff61ac62df39191fbc15c89fd685f",
@@ -22,7 +21,19 @@
     "All three offline recipes were executed on bound inputs. Full regression does not independently test every new comparison quantity.",
     "Parent independently rederived H1 axial and occupied-site headline contrasts from raw events.",
     "One shared-context integration review checked warm/cold summary witnesses; it was not an independent raw geometry or physical validation review.",
-    "Final evidence integrity and progress checks follow integration; no full-suite-green claim for a scientific gate.",
+    "Final evidence integrity and progress checks passed after integration. No scientific gate was executed.",
     "HIL bulk output and detailed analysis remain local pending NAS publication; no worktree closure or deletion."
-  ]
+  ],
+  "analysisImplementation": "Pinned recipes in this bundle; input manifests retain the exact executed staging identities.",
+  "finalMetadataCheck": {
+    "command": "npx.cmd --no-install vitest run runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts",
+    "cwd": "C:/Users/biao3/Documents/GitHub/snowflake",
+    "gitHead": "1a141ad",
+    "exitCode": 0,
+    "filesPassed": 2,
+    "testsPassed": 18,
+    "startedLocal": "2026-11-11T10:58:17-08:00",
+    "vitestDurationSeconds": 1.22
+  },
+  "whitespace": "Raw test logs retain their original terminal blank lines; prose/recipe diff checks passed with CRLF recognized."
 }
