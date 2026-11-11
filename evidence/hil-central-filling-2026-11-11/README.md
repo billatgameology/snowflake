@@ -1,9 +1,12 @@
-# HIL central-filling wave — November 11
+# HIL central-filling wave â€” November 11
 
 The maker authorized all forty new cases on HIL with twenty concurrent workers and no wall
 cutoff. The [registered plan](../../docs/plans/hil-central-filling-nov11.md) contains the exact
 24 timing, 12 smaller-timestep and 4 finer-representation cases, predictions and comparison cohorts.
-This bundle records implementation readiness; production launch has a separate receipt.
+[Launch receipt](launch.json): started November 11 at 15:02 Pacific from `aa20f96`, with
+20 active HIL workers and 20 queued rows. All 20 active rows had verified checkpoint bytes
+and permanent initial captures; 16 were already advancing at the launch observation. The
+four fine workers were actively relaxing. No startup stderr was present.
 
 The new optional recorder retains full completed-cycle states around named ages, central
 attachment batches and the early-only switch, outside rolling restart generations. It also saves

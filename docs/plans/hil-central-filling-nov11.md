@@ -1,7 +1,7 @@
 # Plan — HIL central-filling and growth-memory wave
 
 - **Phase:** active Phase 10, charter sections 2.5/3.2; accepted ADRs 0058–0060/0062.
-- **Status:** implemented and verified; dispatch is the next action.
+- **Status:** running on HIL: 20 workers, 20 queued at launch; producer aa20f96 stays fixed.
 - **Started / last touched:** 2026-11-11 by Codex.
 - **Authority:** maker requests the next wave entirely on HIL, using its 20-worker allocation,
   with a finite queue as large as scientifically useful. Existing resumability/no wall-limit direction remains.
@@ -181,12 +181,36 @@ This checkout will remain fixed at its final production commit. Main's PROGRESS 
 receipts carry live status; do not move this execution checkout merely to update prose. Retain
 out/hil-central-filling-nov11-witness and verification output alongside campaign bytes for NAS.
 
+## Actual dispatch � November 11
+
+The [launch receipt](../../evidence/hil-central-filling-2026-11-11/launch.json) records producer
+`aa20f969f8b25ad98cf7a25f1015a4f373080657`, Node24.13.1/V8 13.6.233.17-node.40,
+wrapper PID25920/coordinator PID12540, start15:02Pacific, actual20workers and20queued.
+All20 current checkpoint payloads/manifest hashes passed; all20 permanent initial captures exist.
+Sixteen coarse workers had advanced at the observation; all four fine workers were consuming CPU
+in their first relaxation. The linked resource sample records every worker and available memory;
+all startup stderr files were empty. A running worker is not a scientific endpoint.
+
+Execution checkout: `C:/Users/biao3/.codex/worktrees/hil-oct31-resume-record/snowflake`.
+Exact command there: `powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start-hil-central-filling-nov11.ps1 -Mode launch -Workers 20`.
+After interruption, first check existing workers, then use the same command with `-Mode resume`.
+Do not move this producer to main's later record commits. The coordinator logs are under
+`out/hil-central-filling-nov11-controls/campaign-launch-20261111T150253660.{stdout,stderr}.log`,
+with separate invocation and eventual exit files. Row logs are
+`out/hil-central-filling-nov11/rows/<id>/attempts/initial/{stdout,stderr}.log`.
+The existing coordinator refills free slots; no wall deadline or extra BLD work.
+
+Read status with `node runner/src/hil-central-filling-nov11-main.ts summarize out/hil-central-filling-nov11`
+in the execution checkout. Read immutable captures with
+`node runner/src/hil-central-filling-nov11-readout.ts campaign out/hil-central-filling-nov11 <new-report.json>`.
+Keep cohort conclusions pending until their complete operands are available.
+
 ## Steps
 
 - [x] Register finite roster, predictions, permanent capture timing and scope before implementation.
 - [x] Implement smallest observation seam, roster/entry and retained readout.
 - [x] Execute short capture/restart witness, required checks and bounded review.
-- [ ] Commit/publish producer and launch20workers; record actual restart and log paths.
+- [x] Commit/publish producer and launch20workers; record actual restart and log paths.
 - [ ] Analyze complete matched groups; preserve full output on NAS and verify recovery.
 
 ## Out of scope
