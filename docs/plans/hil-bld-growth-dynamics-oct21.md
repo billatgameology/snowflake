@@ -1229,6 +1229,63 @@ verification provenance. New offline recipes were executed separately; the final
 checks cover their publication. This is implementation regression, not a scientific gate.
 
 
+### Switch-state analysis and bounded recovery — November 11
+
+The maker objected to losing useful switch-time information and directed the next step.
+The recording gap was real: extent-triggered boundary samples plus rolling current/previous
+restart generations preserve outcomes and restartability, but not past mechanism states.
+This does not invalidate the completed comparisons. It does prevent directly recovering the
+original switch-time full field/fill state from their retained output.
+
+**Deliverable:** compare exact switch geometry and aggregate diagnostics in the six existing
+BLD coarse rows, then recover complete switch-boundary and first-post-switch-update states
+through short, separately identified replays. Reuse the unchanged row specifications and
+`runPostPhase10DiscoveryRow` with `checkpoint: "create", pauseAfterCycles: C + 1`.
+The existing two-generation store then retains C and C+1. Never resume an old BLD checkpoint
+on HIL, modify a completed row, extend a scientific target, or relabel the replay as original
+capture. Keep both generations permanently in these paused replay directories; no further
+resume or rolling replacement is part of this task.
+
+| Original row | Switch boundary C | Pause after cycle |
+|---|---:|---:|
+| `gd21-bld-w1-t4p5-c025-early1-w3` | 26 | 27 |
+| `gd21-bld-w1-t5-c025-early1-w3` | 27 | 28 |
+| `gd21-bld-w1-t4p5-c025-early5-w3` | 131 | 132 |
+| `gd21-bld-w1-t5-c025-early5-w3` | 138 | 139 |
+| `gd21-bld-w2-t4p5-w4-early5` | 127 | 128 |
+| `gd21-bld-w2-t5-w4-early5` | 134 | 135 |
+
+This is 589 completed updates across six N64 prefixes, not a repeat of HIL's long fine runs.
+Use six workers within the existing measured host budget after a direct process/memory check;
+do not repeat capacity probes. There is no wall-time cutoff. Original inputs are in primary
+`out/restores/bld-growth-dynamics-hil-20261024T2048/extracted/bld-growth-dynamics-oct21/rows/`.
+New payloads go to primary `out/warm-switch-replay-2026-11-11/`; analysis goes to
+`out/warm-switch-analysis-2026-11-11/`. Retain all useful payloads for governed NAS publication,
+with concise recipes, input hashes and recovery results in Git. Source/runtime/host bindings
+must name the actual new HIL producer, never the original BLD producer.
+
+**Shortest meaningful checks:** verify unchanged numerical source against `d7f76cb`, unchanged
+row operands, Node/V8, each original scientific event through C+1 (excluding operational RSS),
+any common saved boundary snapshots, both checkpoint digests/codecs and their ticks. Decode
+the full occupancy/fill/vapor arrays and retain their identities. Original switch checkpoints
+do not exist, so event-prefix equality is not an independent full-state comparison with BLD.
+Use the already demonstrated unchanged pause/resume contract; no new solver, numerical law,
+checkpoint format, state transplant or new intervention is authorized. Run exact `npm test`
+at the stable offline-analysis checkpoint under Rule 6, plus final evidence checks.
+
+**Prevent recurrence:** for any future campaign whose question depends on a transition, name
+the before/after full-state captures and the observation timing in its registered readout.
+Keep those captures outside rolling restart retention, and exercise capture/preservation on
+the existing short witness before committing multi-day compute. Reuse the current checkpoint
+codec and bounded event selection; do not build another registry or scheduler. Under Rule 14A,
+the threat is accidental loss of mechanism-bearing state through ordinary generation rotation;
+existing endpoint checks cannot detect a state that was never retained. Retaining a few named
+states costs much less than repeating long runs. Lessons A1, B1/B2 and C1 apply.
+
+Done when the saved-data comparison, six checked replay prefixes/twelve retained states and
+honest reconstruction limits are recorded, with next discriminating action and preservation
+status explicit. No new long campaign or reserve selection is part of this recovery.
+
 ### HIL executable and recovery — October21
 
 HIL's producer is `2f2d605f0ed8fdb8d78cdea02a58102a7001cb53`, on

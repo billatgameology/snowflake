@@ -143,6 +143,10 @@ and the core checkpoint/timeline suites. Tests protect named cases, not every fu
 - Record actual concurrency and exact launch command/flags, not intended values. For parallel
   background runs, keep labeled live logs and separate error/exit files; report their paths unless
   narration is requested. Rule 6 governs check selection and trustworthy verification receipts.
+- Restart retention is not analysis retention. For a transition/mechanism campaign, register
+  named before/after full-state captures and their timing, preserve them outside rolling
+  current/previous generations, and exercise capture on the existing short witness before
+  multi-day execution. See the November 11 switch-state recovery in the growth-dynamics plan.
 - `grow` is observational unless its enforcement flag is present; `grow-lk` is exploratory.
   Flagless `gate2b` encodes its registered protocol and is hours-scale evidence, not a smoke test.
   Read state and check for an existing process before launching, killing or replacing a gate.
