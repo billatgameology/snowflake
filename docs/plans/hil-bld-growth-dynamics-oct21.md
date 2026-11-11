@@ -1,11 +1,11 @@
 # Plan — HIL and BLD growth dynamics campaign
 
 - **Phase:** active Phase 10 exploration under charter sections 2.5/3.2 and ADRs 0011, 0055, 0058–0060 and 0062.
-- **Status:** BLD's finite queue, NAS recovery and local Git closeout are complete; HIL has recovered and analyzed BLD's 91 checked endpoints/one preserved failure. HIL has 21 checked endpoints and three active rows at November 8 19:58 UTC. H1 matched interpretation and completion of W4/C1 remain pending.
-- **Started / last touched:** 2026-10-21 / 2026-11-07 by Codex/GPT-6.
+- **Status:** BLD's finite queue, NAS recovery and local Git closeout are complete; HIL has recovered and analyzed BLD's 91 checked endpoints/one preserved failure. HIL has 24 checked endpoints and no active or failed rows, verified November 11. W4/C1/H1 matched interpretation and HIL NAS preservation remain pending.
+- **Started / last touched:** 2026-10-21 / 2026-11-11 by Codex/GPT-6.
 - **Authority:** maker requests full useful use of HIL's 20-worker allocation and BLD's 32-worker allocation, detailed long queues, resumability and no wall-clock cutoff. The subsequent October21 direction puts all longest/least-predictable work on HIL so BLD can finish and shut down. This supersedes the initial 60/56 host split and the October8 HIL-only default.
 - **Publication:** `origin/main`; planning branch `codex/phase10-two-host-growth`, based on `8e008644085f075922cfccd8a296b0dd248beb60`.
-- **Immediate deliverable:** Analyze HIL's complete H1 pressure/history cohort using its frozen windows while W4/C1 continue; the saved BLD width/history state remains the next mechanism question. Observe live workers before any resume or further dispatch. BLD's finite run/preservation slice is complete. Solo scientific research; hostile actors excluded.
+- **Immediate deliverable:** Analyze HIL's complete W4/C1/H1 cohorts using their frozen comparisons and preserve the complete output on NAS before closeout; the saved BLD width/history state remains a mechanism question. Do not resume the completed queue or dispatch unselected reserves. BLD's finite run/preservation slice is complete. Solo scientific research; hostile actors excluded.
 
 ## Goal
 
@@ -1148,6 +1148,33 @@ The census is H1 12/12, C1 7/8 and W4 2/4 complete. The thick-seed C1 quartet is
 full C1 and W4 comparisons still await the remaining rows. Next: analyze the already complete
 H1 group using the frozen matched readout above while these original runs continue. Keep all
 output in its open execution checkout pending campaign NAS publication and verified recovery.
+
+### HIL completion — verified November 11
+
+At November 11 18:35 UTC (10:35 Pacific), no campaign process remained. This was normal
+completion: the final resume's `-complete.json` records `finishedAt` 2026-11-10T06:56:05.245Z,
+all six resumed workers exiting zero, no abort reason and no unstarted rows. The wrapper's
+`out/hil-growth-dynamics-oct21-controls/campaign-resume-20261107T063245893-exit.json`
+also records exit zero; its stderr is empty. These paths are in the unchanged execution
+checkout identified below. The final worker finished November 9 at 22:56 Pacific.
+
+The author re-executed `summarizeFirstBatchRow` from primary main for every directory in
+execution `out/hil-growth-dynamics-oct21/rows/`: all 24 returned `size-endpoint` and empty
+error lists. H1 is 12/12, C1 8/8 and W4 4/4 complete. This is endpoint verification only;
+matched interpretation, physical conclusions and HIL NAS preservation are not established.
+
+The last three row `status.json` files record:
+
+| Row | Final cycle | Extent | Simulated time (s) | Final update (UTC) |
+|---|---:|---:|---:|---|
+| `gd21-hil-c1-h1-neither` | 5478 | 57 | 45.77808853819556 | 2026-11-08T21:23:59.458Z |
+| `gd21-hil-w4-h1-early20-w6` | 5363 | 57 | 79.0702947022248 | 2026-11-10T06:26:52.052Z |
+| `gd21-hil-w4-h3-early20-w6` | 5420 | 57 | 79.86348774851376 | 2026-11-10T06:56:04.202Z |
+
+Do not restart this completed campaign. Next: compute the frozen matched comparisons,
+reconcile them with BLD, and publish/freshly restore the complete HIL output before any
+execution-worktree closure. Keep original checkpoints, events, all attempt logs and the
+retained stale process record. No reserve was selected and no simulation was launched here.
 
 ### HIL executable and recovery — October21
 
