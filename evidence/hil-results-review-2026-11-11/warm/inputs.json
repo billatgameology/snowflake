@@ -1,0 +1,696 @@
+{
+  "inputs": [
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\spec.json",
+      "byteLength": 859,
+      "sha256": "bf700130d58fa7c4495f99324782cd86642f30ba2b4a28d938333c5cbd7dabd7"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\result.json",
+      "byteLength": 2202,
+      "sha256": "617c4c9228304d957d8decd6b9297353760206293cfc1e91871fd6a64b5f79bd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\exit.json",
+      "byteLength": 269,
+      "sha256": "bf393b0941294b9d4e1fc8b97b89401e646b931da64a7329bed5555f7189cbc4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\host.json",
+      "bytes": 347,
+      "sha256": "13cf9cdd75154bb0ec947f1494a008550066f08074489d3a2b300f94a3e199a5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\events.jsonl",
+      "byteLength": 2010461,
+      "sha256": "d1db0ba891e8119fcbb11d77450d59a2eaa362ad90c77d6462dab7ef1db52220"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\boundary-e5.json",
+      "byteLength": 21573,
+      "sha256": "e21441eb60ee42151625436861f1fc4c761915493285f652f24f5f7a717d7a61"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\boundary-e9.json",
+      "byteLength": 43921,
+      "sha256": "7d441f1e61b42b7199fd225d08d29bf5dd5abe0eb26e8203ef6978694ad4b2a7"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\boundary-e13.json",
+      "byteLength": 115028,
+      "sha256": "8497e8eb7e69e4bd994adbeb00ce3850bb8e5b702bf02c0f4c9fae9c2194a38c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\boundary-e17.json",
+      "byteLength": 247245,
+      "sha256": "306e9ca8eadc81872c49f7a95ba2a7435d518bf1b94e5c0a3c1f6efb864e7977"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\boundary-e21.json",
+      "byteLength": 394840,
+      "sha256": "f8575950d0f6925557e10a5b22f2d839d39e16729a5193a7bc070fdb24fa0c4b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-broad\\boundary-e25.json",
+      "byteLength": 584246,
+      "sha256": "c4245820818ff182604eb634be8b8e01bd2c7945fe0d184c11d0ed0b6a5d940b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\spec.json",
+      "byteLength": 1166,
+      "sha256": "50678cef43f37fb212fb0fe58ada68a77bfaa39d0b1122c613e721581f00980e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\result.json",
+      "byteLength": 2393,
+      "sha256": "cd48db47a8453c156e421cec2132752a94f62a3888480d07992c75a03029b911"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\exit.json",
+      "byteLength": 455,
+      "sha256": "36d4ab9417c6761b96250967ddc10d5224bdbca4ce4c76582154b5bd38a7fa2a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\host.json",
+      "bytes": 532,
+      "sha256": "9ac3a7122e29f25002c7a22d4ef2760ff7d534a382c1321621935da544ddeaa3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\events.jsonl",
+      "byteLength": 3834904,
+      "sha256": "281cfd238272ee030fe8a21bafc824848ccfd72200299a392c096e607a1a9100"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\boundary-e5.json",
+      "byteLength": 24164,
+      "sha256": "5bbf9d8678b698b60fa94de2c95c3d919c5b5c34ee71093ced935ad13daf1e26"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\boundary-e9.json",
+      "byteLength": 103391,
+      "sha256": "1830f7605b1148c49278c9b1f4d262701f25fd16f12ceb9884ca468ab7866cb9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\boundary-e13.json",
+      "byteLength": 185374,
+      "sha256": "c4cd6071f301386c5b43ca8b6386c449738e2c08570652fa5a9b8719f9b2cbe0"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\boundary-e17.json",
+      "byteLength": 335498,
+      "sha256": "c95fdeae69040e2ea3bd5eafd53c00469b18339f5f357a786d00f5d743e67ed4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\boundary-e21.json",
+      "byteLength": 719516,
+      "sha256": "fe4c1ac4693739473c34b5a716dd3ff7aa90ed44ef1c638acf43b8f52956f15f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-coarse-t4p5-early\\boundary-e25.json",
+      "byteLength": 988181,
+      "sha256": "b85a97b060798b73a087722fb1188dabbdf122d7505cd2949dbc5fbef7f94b0c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-broad\\spec.json",
+      "byteLength": 858,
+      "sha256": "6241f59fa280f35835e66f68090d3e910015ce218a84baeede92d4a9bf32ac6b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-broad\\result.json",
+      "byteLength": 2208,
+      "sha256": "6089d58c45d22af948eee328cf89340bee8fc20121451755f62c31f14320b4a6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-broad\\exit.json",
+      "byteLength": 269,
+      "sha256": "c96e8c502acaaff8c136662398bda792b50dd47b5a7faf4f7daf519f61de79e3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-broad\\host.json",
+      "bytes": 364,
+      "sha256": "7e8feebbdb5fe0d8b36ff0b9af1d79616563bfbf3f931a1ce7fda1affa08f4e5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-broad\\events.jsonl",
+      "byteLength": 3573814,
+      "sha256": "6025b505d326bbbb8964db00ef55c2ef411d72b41b6ed478e0365ca9c3f2a113"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-broad\\boundary-e5.json",
+      "byteLength": 21571,
+      "sha256": "1f38924e739a714b52f00a57c4b7318f2111afae4387f391389d29aa36c33075"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-broad\\boundary-e9.json",
+      "byteLength": 45364,
+      "sha256": "7ca52fc26fed772facf49744a381f33195315c6890076793170f7c8f31ac58cb"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-broad\\boundary-e13.json",
+      "byteLength": 114826,
+      "sha256": "0d3b20ede4d3b63a7cd7c4bce694ad3c6901f6ad536c757e93246b8530a45213"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-broad\\boundary-e17.json",
+      "byteLength": 228772,
+      "sha256": "27c899c8999ad67a8fb250629f12d23d39669c39fb7b31b3c3486e5219766c22"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-broad\\boundary-e21.json",
+      "byteLength": 394773,
+      "sha256": "346a115375418c9cdeed3ee23035c8ab4abd3538c8f5a8f61ebc55ef8aa78c05"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-broad\\boundary-e25.json",
+      "byteLength": 583956,
+      "sha256": "ae092266217a0240d7dbdfe7eeddbf69a8629a47672efb22c1c5004753025792"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early20-w3\\spec.json",
+      "byteLength": 1170,
+      "sha256": "fea247938eded408f15418b3a105c153f48cc91b785acc1c07a654a8452db728"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early20-w3\\result.json",
+      "byteLength": 2401,
+      "sha256": "d263421999f42f920c893b1f013bde2d7050183cfc566651fb580dadc88eb216"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early20-w3\\exit.json",
+      "byteLength": 459,
+      "sha256": "25b0a5569a86481fdde09165a80565f2f41185821c613e8cee81dbc45b775e16"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early20-w3\\host.json",
+      "bytes": 549,
+      "sha256": "47baea96d55660ff6708a34dd6e0a8b9efc1bf1eef6bf2824582b78cd302cc60"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early20-w3\\events.jsonl",
+      "byteLength": 6865730,
+      "sha256": "06f5b625db9ea10f758a096c5d98d7a087ba694151a9a5f3cd4ce30ef8de0e28"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early20-w3\\boundary-e5.json",
+      "byteLength": 24167,
+      "sha256": "b019cc00ebbde847ff6bd45ef6776174c32888c0e5133866597d8ef4e0204c5a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early20-w3\\boundary-e9.json",
+      "byteLength": 103180,
+      "sha256": "be3cde747de5f4939f96f5b035674ea8916db916047bc207531f565eeb9f2818"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early20-w3\\boundary-e13.json",
+      "byteLength": 183916,
+      "sha256": "57c314964b5bd30dc45ea04a397aac8cc8f0e9aedff1c5774506334670a3dfd5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early20-w3\\boundary-e17.json",
+      "byteLength": 332101,
+      "sha256": "b8f2af46af70c82d25ace13b565ffcc63979528a91df85f4dd33a8f14bef66e9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early20-w3\\boundary-e21.json",
+      "byteLength": 719934,
+      "sha256": "524fee827274730bf5b6937180f77c58a88fabf6221b39b05008ff7e97849c55"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early20-w3\\boundary-e25.json",
+      "byteLength": 995115,
+      "sha256": "0e682aa029ac7eb926bb6396a2c623af3a34e9d7c451e4a4f3988e5332a53815"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\spec.json",
+      "byteLength": 865,
+      "sha256": "370fa34f7f86fe73211c9f8ec6a7456d75d7f84192b4667b4fdab9292c6257c1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\result.json",
+      "byteLength": 2216,
+      "sha256": "337ff8ca868136b2739cd68fce14cf84bc6d658462aaabf5499d7385f4cab3e8"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\exit.json",
+      "byteLength": 288,
+      "sha256": "5d96b66d1e0715608b2a21d3254d4b3774db1e92d067a62fc27263e6f8bb2052"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\host.json",
+      "bytes": 347,
+      "sha256": "13cf9cdd75154bb0ec947f1494a008550066f08074489d3a2b300f94a3e199a5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\events.jsonl",
+      "byteLength": 7958533,
+      "sha256": "071cb36b2af45526ef8b3ddb6731c6f0d07933fd65f13ac93ac7a0371505b28f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\boundary-e9.json",
+      "byteLength": 57825,
+      "sha256": "2bb1d60316041bc29ede7b1db5494c25198cdd1285bee4223b2f60edffb91dec"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\boundary-e17.json",
+      "byteLength": 190785,
+      "sha256": "e5ea94098313dbbe7610f51587ee081dd5e07bace3f22e13ec8af468e292e350"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\boundary-e25.json",
+      "byteLength": 541801,
+      "sha256": "81ad826d62baef6d2207cffc1216b90afe9a121fc77e69b68dad567fedd52162"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\boundary-e33.json",
+      "byteLength": 991939,
+      "sha256": "544b4526647a6cb2515033f6aa8f268e7d7c85a4f0899061db1a75493307d45e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\boundary-e41.json",
+      "byteLength": 1619127,
+      "sha256": "752cafa875f88350af6eb69171a2c3e0ba85e46a1b192f74744209b708e04d08"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-broad\\boundary-e49.json",
+      "byteLength": 2295967,
+      "sha256": "471648b7c12a809628f22264c5f7032f9de9501b23cd54b1a1ff0367ce38e04e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\spec.json",
+      "byteLength": 1172,
+      "sha256": "4afc9fa4d9eea293479c3e3cc4b09c7012ce6faadac55881cd210e5e50272eb5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\result.json",
+      "byteLength": 2402,
+      "sha256": "8101525fad6f825b1c3fc1ad7ba1050c62ba6fd1ae403ec41efd88f6b9839a6d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\exit.json",
+      "byteLength": 475,
+      "sha256": "20f816073ab450575272f4e135306a2c1daa7b8beec4a58a99474595bbe69899"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\host.json",
+      "bytes": 532,
+      "sha256": "7549d7f1339af7d70762eb6586686d9e1927688459dfc4cf63cd65bee97bb4d6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\events.jsonl",
+      "byteLength": 16166604,
+      "sha256": "ab25113ccaa83286c3a797d50e2439667f9b4ed70eff85d02b61bf52e875dd8d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\boundary-e9.json",
+      "byteLength": 65712,
+      "sha256": "2b6955fdf046b623304999279002c37749ecb1e2408c75c48b61ba1c7aa2e23b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\boundary-e17.json",
+      "byteLength": 408303,
+      "sha256": "7af94fcc77cd72fb7c4b9e71c228876ad09701c90fd249e77a5615c881a08026"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\boundary-e25.json",
+      "byteLength": 697016,
+      "sha256": "27a49e078ace319bb26ce880efc96fe57cc0ff232b7f60713d5e4df18388aa1a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\boundary-e33.json",
+      "byteLength": 1115023,
+      "sha256": "91bec9c2aead6329fe693c2043bf0e24d503178231ee8ad975d684d543ba1d60"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\boundary-e41.json",
+      "byteLength": 1985439,
+      "sha256": "f51ac7fbd7722448952b6a478c6d1b558abde31ebd08531bae612a2ba4e08d01"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thin-t4p5-early\\boundary-e49.json",
+      "byteLength": 4360919,
+      "sha256": "7d8e0dcbb3464ba9cede611bcd466bd5431084c5d6115bf07181e664c7e6c259"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-broad\\spec.json",
+      "byteLength": 854,
+      "sha256": "19c4614d4fc21eddbb19d4ea96a4d9ce2e5d4d216932f771ba42020ae2d4905c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-broad\\result.json",
+      "byteLength": 2207,
+      "sha256": "428106753df6bdbb59bf180d6ed791182f736d21f910fc530c09b03f1a2b5dd4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-broad\\exit.json",
+      "byteLength": 313,
+      "sha256": "521613317601e69e9726dfe8975927b2929c4035228ab0108bf8745650b4f385"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-broad\\host.json",
+      "bytes": 347,
+      "sha256": "d3eaa2706180efa5dcfd83a3a205afbb5bfce633ad141038d94a3fc085795acf"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-broad\\events.jsonl",
+      "byteLength": 12518211,
+      "sha256": "62db72d9de52878c3bf0cfc8a5038ac0e1926215a2bfb641a774e3b36e38060e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-broad\\boundary-e9.json",
+      "byteLength": 57813,
+      "sha256": "12d7a3b03ed9f4130e605f8e39d654a85905641f35246bd805c107fca690f6bc"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-broad\\boundary-e17.json",
+      "byteLength": 190761,
+      "sha256": "4810b2ba873dff039bd940c70553452599404349a9ac5b9359788125b7c3f0e9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-broad\\boundary-e25.json",
+      "byteLength": 518129,
+      "sha256": "c1dc3c1fa7b50520c8a8d13ae5fb60cf3fd3b0ad7dd1360bc0dc93d348d4e720"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-broad\\boundary-e33.json",
+      "byteLength": 992333,
+      "sha256": "18dec9278fdd920fac29c3cbdd44f6519bc35496dcc19b599b1a976cda9691f1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-broad\\boundary-e41.json",
+      "byteLength": 1613420,
+      "sha256": "a2d95e2d8fc161b969a8951c315ee56694c0919d1646a9f90044ab649690794d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-broad\\boundary-e49.json",
+      "byteLength": 2296628,
+      "sha256": "f65e2f46776f5cfab4c0b5585d6a73e10e44d474ed07b920c18f48008c978c61"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-early20-w6\\spec.json",
+      "byteLength": 1166,
+      "sha256": "0e7ddb027280c5d9e0ee5f983d1ed0be50d870de5618c893e66232052ecccece"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-early20-w6\\result.json",
+      "byteLength": 2396,
+      "sha256": "c297debaa2144cce9a06377928a1e8a7a8c923188995317c5775bdddf5ee0acc"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-early20-w6\\exit.json",
+      "byteLength": 503,
+      "sha256": "8dfaf40b5978052bc6ea2eaa2b93e4f7aecd9b3ea2a583971ed9093a18b21e75"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-early20-w6\\host.json",
+      "bytes": 532,
+      "sha256": "fd56c1eb4953cdf290f8ff5406ef3ceddc82650d376cc9d250d0c01eace56a0c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-early20-w6\\events.jsonl",
+      "byteLength": 24811912,
+      "sha256": "e5f8dbb09ac156de45969210c907d8e61bec7fb4e212685a71873a076a028d91"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-early20-w6\\boundary-e9.json",
+      "byteLength": 65705,
+      "sha256": "725143a364d817486b80b5331c3dbc9eb3cbf08ec36e453719f7baf4ea87ffd1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-early20-w6\\boundary-e17.json",
+      "byteLength": 416210,
+      "sha256": "d774eecc5d484a97950585284b5916bc492d5970ba8b969c68a21dba1e78f204"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-early20-w6\\boundary-e25.json",
+      "byteLength": 697535,
+      "sha256": "aa863e99e68e8a4320a086ef217a978e795257b20cf848ad0d563d762fb41b4d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-early20-w6\\boundary-e33.json",
+      "byteLength": 1130965,
+      "sha256": "62709ac5d40733c77a52197d706ff2a85183e8538b160174f1acda2ce062899b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-early20-w6\\boundary-e41.json",
+      "byteLength": 1976921,
+      "sha256": "d4571aeec3b3e4b0575e0e1109274b7e4b2bad5ac1f819c0bb8e2a4074b0b8d3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h1-early20-w6\\boundary-e49.json",
+      "byteLength": 4363558,
+      "sha256": "48487da47b5f17159ee5c51a558c681a292ec452100a150f8b3f701f0c68f605"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\spec.json",
+      "byteLength": 866,
+      "sha256": "0c548a510668b767dd88b88f8d65c95f74e565dd19d6bda1c7ed899bc9726b0f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\result.json",
+      "byteLength": 2218,
+      "sha256": "ec8183d4bb820db5cb7155fa1b329e9043d5735d50e0f66379ad4060ca8e6546"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\exit.json",
+      "byteLength": 291,
+      "sha256": "db1f95da85d23ca05abe7dedc5e91f997a38688de26e301277217dafe2cec050"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\host.json",
+      "bytes": 347,
+      "sha256": "13cf9cdd75154bb0ec947f1494a008550066f08074489d3a2b300f94a3e199a5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\events.jsonl",
+      "byteLength": 8526812,
+      "sha256": "a84980ea55ed66a7b629c535a886430824dc710f96409e5772fca53f9f85925e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\boundary-e9.json",
+      "byteLength": 80373,
+      "sha256": "bba1dcbb51ed5f3469fa6f935ae7681bc1d18fa372454b1eb386ad18fdad4372"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\boundary-e17.json",
+      "byteLength": 234532,
+      "sha256": "c8162633981d78fba1ee08436298edc79bfa72d402d898810ff2303c270bd6f0"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\boundary-e25.json",
+      "byteLength": 584512,
+      "sha256": "5b0aa795b2e0ebb43924a3660a8860aa68fdd5e299e8702ef2e684981465e527"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\boundary-e33.json",
+      "byteLength": 1083914,
+      "sha256": "28312dc7c3574fc7fadf6b709121d7614f77981d79af06e051530efa975baaa4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\boundary-e41.json",
+      "byteLength": 1713227,
+      "sha256": "22ac7e228b092c4c899c6f22bfc2e509aabbb2987dd2767e84d549efa630e20b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-broad\\boundary-e49.json",
+      "byteLength": 2408449,
+      "sha256": "8adb0b2c11ebb0b7dafe58c580e396b53d981bbb5a0c69609435695c967e7667"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\spec.json",
+      "byteLength": 1173,
+      "sha256": "bcf0027eae0b7580f8d2ce0218a2036b5c02f0460662cae1a1fa7c80dbe43e66"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\result.json",
+      "byteLength": 2407,
+      "sha256": "7198f31b54b3cc5f75bc0ce6c184e4a30e43e2d8d9c74ff4196e9350189b556f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\exit.json",
+      "byteLength": 476,
+      "sha256": "58f82f409507ce36ab13bc3bca6ccb73169a181567e9374c0267a9268e768289"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\host.json",
+      "bytes": 532,
+      "sha256": "7549d7f1339af7d70762eb6586686d9e1927688459dfc4cf63cd65bee97bb4d6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\events.jsonl",
+      "byteLength": 16513805,
+      "sha256": "f51153c206aa1cb361ae754a752497331425f8d462b90a49e691d616c167a7c5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\boundary-e9.json",
+      "byteLength": 88184,
+      "sha256": "908aca146ca997c11d1e044c5e4bfc3e1f4240d2503d538733859301c622b17d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\boundary-e17.json",
+      "byteLength": 351514,
+      "sha256": "cf79338a12f2876544820073e4b30e85bbf16eca28a05d2c69bb2122527ec346"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\boundary-e25.json",
+      "byteLength": 668749,
+      "sha256": "22b028388ee6c52c8cfbeb4d4dbef155771f234d924e743993ce3562aca8a63d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\boundary-e33.json",
+      "byteLength": 1017521,
+      "sha256": "4f6a6f7c89876bfb2265fd4c3deb8234682d16bea06a49e220d2b078d55b66a6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\boundary-e41.json",
+      "byteLength": 1544362,
+      "sha256": "e468c74961aa0ff2c2f9bfa7fb69375d15cef5a0c2911f4de0943630841b3233"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows\\warm-refine-fine-thick-t4p5-early\\boundary-e49.json",
+      "byteLength": 3648570,
+      "sha256": "23db7d4fca25ccc690391c17020afc51205fec02024323b183edc02ce5cccaf5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-broad\\spec.json",
+      "byteLength": 854,
+      "sha256": "e6c92c631b1cd71849ea0a6a8268249e2c104588e266e05364cf3e0a3ff2eb9e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-broad\\result.json",
+      "byteLength": 2207,
+      "sha256": "160bc892269578a059f686c7a5d5656b69b95929f3fb6664a0725f7e23ec3c9e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-broad\\exit.json",
+      "byteLength": 313,
+      "sha256": "216e06ccb1295be0459cd771d447bcaccd1632608dbe5f52e48806ec6889ad99"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-broad\\host.json",
+      "bytes": 347,
+      "sha256": "d3eaa2706180efa5dcfd83a3a205afbb5bfce633ad141038d94a3fc085795acf"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-broad\\events.jsonl",
+      "byteLength": 13309361,
+      "sha256": "f36f23c4e5f10da45868de8682a4bb442ed4db6abbd31885798151ef1b588c1e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-broad\\boundary-e9.json",
+      "byteLength": 80360,
+      "sha256": "93198e18c4f2862d813ea61fa389d9df0c4aca546e6a7938c6c01e8a6283598b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-broad\\boundary-e17.json",
+      "byteLength": 233395,
+      "sha256": "fd91b34dd1605b3edd38c2cf15b03229ac0a2a964e225a60180ceb764e21fa3b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-broad\\boundary-e25.json",
+      "byteLength": 584381,
+      "sha256": "c0c554ee769729efa6aa84952284c3d97e4d91bc7c50e4b475cea24ae5be3cbe"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-broad\\boundary-e33.json",
+      "byteLength": 1067269,
+      "sha256": "9d43c584723e1be27499dad830deadcb65825dda17752cf79690a058ed1c4796"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-broad\\boundary-e41.json",
+      "byteLength": 1713074,
+      "sha256": "2ecc087204441399a49021342c2dda6ceb19dfc170f618d79b326cbfaf1ea136"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-broad\\boundary-e49.json",
+      "byteLength": 2413704,
+      "sha256": "81c12859238993d318d39f38d9952c068bb22678b7daddc102e5bf8936ac83c4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-early20-w6\\spec.json",
+      "byteLength": 1166,
+      "sha256": "faebcbb903936b0bf191efb1e6426dc7c8796d7181b39c9528f348b5efc60546"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-early20-w6\\result.json",
+      "byteLength": 2406,
+      "sha256": "35099fbf37d29f8308a6f51c00eb1f5b77368b7b5065ac68a60df811254985db"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-early20-w6\\exit.json",
+      "byteLength": 503,
+      "sha256": "98113dc6ff9cad799c90fed67c136d1c1e8a98949ca0c17e7b2988c1e210cdbe"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-early20-w6\\host.json",
+      "bytes": 532,
+      "sha256": "fd56c1eb4953cdf290f8ff5406ef3ceddc82650d376cc9d250d0c01eace56a0c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-early20-w6\\events.jsonl",
+      "byteLength": 25215700,
+      "sha256": "0d6acc1382a9e9b55b316b188933411d948902d6bc64e6ae2de828645ea9411b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-early20-w6\\boundary-e9.json",
+      "byteLength": 88176,
+      "sha256": "ce80df32dc673283822c9cea437640fdbc34abc359d5961dde0aa7d97e4f81f4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-early20-w6\\boundary-e17.json",
+      "byteLength": 370902,
+      "sha256": "7b52e50f2d723c48aa9862b617ab1ca9faba821bd62e4de416fb56a6a0f3e93f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-early20-w6\\boundary-e25.json",
+      "byteLength": 674497,
+      "sha256": "1ba3ffed4ffb53c764eaedbbaac324e37e82d1772ca384e1b0a2b8e9f007b701"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-early20-w6\\boundary-e33.json",
+      "byteLength": 1008890,
+      "sha256": "5dd775edd7297bf6c91af0b8632dbe85891dd7f7cad396ef7730a336f6e7bfb4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-early20-w6\\boundary-e41.json",
+      "byteLength": 1559997,
+      "sha256": "4316b5f6b762bbbc774ed2a0349d09a75127c212a749a2b435fb2dbed0766982"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-w4-h3-early20-w6\\boundary-e49.json",
+      "byteLength": 3647103,
+      "sha256": "866d7a790bab9b4bc141c459952c23d98115f2e176cdf726243548c0c63017ef"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\post-phase10-cavity-analysis.ts",
+      "bytes": 58285,
+      "sha256": "4528db126429a2eb5956a8a1509f075b5d3b9246deb32133059b7c23ce1baeed"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\post-phase10-cavity-geometry.ts",
+      "bytes": 8242,
+      "sha256": "fc56525367cda1b99c0d2141d0e3675477581f12c8185a3f6e30a58ce4abcff6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\post-phase10-cavity-spatial.ts",
+      "bytes": 7107,
+      "sha256": "63fa1d6c04afbc33339a95c742a2d885098f01222bd6c3442033690a4fb08f52"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-bld-batch-summary.ts",
+      "bytes": 6862,
+      "sha256": "ed9211818dff80426fd8fd889abe0ad6ab27437ef780b33b28f38854527f296a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-results-review-2026-11-11\\warm\\analyze.mjs",
+      "bytes": 11211,
+      "sha256": "3fde837e36453a801e174a6fb379a4033315b3a3c4e7f773c4a519019af3829f"
+    }
+  ],
+  "roots": {
+    "bld": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows",
+    "old": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-warm-refinement\\out\\warm-refinement-hil\\rows",
+    "hil": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows"
+  },
+  "recipe": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-results-review-2026-11-11\\warm\\analyze.mjs",
+  "historicalHashBinding": "Compare the six reused specs/results/events/snapshots against evidence/hil-results-review-2026-10-21/warm/inputs.json; original source/runtime remains separately recorded."
+}

@@ -1,0 +1,34 @@
+{
+  "artifacts": [
+    {
+      "path": "analyze.mjs",
+      "bytes": 11211,
+      "sha256": "3fde837e36453a801e174a6fb379a4033315b3a3c4e7f773c4a519019af3829f"
+    },
+    {
+      "path": "summarize.py",
+      "bytes": 2669,
+      "sha256": "2c7cb9ddef3f970b03236e06aa6651306cd5064af17f36d45b61c1febcc45d8d"
+    },
+    {
+      "path": "inputs.json",
+      "bytes": 43050,
+      "sha256": "2633661542eee6ff43a757bd64cf761ac6a90a6a34e2e18dced5ceed5a2e8655"
+    },
+    {
+      "path": "warm-comparisons.json",
+      "bytes": 910042,
+      "sha256": "9afa5c09e9f24be85eab2ef396d52eeb1cbd5d9b7edbb4e5c2ecd7ccba3b7e33"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 67077,
+      "sha256": "63482ac7c925f41308bef77d6a2a62b0d0178f41809356c00eb673558dc7188a"
+    },
+    {
+      "path": "reused-control-hashes.json",
+      "bytes": 19259,
+      "sha256": "f65c9349f48e336daf446e5bd11d47e5091baad4f08d731bb127322d70acafda"
+    }
+  ]
+}

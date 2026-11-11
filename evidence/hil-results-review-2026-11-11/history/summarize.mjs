@@ -1,0 +1,17 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+import {resolve,dirname} from 'node:path';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import assert from 'node:assert/strict';
+const input=resolve(process.argv[2]??'out/hil-results-review-2026-11-11/history/readout.json');
+const bytes=readFileSync(input),r=JSON.parse(bytes),hash=b=>createHash('sha256').update(b).digest('hex');
+const oldPath='evidence/hil-results-review-2026-10-21/history-pressure/summary.json',oldBytes=readFileSync(oldPath),old=JSON.parse(oldBytes);
+const paths=['core/src','solver-cpu/src','runner/src/post-phase10-discovery.ts','runner/src/discovery-resume-io.ts','runner/src/post-phase10-cavity-analysis.ts','runner/src/post-phase10-cavity-geometry.ts','runner/src/hil-bld-batch-summary.ts'];
+const parityCommand=['diff','--name-only','73eb358c7c720a7f1608df5b26f0a8438ae6be92','2f2d605f0ed8fdb8d78cdea02a58102a7001cb53','--',...paths];
+assert.equal(execFileSync('git',parityCommand,{encoding:'utf8'}).trim(),'');
+const window=w=>!w.available?w:{available:true,startSeconds:w.start.requestedTimeSeconds,endSeconds:w.end.requestedTimeSeconds,startBrackets:[w.start.atOrBefore.cycle,w.start.nextEvent?.cycle??null],endBrackets:[w.end.atOrBefore.cycle,w.end.nextEvent?.cycle??null],atOrBefore:w.atOrBefore,endpointSensitivity:w.endpointSensitivity};
+const pack=ws=>Object.fromEntries(Object.entries(ws).map(([k,w])=>[k,window(w)]));
+const summary={createdAt:new Date().toISOString(),input:{path:input,bytes:bytes.length,sha256:hash(bytes)},scope:r.scope,script:r.script,reusedDefinitions:r.reusedDefinitions,definitions:r.definitions,census:r.census,Dnew:r.Dnew,D0:r.D0,sourceChecks:r.sourceChecks,rows:r.rows,historyReadouts:r.historyReadouts.map(h=>({...h,windows:pack(h.windows)})),staticReferences:r.staticReferences.map(s=>({...s,continuedSourceWindows:pack(s.continuedSourceWindows),freshSeedDestinationWindows:pack(s.freshSeedDestinationWindows)})),earlyMinusLate:r.earlyMinusLate,historyMinusContinuedSource:r.historyMinusContinuedSource,olderD0Comparison:{source:{path:oldPath,bytes:oldBytes.length,sha256:hash(oldBytes)},sourceParity:{command:['git',...parityCommand],changedPaths:[]},limit:'N96 and N64 same-spacing same-CFL contrast; target and domain differ. It is not a spacing convergence claim.',rows:r.earlyMinusLate.map(c=>({pressurePa:c.pressurePa,N96:c.windows.D0,N64:old.earlyMinusLate.find(o=>o.pressurePa===c.pressurePa&&o.cflFill===.025).windows.full}))}};
+writeFileSync(resolve(dirname(input),'summary.json'),JSON.stringify(summary)+'\n',{flag:'wx'});
+writeFileSync(resolve(dirname(input),'input-hashes.json'),JSON.stringify({scope:r.scope,inputs:r.sources})+'\n',{flag:'wx'});
+console.log(JSON.stringify({summaryBytes:readFileSync(resolve(dirname(input),'summary.json')).length,inputHash:summary.input.sha256}));

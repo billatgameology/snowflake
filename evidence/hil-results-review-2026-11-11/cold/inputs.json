@@ -1,0 +1,330 @@
+{
+  "inputs": [
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither\\spec.json",
+      "bytes": 1062,
+      "sha256": "d4899d457625eb3d01e33d5e1ccd557a438bfd9bceaf6393629dc574b8de21af"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither\\result.json",
+      "bytes": 3359,
+      "sha256": "400a8a80e0acc685b2f1d3f4cab455d15d2985bf24df541074a5f4229e56a115"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither\\events.jsonl",
+      "bytes": 5115896,
+      "sha256": "48d80af3162108d304ff563024d63b35153bbe8290da9443ddcf0c516bb917c2"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither\\exit.json",
+      "bytes": 380,
+      "sha256": "98e1db273b30ce3940a7cc9bfcc0058d3bd467451b0c8a21d8cf20fa5a98d6b6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only\\spec.json",
+      "bytes": 1071,
+      "sha256": "eb18ccfca6d9245c0da6b8e6ef8a2a2c73cef56c4b959dd2561fc7d5cf61a1c7"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only\\result.json",
+      "bytes": 3363,
+      "sha256": "6956551c2aa7923b4142132da607200b17c90548a363d3853a4dd527447c84d3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only\\events.jsonl",
+      "bytes": 5104863,
+      "sha256": "14c23c7236c75a31896d947cca38970b89b58535a76da049ed9b0bd80e84b2ff"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only\\exit.json",
+      "bytes": 386,
+      "sha256": "7ac813f7be30038cfba6895d4e6b7e4e941508a5d0990c57f832ce3816d1a76a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only\\spec.json",
+      "bytes": 1071,
+      "sha256": "52dae5062777527a3632d0a162f3663f338113e5d2764fec5d951df34d50c96c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only\\result.json",
+      "bytes": 3352,
+      "sha256": "e6cb372c33959d8950fcc51bc3b811c3914ec37029fed242b357332a774fb67a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only\\events.jsonl",
+      "bytes": 1973142,
+      "sha256": "72f8d76f6e265243df652dcbb6eee9234ad72b2c74293f0d20495c606581370b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only\\exit.json",
+      "bytes": 385,
+      "sha256": "e2ca5c04280c70bfd8df4ba0af79ebe74948d36cda45dcf7ee3f697a8eef199a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both\\spec.json",
+      "bytes": 1053,
+      "sha256": "0990bd6fcf8fd1d9fab2b8a42b0a10224fc32426e638c45287cfb86299df5c5f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both\\result.json",
+      "bytes": 3343,
+      "sha256": "968703f56097468725a0b0bd401a5fdf2565a47029bd877477783384a1f840ea"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both\\events.jsonl",
+      "bytes": 1968442,
+      "sha256": "6c882941c60317b1082018b788dcebf667b2bb08bb47ebb41c91b0855428d6c9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both\\exit.json",
+      "bytes": 373,
+      "sha256": "3a32b3b4a0edb7a452970ce6b6edc8f5f57e218982a60a7f27717b87e6b4aae1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-neither\\spec.json",
+      "bytes": 1042,
+      "sha256": "d5b518895ec72dc55143d4a7e55aa1f3e048c298a17ef6f9dbddd8459d929bf9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-neither\\result.json",
+      "bytes": 3352,
+      "sha256": "9d6d4849b7273bb5771f1dcdaf68632a6d6f04a2c651830389b9f80e295f1016"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-neither\\events.jsonl",
+      "bytes": 19381829,
+      "sha256": "eb3b9cd0480c5b80b9b57b94c4ff1f9e12d93b07cc6ee6fa9f1398a5938ec95d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-neither\\exit.json",
+      "bytes": 406,
+      "sha256": "fb8927a1f40a25b95499cd7bd5ac33c7790945351c68bf8d680f9e43cbd658f5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-basal-only\\spec.json",
+      "bytes": 1051,
+      "sha256": "15ad310b4e7a6c8cb079cccd7c719b78018248bd93f258ab2a80f90d0151d8e3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-basal-only\\result.json",
+      "bytes": 3355,
+      "sha256": "5edc0268cb0b2ddd2086df24b99d6ec4ed3d83473ffa92934b71fac856bb7d31"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-basal-only\\events.jsonl",
+      "bytes": 18712839,
+      "sha256": "3fabbeb9bb010df13ca7a2af99a60265021bb25703a35f48074944e30c5f2da7"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-basal-only\\exit.json",
+      "bytes": 409,
+      "sha256": "bc7a78ae42d846f85029b1f4d57aa6f5eeabfbaccf235be04c8a1a42a3e1f827"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-prism-only\\spec.json",
+      "bytes": 1051,
+      "sha256": "4605058e17f2481df5236efab18a57f4bbfefb6d2dc56fc9b76feeeebaa5ef91"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-prism-only\\result.json",
+      "bytes": 3344,
+      "sha256": "770b266a9387825da8b1773335dd7b33287503681f54b97b2587bd892b910c42"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-prism-only\\events.jsonl",
+      "bytes": 4513604,
+      "sha256": "03e517c46c72d8ee06e20ceecda1505e50aba349e3ef3406d6a83fb3840a76aa"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-prism-only\\exit.json",
+      "bytes": 362,
+      "sha256": "8ea4a984e5856757b930a30b25907dc987318833cad89e058430919ef7d3d55e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-both\\spec.json",
+      "bytes": 1033,
+      "sha256": "c7881d19c1428e8ec41ba63f9333d91bf13db405066603dde5e91b2c0eec017c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-both\\result.json",
+      "bytes": 3331,
+      "sha256": "8824bb38377aa99f64dc3ce743c852ab15567d4b7cc437cb43a55e87ac7866bd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-both\\events.jsonl",
+      "bytes": 4506958,
+      "sha256": "83bd31700339837c259438da930c48f59555c716052cd258066ad196507da0da"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h1-both\\exit.json",
+      "bytes": 350,
+      "sha256": "59c3c6de3d38722e30b972e16fd3674f8c7024f557ae34e1e233c554e12dbffa"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-neither\\spec.json",
+      "bytes": 1042,
+      "sha256": "57368859aa3f3bd8ae3ce63ed7115195088b743987660db895c6879eaad25dd1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-neither\\result.json",
+      "bytes": 3352,
+      "sha256": "8982513826c8d74fe3fd08e02319bbd4d1a7a8905ee005b1b5c96cb87c6db634"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-neither\\events.jsonl",
+      "bytes": 18431332,
+      "sha256": "8510aeafe8a1a2151d6385681237ca153d8cbd727a7d121a27cc029ec2882af4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-neither\\exit.json",
+      "bytes": 405,
+      "sha256": "7a57247461f2306cab7c8695d60325542630f200d9461046c1efa275a902212b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-basal-only\\spec.json",
+      "bytes": 1051,
+      "sha256": "1fb91e13bdca9e552853766b98d3d5f189170ab20bad15d617aa9649b695ea73"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-basal-only\\result.json",
+      "bytes": 3361,
+      "sha256": "f1e606892cfe96bd0c0ac9b681f8a63b0dbf1925ba749ff980b02b928134db7d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-basal-only\\events.jsonl",
+      "bytes": 17417402,
+      "sha256": "bccb825c3777618267b42fbef33e774a71a7672b82f4522c2a55d01c5f7fb933"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-basal-only\\exit.json",
+      "bytes": 409,
+      "sha256": "3cdb80e547b7f157dcf22a1d39d1858d6469842a38081b51b70a5335dadad347"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-prism-only\\spec.json",
+      "bytes": 1051,
+      "sha256": "558d124eeb19edb65b971d69141e40a96f5fb5262f84baeecedb6f8cf1391cbf"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-prism-only\\result.json",
+      "bytes": 3343,
+      "sha256": "3ca6b90f35113951cbfb209632824544efc17ce926b3c96df6a1f10a5bc74a33"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-prism-only\\events.jsonl",
+      "bytes": 4878663,
+      "sha256": "2dc364c7cd5886a9ef44a5432687e89dfe99e5195238c1eccc60d9fdcea0ecde"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-prism-only\\exit.json",
+      "bytes": 362,
+      "sha256": "964e1977c456b611d589148529b18027f6a2bad8030a8d18e51939420419435d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-both\\spec.json",
+      "bytes": 1033,
+      "sha256": "f87eed6db5ffec9523ba8fc9ed1298d89715331f5640651dffbc8cf0be71b9e4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-both\\result.json",
+      "bytes": 3331,
+      "sha256": "9d410296da68a964bc18f0aeba46ffe6e80c3012fef134744ae98dddd8b16709"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-both\\events.jsonl",
+      "bytes": 4881888,
+      "sha256": "202dfb1a07a7871ebc3a63daabdb6de15b62a18680e2447360308f2cbdb24a33"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-c1-h3-both\\exit.json",
+      "bytes": 350,
+      "sha256": "d5d4fe221e5c718848fdfa29c022acfb797c0104dd3cf781b553d84058edaa82"
+    }
+  ],
+  "rows": [
+    {
+      "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+      "representation": "coarse",
+      "arm": "neither",
+      "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+      "node": "v24.13.1"
+    },
+    {
+      "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+      "representation": "coarse",
+      "arm": "basal-only",
+      "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+      "node": "v24.13.1"
+    },
+    {
+      "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+      "representation": "coarse",
+      "arm": "prism-only",
+      "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+      "node": "v24.13.1"
+    },
+    {
+      "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+      "representation": "coarse",
+      "arm": "both",
+      "producer": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+      "node": "v24.13.1"
+    },
+    {
+      "id": "gd21-hil-c1-h1-neither",
+      "representation": "fine-thin",
+      "arm": "neither",
+      "producer": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+      "node": "v24.13.1"
+    },
+    {
+      "id": "gd21-hil-c1-h1-basal-only",
+      "representation": "fine-thin",
+      "arm": "basal-only",
+      "producer": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+      "node": "v24.13.1"
+    },
+    {
+      "id": "gd21-hil-c1-h1-prism-only",
+      "representation": "fine-thin",
+      "arm": "prism-only",
+      "producer": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+      "node": "v24.13.1"
+    },
+    {
+      "id": "gd21-hil-c1-h1-both",
+      "representation": "fine-thin",
+      "arm": "both",
+      "producer": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+      "node": "v24.13.1"
+    },
+    {
+      "id": "gd21-hil-c1-h3-neither",
+      "representation": "fine-thick",
+      "arm": "neither",
+      "producer": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+      "node": "v24.13.1"
+    },
+    {
+      "id": "gd21-hil-c1-h3-basal-only",
+      "representation": "fine-thick",
+      "arm": "basal-only",
+      "producer": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+      "node": "v24.13.1"
+    },
+    {
+      "id": "gd21-hil-c1-h3-prism-only",
+      "representation": "fine-thick",
+      "arm": "prism-only",
+      "producer": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+      "node": "v24.13.1"
+    },
+    {
+      "id": "gd21-hil-c1-h3-both",
+      "representation": "fine-thick",
+      "arm": "both",
+      "producer": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+      "node": "v24.13.1"
+    }
+  ]
+}

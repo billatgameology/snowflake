@@ -1,0 +1,3192 @@
+{
+  "createdAt": "2026-11-11T18:42:14.182Z",
+  "scope": "Frozen C1 representation comparisons, internal model development only.",
+  "script": {
+    "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-results-review-2026-11-11\\cold\\readout.mjs",
+    "sha256": "6396f9901a6af8c61327158187c7838ab4316171d697109c226906418d18e607"
+  },
+  "command": [
+    "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+    "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-results-review-2026-11-11\\cold\\readout.mjs",
+    "out/hil-results-review-2026-11-11/cold/readout-stable.json"
+  ],
+  "definitions": {
+    "core": "Largest fully occupied central-plane hex ball; independently checked by explicit missing-site membership at every event. tip largest occupied radius, gap=tip-core.",
+    "distance": "Lattice-radius cell count times each row dxUm; ring counts are occupancy, not physical mass.",
+    "plateau": "First exact-tip plateau with observed exit. Minimum positive duration over complete named cohort, sampled from each own entry at 0,.25,.5,.75 Dtip. Different absolute ages and radial increments.",
+    "brackets": "At-or-before and next event including exact-event-time alternatives; sensitivity bounds not statistical uncertainty. No interpolation.",
+    "commonAge": "Minimum terminal physical age over named cohort; quarter/half increments use that shared clock."
+  },
+  "census": {
+    "rows": 12,
+    "checkedSizeEndpoints": 12,
+    "reconstructedUpdates": 31443
+  },
+  "detailedReadout": {
+    "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-results-review-2026-11-11\\cold\\readout-stable.json",
+    "bytes": 1676273,
+    "sha256": "ce6f14e97447a933a3419fcdfd840f8933594e1cceb602971ae537eda42cdaf0"
+  },
+  "cohorts": [
+    {
+      "name": "coarse-plus-fine-thin",
+      "rowIds": [
+        "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+        "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+        "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+        "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+        "gd21-hil-c1-h1-neither",
+        "gd21-hil-c1-h1-basal-only",
+        "gd21-hil-c1-h1-prism-only",
+        "gd21-hil-c1-h1-both"
+      ],
+      "TcommonSeconds": 8.92067178910807,
+      "commonAgeWitnessRowIds": [
+        "gd21-hil-c1-h1-prism-only"
+      ],
+      "stages": [
+        {
+          "coarseTip": 8,
+          "available": true,
+          "DtipSeconds": 0.467403189055569,
+          "shortestWitnessRowIds": [
+            "gd21-hil-c1-h1-prism-only"
+          ],
+          "tipRadiusUm": 2.8,
+          "samples": [
+            {
+              "fractionOfDtip": 0,
+              "rows": [
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 960,
+                  "timeSeconds": 31.639081418956273
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 985,
+                  "timeSeconds": 31.839641735795333
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 330,
+                  "timeSeconds": 5.447706987034821
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 330,
+                  "timeSeconds": 5.506952049597482
+                },
+                {
+                  "id": "gd21-hil-c1-h1-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3380,
+                  "timeSeconds": 30.370948063588337
+                },
+                {
+                  "id": "gd21-hil-c1-h1-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3467,
+                  "timeSeconds": 30.782549905060115
+                },
+                {
+                  "id": "gd21-hil-c1-h1-prism-only",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 670,
+                  "timeSeconds": 3.682354257817893
+                },
+                {
+                  "id": "gd21-hil-c1-h1-both",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 668,
+                  "timeSeconds": 3.693572572893664
+                }
+              ]
+            },
+            {
+              "fractionOfDtip": 0.25,
+              "rows": [
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 965,
+                  "timeSeconds": 31.737895913901593
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 990,
+                  "timeSeconds": 31.938643332061687
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 335,
+                  "timeSeconds": 5.546833197433346
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 335,
+                  "timeSeconds": 5.606331651788042
+                },
+                {
+                  "id": "gd21-hil-c1-h1-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3400,
+                  "timeSeconds": 30.482905329265286
+                },
+                {
+                  "id": "gd21-hil-c1-h1-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3486,
+                  "timeSeconds": 30.894558783286488
+                },
+                {
+                  "id": "gd21-hil-c1-h1-prism-only",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 691,
+                  "timeSeconds": 3.798039327681648
+                },
+                {
+                  "id": "gd21-hil-c1-h1-both",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 688,
+                  "timeSeconds": 3.8070266383711426
+                }
+              ]
+            },
+            {
+              "fractionOfDtip": 0.5,
+              "rows": [
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 972,
+                  "timeSeconds": 31.871225537900028
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 997,
+                  "timeSeconds": 32.07103477888344
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 341,
+                  "timeSeconds": 5.665850004803376
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 341,
+                  "timeSeconds": 5.725652730360724
+                },
+                {
+                  "id": "gd21-hil-c1-h1-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3420,
+                  "timeSeconds": 30.599917039114477
+                },
+                {
+                  "id": "gd21-hil-c1-h1-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3508,
+                  "timeSeconds": 31.01619495172099
+                },
+                {
+                  "id": "gd21-hil-c1-h1-prism-only",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 710,
+                  "timeSeconds": 3.9110852576372266
+                },
+                {
+                  "id": "gd21-hil-c1-h1-both",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 707,
+                  "timeSeconds": 3.923069201963422
+                }
+              ]
+            },
+            {
+              "fractionOfDtip": 0.75,
+              "rows": [
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 978,
+                  "timeSeconds": 31.985629142616546
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 1003,
+                  "timeSeconds": 32.18550030102032
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 347,
+                  "timeSeconds": 5.784866811421794
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 347,
+                  "timeSeconds": 5.844973808158051
+                },
+                {
+                  "id": "gd21-hil-c1-h1-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3438,
+                  "timeSeconds": 30.717582468866976
+                },
+                {
+                  "id": "gd21-hil-c1-h1-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3527,
+                  "timeSeconds": 31.132466380638135
+                },
+                {
+                  "id": "gd21-hil-c1-h1-prism-only",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 729,
+                  "timeSeconds": 4.02717615855646
+                },
+                {
+                  "id": "gd21-hil-c1-h1-both",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 726,
+                  "timeSeconds": 4.041442492317648
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "coarseTip": 9,
+          "available": true,
+          "DtipSeconds": 0.5083816188849442,
+          "shortestWitnessRowIds": [
+            "gd21-hil-c1-h1-prism-only"
+          ],
+          "tipRadiusUm": 3.15,
+          "samples": [
+            {
+              "fractionOfDtip": 0,
+              "rows": [
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 1184,
+                  "timeSeconds": 39.42604300590998
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 1243,
+                  "timeSeconds": 39.78463911011623
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 412,
+                  "timeSeconds": 7.08673640290484
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 412,
+                  "timeSeconds": 7.126692490493296
+                },
+                {
+                  "id": "gd21-hil-c1-h1-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 4422,
+                  "timeSeconds": 37.92177876334316
+                },
+                {
+                  "id": "gd21-hil-c1-h1-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 4504,
+                  "timeSeconds": 38.4547367920636
+                },
+                {
+                  "id": "gd21-hil-c1-h1-prism-only",
+                  "gapCells": 5,
+                  "gapUm": 0.875,
+                  "rangeUm": {
+                    "min": 0.875,
+                    "max": 0.875
+                  },
+                  "cycle": 794,
+                  "timeSeconds": 4.453255200397403
+                },
+                {
+                  "id": "gd21-hil-c1-h1-both",
+                  "gapCells": 5,
+                  "gapUm": 0.875,
+                  "rangeUm": {
+                    "min": 0.875,
+                    "max": 0.875
+                  },
+                  "cycle": 792,
+                  "timeSeconds": 4.48088525236507
+                }
+              ]
+            },
+            {
+              "fractionOfDtip": 0.25,
+              "rows": [
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 1190,
+                  "timeSeconds": 39.55147172122748
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 1249,
+                  "timeSeconds": 39.909906479472426
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 418,
+                  "timeSeconds": 7.203031937851393
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 418,
+                  "timeSeconds": 7.243358570838762
+                },
+                {
+                  "id": "gd21-hil-c1-h1-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 4443,
+                  "timeSeconds": 38.04873288769093
+                },
+                {
+                  "id": "gd21-hil-c1-h1-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 4525,
+                  "timeSeconds": 38.57749291772649
+                },
+                {
+                  "id": "gd21-hil-c1-h1-prism-only",
+                  "gapCells": 5,
+                  "gapUm": 0.875,
+                  "rangeUm": {
+                    "min": 0.875,
+                    "max": 0.875
+                  },
+                  "cycle": 814,
+                  "timeSeconds": 4.574577066544608
+                },
+                {
+                  "id": "gd21-hil-c1-h1-both",
+                  "gapCells": 5,
+                  "gapUm": 0.875,
+                  "rangeUm": {
+                    "min": 0.875,
+                    "max": 0.875
+                  },
+                  "cycle": 812,
+                  "timeSeconds": 4.60412457615136
+                }
+              ]
+            },
+            {
+              "fractionOfDtip": 0.5,
+              "rows": [
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 1196,
+                  "timeSeconds": 39.675996115718796
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 1255,
+                  "timeSeconds": 40.03345986189722
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 425,
+                  "timeSeconds": 7.338781777108105
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 425,
+                  "timeSeconds": 7.379542544653372
+                },
+                {
+                  "id": "gd21-hil-c1-h1-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 4464,
+                  "timeSeconds": 38.17537686438917
+                },
+                {
+                  "id": "gd21-hil-c1-h1-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 4546,
+                  "timeSeconds": 38.70573196344023
+                },
+                {
+                  "id": "gd21-hil-c1-h1-prism-only",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 834,
+                  "timeSeconds": 4.704459377371999
+                },
+                {
+                  "id": "gd21-hil-c1-h1-both",
+                  "gapCells": 5,
+                  "gapUm": 0.875,
+                  "rangeUm": {
+                    "min": 0.875,
+                    "max": 0.875
+                  },
+                  "cycle": 831,
+                  "timeSeconds": 4.728743218699566
+                }
+              ]
+            },
+            {
+              "fractionOfDtip": 0.75,
+              "rows": [
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 1202,
+                  "timeSeconds": 39.79847269296974
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 1261,
+                  "timeSeconds": 40.15431603169564
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 431,
+                  "timeSeconds": 7.455138782472551
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 431,
+                  "timeSeconds": 7.496271665381641
+                },
+                {
+                  "id": "gd21-hil-c1-h1-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 4482,
+                  "timeSeconds": 38.299637979887954
+                },
+                {
+                  "id": "gd21-hil-c1-h1-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 4565,
+                  "timeSeconds": 38.83295570391372
+                },
+                {
+                  "id": "gd21-hil-c1-h1-prism-only",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 853,
+                  "timeSeconds": 4.830029279561198
+                },
+                {
+                  "id": "gd21-hil-c1-h1-both",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 850,
+                  "timeSeconds": 4.856763486674122
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "commonAgeSamples": [
+        {
+          "fractionOfTcommon": 0,
+          "timeSeconds": 0,
+          "rows": [
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-neither",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-basal-only",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-prism-only",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-both",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            }
+          ]
+        },
+        {
+          "fractionOfTcommon": 0.25,
+          "timeSeconds": 2.2301679472770175,
+          "rows": [
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+              "tipUm": 1.4,
+              "gapUm": 0.35,
+              "rangeUm": {
+                "min": 0.35,
+                "max": 0.35
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+              "tipUm": 1.4,
+              "gapUm": 0.35,
+              "rangeUm": {
+                "min": 0.35,
+                "max": 0.35
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-neither",
+              "tipUm": 0.875,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-basal-only",
+              "tipUm": 0.875,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-prism-only",
+              "tipUm": 2.0999999999999996,
+              "gapUm": 0.5249999999999999,
+              "rangeUm": {
+                "min": 0.5249999999999999,
+                "max": 0.5249999999999999
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-both",
+              "tipUm": 2.0999999999999996,
+              "gapUm": 0.5249999999999999,
+              "rangeUm": {
+                "min": 0.5249999999999999,
+                "max": 0.5249999999999999
+              }
+            }
+          ]
+        },
+        {
+          "fractionOfTcommon": 0.5,
+          "timeSeconds": 4.460335894554035,
+          "rows": [
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+              "tipUm": 1.0499999999999998,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+              "tipUm": 1.0499999999999998,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+              "tipUm": 2.0999999999999996,
+              "gapUm": 0.35,
+              "rangeUm": {
+                "min": 0.35,
+                "max": 0.35
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+              "tipUm": 2.0999999999999996,
+              "gapUm": 0.35,
+              "rangeUm": {
+                "min": 0.35,
+                "max": 0.35
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-neither",
+              "tipUm": 1.0499999999999998,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-basal-only",
+              "tipUm": 1.0499999999999998,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-prism-only",
+              "tipUm": 3.15,
+              "gapUm": 0.875,
+              "rangeUm": {
+                "min": 0.875,
+                "max": 0.875
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-both",
+              "tipUm": 2.9749999999999996,
+              "gapUm": 0.7,
+              "rangeUm": {
+                "min": 0.7,
+                "max": 0.7
+              }
+            }
+          ]
+        },
+        {
+          "fractionOfTcommon": 0.75,
+          "timeSeconds": 6.6905038418310525,
+          "rows": [
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+              "tipUm": 1.0499999999999998,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+              "tipUm": 1.0499999999999998,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+              "tipUm": 2.8,
+              "gapUm": 0.7,
+              "rangeUm": {
+                "min": 0.7,
+                "max": 0.7
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+              "tipUm": 2.8,
+              "gapUm": 0.7,
+              "rangeUm": {
+                "min": 0.7,
+                "max": 0.7
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-neither",
+              "tipUm": 1.2249999999999999,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-basal-only",
+              "tipUm": 1.2249999999999999,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-prism-only",
+              "tipUm": 3.8499999999999996,
+              "gapUm": 0.875,
+              "rangeUm": {
+                "min": 0.875,
+                "max": 0.875
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-both",
+              "tipUm": 3.8499999999999996,
+              "gapUm": 0.875,
+              "rangeUm": {
+                "min": 0.875,
+                "max": 0.875
+              }
+            }
+          ]
+        },
+        {
+          "fractionOfTcommon": 1,
+          "timeSeconds": 8.92067178910807,
+          "rows": [
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+              "tipUm": 1.4,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+              "tipUm": 1.4,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+              "tipUm": 3.5,
+              "gapUm": 0.7,
+              "rangeUm": {
+                "min": 0.7,
+                "max": 0.7
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+              "tipUm": 3.5,
+              "gapUm": 0.7,
+              "rangeUm": {
+                "min": 0.7,
+                "max": 0.7
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-neither",
+              "tipUm": 1.4,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-basal-only",
+              "tipUm": 1.4,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-prism-only",
+              "tipUm": 4.8999999999999995,
+              "gapUm": 1.4,
+              "rangeUm": {
+                "min": 1.4,
+                "max": 1.4
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-both",
+              "tipUm": 4.725,
+              "gapUm": 1.2249999999999999,
+              "rangeUm": {
+                "min": 1.2249999999999999,
+                "max": 1.2249999999999999
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "coarse-plus-fine-thick",
+      "rowIds": [
+        "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+        "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+        "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+        "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+        "gd21-hil-c1-h3-neither",
+        "gd21-hil-c1-h3-basal-only",
+        "gd21-hil-c1-h3-prism-only",
+        "gd21-hil-c1-h3-both"
+      ],
+      "TcommonSeconds": 9.949614471420409,
+      "commonAgeWitnessRowIds": [
+        "gd21-hil-c1-h3-prism-only"
+      ],
+      "stages": [
+        {
+          "coarseTip": 8,
+          "available": true,
+          "DtipSeconds": 0.5710943838134304,
+          "shortestWitnessRowIds": [
+            "gd21-hil-c1-h3-prism-only"
+          ],
+          "tipRadiusUm": 2.8,
+          "samples": [
+            {
+              "fractionOfDtip": 0,
+              "rows": [
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 960,
+                  "timeSeconds": 31.639081418956273
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 985,
+                  "timeSeconds": 31.839641735795333
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 330,
+                  "timeSeconds": 5.447706987034821
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 330,
+                  "timeSeconds": 5.506952049597482
+                },
+                {
+                  "id": "gd21-hil-c1-h3-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3385,
+                  "timeSeconds": 30.91521056894928
+                },
+                {
+                  "id": "gd21-hil-c1-h3-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3509,
+                  "timeSeconds": 31.358321651117702
+                },
+                {
+                  "id": "gd21-hil-c1-h3-prism-only",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 720,
+                  "timeSeconds": 4.437835694166476
+                },
+                {
+                  "id": "gd21-hil-c1-h3-both",
+                  "gapCells": 5,
+                  "gapUm": 0.875,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.875
+                  },
+                  "cycle": 718,
+                  "timeSeconds": 4.45056779090233
+                }
+              ]
+            },
+            {
+              "fractionOfDtip": 0.25,
+              "rows": [
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 967,
+                  "timeSeconds": 31.776797897784334
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 992,
+                  "timeSeconds": 31.97746743365463
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 337,
+                  "timeSeconds": 5.586505467048099
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 337,
+                  "timeSeconds": 5.64610534515253
+                },
+                {
+                  "id": "gd21-hil-c1-h3-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3409,
+                  "timeSeconds": 31.056185045677918
+                },
+                {
+                  "id": "gd21-hil-c1-h3-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3534,
+                  "timeSeconds": 31.500738058652725
+                },
+                {
+                  "id": "gd21-hil-c1-h3-prism-only",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 741,
+                  "timeSeconds": 4.579086152823052
+                },
+                {
+                  "id": "gd21-hil-c1-h3-both",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 738,
+                  "timeSeconds": 4.587610883725796
+                }
+              ]
+            },
+            {
+              "fractionOfDtip": 0.5,
+              "rows": [
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 974,
+                  "timeSeconds": 31.90943066469152
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 999,
+                  "timeSeconds": 32.10910995847655
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 344,
+                  "timeSeconds": 5.725358408114115
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 344,
+                  "timeSeconds": 5.785313269260908
+                },
+                {
+                  "id": "gd21-hil-c1-h3-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3433,
+                  "timeSeconds": 31.19875856251761
+                },
+                {
+                  "id": "gd21-hil-c1-h3-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3557,
+                  "timeSeconds": 31.639281595785885
+                },
+                {
+                  "id": "gd21-hil-c1-h3-prism-only",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 760,
+                  "timeSeconds": 4.716674101431009
+                },
+                {
+                  "id": "gd21-hil-c1-h3-both",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 758,
+                  "timeSeconds": 4.734524161417848
+                }
+              ]
+            },
+            {
+              "fractionOfDtip": 0.75,
+              "rows": [
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 982,
+                  "timeSeconds": 32.062143278893316
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 1007,
+                  "timeSeconds": 32.261996264919354
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 351,
+                  "timeSeconds": 5.864211349160667
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 351,
+                  "timeSeconds": 5.918350940264591
+                },
+                {
+                  "id": "gd21-hil-c1-h3-neither",
+                  "gapCells": 0,
+                  "gapUm": 0,
+                  "rangeUm": {
+                    "min": 0,
+                    "max": 0
+                  },
+                  "cycle": 3453,
+                  "timeSeconds": 31.340055977561093
+                },
+                {
+                  "id": "gd21-hil-c1-h3-basal-only",
+                  "gapCells": 0,
+                  "gapUm": 0,
+                  "rangeUm": {
+                    "min": 0,
+                    "max": 0
+                  },
+                  "cycle": 3577,
+                  "timeSeconds": 31.786102976989557
+                },
+                {
+                  "id": "gd21-hil-c1-h3-prism-only",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 780,
+                  "timeSeconds": 4.859725305266945
+                },
+                {
+                  "id": "gd21-hil-c1-h3-both",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 777,
+                  "timeSeconds": 4.87245370596853
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "coarseTip": 9,
+          "available": false,
+          "reason": "Full cohort lacks observed entry/exit of at least one first exact-tip plateau. No reduced cohort or terminal-time substitute.",
+          "missing": [
+            {
+              "id": "gd21-hil-c1-h3-basal-only",
+              "tip": 18,
+              "entryCycle": 4586,
+              "entryTimeSeconds": 39.13064583469429,
+              "exitObserved": false
+            }
+          ]
+        }
+      ],
+      "commonAgeSamples": [
+        {
+          "fractionOfTcommon": 0,
+          "timeSeconds": 0,
+          "rows": [
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-neither",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-basal-only",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-prism-only",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-both",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            }
+          ]
+        },
+        {
+          "fractionOfTcommon": 0.25,
+          "timeSeconds": 2.4874036178551022,
+          "rows": [
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+              "tipUm": 1.4,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+              "tipUm": 1.4,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-neither",
+              "tipUm": 0.875,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-basal-only",
+              "tipUm": 0.875,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-prism-only",
+              "tipUm": 1.9249999999999998,
+              "gapUm": 0.5249999999999999,
+              "rangeUm": {
+                "min": 0.5249999999999999,
+                "max": 0.5249999999999999
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-both",
+              "tipUm": 1.9249999999999998,
+              "gapUm": 0.5249999999999999,
+              "rangeUm": {
+                "min": 0.5249999999999999,
+                "max": 0.5249999999999999
+              }
+            }
+          ]
+        },
+        {
+          "fractionOfTcommon": 0.5,
+          "timeSeconds": 4.9748072357102044,
+          "rows": [
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+              "tipUm": 1.0499999999999998,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+              "tipUm": 1.0499999999999998,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+              "tipUm": 2.4499999999999997,
+              "gapUm": 0.7,
+              "rangeUm": {
+                "min": 0.7,
+                "max": 0.7
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+              "tipUm": 2.4499999999999997,
+              "gapUm": 0.7,
+              "rangeUm": {
+                "min": 0.7,
+                "max": 0.7
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-neither",
+              "tipUm": 1.2249999999999999,
+              "gapUm": 0.175,
+              "rangeUm": {
+                "min": 0.175,
+                "max": 0.175
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-basal-only",
+              "tipUm": 1.0499999999999998,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-prism-only",
+              "tipUm": 2.8,
+              "gapUm": 0.7,
+              "rangeUm": {
+                "min": 0.7,
+                "max": 0.7
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-both",
+              "tipUm": 2.8,
+              "gapUm": 0.7,
+              "rangeUm": {
+                "min": 0.7,
+                "max": 0.7
+              }
+            }
+          ]
+        },
+        {
+          "fractionOfTcommon": 0.75,
+          "timeSeconds": 7.462210853565306,
+          "rows": [
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+              "tipUm": 1.4,
+              "gapUm": 0.35,
+              "rangeUm": {
+                "min": 0.35,
+                "max": 0.35
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+              "tipUm": 1.4,
+              "gapUm": 0.35,
+              "rangeUm": {
+                "min": 0.35,
+                "max": 0.35
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+              "tipUm": 3.15,
+              "gapUm": 0.7,
+              "rangeUm": {
+                "min": 0.7,
+                "max": 0.7
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+              "tipUm": 3.15,
+              "gapUm": 0.7,
+              "rangeUm": {
+                "min": 0.7,
+                "max": 0.7
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-neither",
+              "tipUm": 1.4,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-basal-only",
+              "tipUm": 1.4,
+              "gapUm": 0.175,
+              "rangeUm": {
+                "min": 0,
+                "max": 0.175
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-prism-only",
+              "tipUm": 3.8499999999999996,
+              "gapUm": 1.0499999999999998,
+              "rangeUm": {
+                "min": 1.0499999999999998,
+                "max": 1.0499999999999998
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-both",
+              "tipUm": 3.8499999999999996,
+              "gapUm": 1.0499999999999998,
+              "rangeUm": {
+                "min": 1.0499999999999998,
+                "max": 1.0499999999999998
+              }
+            }
+          ]
+        },
+        {
+          "fractionOfTcommon": 1,
+          "timeSeconds": 9.949614471420409,
+          "rows": [
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+              "tipUm": 1.4,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+              "tipUm": 1.4,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+              "tipUm": 3.8499999999999996,
+              "gapUm": 1.0499999999999998,
+              "rangeUm": {
+                "min": 1.0499999999999998,
+                "max": 1.0499999999999998
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+              "tipUm": 3.8499999999999996,
+              "gapUm": 1.0499999999999998,
+              "rangeUm": {
+                "min": 1.0499999999999998,
+                "max": 1.0499999999999998
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-neither",
+              "tipUm": 1.575,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-basal-only",
+              "tipUm": 1.575,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-prism-only",
+              "tipUm": 4.725,
+              "gapUm": 1.4,
+              "rangeUm": {
+                "min": 1.4,
+                "max": 1.4
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-both",
+              "tipUm": 4.55,
+              "gapUm": 1.2249999999999999,
+              "rangeUm": {
+                "min": 1.2249999999999999,
+                "max": 1.2249999999999999
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cross-thickness-union",
+      "rowIds": [
+        "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+        "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+        "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+        "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+        "gd21-hil-c1-h1-neither",
+        "gd21-hil-c1-h1-basal-only",
+        "gd21-hil-c1-h1-prism-only",
+        "gd21-hil-c1-h1-both",
+        "gd21-hil-c1-h3-neither",
+        "gd21-hil-c1-h3-basal-only",
+        "gd21-hil-c1-h3-prism-only",
+        "gd21-hil-c1-h3-both"
+      ],
+      "TcommonSeconds": 8.92067178910807,
+      "commonAgeWitnessRowIds": [
+        "gd21-hil-c1-h1-prism-only"
+      ],
+      "stages": [
+        {
+          "coarseTip": 8,
+          "available": true,
+          "DtipSeconds": 0.467403189055569,
+          "shortestWitnessRowIds": [
+            "gd21-hil-c1-h1-prism-only"
+          ],
+          "tipRadiusUm": 2.8,
+          "samples": [
+            {
+              "fractionOfDtip": 0,
+              "rows": [
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 960,
+                  "timeSeconds": 31.639081418956273
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 985,
+                  "timeSeconds": 31.839641735795333
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 330,
+                  "timeSeconds": 5.447706987034821
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 330,
+                  "timeSeconds": 5.506952049597482
+                },
+                {
+                  "id": "gd21-hil-c1-h1-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3380,
+                  "timeSeconds": 30.370948063588337
+                },
+                {
+                  "id": "gd21-hil-c1-h1-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3467,
+                  "timeSeconds": 30.782549905060115
+                },
+                {
+                  "id": "gd21-hil-c1-h1-prism-only",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 670,
+                  "timeSeconds": 3.682354257817893
+                },
+                {
+                  "id": "gd21-hil-c1-h1-both",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 668,
+                  "timeSeconds": 3.693572572893664
+                },
+                {
+                  "id": "gd21-hil-c1-h3-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3385,
+                  "timeSeconds": 30.91521056894928
+                },
+                {
+                  "id": "gd21-hil-c1-h3-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3509,
+                  "timeSeconds": 31.358321651117702
+                },
+                {
+                  "id": "gd21-hil-c1-h3-prism-only",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 720,
+                  "timeSeconds": 4.437835694166476
+                },
+                {
+                  "id": "gd21-hil-c1-h3-both",
+                  "gapCells": 5,
+                  "gapUm": 0.875,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.875
+                  },
+                  "cycle": 718,
+                  "timeSeconds": 4.45056779090233
+                }
+              ]
+            },
+            {
+              "fractionOfDtip": 0.25,
+              "rows": [
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 965,
+                  "timeSeconds": 31.737895913901593
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 990,
+                  "timeSeconds": 31.938643332061687
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 335,
+                  "timeSeconds": 5.546833197433346
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 335,
+                  "timeSeconds": 5.606331651788042
+                },
+                {
+                  "id": "gd21-hil-c1-h1-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3400,
+                  "timeSeconds": 30.482905329265286
+                },
+                {
+                  "id": "gd21-hil-c1-h1-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3486,
+                  "timeSeconds": 30.894558783286488
+                },
+                {
+                  "id": "gd21-hil-c1-h1-prism-only",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 691,
+                  "timeSeconds": 3.798039327681648
+                },
+                {
+                  "id": "gd21-hil-c1-h1-both",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 688,
+                  "timeSeconds": 3.8070266383711426
+                },
+                {
+                  "id": "gd21-hil-c1-h3-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3405,
+                  "timeSeconds": 31.031894023300424
+                },
+                {
+                  "id": "gd21-hil-c1-h3-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3529,
+                  "timeSeconds": 31.470700571726105
+                },
+                {
+                  "id": "gd21-hil-c1-h3-prism-only",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 737,
+                  "timeSeconds": 4.552035899801132
+                },
+                {
+                  "id": "gd21-hil-c1-h3-both",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 735,
+                  "timeSeconds": 4.567001617508432
+                }
+              ]
+            },
+            {
+              "fractionOfDtip": 0.5,
+              "rows": [
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 972,
+                  "timeSeconds": 31.871225537900028
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 997,
+                  "timeSeconds": 32.07103477888344
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 341,
+                  "timeSeconds": 5.665850004803376
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 341,
+                  "timeSeconds": 5.725652730360724
+                },
+                {
+                  "id": "gd21-hil-c1-h1-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3420,
+                  "timeSeconds": 30.599917039114477
+                },
+                {
+                  "id": "gd21-hil-c1-h1-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3508,
+                  "timeSeconds": 31.01619495172099
+                },
+                {
+                  "id": "gd21-hil-c1-h1-prism-only",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 710,
+                  "timeSeconds": 3.9110852576372266
+                },
+                {
+                  "id": "gd21-hil-c1-h1-both",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 707,
+                  "timeSeconds": 3.923069201963422
+                },
+                {
+                  "id": "gd21-hil-c1-h3-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3424,
+                  "timeSeconds": 31.14367803649174
+                },
+                {
+                  "id": "gd21-hil-c1-h3-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3549,
+                  "timeSeconds": 31.58952456882451
+                },
+                {
+                  "id": "gd21-hil-c1-h3-prism-only",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 753,
+                  "timeSeconds": 4.666062349396351
+                },
+                {
+                  "id": "gd21-hil-c1-h3-both",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 751,
+                  "timeSeconds": 4.68212228719355
+                }
+              ]
+            },
+            {
+              "fractionOfDtip": 0.75,
+              "rows": [
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 978,
+                  "timeSeconds": 31.985629142616546
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.35,
+                  "rangeUm": {
+                    "min": 0.35,
+                    "max": 0.35
+                  },
+                  "cycle": 1003,
+                  "timeSeconds": 32.18550030102032
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 347,
+                  "timeSeconds": 5.784866811421794
+                },
+                {
+                  "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+                  "gapCells": 2,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 347,
+                  "timeSeconds": 5.844973808158051
+                },
+                {
+                  "id": "gd21-hil-c1-h1-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3438,
+                  "timeSeconds": 30.717582468866976
+                },
+                {
+                  "id": "gd21-hil-c1-h1-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3527,
+                  "timeSeconds": 31.132466380638135
+                },
+                {
+                  "id": "gd21-hil-c1-h1-prism-only",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 729,
+                  "timeSeconds": 4.02717615855646
+                },
+                {
+                  "id": "gd21-hil-c1-h1-both",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 726,
+                  "timeSeconds": 4.041442492317648
+                },
+                {
+                  "id": "gd21-hil-c1-h3-neither",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3442,
+                  "timeSeconds": 31.262419680388806
+                },
+                {
+                  "id": "gd21-hil-c1-h3-basal-only",
+                  "gapCells": 1,
+                  "gapUm": 0.175,
+                  "rangeUm": {
+                    "min": 0.175,
+                    "max": 0.175
+                  },
+                  "cycle": 3566,
+                  "timeSeconds": 31.70407609139258
+                },
+                {
+                  "id": "gd21-hil-c1-h3-prism-only",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 770,
+                  "timeSeconds": 4.788109555067034
+                },
+                {
+                  "id": "gd21-hil-c1-h3-both",
+                  "gapCells": 4,
+                  "gapUm": 0.7,
+                  "rangeUm": {
+                    "min": 0.7,
+                    "max": 0.7
+                  },
+                  "cycle": 767,
+                  "timeSeconds": 4.799798137323734
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "coarseTip": 9,
+          "available": false,
+          "reason": "Full cohort lacks observed entry/exit of at least one first exact-tip plateau. No reduced cohort or terminal-time substitute.",
+          "missing": [
+            {
+              "id": "gd21-hil-c1-h3-basal-only",
+              "tip": 18,
+              "entryCycle": 4586,
+              "entryTimeSeconds": 39.13064583469429,
+              "exitObserved": false
+            }
+          ]
+        }
+      ],
+      "commonAgeSamples": [
+        {
+          "fractionOfTcommon": 0,
+          "timeSeconds": 0,
+          "rows": [
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-neither",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-basal-only",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-prism-only",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-both",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-neither",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-basal-only",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-prism-only",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-both",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            }
+          ]
+        },
+        {
+          "fractionOfTcommon": 0.25,
+          "timeSeconds": 2.2301679472770175,
+          "rows": [
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+              "tipUm": 0.7,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+              "tipUm": 1.4,
+              "gapUm": 0.35,
+              "rangeUm": {
+                "min": 0.35,
+                "max": 0.35
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+              "tipUm": 1.4,
+              "gapUm": 0.35,
+              "rangeUm": {
+                "min": 0.35,
+                "max": 0.35
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-neither",
+              "tipUm": 0.875,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-basal-only",
+              "tipUm": 0.875,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-prism-only",
+              "tipUm": 2.0999999999999996,
+              "gapUm": 0.5249999999999999,
+              "rangeUm": {
+                "min": 0.5249999999999999,
+                "max": 0.5249999999999999
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-both",
+              "tipUm": 2.0999999999999996,
+              "gapUm": 0.5249999999999999,
+              "rangeUm": {
+                "min": 0.5249999999999999,
+                "max": 0.5249999999999999
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-neither",
+              "tipUm": 0.875,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-basal-only",
+              "tipUm": 0.875,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-prism-only",
+              "tipUm": 1.75,
+              "gapUm": 0.35,
+              "rangeUm": {
+                "min": 0.35,
+                "max": 0.35
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-both",
+              "tipUm": 1.75,
+              "gapUm": 0.35,
+              "rangeUm": {
+                "min": 0.35,
+                "max": 0.35
+              }
+            }
+          ]
+        },
+        {
+          "fractionOfTcommon": 0.5,
+          "timeSeconds": 4.460335894554035,
+          "rows": [
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+              "tipUm": 1.0499999999999998,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+              "tipUm": 1.0499999999999998,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+              "tipUm": 2.0999999999999996,
+              "gapUm": 0.35,
+              "rangeUm": {
+                "min": 0.35,
+                "max": 0.35
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+              "tipUm": 2.0999999999999996,
+              "gapUm": 0.35,
+              "rangeUm": {
+                "min": 0.35,
+                "max": 0.35
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-neither",
+              "tipUm": 1.0499999999999998,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-basal-only",
+              "tipUm": 1.0499999999999998,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-prism-only",
+              "tipUm": 3.15,
+              "gapUm": 0.875,
+              "rangeUm": {
+                "min": 0.875,
+                "max": 0.875
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-both",
+              "tipUm": 2.9749999999999996,
+              "gapUm": 0.7,
+              "rangeUm": {
+                "min": 0.7,
+                "max": 0.7
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-neither",
+              "tipUm": 1.0499999999999998,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-basal-only",
+              "tipUm": 1.0499999999999998,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-prism-only",
+              "tipUm": 2.8,
+              "gapUm": 0.7,
+              "rangeUm": {
+                "min": 0.7,
+                "max": 0.7
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-both",
+              "tipUm": 2.8,
+              "gapUm": 0.7,
+              "rangeUm": {
+                "min": 0.7,
+                "max": 0.7
+              }
+            }
+          ]
+        },
+        {
+          "fractionOfTcommon": 0.75,
+          "timeSeconds": 6.6905038418310525,
+          "rows": [
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+              "tipUm": 1.0499999999999998,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+              "tipUm": 1.0499999999999998,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+              "tipUm": 2.8,
+              "gapUm": 0.7,
+              "rangeUm": {
+                "min": 0.7,
+                "max": 0.7
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+              "tipUm": 2.8,
+              "gapUm": 0.7,
+              "rangeUm": {
+                "min": 0.7,
+                "max": 0.7
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-neither",
+              "tipUm": 1.2249999999999999,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-basal-only",
+              "tipUm": 1.2249999999999999,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-prism-only",
+              "tipUm": 3.8499999999999996,
+              "gapUm": 0.875,
+              "rangeUm": {
+                "min": 0.875,
+                "max": 0.875
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-both",
+              "tipUm": 3.8499999999999996,
+              "gapUm": 0.875,
+              "rangeUm": {
+                "min": 0.875,
+                "max": 0.875
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-neither",
+              "tipUm": 1.2249999999999999,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-basal-only",
+              "tipUm": 1.2249999999999999,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-prism-only",
+              "tipUm": 3.5,
+              "gapUm": 0.875,
+              "rangeUm": {
+                "min": 0.875,
+                "max": 0.875
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-both",
+              "tipUm": 3.5,
+              "gapUm": 0.875,
+              "rangeUm": {
+                "min": 0.875,
+                "max": 0.875
+              }
+            }
+          ]
+        },
+        {
+          "fractionOfTcommon": 1,
+          "timeSeconds": 8.92067178910807,
+          "rows": [
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+              "tipUm": 1.4,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+              "tipUm": 1.4,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+              "tipUm": 3.5,
+              "gapUm": 0.7,
+              "rangeUm": {
+                "min": 0.7,
+                "max": 0.7
+              }
+            },
+            {
+              "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+              "tipUm": 3.5,
+              "gapUm": 0.7,
+              "rangeUm": {
+                "min": 0.7,
+                "max": 0.7
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-neither",
+              "tipUm": 1.4,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-basal-only",
+              "tipUm": 1.4,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-prism-only",
+              "tipUm": 4.8999999999999995,
+              "gapUm": 1.4,
+              "rangeUm": {
+                "min": 1.4,
+                "max": 1.4
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h1-both",
+              "tipUm": 4.725,
+              "gapUm": 1.2249999999999999,
+              "rangeUm": {
+                "min": 1.2249999999999999,
+                "max": 1.2249999999999999
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-neither",
+              "tipUm": 1.4,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-basal-only",
+              "tipUm": 1.4,
+              "gapUm": 0,
+              "rangeUm": {
+                "min": 0,
+                "max": 0
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-prism-only",
+              "tipUm": 4.375,
+              "gapUm": 1.2249999999999999,
+              "rangeUm": {
+                "min": 1.2249999999999999,
+                "max": 1.2249999999999999
+              }
+            },
+            {
+              "id": "gd21-hil-c1-h3-both",
+              "tipUm": 4.199999999999999,
+              "gapUm": 1.0499999999999998,
+              "rangeUm": {
+                "min": 1.0499999999999998,
+                "max": 1.2249999999999999
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Two spacings and bracketed seed thicknesses are not continuum convergence or domain independence.",
+    "Matched physical-tip samples occur at different absolute ages; fine/coarse plateau radial increments differ.",
+    "Common-age growth and gap magnitudes remain representation-sensitive.",
+    "Tip9/18 thick and union cohorts are unavailable because a size-target endpoint lacks a plateau exit.",
+    "This is central-plane filled-core delay behind tips, not evidence of a permanent hollow core or physical causality."
+  ]
+}

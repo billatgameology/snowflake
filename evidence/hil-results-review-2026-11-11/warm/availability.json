@@ -1,0 +1,1474 @@
+{
+  "scope": "Read-only availability inventory, not a mechanism comparison",
+  "rows": [
+    {
+      "rowId": "gd21-bld-w1-t4p5-c025-early1-w3",
+      "actualSwitchTimeSeconds": 1.0338799885228636,
+      "cutoffBoundary": {
+        "cutoffSeconds": 1,
+        "boundaryState": {
+          "cycle": 26,
+          "simTimeSeconds": 1.0338799885228636,
+          "extent": 5,
+          "attachedCount": 19
+        },
+        "lastUpdateStartingBeforeCutoff": {
+          "before": {
+            "cycle": 25,
+            "simTimeSeconds": 0.994081020636497,
+            "extent": 5,
+            "attachedCount": 19
+          },
+          "after": {
+            "cycle": 26,
+            "simTimeSeconds": 1.0338799885228636,
+            "extent": 5,
+            "attachedCount": 19
+          }
+        },
+        "firstUpdateStartingAtOrAfterCutoff": {
+          "before": {
+            "cycle": 26,
+            "simTimeSeconds": 1.0338799885228636,
+            "extent": 5,
+            "attachedCount": 19
+          },
+          "after": {
+            "cycle": 27,
+            "simTimeSeconds": 1.0950629739480553,
+            "extent": 5,
+            "attachedCount": 19
+          }
+        }
+      },
+      "nearestSnapshotAtOrBeforeSwitch": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early1-w3\\boundary-e5.json",
+        "sha256": "b9544d1591febcd617df72e5f1e2f917354fd1f9d2275bac17a1c098dbe263e7",
+        "timeRelativeToActualSwitchSeconds": -1.0338799885228636,
+        "record": {
+          "path": "boundary-e5.json",
+          "triggerExtent": 5,
+          "actualExtent": 5,
+          "completedCycles": 0,
+          "simTimeSeconds": 0
+        },
+        "schema": "post-phase10-spatial-boundary-v1",
+        "timing": "after-converged-relaxation-before-surface-advance",
+        "cellFields": [
+          "index",
+          "coords",
+          "neighborCounts",
+          "facet",
+          "fill",
+          "sigmaOpp",
+          "sigmaBoundary",
+          "alphaHKBoundary",
+          "robinGeometry",
+          "fillGeometry"
+        ],
+        "boundaryCells": 56
+      },
+      "nearestSnapshotAfterSwitch": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early1-w3\\boundary-e9.json",
+        "sha256": "ce837a6c3534f570f3f4db8a22e171ba369da3e284d8054f92020154516f4dfb",
+        "timeRelativeToActualSwitchSeconds": 5.0080198282162955,
+        "record": {
+          "path": "boundary-e9.json",
+          "triggerExtent": 9,
+          "actualExtent": 9,
+          "completedCycles": 146,
+          "simTimeSeconds": 6.041899816739159
+        },
+        "schema": "post-phase10-spatial-boundary-v1",
+        "timing": "after-converged-relaxation-before-surface-advance",
+        "cellFields": [
+          "index",
+          "coords",
+          "neighborCounts",
+          "facet",
+          "fill",
+          "sigmaOpp",
+          "sigmaBoundary",
+          "alphaHKBoundary",
+          "robinGeometry",
+          "fillGeometry"
+        ],
+        "boundaryCells": 152
+      },
+      "exactSwitchSnapshot": false,
+      "snapshotTimesSeconds": [
+        0,
+        6.041899816739159,
+        15.215276613740023,
+        27.3026523780837,
+        40.91778651735406,
+        55.54555655072286
+      ],
+      "eventPath": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early1-w3\\events.jsonl",
+      "eventFields": [
+        "schema",
+        "experimentId",
+        "experimentalBasalWidthCells",
+        "experimentalBasalWidthHistory",
+        "rowId",
+        "cycle",
+        "relaxation",
+        "boundary",
+        "basalWidthObservation",
+        "surface",
+        "attached",
+        "attachmentFacets",
+        "attachmentEventD6h",
+        "attachedCount",
+        "extent",
+        "aspectRatio",
+        "symmetryError",
+        "simTimeSeconds",
+        "ledgers",
+        "rssBytes"
+      ],
+      "checkpointGenerations": [
+        "generation-1299-23718cf3-c0bd-45bf-9bf2-23cb240ab487",
+        "generation-1300-72114f7c-108d-40d6-a75e-63e51c354e97"
+      ],
+      "eventBoundaryFields": [
+        "count",
+        "facets",
+        "neighborConfigurations"
+      ],
+      "eventSurfaceFields": [
+        "attachedNow",
+        "maxKineticFillIncrement",
+        "holeFillCount",
+        "deltaTimeSeconds",
+        "stalled",
+        "skippedUnconverged"
+      ],
+      "eventBoundary": {
+        "count": 56,
+        "facets": {
+          "basal": {
+            "count": 38,
+            "sigmaBoundary": {
+              "min": 0.0020799775130228865,
+              "max": 0.002153288172835355,
+              "mean": 0.0021251225053873844
+            },
+            "sigmaOpp": {
+              "min": 0.002396998075195932,
+              "max": 0.0025140529676811758,
+              "mean": 0.0024689056813163987
+            },
+            "alphaHKBoundary": {
+              "min": 0.062087795655660805,
+              "max": 0.06824949535039292,
+              "mean": 0.06587316022420467
+            },
+            "fill": {
+              "min": 0.09438174209229533,
+              "max": 0.6500000000000002,
+              "mean": 0.4402129851700658
+            }
+          },
+          "prism": {
+            "count": 12,
+            "sigmaBoundary": {
+              "min": 0.001856539577064214,
+              "max": 0.001856539577064214,
+              "mean": 0.0018565395770642134
+            },
+            "sigmaOpp": {
+              "min": 0.0025370246432880237,
+              "max": 0.0025370246432880237,
+              "mean": 0.0025370246432880232
+            },
+            "alphaHKBoundary": {
+              "min": 0.14931101094790494,
+              "max": 0.14931101094790494,
+              "mean": 0.14931101094790497
+            },
+            "fill": {
+              "min": 0.33198974103212925,
+              "max": 0.33198974103212925,
+              "mean": 0.3319897410321292
+            }
+          },
+          "inhibited": {
+            "count": 6,
+            "sigmaBoundary": {
+              "min": 0.0027121716786223642,
+              "max": 0.0027121716786223642,
+              "mean": 0.0027121716786223642
+            },
+            "sigmaOpp": {
+              "min": 0.0027121716786223642,
+              "max": 0.0027121716786223642,
+              "mean": 0.0027121716786223642
+            },
+            "alphaHKBoundary": {
+              "min": 0,
+              "max": 0,
+              "mean": 0
+            },
+            "fill": {
+              "min": 0,
+              "max": 0,
+              "mean": 0
+            }
+          },
+          "rough": {
+            "count": 0,
+            "sigmaBoundary": null,
+            "sigmaOpp": null,
+            "alphaHKBoundary": null,
+            "fill": null
+          }
+        },
+        "neighborConfigurations": {
+          "2,0": 12,
+          "1,0": 6,
+          "0,1": 38
+        }
+      }
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c025-early5-w3",
+      "actualSwitchTimeSeconds": 5.021064751997452,
+      "cutoffBoundary": {
+        "cutoffSeconds": 5,
+        "boundaryState": {
+          "cycle": 131,
+          "simTimeSeconds": 5.021064751997452,
+          "extent": 7,
+          "attachedCount": 109
+        },
+        "lastUpdateStartingBeforeCutoff": {
+          "before": {
+            "cycle": 130,
+            "simTimeSeconds": 4.986332989052437,
+            "extent": 7,
+            "attachedCount": 109
+          },
+          "after": {
+            "cycle": 131,
+            "simTimeSeconds": 5.021064751997452,
+            "extent": 7,
+            "attachedCount": 109
+          }
+        },
+        "firstUpdateStartingAtOrAfterCutoff": {
+          "before": {
+            "cycle": 131,
+            "simTimeSeconds": 5.021064751997452,
+            "extent": 7,
+            "attachedCount": 109
+          },
+          "after": {
+            "cycle": 132,
+            "simTimeSeconds": 5.053675364495798,
+            "extent": 7,
+            "attachedCount": 109
+          }
+        }
+      },
+      "nearestSnapshotAtOrBeforeSwitch": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early5-w3\\boundary-e5.json",
+        "sha256": "3d106d0d39026b025a0734b173bbeb33d153549355e7edc1a105248eb499994a",
+        "timeRelativeToActualSwitchSeconds": -5.021064751997452,
+        "record": {
+          "path": "boundary-e5.json",
+          "triggerExtent": 5,
+          "actualExtent": 5,
+          "completedCycles": 0,
+          "simTimeSeconds": 0
+        },
+        "schema": "post-phase10-spatial-boundary-v1",
+        "timing": "after-converged-relaxation-before-surface-advance",
+        "cellFields": [
+          "index",
+          "coords",
+          "neighborCounts",
+          "facet",
+          "fill",
+          "sigmaOpp",
+          "sigmaBoundary",
+          "alphaHKBoundary",
+          "robinGeometry",
+          "fillGeometry"
+        ],
+        "boundaryCells": 56
+      },
+      "nearestSnapshotAfterSwitch": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early5-w3\\boundary-e9.json",
+        "sha256": "9253489c507d94577d07fbb4b3cdc5b051b2b8743063272e58db6ada27d70706",
+        "timeRelativeToActualSwitchSeconds": 2.2598928787638597,
+        "record": {
+          "path": "boundary-e9.json",
+          "triggerExtent": 9,
+          "actualExtent": 9,
+          "completedCycles": 199,
+          "simTimeSeconds": 7.2809576307613115
+        },
+        "schema": "post-phase10-spatial-boundary-v1",
+        "timing": "after-converged-relaxation-before-surface-advance",
+        "cellFields": [
+          "index",
+          "coords",
+          "neighborCounts",
+          "facet",
+          "fill",
+          "sigmaOpp",
+          "sigmaBoundary",
+          "alphaHKBoundary",
+          "robinGeometry",
+          "fillGeometry"
+        ],
+        "boundaryCells": 224
+      },
+      "exactSwitchSnapshot": false,
+      "snapshotTimesSeconds": [
+        0,
+        7.2809576307613115,
+        17.821408020443698,
+        31.150754968946437,
+        45.43568646041044,
+        60.55010258480961
+      ],
+      "eventPath": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early5-w3\\events.jsonl",
+      "eventFields": [
+        "schema",
+        "experimentId",
+        "experimentalBasalWidthCells",
+        "experimentalBasalWidthHistory",
+        "rowId",
+        "cycle",
+        "relaxation",
+        "boundary",
+        "basalWidthObservation",
+        "surface",
+        "attached",
+        "attachmentFacets",
+        "attachmentEventD6h",
+        "attachedCount",
+        "extent",
+        "aspectRatio",
+        "symmetryError",
+        "simTimeSeconds",
+        "ledgers",
+        "rssBytes"
+      ],
+      "checkpointGenerations": [
+        "generation-1522-e2e08290-77c4-4848-a96e-393bfd7e4cda",
+        "generation-1523-a6b231c2-8c85-4206-bada-97d9d6c14b2f"
+      ],
+      "eventBoundaryFields": [
+        "count",
+        "facets",
+        "neighborConfigurations"
+      ],
+      "eventSurfaceFields": [
+        "attachedNow",
+        "maxKineticFillIncrement",
+        "holeFillCount",
+        "deltaTimeSeconds",
+        "stalled",
+        "skippedUnconverged"
+      ],
+      "eventBoundary": {
+        "count": 158,
+        "facets": {
+          "basal": {
+            "count": 26,
+            "sigmaBoundary": {
+              "min": 0.0003884936094307818,
+              "max": 0.0018238031519218112,
+              "mean": 0.0017008132942246653
+            },
+            "sigmaOpp": {
+              "min": 0.0003884939384456363,
+              "max": 0.002011938518846372,
+              "mean": 0.0018691626254603215
+            },
+            "alphaHKBoundary": {
+              "min": 3.4499204095981365e-07,
+              "max": 0.04202134334572529,
+              "mean": 0.03787828648272004
+            },
+            "fill": {
+              "min": 0.5755063242444574,
+              "max": 0.7885293180128152,
+              "mean": 0.7053116070374797
+            }
+          },
+          "prism": {
+            "count": 30,
+            "sigmaBoundary": {
+              "min": 0.001609847629132039,
+              "max": 0.0016412008751488098,
+              "mean": 0.001628771219197487
+            },
+            "sigmaOpp": {
+              "min": 0.00205074504960786,
+              "max": 0.00210991750202182,
+              "mean": 0.0020864193345595753
+            },
+            "alphaHKBoundary": {
+              "min": 0.11156558182660976,
+              "max": 0.11633919885258615,
+              "mean": 0.11444595866424985
+            },
+            "fill": {
+              "min": 0.11572586615659501,
+              "max": 0.45321857482967975,
+              "mean": 0.23541522588631486
+            }
+          },
+          "inhibited": {
+            "count": 42,
+            "sigmaBoundary": {
+              "min": 0.0020539376599280662,
+              "max": 0.002272722222986596,
+              "mean": 0.0021575283854628276
+            },
+            "sigmaOpp": {
+              "min": 0.0020539376599280662,
+              "max": 0.002272722222986596,
+              "mean": 0.0021575283854628276
+            },
+            "alphaHKBoundary": {
+              "min": 0,
+              "max": 0,
+              "mean": 0
+            },
+            "fill": {
+              "min": 0,
+              "max": 0,
+              "mean": 0
+            }
+          },
+          "rough": {
+            "count": 60,
+            "sigmaBoundary": {
+              "min": 5.6622230661488026e-05,
+              "max": 0.0005200771300567501,
+              "mean": 0.0003438751247490151
+            },
+            "sigmaOpp": {
+              "min": 0.00019562054245551367,
+              "max": 0.0017967813897802826,
+              "mean": 0.0011880322914602744
+            },
+            "alphaHKBoundary": {
+              "min": 1,
+              "max": 1,
+              "mean": 1
+            },
+            "fill": {
+              "min": 0.14189122193476583,
+              "max": 0.7385716697491904,
+              "mean": 0.5932455401970277
+            }
+          }
+        },
+        "neighborConfigurations": {
+          "3,1": 24,
+          "0,1": 26,
+          "2,0": 30,
+          "2,1": 24,
+          "3,0": 12,
+          "1,0": 42
+        }
+      }
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c025-early1-w3",
+      "actualSwitchTimeSeconds": 1.0328772117737612,
+      "cutoffBoundary": {
+        "cutoffSeconds": 1,
+        "boundaryState": {
+          "cycle": 27,
+          "simTimeSeconds": 1.0328772117737612,
+          "extent": 5,
+          "attachedCount": 19
+        },
+        "lastUpdateStartingBeforeCutoff": {
+          "before": {
+            "cycle": 26,
+            "simTimeSeconds": 0.9945908908201667,
+            "extent": 5,
+            "attachedCount": 19
+          },
+          "after": {
+            "cycle": 27,
+            "simTimeSeconds": 1.0328772117737612,
+            "extent": 5,
+            "attachedCount": 19
+          }
+        },
+        "firstUpdateStartingAtOrAfterCutoff": {
+          "before": {
+            "cycle": 27,
+            "simTimeSeconds": 1.0328772117737612,
+            "extent": 5,
+            "attachedCount": 19
+          },
+          "after": {
+            "cycle": 28,
+            "simTimeSeconds": 1.0941096160762638,
+            "extent": 5,
+            "attachedCount": 19
+          }
+        }
+      },
+      "nearestSnapshotAtOrBeforeSwitch": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early1-w3\\boundary-e5.json",
+        "sha256": "b0a4d275f9010f14448ab4a3e5f680553af69caaf08828647070a4c4aaffa696",
+        "timeRelativeToActualSwitchSeconds": -1.0328772117737612,
+        "record": {
+          "path": "boundary-e5.json",
+          "triggerExtent": 5,
+          "actualExtent": 5,
+          "completedCycles": 0,
+          "simTimeSeconds": 0
+        },
+        "schema": "post-phase10-spatial-boundary-v1",
+        "timing": "after-converged-relaxation-before-surface-advance",
+        "cellFields": [
+          "index",
+          "coords",
+          "neighborCounts",
+          "facet",
+          "fill",
+          "sigmaOpp",
+          "sigmaBoundary",
+          "alphaHKBoundary",
+          "robinGeometry",
+          "fillGeometry"
+        ],
+        "boundaryCells": 56
+      },
+      "nearestSnapshotAfterSwitch": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early1-w3\\boundary-e9.json",
+        "sha256": "2932d6e4ca4c9a6c5215d46f9865e44796aec2915b6d5b8fcaddf8784ad94cd5",
+        "timeRelativeToActualSwitchSeconds": 5.086611612863574,
+        "record": {
+          "path": "boundary-e9.json",
+          "triggerExtent": 9,
+          "actualExtent": 9,
+          "completedCycles": 151,
+          "simTimeSeconds": 6.119488824637335
+        },
+        "schema": "post-phase10-spatial-boundary-v1",
+        "timing": "after-converged-relaxation-before-surface-advance",
+        "cellFields": [
+          "index",
+          "coords",
+          "neighborCounts",
+          "facet",
+          "fill",
+          "sigmaOpp",
+          "sigmaBoundary",
+          "alphaHKBoundary",
+          "robinGeometry",
+          "fillGeometry",
+          "basalWidthCells",
+          "basalWidthSelected"
+        ],
+        "boundaryCells": 152
+      },
+      "exactSwitchSnapshot": false,
+      "snapshotTimesSeconds": [
+        0,
+        6.119488824637335,
+        15.363063450232016,
+        27.520736280363163,
+        41.07939743895913,
+        55.97041054647412
+      ],
+      "eventPath": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early1-w3\\events.jsonl",
+      "eventFields": [
+        "schema",
+        "experimentId",
+        "experimentalBasalWidthCells",
+        "experimentalBasalWidthHistory",
+        "rowId",
+        "cycle",
+        "relaxation",
+        "boundary",
+        "basalWidthObservation",
+        "surface",
+        "attached",
+        "attachmentFacets",
+        "attachmentEventD6h",
+        "attachedCount",
+        "extent",
+        "aspectRatio",
+        "symmetryError",
+        "simTimeSeconds",
+        "ledgers",
+        "rssBytes"
+      ],
+      "checkpointGenerations": [
+        "generation-1418-4a5e2064-8d34-4944-b7d7-c7fb19036f73",
+        "generation-1419-535987a7-a28d-4f83-aac8-c6c8e7925a1e"
+      ],
+      "eventBoundaryFields": [
+        "count",
+        "facets",
+        "neighborConfigurations"
+      ],
+      "eventSurfaceFields": [
+        "attachedNow",
+        "maxKineticFillIncrement",
+        "holeFillCount",
+        "deltaTimeSeconds",
+        "stalled",
+        "skippedUnconverged"
+      ],
+      "eventBoundary": {
+        "count": 56,
+        "facets": {
+          "basal": {
+            "count": 38,
+            "sigmaBoundary": {
+              "min": 0.002304521057897529,
+              "max": 0.0023891039113733813,
+              "mean": 0.0023566431445205356
+            },
+            "sigmaOpp": {
+              "min": 0.002664856967108209,
+              "max": 0.0028009041371395167,
+              "mean": 0.0027484814379516017
+            },
+            "alphaHKBoundary": {
+              "min": 0.06375420488379135,
+              "max": 0.07028028467024398,
+              "mean": 0.0677661878518306
+            },
+            "fill": {
+              "min": 0.10955827637623304,
+              "max": 0.6750000000000003,
+              "mean": 0.46126104795622724
+            }
+          },
+          "prism": {
+            "count": 12,
+            "sigmaBoundary": {
+              "min": 0.002136391300919162,
+              "max": 0.002136391300919162,
+              "mean": 0.002136391300919162
+            },
+            "sigmaOpp": {
+              "min": 0.0028446582704361443,
+              "max": 0.0028446582704361443,
+              "mean": 0.002844658270436145
+            },
+            "alphaHKBoundary": {
+              "min": 0.13517555414492963,
+              "max": 0.13517555414492963,
+              "mean": 0.1351755541449296
+            },
+            "fill": {
+              "min": 0.3329310994040009,
+              "max": 0.3329310994040009,
+              "mean": 0.3329310994040009
+            }
+          },
+          "inhibited": {
+            "count": 6,
+            "sigmaBoundary": {
+              "min": 0.0030299749868554484,
+              "max": 0.0030299749868554484,
+              "mean": 0.003029974986855449
+            },
+            "sigmaOpp": {
+              "min": 0.0030299749868554484,
+              "max": 0.0030299749868554484,
+              "mean": 0.003029974986855449
+            },
+            "alphaHKBoundary": {
+              "min": 0,
+              "max": 0,
+              "mean": 0
+            },
+            "fill": {
+              "min": 0,
+              "max": 0,
+              "mean": 0
+            }
+          },
+          "rough": {
+            "count": 0,
+            "sigmaBoundary": null,
+            "sigmaOpp": null,
+            "alphaHKBoundary": null,
+            "fill": null
+          }
+        },
+        "neighborConfigurations": {
+          "2,0": 12,
+          "1,0": 6,
+          "0,1": 38
+        }
+      }
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c025-early5-w3",
+      "actualSwitchTimeSeconds": 5.017293754009521,
+      "cutoffBoundary": {
+        "cutoffSeconds": 5,
+        "boundaryState": {
+          "cycle": 138,
+          "simTimeSeconds": 5.017293754009521,
+          "extent": 7,
+          "attachedCount": 109
+        },
+        "lastUpdateStartingBeforeCutoff": {
+          "before": {
+            "cycle": 137,
+            "simTimeSeconds": 4.985233289830908,
+            "extent": 7,
+            "attachedCount": 109
+          },
+          "after": {
+            "cycle": 138,
+            "simTimeSeconds": 5.017293754009521,
+            "extent": 7,
+            "attachedCount": 109
+          }
+        },
+        "firstUpdateStartingAtOrAfterCutoff": {
+          "before": {
+            "cycle": 138,
+            "simTimeSeconds": 5.017293754009521,
+            "extent": 7,
+            "attachedCount": 109
+          },
+          "after": {
+            "cycle": 139,
+            "simTimeSeconds": 5.0475132940360075,
+            "extent": 7,
+            "attachedCount": 109
+          }
+        }
+      },
+      "nearestSnapshotAtOrBeforeSwitch": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early5-w3\\boundary-e5.json",
+        "sha256": "a473c6ef63a26d5a4cfe822af54a4e9be170a922e0f57c85295e42db8eec222e",
+        "timeRelativeToActualSwitchSeconds": -5.017293754009521,
+        "record": {
+          "path": "boundary-e5.json",
+          "triggerExtent": 5,
+          "actualExtent": 5,
+          "completedCycles": 0,
+          "simTimeSeconds": 0
+        },
+        "schema": "post-phase10-spatial-boundary-v1",
+        "timing": "after-converged-relaxation-before-surface-advance",
+        "cellFields": [
+          "index",
+          "coords",
+          "neighborCounts",
+          "facet",
+          "fill",
+          "sigmaOpp",
+          "sigmaBoundary",
+          "alphaHKBoundary",
+          "robinGeometry",
+          "fillGeometry"
+        ],
+        "boundaryCells": 56
+      },
+      "nearestSnapshotAfterSwitch": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early5-w3\\boundary-e9.json",
+        "sha256": "ec66308a7d4008a2e012bb73c85760c9aaf8b51364d97e68b2f764eeef7b25ad",
+        "timeRelativeToActualSwitchSeconds": 2.4050119939982215,
+        "record": {
+          "path": "boundary-e9.json",
+          "triggerExtent": 9,
+          "actualExtent": 9,
+          "completedCycles": 218,
+          "simTimeSeconds": 7.422305748007743
+        },
+        "schema": "post-phase10-spatial-boundary-v1",
+        "timing": "after-converged-relaxation-before-surface-advance",
+        "cellFields": [
+          "index",
+          "coords",
+          "neighborCounts",
+          "facet",
+          "fill",
+          "sigmaOpp",
+          "sigmaBoundary",
+          "alphaHKBoundary",
+          "robinGeometry",
+          "fillGeometry"
+        ],
+        "boundaryCells": 260
+      },
+      "exactSwitchSnapshot": false,
+      "snapshotTimesSeconds": [
+        0,
+        7.422305748007743,
+        18.1337914206259,
+        31.60478084757946,
+        45.825708434272805,
+        61.483708649766086
+      ],
+      "eventPath": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early5-w3\\events.jsonl",
+      "eventFields": [
+        "schema",
+        "experimentId",
+        "experimentalBasalWidthCells",
+        "experimentalBasalWidthHistory",
+        "rowId",
+        "cycle",
+        "relaxation",
+        "boundary",
+        "basalWidthObservation",
+        "surface",
+        "attached",
+        "attachmentFacets",
+        "attachmentEventD6h",
+        "attachedCount",
+        "extent",
+        "aspectRatio",
+        "symmetryError",
+        "simTimeSeconds",
+        "ledgers",
+        "rssBytes"
+      ],
+      "checkpointGenerations": [
+        "generation-1601-47c34618-34c8-4552-a937-f236202d12b9",
+        "generation-1602-6633e001-51d7-405f-a6ce-84739384f1ce"
+      ],
+      "eventBoundaryFields": [
+        "count",
+        "facets",
+        "neighborConfigurations"
+      ],
+      "eventSurfaceFields": [
+        "attachedNow",
+        "maxKineticFillIncrement",
+        "holeFillCount",
+        "deltaTimeSeconds",
+        "stalled",
+        "skippedUnconverged"
+      ],
+      "eventBoundary": {
+        "count": 158,
+        "facets": {
+          "basal": {
+            "count": 26,
+            "sigmaBoundary": {
+              "min": 0.0004318845020615405,
+              "max": 0.0020243906835305976,
+              "mean": 0.001887816714735022
+            },
+            "sigmaOpp": {
+              "min": 0.0004318849445330632,
+              "max": 0.0022406585345765666,
+              "mean": 0.0020813448552310316
+            },
+            "alphaHKBoundary": {
+              "min": 4.177338569321886e-07,
+              "max": 0.04355917099232308,
+              "mean": 0.03926777353674627
+            },
+            "fill": {
+              "min": 0.5784542757072474,
+              "max": 0.8990843641478447,
+              "mean": 0.8036098247213102
+            }
+          },
+          "prism": {
+            "count": 30,
+            "sigmaBoundary": {
+              "min": 0.0018581157004622548,
+              "max": 0.001891637619990875,
+              "mean": 0.0018775191447457833
+            },
+            "sigmaOpp": {
+              "min": 0.0023146046698574087,
+              "max": 0.0023757023976832036,
+              "mean": 0.0023499311306352413
+            },
+            "alphaHKBoundary": {
+              "min": 0.10017042250593025,
+              "max": 0.1043392021164431,
+              "mean": 0.10258239512056416
+            },
+            "fill": {
+              "min": 0.13868337022282257,
+              "max": 0.4451405968058448,
+              "mean": 0.24999311060582924
+            }
+          },
+          "inhibited": {
+            "count": 42,
+            "sigmaBoundary": {
+              "min": 0.002298579151256878,
+              "max": 0.002545618566453597,
+              "mean": 0.0024177898803539976
+            },
+            "sigmaOpp": {
+              "min": 0.002298579151256878,
+              "max": 0.002545618566453597,
+              "mean": 0.0024177898803539976
+            },
+            "alphaHKBoundary": {
+              "min": 0,
+              "max": 0,
+              "mean": 0
+            },
+            "fill": {
+              "min": 0,
+              "max": 0,
+              "mean": 0
+            }
+          },
+          "rough": {
+            "count": 60,
+            "sigmaBoundary": {
+              "min": 6.297311310632911e-05,
+              "max": 0.0005851570237718456,
+              "mean": 0.00038545454118732306
+            },
+            "sigmaOpp": {
+              "min": 0.00021741787821925545,
+              "max": 0.002020284408025915,
+              "mean": 0.0013308014224010414
+            },
+            "alphaHKBoundary": {
+              "min": 1,
+              "max": 1,
+              "mean": 1
+            },
+            "fill": {
+              "min": 0.1777114659708056,
+              "max": 0.8688838922519865,
+              "mean": 0.6891154687894223
+            }
+          }
+        },
+        "neighborConfigurations": {
+          "3,1": 24,
+          "0,1": 26,
+          "2,1": 24,
+          "3,0": 12,
+          "1,0": 42,
+          "2,0": 30
+        }
+      }
+    },
+    {
+      "rowId": "gd21-bld-w2-t4p5-w4-early5",
+      "actualSwitchTimeSeconds": 5.026772717363253,
+      "cutoffBoundary": {
+        "cutoffSeconds": 5,
+        "boundaryState": {
+          "cycle": 127,
+          "simTimeSeconds": 5.026772717363253,
+          "extent": 7,
+          "attachedCount": 123
+        },
+        "lastUpdateStartingBeforeCutoff": {
+          "before": {
+            "cycle": 126,
+            "simTimeSeconds": 4.9920277876925105,
+            "extent": 7,
+            "attachedCount": 123
+          },
+          "after": {
+            "cycle": 127,
+            "simTimeSeconds": 5.026772717363253,
+            "extent": 7,
+            "attachedCount": 123
+          }
+        },
+        "firstUpdateStartingAtOrAfterCutoff": {
+          "before": {
+            "cycle": 127,
+            "simTimeSeconds": 5.026772717363253,
+            "extent": 7,
+            "attachedCount": 123
+          },
+          "after": {
+            "cycle": 128,
+            "simTimeSeconds": 5.059360116787433,
+            "extent": 7,
+            "attachedCount": 123
+          }
+        }
+      },
+      "nearestSnapshotAtOrBeforeSwitch": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t4p5-w4-early5\\boundary-e5.json",
+        "sha256": "6b8cf8906f2c78ceffa4762fbeb94da9b9f7b8c88ad723c407c6ecff11c008af",
+        "timeRelativeToActualSwitchSeconds": -5.026772717363253,
+        "record": {
+          "path": "boundary-e5.json",
+          "triggerExtent": 5,
+          "actualExtent": 5,
+          "completedCycles": 0,
+          "simTimeSeconds": 0
+        },
+        "schema": "post-phase10-spatial-boundary-v1",
+        "timing": "after-converged-relaxation-before-surface-advance",
+        "cellFields": [
+          "index",
+          "coords",
+          "neighborCounts",
+          "facet",
+          "fill",
+          "sigmaOpp",
+          "sigmaBoundary",
+          "alphaHKBoundary",
+          "robinGeometry",
+          "fillGeometry"
+        ],
+        "boundaryCells": 56
+      },
+      "nearestSnapshotAfterSwitch": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t4p5-w4-early5\\boundary-e9.json",
+        "sha256": "52a17932de383ce0da004320d80462b19b2abd6afea876470f74e807f920594a",
+        "timeRelativeToActualSwitchSeconds": 2.230903126515271,
+        "record": {
+          "path": "boundary-e9.json",
+          "triggerExtent": 9,
+          "actualExtent": 9,
+          "completedCycles": 191,
+          "simTimeSeconds": 7.257675843878523
+        },
+        "schema": "post-phase10-spatial-boundary-v1",
+        "timing": "after-converged-relaxation-before-surface-advance",
+        "cellFields": [
+          "index",
+          "coords",
+          "neighborCounts",
+          "facet",
+          "fill",
+          "sigmaOpp",
+          "sigmaBoundary",
+          "alphaHKBoundary",
+          "robinGeometry",
+          "fillGeometry"
+        ],
+        "boundaryCells": 200
+      },
+      "exactSwitchSnapshot": false,
+      "snapshotTimesSeconds": [
+        0,
+        7.257675843878523,
+        17.87747443478767,
+        31.228659497714546,
+        45.64882086484218,
+        61.06769158721329
+      ],
+      "eventPath": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t4p5-w4-early5\\events.jsonl",
+      "eventFields": [
+        "schema",
+        "experimentId",
+        "experimentalBasalWidthCells",
+        "experimentalBasalWidthHistory",
+        "rowId",
+        "cycle",
+        "relaxation",
+        "boundary",
+        "basalWidthObservation",
+        "surface",
+        "attached",
+        "attachmentFacets",
+        "attachmentEventD6h",
+        "attachedCount",
+        "extent",
+        "aspectRatio",
+        "symmetryError",
+        "simTimeSeconds",
+        "ledgers",
+        "rssBytes"
+      ],
+      "checkpointGenerations": [
+        "generation-1557-86c034bd-0a29-4d2b-b9fa-59b7c5c7ad36",
+        "generation-1558-d8495075-00ec-405b-9774-e5d2edb8c194"
+      ],
+      "eventBoundaryFields": [
+        "count",
+        "facets",
+        "neighborConfigurations"
+      ],
+      "eventSurfaceFields": [
+        "attachedNow",
+        "maxKineticFillIncrement",
+        "holeFillCount",
+        "deltaTimeSeconds",
+        "stalled",
+        "skippedUnconverged"
+      ],
+      "eventBoundary": {
+        "count": 146,
+        "facets": {
+          "basal": {
+            "count": 26,
+            "sigmaBoundary": {
+              "min": 0.001245051211143577,
+              "max": 0.0018346807916453725,
+              "mean": 0.0017781583666667288
+            },
+            "sigmaOpp": {
+              "min": 0.0012744826082566759,
+              "max": 0.0020275284219396466,
+              "mean": 0.001953640444024636
+            },
+            "alphaHKBoundary": {
+              "min": 0.00962944179857458,
+              "max": 0.04281847953194901,
+              "mean": 0.03945067227782997
+            },
+            "fill": {
+              "min": 0.3162570260397501,
+              "max": 0.7124690032789713,
+              "mean": 0.6030064588159529
+            }
+          },
+          "prism": {
+            "count": 30,
+            "sigmaBoundary": {
+              "min": 0.0016102260064634073,
+              "max": 0.001641585921425326,
+              "mean": 0.0016292007613096073
+            },
+            "sigmaOpp": {
+              "min": 0.0020514543850953825,
+              "max": 0.0021106491403147225,
+              "mean": 0.0020872311161737656
+            },
+            "alphaHKBoundary": {
+              "min": 0.11162309234835578,
+              "max": 0.11639791734177363,
+              "mean": 0.1145113783772669
+            },
+            "fill": {
+              "min": 0.09785230350740266,
+              "max": 0.4364592074341007,
+              "mean": 0.21127407349226235
+            }
+          },
+          "inhibited": {
+            "count": 42,
+            "sigmaBoundary": {
+              "min": 0.0020557372984378246,
+              "max": 0.002273453758699847,
+              "mean": 0.00215869429539074
+            },
+            "sigmaOpp": {
+              "min": 0.0020557372984378246,
+              "max": 0.002273453758699847,
+              "mean": 0.00215869429539074
+            },
+            "alphaHKBoundary": {
+              "min": 0,
+              "max": 0,
+              "mean": 0
+            },
+            "fill": {
+              "min": 0,
+              "max": 0,
+              "mean": 0
+            }
+          },
+          "rough": {
+            "count": 48,
+            "sigmaBoundary": {
+              "min": 0.0002345805090312261,
+              "max": 0.0005204475980660167,
+              "mean": 0.00044458933684539387
+            },
+            "sigmaOpp": {
+              "min": 0.0008104372768448791,
+              "max": 0.0017980612961366466,
+              "mean": 0.001535983415481842
+            },
+            "alphaHKBoundary": {
+              "min": 1,
+              "max": 1,
+              "mean": 1
+            },
+            "fill": {
+              "min": 0.6236839553056577,
+              "max": 0.8216632114099525,
+              "mean": 0.6761214587348804
+            }
+          }
+        },
+        "neighborConfigurations": {
+          "3,1": 24,
+          "0,1": 26,
+          "2,0": 30,
+          "2,1": 24,
+          "1,0": 42
+        }
+      }
+    },
+    {
+      "rowId": "gd21-bld-w2-t5-w4-early5",
+      "actualSwitchTimeSeconds": 5.024371940920387,
+      "cutoffBoundary": {
+        "cutoffSeconds": 5,
+        "boundaryState": {
+          "cycle": 134,
+          "simTimeSeconds": 5.024371940920387,
+          "extent": 7,
+          "attachedCount": 123
+        },
+        "lastUpdateStartingBeforeCutoff": {
+          "before": {
+            "cycle": 133,
+            "simTimeSeconds": 4.992300237178873,
+            "extent": 7,
+            "attachedCount": 123
+          },
+          "after": {
+            "cycle": 134,
+            "simTimeSeconds": 5.024371940920387,
+            "extent": 7,
+            "attachedCount": 123
+          }
+        },
+        "firstUpdateStartingAtOrAfterCutoff": {
+          "before": {
+            "cycle": 134,
+            "simTimeSeconds": 5.024371940920387,
+            "extent": 7,
+            "attachedCount": 123
+          },
+          "after": {
+            "cycle": 135,
+            "simTimeSeconds": 5.054570856015226,
+            "extent": 7,
+            "attachedCount": 123
+          }
+        }
+      },
+      "nearestSnapshotAtOrBeforeSwitch": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t5-w4-early5\\boundary-e5.json",
+        "sha256": "a4646ef5cbcd6d7a799b1c5fc3a5d676d1033c47419e1543b7f383d8e1fed7d5",
+        "timeRelativeToActualSwitchSeconds": -5.024371940920387,
+        "record": {
+          "path": "boundary-e5.json",
+          "triggerExtent": 5,
+          "actualExtent": 5,
+          "completedCycles": 0,
+          "simTimeSeconds": 0
+        },
+        "schema": "post-phase10-spatial-boundary-v1",
+        "timing": "after-converged-relaxation-before-surface-advance",
+        "cellFields": [
+          "index",
+          "coords",
+          "neighborCounts",
+          "facet",
+          "fill",
+          "sigmaOpp",
+          "sigmaBoundary",
+          "alphaHKBoundary",
+          "robinGeometry",
+          "fillGeometry"
+        ],
+        "boundaryCells": 56
+      },
+      "nearestSnapshotAfterSwitch": {
+        "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t5-w4-early5\\boundary-e9.json",
+        "sha256": "df6c30d11325cbf22b151ac052762e975f2787d1ef9e763c42889eb294b62550",
+        "timeRelativeToActualSwitchSeconds": 2.442806684934948,
+        "record": {
+          "path": "boundary-e9.json",
+          "triggerExtent": 9,
+          "actualExtent": 9,
+          "completedCycles": 215,
+          "simTimeSeconds": 7.467178625855335
+        },
+        "schema": "post-phase10-spatial-boundary-v1",
+        "timing": "after-converged-relaxation-before-surface-advance",
+        "cellFields": [
+          "index",
+          "coords",
+          "neighborCounts",
+          "facet",
+          "fill",
+          "sigmaOpp",
+          "sigmaBoundary",
+          "alphaHKBoundary",
+          "robinGeometry",
+          "fillGeometry"
+        ],
+        "boundaryCells": 236
+      },
+      "exactSwitchSnapshot": false,
+      "snapshotTimesSeconds": [
+        0,
+        7.467178625855335,
+        18.21300658226991,
+        31.78451021341003,
+        45.95455604929536,
+        61.71477665553258
+      ],
+      "eventPath": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t5-w4-early5\\events.jsonl",
+      "eventFields": [
+        "schema",
+        "experimentId",
+        "experimentalBasalWidthCells",
+        "experimentalBasalWidthHistory",
+        "rowId",
+        "cycle",
+        "relaxation",
+        "boundary",
+        "basalWidthObservation",
+        "surface",
+        "attached",
+        "attachmentFacets",
+        "attachmentEventD6h",
+        "attachedCount",
+        "extent",
+        "aspectRatio",
+        "symmetryError",
+        "simTimeSeconds",
+        "ledgers",
+        "rssBytes"
+      ],
+      "checkpointGenerations": [
+        "generation-1584-c21aae96-4df3-4095-b4cc-1b53e217cfd2",
+        "generation-1585-d2493dc2-db20-4b67-be20-8e6f5e1e5ebb"
+      ],
+      "eventBoundaryFields": [
+        "count",
+        "facets",
+        "neighborConfigurations"
+      ],
+      "eventSurfaceFields": [
+        "attachedNow",
+        "maxKineticFillIncrement",
+        "holeFillCount",
+        "deltaTimeSeconds",
+        "stalled",
+        "skippedUnconverged"
+      ],
+      "eventBoundary": {
+        "count": 146,
+        "facets": {
+          "basal": {
+            "count": 26,
+            "sigmaBoundary": {
+              "min": 0.001382606099754595,
+              "max": 0.0020363071358554716,
+              "mean": 0.0019735084355895073
+            },
+            "sigmaOpp": {
+              "min": 0.0014170948686535352,
+              "max": 0.002257874102906731,
+              "mean": 0.002175169202075483
+            },
+            "alphaHKBoundary": {
+              "min": 0.01017094239226669,
+              "max": 0.04436532839442407,
+              "mean": 0.040892004212344304
+            },
+            "fill": {
+              "min": 0.3612188575661868,
+              "max": 0.8199161683925044,
+              "mean": 0.7057222621309951
+            }
+          },
+          "prism": {
+            "count": 30,
+            "sigmaBoundary": {
+              "min": 0.0018585297719785024,
+              "max": 0.0018920574599890754,
+              "mean": 0.001877990424137914
+            },
+            "sigmaOpp": {
+              "min": 0.002315354587645292,
+              "max": 0.0023764725511698863,
+              "mean": 0.002350790889193063
+            },
+            "alphaHKBoundary": {
+              "min": 0.10022178558687499,
+              "max": 0.10439154228591656,
+              "mean": 0.10264102350044066
+            },
+            "fill": {
+              "min": 0.12227834717356945,
+              "max": 0.4300792719604813,
+              "mean": 0.22795302414854202
+            }
+          },
+          "inhibited": {
+            "count": 42,
+            "sigmaBoundary": {
+              "min": 0.0023005228124588556,
+              "max": 0.0025463777130484795,
+              "mean": 0.002419032535340767
+            },
+            "sigmaOpp": {
+              "min": 0.0023005228124588556,
+              "max": 0.0025463777130484795,
+              "mean": 0.002419032535340767
+            },
+            "alphaHKBoundary": {
+              "min": 0,
+              "max": 0,
+              "mean": 0
+            },
+            "fill": {
+              "min": 0,
+              "max": 0,
+              "mean": 0
+            }
+          },
+          "rough": {
+            "count": 48,
+            "sigmaBoundary": {
+              "min": 0.0002608463832704765,
+              "max": 0.0005855566680498103,
+              "mean": 0.0004981995165961581
+            },
+            "sigmaOpp": {
+              "min": 0.0009005854148591201,
+              "max": 0.0020216642002367723,
+              "mean": 0.0017200591885191234
+            },
+            "alphaHKBoundary": {
+              "min": 1,
+              "max": 1,
+              "mean": 1
+            },
+            "fill": {
+              "min": 0.7484374272783709,
+              "max": 0.9074313857387981,
+              "mean": 0.7947750358945016
+            }
+          }
+        },
+        "neighborConfigurations": {
+          "3,1": 24,
+          "0,1": 26,
+          "2,0": 30,
+          "2,1": 24,
+          "1,0": 42
+        }
+      }
+    }
+  ],
+  "feasible": [
+    "Reconstruct occupied geometry at every completed cycle, including switch boundaries, from seed plus attachment events.",
+    "Read sparse boundary fill, sigmaOpp, sigmaBoundary, alphaHKBoundary and facet/geometry coefficients at registered extent snapshots.",
+    "Read per-update aggregate facet/width demand diagnostics from events."
+  ],
+  "limits": [
+    "No exact-switch boundary snapshot in these six selected rows.",
+    "The nearest prior boundary snapshot is the relaxed initial seed (age0); the first later snapshot is several seconds after switching.",
+    "Boundary snapshots contain boundary-cell values only, not the full spatial vapor field.",
+    "Boundary fields are after convergence and before surface advance at the recorded completed-cycle state; they are not an unrelaxed pre-switch field.",
+    "Only final/current-previous checkpoint generations remain; these cannot supply full switch-time solver state.",
+    "Geometry comparison at the switch is executable now; exact-switch fill/vapor mechanism attribution is not recoverable from these saved bytes alone."
+  ]
+}

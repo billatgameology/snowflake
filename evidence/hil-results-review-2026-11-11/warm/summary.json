@@ -1,0 +1,1945 @@
+{
+  "schema": "hil-w4-analysis-summary-v1",
+  "scope": "Frozen W4 twelve-member saved-data comparisons, implementation only; no new simulation or physical validation.",
+  "commonTimeSeconds": 55.9289191088165,
+  "reconstructedUpdates": 31720,
+  "census": {
+    "rows": 12,
+    "availableCohorts": 6,
+    "postSwitchPairs": 6
+  },
+  "rows": [
+    {
+      "rowId": "warm-refine-coarse-t4p5-broad",
+      "producer": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+      "node": "v24.13.1",
+      "cflFill": 0.05,
+      "dxUm": 0.35,
+      "seedThickness": 1,
+      "terminalTimeSeconds": 68.8832798712082,
+      "terminalCycle": 620,
+      "size": {
+        "targetCenterSpanUm": 9.8,
+        "selectedCycle": 620,
+        "actualCenterSpanUm": 9.799999999999999,
+        "exactTarget": true,
+        "values": {
+          "cycle": 620,
+          "simTimeSeconds": 68.8832798712082,
+          "extent": 29,
+          "largestCenterSpanUm": 9.799999999999999,
+          "attachedCount": 6041,
+          "axialCenterSpanUm": 3.5,
+          "lateralCenterSpanUm": 9.799999999999999,
+          "addedAxialCenterSpanUm": 3.5,
+          "addedLateralCenterSpanUm": 8.399999999999999,
+          "occupiedCellVolumeUm3": 224.30739953022436,
+          "probeFullWaistThicknessUm": 3.8499999999999996,
+          "addedProbeFullWaistThicknessUm": 3.4999999999999996,
+          "straightAxiallyOpenLayers": 0,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        }
+      },
+      "commonAge": {
+        "fraction": 1,
+        "requestedTimeSeconds": 55.9289191088165,
+        "atOrBefore": {
+          "cycle": 525,
+          "simTimeSeconds": 55.89122999409225,
+          "extent": 25,
+          "attachedCount": 4905
+        },
+        "nextEvent": {
+          "cycle": 526,
+          "simTimeSeconds": 55.979883760477556,
+          "extent": 25,
+          "attachedCount": 4941
+        },
+        "exactEventTime": false,
+        "atOrBeforeValues": {
+          "cycle": 525,
+          "simTimeSeconds": 55.89122999409225,
+          "extent": 25,
+          "largestCenterSpanUm": 8.399999999999999,
+          "attachedCount": 4905,
+          "axialCenterSpanUm": 3.5,
+          "lateralCenterSpanUm": 8.399999999999999,
+          "addedAxialCenterSpanUm": 3.5,
+          "addedLateralCenterSpanUm": 6.999999999999998,
+          "occupiedCellVolumeUm3": 182.1267662134995,
+          "probeFullWaistThicknessUm": 3.15,
+          "addedProbeFullWaistThicknessUm": 2.8,
+          "straightAxiallyOpenLayers": 2,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        },
+        "nextEventValues": {
+          "cycle": 526,
+          "simTimeSeconds": 55.979883760477556,
+          "extent": 25,
+          "largestCenterSpanUm": 8.399999999999999,
+          "attachedCount": 4941,
+          "axialCenterSpanUm": 3.5,
+          "lateralCenterSpanUm": 8.399999999999999,
+          "addedAxialCenterSpanUm": 3.5,
+          "addedLateralCenterSpanUm": 6.999999999999998,
+          "occupiedCellVolumeUm3": 183.4634764242408,
+          "probeFullWaistThicknessUm": 3.15,
+          "addedProbeFullWaistThicknessUm": 2.8,
+          "straightAxiallyOpenLayers": 2,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        }
+      },
+      "history": null
+    },
+    {
+      "rowId": "warm-refine-coarse-t4p5-early",
+      "producer": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+      "node": "v24.13.1",
+      "cflFill": 0.05,
+      "dxUm": 0.35,
+      "seedThickness": 1,
+      "terminalTimeSeconds": 89.31476420558069,
+      "terminalCycle": 942,
+      "size": {
+        "targetCenterSpanUm": 9.8,
+        "selectedCycle": 942,
+        "actualCenterSpanUm": 9.799999999999999,
+        "exactTarget": true,
+        "values": {
+          "cycle": 942,
+          "simTimeSeconds": 89.31476420558069,
+          "extent": 29,
+          "largestCenterSpanUm": 9.799999999999999,
+          "attachedCount": 12373,
+          "axialCenterSpanUm": 7.699999999999999,
+          "lateralCenterSpanUm": 9.799999999999999,
+          "addedAxialCenterSpanUm": 7.699999999999999,
+          "addedLateralCenterSpanUm": 8.399999999999999,
+          "occupiedCellVolumeUm3": 459.4198732639407,
+          "probeFullWaistThicknessUm": 0.35,
+          "addedProbeFullWaistThicknessUm": 0,
+          "straightAxiallyOpenLayers": 22,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 3.5
+        }
+      },
+      "commonAge": {
+        "fraction": 1,
+        "requestedTimeSeconds": 55.9289191088165,
+        "atOrBefore": {
+          "cycle": 622,
+          "simTimeSeconds": 55.909062175433576,
+          "extent": 21,
+          "attachedCount": 5935
+        },
+        "nextEvent": {
+          "cycle": 623,
+          "simTimeSeconds": 55.99865926322555,
+          "extent": 21,
+          "attachedCount": 5935
+        },
+        "exactEventTime": false,
+        "atOrBeforeValues": {
+          "cycle": 622,
+          "simTimeSeconds": 55.909062175433576,
+          "extent": 21,
+          "largestCenterSpanUm": 7,
+          "attachedCount": 5935,
+          "axialCenterSpanUm": 7,
+          "lateralCenterSpanUm": 7,
+          "addedAxialCenterSpanUm": 7,
+          "addedLateralCenterSpanUm": 5.6,
+          "occupiedCellVolumeUm3": 220.37153057637502,
+          "probeFullWaistThicknessUm": 0.35,
+          "addedProbeFullWaistThicknessUm": 0,
+          "straightAxiallyOpenLayers": 20,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 3.15
+        },
+        "nextEventValues": {
+          "cycle": 623,
+          "simTimeSeconds": 55.99865926322555,
+          "extent": 21,
+          "largestCenterSpanUm": 7,
+          "attachedCount": 5935,
+          "axialCenterSpanUm": 7,
+          "lateralCenterSpanUm": 7,
+          "addedAxialCenterSpanUm": 7,
+          "addedLateralCenterSpanUm": 5.6,
+          "occupiedCellVolumeUm3": 220.37153057637502,
+          "probeFullWaistThicknessUm": 0.35,
+          "addedProbeFullWaistThicknessUm": 0,
+          "straightAxiallyOpenLayers": 20,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 3.15
+        }
+      },
+      "history": {
+        "actualSwitchTimeSeconds": 20.04840569337263,
+        "originalIntervals": {
+          "count": 14,
+          "survivingAtStop": 14,
+          "maxPostCutoffTipAdvanceUm": 1.4,
+          "maxTipAdvanceWhileOpenUm": 3.5,
+          "maxDepthUm": 3.5
+        },
+        "newPostCutoffIntervals": {
+          "count": 8,
+          "survivingAtStop": 8,
+          "maxPostCutoffTipAdvanceUm": 1.0499999999999998,
+          "maxTipAdvanceWhileOpenUm": 1.0499999999999998,
+          "maxDepthUm": 1.0499999999999998
+        },
+        "selectedDemandAfterSwitchFill": 0,
+        "selectedFractionOfDemandBeforeSwitch": 0.9934325354067246,
+        "postSwitchToEndpoint": {
+          "durationSeconds": 69.26635851220806,
+          "atOrBefore": {
+            "attachedCount": 11214,
+            "axialCenterSpanUm": 2.8,
+            "lateralCenterSpanUm": 6.299999999999999,
+            "occupiedCellVolumeUm3": 416.3852306459089,
+            "addedProbeFullWaistThicknessUm": 0,
+            "straightAxiallyOpenLayers": 8,
+            "maxStraightOpenDepthBelowAxialEnvelopeUm": 1.4000000000000004
+          },
+          "adjacentEventAlternatives": {
+            "attachedCount": [
+              11214,
+              11214
+            ],
+            "axialCenterSpanUm": [
+              2.8,
+              2.8
+            ],
+            "lateralCenterSpanUm": [
+              6.299999999999999,
+              6.299999999999999
+            ],
+            "occupiedCellVolumeUm3": [
+              416.3852306459089,
+              416.3852306459089
+            ],
+            "addedProbeFullWaistThicknessUm": [
+              0,
+              0
+            ],
+            "straightAxiallyOpenLayers": [
+              8,
+              8
+            ],
+            "maxStraightOpenDepthBelowAxialEnvelopeUm": [
+              1.4000000000000004,
+              1.4000000000000004
+            ]
+          }
+        }
+      }
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c025-broad",
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+      "node": "v24.13.1",
+      "cflFill": 0.025,
+      "dxUm": 0.35,
+      "seedThickness": 1,
+      "terminalTimeSeconds": 68.14246662448986,
+      "terminalCycle": 1227,
+      "size": {
+        "targetCenterSpanUm": 9.8,
+        "selectedCycle": 1227,
+        "actualCenterSpanUm": 9.799999999999999,
+        "exactTarget": true,
+        "values": {
+          "cycle": 1227,
+          "simTimeSeconds": 68.14246662448986,
+          "extent": 29,
+          "largestCenterSpanUm": 9.799999999999999,
+          "attachedCount": 6041,
+          "axialCenterSpanUm": 3.5,
+          "lateralCenterSpanUm": 9.799999999999999,
+          "addedAxialCenterSpanUm": 3.5,
+          "addedLateralCenterSpanUm": 8.399999999999999,
+          "occupiedCellVolumeUm3": 224.30739953022436,
+          "probeFullWaistThicknessUm": 3.8499999999999996,
+          "addedProbeFullWaistThicknessUm": 3.4999999999999996,
+          "straightAxiallyOpenLayers": 0,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        }
+      },
+      "commonAge": {
+        "fraction": 1,
+        "requestedTimeSeconds": 55.9289191088165,
+        "atOrBefore": {
+          "cycle": 1048,
+          "simTimeSeconds": 55.9240805513289,
+          "extent": 25,
+          "attachedCount": 5015
+        },
+        "nextEvent": {
+          "cycle": 1049,
+          "simTimeSeconds": 55.96839834571228,
+          "extent": 25,
+          "attachedCount": 5015
+        },
+        "exactEventTime": false,
+        "atOrBeforeValues": {
+          "cycle": 1048,
+          "simTimeSeconds": 55.9240805513289,
+          "extent": 25,
+          "largestCenterSpanUm": 8.399999999999999,
+          "attachedCount": 5015,
+          "axialCenterSpanUm": 3.5,
+          "lateralCenterSpanUm": 8.399999999999999,
+          "addedAxialCenterSpanUm": 3.5,
+          "addedLateralCenterSpanUm": 6.999999999999998,
+          "occupiedCellVolumeUm3": 186.21115852409787,
+          "probeFullWaistThicknessUm": 3.8499999999999996,
+          "addedProbeFullWaistThicknessUm": 3.4999999999999996,
+          "straightAxiallyOpenLayers": 0,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        },
+        "nextEventValues": {
+          "cycle": 1049,
+          "simTimeSeconds": 55.96839834571228,
+          "extent": 25,
+          "largestCenterSpanUm": 8.399999999999999,
+          "attachedCount": 5015,
+          "axialCenterSpanUm": 3.5,
+          "lateralCenterSpanUm": 8.399999999999999,
+          "addedAxialCenterSpanUm": 3.5,
+          "addedLateralCenterSpanUm": 6.999999999999998,
+          "occupiedCellVolumeUm3": 186.21115852409787,
+          "probeFullWaistThicknessUm": 3.8499999999999996,
+          "addedProbeFullWaistThicknessUm": 3.4999999999999996,
+          "straightAxiallyOpenLayers": 0,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        }
+      },
+      "history": null
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c025-early20-w3",
+      "producer": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+      "node": "v24.13.1",
+      "cflFill": 0.025,
+      "dxUm": 0.35,
+      "seedThickness": 1,
+      "terminalTimeSeconds": 89.02732325030775,
+      "terminalCycle": 1895,
+      "size": {
+        "targetCenterSpanUm": 9.8,
+        "selectedCycle": 1895,
+        "actualCenterSpanUm": 9.799999999999999,
+        "exactTarget": true,
+        "values": {
+          "cycle": 1895,
+          "simTimeSeconds": 89.02732325030775,
+          "extent": 29,
+          "largestCenterSpanUm": 9.799999999999999,
+          "attachedCount": 12373,
+          "axialCenterSpanUm": 7.699999999999999,
+          "lateralCenterSpanUm": 9.799999999999999,
+          "addedAxialCenterSpanUm": 7.699999999999999,
+          "addedLateralCenterSpanUm": 8.399999999999999,
+          "occupiedCellVolumeUm3": 459.4198732639407,
+          "probeFullWaistThicknessUm": 0.35,
+          "addedProbeFullWaistThicknessUm": 0,
+          "straightAxiallyOpenLayers": 22,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 3.5
+        }
+      },
+      "commonAge": {
+        "fraction": 1,
+        "requestedTimeSeconds": 55.9289191088165,
+        "atOrBefore": {
+          "cycle": 1254,
+          "simTimeSeconds": 55.92881154246826,
+          "extent": 21,
+          "attachedCount": 6007
+        },
+        "nextEvent": {
+          "cycle": 1255,
+          "simTimeSeconds": 55.97381391719364,
+          "extent": 21,
+          "attachedCount": 6007
+        },
+        "exactEventTime": false,
+        "atOrBeforeValues": {
+          "cycle": 1254,
+          "simTimeSeconds": 55.92881154246826,
+          "extent": 21,
+          "largestCenterSpanUm": 7,
+          "attachedCount": 6007,
+          "axialCenterSpanUm": 7,
+          "lateralCenterSpanUm": 7,
+          "addedAxialCenterSpanUm": 7,
+          "addedLateralCenterSpanUm": 5.6,
+          "occupiedCellVolumeUm3": 223.0449509978576,
+          "probeFullWaistThicknessUm": 0.35,
+          "addedProbeFullWaistThicknessUm": 0,
+          "straightAxiallyOpenLayers": 20,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 3.15
+        },
+        "nextEventValues": {
+          "cycle": 1255,
+          "simTimeSeconds": 55.97381391719364,
+          "extent": 21,
+          "largestCenterSpanUm": 7,
+          "attachedCount": 6007,
+          "axialCenterSpanUm": 7,
+          "lateralCenterSpanUm": 7,
+          "addedAxialCenterSpanUm": 7,
+          "addedLateralCenterSpanUm": 5.6,
+          "occupiedCellVolumeUm3": 223.0449509978576,
+          "probeFullWaistThicknessUm": 0.35,
+          "addedProbeFullWaistThicknessUm": 0,
+          "straightAxiallyOpenLayers": 20,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 3.15
+        }
+      },
+      "history": {
+        "actualSwitchTimeSeconds": 20.037230782916097,
+        "originalIntervals": {
+          "count": 14,
+          "survivingAtStop": 14,
+          "maxPostCutoffTipAdvanceUm": 1.4,
+          "maxTipAdvanceWhileOpenUm": 3.5,
+          "maxDepthUm": 3.5
+        },
+        "newPostCutoffIntervals": {
+          "count": 8,
+          "survivingAtStop": 8,
+          "maxPostCutoffTipAdvanceUm": 1.0499999999999998,
+          "maxTipAdvanceWhileOpenUm": 1.0499999999999998,
+          "maxDepthUm": 1.0499999999999998
+        },
+        "selectedDemandAfterSwitchFill": 0,
+        "selectedFractionOfDemandBeforeSwitch": 0.9934273214744156,
+        "postSwitchToEndpoint": {
+          "durationSeconds": 68.99009246739165,
+          "atOrBefore": {
+            "attachedCount": 11214,
+            "axialCenterSpanUm": 2.8,
+            "lateralCenterSpanUm": 6.299999999999999,
+            "occupiedCellVolumeUm3": 416.3852306459089,
+            "addedProbeFullWaistThicknessUm": 0,
+            "straightAxiallyOpenLayers": 8,
+            "maxStraightOpenDepthBelowAxialEnvelopeUm": 1.4000000000000004
+          },
+          "adjacentEventAlternatives": {
+            "attachedCount": [
+              11214,
+              11214
+            ],
+            "axialCenterSpanUm": [
+              2.8,
+              2.8
+            ],
+            "lateralCenterSpanUm": [
+              6.299999999999999,
+              6.299999999999999
+            ],
+            "occupiedCellVolumeUm3": [
+              416.3852306459089,
+              416.3852306459089
+            ],
+            "addedProbeFullWaistThicknessUm": [
+              0,
+              0
+            ],
+            "straightAxiallyOpenLayers": [
+              8,
+              8
+            ],
+            "maxStraightOpenDepthBelowAxialEnvelopeUm": [
+              1.4000000000000004,
+              1.4000000000000004
+            ]
+          }
+        }
+      }
+    },
+    {
+      "rowId": "warm-refine-fine-thin-t4p5-broad",
+      "producer": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+      "node": "v24.13.1",
+      "cflFill": 0.05,
+      "dxUm": 0.175,
+      "seedThickness": 1,
+      "terminalTimeSeconds": 56.70347153158861,
+      "terminalCycle": 1770,
+      "size": {
+        "targetCenterSpanUm": 9.8,
+        "selectedCycle": 1770,
+        "actualCenterSpanUm": 9.799999999999999,
+        "exactTarget": true,
+        "values": {
+          "cycle": 1770,
+          "simTimeSeconds": 56.70347153158861,
+          "extent": 57,
+          "largestCenterSpanUm": 9.799999999999999,
+          "attachedCount": 47301,
+          "axialCenterSpanUm": 3.5,
+          "lateralCenterSpanUm": 9.799999999999999,
+          "addedAxialCenterSpanUm": 3.5,
+          "addedLateralCenterSpanUm": 8.399999999999999,
+          "occupiedCellVolumeUm3": 219.54072804956016,
+          "probeFullWaistThicknessUm": 3.675,
+          "addedProbeFullWaistThicknessUm": 3.5,
+          "straightAxiallyOpenLayers": 0,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        }
+      },
+      "commonAge": {
+        "fraction": 1,
+        "requestedTimeSeconds": 55.9289191088165,
+        "atOrBefore": {
+          "cycle": 1748,
+          "simTimeSeconds": 55.90724345391961,
+          "extent": 55,
+          "attachedCount": 46915
+        },
+        "nextEvent": {
+          "cycle": 1749,
+          "simTimeSeconds": 55.9434903497663,
+          "extent": 55,
+          "attachedCount": 46927
+        },
+        "exactEventTime": false,
+        "atOrBeforeValues": {
+          "cycle": 1748,
+          "simTimeSeconds": 55.90724345391961,
+          "extent": 55,
+          "largestCenterSpanUm": 9.45,
+          "attachedCount": 46915,
+          "axialCenterSpanUm": 3.5,
+          "lateralCenterSpanUm": 9.45,
+          "addedAxialCenterSpanUm": 3.5,
+          "addedLateralCenterSpanUm": 8.049999999999999,
+          "occupiedCellVolumeUm3": 217.74916505877493,
+          "probeFullWaistThicknessUm": 3.3249999999999997,
+          "addedProbeFullWaistThicknessUm": 3.15,
+          "straightAxiallyOpenLayers": 2,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        },
+        "nextEventValues": {
+          "cycle": 1749,
+          "simTimeSeconds": 55.9434903497663,
+          "extent": 55,
+          "largestCenterSpanUm": 9.45,
+          "attachedCount": 46927,
+          "axialCenterSpanUm": 3.5,
+          "lateralCenterSpanUm": 9.45,
+          "addedAxialCenterSpanUm": 3.5,
+          "addedLateralCenterSpanUm": 8.049999999999999,
+          "occupiedCellVolumeUm3": 217.80486131755586,
+          "probeFullWaistThicknessUm": 3.3249999999999997,
+          "addedProbeFullWaistThicknessUm": 3.15,
+          "straightAxiallyOpenLayers": 2,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        }
+      },
+      "history": null
+    },
+    {
+      "rowId": "warm-refine-fine-thin-t4p5-early",
+      "producer": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+      "node": "v24.13.1",
+      "cflFill": 0.05,
+      "dxUm": 0.175,
+      "seedThickness": 1,
+      "terminalTimeSeconds": 79.68106796900474,
+      "terminalCycle": 2694,
+      "size": {
+        "targetCenterSpanUm": 9.8,
+        "selectedCycle": 2694,
+        "actualCenterSpanUm": 9.799999999999999,
+        "exactTarget": true,
+        "values": {
+          "cycle": 2694,
+          "simTimeSeconds": 79.68106796900474,
+          "extent": 57,
+          "largestCenterSpanUm": 9.799999999999999,
+          "attachedCount": 107601,
+          "axialCenterSpanUm": 8.75,
+          "lateralCenterSpanUm": 9.799999999999999,
+          "addedAxialCenterSpanUm": 8.75,
+          "addedLateralCenterSpanUm": 8.399999999999999,
+          "occupiedCellVolumeUm3": 499.4144284235158,
+          "probeFullWaistThicknessUm": 0.5249999999999999,
+          "addedProbeFullWaistThicknessUm": 0.3499999999999999,
+          "straightAxiallyOpenLayers": 48,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 4.0249999999999995
+        }
+      },
+      "commonAge": {
+        "fraction": 1,
+        "requestedTimeSeconds": 55.9289191088165,
+        "atOrBefore": {
+          "cycle": 1937,
+          "simTimeSeconds": 55.901910546202004,
+          "extent": 47,
+          "attachedCount": 60003
+        },
+        "nextEvent": {
+          "cycle": 1938,
+          "simTimeSeconds": 55.93380139910185,
+          "extent": 47,
+          "attachedCount": 60003
+        },
+        "exactEventTime": false,
+        "atOrBeforeValues": {
+          "cycle": 1937,
+          "simTimeSeconds": 55.901910546202004,
+          "extent": 47,
+          "largestCenterSpanUm": 8.049999999999999,
+          "attachedCount": 60003,
+          "axialCenterSpanUm": 8.049999999999999,
+          "lateralCenterSpanUm": 7.35,
+          "addedAxialCenterSpanUm": 8.049999999999999,
+          "addedLateralCenterSpanUm": 5.949999999999999,
+          "occupiedCellVolumeUm3": 278.4952179691287,
+          "probeFullWaistThicknessUm": 0.5249999999999999,
+          "addedProbeFullWaistThicknessUm": 0.3499999999999999,
+          "straightAxiallyOpenLayers": 44,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 3.675
+        },
+        "nextEventValues": {
+          "cycle": 1938,
+          "simTimeSeconds": 55.93380139910185,
+          "extent": 47,
+          "largestCenterSpanUm": 8.049999999999999,
+          "attachedCount": 60003,
+          "axialCenterSpanUm": 8.049999999999999,
+          "lateralCenterSpanUm": 7.35,
+          "addedAxialCenterSpanUm": 8.049999999999999,
+          "addedLateralCenterSpanUm": 5.949999999999999,
+          "occupiedCellVolumeUm3": 278.4952179691287,
+          "probeFullWaistThicknessUm": 0.5249999999999999,
+          "addedProbeFullWaistThicknessUm": 0.3499999999999999,
+          "straightAxiallyOpenLayers": 44,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 3.675
+        }
+      },
+      "history": {
+        "actualSwitchTimeSeconds": 20.006558935435596,
+        "originalIntervals": {
+          "count": 32,
+          "survivingAtStop": 32,
+          "maxPostCutoffTipAdvanceUm": 1.2249999999999999,
+          "maxTipAdvanceWhileOpenUm": 4.0249999999999995,
+          "maxDepthUm": 4.0249999999999995
+        },
+        "newPostCutoffIntervals": {
+          "count": 16,
+          "survivingAtStop": 16,
+          "maxPostCutoffTipAdvanceUm": 1.2249999999999999,
+          "maxTipAdvanceWhileOpenUm": 1.2249999999999999,
+          "maxDepthUm": 1.2249999999999999
+        },
+        "selectedDemandAfterSwitchFill": 0,
+        "selectedFractionOfDemandBeforeSwitch": 0.9983966863489074,
+        "postSwitchToEndpoint": {
+          "durationSeconds": 59.67450903356915,
+          "atOrBefore": {
+            "attachedCount": 95586,
+            "axialCenterSpanUm": 2.45,
+            "lateralCenterSpanUm": 5.949999999999999,
+            "occupiedCellVolumeUm3": 443.648549319153,
+            "addedProbeFullWaistThicknessUm": 0,
+            "straightAxiallyOpenLayers": 16,
+            "maxStraightOpenDepthBelowAxialEnvelopeUm": 1.2249999999999996
+          },
+          "adjacentEventAlternatives": {
+            "attachedCount": [
+              95562,
+              95586
+            ],
+            "axialCenterSpanUm": [
+              2.45,
+              2.45
+            ],
+            "lateralCenterSpanUm": [
+              5.949999999999999,
+              5.949999999999999
+            ],
+            "occupiedCellVolumeUm3": [
+              443.5371568015912,
+              443.648549319153
+            ],
+            "addedProbeFullWaistThicknessUm": [
+              0,
+              0
+            ],
+            "straightAxiallyOpenLayers": [
+              16,
+              16
+            ],
+            "maxStraightOpenDepthBelowAxialEnvelopeUm": [
+              1.2249999999999996,
+              1.2249999999999996
+            ]
+          }
+        }
+      }
+    },
+    {
+      "rowId": "gd21-hil-w4-h1-broad",
+      "producer": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+      "node": "v24.13.1",
+      "cflFill": 0.025,
+      "dxUm": 0.175,
+      "seedThickness": 1,
+      "terminalTimeSeconds": 55.9289191088165,
+      "terminalCycle": 3506,
+      "size": {
+        "targetCenterSpanUm": 9.8,
+        "selectedCycle": 3506,
+        "actualCenterSpanUm": 9.799999999999999,
+        "exactTarget": true,
+        "values": {
+          "cycle": 3506,
+          "simTimeSeconds": 55.9289191088165,
+          "extent": 57,
+          "largestCenterSpanUm": 9.799999999999999,
+          "attachedCount": 47311,
+          "axialCenterSpanUm": 3.5,
+          "lateralCenterSpanUm": 9.799999999999999,
+          "addedAxialCenterSpanUm": 3.5,
+          "addedLateralCenterSpanUm": 8.399999999999999,
+          "occupiedCellVolumeUm3": 219.58714159854424,
+          "probeFullWaistThicknessUm": 3.3249999999999997,
+          "addedProbeFullWaistThicknessUm": 3.15,
+          "straightAxiallyOpenLayers": 2,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        }
+      },
+      "commonAge": {
+        "fraction": 1,
+        "requestedTimeSeconds": 55.9289191088165,
+        "atOrBefore": {
+          "cycle": 3506,
+          "simTimeSeconds": 55.9289191088165,
+          "extent": 57,
+          "attachedCount": 47311
+        },
+        "nextEvent": null,
+        "exactEventTime": true,
+        "atOrBeforeValues": {
+          "cycle": 3506,
+          "simTimeSeconds": 55.9289191088165,
+          "extent": 57,
+          "largestCenterSpanUm": 9.799999999999999,
+          "attachedCount": 47311,
+          "axialCenterSpanUm": 3.5,
+          "lateralCenterSpanUm": 9.799999999999999,
+          "addedAxialCenterSpanUm": 3.5,
+          "addedLateralCenterSpanUm": 8.399999999999999,
+          "occupiedCellVolumeUm3": 219.58714159854424,
+          "probeFullWaistThicknessUm": 3.3249999999999997,
+          "addedProbeFullWaistThicknessUm": 3.15,
+          "straightAxiallyOpenLayers": 2,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        },
+        "nextEventValues": null
+      },
+      "history": null
+    },
+    {
+      "rowId": "gd21-hil-w4-h1-early20-w6",
+      "producer": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+      "node": "v24.13.1",
+      "cflFill": 0.025,
+      "dxUm": 0.175,
+      "seedThickness": 1,
+      "terminalTimeSeconds": 79.0702947022248,
+      "terminalCycle": 5363,
+      "size": {
+        "targetCenterSpanUm": 9.8,
+        "selectedCycle": 5363,
+        "actualCenterSpanUm": 9.799999999999999,
+        "exactTarget": true,
+        "values": {
+          "cycle": 5363,
+          "simTimeSeconds": 79.0702947022248,
+          "extent": 57,
+          "largestCenterSpanUm": 9.799999999999999,
+          "attachedCount": 107601,
+          "axialCenterSpanUm": 8.75,
+          "lateralCenterSpanUm": 9.799999999999999,
+          "addedAxialCenterSpanUm": 8.75,
+          "addedLateralCenterSpanUm": 8.399999999999999,
+          "occupiedCellVolumeUm3": 499.4144284235158,
+          "probeFullWaistThicknessUm": 0.5249999999999999,
+          "addedProbeFullWaistThicknessUm": 0.3499999999999999,
+          "straightAxiallyOpenLayers": 48,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 4.0249999999999995
+        }
+      },
+      "commonAge": {
+        "fraction": 1,
+        "requestedTimeSeconds": 55.9289191088165,
+        "atOrBefore": {
+          "cycle": 3892,
+          "simTimeSeconds": 55.9183902147031,
+          "extent": 47,
+          "attachedCount": 60459
+        },
+        "nextEvent": {
+          "cycle": 3893,
+          "simTimeSeconds": 55.93434149796237,
+          "extent": 47,
+          "attachedCount": 60471
+        },
+        "exactEventTime": false,
+        "atOrBeforeValues": {
+          "cycle": 3892,
+          "simTimeSeconds": 55.9183902147031,
+          "extent": 47,
+          "largestCenterSpanUm": 8.049999999999999,
+          "attachedCount": 60459,
+          "axialCenterSpanUm": 8.049999999999999,
+          "lateralCenterSpanUm": 7.35,
+          "addedAxialCenterSpanUm": 8.049999999999999,
+          "addedLateralCenterSpanUm": 5.949999999999999,
+          "occupiedCellVolumeUm3": 280.6116758028024,
+          "probeFullWaistThicknessUm": 0.5249999999999999,
+          "addedProbeFullWaistThicknessUm": 0.3499999999999999,
+          "straightAxiallyOpenLayers": 44,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 3.675
+        },
+        "nextEventValues": {
+          "cycle": 3893,
+          "simTimeSeconds": 55.93434149796237,
+          "extent": 47,
+          "largestCenterSpanUm": 8.049999999999999,
+          "attachedCount": 60471,
+          "axialCenterSpanUm": 8.049999999999999,
+          "lateralCenterSpanUm": 7.35,
+          "addedAxialCenterSpanUm": 8.049999999999999,
+          "addedLateralCenterSpanUm": 5.949999999999999,
+          "occupiedCellVolumeUm3": 280.66737206158325,
+          "probeFullWaistThicknessUm": 0.5249999999999999,
+          "addedProbeFullWaistThicknessUm": 0.3499999999999999,
+          "straightAxiallyOpenLayers": 44,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 3.675
+        }
+      },
+      "history": {
+        "actualSwitchTimeSeconds": 20.00030205464298,
+        "originalIntervals": {
+          "count": 32,
+          "survivingAtStop": 32,
+          "maxPostCutoffTipAdvanceUm": 1.2249999999999999,
+          "maxTipAdvanceWhileOpenUm": 4.0249999999999995,
+          "maxDepthUm": 4.0249999999999995
+        },
+        "newPostCutoffIntervals": {
+          "count": 16,
+          "survivingAtStop": 16,
+          "maxPostCutoffTipAdvanceUm": 1.2249999999999999,
+          "maxTipAdvanceWhileOpenUm": 1.2249999999999999,
+          "maxDepthUm": 1.2249999999999999
+        },
+        "selectedDemandAfterSwitchFill": 0,
+        "selectedFractionOfDemandBeforeSwitch": 0.9984385700316989,
+        "postSwitchToEndpoint": {
+          "durationSeconds": 59.06999264758182,
+          "atOrBefore": {
+            "attachedCount": 95514,
+            "axialCenterSpanUm": 2.45,
+            "lateralCenterSpanUm": 5.949999999999999,
+            "occupiedCellVolumeUm3": 443.3143717664677,
+            "addedProbeFullWaistThicknessUm": 0,
+            "straightAxiallyOpenLayers": 16,
+            "maxStraightOpenDepthBelowAxialEnvelopeUm": 1.2249999999999996
+          },
+          "adjacentEventAlternatives": {
+            "attachedCount": [
+              95514,
+              95514
+            ],
+            "axialCenterSpanUm": [
+              2.45,
+              2.45
+            ],
+            "lateralCenterSpanUm": [
+              5.949999999999999,
+              5.949999999999999
+            ],
+            "occupiedCellVolumeUm3": [
+              443.3143717664677,
+              443.3143717664677
+            ],
+            "addedProbeFullWaistThicknessUm": [
+              0,
+              0
+            ],
+            "straightAxiallyOpenLayers": [
+              16,
+              16
+            ],
+            "maxStraightOpenDepthBelowAxialEnvelopeUm": [
+              1.2249999999999996,
+              1.2249999999999996
+            ]
+          }
+        }
+      }
+    },
+    {
+      "rowId": "warm-refine-fine-thick-t4p5-broad",
+      "producer": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+      "node": "v24.13.1",
+      "cflFill": 0.05,
+      "dxUm": 0.175,
+      "seedThickness": 3,
+      "terminalTimeSeconds": 59.23322494643029,
+      "terminalCycle": 1867,
+      "size": {
+        "targetCenterSpanUm": 9.8,
+        "selectedCycle": 1867,
+        "actualCenterSpanUm": 9.799999999999999,
+        "exactTarget": true,
+        "values": {
+          "cycle": 1867,
+          "simTimeSeconds": 59.23322494643029,
+          "extent": 57,
+          "largestCenterSpanUm": 9.799999999999999,
+          "attachedCount": 51683,
+          "axialCenterSpanUm": 3.8499999999999996,
+          "lateralCenterSpanUm": 9.799999999999999,
+          "addedAxialCenterSpanUm": 3.4999999999999996,
+          "addedLateralCenterSpanUm": 8.399999999999999,
+          "occupiedCellVolumeUm3": 239.8791452143806,
+          "probeFullWaistThicknessUm": 4.0249999999999995,
+          "addedProbeFullWaistThicknessUm": 3.4999999999999996,
+          "straightAxiallyOpenLayers": 0,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        }
+      },
+      "commonAge": {
+        "fraction": 1,
+        "requestedTimeSeconds": 55.9289191088165,
+        "atOrBefore": {
+          "cycle": 1755,
+          "simTimeSeconds": 55.917406999247255,
+          "extent": 55,
+          "attachedCount": 47913
+        },
+        "nextEvent": {
+          "cycle": 1756,
+          "simTimeSeconds": 55.94576509561294,
+          "extent": 55,
+          "attachedCount": 47937
+        },
+        "exactEventTime": false,
+        "atOrBeforeValues": {
+          "cycle": 1755,
+          "simTimeSeconds": 55.917406999247255,
+          "extent": 55,
+          "largestCenterSpanUm": 9.45,
+          "attachedCount": 47913,
+          "axialCenterSpanUm": 3.8499999999999996,
+          "lateralCenterSpanUm": 9.45,
+          "addedAxialCenterSpanUm": 3.4999999999999996,
+          "addedLateralCenterSpanUm": 8.049999999999999,
+          "occupiedCellVolumeUm3": 222.38123724738537,
+          "probeFullWaistThicknessUm": 3.675,
+          "addedProbeFullWaistThicknessUm": 3.15,
+          "straightAxiallyOpenLayers": 2,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        },
+        "nextEventValues": {
+          "cycle": 1756,
+          "simTimeSeconds": 55.94576509561294,
+          "extent": 55,
+          "largestCenterSpanUm": 9.45,
+          "attachedCount": 47937,
+          "axialCenterSpanUm": 3.8499999999999996,
+          "lateralCenterSpanUm": 9.45,
+          "addedAxialCenterSpanUm": 3.4999999999999996,
+          "addedLateralCenterSpanUm": 8.049999999999999,
+          "occupiedCellVolumeUm3": 222.49262976494714,
+          "probeFullWaistThicknessUm": 3.675,
+          "addedProbeFullWaistThicknessUm": 3.15,
+          "straightAxiallyOpenLayers": 2,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        }
+      },
+      "history": null
+    },
+    {
+      "rowId": "warm-refine-fine-thick-t4p5-early",
+      "producer": "838c294757c65c0d3b96d017cb7fec3541e4db42",
+      "node": "v24.13.1",
+      "cflFill": 0.05,
+      "dxUm": 0.175,
+      "seedThickness": 3,
+      "terminalTimeSeconds": 80.34468616841863,
+      "terminalCycle": 2731,
+      "size": {
+        "targetCenterSpanUm": 9.8,
+        "selectedCycle": 2731,
+        "actualCenterSpanUm": 9.799999999999999,
+        "exactTarget": true,
+        "values": {
+          "cycle": 2731,
+          "simTimeSeconds": 80.34468616841863,
+          "extent": 57,
+          "largestCenterSpanUm": 9.799999999999999,
+          "attachedCount": 110999,
+          "axialCenterSpanUm": 9.1,
+          "lateralCenterSpanUm": 9.799999999999999,
+          "addedAxialCenterSpanUm": 8.75,
+          "addedLateralCenterSpanUm": 8.399999999999999,
+          "occupiedCellVolumeUm3": 515.1857523683035,
+          "probeFullWaistThicknessUm": 0.875,
+          "addedProbeFullWaistThicknessUm": 0.3500000000000001,
+          "straightAxiallyOpenLayers": 48,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 4.0249999999999995
+        }
+      },
+      "commonAge": {
+        "fraction": 1,
+        "requestedTimeSeconds": 55.9289191088165,
+        "atOrBefore": {
+          "cycle": 1961,
+          "simTimeSeconds": 55.92781219078013,
+          "extent": 49,
+          "attachedCount": 61325
+        },
+        "nextEvent": {
+          "cycle": 1962,
+          "simTimeSeconds": 55.95942474412628,
+          "extent": 49,
+          "attachedCount": 61397
+        },
+        "exactEventTime": false,
+        "atOrBeforeValues": {
+          "cycle": 1961,
+          "simTimeSeconds": 55.92781219078013,
+          "extent": 49,
+          "largestCenterSpanUm": 8.399999999999999,
+          "attachedCount": 61325,
+          "axialCenterSpanUm": 8.399999999999999,
+          "lateralCenterSpanUm": 7.35,
+          "addedAxialCenterSpanUm": 8.049999999999999,
+          "addedLateralCenterSpanUm": 5.949999999999999,
+          "occupiedCellVolumeUm3": 284.6310891448231,
+          "probeFullWaistThicknessUm": 0.875,
+          "addedProbeFullWaistThicknessUm": 0.3500000000000001,
+          "straightAxiallyOpenLayers": 44,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 3.675
+        },
+        "nextEventValues": {
+          "cycle": 1962,
+          "simTimeSeconds": 55.95942474412628,
+          "extent": 49,
+          "largestCenterSpanUm": 8.399999999999999,
+          "attachedCount": 61397,
+          "axialCenterSpanUm": 8.399999999999999,
+          "lateralCenterSpanUm": 7.35,
+          "addedAxialCenterSpanUm": 8.049999999999999,
+          "addedLateralCenterSpanUm": 5.949999999999999,
+          "occupiedCellVolumeUm3": 284.9652666975084,
+          "probeFullWaistThicknessUm": 0.875,
+          "addedProbeFullWaistThicknessUm": 0.3500000000000001,
+          "straightAxiallyOpenLayers": 44,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 3.675
+        }
+      },
+      "history": {
+        "actualSwitchTimeSeconds": 20.02393393279518,
+        "originalIntervals": {
+          "count": 32,
+          "survivingAtStop": 32,
+          "maxPostCutoffTipAdvanceUm": 1.2249999999999999,
+          "maxTipAdvanceWhileOpenUm": 4.0249999999999995,
+          "maxDepthUm": 4.0249999999999995
+        },
+        "newPostCutoffIntervals": {
+          "count": 16,
+          "survivingAtStop": 16,
+          "maxPostCutoffTipAdvanceUm": 1.2249999999999999,
+          "maxTipAdvanceWhileOpenUm": 1.2249999999999999,
+          "maxDepthUm": 1.2249999999999999
+        },
+        "selectedDemandAfterSwitchFill": 0,
+        "selectedFractionOfDemandBeforeSwitch": 0.998391803629846,
+        "postSwitchToEndpoint": {
+          "durationSeconds": 60.32075223562345,
+          "atOrBefore": {
+            "attachedCount": 98808,
+            "axialCenterSpanUm": 2.45,
+            "lateralCenterSpanUm": 5.949999999999999,
+            "occupiedCellVolumeUm3": 458.602994801821,
+            "addedProbeFullWaistThicknessUm": 0,
+            "straightAxiallyOpenLayers": 16,
+            "maxStraightOpenDepthBelowAxialEnvelopeUm": 1.2249999999999996
+          },
+          "adjacentEventAlternatives": {
+            "attachedCount": [
+              98724,
+              98808
+            ],
+            "axialCenterSpanUm": [
+              2.45,
+              2.45
+            ],
+            "lateralCenterSpanUm": [
+              5.949999999999999,
+              5.949999999999999
+            ],
+            "occupiedCellVolumeUm3": [
+              458.2131209903548,
+              458.602994801821
+            ],
+            "addedProbeFullWaistThicknessUm": [
+              0,
+              0
+            ],
+            "straightAxiallyOpenLayers": [
+              16,
+              16
+            ],
+            "maxStraightOpenDepthBelowAxialEnvelopeUm": [
+              1.2249999999999996,
+              1.2249999999999996
+            ]
+          }
+        }
+      }
+    },
+    {
+      "rowId": "gd21-hil-w4-h3-broad",
+      "producer": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+      "node": "v24.13.1",
+      "cflFill": 0.025,
+      "dxUm": 0.175,
+      "seedThickness": 3,
+      "terminalTimeSeconds": 58.6420455064971,
+      "terminalCycle": 3685,
+      "size": {
+        "targetCenterSpanUm": 9.8,
+        "selectedCycle": 3685,
+        "actualCenterSpanUm": 9.799999999999999,
+        "exactTarget": true,
+        "values": {
+          "cycle": 3685,
+          "simTimeSeconds": 58.6420455064971,
+          "extent": 57,
+          "largestCenterSpanUm": 9.799999999999999,
+          "attachedCount": 51671,
+          "axialCenterSpanUm": 3.8499999999999996,
+          "lateralCenterSpanUm": 9.799999999999999,
+          "addedAxialCenterSpanUm": 3.4999999999999996,
+          "addedLateralCenterSpanUm": 8.399999999999999,
+          "occupiedCellVolumeUm3": 239.82344895559973,
+          "probeFullWaistThicknessUm": 4.0249999999999995,
+          "addedProbeFullWaistThicknessUm": 3.4999999999999996,
+          "straightAxiallyOpenLayers": 0,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        }
+      },
+      "commonAge": {
+        "fraction": 1,
+        "requestedTimeSeconds": 55.9289191088165,
+        "atOrBefore": {
+          "cycle": 3505,
+          "simTimeSeconds": 55.919784105357905,
+          "extent": 55,
+          "attachedCount": 48813
+        },
+        "nextEvent": {
+          "cycle": 3506,
+          "simTimeSeconds": 55.932756333249316,
+          "extent": 55,
+          "attachedCount": 48825
+        },
+        "exactEventTime": false,
+        "atOrBeforeValues": {
+          "cycle": 3505,
+          "simTimeSeconds": 55.919784105357905,
+          "extent": 55,
+          "largestCenterSpanUm": 9.45,
+          "attachedCount": 48813,
+          "axialCenterSpanUm": 3.8499999999999996,
+          "lateralCenterSpanUm": 9.45,
+          "addedAxialCenterSpanUm": 3.4999999999999996,
+          "addedLateralCenterSpanUm": 8.049999999999999,
+          "occupiedCellVolumeUm3": 226.55845665595186,
+          "probeFullWaistThicknessUm": 3.675,
+          "addedProbeFullWaistThicknessUm": 3.15,
+          "straightAxiallyOpenLayers": 2,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        },
+        "nextEventValues": {
+          "cycle": 3506,
+          "simTimeSeconds": 55.932756333249316,
+          "extent": 55,
+          "largestCenterSpanUm": 9.45,
+          "attachedCount": 48825,
+          "axialCenterSpanUm": 3.8499999999999996,
+          "lateralCenterSpanUm": 9.45,
+          "addedAxialCenterSpanUm": 3.4999999999999996,
+          "addedLateralCenterSpanUm": 8.049999999999999,
+          "occupiedCellVolumeUm3": 226.61415291473276,
+          "probeFullWaistThicknessUm": 3.675,
+          "addedProbeFullWaistThicknessUm": 3.15,
+          "straightAxiallyOpenLayers": 2,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        }
+      },
+      "history": null
+    },
+    {
+      "rowId": "gd21-hil-w4-h3-early20-w6",
+      "producer": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+      "node": "v24.13.1",
+      "cflFill": 0.025,
+      "dxUm": 0.175,
+      "seedThickness": 3,
+      "terminalTimeSeconds": 79.86348774851376,
+      "terminalCycle": 5420,
+      "size": {
+        "targetCenterSpanUm": 9.8,
+        "selectedCycle": 5420,
+        "actualCenterSpanUm": 9.799999999999999,
+        "exactTarget": true,
+        "values": {
+          "cycle": 5420,
+          "simTimeSeconds": 79.86348774851376,
+          "extent": 57,
+          "largestCenterSpanUm": 9.799999999999999,
+          "attachedCount": 111263,
+          "axialCenterSpanUm": 9.1,
+          "lateralCenterSpanUm": 9.799999999999999,
+          "addedAxialCenterSpanUm": 8.75,
+          "addedLateralCenterSpanUm": 8.399999999999999,
+          "occupiedCellVolumeUm3": 516.4110700614831,
+          "probeFullWaistThicknessUm": 0.875,
+          "addedProbeFullWaistThicknessUm": 0.3500000000000001,
+          "straightAxiallyOpenLayers": 48,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 4.0249999999999995
+        }
+      },
+      "commonAge": {
+        "fraction": 1,
+        "requestedTimeSeconds": 55.9289191088165,
+        "atOrBefore": {
+          "cycle": 3907,
+          "simTimeSeconds": 55.9156349344267,
+          "extent": 49,
+          "attachedCount": 61913
+        },
+        "nextEvent": {
+          "cycle": 3908,
+          "simTimeSeconds": 55.93184124090725,
+          "extent": 49,
+          "attachedCount": 61937
+        },
+        "exactEventTime": false,
+        "atOrBeforeValues": {
+          "cycle": 3907,
+          "simTimeSeconds": 55.9156349344267,
+          "extent": 49,
+          "largestCenterSpanUm": 8.399999999999999,
+          "attachedCount": 61913,
+          "axialCenterSpanUm": 8.399999999999999,
+          "lateralCenterSpanUm": 7.35,
+          "addedAxialCenterSpanUm": 8.049999999999999,
+          "addedLateralCenterSpanUm": 5.949999999999999,
+          "occupiedCellVolumeUm3": 287.3602058250865,
+          "probeFullWaistThicknessUm": 0.875,
+          "addedProbeFullWaistThicknessUm": 0.3500000000000001,
+          "straightAxiallyOpenLayers": 44,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 3.675
+        },
+        "nextEventValues": {
+          "cycle": 3908,
+          "simTimeSeconds": 55.93184124090725,
+          "extent": 49,
+          "largestCenterSpanUm": 8.399999999999999,
+          "attachedCount": 61937,
+          "axialCenterSpanUm": 8.399999999999999,
+          "lateralCenterSpanUm": 7.35,
+          "addedAxialCenterSpanUm": 8.049999999999999,
+          "addedLateralCenterSpanUm": 5.949999999999999,
+          "occupiedCellVolumeUm3": 287.4715983426483,
+          "probeFullWaistThicknessUm": 0.875,
+          "addedProbeFullWaistThicknessUm": 0.3500000000000001,
+          "straightAxiallyOpenLayers": 44,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 3.675
+        }
+      },
+      "history": {
+        "actualSwitchTimeSeconds": 20.00123231741368,
+        "originalIntervals": {
+          "count": 32,
+          "survivingAtStop": 32,
+          "maxPostCutoffTipAdvanceUm": 1.2249999999999999,
+          "maxTipAdvanceWhileOpenUm": 4.0249999999999995,
+          "maxDepthUm": 4.0249999999999995
+        },
+        "newPostCutoffIntervals": {
+          "count": 16,
+          "survivingAtStop": 16,
+          "maxPostCutoffTipAdvanceUm": 1.2249999999999999,
+          "maxTipAdvanceWhileOpenUm": 1.2249999999999999,
+          "maxDepthUm": 1.2249999999999999
+        },
+        "selectedDemandAfterSwitchFill": 0,
+        "selectedFractionOfDemandBeforeSwitch": 0.9984448377750347,
+        "postSwitchToEndpoint": {
+          "durationSeconds": 59.86225543110008,
+          "atOrBefore": {
+            "attachedCount": 98772,
+            "axialCenterSpanUm": 2.45,
+            "lateralCenterSpanUm": 5.949999999999999,
+            "occupiedCellVolumeUm3": 458.43590602547846,
+            "addedProbeFullWaistThicknessUm": 0,
+            "straightAxiallyOpenLayers": 16,
+            "maxStraightOpenDepthBelowAxialEnvelopeUm": 1.2249999999999996
+          },
+          "adjacentEventAlternatives": {
+            "attachedCount": [
+              98748,
+              98772
+            ],
+            "axialCenterSpanUm": [
+              2.45,
+              2.45
+            ],
+            "lateralCenterSpanUm": [
+              5.949999999999999,
+              5.949999999999999
+            ],
+            "occupiedCellVolumeUm3": [
+              458.32451350791666,
+              458.43590602547846
+            ],
+            "addedProbeFullWaistThicknessUm": [
+              0,
+              0
+            ],
+            "straightAxiallyOpenLayers": [
+              16,
+              16
+            ],
+            "maxStraightOpenDepthBelowAxialEnvelopeUm": [
+              1.2249999999999996,
+              1.2249999999999996
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "postSwitchPairs": [
+    {
+      "early": "warm-refine-coarse-t4p5-early",
+      "broad": "warm-refine-coarse-t4p5-broad",
+      "available": true,
+      "start": 20.04840569337263,
+      "end": 68.8832798712082,
+      "durationSeconds": 48.83487417783557,
+      "earlyIncrement": {
+        "atOrBefore": {
+          "attachedCount": 7008,
+          "axialCenterSpanUm": 2.1000000000000005,
+          "lateralCenterSpanUm": 4.199999999999999,
+          "occupiedCellVolumeUm3": 260.21292102430266,
+          "addedProbeFullWaistThicknessUm": 0,
+          "straightAxiallyOpenLayers": 6,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 1.0500000000000003
+        },
+        "adjacentEventAlternatives": {
+          "attachedCount": [
+            7008,
+            7044
+          ],
+          "axialCenterSpanUm": [
+            2.1000000000000005,
+            2.1000000000000005
+          ],
+          "lateralCenterSpanUm": [
+            4.199999999999999,
+            4.199999999999999
+          ],
+          "occupiedCellVolumeUm3": [
+            260.21292102430266,
+            261.54963123504393
+          ],
+          "addedProbeFullWaistThicknessUm": [
+            0,
+            0
+          ],
+          "straightAxiallyOpenLayers": [
+            6,
+            6
+          ],
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": [
+            1.0500000000000003,
+            1.0500000000000003
+          ]
+        }
+      },
+      "broadIncrement": {
+        "atOrBefore": {
+          "attachedCount": 5334,
+          "axialCenterSpanUm": 2.1,
+          "lateralCenterSpanUm": 4.8999999999999995,
+          "occupiedCellVolumeUm3": 198.0558962248331,
+          "addedProbeFullWaistThicknessUm": 2.0999999999999996,
+          "straightAxiallyOpenLayers": 0,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        },
+        "adjacentEventAlternatives": {
+          "attachedCount": [
+            5322,
+            5334
+          ],
+          "axialCenterSpanUm": [
+            2.1,
+            2.1
+          ],
+          "lateralCenterSpanUm": [
+            4.8999999999999995,
+            4.8999999999999995
+          ],
+          "occupiedCellVolumeUm3": [
+            197.610326154586,
+            198.0558962248331
+          ],
+          "addedProbeFullWaistThicknessUm": [
+            2.0999999999999996,
+            2.0999999999999996
+          ],
+          "straightAxiallyOpenLayers": [
+            0,
+            0
+          ],
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": [
+            0,
+            0
+          ]
+        }
+      },
+      "earlyMinusBroadGrowth": {
+        "attachedCount": 1674,
+        "axialCenterSpanUm": 4.440892098500626e-16,
+        "lateralCenterSpanUm": -0.7000000000000002,
+        "occupiedCellVolumeUm3": 62.15702479946955,
+        "addedProbeFullWaistThicknessUm": -2.0999999999999996,
+        "straightAxiallyOpenLayers": 6,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 1.0500000000000003
+      }
+    },
+    {
+      "early": "gd21-bld-w1-t4p5-c025-early20-w3",
+      "broad": "gd21-bld-w1-t4p5-c025-broad",
+      "available": true,
+      "start": 20.037230782916097,
+      "end": 68.14246662448986,
+      "durationSeconds": 48.10523584157376,
+      "earlyIncrement": {
+        "atOrBefore": {
+          "attachedCount": 6984,
+          "axialCenterSpanUm": 2.1000000000000005,
+          "lateralCenterSpanUm": 4.199999999999999,
+          "occupiedCellVolumeUm3": 259.32178088380846,
+          "addedProbeFullWaistThicknessUm": 0,
+          "straightAxiallyOpenLayers": 6,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 1.0500000000000003
+        },
+        "adjacentEventAlternatives": {
+          "attachedCount": [
+            6984,
+            7008
+          ],
+          "axialCenterSpanUm": [
+            2.1000000000000005,
+            2.1000000000000005
+          ],
+          "lateralCenterSpanUm": [
+            4.199999999999999,
+            4.199999999999999
+          ],
+          "occupiedCellVolumeUm3": [
+            259.32178088380846,
+            260.21292102430266
+          ],
+          "addedProbeFullWaistThicknessUm": [
+            0,
+            0
+          ],
+          "straightAxiallyOpenLayers": [
+            6,
+            6
+          ],
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": [
+            1.0500000000000003,
+            1.0500000000000003
+          ]
+        }
+      },
+      "broadIncrement": {
+        "atOrBefore": {
+          "attachedCount": 5322,
+          "axialCenterSpanUm": 2.1,
+          "lateralCenterSpanUm": 4.8999999999999995,
+          "occupiedCellVolumeUm3": 197.610326154586,
+          "addedProbeFullWaistThicknessUm": 2.0999999999999996,
+          "straightAxiallyOpenLayers": 0,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        },
+        "adjacentEventAlternatives": {
+          "attachedCount": [
+            5322,
+            5322
+          ],
+          "axialCenterSpanUm": [
+            2.1,
+            2.1
+          ],
+          "lateralCenterSpanUm": [
+            4.8999999999999995,
+            4.8999999999999995
+          ],
+          "occupiedCellVolumeUm3": [
+            197.610326154586,
+            197.610326154586
+          ],
+          "addedProbeFullWaistThicknessUm": [
+            2.0999999999999996,
+            2.0999999999999996
+          ],
+          "straightAxiallyOpenLayers": [
+            0,
+            0
+          ],
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": [
+            0,
+            0
+          ]
+        }
+      },
+      "earlyMinusBroadGrowth": {
+        "attachedCount": 1662,
+        "axialCenterSpanUm": 4.440892098500626e-16,
+        "lateralCenterSpanUm": -0.7000000000000002,
+        "occupiedCellVolumeUm3": 61.71145472922245,
+        "addedProbeFullWaistThicknessUm": -2.0999999999999996,
+        "straightAxiallyOpenLayers": 6,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 1.0500000000000003
+      }
+    },
+    {
+      "early": "warm-refine-fine-thin-t4p5-early",
+      "broad": "warm-refine-fine-thin-t4p5-broad",
+      "available": true,
+      "start": 20.006558935435596,
+      "end": 56.70347153158861,
+      "durationSeconds": 36.69691259615301,
+      "earlyIncrement": {
+        "atOrBefore": {
+          "attachedCount": 48948,
+          "axialCenterSpanUm": 1.7499999999999991,
+          "lateralCenterSpanUm": 3.8499999999999996,
+          "occupiedCellVolumeUm3": 227.18503956723686,
+          "addedProbeFullWaistThicknessUm": 0,
+          "straightAxiallyOpenLayers": 12,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0.875
+        },
+        "adjacentEventAlternatives": {
+          "attachedCount": [
+            48924,
+            49044
+          ],
+          "axialCenterSpanUm": [
+            1.7499999999999991,
+            1.7499999999999991
+          ],
+          "lateralCenterSpanUm": [
+            3.8499999999999996,
+            3.8499999999999996
+          ],
+          "occupiedCellVolumeUm3": [
+            227.07364704967506,
+            227.63060963748393
+          ],
+          "addedProbeFullWaistThicknessUm": [
+            0,
+            0
+          ],
+          "straightAxiallyOpenLayers": [
+            12,
+            12
+          ],
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": [
+            0.875,
+            0.875
+          ]
+        }
+      },
+      "broadIncrement": {
+        "atOrBefore": {
+          "attachedCount": 39664,
+          "axialCenterSpanUm": 1.75,
+          "lateralCenterSpanUm": 4.549999999999999,
+          "occupiedCellVolumeUm3": 184.0947006904242,
+          "addedProbeFullWaistThicknessUm": 1.7500000000000002,
+          "straightAxiallyOpenLayers": 0,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        },
+        "adjacentEventAlternatives": {
+          "attachedCount": [
+            39628,
+            39664
+          ],
+          "axialCenterSpanUm": [
+            1.75,
+            1.75
+          ],
+          "lateralCenterSpanUm": [
+            4.549999999999999,
+            4.549999999999999
+          ],
+          "occupiedCellVolumeUm3": [
+            183.92761191408152,
+            184.0947006904242
+          ],
+          "addedProbeFullWaistThicknessUm": [
+            1.7500000000000002,
+            1.7500000000000002
+          ],
+          "straightAxiallyOpenLayers": [
+            0,
+            0
+          ],
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": [
+            0,
+            0
+          ]
+        }
+      },
+      "earlyMinusBroadGrowth": {
+        "attachedCount": 9284,
+        "axialCenterSpanUm": -8.881784197001252e-16,
+        "lateralCenterSpanUm": -0.6999999999999993,
+        "occupiedCellVolumeUm3": 43.090338876812666,
+        "addedProbeFullWaistThicknessUm": -1.7500000000000002,
+        "straightAxiallyOpenLayers": 12,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 0.875
+      }
+    },
+    {
+      "early": "gd21-hil-w4-h1-early20-w6",
+      "broad": "gd21-hil-w4-h1-broad",
+      "available": true,
+      "start": 20.00030205464298,
+      "end": 55.9289191088165,
+      "durationSeconds": 35.92861705417352,
+      "earlyIncrement": {
+        "atOrBefore": {
+          "attachedCount": 48372,
+          "axialCenterSpanUm": 1.7499999999999991,
+          "lateralCenterSpanUm": 3.5,
+          "occupiedCellVolumeUm3": 224.51161914575425,
+          "addedProbeFullWaistThicknessUm": 0,
+          "straightAxiallyOpenLayers": 12,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0.875
+        },
+        "adjacentEventAlternatives": {
+          "attachedCount": [
+            48372,
+            48384
+          ],
+          "axialCenterSpanUm": [
+            1.7499999999999991,
+            1.7499999999999991
+          ],
+          "lateralCenterSpanUm": [
+            3.5,
+            3.5
+          ],
+          "occupiedCellVolumeUm3": [
+            224.51161914575425,
+            224.56731540453512
+          ],
+          "addedProbeFullWaistThicknessUm": [
+            0,
+            0
+          ],
+          "straightAxiallyOpenLayers": [
+            12,
+            12
+          ],
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": [
+            0.875,
+            0.875
+          ]
+        }
+      },
+      "broadIncrement": {
+        "atOrBefore": {
+          "attachedCount": 39464,
+          "axialCenterSpanUm": 1.75,
+          "lateralCenterSpanUm": 4.549999999999999,
+          "occupiedCellVolumeUm3": 183.16642971074273,
+          "addedProbeFullWaistThicknessUm": 1.4000000000000001,
+          "straightAxiallyOpenLayers": 2,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        },
+        "adjacentEventAlternatives": {
+          "attachedCount": [
+            39464,
+            39464
+          ],
+          "axialCenterSpanUm": [
+            1.75,
+            1.75
+          ],
+          "lateralCenterSpanUm": [
+            4.549999999999999,
+            4.549999999999999
+          ],
+          "occupiedCellVolumeUm3": [
+            183.16642971074273,
+            183.16642971074273
+          ],
+          "addedProbeFullWaistThicknessUm": [
+            1.4000000000000001,
+            1.4000000000000001
+          ],
+          "straightAxiallyOpenLayers": [
+            2,
+            2
+          ],
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": [
+            0,
+            0
+          ]
+        }
+      },
+      "earlyMinusBroadGrowth": {
+        "attachedCount": 8908,
+        "axialCenterSpanUm": -8.881784197001252e-16,
+        "lateralCenterSpanUm": -1.049999999999999,
+        "occupiedCellVolumeUm3": 41.34518943501152,
+        "addedProbeFullWaistThicknessUm": -1.4000000000000001,
+        "straightAxiallyOpenLayers": 10,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 0.875
+      }
+    },
+    {
+      "early": "warm-refine-fine-thick-t4p5-early",
+      "broad": "warm-refine-fine-thick-t4p5-broad",
+      "available": true,
+      "start": 20.02393393279518,
+      "end": 59.23322494643029,
+      "durationSeconds": 39.20929101363511,
+      "earlyIncrement": {
+        "atOrBefore": {
+          "attachedCount": 54540,
+          "axialCenterSpanUm": 1.7499999999999991,
+          "lateralCenterSpanUm": 3.8499999999999996,
+          "occupiedCellVolumeUm3": 253.13949615913003,
+          "addedProbeFullWaistThicknessUm": 0,
+          "straightAxiallyOpenLayers": 12,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0.875
+        },
+        "adjacentEventAlternatives": {
+          "attachedCount": [
+            54456,
+            54564
+          ],
+          "axialCenterSpanUm": [
+            1.7499999999999991,
+            1.7499999999999991
+          ],
+          "lateralCenterSpanUm": [
+            3.8499999999999996,
+            3.8499999999999996
+          ],
+          "occupiedCellVolumeUm3": [
+            252.74962234766383,
+            253.25088867669183
+          ],
+          "addedProbeFullWaistThicknessUm": [
+            0,
+            0
+          ],
+          "straightAxiallyOpenLayers": [
+            12,
+            12
+          ],
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": [
+            0.875,
+            0.875
+          ]
+        }
+      },
+      "broadIncrement": {
+        "atOrBefore": {
+          "attachedCount": 43650,
+          "axialCenterSpanUm": 1.75,
+          "lateralCenterSpanUm": 4.8999999999999995,
+          "occupiedCellVolumeUm3": 202.59514131547536,
+          "addedProbeFullWaistThicknessUm": 2.0999999999999996,
+          "straightAxiallyOpenLayers": -2,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        },
+        "adjacentEventAlternatives": {
+          "attachedCount": [
+            43648,
+            43650
+          ],
+          "axialCenterSpanUm": [
+            1.75,
+            1.75
+          ],
+          "lateralCenterSpanUm": [
+            4.8999999999999995,
+            4.8999999999999995
+          ],
+          "occupiedCellVolumeUm3": [
+            202.58585860567854,
+            202.59514131547536
+          ],
+          "addedProbeFullWaistThicknessUm": [
+            1.7499999999999996,
+            2.0999999999999996
+          ],
+          "straightAxiallyOpenLayers": [
+            -2,
+            0
+          ],
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": [
+            0,
+            0
+          ]
+        }
+      },
+      "earlyMinusBroadGrowth": {
+        "attachedCount": 10890,
+        "axialCenterSpanUm": -8.881784197001252e-16,
+        "lateralCenterSpanUm": -1.0499999999999998,
+        "occupiedCellVolumeUm3": 50.54435484365467,
+        "addedProbeFullWaistThicknessUm": -2.0999999999999996,
+        "straightAxiallyOpenLayers": 14,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 0.875
+      }
+    },
+    {
+      "early": "gd21-hil-w4-h3-early20-w6",
+      "broad": "gd21-hil-w4-h3-broad",
+      "available": true,
+      "start": 20.00123231741368,
+      "end": 58.6420455064971,
+      "durationSeconds": 38.64081318908342,
+      "earlyIncrement": {
+        "atOrBefore": {
+          "attachedCount": 54000,
+          "axialCenterSpanUm": 1.7499999999999991,
+          "lateralCenterSpanUm": 3.8499999999999996,
+          "occupiedCellVolumeUm3": 250.63316451399012,
+          "addedProbeFullWaistThicknessUm": 0,
+          "straightAxiallyOpenLayers": 12,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0.875
+        },
+        "adjacentEventAlternatives": {
+          "attachedCount": [
+            53976,
+            54048
+          ],
+          "axialCenterSpanUm": [
+            1.7499999999999991,
+            1.7499999999999991
+          ],
+          "lateralCenterSpanUm": [
+            3.8499999999999996,
+            3.8499999999999996
+          ],
+          "occupiedCellVolumeUm3": [
+            250.52177199642836,
+            250.85594954911366
+          ],
+          "addedProbeFullWaistThicknessUm": [
+            0,
+            0
+          ],
+          "straightAxiallyOpenLayers": [
+            12,
+            12
+          ],
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": [
+            0.875,
+            0.875
+          ]
+        }
+      },
+      "broadIncrement": {
+        "atOrBefore": {
+          "attachedCount": 43636,
+          "axialCenterSpanUm": 1.75,
+          "lateralCenterSpanUm": 4.8999999999999995,
+          "occupiedCellVolumeUm3": 202.53016234689767,
+          "addedProbeFullWaistThicknessUm": 1.7499999999999996,
+          "straightAxiallyOpenLayers": 0,
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+        },
+        "adjacentEventAlternatives": {
+          "attachedCount": [
+            43636,
+            43636
+          ],
+          "axialCenterSpanUm": [
+            1.75,
+            1.75
+          ],
+          "lateralCenterSpanUm": [
+            4.8999999999999995,
+            4.8999999999999995
+          ],
+          "occupiedCellVolumeUm3": [
+            202.53016234689767,
+            202.53016234689767
+          ],
+          "addedProbeFullWaistThicknessUm": [
+            1.7499999999999996,
+            1.7499999999999996
+          ],
+          "straightAxiallyOpenLayers": [
+            0,
+            0
+          ],
+          "maxStraightOpenDepthBelowAxialEnvelopeUm": [
+            0,
+            0
+          ]
+        }
+      },
+      "earlyMinusBroadGrowth": {
+        "attachedCount": 10364,
+        "axialCenterSpanUm": -8.881784197001252e-16,
+        "lateralCenterSpanUm": -1.0499999999999998,
+        "occupiedCellVolumeUm3": 48.103002167092455,
+        "addedProbeFullWaistThicknessUm": -1.7499999999999996,
+        "straightAxiallyOpenLayers": 12,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 0.875
+      }
+    }
+  ],
+  "limitations": [
+    "Implementation-level deterministic comparison, not physical validation or discovery claim.",
+    "Two mesh spacings and two timesteps do not establish continuum convergence.",
+    "Fine thicknesses bracket coarse thickness but initial voxel shapes and volumes differ.",
+    "Occupied volume excludes partial fill. Signed plane/side intervals are not independent cavities.",
+    "Pair-specific post-switch durations differ; cross-pair contrasts use the primary twelve-member common age.",
+    "Preparation selects almost all basal demand, so this is not evidence of rim-only attachment."
+  ],
+  "commands": [
+    "node out/hil-results-review-2026-11-11/warm/analyze.mjs",
+    "python out/hil-results-review-2026-11-11/warm/summarize.py"
+  ]
+}

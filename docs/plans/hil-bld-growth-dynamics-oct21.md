@@ -1,11 +1,11 @@
 # Plan — HIL and BLD growth dynamics campaign
 
 - **Phase:** active Phase 10 exploration under charter sections 2.5/3.2 and ADRs 0011, 0055, 0058–0060 and 0062.
-- **Status:** BLD's finite queue, NAS recovery and local Git closeout are complete; HIL has recovered and analyzed BLD's 91 checked endpoints/one preserved failure. HIL has 24 checked endpoints and no active or failed rows, verified November 11. W4/C1/H1 matched interpretation and HIL NAS preservation remain pending.
+- **Status:** BLD's finite queue, NAS recovery and local Git closeout are complete; HIL has recovered and analyzed BLD's 91 checked endpoints/one preserved failure. HIL has 24 checked endpoints and no active or failed rows, verified November 11. W4/C1/H1 matched interpretation is complete in the November 11 bundle; HIL NAS preservation remains pending.
 - **Started / last touched:** 2026-10-21 / 2026-11-11 by Codex/GPT-6.
 - **Authority:** maker requests full useful use of HIL's 20-worker allocation and BLD's 32-worker allocation, detailed long queues, resumability and no wall-clock cutoff. The subsequent October21 direction puts all longest/least-predictable work on HIL so BLD can finish and shut down. This supersedes the initial 60/56 host split and the October8 HIL-only default.
 - **Publication:** `origin/main`; planning branch `codex/phase10-two-host-growth`, based on `8e008644085f075922cfccd8a296b0dd248beb60`.
-- **Immediate deliverable:** Analyze HIL's complete W4/C1/H1 cohorts using their frozen comparisons and preserve the complete output on NAS before closeout; the saved BLD width/history state remains a mechanism question. Do not resume the completed queue or dispatch unselected reserves. BLD's finite run/preservation slice is complete. Solo scientific research; hostile actors excluded.
+- **Immediate deliverable:** Reconstruct BLD switch-time geometry and aggregate diagnostics, then inspect later boundary profiles to distinguish placement/exposure from total selected demand, and preserve complete HIL output plus detailed analyses on NAS before closeout. Do not resume the completed queue or dispatch unselected reserves. BLD's finite run/preservation slice is complete. Solo scientific research; hostile actors excluded.
 
 ## Goal
 
@@ -1175,6 +1175,59 @@ Do not restart this completed campaign. Next: compute the frozen matched compari
 reconcile them with BLD, and publish/freshly restore the complete HIL output before any
 execution-worktree closure. Keep original checkpoints, events, all attempt logs and the
 retained stale process record. No reserve was selected and no simulation was launched here.
+
+### Completed-data analysis — November 11
+
+The maker requested analysis of the completed campaign. This is direct saved-data analysis,
+not a new simulation protocol. The deliverable is one integrated interpretation of the frozen
+W4/C1/H1 comparisons alongside BLD, with concise findings, input identities and exact recipes
+retained in Git. Detailed reconstruction output remains local pending the HIL NAS publication;
+the output-owning execution checkout must stay open. No reserve is selected by this analysis.
+
+Three shared-context analysis lanes reuse existing reconstruction definitions for the three
+independent groups. Lessons B1/B2, C2/C3/C5 and E1/E5 govern the interpretation: enumerate the
+complete frozen cohorts, keep size and age comparisons separate, retain missing plateau exits
+and uncovered windows, and do not promote model effects to physical causality or convergence.
+Existing endpoint checks and event reconstruction cover identity/count/extent consistency;
+the parent will independently recompute a headline contrast from raw events. This does not
+independently verify every geometry readout. New offline selection/window recipes require
+exact `npm test` at the stable checkpoint under Rule 6; no solver gate or simulation is needed.
+Solo scientific research; hostile actors are outside scope. No new assurance machinery is added.
+
+**Analysis complete:** [integrated report](../../evidence/hil-results-review-2026-11-11/README.md)
+and its three lane summaries/recipes retain the matched results. W4's twelve-member common
+age is 55.9289191088165 s; early depths are 3.15/3.675/3.675 um for coarse/fine-thin/fine-thick
+at both CFLs, with zero broad-control depth. At exact 9.8 um size these become
+3.50/4.025/4.025 um. Fine thin broad waist addition still changes 3.50 to 3.15 um under
+halving, so depth robustness does not establish general numerical convergence.
+
+C1 reconstructs 12 rows / 31443 updates. At the physical 2.8 um tip and fractions .25/.5/.75
+of the union's 0.467403189055569 s plateau duration, prism-enabled gaps are .70 um in all
+representations; controls are .35 um coarse/.175 um fine. The thick basal-only row has no
+observed exit from tip 18, making the thick/union 3.15 um-stage comparison unavailable.
+Common-age magnitudes differ; no permanent cavity or domain/continuum claim follows.
+
+H1 reconstructs 12 rows / 26001 updates with all six source prefixes equal. Over the shared
+27.824753761835478 s post-event duration, early-minus-late axial additions are 2.80/2.10/2.10 um
+at half/normal/double pressure, but later-half differences are .70/0/.70 um. The parent raw-event
+calculation independently reproduced these contrasts and full occupied-site differences
+-4264/-2702/-1440. At the older fixed duration, normal-pressure axial contrast changes
+2.10 to 1.40 um between N64/N96. Static full-window gaps remain explicit in the summary.
+
+These are internal model-development findings, not a new physical mechanism or phase closure.
+Next, reconstruct BLD width3/width4 early5 and early1/early5 switch-time geometry and aggregate
+diagnostics, then inspect later boundary profiles before proposing a state intervention or reserve.
+The pinned availability record confirms no exact-switch spatial snapshot or full restart state
+for these six rows; their first later boundary samples are about 6.04-7.47 s. The full HIL output and detailed
+analysis at primary `out/hil-results-review-2026-11-11/` still await NAS publication/recovery.
+Concise claims, recipes and input hashes are pinned in the linked evidence bundle. Retain all
+local originals; no new simulation, pruning or worktree closure occurred.
+
+The exact `npm test` regression on unchanged primary source `b0a4511` exited zero: 247 files /
+3102 tests passed, 23 skipped, Vitest duration 969.57 s. The bundle retains stdout/stderr and
+verification provenance. New offline recipes were executed separately; the final metadata
+checks cover their publication. This is implementation regression, not a scientific gate.
+
 
 ### HIL executable and recovery — October21
 

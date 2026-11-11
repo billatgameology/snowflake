@@ -1,0 +1,28 @@
+{
+  "scope": "Direct saved-data analysis; no solver, checkpoint or simulation changes.",
+  "analysisSourceCommit": "99c0e11",
+  "fullCheck": {
+    "command": "npm test",
+    "head": "b0a4511c0ecff61ac62df39191fbc15c89fd685f",
+    "stdout": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-results-review-2026-11-11\\checks\\npm-test-20261111T104102245.stdout.log",
+    "startedUtc": "2026-11-11T18:41:02.2488037Z",
+    "node": "v24.13.1",
+    "stderr": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-results-review-2026-11-11\\checks\\npm-test-20261111T104102245.stderr.log",
+    "exitCode": 0,
+    "finishedUtc": "2026-11-11T18:57:25.1592673Z",
+    "filesPassed": 247,
+    "testsPassed": 3102,
+    "testsSkipped": 23,
+    "vitestDurationSeconds": 969.57,
+    "retainedStdout": "npm-test.stdout.log",
+    "retainedStderr": "npm-test.stderr.log"
+  },
+  "limits": [
+    "Exact npm test ran on primary b0a4511 while the new offline evidence recipes were isolated in the task checkout; numerical libraries and repository source are unchanged.",
+    "All three offline recipes were executed on bound inputs. Full regression does not independently test every new comparison quantity.",
+    "Parent independently rederived H1 axial and occupied-site headline contrasts from raw events.",
+    "One shared-context integration review checked warm/cold summary witnesses; it was not an independent raw geometry or physical validation review.",
+    "Final evidence integrity and progress checks follow integration; no full-suite-green claim for a scientific gate.",
+    "HIL bulk output and detailed analysis remain local pending NAS publication; no worktree closure or deletion."
+  ]
+}

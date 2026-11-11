@@ -1,0 +1,197 @@
+{
+  "scope": "Independent raw attachment-coordinate calculation of H1 at-or-before axial and occupancy increments; no analysis/window helpers. Does not verify other metrics or next-event bounds.",
+  "DnewSeconds": 27.824753761835478,
+  "results": [
+    {
+      "pressureTag": "50662p5",
+      "contrasts": {
+        "full": {
+          "early": {
+            "axialCells": 56,
+            "occupiedSites": 54810
+          },
+          "late": {
+            "axialCells": 48,
+            "occupiedSites": 59074
+          },
+          "earlyMinusLateAxialCells": 8,
+          "earlyMinusLateOccupiedSites": -4264
+        },
+        "later": {
+          "early": {
+            "axialCells": 24,
+            "occupiedSites": 37974
+          },
+          "late": {
+            "axialCells": 22,
+            "occupiedSites": 39666
+          },
+          "earlyMinusLateAxialCells": 2,
+          "earlyMinusLateOccupiedSites": -1692
+        },
+        "q3": {
+          "early": {
+            "axialCells": 12,
+            "occupiedSites": 16458
+          },
+          "late": {
+            "axialCells": 12,
+            "occupiedSites": 17286
+          },
+          "earlyMinusLateAxialCells": 0,
+          "earlyMinusLateOccupiedSites": -828
+        },
+        "q4": {
+          "early": {
+            "axialCells": 12,
+            "occupiedSites": 21516
+          },
+          "late": {
+            "axialCells": 10,
+            "occupiedSites": 22380
+          },
+          "earlyMinusLateAxialCells": 2,
+          "earlyMinusLateOccupiedSites": -864
+        }
+      }
+    },
+    {
+      "pressureTag": "101325",
+      "contrasts": {
+        "full": {
+          "early": {
+            "axialCells": 36,
+            "occupiedSites": 18112
+          },
+          "late": {
+            "axialCells": 30,
+            "occupiedSites": 20814
+          },
+          "earlyMinusLateAxialCells": 6,
+          "earlyMinusLateOccupiedSites": -2702
+        },
+        "later": {
+          "early": {
+            "axialCells": 16,
+            "occupiedSites": 12426
+          },
+          "late": {
+            "axialCells": 16,
+            "occupiedSites": 13662
+          },
+          "earlyMinusLateAxialCells": 0,
+          "earlyMinusLateOccupiedSites": -1236
+        },
+        "q3": {
+          "early": {
+            "axialCells": 8,
+            "occupiedSites": 5436
+          },
+          "late": {
+            "axialCells": 8,
+            "occupiedSites": 6198
+          },
+          "earlyMinusLateAxialCells": 0,
+          "earlyMinusLateOccupiedSites": -762
+        },
+        "q4": {
+          "early": {
+            "axialCells": 8,
+            "occupiedSites": 6990
+          },
+          "late": {
+            "axialCells": 8,
+            "occupiedSites": 7464
+          },
+          "earlyMinusLateAxialCells": 0,
+          "earlyMinusLateOccupiedSites": -474
+        }
+      }
+    },
+    {
+      "pressureTag": "202650",
+      "contrasts": {
+        "full": {
+          "early": {
+            "axialCells": 22,
+            "occupiedSites": 5974
+          },
+          "late": {
+            "axialCells": 16,
+            "occupiedSites": 7414
+          },
+          "earlyMinusLateAxialCells": 6,
+          "earlyMinusLateOccupiedSites": -1440
+        },
+        "later": {
+          "early": {
+            "axialCells": 10,
+            "occupiedSites": 4044
+          },
+          "late": {
+            "axialCells": 8,
+            "occupiedSites": 4680
+          },
+          "earlyMinusLateAxialCells": 2,
+          "earlyMinusLateOccupiedSites": -636
+        },
+        "q3": {
+          "early": {
+            "axialCells": 6,
+            "occupiedSites": 1734
+          },
+          "late": {
+            "axialCells": 4,
+            "occupiedSites": 2214
+          },
+          "earlyMinusLateAxialCells": 2,
+          "earlyMinusLateOccupiedSites": -480
+        },
+        "q4": {
+          "early": {
+            "axialCells": 4,
+            "occupiedSites": 2310
+          },
+          "late": {
+            "axialCells": 4,
+            "occupiedSites": 2466
+          },
+          "earlyMinusLateAxialCells": 0,
+          "earlyMinusLateOccupiedSites": -156
+        }
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p50662p5-switch7\\events.jsonl",
+      "bytes": 10386170,
+      "sha256": "dad0c5ea241c5b4aa65b99f74badf4fe11430712617535b5ec3a7979f37c91f2"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p50662p5-switch15\\events.jsonl",
+      "bytes": 11614662,
+      "sha256": "f0cd8ae1eab26a4fc7cd96e934a50da03162d8847aa70a45895dc7db030f3176"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p101325-switch7\\events.jsonl",
+      "bytes": 9362015,
+      "sha256": "b892eb5e12d2cdf3e6f83105310cdaa63d68dc8c630be55263891c692f69d056"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p101325-switch15\\events.jsonl",
+      "bytes": 10715964,
+      "sha256": "193a2b073d633f11dc89f456b8820046af8c1e829bce237e08ca7c4296e80e49"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p202650-switch7\\events.jsonl",
+      "bytes": 8581554,
+      "sha256": "718ff3f5424606c31fc1aef0d8662897519be43feaf5c5859369762160561fbe"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-growth-dynamics-oct21\\snowflake\\out\\hil-growth-dynamics-oct21\\rows\\gd21-hil-h1-p202650-switch15\\events.jsonl",
+      "bytes": 10129800,
+      "sha256": "209a1daf6176138b52929c56a29ed83c20b3a429b577d1b37ddb41bf05facade"
+    }
+  ]
+}
