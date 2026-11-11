@@ -29,6 +29,8 @@ import {
 } from "@vcc/solver-cpu";
 import { validateLKStepEvidence } from "./gate2b-validation.ts";
 import { acquireDiscoveryRowLease, DiscoveryCheckpointStore, type DiscoveryRunnerResumeState } from "./discovery-resume-io.ts";
+import { DiscoveryRetainedObservationStore, validateDiscoveryRetainedObservations,
+  type DiscoveryRetainedBoundary, type DiscoveryRetainedObservations } from "./discovery-retained-observations.ts";
 
 export type DiscoveryLane =
   | "A"
@@ -628,6 +630,8 @@ export interface RunDiscoveryRowOptions {
   /** Operational pause at an absolute completed cycle, after publishing its checkpoint. */
   readonly pauseAfterCycles?: number;
   readonly heartbeat?: (message: string) => void;
+  /** Permanent observation copies; separate from rotating restart state and bound on resume. */
+  readonly retainedObservations?: DiscoveryRetainedObservations;
   /** Cooperative terminal observation limit; never implies checkpoint continuation. */
   readonly maxWallSeconds?: number;
   /** Monotonic elapsed-time source, injectable for deterministic budget-boundary tests. */
@@ -647,6 +651,10 @@ export function runPostPhase10DiscoveryRow(
 }
 
 function runDiscoveryRow(candidate: DiscoveryRow, outputDirectory: string, options: RunDiscoveryRowOptions): DiscoveryTerminalResult {
+  if (options.retainedObservations !== undefined) {
+    if (options.checkpoint === undefined) throw new Error("retained observations require complete-cycle checkpointing");
+    validateDiscoveryRetainedObservations(options.retainedObservations, candidate);
+  }
   if (options.pauseAfterCycles !== undefined && (options.checkpoint === undefined || !Number.isSafeInteger(options.pauseAfterCycles) || options.pauseAfterCycles < 1)) {
     throw new Error("pauseAfterCycles requires checkpointing and a positive integer cycle");
   }
@@ -694,6 +702,7 @@ function runDiscoveryRow(candidate: DiscoveryRow, outputDirectory: string, optio
       executionBudget: { maxWallSeconds: options.maxWallSeconds },
     }),
     ...(options.checkpoint === undefined ? {} : { checkpointFormat: "discovery-resume-v1" }),
+    ...(options.retainedObservations === undefined ? {} : { retainedObservations: options.retainedObservations }),
   };
   if (options.checkpoint === "resume" && existsSync(resolve(output, "spec.json"))) {
     if (JSON.stringify(JSON.parse(readFileSync(resolve(output, "spec.json"), "utf8"))) !== JSON.stringify(expectedSpec)) throw new Error("resume row spec mismatch");
@@ -877,6 +886,9 @@ function runDiscoveryRow(candidate: DiscoveryRow, outputDirectory: string, optio
         terminalStopReason === "domain-contact" && !solver.domainContact()) throw new Error("resume terminal condition mismatch");
     restored.recover();
   }
+  const retained = options.retainedObservations === undefined ? null :
+    new DiscoveryRetainedObservationStore(output, candidate, options.retainedObservations, center);
+  if (retained !== null && restored !== null) retained.reconcile();
   const checkpoint = (): void => {
     if (checkpointStore === null) return;
     const runnerState: DiscoveryRunnerResumeState = { startedAt: startedAt.toISOString(), activeWallSeconds: activeWallSeconds(), peakRssBytes,
@@ -885,8 +897,9 @@ function runDiscoveryRow(candidate: DiscoveryRow, outputDirectory: string, optio
       spatialSnapshots, pendingSpatialExtents: [...pendingSpatialExtents], currentSmootherDriftAbsLimit, maximumSmootherDriftAbsLimit,
       timelineCursor, timelineTransition: timelineTransition ?? null, integrityErrors, terminalStopReason };
     checkpointStore.save(solver.exportDiscoveryResumeState(), runnerState);
+    retained?.afterCheckpoint();
   };
-  if (checkpointStore !== null && restored === null) checkpoint();
+  if (checkpointStore !== null && restored === null) { retained?.prepareInitial(); checkpoint(); }
   let lastHeartbeat = Date.now();
   options.heartbeat?.(
     `start row=${candidate.id}${experimentLabel} lane=${candidate.lane} dims=${candidate.dimsN} ` +
@@ -931,6 +944,17 @@ function runDiscoveryRow(candidate: DiscoveryRow, outputDirectory: string, optio
       }
 
       const boundary = summarizeBoundary(solver, candidate.experimentalBasalWidthCells);
+      const beforeTimeSeconds = solver.simTimeSeconds;
+      const historyActive = boundary.basalWidthRates?.historyActive;
+      const retainedBoundary: DiscoveryRetainedBoundary | undefined = retained?.needsBoundary(historyActive) === true ? {
+        schema: "discovery-retained-boundary-v1", rowId: candidate.id,
+        timing: "after-converged-relaxation-before-surface-advance", completedCycles: solver.tick,
+        simTimeSeconds: solver.simTimeSeconds, dims, center, dxUm: candidate.dxUm,
+        tempC: solver.tempC, sigmaInfinity: solver.sigmaInfinity, attachedCount: solver.attachedCount,
+        cells: solver.boundaryCells().map((index) => ({ index, coords: coordsOf(dims, index),
+          neighborCounts: solver.neighborCounts(index), facet: solver.facetClassOf(index),
+          fill: solver.f[index], ...solver.boundaryState(index) })),
+      } : undefined;
       const actualExtent = solver.largestExtent();
       for (const triggerExtent of pendingSpatialExtents) {
         if (actualExtent < triggerExtent) continue;
@@ -1131,6 +1155,8 @@ function runDiscoveryRow(candidate: DiscoveryRow, outputDirectory: string, optio
       else if (solver.domainContact()) terminalStopReason = "domain-contact";
       else if (extent >= candidate.targetExtent) terminalStopReason = "size-target";
       else if (cycle === candidate.maxSteps) terminalStopReason = "step-cap";
+      retained?.prepareCycle({ tick: solver.tick, beforeTimeSeconds, afterTimeSeconds: solver.simTimeSeconds,
+        historyActive, attached: cycleRecord.attached, boundary: retainedBoundary, terminalStopReason });
       checkpoint();
       if (terminalStopReason !== null) { stopReason = terminalStopReason; break; }
       if (options.pauseAfterCycles !== undefined && solver.tick >= options.pauseAfterCycles) { stopReason = "checkpoint-pause"; break; }
@@ -1144,6 +1170,7 @@ function runDiscoveryRow(candidate: DiscoveryRow, outputDirectory: string, optio
       integrityErrors.push(error instanceof Error ? error.stack ?? error.message : String(error));
     }
   }
+  retained?.retainTerminal(stopReason);
 
   const cappedBudgetPrefix = (options.maxWallSeconds !== undefined || options.checkpoint !== undefined) &&
     (stopReason === "wall-budget" || stopReason === "step-cap" || stopReason === "checkpoint-pause");

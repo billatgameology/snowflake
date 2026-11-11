@@ -5,7 +5,7 @@
 - **Started / last touched:** 2026-10-21 / 2026-11-11 by Codex/GPT-6.
 - **Authority:** maker requests full useful use of HIL's 20-worker allocation and BLD's 32-worker allocation, detailed long queues, resumability and no wall-clock cutoff. The subsequent October21 direction puts all longest/least-predictable work on HIL so BLD can finish and shut down. This supersedes the initial 60/56 host split and the October8 HIL-only default.
 - **Publication:** `origin/main`; planning branch `codex/phase10-two-host-growth`, based on `8e008644085f075922cfccd8a296b0dd248beb60`.
-- **Immediate deliverable:** Discuss a narrow prediction around the now-localized central-patch filling sequence; the six short switch-state replays and saved-data analysis are complete. Preserve the separate long HIL output plus its detailed analyses on NAS before closeout. Do not resume the completed queue or dispatch unselected reserves. BLD's finite run/preservation slice is complete. Solo scientific research; hostile actors excluded.
+- **Immediate deliverable:** The maker authorized the separate [40-row HIL-only central-filling wave](hil-central-filling-nov11.md) on November11; its plan owns new execution. In this completed campaign, the six short switch-state replays and saved-data analysis are complete. Preserve the separate long HIL output plus its detailed analyses on NAS before closeout. Do not resume the completed queue or dispatch unselected reserves. BLD's finite run/preservation slice is complete. Solo scientific research; hostile actors excluded.
 
 ## Goal
 
