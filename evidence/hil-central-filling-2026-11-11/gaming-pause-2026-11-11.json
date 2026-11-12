@@ -1,0 +1,141 @@
+{
+  "stoppedUtc": "2026-11-12T01:52:20.4756459Z",
+  "method": "Stop coordinator first to prevent queue refill, then stop its named workers; resume from last committed complete-cycle checkpoints.",
+  "cwd": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+  "reason": "Maker requested pause for gaming; no automatic resume",
+  "remainingProcesses": [],
+  "resumeCommand": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start-hil-central-filling-nov11.ps1 -Mode resume -Workers 20",
+  "producer": "aa20f969f8b25ad98cf7a25f1015a4f373080657",
+  "processes": [
+    {
+      "ProcessId": 12540,
+      "ParentProcessId": 25920,
+      "Name": "node.exe",
+      "CommandLine": "\"C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe\" \"C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts\" \"launch\" \"HIL\" \"C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\" \"--workers\" \"20\" "
+    },
+    {
+      "ProcessId": 21028,
+      "ParentProcessId": 12540,
+      "Name": "node.exe",
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts run-row cf11-hil-c-h1-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w6-s5"
+    },
+    {
+      "ProcessId": 30208,
+      "ParentProcessId": 12540,
+      "Name": "node.exe",
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts run-row cf11-hil-c-h1-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w8-s5"
+    },
+    {
+      "ProcessId": 21936,
+      "ParentProcessId": 12540,
+      "Name": "node.exe",
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts run-row cf11-hil-c-h3-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w6-s5"
+    },
+    {
+      "ProcessId": 2576,
+      "ParentProcessId": 12540,
+      "Name": "node.exe",
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts run-row cf11-hil-c-h3-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w8-s5"
+    },
+    {
+      "ProcessId": 16352,
+      "ParentProcessId": 12540,
+      "Name": "node.exe",
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts run-row cf11-hil-a-t4p5-w3-s2p25 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t4p5-w3-s2p25"
+    },
+    {
+      "ProcessId": 6992,
+      "ParentProcessId": 12540,
+      "Name": "node.exe",
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts run-row cf11-hil-a-t4p5-w4-s2p25 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t4p5-w4-s2p25"
+    },
+    {
+      "ProcessId": 30632,
+      "ParentProcessId": 12540,
+      "Name": "node.exe",
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts run-row cf11-hil-a-t5-w3-s2p25 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t5-w3-s2p25"
+    },
+    {
+      "ProcessId": 2344,
+      "ParentProcessId": 12540,
+      "Name": "node.exe",
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts run-row cf11-hil-a-t5-w4-s2p25 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t5-w4-s2p25"
+    },
+    {
+      "ProcessId": 24152,
+      "ParentProcessId": 12540,
+      "Name": "node.exe",
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts run-row cf11-hil-a-t4p5-w3-s2p5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t4p5-w3-s2p5"
+    },
+    {
+      "ProcessId": 23040,
+      "ParentProcessId": 12540,
+      "Name": "node.exe",
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts run-row cf11-hil-a-t4p5-w4-s2p5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t4p5-w4-s2p5"
+    },
+    {
+      "ProcessId": 22920,
+      "ParentProcessId": 12540,
+      "Name": "node.exe",
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts run-row cf11-hil-a-t5-w3-s2p5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t5-w3-s2p5"
+    },
+    {
+      "ProcessId": 27092,
+      "ParentProcessId": 12540,
+      "Name": "node.exe",
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts run-row cf11-hil-a-t5-w4-s2p5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t5-w4-s2p5"
+    },
+    {
+      "ProcessId": 10156,
+      "ParentProcessId": 12540,
+      "Name": "node.exe",
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts run-row cf11-hil-a-t4p5-w3-s2p75 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t4p5-w3-s2p75"
+    },
+    {
+      "ProcessId": 10088,
+      "ParentProcessId": 12540,
+      "Name": "node.exe",
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts run-row cf11-hil-a-t4p5-w4-s2p75 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t4p5-w4-s2p75"
+    },
+    {
+      "ProcessId": 29176,
+      "ParentProcessId": 12540,
+      "Name": "node.exe",
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts run-row cf11-hil-a-t5-w3-s2p75 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t5-w3-s2p75"
+    },
+    {
+      "ProcessId": 22004,
+      "ParentProcessId": 12540,
+      "Name": "node.exe",
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts run-row cf11-hil-a-t5-w4-s2p75 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t5-w4-s2p75"
+    },
+    {
+      "ProcessId": 27652,
+      "ParentProcessId": 12540,
+      "Name": "node.exe",
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts run-row cf11-hil-a-t4p5-w3-s3 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t4p5-w3-s3"
+    },
+    {
+      "ProcessId": 18888,
+      "ParentProcessId": 12540,
+      "Name": "node.exe",
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts run-row cf11-hil-a-t4p5-w4-s3 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t4p5-w4-s3"
+    },
+    {
+      "ProcessId": 22508,
+      "ParentProcessId": 12540,
+      "Name": "node.exe",
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts run-row cf11-hil-a-t5-w3-s3 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t5-w3-s3"
+    },
+    {
+      "ProcessId": 23284,
+      "ParentProcessId": 12540,
+      "Name": "node.exe",
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts run-row cf11-hil-a-t5-w4-s3 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t5-w4-s3"
+    }
+  ],
+  "stoppedWorkers": 20,
+  "requestedUtc": "2026-11-12T01:52:20.3074900Z",
+  "sourceReceipt": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11-controls\\maker-pause-20261111T175220304.json",
+  "sourceReceiptSha256": "ef656f851a07b4611074c52baffe04bf397b0f4183da8b3a7757d39fcab595c4"
+}

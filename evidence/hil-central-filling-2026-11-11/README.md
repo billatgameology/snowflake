@@ -1,4 +1,4 @@
-# HIL central-filling wave — November 11
+# HIL central-filling wave â€” November 11
 
 The maker authorized all forty new cases on HIL with twenty concurrent workers and no wall
 cutoff. The [registered plan](../../docs/plans/hil-central-filling-nov11.md) contains the exact

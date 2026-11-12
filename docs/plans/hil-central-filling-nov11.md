@@ -1,7 +1,7 @@
 # Plan â€” HIL central-filling and growth-memory wave
 
 - **Phase:** active Phase 10, charter sections 2.5/3.2; accepted ADRs 0058â€“0060/0062.
-- **Status:** running on HIL: 20 workers, 20 queued at launch; producer aa20f96 stays fixed.
+- **Status:** PAUSED by maker request for gaming, November11 at17:52Pacific. No active workers; keep producer aa20f96 fixed and wait for explicit resume direction.
 - **Started / last touched:** 2026-11-11 by Codex.
 - **Authority:** maker requests the next wave entirely on HIL, using its 20-worker allocation,
   with a finite queue as large as scientifically useful. Existing resumability/no wall-limit direction remains.
@@ -180,6 +180,17 @@ seconds/hashes. These observations do not forecast the new cases; a multi-week f
 This checkout will remain fixed at its final production commit. Main's PROGRESS and the campaign
 receipts carry live status; do not move this execution checkout merely to update prose. Retain
 out/hil-central-filling-nov11-witness and verification output alongside campaign bytes for NAS.
+
+## Maker-requested gaming pause — November 11
+
+At17:52Pacific the maker requested a pause to play games. The
+[pause receipt](../../evidence/hil-central-filling-2026-11-11/gaming-pause-2026-11-11.json)
+records the verified coordinator/worker process identities, stopping the coordinator first to
+prevent queue refill, then all20 workers. No campaign process remained. [Read-only checkpoint verification](../../evidence/hil-central-filling-2026-11-11/gaming-pause-checkpoints-2026-11-11.json) loaded all20 started rows with no integrity errors or uncommitted event tails;20queued rows remain unstarted. This is an operational
+pause, not scientific completion or failure. Preserve every checkpoint, event prefix, capture
+and existing attempt record. Do not rewrite historical exits or launch a replacement batch.
+Keep the queue paused until explicit maker resume direction. The exact resume command below
+continues from committed complete updates; an unfinished relaxation/update may repeat.
 
 ## Actual dispatch — November 11
 
