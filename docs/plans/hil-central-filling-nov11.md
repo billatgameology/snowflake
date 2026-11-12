@@ -166,7 +166,7 @@ November11 bounded source-currency check reopened [M1 v2](https://arxiv.org/abs/
 2019-11-13 and2023-06-22; no replacement was identified in this bounded check. This is no
 novelty assessment or change to frozen parameter mappings. All scientific constants are reused.
 
-## Executed readiness — November 11
+## Executed readiness â€” November 11
 
 Implementation `203e55d` passed exact `npm test`: 250 files / 3114 tests, 23 skipped, 993.24s.
 The [verification bundle](../../evidence/hil-central-filling-2026-11-11/README.md) retains logs,
@@ -181,7 +181,7 @@ This checkout will remain fixed at its final production commit. Main's PROGRESS 
 receipts carry live status; do not move this execution checkout merely to update prose. Retain
 out/hil-central-filling-nov11-witness and verification output alongside campaign bytes for NAS.
 
-## Maker-requested gaming pause — November 11
+## Maker-requested gaming pause â€” November 11
 
 At17:52Pacific the maker requested a pause to play games. The
 [pause receipt](../../evidence/hil-central-filling-2026-11-11/gaming-pause-2026-11-11.json)
@@ -192,7 +192,7 @@ and existing attempt record. Do not rewrite historical exits or launch a replace
 Keep the queue paused until explicit maker resume direction. The exact resume command below
 continues from committed complete updates; an unfinished relaxation/update may repeat.
 
-## Actual dispatch — November 11
+## Actual dispatch â€” November 11
 
 The [launch receipt](../../evidence/hil-central-filling-2026-11-11/launch.json) records producer
 `aa20f969f8b25ad98cf7a25f1015a4f373080657`, Node24.13.1/V8 13.6.233.17-node.40,
