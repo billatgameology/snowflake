@@ -1,7 +1,7 @@
 # Plan — HIL central-filling and growth-memory wave
 
 - **Phase:** active Phase 10, charter sections 2.5/3.2; accepted ADRs 0058–0060/0062.
-- **Status:** PAUSED by maker request for gaming, November11 at17:52Pacific. No active workers; keep producer aa20f96 fixed and wait for explicit resume direction.
+- **Status:** RUNNING after explicit maker resume direction, November11 at19:27Pacific:20 actual resume workers and20 queued rows. Keep producer aa20f96 fixed.
 - **Started / last touched:** 2026-11-11 by Codex.
 - **Authority:** maker requests the next wave entirely on HIL, using its 20-worker allocation,
   with a finite queue as large as scientifically useful. Existing resumability/no wall-limit direction remains.
@@ -189,8 +189,29 @@ records the verified coordinator/worker process identities, stopping the coordin
 prevent queue refill, then all20 workers. No campaign process remained. [Read-only checkpoint verification](../../evidence/hil-central-filling-2026-11-11/gaming-pause-checkpoints-2026-11-11.json) loaded all20 started rows with no integrity errors or uncommitted event tails;20queued rows remain unstarted. This is an operational
 pause, not scientific completion or failure. Preserve every checkpoint, event prefix, capture
 and existing attempt record. Do not rewrite historical exits or launch a replacement batch.
-Keep the queue paused until explicit maker resume direction. The exact resume command below
+The gaming hold was lifted by explicit maker resume direction at the restart recorded below. The exact resume command below
 continues from committed complete updates; an unfinished relaxation/update may repeat.
+
+## Maker-requested resume after gaming pause — November 11
+
+The maker requested resume; the same40-row campaign restarted at19:27Pacific on November11,
+with producer `aa20f96` and Node24.13.1/V8 13.6.233.17-node.40 unchanged. No campaign worker
+was active before dispatch. The [resume receipt](../../evidence/hil-central-filling-2026-11-11/gaming-resume-2026-11-11.json)
+records wrapper PID8184, coordinator PID21904,20 actual `resume-row` workers and20 unstarted
+queued rows. At03:28:55UTC,16 coarse checkpoint pointers had advanced beyond their paused
+cycles. Four fine workers were consuming CPU in their next relaxation; their pointers had not
+yet advanced. All20 worker stderr files and coordinator stderr were empty at that observation.
+This is continuation of unfinished cases, not a new batch or a scientific completion claim.
+
+Exact command in the frozen execution checkout:
+`powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start-hil-central-filling-nov11.ps1 -Mode resume -Workers 20`.
+Coordinator logs: `out/hil-central-filling-nov11-controls/campaign-resume-20261111T192754151.{stdout,stderr}.log`.
+Each row keeps separate logs under
+`out/hil-central-filling-nov11/rows/<id>/attempts/resume-1794454074449-1a2958a7-9fe9-4084-904b-a2d22086eab3/`.
+The existing queue refills slots up to20 workers, checkpoints every completed cycle, and has
+no wall deadline. Existing capacity/restart/full-suite qualifications were reused unchanged.
+Solo scientific research; hostile actors remain excluded. The next deliverable is continued
+registered growth with retained transition captures, followed by complete matched-group readouts.
 
 ## Actual dispatch — November 11
 
