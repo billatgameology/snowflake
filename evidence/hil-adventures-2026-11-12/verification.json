@@ -1,0 +1,131 @@
+{
+  "schema": "hil-adventures-verification-v1",
+  "implementationCommit": "2c138f9f91f0f1ff2f5e7af592bb1184567a8fe2",
+  "planCommit": "0db5b6f93cc3452ae3651406205c169758e14838",
+  "checkedImplementation": {
+    "scope": "Four new finite-roster/orchestration files only; no simulation launched, no shared behavior edits.",
+    "focused": {
+      "command": "npx.cmd vitest run runner/test/hil-adventures-nov12.test.ts",
+      "exitCode": 0,
+      "testFilesPassed": 1,
+      "testsPassed": 5,
+      "log": "out/hil-adventures-nov12-verification/implementation-focused.log"
+    },
+    "typecheck": {
+      "startedUtc": "2026-11-13T03:29:55.6096963Z",
+      "stdoutAndStderr": "out/hil-adventures-nov12-verification/implementation-typecheck.log",
+      "command": "npm.cmd run typecheck",
+      "exitCode": 0,
+      "finishedUtc": "2026-11-13T03:30:04.4625266Z"
+    },
+    "initialTypecheck": {
+      "exitCode": 2,
+      "reason": "TypeScript rejected direct assertion for a deliberately partial routing mock; corrected assertion via unknown, no runtime change.",
+      "log": "out/hil-adventures-nov12-verification/implementation-typecheck-initial-failure.log"
+    },
+    "files": {
+      "runner/src/hil-adventures-nov12-roster.ts": {
+        "sha256": "85002908062188b16543bc129ea66ca5c103e620c92a7cfa289fb6b218c74675",
+        "bytes": 4306
+      },
+      "runner/src/hil-adventures-nov12-main.ts": {
+        "sha256": "4ff888df3e3ba702cdc3821b8d8c7f634165a7e9a4d8663564bed657f84bb688",
+        "bytes": 2457
+      },
+      "scripts/start-hil-adventures-nov12.ps1": {
+        "sha256": "ad6506544cc4b03cf6022f04f94b93888b0b0c8783c1b5c8e0adc0bc28068e83",
+        "bytes": 2333
+      },
+      "runner/test/hil-adventures-nov12.test.ts": {
+        "sha256": "3b2ebe83c4a18a83c141d977a6f8be79684f189b3c9e5f7226d3a6f2b0fb4022",
+        "bytes": 8351
+      }
+    }
+  },
+  "sharedRegression": {
+    "startedUtc": "2026-11-13T03:30:21.6013209Z",
+    "exitCode": 1,
+    "command": "npx.cmd vitest run runner/test/hil-central-filling-nov11.test.ts runner/test/hil-bld-batch-resume.test.ts runner/test/hil-bld-batch-execution.test.ts runner/test/discovery-retained-observations.test.ts runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts",
+    "finishedUtc": "2026-11-13T03:30:31.6079651Z",
+    "log": "out/hil-adventures-nov12-verification/scoped-regression.log"
+  },
+  "sharedRegressionOutcome": {
+    "testFilesPassed": 5,
+    "testsPassed": 45,
+    "testFilesFailed": 1,
+    "testsFailed": 1,
+    "failure": "Progress index252lines exceeds250; compacted new/current operational note without dropping content"
+  },
+  "progressCorrection": {
+    "finishedUtc": "2026-11-13T03:31:39.1700833Z",
+    "exitCode": 0,
+    "reason": "Compact new operational note with existing current-wave paragraph to retain250-line index limit",
+    "log": "out/hil-adventures-nov12-verification/progress-recheck.log",
+    "command": "npx.cmd vitest run runner/test/progress-index.test.ts"
+  },
+  "correctedProgressTestsPassed": 11,
+  "rule7": {
+    "command": "npm.cmd run lint:rule7",
+    "exitCode": 0,
+    "filesScanned": 2936
+  },
+  "diffCheck": {
+    "command": "git -c core.whitespace=cr-at-eol diff --cached --check",
+    "exitCode": 0
+  },
+  "listDryRun": {
+    "command": "node runner/src/hil-adventures-nov12-main.ts list HIL",
+    "rows": 46,
+    "host": "HIL"
+  },
+  "scope": "Finite operands/entry/capture settings/wrapper only. Focused orchestration and metadata checks, not exact npm test and not a science gate. Existing numerical, checkpoint, recorder, resume and coordinator implementations unchanged. Checks ran on the file bytes bound above before implementation commit; no implementation edits after checks.",
+  "restartQualification": "Reuse existing discovery family witnesses and evidence/hil-central-filling-2026-11-11/capture-witness.json; unchanged restart/capture contracts, no new capacity or pause/resume probe.",
+  "worktrees": [
+    {
+      "path": "C:/Users/biao3/Documents/GitHub/snowflake",
+      "head": "8c5c4b11fef0df7b417a85917544326b01d65c74",
+      "status": "",
+      "disposition": "Retain checkout and ignored output; no pruning/closure; unrelated or fixed producers unchanged"
+    },
+    {
+      "path": "C:/Users/biao3/.codex/worktrees/hil-adventures-nov12/snowflake",
+      "head": "2c138f9f91f0f1ff2f5e7af592bb1184567a8fe2",
+      "status": "?? evidence/hil-adventures-2026-11-12/implementation-focused.log\n?? evidence/hil-adventures-2026-11-12/implementation-typecheck-initial-failure.log\n?? evidence/hil-adventures-2026-11-12/implementation-typecheck.log\n?? evidence/hil-adventures-2026-11-12/progress-recheck.log\n?? evidence/hil-adventures-2026-11-12/review.json\n?? evidence/hil-adventures-2026-11-12/scoped-regression.log\n",
+      "disposition": "Retain checkout and ignored output; no pruning/closure; unrelated or fixed producers unchanged"
+    },
+    {
+      "path": "C:/Users/biao3/.codex/worktrees/hil-growth-dynamics-oct21/snowflake",
+      "head": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+      "status": "",
+      "disposition": "Retain checkout and ignored output; no pruning/closure; unrelated or fixed producers unchanged"
+    },
+    {
+      "path": "C:/Users/biao3/.codex/worktrees/hil-oct31-resume-record/snowflake",
+      "head": "aa20f969f8b25ad98cf7a25f1015a4f373080657",
+      "status": "",
+      "disposition": "Retain checkout and ignored output; no pruning/closure; unrelated or fixed producers unchanged"
+    }
+  ],
+  "logs": {
+    "implementation-focused.log": {
+      "bytes": 473,
+      "sha256": "68ea7dd1a6c1d7ca080d6389311fd10cb5c5c3c33d9c313bd861a2d280884231"
+    },
+    "implementation-typecheck.log": {
+      "bytes": 84,
+      "sha256": "51bcdf34980a17f4afbc6fa075186ba067a673569bc37098441f73a31b975087"
+    },
+    "implementation-typecheck-initial-failure.log": {
+      "bytes": 591,
+      "sha256": "383cd84c704c21cc46a63d2982c9d484789075de88df6c55ae30c4084a049746"
+    },
+    "scoped-regression.log": {
+      "bytes": 9289,
+      "sha256": "0c6a09bcde4fa397b58443de74f89fb5f7eb6be8cced0c492183a245670276c8"
+    },
+    "progress-recheck.log": {
+      "bytes": 328,
+      "sha256": "3c9ce4eee8c44ff76767c8ed6a7dc354c5c4607a33e489d16c4aa1488eb75abf"
+    }
+  }
+}

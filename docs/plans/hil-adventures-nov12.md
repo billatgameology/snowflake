@@ -1,7 +1,7 @@
 # Plan - HIL short and medium exploration adventures
 
 - **Phase:** active Phase10; charter2.5/3.2 and accepted ADR0055/0058/0059/0060/0062.
-- **Status:** registered before implementation; maker requests additional short/medium exploration.
+- **Status:** implementation checked and ready for dispatch; source implementation `2c138f9`.
 - **Started / last touched:** 2026-11-12 by Codex.
 - **Checkout:** `codex/hil-adventures-nov12`, `C:/Users/biao3/.codex/worktrees/hil-adventures-nov12/snowflake`.
 
@@ -171,11 +171,29 @@ their current worktrees; this wave does not authorize their closure or pruning.
 The app worktree creation request did not return and was stopped; native Git created the one
 named isolated worktree. No other worktree/branch is repurposed or removed.
 
+## Executed readiness - November12
+
+Implementation `2c138f9` adds only the four registered orchestration files. The
+[verification receipt](../../evidence/hil-adventures-2026-11-12/verification.json) binds their
+checked bytes:5 new tests pass; both typechecks pass; shared roster/resume/execution/capture
+and evidence checks passed. The first46-test regression command had45 passes and one progress
+index length failure; compacting the status note restored all11 progress tests. Initial
+TypeScript failure was a partial test-mock assertion, corrected without production changes.
+Logs retain both failures and corrected outcomes. Rule7 and staged diff checks pass. No full
+suite or new restart/capacity probe was run for these unchanged scientific contracts.
+
+The [bounded shared-context review](../../evidence/hil-adventures-2026-11-12/review.json)
+independently listed46 rows, validated all observation settings and hashed30 reused files,
+with no actionable finding. It did not run simulations, certify NAS or re-audit physics.
+Root also rechecked all36 triage result hashes and recomputed its scalar census; that is
+not an independent reconstruction of the entire scientific readout. Preserve this limit.
+Producer/runtime and actual dispatch will be recorded separately after clean-source launch.
+
 ## Steps
 
 - [x] Commit protocol and reused-input/triage bindings before implementation (`0db5b6f`).
-- [ ] Add finite roster, existing recorder/coordinator route and hidden wrapper.
-- [ ] Complete scoped checks and one bounded review; commit clean producer.
+- [x] Add finite roster, existing recorder/coordinator route and hidden wrapper (`2c138f9`).
+- [x] Complete scoped checks and one bounded review; commit clean producer.
 - [ ] Launch16 additional workers, verify total20 and retained state, update main records.
 - [ ] Analyze complete cohorts; preserve bulk output on NAS and verify recovery.
 

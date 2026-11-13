@@ -1,0 +1,6 @@
+
+> virtual-cloud-chamber@0.0.0 typecheck
+> tsc --noEmit && tsc -p app --noEmit
+
+runner/test/hil-adventures-nov12.test.ts(100,83): error TS2352: Conversion of type '{ stopReason: "size-target"; integrityErrors: never[]; }' to type 'DiscoveryTerminalResult' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type '{ stopReason: "size-target"; integrityErrors: never[]; }' is missing the following properties from type 'DiscoveryTerminalResult': schema, rowId, lane, admissible, and 27 more.

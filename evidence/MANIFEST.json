@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1345,
- "totalBytes": 328330464,
+ "fileCount": 1352,
+ "totalBytes": 328348686,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -5379,12 +5379,40 @@
    "sha256": "1f2ba79504521197f57907ad40db71fefa21e2cb79c858180e839cd81487c006"
   },
   "hil-adventures-2026-11-12/README.md": {
-   "bytes": 940,
-   "sha256": "1e8aca107a8c1a13c55eaf9b60a55e381dc460d77f9f802d219e6cc813dbbc76"
+   "bytes": 1138,
+   "sha256": "ae378612bff3fdda62e0485a50a11bff1f7c867e162f496d2960b31b60e12447"
   },
   "hil-adventures-2026-11-12/reused-inputs.json": {
    "bytes": 17092,
    "sha256": "d0359277b547965bf0854fb20a5f6d054b260f32270366ce7b4514538faed101"
+  },
+  "hil-adventures-2026-11-12/implementation-focused.log": {
+   "bytes": 473,
+   "sha256": "68ea7dd1a6c1d7ca080d6389311fd10cb5c5c3c33d9c313bd861a2d280884231"
+  },
+  "hil-adventures-2026-11-12/implementation-typecheck-initial-failure.log": {
+   "bytes": 591,
+   "sha256": "383cd84c704c21cc46a63d2982c9d484789075de88df6c55ae30c4084a049746"
+  },
+  "hil-adventures-2026-11-12/implementation-typecheck.log": {
+   "bytes": 84,
+   "sha256": "51bcdf34980a17f4afbc6fa075186ba067a673569bc37098441f73a31b975087"
+  },
+  "hil-adventures-2026-11-12/progress-recheck.log": {
+   "bytes": 328,
+   "sha256": "3c9ce4eee8c44ff76767c8ed6a7dc354c5c4607a33e489d16c4aa1488eb75abf"
+  },
+  "hil-adventures-2026-11-12/review.json": {
+   "bytes": 1009,
+   "sha256": "ec1c9cbe63b8f925edbef7091ebabf8f630dbdf1b468d43452b38ff4c9bf6d32"
+  },
+  "hil-adventures-2026-11-12/scoped-regression.log": {
+   "bytes": 9289,
+   "sha256": "0c6a09bcde4fa397b58443de74f89fb5f7eb6be8cced0c492183a245670276c8"
+  },
+  "hil-adventures-2026-11-12/verification.json": {
+   "bytes": 6250,
+   "sha256": "f99df6e40affab893f5ab4d45e0f3f033f4c44182f32530fd331eb2b1c011775"
   }
  }
 }

@@ -1,0 +1,119 @@
+
+ RUN  v3.2.7 C:/Users/biao3/.codex/worktrees/hil-adventures-nov12/snowflake
+
+ ❯ runner/test/progress-index.test.ts (11 tests | 1 failed) 338ms
+   ✓ compact progress index and byte-exact historical record > preserves and labels the exact pre-housekeeping body without making it current authority 40ms
+   ✓ compact progress index and byte-exact historical record > rejects loss of current closed-phase, hold, history and actual next-step boundaries 5ms
+   ✓ compact progress index and byte-exact historical record > preserves the complete pre-compaction body byte-for-byte 1ms
+   ✓ compact progress index and byte-exact historical record > disables Git line-ending conversion for the byte-exact mixed-ending archive 91ms
+   × compact progress index and byte-exact historical record > keeps the live authority complete and unambiguous 4ms
+     → expected 252 to be less than or equal to 250
+   ✓ compact progress index and byte-exact historical record > keeps every local Markdown target in the current index and archive resolvable 20ms
+   ✓ compact progress index and byte-exact historical record > labels the archive as historical rather than a second current authority 9ms
+   ✓ compact progress index and byte-exact historical record > labels the phase 6/8/9 history file as historical rather than a second current authority 0ms
+   ✓ compact progress index and byte-exact historical record > allows session dates to advance while rejecting missing, duplicate or invalid dates 17ms
+   ✓ compact progress index and byte-exact historical record > preserves historical state-loss mutation coverage against its dated snapshot 149ms
+   ✓ compact progress index and byte-exact historical record > rejects a one-byte archived-body mutation independently of the archive producer 1ms
+ ✓ runner/test/evidence-integrity.test.ts (7 tests) 683ms
+   ✓ evidence integrity (Phase 6 lessons, enforced) > every file in the manifest exists and matches its digest  576ms
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+launch row=fixture-0 active=1 remaining=4
+launch row=fixture-1 active=2 remaining=3
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+finish row=fixture-0 code=0 signal=null active=1 completed=1/5
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+launch row=fixture-2 active=2 remaining=2
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+finish row=fixture-1 code=0 signal=null active=1 completed=2/5
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+launch row=fixture-3 active=2 remaining=1
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+finish row=fixture-3 code=0 signal=null active=1 completed=3/5
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+launch row=fixture-4 active=2 remaining=0
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+finish row=fixture-2 code=0 signal=null active=1 completed=4/5
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+finish row=fixture-4 code=0 signal=null active=0 completed=5/5
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > kills its active workers and leaves queued work unstarted when memory falls
+launch row=slow-0 active=1 remaining=2
+launch row=slow-1 active=2 remaining=1
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > kills its active workers and leaves queued work unstarted when memory falls
+finish row=slow-1 code=null signal=SIGTERM active=1 completed=1/3
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > kills its active workers and leaves queued work unstarted when memory falls
+finish row=slow-0 code=null signal=SIGTERM active=0 completed=2/3
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > enforces a hard wall budget and stops a failing probe queue
+launch row=slow-first active=1 remaining=1
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > enforces a hard wall budget and stops a failing probe queue
+finish row=slow-first code=null signal=SIGTERM active=0 completed=1/2
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > retains a crashed worker while allowing independent science rows to continue
+launch row=fail-first active=1 remaining=1
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > retains a crashed worker while allowing independent science rows to continue
+finish row=fail-first code=7 signal=null active=0 completed=1/2
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > retains a crashed worker while allowing independent science rows to continue
+launch row=surviving active=1 remaining=0
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > retains a crashed worker while allowing independent science rows to continue
+finish row=surviving code=0 signal=null active=0 completed=2/2
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > checkpointed attempt records > preserves each resumed process attempt and refuses accidental reuse of its logs
+launch row=checkpointed active=1 remaining=0
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > checkpointed attempt records > preserves each resumed process attempt and refuses accidental reuse of its logs
+finish row=checkpointed code=0 signal=null active=0 completed=1/1
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > checkpointed attempt records > preserves each resumed process attempt and refuses accidental reuse of its logs
+launch row=checkpointed active=1 remaining=0
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > checkpointed attempt records > preserves each resumed process attempt and refuses accidental reuse of its logs
+finish row=checkpointed code=0 signal=null active=0 completed=1/1
+
+ ✓ runner/test/hil-bld-batch-execution.test.ts (9 tests) 2577ms
+   ✓ named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit  803ms
+   ✓ named batch execution > retains a crashed worker while allowing independent science rows to continue  540ms
+   ✓ checkpointed attempt records > preserves each resumed process attempt and refuses accidental reuse of its logs  569ms
+ ✓ runner/test/hil-bld-batch-resume.test.ts (10 tests) 1259ms
+   ✓ explicit first-batch resume > binds resume to the original checkpointed campaign, exact probe, host, source, runtime and rows  776ms
+ ✓ runner/test/discovery-retained-observations.test.ts (5 tests) 2171ms
+   ✓ permanent discovery observations > retains real switch states and accepted boundaries beyond rotation without changing science  567ms
+   ✓ permanent discovery observations > resumes through switch capture and repairs an interrupted committed copy before rotation  519ms
+   ✓ permanent discovery observations > captures each intersecting central attachment batch and independently checks its geometry  808ms
+ ✓ runner/test/hil-central-filling-nov11.test.ts (4 tests) 903ms
+   ✓ HIL central filling registered wave > routes the real HIL-only entry and rejects wrong rows before creating output  717ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  runner/test/progress-index.test.ts > compact progress index and byte-exact historical record > keeps the live authority complete and unambiguous
+AssertionError: expected 252 to be less than or equal to 250
+ ❯ runner/test/progress-index.test.ts:381:41
+    379|     const text = readFileSync(PROGRESS, "utf8");
+    380|     expect(currentIndexErrors(text)).toEqual([]);
+    381|     expect(text.split(/\r?\n/u).length).toBeLessThanOrEqual(250);
+       |                                         ^
+    382| 
+    383|     // The handoff mechanism is retired (maker direction 2026-08-20). …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 5 passed (6)
+      Tests  1 failed | 45 passed (46)
+   Start at  19:30:22
+   Duration  9.10s (transform 234ms, setup 0ms, collect 390ms, tests 7.93s, environment 1ms, prepare 318ms)
+

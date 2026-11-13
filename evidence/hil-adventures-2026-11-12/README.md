@@ -12,3 +12,6 @@ bind two already completed warm forcing controls and the baseline warm/cold coho
 
 All bulk run/event/state output stays out of Git and will require governed NAS publication
 and fresh restore before either output-owning worktree closes. No output was pruned.
+
+[Verification](verification.json) and [bounded review](review.json) record launch readiness,
+scoped checks, corrected test/document issues and unchanged restart qualification. No full-suite claim.

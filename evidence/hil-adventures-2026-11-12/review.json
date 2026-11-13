@@ -1,0 +1,21 @@
+{
+  "reviewer": "Codex/GPT-6",
+  "context": "inherited/shared; reviewer contributed portfolio and duplicate triage but did not author implementation",
+  "scope": "One bounded review of finite roster/control/capture/launch routing",
+  "findings": [],
+  "executed": [
+    "Real list HIL:46 unique rows, blocks12/8/8/8/10; exact two reused-control omissions",
+    "Verified30 retained input files across10 reused rows by byte count, SHA-256 and spec",
+    "Validated46 observation configurations:24 early-width switch enabled,22 static",
+    "Confirmed no core, solver or shared discovery/recorder/resume/coordinator changes versus aa20f96"
+  ],
+  "inspected": [
+    "Registered operands and queue order",
+    "Hidden wrapper,16 worker ceiling, original four remain separate",
+    "Clean producer/runtime/roster resume binding; no wall deadline"
+  ],
+  "notChecked": [
+    "No simulation or live worker/capture launch observation",
+    "No full suite, NAS verification, solver audit or new interpretation"
+  ]
+}

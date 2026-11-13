@@ -1,0 +1,11 @@
+
+ RUN  v3.2.7 C:/Users/biao3/.codex/worktrees/hil-adventures-nov12/snowflake
+
+ ✓ runner/test/hil-adventures-nov12.test.ts (5 tests) 1159ms
+   ✓ HIL November12 registered adventures > exercises the real list CLI and refuses invalid host, row, argument and probe routes  919ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  19:28:59
+   Duration  1.58s (transform 214ms, setup 0ms, collect 260ms, tests 1.16s, environment 0ms, prepare 65ms)
+
