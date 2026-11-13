@@ -1,0 +1,410 @@
+{
+  "observedAt": "2026-11-13T19:11:37.682Z",
+  "host": "HIL",
+  "producer": "4f18ed5de547520dfe308df0abdd0f85c8523024",
+  "node": "v24.13.1",
+  "v8": "13.6.233.17-node.40",
+  "executionCheckout": "C:/Users/biao3/.codex/worktrees/hil-onset-followup-nov13/snowflake",
+  "invocation": {
+    "source": "4f18ed5de547520dfe308df0abdd0f85c8523024",
+    "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13-controls\\campaign-launch-20261113T111031180.stderr.log",
+    "wrapperPid": 3764,
+    "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13-controls\\campaign-launch-20261113T111031180.stdout.log",
+    "command": [
+      "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\runner\\src\\hil-onset-followup-nov13-main.ts",
+      "launch",
+      "HIL",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13",
+      "--workers",
+      "16"
+    ],
+    "mode": "launch",
+    "coordinatorPid": 32760,
+    "PSModulePath": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+    "startedUtc": "2026-11-13T19:10:31.1818581Z"
+  },
+  "invocationPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13-controls\\campaign-launch-20261113T111031180-invocation.json",
+  "actualNewWorkers": 16,
+  "newQueuedRows": 0,
+  "initialStatesHashVerifiedAndDecoded": 16,
+  "rowsWithCompletedUpdates": 16,
+  "rows": [
+    {
+      "rowId": "on13-hil-a-t4p5-w3-s4p25",
+      "pid": 31012,
+      "latestTickObserved": 2,
+      "initial": {
+        "labelPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w3-s4p25\\captures\\labels\\initial.json",
+        "manifestSha256": "1567c844514bcd06673fdf287687832e35228718df0a86a8f29733273f1db672",
+        "solverBytes": 4458605,
+        "solverSha256": "f849ab2b079306d3a9b304d0eab6bb97f39bfe966e31fbbf6898de827bf4f1c0",
+        "decoded": true,
+        "occupiedSeedSites": 19
+      },
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w3-s4p25\\attempts\\initial\\stdout.log",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w3-s4p25\\attempts\\initial\\stderr.log"
+    },
+    {
+      "rowId": "on13-hil-a-t4p5-w3-s4p5",
+      "pid": 32228,
+      "latestTickObserved": 2,
+      "initial": {
+        "labelPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w3-s4p5\\captures\\labels\\initial.json",
+        "manifestSha256": "cf7ffe64bbd260581a2e842e6a4bbe8679b924abca0a5c9aa9bacc33f15e91a9",
+        "solverBytes": 4458605,
+        "solverSha256": "a7abbc78b044a38327ca4b13985a2b3bb28c5bdcefd7edbfc2ba39beeff3118f",
+        "decoded": true,
+        "occupiedSeedSites": 19
+      },
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w3-s4p5\\attempts\\initial\\stdout.log",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w3-s4p5\\attempts\\initial\\stderr.log"
+    },
+    {
+      "rowId": "on13-hil-a-t4p5-w4-s4p25",
+      "pid": 33964,
+      "latestTickObserved": 2,
+      "initial": {
+        "labelPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w4-s4p25\\captures\\labels\\initial.json",
+        "manifestSha256": "c995a5c41145141c7b66e7b33b4674cebdb343d7e85ab8fb4391baff90d52082",
+        "solverBytes": 4458605,
+        "solverSha256": "2b891867fecf399b0fd8094d5f63079c001cf4b31894ba6fd80b56cc99e2d706",
+        "decoded": true,
+        "occupiedSeedSites": 19
+      },
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w4-s4p25\\attempts\\initial\\stdout.log",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w4-s4p25\\attempts\\initial\\stderr.log"
+    },
+    {
+      "rowId": "on13-hil-a-t4p5-w4-s4p5",
+      "pid": 23260,
+      "latestTickObserved": 2,
+      "initial": {
+        "labelPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w4-s4p5\\captures\\labels\\initial.json",
+        "manifestSha256": "e3907ca59aa7d4ee7013b4a5eb89d3ef36d4473a34daa881652ae90e22ac3a46",
+        "solverBytes": 4458605,
+        "solverSha256": "317641886134fe63a945132be42afe7d822755d2dce91422fb57d57160897a10",
+        "decoded": true,
+        "occupiedSeedSites": 19
+      },
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w4-s4p5\\attempts\\initial\\stdout.log",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w4-s4p5\\attempts\\initial\\stderr.log"
+    },
+    {
+      "rowId": "on13-hil-a-t5-w3-s4p25",
+      "pid": 2536,
+      "latestTickObserved": 2,
+      "initial": {
+        "labelPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w3-s4p25\\captures\\labels\\initial.json",
+        "manifestSha256": "f43ca97bbf469c5a70a98544e56dd54c66892fadf9c45a06b3df8b84136dfa4f",
+        "solverBytes": 4458605,
+        "solverSha256": "9988a612b3be1e5f37982a260fea964079f67504bffa0e24a4d65f8fdc1a1056",
+        "decoded": true,
+        "occupiedSeedSites": 19
+      },
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w3-s4p25\\attempts\\initial\\stdout.log",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w3-s4p25\\attempts\\initial\\stderr.log"
+    },
+    {
+      "rowId": "on13-hil-a-t5-w3-s4p5",
+      "pid": 7244,
+      "latestTickObserved": 2,
+      "initial": {
+        "labelPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w3-s4p5\\captures\\labels\\initial.json",
+        "manifestSha256": "c4bcafe5aee424757959c3ce5e8229e27b399c18fbda7caf2b85860a5ee2933a",
+        "solverBytes": 4458605,
+        "solverSha256": "09f6a134d2066acf6a3ced1cc4e9970241e84be4b6ac8c7010b66e8facc2fddd",
+        "decoded": true,
+        "occupiedSeedSites": 19
+      },
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w3-s4p5\\attempts\\initial\\stdout.log",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w3-s4p5\\attempts\\initial\\stderr.log"
+    },
+    {
+      "rowId": "on13-hil-a-t5-w4-s4p25",
+      "pid": 27300,
+      "latestTickObserved": 2,
+      "initial": {
+        "labelPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w4-s4p25\\captures\\labels\\initial.json",
+        "manifestSha256": "ad4fa4c6af75da81a8712f4d51d0c10fc74d1183e0543d41a3fb5cde82ca9893",
+        "solverBytes": 4458605,
+        "solverSha256": "38807b72f832689d54027166dbb531aefb97025040184557cdeac2b101013927",
+        "decoded": true,
+        "occupiedSeedSites": 19
+      },
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w4-s4p25\\attempts\\initial\\stdout.log",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w4-s4p25\\attempts\\initial\\stderr.log"
+    },
+    {
+      "rowId": "on13-hil-a-t5-w4-s4p5",
+      "pid": 19996,
+      "latestTickObserved": 2,
+      "initial": {
+        "labelPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w4-s4p5\\captures\\labels\\initial.json",
+        "manifestSha256": "915c99afa34226b9ad4c9d57809570ed57012083d434244166b017e848d60fba",
+        "solverBytes": 4458605,
+        "solverSha256": "461872f90ac8cd39a6cebf3cd782b2b05b250c17172686e3f93aca1d497d3d64",
+        "decoded": true,
+        "occupiedSeedSites": 19
+      },
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w4-s4p5\\attempts\\initial\\stdout.log",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w4-s4p5\\attempts\\initial\\stderr.log"
+    },
+    {
+      "rowId": "on13-hil-b-t4p5-f0p05-w3-s8",
+      "pid": 1488,
+      "latestTickObserved": 2,
+      "initial": {
+        "labelPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p05-w3-s8\\captures\\labels\\initial.json",
+        "manifestSha256": "3ee0adecb108ec7908d76e1c3ef4df3b16430479063a525504678ef5db2dc0eb",
+        "solverBytes": 4458605,
+        "solverSha256": "0a44adf0db971a4551bf968be214135b6ddb88f74ca2795a4d7ac835de1efdfa",
+        "decoded": true,
+        "occupiedSeedSites": 19
+      },
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p05-w3-s8\\attempts\\initial\\stdout.log",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p05-w3-s8\\attempts\\initial\\stderr.log"
+    },
+    {
+      "rowId": "on13-hil-b-t4p5-f0p05-w4-s8",
+      "pid": 14776,
+      "latestTickObserved": 2,
+      "initial": {
+        "labelPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p05-w4-s8\\captures\\labels\\initial.json",
+        "manifestSha256": "97b45b0dc443094094bf2354540904031fec19443fd63c6e0f2328c5e7475015",
+        "solverBytes": 4458605,
+        "solverSha256": "128c09520f2f43aec4a744ac11f019be17b132075ab90b9c4357240176715ce5",
+        "decoded": true,
+        "occupiedSeedSites": 19
+      },
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p05-w4-s8\\attempts\\initial\\stdout.log",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p05-w4-s8\\attempts\\initial\\stderr.log"
+    },
+    {
+      "rowId": "on13-hil-b-t4p5-f0p1-w3-s3",
+      "pid": 31668,
+      "latestTickObserved": 2,
+      "initial": {
+        "labelPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p1-w3-s3\\captures\\labels\\initial.json",
+        "manifestSha256": "fa7c095a07033a17c916c09780b0b9477155dc1ff64521323ebfa51526c4c185",
+        "solverBytes": 4458605,
+        "solverSha256": "76f935ea8d6245468d7278413e76a024f0d4d44be3e74841c3c543d3d898fa11",
+        "decoded": true,
+        "occupiedSeedSites": 19
+      },
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p1-w3-s3\\attempts\\initial\\stdout.log",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p1-w3-s3\\attempts\\initial\\stderr.log"
+    },
+    {
+      "rowId": "on13-hil-b-t4p5-f0p1-w4-s3",
+      "pid": 14836,
+      "latestTickObserved": 2,
+      "initial": {
+        "labelPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p1-w4-s3\\captures\\labels\\initial.json",
+        "manifestSha256": "50aec025856089c27a122d936560f98715f3490ea3c4e26c2082fa4fccad6622",
+        "solverBytes": 4458605,
+        "solverSha256": "062963c35146431d8e8305f53c603154d8c2137ff3706db33a1897952bcb635d",
+        "decoded": true,
+        "occupiedSeedSites": 19
+      },
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p1-w4-s3\\attempts\\initial\\stdout.log",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p1-w4-s3\\attempts\\initial\\stderr.log"
+    },
+    {
+      "rowId": "on13-hil-b-t5-f0p05-w3-s8",
+      "pid": 19836,
+      "latestTickObserved": 2,
+      "initial": {
+        "labelPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p05-w3-s8\\captures\\labels\\initial.json",
+        "manifestSha256": "76414ccae22edffcdf5a1cbf35d69324ebbbca61daaadd71741770f2bc14065c",
+        "solverBytes": 4458605,
+        "solverSha256": "775070adc35dde969eaa93904ad39a9bc0b3b2b143aa900ec3ef116da8e342af",
+        "decoded": true,
+        "occupiedSeedSites": 19
+      },
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p05-w3-s8\\attempts\\initial\\stdout.log",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p05-w3-s8\\attempts\\initial\\stderr.log"
+    },
+    {
+      "rowId": "on13-hil-b-t5-f0p05-w4-s8",
+      "pid": 6780,
+      "latestTickObserved": 2,
+      "initial": {
+        "labelPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p05-w4-s8\\captures\\labels\\initial.json",
+        "manifestSha256": "1da816db4386165ac6b09aa172ed07929535b2067fbef76072dc4aea307d267e",
+        "solverBytes": 4458605,
+        "solverSha256": "4dbfb6ab2b5a9f782e4a9a09bdfb3f5ed16b6424c98d5243b2f873321c9b51ab",
+        "decoded": true,
+        "occupiedSeedSites": 19
+      },
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p05-w4-s8\\attempts\\initial\\stdout.log",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p05-w4-s8\\attempts\\initial\\stderr.log"
+    },
+    {
+      "rowId": "on13-hil-b-t5-f0p1-w3-s3",
+      "pid": 21620,
+      "latestTickObserved": 2,
+      "initial": {
+        "labelPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p1-w3-s3\\captures\\labels\\initial.json",
+        "manifestSha256": "301b2f72f06ca4f151c1d4d675cce7e95702d38ddbc2f2a5c1c985322b5b48aa",
+        "solverBytes": 4458605,
+        "solverSha256": "4a035b761deefe65e1dad2596d74b9e0ea5102b0b33978e5c69e4465095ffc4d",
+        "decoded": true,
+        "occupiedSeedSites": 19
+      },
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p1-w3-s3\\attempts\\initial\\stdout.log",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p1-w3-s3\\attempts\\initial\\stderr.log"
+    },
+    {
+      "rowId": "on13-hil-b-t5-f0p1-w4-s3",
+      "pid": 11996,
+      "latestTickObserved": 2,
+      "initial": {
+        "labelPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p1-w4-s3\\captures\\labels\\initial.json",
+        "manifestSha256": "d39280de335eadd9331fea03e8512c35fadb57b036ad6e1f29c2ac5bcf39e47a",
+        "solverBytes": 4458605,
+        "solverSha256": "117a6a97f08656aa71ff79d593d507b69acdfe3895a6e0e1eb94ee7c14e5e1f0",
+        "decoded": true,
+        "occupiedSeedSites": 19
+      },
+      "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p1-w4-s3\\attempts\\initial\\stdout.log",
+      "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p1-w4-s3\\attempts\\initial\\stderr.log"
+    }
+  ],
+  "resumeCommand": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start-hil-onset-followup-nov13.ps1 -Mode resume -Workers 16",
+  "resumeCwd": "C:/Users/biao3/.codex/worktrees/hil-onset-followup-nov13/snowflake",
+  "noWallLimit": true,
+  "scope": "Live launch observation; initial immutable solver/manifest payloads hashed and strict decoded. Current checkpoint ticks are point-in-time observations, not endpoint or NAS claims.",
+  "observedProcesses": {
+    "workers": [
+      {
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h1-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w6-s5",
+        "workingSetBytes": 463990784,
+        "pid": 30388,
+        "cpuSeconds": 142524.0
+      },
+      {
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h1-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w8-s5",
+        "workingSetBytes": 463970304,
+        "pid": 27176,
+        "cpuSeconds": 142516.90625
+      },
+      {
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h3-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w6-s5",
+        "workingSetBytes": 466001920,
+        "pid": 26236,
+        "cpuSeconds": 142522.15625
+      },
+      {
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h3-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w8-s5",
+        "workingSetBytes": 431702016,
+        "pid": 12460,
+        "cpuSeconds": 142519.796875
+      },
+      {
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\runner\\src\\hil-onset-followup-nov13-main.ts run-row on13-hil-a-t4p5-w3-s4p25 C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w3-s4p25",
+        "workingSetBytes": 178565120,
+        "pid": 31012,
+        "cpuSeconds": 119.703125
+      },
+      {
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\runner\\src\\hil-onset-followup-nov13-main.ts run-row on13-hil-a-t4p5-w3-s4p5 C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w3-s4p5",
+        "workingSetBytes": 177807360,
+        "pid": 32228,
+        "cpuSeconds": 119.515625
+      },
+      {
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\runner\\src\\hil-onset-followup-nov13-main.ts run-row on13-hil-a-t4p5-w4-s4p25 C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w4-s4p25",
+        "workingSetBytes": 178515968,
+        "pid": 33964,
+        "cpuSeconds": 119.421875
+      },
+      {
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\runner\\src\\hil-onset-followup-nov13-main.ts run-row on13-hil-a-t4p5-w4-s4p5 C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w4-s4p5",
+        "workingSetBytes": 172400640,
+        "pid": 23260,
+        "cpuSeconds": 119.359375
+      },
+      {
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\runner\\src\\hil-onset-followup-nov13-main.ts run-row on13-hil-a-t5-w3-s4p25 C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w3-s4p25",
+        "workingSetBytes": 200523776,
+        "pid": 2536,
+        "cpuSeconds": 119.421875
+      },
+      {
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\runner\\src\\hil-onset-followup-nov13-main.ts run-row on13-hil-a-t5-w3-s4p5 C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w3-s4p5",
+        "workingSetBytes": 172785664,
+        "pid": 7244,
+        "cpuSeconds": 119.328125
+      },
+      {
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\runner\\src\\hil-onset-followup-nov13-main.ts run-row on13-hil-a-t5-w4-s4p25 C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w4-s4p25",
+        "workingSetBytes": 179458048,
+        "pid": 27300,
+        "cpuSeconds": 119.375
+      },
+      {
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\runner\\src\\hil-onset-followup-nov13-main.ts run-row on13-hil-a-t5-w4-s4p5 C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w4-s4p5",
+        "workingSetBytes": 172736512,
+        "pid": 19996,
+        "cpuSeconds": 119.578125
+      },
+      {
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\runner\\src\\hil-onset-followup-nov13-main.ts run-row on13-hil-b-t4p5-f0p05-w3-s8 C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p05-w3-s8",
+        "workingSetBytes": 179953664,
+        "pid": 1488,
+        "cpuSeconds": 119.328125
+      },
+      {
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\runner\\src\\hil-onset-followup-nov13-main.ts run-row on13-hil-b-t4p5-f0p05-w4-s8 C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p05-w4-s8",
+        "workingSetBytes": 176508928,
+        "pid": 14776,
+        "cpuSeconds": 119.40625
+      },
+      {
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\runner\\src\\hil-onset-followup-nov13-main.ts run-row on13-hil-b-t4p5-f0p1-w3-s3 C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p1-w3-s3",
+        "workingSetBytes": 175648768,
+        "pid": 31668,
+        "cpuSeconds": 119.546875
+      },
+      {
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\runner\\src\\hil-onset-followup-nov13-main.ts run-row on13-hil-b-t4p5-f0p1-w4-s3 C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p1-w4-s3",
+        "workingSetBytes": 179802112,
+        "pid": 14836,
+        "cpuSeconds": 119.671875
+      },
+      {
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\runner\\src\\hil-onset-followup-nov13-main.ts run-row on13-hil-b-t5-f0p05-w3-s8 C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p05-w3-s8",
+        "workingSetBytes": 180379648,
+        "pid": 19836,
+        "cpuSeconds": 119.640625
+      },
+      {
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\runner\\src\\hil-onset-followup-nov13-main.ts run-row on13-hil-b-t5-f0p05-w4-s8 C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p05-w4-s8",
+        "workingSetBytes": 175845376,
+        "pid": 6780,
+        "cpuSeconds": 119.25
+      },
+      {
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\runner\\src\\hil-onset-followup-nov13-main.ts run-row on13-hil-b-t5-f0p1-w3-s3 C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p1-w3-s3",
+        "workingSetBytes": 175583232,
+        "pid": 21620,
+        "cpuSeconds": 119.484375
+      },
+      {
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\runner\\src\\hil-onset-followup-nov13-main.ts run-row on13-hil-b-t5-f0p1-w4-s3 C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p1-w4-s3",
+        "workingSetBytes": 173965312,
+        "pid": 11996,
+        "cpuSeconds": 119.3125
+      }
+    ],
+    "observedAt": "2026-11-13T11:12:33.3370016-08:00"
+  },
+  "continuingFineWorkerPids": [
+    30388,
+    27176,
+    26236,
+    12460
+  ],
+  "actualTotalScienceWorkers": 20
+}

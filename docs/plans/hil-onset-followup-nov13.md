@@ -1,7 +1,7 @@
 # Plan — HIL onset and supply-duration follow-up
 
 - **Phase:** active Phase10; charter sections2.5/3.2 and accepted ADR0058/0059/0060/0062.
-- **Status:** authorized November13 by the maker's “do it”; protocol registered before implementation.
+- **Status:** RUNNING, November13 at11:10Pacific:16 new workers plus four original fine workers; no queued rows. Producer4f18ed5 stays fixed.
 - **Started / last touched:** 2026-11-13 by Codex.
 - **Checkout:** `codex/hil-onset-followup-nov13`, `C:/Users/biao3/.codex/worktrees/hil-onset-followup-nov13/snowflake`.
 
@@ -167,11 +167,32 @@ The completed and active producers remain at their original heads with useful ig
 retained; primary was clean at4db922f. No worktree closed or bytes pruned. Final18 metadata checks and Rule7 pass; the diff check preserves raw log bytes and accepts
 Windows receipt line endings via `core.whitespace=cr-at-eol`. Launch is separate.
 
+## Actual launch — November13
+
+The [launch receipt](../../evidence/hil-onset-followup-2026-11-13/launch.json) records
+producer `4f18ed5de547520dfe308df0abdd0f85c8523024`, Node24.13.1/V8 13.6.233.17-node.40,
+start11:10Pacific, wrapper3764/coordinator32760 and16 actual new workers, zero queued rows.
+All16 initial solver/manifest payloads were hashed and strict-decoded; canonical seeds each
+have19 occupied sites. All16 current checkpoint pointers had advanced to complete update2
+at observation. Their current stderr and coordinator stderr were empty. The four old fine
+workers30388/27176/26236/12460 remain active, for20 science workers total. These are launch
+observations, not endpoints or a NAS preservation claim.
+
+Execution checkout stays fixed at4f18ed5; main owns subsequent live records. Exact command:
+`powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start-hil-onset-followup-nov13.ps1 -Mode launch -Workers 16`.
+After interruption inspect existing writers, then replace launch with resume in that command.
+Coordinator logs: `out/hil-onset-followup-nov13-controls/campaign-launch-20261113T111031180.{stdout,stderr}.log`.
+Row logs: `out/hil-onset-followup-nov13/rows/<id>/attempts/initial/{stdout,stderr}.log`;
+separate invocation/process and eventual exit files preserve actual execution. Both active
+queues checkpoint completed updates with no wall deadline. A gaming pause applies to both
+coordinators before their workers; never duplicate writers or move either producer HEAD.
+All previous outputs and primary analysis remain retained pending governed NAS recovery.
+
 ## Steps
 
 - [x] Commit protocol and16 reused-control bindings before implementation (`49f1a5d`).
 - [x] Implement only the thin orchestration seam; five new tests,33 regression tests and both typechecks pass; bounded review has no actionable finding.
-- [ ] Commit/publish clean producer, launch16 workers and verify retained initial state.
+- [x] Commit/publish producer `4f18ed5`, launch16 workers and verify all16 advancing checkpoints/initial captures.
 - [ ] Analyze completed cohorts; preserve bulk output/detailed readouts on NAS and verify recovery.
 
 ## Out of scope
