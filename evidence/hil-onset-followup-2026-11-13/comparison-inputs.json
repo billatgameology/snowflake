@@ -1,0 +1,918 @@
+{
+  "producer": "2d94c2dd4683ee80f9583c53cf00563eb0d6d597",
+  "scope": "16 completed matched adventure controls, checked size targets and exit0; retained switch states remain bound by original capture manifests and previous analysis.",
+  "rows": [
+    {
+      "rowId": "adv12-hil-onset-t4p5-w3-s4p25",
+      "block": "onset",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p25",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "adv12-hil-onset-t4p5-w3-s4p25",
+        "tempC": -4.5,
+        "fraction": 0.075,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 4.25
+        },
+        "sigmaInfinity": 0.003375
+      },
+      "files": [
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p25\\spec.json",
+          "bytes": 1481,
+          "sha256": "7099010228044999a92ba85ebefd28b5b62c25f502b1f5120b3e22a2c9cfc37e"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p25\\result.json",
+          "bytes": 2393,
+          "sha256": "20c608e3e18300b55d9b70a9c7d132b6f2ae353221e3404fa8623993c743ab06"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p25\\events.jsonl",
+          "bytes": 5322149,
+          "sha256": "31f8147bf5ec4756ece5e2f7b567a053e2ec80ffef90d367000b9a0b176bced4"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p25\\exit.json",
+          "bytes": 458,
+          "sha256": "a4334015f4609b7aba7bcb713d4f0d9f1a40bf904c9994b5cf4bf1e274a15449"
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-onset-t4p5-w3-s4p5",
+      "block": "onset",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p5",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "adv12-hil-onset-t4p5-w3-s4p5",
+        "tempC": -4.5,
+        "fraction": 0.075,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 4.5
+        },
+        "sigmaInfinity": 0.003375
+      },
+      "files": [
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p5\\spec.json",
+          "bytes": 1478,
+          "sha256": "936a05a8a2313580de360600c3872dd1e7c737002c8ce75797fb13e3889c44b0"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p5\\result.json",
+          "bytes": 2389,
+          "sha256": "48013b0ac32189fb0c83fbfe223f4f04db6cc6302aeda69bc85c10b08983b62a"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p5\\events.jsonl",
+          "bytes": 5224181,
+          "sha256": "90900a9a69348fa6d936bcd5680c6e0b4af5a0e3d31de2b96536f6f0fe11e8ba"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p5\\exit.json",
+          "bytes": 456,
+          "sha256": "d5beb145c5f42955beb7678443b3e0e98721fe376692af07257a469444b63872"
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-onset-t4p5-w4-s4p25",
+      "block": "onset",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p25",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "adv12-hil-onset-t4p5-w4-s4p25",
+        "tempC": -4.5,
+        "fraction": 0.075,
+        "experimentalBasalWidthCells": 4,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 4.25
+        },
+        "sigmaInfinity": 0.003375
+      },
+      "files": [
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p25\\spec.json",
+          "bytes": 1481,
+          "sha256": "f16fa11934e576a18f7b5112c8475dd1db385a0ac9d414b6dee1e8082a18010c"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p25\\result.json",
+          "bytes": 2395,
+          "sha256": "557db0d7896bf6bc065130e4cd892613471a250fb9daab3c31849a526078e1b3"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p25\\events.jsonl",
+          "bytes": 5244005,
+          "sha256": "07604fcd08a74a517f3eda837b68521163295e6614372c7505937b2f9f32a7b4"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p25\\exit.json",
+          "bytes": 458,
+          "sha256": "609d30f657ccce729654fe41b709239fef17e241569cc9a84a3c59eb3bfa8366"
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-onset-t4p5-w4-s4p5",
+      "block": "onset",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p5",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "adv12-hil-onset-t4p5-w4-s4p5",
+        "tempC": -4.5,
+        "fraction": 0.075,
+        "experimentalBasalWidthCells": 4,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 4.5
+        },
+        "sigmaInfinity": 0.003375
+      },
+      "files": [
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p5\\spec.json",
+          "bytes": 1478,
+          "sha256": "1a03fee427967853d35b005c7c5ceaea4daf1c96fabeced93762e97d3c0ffa22"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p5\\result.json",
+          "bytes": 2390,
+          "sha256": "8683798676c4430988c0a76adad9e093b090ab5dac69666b6bba006f4fbe7d6c"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p5\\events.jsonl",
+          "bytes": 5157556,
+          "sha256": "b04a70b3252e9a3f0210a4c5e1fa2c741162f47340a30257589ceca5df7eae91"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p5\\exit.json",
+          "bytes": 456,
+          "sha256": "17e4d43a4c003dda04d91d1b859663c36fe2d27414771cf080db4c5dd464d89a"
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-forcing-t4p5-f0p05-early3",
+      "block": "duration",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early3",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "adv12-hil-forcing-t4p5-f0p05-early3",
+        "tempC": -4.5,
+        "fraction": 0.05,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 5
+        },
+        "sigmaInfinity": 0.00225
+      },
+      "files": [
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early3\\spec.json",
+          "bytes": 1479,
+          "sha256": "1241292ad6006b7b8dfe638bafdce7e7dac879beb89b23c4db5786a6a19bc416"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early3\\result.json",
+          "bytes": 2394,
+          "sha256": "308f633fabbdc26715a086bcc34c70a9f17240cc1f59ee7641256f3d0445a345"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early3\\events.jsonl",
+          "bytes": 5160455,
+          "sha256": "b9c3138083240f84bf0c4cf37c9d3c3fa19a42dada08d684ebc0b71316df508f"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early3\\exit.json",
+          "bytes": 461,
+          "sha256": "e97d899eb8f854ec094a44666f855868d46bff3c53bb993ee958ec1ee533601d"
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-forcing-t4p5-f0p05-early4",
+      "block": "duration",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early4",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "adv12-hil-forcing-t4p5-f0p05-early4",
+        "tempC": -4.5,
+        "fraction": 0.05,
+        "experimentalBasalWidthCells": 4,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 5
+        },
+        "sigmaInfinity": 0.00225
+      },
+      "files": [
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early4\\spec.json",
+          "bytes": 1479,
+          "sha256": "d5ef2d7daa71d20b6bbe196f5c6a4d94030d7a60a4b28d34a16680e86166a626"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early4\\result.json",
+          "bytes": 2398,
+          "sha256": "f5970a28b4cff9d49f4cb4accf710c7b8dc58572ef6f9242d4f52972a848f65c"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early4\\events.jsonl",
+          "bytes": 5078592,
+          "sha256": "917c5a29872b96244ed46d3b27f5c080cadb8cef151cf3b197e0d7982b5db4fc"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early4\\exit.json",
+          "bytes": 461,
+          "sha256": "52da924b2246c38a582a455294da581902df5e9edf305fdffa71d06805e4b176"
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-forcing-t4p5-f0p1-early3",
+      "block": "duration",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early3",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "adv12-hil-forcing-t4p5-f0p1-early3",
+        "tempC": -4.5,
+        "fraction": 0.1,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 5
+        },
+        "sigmaInfinity": 0.0045
+      },
+      "files": [
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early3\\spec.json",
+          "bytes": 1476,
+          "sha256": "2dfcfb785fd080c4da55e823de241a547cc08c7688af1dec70fcbd1893122f93"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early3\\result.json",
+          "bytes": 2401,
+          "sha256": "354dc93d8c61575d07b68a8c8c1dcf19009962ec55dcd29523a487e4edb3da00"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early3\\events.jsonl",
+          "bytes": 5556614,
+          "sha256": "58936d92114fd079ff6dbd686ee71d4234556140e3a24f7fabc8ad053112aaa4"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early3\\exit.json",
+          "bytes": 460,
+          "sha256": "9f81eaab7b2cdba8ee8729d7e8193d9a874f9a9aef9dae4bf3523429a997b454"
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-forcing-t4p5-f0p1-early4",
+      "block": "duration",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early4",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "adv12-hil-forcing-t4p5-f0p1-early4",
+        "tempC": -4.5,
+        "fraction": 0.1,
+        "experimentalBasalWidthCells": 4,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 5
+        },
+        "sigmaInfinity": 0.0045
+      },
+      "files": [
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early4\\spec.json",
+          "bytes": 1476,
+          "sha256": "8ec16669b591860e5b751c4206964b38b9bcbffdbb98634a5426b14c345edbc1"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early4\\result.json",
+          "bytes": 2403,
+          "sha256": "75e85a88220fe50bc53ed77b89910923c886bd2058c5ddb58603ca9a5de67ffc"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early4\\events.jsonl",
+          "bytes": 5648721,
+          "sha256": "fd0a2b3082e10bd5c82861f94464a232e0ccd1843c0abc5e619438a2f05e9321"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early4\\exit.json",
+          "bytes": 460,
+          "sha256": "43cc855e8169908e56a611412a8ff289da1147c9dd59eb2ce42b8c48608a86bf"
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-onset-t5-w3-s4p25",
+      "block": "onset",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p25",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "adv12-hil-onset-t5-w3-s4p25",
+        "tempC": -5,
+        "fraction": 0.075,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 4.25
+        },
+        "sigmaInfinity": 0.00375
+      },
+      "files": [
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p25\\spec.json",
+          "bytes": 1476,
+          "sha256": "d26ce27a7a89ddc85ab8fcf5c65900183fcfeffdbc0785ca960869e109fabfa7"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p25\\result.json",
+          "bytes": 2394,
+          "sha256": "742e6abe1385ba8136290ab22a5aa29b467f44fd4b540bcc775ba8a7596a5ef0"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p25\\events.jsonl",
+          "bytes": 5469778,
+          "sha256": "d4f237ed05ebc3f73627b8f44c0c0858d832765b75c9697c7faad88c8006c81d"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p25\\exit.json",
+          "bytes": 456,
+          "sha256": "dbbede0cf5c7d37f2efd1684339eddd0e50734acb3e1cc26da461835a16a9c7f"
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-onset-t5-w3-s4p5",
+      "block": "onset",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p5",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "adv12-hil-onset-t5-w3-s4p5",
+        "tempC": -5,
+        "fraction": 0.075,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 4.5
+        },
+        "sigmaInfinity": 0.00375
+      },
+      "files": [
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p5\\spec.json",
+          "bytes": 1473,
+          "sha256": "cba5502b8327c50f434341bd3a65a31fc3d156d29bdc1f4ede22e7c1e7dba531"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p5\\result.json",
+          "bytes": 2391,
+          "sha256": "2851943e888ae9d08b7d7660703966a33db33b370957cf0639bebfd40b7a79aa"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p5\\events.jsonl",
+          "bytes": 5459499,
+          "sha256": "8cd13fa66f5e12c20435c881f5bb3e00084f7d8feb81297aa990c5d008a7a30a"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p5\\exit.json",
+          "bytes": 454,
+          "sha256": "f00574f9ab2baac8d51f140d9320b077e6cfd957d57bbb9178e647946e452a61"
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-onset-t5-w4-s4p25",
+      "block": "onset",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p25",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "adv12-hil-onset-t5-w4-s4p25",
+        "tempC": -5,
+        "fraction": 0.075,
+        "experimentalBasalWidthCells": 4,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 4.25
+        },
+        "sigmaInfinity": 0.00375
+      },
+      "files": [
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p25\\spec.json",
+          "bytes": 1476,
+          "sha256": "b970b508defecb5989009216b01576303779368a0d302bc8d5cdb41efb60aa43"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p25\\result.json",
+          "bytes": 2396,
+          "sha256": "4c94ce635eb218db8f981af8abd70ae88d04346fc26fa088f8fba7960693fe80"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p25\\events.jsonl",
+          "bytes": 5454841,
+          "sha256": "089b6b26e193c5b4c68f77acee325ec8fd1e70c84579af2effd73623358e8ba8"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p25\\exit.json",
+          "bytes": 456,
+          "sha256": "aeb49f45f0e73f1bedad891fb496ceddf88a2366998a74bc3392ed2d6c95ba66"
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-onset-t5-w4-s4p5",
+      "block": "onset",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p5",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "adv12-hil-onset-t5-w4-s4p5",
+        "tempC": -5,
+        "fraction": 0.075,
+        "experimentalBasalWidthCells": 4,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 4.5
+        },
+        "sigmaInfinity": 0.00375
+      },
+      "files": [
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p5\\spec.json",
+          "bytes": 1473,
+          "sha256": "bcb88299b4ae3c6df4b38eeaa3e5c57bfc3a0253214706a1a511afc10ab82e8a"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p5\\result.json",
+          "bytes": 2391,
+          "sha256": "07fd349231881aeef86a707e0fc5f424ce31382f6fe9e669c11f3c1540404d2f"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p5\\events.jsonl",
+          "bytes": 5605592,
+          "sha256": "cddea002e4daa27302dbb8215579c7eebba6b75257ad3ec65f523f2c2e1082f6"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p5\\exit.json",
+          "bytes": 454,
+          "sha256": "967add3292c2ffa421534f8120641a33d7161434a39df9edad59b434ec81a541"
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-forcing-t5-f0p05-early3",
+      "block": "duration",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-early3",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "adv12-hil-forcing-t5-f0p05-early3",
+        "tempC": -5,
+        "fraction": 0.05,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 5
+        },
+        "sigmaInfinity": 0.0025000000000000005
+      },
+      "files": [
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-early3\\spec.json",
+          "bytes": 1489,
+          "sha256": "3b5c18af079f13d067e1534caea9b2dbac6674be0860d256249b29b42c34e149"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-early3\\result.json",
+          "bytes": 2399,
+          "sha256": "896e30838030e5539cc4ada6f123193e815d189735d4571c8cba6c7fae38f568"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-early3\\events.jsonl",
+          "bytes": 5141339,
+          "sha256": "fd15e89b798c7a8644431908b87b12820af9cf1258571b39ca4d94255261be2e"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-early3\\exit.json",
+          "bytes": 459,
+          "sha256": "4c9654bffbc5bdb718cc48b131e67b1f152a50854720ac4a1c2476c702f9dd87"
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-forcing-t5-f0p05-early4",
+      "block": "duration",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-early4",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "adv12-hil-forcing-t5-f0p05-early4",
+        "tempC": -5,
+        "fraction": 0.05,
+        "experimentalBasalWidthCells": 4,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 5
+        },
+        "sigmaInfinity": 0.0025000000000000005
+      },
+      "files": [
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-early4\\spec.json",
+          "bytes": 1489,
+          "sha256": "b923190043f4383b645f6ab63e8a073be81459e6fdf8e9f59d75071e8dcb6a4d"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-early4\\result.json",
+          "bytes": 2395,
+          "sha256": "29258f6e46a308c9c7f3717f2db2358ffa6d17e6ad738ce72d1c1c1030dc7535"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-early4\\events.jsonl",
+          "bytes": 5116773,
+          "sha256": "8a95e8c5a5134d6d9c7256a42c0a4e6619d39bd6dc80960157371e8b8d0a2df8"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-early4\\exit.json",
+          "bytes": 459,
+          "sha256": "e6b379239975fae1ffbcf82cf029b46a3b6ee16fe250c3e1c86b5607e1eb24d9"
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-forcing-t5-f0p1-early3",
+      "block": "duration",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-early3",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "adv12-hil-forcing-t5-f0p1-early3",
+        "tempC": -5,
+        "fraction": 0.1,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 5
+        },
+        "sigmaInfinity": 0.005000000000000001
+      },
+      "files": [
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-early3\\spec.json",
+          "bytes": 1486,
+          "sha256": "9e8c3370d78e0047b2cb2b204df850e88fb4c4a8f4280757ebdd0f1ca723502f"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-early3\\result.json",
+          "bytes": 2398,
+          "sha256": "65a06c4799fbb992b590eeab1475e88056d920ef5264345fb2acec9b80cfecf5"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-early3\\events.jsonl",
+          "bytes": 5759813,
+          "sha256": "e77129bd2f35ab28c742f5189512bdc9e6110d6bcb26139a15901a4d9df85a77"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-early3\\exit.json",
+          "bytes": 458,
+          "sha256": "aefa4824d057debf400870c76bc9408be34bdbdbd93608cbb70796f7278e35d0"
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-forcing-t5-f0p1-early4",
+      "block": "duration",
+      "directory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-early4",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "adv12-hil-forcing-t5-f0p1-early4",
+        "tempC": -5,
+        "fraction": 0.1,
+        "experimentalBasalWidthCells": 4,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 5
+        },
+        "sigmaInfinity": 0.005000000000000001
+      },
+      "files": [
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-early4\\spec.json",
+          "bytes": 1486,
+          "sha256": "18b97da9cc3605d69757ca496ffe67cc8acf5158d11f1808e12b3c8aa98ccb07"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-early4\\result.json",
+          "bytes": 2398,
+          "sha256": "6ffd975128adeddb29006e6ce8f14c8a1c559ef93f5f0de2aa66e91f2889f500"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-early4\\events.jsonl",
+          "bytes": 5824141,
+          "sha256": "4445772d6bed154cf1bbdbed30303a38438722bac7188a56d926fee7fa9fc28b"
+        },
+        {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-early4\\exit.json",
+          "bytes": 457,
+          "sha256": "45fe0c224f84f64e8a65440b7cca7e1d9637f03d3169fc9f3e3ab27daff995fd"
+        }
+      ]
+    }
+  ]
+}
