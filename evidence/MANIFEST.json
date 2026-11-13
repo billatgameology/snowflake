@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1342,
- "totalBytes": 328269390,
+ "fileCount": 1345,
+ "totalBytes": 328330464,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -5373,6 +5373,18 @@
   "hil-central-filling-2026-11-11/status-2026-11-12.json": {
    "bytes": 52338,
    "sha256": "91a5a33188d35a5d16a9ee0017d1873d582caa35bbd7d1a7a9d04e4b85e1f544"
+  },
+  "hil-adventures-2026-11-12/central-filling-triage.json": {
+   "bytes": 43042,
+   "sha256": "1f2ba79504521197f57907ad40db71fefa21e2cb79c858180e839cd81487c006"
+  },
+  "hil-adventures-2026-11-12/README.md": {
+   "bytes": 940,
+   "sha256": "1e8aca107a8c1a13c55eaf9b60a55e381dc460d77f9f802d219e6cc813dbbc76"
+  },
+  "hil-adventures-2026-11-12/reused-inputs.json": {
+   "bytes": 17092,
+   "sha256": "d0359277b547965bf0854fb20a5f6d054b260f32270366ce7b4514538faed101"
   }
  }
 }

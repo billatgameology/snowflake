@@ -1,0 +1,564 @@
+{
+  "schema": "hil-adventures-reused-inputs-v1",
+  "purpose": "Two reused warm forcing controls plus warm/cold reference cohorts and measured runtime anchors; bind actual local retained bytes. Baseline histories remain their executed identities.",
+  "inputs": [
+    {
+      "rowId": "gd21-bld-w3-fLow-broad",
+      "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-fLow-broad",
+      "row": {
+        "conditional": false,
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "pressurePa": 101325,
+        "paramSet": "M1_NO_DIP_ABLATION",
+        "cflFill": 0.025,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "gd21-bld-w3-fLow-broad",
+        "lane": "cavity-mechanism",
+        "tempC": -4.5,
+        "fraction": 0.05,
+        "sigmaInfinity": 0.00225
+      },
+      "resultSummary": {
+        "gitHead": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+        "node": "v24.13.1",
+        "stopReason": "size-target",
+        "admissible": true,
+        "wallSeconds": 45282.812,
+        "extent": 29,
+        "cycles": 1233
+      },
+      "files": {
+        "spec.json": {
+          "bytes": 851,
+          "sha256": "1a42b291825bb0275dc8c668571f09f464487546a90e7a257c44b3847a939003"
+        },
+        "result.json": {
+          "bytes": 2202,
+          "sha256": "32de9067d4fad42e1d3b3e68a967f5f70e22493397c8a4d02e8fdc120e1707ec"
+        },
+        "events.jsonl": {
+          "bytes": 3492793,
+          "sha256": "dcb2c7ebe9468167d9a0af84d5b29c562cb6543877db931fefc33c289dd2ddce"
+        }
+      }
+    },
+    {
+      "rowId": "gd21-bld-w3-fHigh-broad",
+      "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-fHigh-broad",
+      "row": {
+        "conditional": false,
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "pressurePa": 101325,
+        "paramSet": "M1_NO_DIP_ABLATION",
+        "cflFill": 0.025,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "gd21-bld-w3-fHigh-broad",
+        "lane": "cavity-mechanism",
+        "tempC": -4.5,
+        "fraction": 0.1,
+        "sigmaInfinity": 0.0045
+      },
+      "resultSummary": {
+        "gitHead": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+        "node": "v24.13.1",
+        "stopReason": "size-target",
+        "admissible": true,
+        "wallSeconds": 52315.241,
+        "extent": 29,
+        "cycles": 1354
+      },
+      "files": {
+        "spec.json": {
+          "bytes": 850,
+          "sha256": "6d8101230986089ed61e7f0a397e6c43a081cdae7930ba3bfb8191f89b673d54"
+        },
+        "result.json": {
+          "bytes": 2203,
+          "sha256": "ffc2b5151b60093affaac79fc4143865e41220dd7b971a96e581e781b3a8b7bd"
+        },
+        "events.jsonl": {
+          "bytes": 4009279,
+          "sha256": "1e187e8428342766eab1b76b17b6b081730f906c1a527a75577a4989fc2a6053"
+        }
+      }
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c025-broad",
+      "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-broad",
+      "row": {
+        "conditional": false,
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "pressurePa": 101325,
+        "paramSet": "M1_NO_DIP_ABLATION",
+        "cflFill": 0.025,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "gd21-bld-w1-t4p5-c025-broad",
+        "lane": "cavity-mechanism",
+        "tempC": -4.5,
+        "fraction": 0.075,
+        "sigmaInfinity": 0.003375
+      },
+      "resultSummary": {
+        "gitHead": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+        "node": "v24.13.1",
+        "stopReason": "size-target",
+        "admissible": true,
+        "wallSeconds": 47922.304,
+        "extent": 29,
+        "cycles": 1227
+      },
+      "files": {
+        "spec.json": {
+          "bytes": 858,
+          "sha256": "6241f59fa280f35835e66f68090d3e910015ce218a84baeede92d4a9bf32ac6b"
+        },
+        "result.json": {
+          "bytes": 2208,
+          "sha256": "6089d58c45d22af948eee328cf89340bee8fc20121451755f62c31f14320b4a6"
+        },
+        "events.jsonl": {
+          "bytes": 3573814,
+          "sha256": "6025b505d326bbbb8964db00ef55c2ef411d72b41b6ed478e0365ca9c3f2a113"
+        }
+      }
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c025-early5-w3",
+      "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early5-w3",
+      "row": {
+        "conditional": false,
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "cflFill": 0.025,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "gd21-bld-w1-t4p5-c025-early5-w3",
+        "lane": "cavity-mechanism",
+        "tempC": -4.5,
+        "fraction": 0.075,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 5
+        },
+        "sigmaInfinity": 0.003375
+      },
+      "resultSummary": {
+        "gitHead": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+        "node": "v24.13.1",
+        "stopReason": "size-target",
+        "admissible": true,
+        "wallSeconds": 69615.654,
+        "extent": 29,
+        "cycles": 1523
+      },
+      "files": {
+        "spec.json": {
+          "bytes": 1167,
+          "sha256": "922ac5d28cba7ad137ffd908f9521bb8b50fe73c4703a166460e6ed645b6497a"
+        },
+        "result.json": {
+          "bytes": 2393,
+          "sha256": "dd55c5fe66d00af0b43183c901f54f7b277b5f4bdfa62c0d2d1d1776e77fc0ae"
+        },
+        "events.jsonl": {
+          "bytes": 5361421,
+          "sha256": "c53833c2deb2c4098ad481bbc0f2b3d827c41ca936a9cf08cc68c758d7805bae"
+        }
+      }
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c025-broad",
+      "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-broad",
+      "row": {
+        "conditional": false,
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "pressurePa": 101325,
+        "paramSet": "M1_NO_DIP_ABLATION",
+        "cflFill": 0.025,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "gd21-bld-w1-t5-c025-broad",
+        "lane": "cavity-mechanism",
+        "tempC": -5,
+        "fraction": 0.075,
+        "sigmaInfinity": 0.00375
+      },
+      "resultSummary": {
+        "gitHead": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+        "node": "v24.13.1",
+        "stopReason": "size-target",
+        "admissible": true,
+        "wallSeconds": 67763.543,
+        "extent": 29,
+        "cycles": 1327
+      },
+      "files": {
+        "spec.json": {
+          "bytes": 853,
+          "sha256": "b3bf22095601bcb44a5f49f6cfeb22a2cff7938e27915cb58ac350e6d9b40892"
+        },
+        "result.json": {
+          "bytes": 2207,
+          "sha256": "d05fc01a1b1e1e6f5c14f0a684ddfe91ad58e3dcbffe5322010feb6abd7b9520"
+        },
+        "events.jsonl": {
+          "bytes": 3915544,
+          "sha256": "68d17db36222513cb69fde0a9d372760065dbebd6c801831b42c1fd906666402"
+        }
+      }
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c025-early5-w3",
+      "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early5-w3",
+      "row": {
+        "conditional": false,
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "cflFill": 0.025,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "gd21-bld-w1-t5-c025-early5-w3",
+        "lane": "cavity-mechanism",
+        "tempC": -5,
+        "fraction": 0.075,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 5
+        },
+        "sigmaInfinity": 0.00375
+      },
+      "resultSummary": {
+        "gitHead": "d7f76cb84fdd6ba7ea0cf8f0d53708e74b09c365",
+        "node": "v24.13.1",
+        "stopReason": "size-target",
+        "admissible": true,
+        "wallSeconds": 79821.787,
+        "extent": 29,
+        "cycles": 1602
+      },
+      "files": {
+        "spec.json": {
+          "bytes": 1162,
+          "sha256": "0be436fbaa61debbd10ff5575aee9c29037b32ad648abfc00f53e6be121a8521"
+        },
+        "result.json": {
+          "bytes": 2390,
+          "sha256": "612ef4349d31cfbdda98d8015da1e13afce21ff4d0a795df6558b7c2c3b58e34"
+        },
+        "events.jsonl": {
+          "bytes": 5678891,
+          "sha256": "cfa77e20586e4c4040734dfbe0cfb1ff1c428f4bc3bd0e45c6494a08d87395b9"
+        }
+      }
+    },
+    {
+      "rowId": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+      "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+      "row": {
+        "conditional": false,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27
+        ],
+        "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both",
+        "lane": "cavity-mechanism",
+        "tempC": -14.4,
+        "fraction": 0.1,
+        "experimentalFacetDips": "both",
+        "sigmaInfinity": 0.015040000000000001
+      },
+      "resultSummary": {
+        "gitHead": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+        "node": "v24.13.1",
+        "stopReason": "size-target",
+        "admissible": true,
+        "wallSeconds": 4247.712,
+        "extent": 29,
+        "cycles": 701
+      },
+      "files": {
+        "spec.json": {
+          "bytes": 1053,
+          "sha256": "0990bd6fcf8fd1d9fab2b8a42b0a10224fc32426e638c45287cfb86299df5c5f"
+        },
+        "result.json": {
+          "bytes": 3343,
+          "sha256": "968703f56097468725a0b0bd401a5fdf2565a47029bd877477783384a1f840ea"
+        },
+        "events.jsonl": {
+          "bytes": 1968442,
+          "sha256": "6c882941c60317b1082018b788dcebf667b2bb08bb47ebb41c91b0855428d6c9"
+        }
+      }
+    },
+    {
+      "rowId": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+      "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+      "row": {
+        "conditional": false,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27
+        ],
+        "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither",
+        "lane": "cavity-mechanism",
+        "tempC": -14.4,
+        "fraction": 0.1,
+        "experimentalFacetDips": "neither",
+        "sigmaInfinity": 0.015040000000000001
+      },
+      "resultSummary": {
+        "gitHead": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+        "node": "v24.13.1",
+        "stopReason": "size-target",
+        "admissible": true,
+        "wallSeconds": 15350.275,
+        "extent": 29,
+        "cycles": 1678
+      },
+      "files": {
+        "spec.json": {
+          "bytes": 1062,
+          "sha256": "d4899d457625eb3d01e33d5e1ccd557a438bfd9bceaf6393629dc574b8de21af"
+        },
+        "result.json": {
+          "bytes": 3359,
+          "sha256": "400a8a80e0acc685b2f1d3f4cab455d15d2985bf24df541074a5f4229e56a115"
+        },
+        "events.jsonl": {
+          "bytes": 5115896,
+          "sha256": "48d80af3162108d304ff563024d63b35153bbe8290da9443ddcf0c516bb917c2"
+        }
+      }
+    },
+    {
+      "rowId": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+      "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+      "row": {
+        "conditional": false,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27
+        ],
+        "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only",
+        "lane": "cavity-mechanism",
+        "tempC": -14.4,
+        "fraction": 0.1,
+        "experimentalFacetDips": "basal-only",
+        "sigmaInfinity": 0.015040000000000001
+      },
+      "resultSummary": {
+        "gitHead": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+        "node": "v24.13.1",
+        "stopReason": "size-target",
+        "admissible": true,
+        "wallSeconds": 15042.873,
+        "extent": 29,
+        "cycles": 1669
+      },
+      "files": {
+        "spec.json": {
+          "bytes": 1071,
+          "sha256": "eb18ccfca6d9245c0da6b8e6ef8a2a2c73cef56c4b959dd2561fc7d5cf61a1c7"
+        },
+        "result.json": {
+          "bytes": 3363,
+          "sha256": "6956551c2aa7923b4142132da607200b17c90548a363d3853a4dd527447c84d3"
+        },
+        "events.jsonl": {
+          "bytes": 5104863,
+          "sha256": "14c23c7236c75a31896d947cca38970b89b58535a76da049ed9b0bd80e84b2ff"
+        }
+      }
+    },
+    {
+      "rowId": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+      "directory": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+      "row": {
+        "conditional": false,
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.025,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 20000,
+        "spatialSampleExtents": [
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          25,
+          27
+        ],
+        "id": "oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only",
+        "lane": "cavity-mechanism",
+        "tempC": -14.4,
+        "fraction": 0.1,
+        "experimentalFacetDips": "prism-only",
+        "sigmaInfinity": 0.015040000000000001
+      },
+      "resultSummary": {
+        "gitHead": "5a00e901874ae5fdf2ae24a2d889b692734e75da",
+        "node": "v24.13.1",
+        "stopReason": "size-target",
+        "admissible": true,
+        "wallSeconds": 4131.669,
+        "extent": 29,
+        "cycles": 701
+      },
+      "files": {
+        "spec.json": {
+          "bytes": 1071,
+          "sha256": "52dae5062777527a3632d0a162f3663f338113e5d2764fec5d951df34d50c96c"
+        },
+        "result.json": {
+          "bytes": 3352,
+          "sha256": "e6cb372c33959d8950fcc51bc3b811c3914ec37029fed242b357332a774fb67a"
+        },
+        "events.jsonl": {
+          "bytes": 1973142,
+          "sha256": "72f8d76f6e265243df652dcbb6eee9234ad72b2c74293f0d20495c606581370b"
+        }
+      }
+    }
+  ]
+}
