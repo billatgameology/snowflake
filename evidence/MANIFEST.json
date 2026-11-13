@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1354,
- "totalBytes": 328443663,
+ "fileCount": 1364,
+ "totalBytes": 328684727,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -5421,6 +5421,46 @@
   "hil-adventures-2026-11-12/status-2026-11-13.json": {
    "bytes": 59567,
    "sha256": "94f872670be67fa45af6414cb66446476b5b4cd6678d55722bddee0393e51667"
+  },
+  "hil-adventures-2026-11-12/analysis-2026-11-13/cold.json": {
+   "bytes": 3688,
+   "sha256": "b2d4393772c73f6425c199aa5f4854a9ee5ae25631b91b1b2a2e121d9a94bf1b"
+  },
+  "hil-adventures-2026-11-12/analysis-2026-11-13/completion-and-cost.json": {
+   "bytes": 13384,
+   "sha256": "b8e2fac031693fbd320b433cf2d57adbc0414a1474a141b5fc639813f5b6c67c"
+  },
+  "hil-adventures-2026-11-12/analysis-2026-11-13/forcing.json": {
+   "bytes": 45120,
+   "sha256": "4bb1e128d93bf434f2d33099085bd16160361dfbe961da558832f0f7e4969cb4"
+  },
+  "hil-adventures-2026-11-12/analysis-2026-11-13/provenance.json": {
+   "bytes": 11742,
+   "sha256": "bd0bcf27ac7512f5119d6b18d285e844ff6d50f9ef39a14b108b9588bc330c9e"
+  },
+  "hil-adventures-2026-11-12/analysis-2026-11-13/README.md": {
+   "bytes": 7515,
+   "sha256": "e856a3bbd95199e35aac77a7b93ac0ee457998928f727ee20c269cd57e430e68"
+  },
+  "hil-adventures-2026-11-12/analysis-2026-11-13/root-cold-witness.json": {
+   "bytes": 1765,
+   "sha256": "07f0c907a45af2724b0b95d5ff8ebbdde81cc3471482eec91c86a04234510ed6"
+  },
+  "hil-adventures-2026-11-12/analysis-2026-11-13/root-warm-witness.json": {
+   "bytes": 1603,
+   "sha256": "88583369ae957580554733621858037d51b8fbb0174204aaa2fb0496979869ce"
+  },
+  "hil-adventures-2026-11-12/analysis-2026-11-13/row-inputs.json": {
+   "bytes": 72899,
+   "sha256": "909357e3a370ea9d9305a9d3515bc228f32138f4cb17f96446abb87b263d2c8e"
+  },
+  "hil-adventures-2026-11-12/analysis-2026-11-13/warm.json": {
+   "bytes": 81849,
+   "sha256": "f5fbe9a6999bf2b69dac2aed0297e26c019cbf04006a70c19018a04fe0d04d92"
+  },
+  "hil-adventures-2026-11-12/analysis-2026-11-13/verification.json": {
+   "bytes": 1499,
+   "sha256": "0e7653f6002cbcbeceed037ffaec447832b0600cea6806212b8bf006f56b105a"
   }
  }
 }

@@ -219,13 +219,35 @@ The newly completed cohorts are ready for their registered matched analyses; no 
 is inferred merely from endpoint completion. Preserve all output and wait for scientific analysis
 and governed NAS recovery before closeout. No extra simulations were selected or launched.
 
+## Completed analysis - November13
+
+All46 rows reached extent29 with successful exits; final completion was07:31Pacific.
+The [analysis and recommendation](../../evidence/hil-adventures-2026-11-12/analysis-2026-11-13/README.md)
+binds the full completion/cost census, registered cohort summaries, input hashes and local detailed
+readouts. The warm onset contrast is4.25s resealing versus4.5/4.75s persistence at both temperatures;
+width4 controls reseal. Lower forcing removes persistence under the same5s preparation. Thicker
+seeds retain it; wider seeds fail to establish it under delayed, nonzero selection. Cold core/tip
+ordering survives the named seed/pressure stage comparisons. The seed tip9 cohort is unavailable
+because thick-seed basal-only has no plateau exit; do not substitute a reduced cohort.
+Two −4.5C switch states have byte-identical occupied geometry and different fill/vapor arrays,
+yet different later outcomes. Root directly decoded this witness; it identifies insufficient
+state description by occupancy alone, not a single isolated causal mechanism.
+Eight onset timestep checks plus eight supply/duration cases are recommended for discussion only.
+No new protocol was frozen or simulation launched; the four original fine workers continue.
+Known traps remain: central emptiness is insufficient, wider-seed non-establishment is not memory
+erasure, same-age cold contrasts are stage-sensitive, and unchanged coarse-CFL results are not
+threshold qualification. Existing event/bracket and retained-state readers cover their named
+boundaries; judgment about a causal explanation remains. NAS publication and fresh recovery of
+this output plus primary analysis recipes/readouts remain required before any worktree closeout.
+
 ## Steps
 
 - [x] Commit protocol and reused-input/triage bindings before implementation (`0db5b6f`).
 - [x] Add finite roster, existing recorder/coordinator route and hidden wrapper (`2c138f9`).
 - [x] Complete scoped checks and one bounded review; commit clean producer.
 - [x] Launch16 additional workers, verify total20 and retained state, update main records.
-- [ ] Analyze complete cohorts; preserve bulk output on NAS and verify recovery.
+- [x] Analyze complete registered cohorts and record scoped interpretation/recommendations.
+- [ ] Preserve bulk output and detailed analysis recipes/readouts on NAS; verify recovery.
 
 ## Out of scope
 

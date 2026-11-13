@@ -1,0 +1,1246 @@
+{
+  "scope": "Complete referenced row spec/result/events/exit subset of the three detailed input manifests; every listed hash rechecked at record creation. Detailed capture manifests remain in the named local analysis directories.",
+  "rows": 62,
+  "files": [
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-fLow-broad\\spec.json",
+      "bytes": 851,
+      "sha256": "1a42b291825bb0275dc8c668571f09f464487546a90e7a257c44b3847a939003"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-fLow-broad\\result.json",
+      "bytes": 2202,
+      "sha256": "32de9067d4fad42e1d3b3e68a967f5f70e22493397c8a4d02e8fdc120e1707ec"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-fLow-broad\\events.jsonl",
+      "bytes": 3492793,
+      "sha256": "dcb2c7ebe9468167d9a0af84d5b29c562cb6543877db931fefc33c289dd2ddce"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-fHigh-broad\\spec.json",
+      "bytes": 850,
+      "sha256": "6d8101230986089ed61e7f0a397e6c43a081cdae7930ba3bfb8191f89b673d54"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-fHigh-broad\\result.json",
+      "bytes": 2203,
+      "sha256": "ffc2b5151b60093affaac79fc4143865e41220dd7b971a96e581e781b3a8b7bd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-fHigh-broad\\events.jsonl",
+      "bytes": 4009279,
+      "sha256": "1e187e8428342766eab1b76b17b6b081730f906c1a527a75577a4989fc2a6053"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-broad\\spec.json",
+      "bytes": 858,
+      "sha256": "6241f59fa280f35835e66f68090d3e910015ce218a84baeede92d4a9bf32ac6b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-broad\\result.json",
+      "bytes": 2208,
+      "sha256": "6089d58c45d22af948eee328cf89340bee8fc20121451755f62c31f14320b4a6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-broad\\events.jsonl",
+      "bytes": 3573814,
+      "sha256": "6025b505d326bbbb8964db00ef55c2ef411d72b41b6ed478e0365ca9c3f2a113"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early5-w3\\spec.json",
+      "bytes": 1167,
+      "sha256": "922ac5d28cba7ad137ffd908f9521bb8b50fe73c4703a166460e6ed645b6497a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early5-w3\\result.json",
+      "bytes": 2393,
+      "sha256": "dd55c5fe66d00af0b43183c901f54f7b277b5f4bdfa62c0d2d1d1776e77fc0ae"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early5-w3\\events.jsonl",
+      "bytes": 5361421,
+      "sha256": "c53833c2deb2c4098ad481bbc0f2b3d827c41ca936a9cf08cc68c758d7805bae"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-broad\\spec.json",
+      "bytes": 853,
+      "sha256": "b3bf22095601bcb44a5f49f6cfeb22a2cff7938e27915cb58ac350e6d9b40892"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-broad\\result.json",
+      "bytes": 2207,
+      "sha256": "d05fc01a1b1e1e6f5c14f0a684ddfe91ad58e3dcbffe5322010feb6abd7b9520"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-broad\\events.jsonl",
+      "bytes": 3915544,
+      "sha256": "68d17db36222513cb69fde0a9d372760065dbebd6c801831b42c1fd906666402"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early5-w3\\spec.json",
+      "bytes": 1162,
+      "sha256": "0be436fbaa61debbd10ff5575aee9c29037b32ad648abfc00f53e6be121a8521"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early5-w3\\result.json",
+      "bytes": 2390,
+      "sha256": "612ef4349d31cfbdda98d8015da1e13afce21ff4d0a795df6558b7c2c3b58e34"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early5-w3\\events.jsonl",
+      "bytes": 5678891,
+      "sha256": "cfa77e20586e4c4040734dfbe0cfb1ff1c428f4bc3bd0e45c6494a08d87395b9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both\\spec.json",
+      "bytes": 1053,
+      "sha256": "0990bd6fcf8fd1d9fab2b8a42b0a10224fc32426e638c45287cfb86299df5c5f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both\\result.json",
+      "bytes": 3343,
+      "sha256": "968703f56097468725a0b0bd401a5fdf2565a47029bd877477783384a1f840ea"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both\\events.jsonl",
+      "bytes": 1968442,
+      "sha256": "6c882941c60317b1082018b788dcebf667b2bb08bb47ebb41c91b0855428d6c9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither\\spec.json",
+      "bytes": 1062,
+      "sha256": "d4899d457625eb3d01e33d5e1ccd557a438bfd9bceaf6393629dc574b8de21af"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither\\result.json",
+      "bytes": 3359,
+      "sha256": "400a8a80e0acc685b2f1d3f4cab455d15d2985bf24df541074a5f4229e56a115"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither\\events.jsonl",
+      "bytes": 5115896,
+      "sha256": "48d80af3162108d304ff563024d63b35153bbe8290da9443ddcf0c516bb917c2"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only\\spec.json",
+      "bytes": 1071,
+      "sha256": "eb18ccfca6d9245c0da6b8e6ef8a2a2c73cef56c4b959dd2561fc7d5cf61a1c7"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only\\result.json",
+      "bytes": 3363,
+      "sha256": "6956551c2aa7923b4142132da607200b17c90548a363d3853a4dd527447c84d3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only\\events.jsonl",
+      "bytes": 5104863,
+      "sha256": "14c23c7236c75a31896d947cca38970b89b58535a76da049ed9b0bd80e84b2ff"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only\\spec.json",
+      "bytes": 1071,
+      "sha256": "52dae5062777527a3632d0a162f3663f338113e5d2764fec5d951df34d50c96c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only\\result.json",
+      "bytes": 3352,
+      "sha256": "e6cb372c33959d8950fcc51bc3b811c3914ec37029fed242b357332a774fb67a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only\\events.jsonl",
+      "bytes": 1973142,
+      "sha256": "72f8d76f6e265243df652dcbb6eee9234ad72b2c74293f0d20495c606581370b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t4p5-w3-s4\\spec.json",
+      "bytes": 1448,
+      "sha256": "e574b760d6b145135577da49287dbb4e12ae2a4598ed19a7664ce0840b860bef"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t4p5-w3-s4\\result.json",
+      "bytes": 2378,
+      "sha256": "a8aa7298ce4977fa8c7599e9b551090b6055d7ed02ce8a436276cf9bd455e97d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t4p5-w3-s4\\exit.json",
+      "bytes": 496,
+      "sha256": "85301190bd584386ee8df6fb320bbb773e0677c789be008af9c517c394f699e7"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t4p5-w3-s4\\events.jsonl",
+      "bytes": 5529331,
+      "sha256": "3901668a35189e146efe30e0e8ac6ead8f97bde1f448d28333c1cc086148b029"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t4p5-w4-s4\\spec.json",
+      "bytes": 1448,
+      "sha256": "c0759c22c9d409dc20d596c3e111b8a58fe2af9f8ae5196726d01cb7bcf1b318"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t4p5-w4-s4\\result.json",
+      "bytes": 2383,
+      "sha256": "c1999dac1675f8593fb922623079128219694cc5f7ac52c0c13cdcb5b2673ff9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t4p5-w4-s4\\exit.json",
+      "bytes": 497,
+      "sha256": "90d2b08645c8b09a345611fdfd697576f443836b2e66aa4bfd906ec3472df50d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t4p5-w4-s4\\events.jsonl",
+      "bytes": 5501418,
+      "sha256": "2d2f20cded019646cd3123aa5eb6ad31e08c50f85331ebe4fd1ad349446f33ff"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p25\\spec.json",
+      "bytes": 1481,
+      "sha256": "7099010228044999a92ba85ebefd28b5b62c25f502b1f5120b3e22a2c9cfc37e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p25\\result.json",
+      "bytes": 2393,
+      "sha256": "20c608e3e18300b55d9b70a9c7d132b6f2ae353221e3404fa8623993c743ab06"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p25\\exit.json",
+      "bytes": 458,
+      "sha256": "a4334015f4609b7aba7bcb713d4f0d9f1a40bf904c9994b5cf4bf1e274a15449"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p25\\events.jsonl",
+      "bytes": 5322149,
+      "sha256": "31f8147bf5ec4756ece5e2f7b567a053e2ec80ffef90d367000b9a0b176bced4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p25\\spec.json",
+      "bytes": 1481,
+      "sha256": "f16fa11934e576a18f7b5112c8475dd1db385a0ac9d414b6dee1e8082a18010c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p25\\result.json",
+      "bytes": 2395,
+      "sha256": "557db0d7896bf6bc065130e4cd892613471a250fb9daab3c31849a526078e1b3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p25\\exit.json",
+      "bytes": 458,
+      "sha256": "609d30f657ccce729654fe41b709239fef17e241569cc9a84a3c59eb3bfa8366"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p25\\events.jsonl",
+      "bytes": 5244005,
+      "sha256": "07604fcd08a74a517f3eda837b68521163295e6614372c7505937b2f9f32a7b4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p5\\spec.json",
+      "bytes": 1478,
+      "sha256": "936a05a8a2313580de360600c3872dd1e7c737002c8ce75797fb13e3889c44b0"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p5\\result.json",
+      "bytes": 2389,
+      "sha256": "48013b0ac32189fb0c83fbfe223f4f04db6cc6302aeda69bc85c10b08983b62a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p5\\exit.json",
+      "bytes": 456,
+      "sha256": "d5beb145c5f42955beb7678443b3e0e98721fe376692af07257a469444b63872"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p5\\events.jsonl",
+      "bytes": 5224181,
+      "sha256": "90900a9a69348fa6d936bcd5680c6e0b4af5a0e3d31de2b96536f6f0fe11e8ba"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p5\\spec.json",
+      "bytes": 1478,
+      "sha256": "1a03fee427967853d35b005c7c5ceaea4daf1c96fabeced93762e97d3c0ffa22"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p5\\result.json",
+      "bytes": 2390,
+      "sha256": "8683798676c4430988c0a76adad9e093b090ab5dac69666b6bba006f4fbe7d6c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p5\\exit.json",
+      "bytes": 456,
+      "sha256": "17e4d43a4c003dda04d91d1b859663c36fe2d27414771cf080db4c5dd464d89a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p5\\events.jsonl",
+      "bytes": 5157556,
+      "sha256": "b04a70b3252e9a3f0210a4c5e1fa2c741162f47340a30257589ceca5df7eae91"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p75\\spec.json",
+      "bytes": 1481,
+      "sha256": "19216fefaf2248d8fcde8b9e318e6fa4d281dcbf49bf20f361509c0ac61f67a8"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p75\\result.json",
+      "bytes": 2394,
+      "sha256": "60384cf45c6784c58118b23d9411adf34a9f24a323498dccee434fbe73e53789"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p75\\exit.json",
+      "bytes": 458,
+      "sha256": "c65e5c1e44dd2c6f93e460f2b297546b6b42691edc3e4b15db1b3a432526ae7a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p75\\events.jsonl",
+      "bytes": 5147890,
+      "sha256": "69d25e733222d076fe4ebad3a01fc8541e58bb11aa75b1e1d754d6fb4f84086b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p75\\spec.json",
+      "bytes": 1481,
+      "sha256": "90738c11583bca380bb6d05e1e775923b0494d086648d3285f5faae2d0a2e2bd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p75\\result.json",
+      "bytes": 2393,
+      "sha256": "c44984a780147dfc644cfeded5270b274700999eaabdd120e5aa9010fd826bfc"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p75\\exit.json",
+      "bytes": 458,
+      "sha256": "0c4dd2ba61ee112e5674c83988ad7f05bae166c259714eed69ba6139d76522f3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p75\\events.jsonl",
+      "bytes": 5339859,
+      "sha256": "0a2f3c32052348979279b0aefe6cc10e5f09ba8c30ed427125dd9d3e957783e7"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-early5-w3\\exit.json",
+      "bytes": 457,
+      "sha256": "8c6a91fd01c63d712922ff490ca3224f4bf5b0981b9728bcd8390494882e8579"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t4p5-w4-early5\\spec.json",
+      "bytes": 1162,
+      "sha256": "2066d5d5f95278105867245688557f7c109042f1fef0cfa93abd0cba24cbf573"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t4p5-w4-early5\\result.json",
+      "bytes": 2388,
+      "sha256": "67e04fe307cc6be5293b4d9dc912624ecfb545d6359d862775befad2134fa6b2"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t4p5-w4-early5\\exit.json",
+      "bytes": 452,
+      "sha256": "d64fd6164c939b02d6cbf531adc7e341c6871c48f37ca46fee6148eee5b7adcf"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t4p5-w4-early5\\events.jsonl",
+      "bytes": 5523477,
+      "sha256": "72d6a7a292bf25ec01144c19e237a51a5adb972f9bc5388db2017b2e6d62ed29"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t5-w3-s4\\spec.json",
+      "bytes": 1443,
+      "sha256": "9ca9a4570dd267a6147d85781f8f650dbede3c0a5f50e43cfb63c5565f28c523"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t5-w3-s4\\result.json",
+      "bytes": 2384,
+      "sha256": "ae9a1a117c5559f7e7ea85a974480e51c5beeaf8aa4f722aaa0d4449900b41bb"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t5-w3-s4\\exit.json",
+      "bytes": 495,
+      "sha256": "c25cd24d34340799567856401a74824d2079af31770f725d4663f85bdddb469b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t5-w3-s4\\events.jsonl",
+      "bytes": 5455665,
+      "sha256": "820907c7638de30889c5c15f77c3905f6c9e3d61bba1e272e241e7bb765996fc"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t5-w4-s4\\spec.json",
+      "bytes": 1443,
+      "sha256": "a1c47976a572a7499a59f1335fdd769092367527bec12d5832f1d453b3539bec"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t5-w4-s4\\result.json",
+      "bytes": 2383,
+      "sha256": "2f18ed6e2cce306a1ba8fee139f3b709268e6be5ce45638991e82caf79904bba"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t5-w4-s4\\exit.json",
+      "bytes": 495,
+      "sha256": "19e9886da69b52d9fc25864d7a173a9c07aedc6a39e3c4293fd27069e350b845"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-a-t5-w4-s4\\events.jsonl",
+      "bytes": 5425351,
+      "sha256": "32006f5c29891c0a1b862d5f7889699c97f8d9cce69772c3ffa153c6447c1034"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p25\\spec.json",
+      "bytes": 1476,
+      "sha256": "d26ce27a7a89ddc85ab8fcf5c65900183fcfeffdbc0785ca960869e109fabfa7"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p25\\result.json",
+      "bytes": 2394,
+      "sha256": "742e6abe1385ba8136290ab22a5aa29b467f44fd4b540bcc775ba8a7596a5ef0"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p25\\exit.json",
+      "bytes": 456,
+      "sha256": "dbbede0cf5c7d37f2efd1684339eddd0e50734acb3e1cc26da461835a16a9c7f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p25\\events.jsonl",
+      "bytes": 5469778,
+      "sha256": "d4f237ed05ebc3f73627b8f44c0c0858d832765b75c9697c7faad88c8006c81d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p25\\spec.json",
+      "bytes": 1476,
+      "sha256": "b970b508defecb5989009216b01576303779368a0d302bc8d5cdb41efb60aa43"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p25\\result.json",
+      "bytes": 2396,
+      "sha256": "4c94ce635eb218db8f981af8abd70ae88d04346fc26fa088f8fba7960693fe80"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p25\\exit.json",
+      "bytes": 456,
+      "sha256": "aeb49f45f0e73f1bedad891fb496ceddf88a2366998a74bc3392ed2d6c95ba66"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p25\\events.jsonl",
+      "bytes": 5454841,
+      "sha256": "089b6b26e193c5b4c68f77acee325ec8fd1e70c84579af2effd73623358e8ba8"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p5\\spec.json",
+      "bytes": 1473,
+      "sha256": "cba5502b8327c50f434341bd3a65a31fc3d156d29bdc1f4ede22e7c1e7dba531"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p5\\result.json",
+      "bytes": 2391,
+      "sha256": "2851943e888ae9d08b7d7660703966a33db33b370957cf0639bebfd40b7a79aa"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p5\\exit.json",
+      "bytes": 454,
+      "sha256": "f00574f9ab2baac8d51f140d9320b077e6cfd957d57bbb9178e647946e452a61"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p5\\events.jsonl",
+      "bytes": 5459499,
+      "sha256": "8cd13fa66f5e12c20435c881f5bb3e00084f7d8feb81297aa990c5d008a7a30a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p5\\spec.json",
+      "bytes": 1473,
+      "sha256": "bcb88299b4ae3c6df4b38eeaa3e5c57bfc3a0253214706a1a511afc10ab82e8a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p5\\result.json",
+      "bytes": 2391,
+      "sha256": "07fd349231881aeef86a707e0fc5f424ce31382f6fe9e669c11f3c1540404d2f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p5\\exit.json",
+      "bytes": 454,
+      "sha256": "967add3292c2ffa421534f8120641a33d7161434a39df9edad59b434ec81a541"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p5\\events.jsonl",
+      "bytes": 5605592,
+      "sha256": "cddea002e4daa27302dbb8215579c7eebba6b75257ad3ec65f523f2c2e1082f6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p75\\spec.json",
+      "bytes": 1476,
+      "sha256": "e1f82ee40fc728d25a4a35f8a15bd5e7867270232661823b9d860afa78de0e6d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p75\\result.json",
+      "bytes": 2394,
+      "sha256": "7c96b0ecfce46ac30a6cb739af0e438c6c036fd8a6117df67ef305686daf7271"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p75\\exit.json",
+      "bytes": 456,
+      "sha256": "e86a308b6503c875ab60183c7ebdb471548db864f6214537ef915db1be0510cf"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w3-s4p75\\events.jsonl",
+      "bytes": 5628369,
+      "sha256": "4732fc2fe88079e15a0d346541d5b6d968d130cfa3efc9f5dde8bd6440b74222"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p75\\spec.json",
+      "bytes": 1476,
+      "sha256": "e28e3a8475e03aa2343194160151fe7b2a3f2e86d8b605bb8add0f0b088c8819"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p75\\result.json",
+      "bytes": 2394,
+      "sha256": "e21114c03545fdedca7733a95af6b730c80546b7f3c7e0c9c5039f2400f9b2c5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p75\\exit.json",
+      "bytes": 456,
+      "sha256": "ec79db6b1659d4db4fd7e8606ebd04322ead17e6dc3dda36cd82808d50191953"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t5-w4-s4p75\\events.jsonl",
+      "bytes": 5724037,
+      "sha256": "742faee5594494e34672d9c614cf543d913185a1429b672403ac9799c76439f6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-early5-w3\\exit.json",
+      "bytes": 455,
+      "sha256": "4a64b3f02de6fd7510187b7472038feef4d61b4f2e587b147c13f0e076e6d341"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t5-w4-early5\\spec.json",
+      "bytes": 1157,
+      "sha256": "48e54bde0af6cd25a4e64b121056395fca7e38d42f1640257aca8f8760c18ba6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t5-w4-early5\\result.json",
+      "bytes": 2385,
+      "sha256": "98fb958729f9cb214d292f3c120bed53ee6a98823773a794f66770a5b8d563f9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t5-w4-early5\\exit.json",
+      "bytes": 450,
+      "sha256": "1e442368f879545a264917013deca41993e9d130e0650b19d80b63682a5156ed"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w2-t5-w4-early5\\events.jsonl",
+      "bytes": 5671604,
+      "sha256": "58dc0afc948a5a32ff794a73c35871cbe5d982b5a92a980e55b5bb687f188c31"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t4p5-c025-broad\\exit.json",
+      "bytes": 269,
+      "sha256": "c96e8c502acaaff8c136662398bda792b50dd47b5a7faf4f7daf519f61de79e3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r2-h3-broad\\spec.json",
+      "bytes": 1178,
+      "sha256": "b2c6dba9b66259ebf563530f5f46a9aad1d0bf3177bad2eba60f218aa6fd15de"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r2-h3-broad\\result.json",
+      "bytes": 2215,
+      "sha256": "22d2c96622a7c3829c03f2403b58cd3fa43a5ece2dce106381bf6167e5a987de"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r2-h3-broad\\exit.json",
+      "bytes": 278,
+      "sha256": "015b2cb93bfe664681d6a47ddc6416e5c67ae4b333325043b439ea818f0f9113"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r2-h3-broad\\events.jsonl",
+      "bytes": 4039788,
+      "sha256": "2ae1ad05857d68f26ced28a1c1c20d78c1f4308d4457c81b68217cf879dfcc84"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r2-h3-early3\\spec.json",
+      "bytes": 1483,
+      "sha256": "9eb6228c584cae2420b5f694a0bb2c1fc5e40d93c48d94f9db38ff8601473342"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r2-h3-early3\\result.json",
+      "bytes": 2395,
+      "sha256": "b82b3bc3d64b371f6d0416e5115c34ff0c110e0224464b6b083a6d3111e8ca64"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r2-h3-early3\\exit.json",
+      "bytes": 463,
+      "sha256": "1c5827387282686563140d9f18329b1fe5a505f6d4169530e6c5775835fd06b1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r2-h3-early3\\events.jsonl",
+      "bytes": 5771439,
+      "sha256": "252f8448e5502e3e77358549e65a241eeacb5dff7f6e6a34b61192628828ecb8"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r3-h1-broad\\spec.json",
+      "bytes": 1178,
+      "sha256": "e3561d0b8c24091eaa832cd776db56d7ab114c675f20e9159cf85c915040e6d9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r3-h1-broad\\result.json",
+      "bytes": 2211,
+      "sha256": "f96f0927de3a91b7ac2c22fb38ffc17bffc7667f0da9f533e6583bce2aae9912"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r3-h1-broad\\exit.json",
+      "bytes": 277,
+      "sha256": "0b11f5bd9de68707ec1ab3af170eefdba64c9afa41b67c0ca34e03d3019a5079"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r3-h1-broad\\events.jsonl",
+      "bytes": 3412481,
+      "sha256": "01a632744663cd154d58ad08e17dfc4921bb816ca77111329e6e9475070961d5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r3-h1-early3\\spec.json",
+      "bytes": 1483,
+      "sha256": "f7af632899f0928c4920ab7f8202435cfb067005743b935b3ac08421c39e5f34"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r3-h1-early3\\result.json",
+      "bytes": 2400,
+      "sha256": "ee259f75793c9c58e42301427cbf639f678b998438e2d07853cece3ee6aa1455"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r3-h1-early3\\exit.json",
+      "bytes": 463,
+      "sha256": "a06a2b9a0857dc0721f962e4ace296f299eb550a1d0d65244784ae28b8d590f2"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r3-h1-early3\\events.jsonl",
+      "bytes": 4035793,
+      "sha256": "e6e4da8561ca7119c7438ccfc0a1c0a229764a0134b274ec491c2987cdedf959"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w1-t5-c025-broad\\exit.json",
+      "bytes": 267,
+      "sha256": "c052221113c0f01b42a4fb537b46f203ac59c7d5d757d6ba3045034d2b8f2840"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t5-r2-h3-broad\\spec.json",
+      "bytes": 1173,
+      "sha256": "475964ac743f764c0b32fcb7f6a287e6c124b4d95f36de31107b0e8bb37fbf5f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t5-r2-h3-broad\\result.json",
+      "bytes": 2212,
+      "sha256": "fae85dd747637367fda2ecded53f2e50c61edaef56e8fb0d7809a08675ba3144"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t5-r2-h3-broad\\exit.json",
+      "bytes": 276,
+      "sha256": "801d798d945417003d40ae65a1acdb5d3f43f2abc40a924a86dc5a0edae5b848"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t5-r2-h3-broad\\events.jsonl",
+      "bytes": 4219238,
+      "sha256": "ca620d3a43ac9f9fb7240460b896b832bb7212fa8dfdeab7639932c3c728a864"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t5-r2-h3-early3\\spec.json",
+      "bytes": 1478,
+      "sha256": "a061c9f73844d554fc29d246d515befcc60bce261494a6bc5980604e07a14550"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t5-r2-h3-early3\\result.json",
+      "bytes": 2401,
+      "sha256": "d65254ac8e50b6cff0afc77dcbf490dfee83459b33c9115f86fff5e10ea53bd2"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t5-r2-h3-early3\\exit.json",
+      "bytes": 460,
+      "sha256": "b8c465854beea511ba4bb18930f81a4dd5c5e0b8e112977bfdbb2066e193fecc"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t5-r2-h3-early3\\events.jsonl",
+      "bytes": 5911201,
+      "sha256": "5b394982c54289f9ac7247ea22a8c8e1eeb09516d8798a1783786c1c4c450e5c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t5-r3-h1-broad\\spec.json",
+      "bytes": 1173,
+      "sha256": "4d6740105431d7557f690d6bb07799bfa21a880e9714aeef2372747cc7b5af55"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t5-r3-h1-broad\\result.json",
+      "bytes": 2212,
+      "sha256": "cb72fc80d2381b0c9394ed6b746183971111f6a5b28c946daef59be61a364fac"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t5-r3-h1-broad\\exit.json",
+      "bytes": 276,
+      "sha256": "8552000c81c1e1d8a2573bd07045c8df16c59cf279e113e42b1aa172821ef43f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t5-r3-h1-broad\\events.jsonl",
+      "bytes": 3569148,
+      "sha256": "b8da47280c2b2f607915c739a8738320df75330d8c8b75a755293531f5ad8f4b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t5-r3-h1-early3\\spec.json",
+      "bytes": 1478,
+      "sha256": "e48aaa741f20cc83ace83ec020a3d5ff8ca16b73ccd18905d7a73927b5a8ce64"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t5-r3-h1-early3\\result.json",
+      "bytes": 2394,
+      "sha256": "568a20c78ec16f23dd9628eef5755497c760c4888685bcea533afa693d957529"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t5-r3-h1-early3\\exit.json",
+      "bytes": 461,
+      "sha256": "9d563be84c07cf4b41d7fe237824a0dc785d98a131098059467c4714375bd420"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t5-r3-h1-early3\\events.jsonl",
+      "bytes": 4270196,
+      "sha256": "452a9d10894dc2e462be5c72de20127407b28c1c689e1293ab3c41f4378d2a35"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-neither\\exit.json",
+      "bytes": 380,
+      "sha256": "98e1db273b30ce3940a7cc9bfcc0058d3bd467451b0c8a21d8cf20fa5a98d6b6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-basal-only\\exit.json",
+      "bytes": 386,
+      "sha256": "7ac813f7be30038cfba6895d4e6b7e4e941508a5d0990c57f832ce3816d1a76a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-prism-only\\exit.json",
+      "bytes": 385,
+      "sha256": "e2ca5c04280c70bfd8df4ba0af79ebe74948d36cda45dcf7ee3f697a8eef199a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-retired-2026-10-21\\hil-large-batch-oct11\\out\\hil-large-batch-oct11\\rows\\oct11-hil-cold-step-t14p4-f0p1-cfl0p025-both\\exit.json",
+      "bytes": 373,
+      "sha256": "3a32b3b4a0edb7a452970ce6b6edc8f5f57e218982a60a7f27717b87e6b4aae1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-neither\\spec.json",
+      "bytes": 1307,
+      "sha256": "23394ffb73b27e9c2bda59f0918ef021a527ab9e6e6bbe65061088238f278bf4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-neither\\result.json",
+      "bytes": 2307,
+      "sha256": "7c5d0a34d0e20f72509515de38d25ec5ca3f1b6dc39f9cb1854a85782d6d9dab"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-neither\\events.jsonl",
+      "bytes": 4678602,
+      "sha256": "1fdc0a8811d695f3137592c98e260df01c45b8ae3113fbfecc47ed8cf0f7104d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-neither\\exit.json",
+      "bytes": 372,
+      "sha256": "58839808ce8130447674719ef3961e773407101b78c4d656ac4dc6152b9b8c45"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-basal-only\\spec.json",
+      "bytes": 1316,
+      "sha256": "b17c08b9286f5cab66ba4aa5649849c45d3de4041fa740b971580decc9fba555"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-basal-only\\result.json",
+      "bytes": 2312,
+      "sha256": "6787ae9090ac6bc2b3f91a94e5cca39d7a24a4e01080cc51aadc85c9fe7f9e5c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-basal-only\\events.jsonl",
+      "bytes": 4411087,
+      "sha256": "3afa0026c26287c3cffe01eb9903500325d7f67033255614914e99a569f93748"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-basal-only\\exit.json",
+      "bytes": 378,
+      "sha256": "d358743b7c0a5eba958c15beed77a481d4f9db061f430ff3042d67309adedd6f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-prism-only\\spec.json",
+      "bytes": 1316,
+      "sha256": "3d3fffb0121b01c1cd8b7cc28e0368a1cadd89f9c11f97736a31e8e7003234e3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-prism-only\\result.json",
+      "bytes": 2309,
+      "sha256": "25baa1f2306b7c8cbd8a1e637e94132ee6e13455c9db157474b1f98884264a68"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-prism-only\\events.jsonl",
+      "bytes": 2084851,
+      "sha256": "63c4f2d23e7a4853b98de922d887788a3d17bd424fbb8e17b76b5112907de3dc"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-prism-only\\exit.json",
+      "bytes": 377,
+      "sha256": "60de733795160ed726fe809bf1b2d73b1dee7819d2a89186afe62086165b8d88"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-both\\spec.json",
+      "bytes": 1298,
+      "sha256": "8db9b8d3d6f0982ce079733ebeb3ff33cf0cf360dd7738bd19e9396792258f47"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-both\\result.json",
+      "bytes": 2297,
+      "sha256": "f480d1438aa0ef963571f9a9c8552b6fd18dc6f9ab9fd51e1114d17596454e72"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-both\\events.jsonl",
+      "bytes": 2077335,
+      "sha256": "e8e6f2255ecfa7f7aa18cb8183e83646c4822046c7652b9dc7dbbb5412a8d912"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-both\\exit.json",
+      "bytes": 365,
+      "sha256": "48e2aa71805ac70911e9f13661868d47dab5c1ee37d6b0652a855110b3728492"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r3-h1-neither\\spec.json",
+      "bytes": 1307,
+      "sha256": "15404ea0accb66696edea5487ef4f9acb85d1b9e4027e2d87848cde4c18162b0"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r3-h1-neither\\result.json",
+      "bytes": 2310,
+      "sha256": "edcbcfdbdfa8721c2b9f63fbe46260df9d7f788df782761b43b8ca572975268d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r3-h1-neither\\events.jsonl",
+      "bytes": 5630128,
+      "sha256": "4499a6ddd5e4abfac55eb9e120a68c73f815d75f1535d07ea4cb50ce448a9486"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r3-h1-neither\\exit.json",
+      "bytes": 372,
+      "sha256": "5f206ed3887978b705131b621717305283747d29f98598f84bf7424e05b243ce"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r3-h1-basal-only\\spec.json",
+      "bytes": 1316,
+      "sha256": "b3fca9231ff71b69d09762cce4199da73af7e42d7cdd6f00409ec694d48ccf3b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r3-h1-basal-only\\result.json",
+      "bytes": 2319,
+      "sha256": "69d00a701344daf96209ff7e86c6d705da376e3cdf7a5848bfe387449b80e4e9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r3-h1-basal-only\\events.jsonl",
+      "bytes": 5589265,
+      "sha256": "b168e6f6f20a960094177b7ad15fdfcd0b0e2d91e18f24eb4fc22fa8d8a0b953"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r3-h1-basal-only\\exit.json",
+      "bytes": 378,
+      "sha256": "1b84c821a6add43b9f7c9b79d93e4616ebf14af9503bd308582cf52632e5eedd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r3-h1-prism-only\\spec.json",
+      "bytes": 1316,
+      "sha256": "da0f474f6d9796f01ec9bf6e87fd29d52e959a91d556114f0a7c548f2ca33e28"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r3-h1-prism-only\\result.json",
+      "bytes": 2314,
+      "sha256": "1d4f5e756c79ed5adb319742386c698625619141427565bbf93cbcbe53a7a3b6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r3-h1-prism-only\\events.jsonl",
+      "bytes": 1737893,
+      "sha256": "ed186f1b0e194bcd0aef47cd20bf725efb91223bf48c6c043ce2f903898a0c77"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r3-h1-prism-only\\exit.json",
+      "bytes": 377,
+      "sha256": "8eb74b8ec1099e5baacc3386341f3ce7a41200bb44b633c40d126044a077036c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r3-h1-both\\spec.json",
+      "bytes": 1298,
+      "sha256": "22dc7f57aa4799617cfe2631df1b7a3349955ffb62261d96e36bf4b9f1cc7db7"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r3-h1-both\\result.json",
+      "bytes": 2298,
+      "sha256": "26a41568a7a7730a23f87bdd0c8bc472e0cbaafcecf14a8b3242d711fbbdf283"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r3-h1-both\\events.jsonl",
+      "bytes": 1743060,
+      "sha256": "d8a5ce7d9967143edbcb07583f9b5699c420e3893b7faff7bbce85df1eb24c18"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r3-h1-both\\exit.json",
+      "bytes": 365,
+      "sha256": "9b1b0c0624d53ace0588dfd12717ab2737fa934a55b47d670d2b646f7e5d6701"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-neither\\spec.json",
+      "bytes": 1316,
+      "sha256": "5049bcd4981e4f00badf75df067d6b27e52d9b05a774875c7c05056912dfe58f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-neither\\result.json",
+      "bytes": 2316,
+      "sha256": "1b06503f8b281b060e839621c45921db6befb48f8e85cf2b71feab4463e456bb"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-neither\\events.jsonl",
+      "bytes": 4785213,
+      "sha256": "6d09dcebe3111f0afbdee1a5a70eb6e903aa1a9f2a3efa1e52a38bcf752afbae"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-neither\\exit.json",
+      "bytes": 379,
+      "sha256": "27479c0e28ea064a5c30f2cb8caf4114b4eb6a35b1ed5633f6e2845ef0f950fd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-basal-only\\spec.json",
+      "bytes": 1325,
+      "sha256": "67ddf7f5786a738e577eb3233f1bc918a2432d71eb3fd021cb0f1b785520cdce"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-basal-only\\result.json",
+      "bytes": 2325,
+      "sha256": "2ddabf8b12508d253e400e0115f7b621131c809597b2c8f974d1afb621a1ca60"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-basal-only\\events.jsonl",
+      "bytes": 4828775,
+      "sha256": "c96b70b8e342a7279a6121a8b488208a504ab368d143811c9248a3c7905ec4ec"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-basal-only\\exit.json",
+      "bytes": 385,
+      "sha256": "544e18074c3ca56c70be4d92fee0870263cb5b4a3404059d8928beae669341f1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-prism-only\\spec.json",
+      "bytes": 1325,
+      "sha256": "f8ef6da58a6eb4b11f5ae9756838ffb92f5a5a19ad1aefe98cc112526e44b633"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-prism-only\\result.json",
+      "bytes": 2318,
+      "sha256": "bfebdaf0f9482eb5bb499924203ecb03e955866a0bc052d00cb297a5efd0582d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-prism-only\\events.jsonl",
+      "bytes": 1984118,
+      "sha256": "d0b2cebd87f68aaef7650f850a24151575e6d7c2fc45d9c6070b6a8ada8a2205"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-prism-only\\exit.json",
+      "bytes": 384,
+      "sha256": "125c3c2c466706e746048514bee6352eec5abaa0129c6e48f42e177f24b80964"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-both\\spec.json",
+      "bytes": 1307,
+      "sha256": "eacd4dc10cc2935f25015bf9c7f57d67f0ffcc83e214f3af09be749c6369a5e9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-both\\result.json",
+      "bytes": 2306,
+      "sha256": "7197b08becaf6d0448e6e7cb295376d7063d78e6cc804f00362c5cb3fd85f228"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-both\\events.jsonl",
+      "bytes": 1977148,
+      "sha256": "cb508e2ee5b91cea2b3222c3d59512d532cf0c07deac7e1be489782a9c0ff69a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-both\\exit.json",
+      "bytes": 372,
+      "sha256": "b8e234aa97eddc43ea5d5ba36d6e693c5b6e49e87af9f72c34fc35d9a1a6450e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p202650-neither\\spec.json",
+      "bytes": 1313,
+      "sha256": "fca39510303ff7e618c4ea7b6b0be50fab220c8a84aa225c67e8aafcdb03e162"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p202650-neither\\result.json",
+      "bytes": 2314,
+      "sha256": "05ec8f9230692db8d49b8b483dc222de75800bfda7f33124213779c3c7aa5b45"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p202650-neither\\events.jsonl",
+      "bytes": 5557753,
+      "sha256": "8982cea38d0f799d00c3ac4e8df80d8020a72fd272f29bc8af68c2113be54432"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p202650-neither\\exit.json",
+      "bytes": 378,
+      "sha256": "5d3f0a3bcd7a80f9b4ea3c5c5450d72f9ed174fba1d061dd7ddbe67553fca980"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p202650-basal-only\\spec.json",
+      "bytes": 1322,
+      "sha256": "36704be59ee2cd740515f21e9c2d43b9d942ba2e50a955a0c64cda8e89d592be"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p202650-basal-only\\result.json",
+      "bytes": 2322,
+      "sha256": "2b2cdb73bc7cb7a77dab14c898c8a4ffd0feb9d84b27db2175b2de3a7f3e4a51"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p202650-basal-only\\events.jsonl",
+      "bytes": 5310239,
+      "sha256": "53bc7316d774d52bfe0187383990f04ce0a7491cd443a926c74edb1067d7d90d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p202650-basal-only\\exit.json",
+      "bytes": 384,
+      "sha256": "c441813e1bdf2d9b46637c0d1245f9034427982fe0e4a65832c3f1917d7e4bdd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p202650-prism-only\\spec.json",
+      "bytes": 1322,
+      "sha256": "def997815bc0097a6d882c8bd43b9ce30ffdea04aa056486d8b66220cf8493fb"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p202650-prism-only\\result.json",
+      "bytes": 2314,
+      "sha256": "044c59be22ae9d1a0f24a8c32d1d0b981118260a03f7934e3a4324099adef08d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p202650-prism-only\\events.jsonl",
+      "bytes": 1972041,
+      "sha256": "ac57165e5864aae1ff2399ca57eff7343f5eae032b50051a1e488d26403f0b24"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p202650-prism-only\\exit.json",
+      "bytes": 383,
+      "sha256": "8be530d45e16ccfd6fb316c2233519291477c8d13e4b9a5d62cc189182af0a5a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p202650-both\\spec.json",
+      "bytes": 1304,
+      "sha256": "fd90e0824ddbcf60ed4bd4b9bd1d46a18ec3848cb02c7a6dd22468f1953d5079"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p202650-both\\result.json",
+      "bytes": 2304,
+      "sha256": "f436964344cb56e7982a583ff314c44bb49c02d63bf784d0a78cd6be0c7658ea"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p202650-both\\events.jsonl",
+      "bytes": 1956955,
+      "sha256": "a4e70ffa87a69e8ae6ca7dee16fee6fc031fb49a92b0b9603eac17b76e60d6e8"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p202650-both\\exit.json",
+      "bytes": 371,
+      "sha256": "a239bc820d9f7667f0be7bafe1aca8355a2a88c0f50b74ae4b3ecc7cc057d927"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-fLow-broad\\exit.json",
+      "bytes": 264,
+      "sha256": "2697c17142d9b2815b8b1a20d953da50732754d5fdfad816f8c43307b77e33ae"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early3\\spec.json",
+      "bytes": 1479,
+      "sha256": "1241292ad6006b7b8dfe638bafdce7e7dac879beb89b23c4db5786a6a19bc416"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early3\\result.json",
+      "bytes": 2394,
+      "sha256": "308f633fabbdc26715a086bcc34c70a9f17240cc1f59ee7641256f3d0445a345"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early3\\exit.json",
+      "bytes": 461,
+      "sha256": "e97d899eb8f854ec094a44666f855868d46bff3c53bb993ee958ec1ee533601d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early3\\events.jsonl",
+      "bytes": 5160455,
+      "sha256": "b9c3138083240f84bf0c4cf37c9d3c3fa19a42dada08d684ebc0b71316df508f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early4\\spec.json",
+      "bytes": 1479,
+      "sha256": "d5ef2d7daa71d20b6bbe196f5c6a4d94030d7a60a4b28d34a16680e86166a626"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early4\\result.json",
+      "bytes": 2398,
+      "sha256": "f5970a28b4cff9d49f4cb4accf710c7b8dc58572ef6f9242d4f52972a848f65c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early4\\exit.json",
+      "bytes": 461,
+      "sha256": "52da924b2246c38a582a455294da581902df5e9edf305fdffa71d06805e4b176"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early4\\events.jsonl",
+      "bytes": 5078592,
+      "sha256": "917c5a29872b96244ed46d3b27f5c080cadb8cef151cf3b197e0d7982b5db4fc"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-fHigh-broad\\exit.json",
+      "bytes": 265,
+      "sha256": "2e9fd7a0e13aac42252520dd76bda4fb51e2c36859abb99424e137dc54a4604b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early3\\spec.json",
+      "bytes": 1476,
+      "sha256": "2dfcfb785fd080c4da55e823de241a547cc08c7688af1dec70fcbd1893122f93"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early3\\result.json",
+      "bytes": 2401,
+      "sha256": "354dc93d8c61575d07b68a8c8c1dcf19009962ec55dcd29523a487e4edb3da00"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early3\\exit.json",
+      "bytes": 460,
+      "sha256": "9f81eaab7b2cdba8ee8729d7e8193d9a874f9a9aef9dae4bf3523429a997b454"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early3\\events.jsonl",
+      "bytes": 5556614,
+      "sha256": "58936d92114fd079ff6dbd686ee71d4234556140e3a24f7fabc8ad053112aaa4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early4\\spec.json",
+      "bytes": 1476,
+      "sha256": "8ec16669b591860e5b751c4206964b38b9bcbffdbb98634a5426b14c345edbc1"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early4\\result.json",
+      "bytes": 2403,
+      "sha256": "75e85a88220fe50bc53ed77b89910923c886bd2058c5ddb58603ca9a5de67ffc"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early4\\exit.json",
+      "bytes": 460,
+      "sha256": "43cc855e8169908e56a611412a8ff289da1147c9dd59eb2ce42b8c48608a86bf"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early4\\events.jsonl",
+      "bytes": 5648721,
+      "sha256": "fd0a2b3082e10bd5c82861f94464a232e0ccd1843c0abc5e619438a2f05e9321"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-broad\\spec.json",
+      "bytes": 1184,
+      "sha256": "69bba8e0daf654e207859020f5da02bb35a26814127f6bf3b52921df4ebc3245"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-broad\\result.json",
+      "bytes": 2210,
+      "sha256": "c8c6870b649ba4406be0f9c1becdc02ef3a00a5ecf3ec3b20164c6eb8d1c10cc"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-broad\\exit.json",
+      "bytes": 274,
+      "sha256": "81e3b3745d14681b4fb8f7dd9b8caa8b1b95bedb82ddcaa8c784d98c2d7feab0"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-broad\\events.jsonl",
+      "bytes": 3719960,
+      "sha256": "594636a2cad29508126bd650667b411d5cb8c5064b4790da7654390c2fe5ec27"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-early3\\spec.json",
+      "bytes": 1489,
+      "sha256": "3b5c18af079f13d067e1534caea9b2dbac6674be0860d256249b29b42c34e149"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-early3\\result.json",
+      "bytes": 2399,
+      "sha256": "896e30838030e5539cc4ada6f123193e815d189735d4571c8cba6c7fae38f568"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-early3\\exit.json",
+      "bytes": 459,
+      "sha256": "4c9654bffbc5bdb718cc48b131e67b1f152a50854720ac4a1c2476c702f9dd87"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-early3\\events.jsonl",
+      "bytes": 5141339,
+      "sha256": "fd15e89b798c7a8644431908b87b12820af9cf1258571b39ca4d94255261be2e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-early4\\spec.json",
+      "bytes": 1489,
+      "sha256": "b923190043f4383b645f6ab63e8a073be81459e6fdf8e9f59d75071e8dcb6a4d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-early4\\result.json",
+      "bytes": 2395,
+      "sha256": "29258f6e46a308c9c7f3717f2db2358ffa6d17e6ad738ce72d1c1c1030dc7535"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-early4\\exit.json",
+      "bytes": 459,
+      "sha256": "e6b379239975fae1ffbcf82cf029b46a3b6ee16fe250c3e1c86b5607e1eb24d9"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p05-early4\\events.jsonl",
+      "bytes": 5116773,
+      "sha256": "8a95e8c5a5134d6d9c7256a42c0a4e6619d39bd6dc80960157371e8b8d0a2df8"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-broad\\spec.json",
+      "bytes": 1181,
+      "sha256": "274b8053909d04e0fa880ab629f64eb5a3dde2eb6b50f439c048c2c3fee442b4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-broad\\result.json",
+      "bytes": 2208,
+      "sha256": "ce6ca4f91b89a19dc1ee10dabcac5bd73f946ab8ac2698a0f73949f9c11e9748"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-broad\\exit.json",
+      "bytes": 273,
+      "sha256": "f1e3eab0d0a662b13b033bd8c8ac633387e16eb3a0354652ebbaec7fa29a74bb"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-broad\\events.jsonl",
+      "bytes": 4272004,
+      "sha256": "277bfccf54a8c471d35d6eea611f4c978c4670c1600dd746289433827704dd61"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-early3\\spec.json",
+      "bytes": 1486,
+      "sha256": "9e8c3370d78e0047b2cb2b204df850e88fb4c4a8f4280757ebdd0f1ca723502f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-early3\\result.json",
+      "bytes": 2398,
+      "sha256": "65a06c4799fbb992b590eeab1475e88056d920ef5264345fb2acec9b80cfecf5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-early3\\exit.json",
+      "bytes": 458,
+      "sha256": "aefa4824d057debf400870c76bc9408be34bdbdbd93608cbb70796f7278e35d0"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-early3\\events.jsonl",
+      "bytes": 5759813,
+      "sha256": "e77129bd2f35ab28c742f5189512bdc9e6110d6bcb26139a15901a4d9df85a77"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-early4\\spec.json",
+      "bytes": 1486,
+      "sha256": "18b97da9cc3605d69757ca496ffe67cc8acf5158d11f1808e12b3c8aa98ccb07"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-early4\\result.json",
+      "bytes": 2398,
+      "sha256": "6ffd975128adeddb29006e6ce8f14c8a1c559ef93f5f0de2aa66e91f2889f500"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-early4\\exit.json",
+      "bytes": 457,
+      "sha256": "45fe0c224f84f64e8a65440b7cca7e1d9637f03d3169fc9f3e3ab27daff995fd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t5-f0p1-early4\\events.jsonl",
+      "bytes": 5824141,
+      "sha256": "4445772d6bed154cf1bbdbed30303a38438722bac7188a56d926fee7fa9fc28b"
+    }
+  ]
+}

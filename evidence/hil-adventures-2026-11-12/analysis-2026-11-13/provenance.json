@@ -1,0 +1,235 @@
+{
+  "recordedAt": "2026-11-13T17:11:56.398542+00:00",
+  "analysisHead": "adda2ee30e672edc6b0598bff5e13384823feeef",
+  "node": "v24.13.1",
+  "v8": "13.6.233.17-node.40",
+  "runtimeScope": "Executed saved-data analyses using established recipe/readout logic; cohort-selection adaptations remain named local files. No production source edits or launches.",
+  "commands": [
+    "node out/hil-adventures-review-2026-11-13/warm/analyze.mjs",
+    "node out/hil-adventures-review-2026-11-13/cold/readout.mjs",
+    "node out/hil-adventures-review-2026-11-13/forcing/analyze.mjs",
+    "node out/hil-adventures-review-2026-11-13/forcing/captures.mjs"
+  ],
+  "commandCwd": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake",
+  "provenance": "Shared-context Codex/GPT-6-family analysis lanes; root skeptical interpretation check and selected raw witness recomputation. Not blind/adversarial physics review.",
+  "custody": "Local staging only for detailed readouts/recipes/raw outputs; NAS publication and successful fresh restore pending. Keep all named source directories.",
+  "continuingFineWorkerPids": [
+    30388,
+    27176,
+    26236,
+    12460
+  ],
+  "continuingFineCoordinatorPid": 21904,
+  "files": [
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\warm\\analyze.log",
+      "bytes": 2568,
+      "sha256": "6bc66f1609876bb2d891e270723a236ba34415acbf78c6ddf70166a16f35c66e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\warm\\analyze.mjs",
+      "bytes": 12989,
+      "sha256": "26577d8ae7667acc1729c0ba99964981847642fc2b45aa76dd7343140a4717b6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\warm\\artifact-hashes.json",
+      "bytes": 2257,
+      "sha256": "560212851f8665b7efab413bac0bf1d6d3818638148c5d27675347e96c843c68"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\warm\\findings.md",
+      "bytes": 5609,
+      "sha256": "d0ba231ecebee9485b2d8ebd8e4ee82e5773713a32cf89ed6a4893f8f5b3065b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\warm\\headline.json",
+      "bytes": 81849,
+      "sha256": "f5fbe9a6999bf2b69dac2aed0297e26c019cbf04006a70c19018a04fe0d04d92"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\warm\\inputs.json",
+      "bytes": 631256,
+      "sha256": "ac39fb3225e04caaada738edd0c86222b8a55a86ad1901d0e5e8badff898a296"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\warm\\summarize.py",
+      "bytes": 6848,
+      "sha256": "d1ac53d05ca222f32478723334d1cb5bf136695a9a5cb5b034a9afcedbffbb69"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\warm\\summary.json",
+      "bytes": 515086,
+      "sha256": "4e9e93218cd3483449bece387e7510035373cb3745d446ddaf7ad5010ce01b92"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\warm\\warm-comparisons.json",
+      "bytes": 1782526,
+      "sha256": "77e9b18335a9bcd262f14d7b30830b57ad94fb80bfd85eb4fff95a2f4cc70c3c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\warm\\warm-retained.json",
+      "bytes": 11904339,
+      "sha256": "c79b788fab3602b743b53fcede5d30489a4a61d8ddd1ffd123587d79ac78367c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\cold\\execution.json",
+      "bytes": 2864,
+      "sha256": "a11ae2ac59c96d7224596733686d7b1a89c48fa02fb33410c7d37bde7abf71d0"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\cold\\findings.md",
+      "bytes": 5940,
+      "sha256": "718d1b0c584fcebfbcd51ac7c81dffa4d031bd19dae31d4c2a0671a49e68e37f"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\cold\\headline.json",
+      "bytes": 3688,
+      "sha256": "b2d4393772c73f6425c199aa5f4854a9ee5ae25631b91b1b2a2e121d9a94bf1b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\cold\\inputs.json",
+      "bytes": 24563,
+      "sha256": "9016963f3e18326757bb5c0e0aed7a7815fd67abc5955042ac1bb983365443ca"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\cold\\readout.json",
+      "bytes": 1232531,
+      "sha256": "18dfd14cb5a416abca21d3585bbcbcc0da9a7302ee154435da4f960583e379e7"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\cold\\readout.mjs",
+      "bytes": 12204,
+      "sha256": "b2bff4bf9826eb191d153f3242641480e7516f766e574ce56b46a982d67142cd"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\cold\\readout.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\cold\\readout.stdout.log",
+      "bytes": 2154,
+      "sha256": "98b81e30a241f0abdbac036d5aee49c5d6677722aa30d8e94cad5f70269b2424"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\cold\\summarize.py",
+      "bytes": 8177,
+      "sha256": "dd1c73cd296e178a617e58132ac639a4804dd5a5624c81159a7f6d2ce98ea895"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\cold\\summary.json",
+      "bytes": 199675,
+      "sha256": "167214b5327891ec62d1e4a0aa4b77a151c31b6312e81c220bc9034ba38c5225"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\adv12-hil-forcing-t4p5-f0p05-early3-retained.json",
+      "bytes": 441333,
+      "sha256": "b987693c9fddcb7f6e2badcb8d7f838648362d551ce4cd4a5a3e5d4c08416a26"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\adv12-hil-forcing-t4p5-f0p05-early4-retained.json",
+      "bytes": 412307,
+      "sha256": "0785875105860a0d7ab0b4986e347f8ccd28779b6d92a9d2aed008eb209c76ac"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\adv12-hil-forcing-t4p5-f0p1-early3-retained.json",
+      "bytes": 464644,
+      "sha256": "54d8f0cd4ae0d511eeeca9e89b3e6d717b80eb3be704be382ea375afe433d383"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\adv12-hil-forcing-t4p5-f0p1-early4-retained.json",
+      "bytes": 475277,
+      "sha256": "c7520fdc9f8c72386d4224f4bf9461f2321becb20217d1b346ccae5ca6f38996"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\adv12-hil-forcing-t5-f0p05-early3-retained.json",
+      "bytes": 443861,
+      "sha256": "47fddad1090f7ca47190a22aaad99f144450cdc8aa81ea7e6c0d83827a83eac4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\adv12-hil-forcing-t5-f0p05-early4-retained.json",
+      "bytes": 412443,
+      "sha256": "a40a645c89dd4a7b631d1a62654289c8258b465e74864e257168c84750a17695"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\adv12-hil-forcing-t5-f0p1-early3-retained.json",
+      "bytes": 467433,
+      "sha256": "96321da91991305ede9af7fb4533aebd3217cd687a2a0af3c9f066cacbfa1bff"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\adv12-hil-forcing-t5-f0p1-early4-retained.json",
+      "bytes": 472628,
+      "sha256": "a8813d47e6f275476ffdee5b2e66da14fdef2157abf3cf2180b73be6f9b60919"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\analyze.log",
+      "bytes": 8054,
+      "sha256": "8914ec3ccf03136680907edc34f9d5a6d114fc1eb0cb41b30cfe023d831a93a4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\analyze.mjs",
+      "bytes": 11842,
+      "sha256": "b49112639073e4f61da8ae69d44891ed8e0ddba1a0e4983936c2238a5fbf2d16"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\artifact-hashes.json",
+      "bytes": 3449,
+      "sha256": "7ad56f01be3fd7fe9e4f3197445cc9e1d3181a432e51d069e3017036503a3e01"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\captures.log",
+      "bytes": 5869,
+      "sha256": "3104ac17f7443e2f5444d1a60d0c884a4de04f826c35f7df578edc844b3511ed"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\captures.mjs",
+      "bytes": 2033,
+      "sha256": "3af146ffa78251eb99e05dcbd2e85b799daf47665c5e6af9266e7a1b22de4ca4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\findings.json",
+      "bytes": 45846,
+      "sha256": "daaf59cedfbf2b37df6246438f37dfd747a6646c451a94c9b9f08484bb90c4e0"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\findings.md",
+      "bytes": 3922,
+      "sha256": "7a58c17ede9ae17df590d20b226e390d73905f43f9e56d2245ffa1ce7d34729d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\forcing-comparisons.json",
+      "bytes": 660228,
+      "sha256": "438250fe507ff17f507dfe0d81cf0ed1df61934037fbbc010e2d5ce7888a684e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\headline.json",
+      "bytes": 46440,
+      "sha256": "4594a383cfa75e7a8957893f99fc1d71a40bbd8dcbf7861b9d045c98f407aa96"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\inputs.json",
+      "bytes": 62827,
+      "sha256": "912cd16dae8c7d5b3147cc1cd75436a53d6dba35d98a0e5482ab3c79c9a60ad4"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\preparation-stage.json",
+      "bytes": 5794,
+      "sha256": "95cc25d019f7b3db56505784e8deac709e6ae76618c737ea3354294cb7f7ec43"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\summary.json",
+      "bytes": 49026,
+      "sha256": "df227853988e1d56ded8e8ad76bd3ae5c3e287df420ae699456be34ca6ebc000"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\forcing\\switch-states.json",
+      "bytes": 491376,
+      "sha256": "b21f16f0624344eb3719e618e72243a6ae787b64d307533c501e83748688ff2d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\continuing-processes.json",
+      "bytes": 2120,
+      "sha256": "1a78fc63648c58ad4c9e7ffffd348de8bfb4b00d367679172bef03495d4fab9a"
+    }
+  ]
+}

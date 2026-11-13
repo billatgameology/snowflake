@@ -1,0 +1,28 @@
+{
+  "method": "Direct strict decode and LKSolver.restoreDiscovery of two retained solver.bin files; no advancement and no analysis report values reused.",
+  "checks": [
+    {
+      "rowId": "adv12-hil-onset-t4p5-w3-s4p25",
+      "tick": 109,
+      "simTimeSeconds": 4.274608592844379,
+      "path": "C:/Users/biao3/.codex/worktrees/hil-adventures-nov12/snowflake/out/hil-adventures-nov12/rows/adv12-hil-onset-t4p5-w3-s4p25/captures/generations/tick-109/solver.bin",
+      "solverSha256": "1db46516a2c6b257f5ddef52a033f1196788270f2ab0b35c29affa49d3c841a7",
+      "occupiedCount": 103,
+      "occupancySha256": "7b1a7e1047f6aa8f1acb004c8b3860420c9876bfba00533366c4747569be61f8",
+      "fillSha256": "a089a4821f713901de8855f302febbdfae68eb00c99b4aa4dc58af381c62abcd",
+      "latticeSigmaSha256": "0644b177392e66d1e10a7b33a14941a2fa00b30e76244deefbe5bd9efa277108"
+    },
+    {
+      "rowId": "adv12-hil-onset-t4p5-w3-s4p5",
+      "tick": 116,
+      "simTimeSeconds": 4.503949605746254,
+      "path": "C:/Users/biao3/.codex/worktrees/hil-adventures-nov12/snowflake/out/hil-adventures-nov12/rows/adv12-hil-onset-t4p5-w3-s4p5/captures/generations/tick-116/solver.bin",
+      "solverSha256": "6c50860c609df953728363d24adc6441ca497de59abd819d09f44e6e2cb1ccde",
+      "occupiedCount": 103,
+      "occupancySha256": "7b1a7e1047f6aa8f1acb004c8b3860420c9876bfba00533366c4747569be61f8",
+      "fillSha256": "0a5c1ddad6dceefc713b935d948ff4ee50351dc4dd735ceb6fe0127249e6d840",
+      "latticeSigmaSha256": "89b1ab7e570aa529df195a5ec8913dbb03b8ae331bb14069500b18da633c4208"
+    }
+  ],
+  "occupancyBytesIdentical": true
+}

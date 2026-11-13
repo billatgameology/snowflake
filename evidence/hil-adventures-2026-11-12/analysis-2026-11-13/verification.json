@@ -1,0 +1,34 @@
+{
+  "scope": "Saved-data analysis records and pure prose; existing scientific readers reused, no numerical production source changed. No full-suite or gate claim.",
+  "checks": [
+    {
+      "command": "npx.cmd vitest run runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts",
+      "initialResult": "16 passed / 2 failed: new manifest keys incorrectly included evidence/ prefix; corrected to evidence-relative paths.",
+      "correctedResult": "18 passed in 2 files, exit0 at2026-11-13 09:11Pacific; final artifact receipt inclusion rechecked before commit."
+    },
+    {
+      "command": "npm.cmd run lint:rule7",
+      "result": "clean, exit0"
+    },
+    {
+      "command": "git diff --cached --check",
+      "result": "recorded in commit-time tool output; required clean before commit"
+    }
+  ],
+  "review": {
+    "model": "Codex/GPT-6 family",
+    "sharedContext": true,
+    "rootIndependentChecks": [
+      "All46 result/exit pairs checked for size-target, empty integrity errors and exit0.",
+      "248 spec/result/event/exit files from62 cohort rows rehashed.",
+      "Warm original solver states strict-decoded and full occupancy bytes independently compared.",
+      "Cold selected core/tip witnesses independently reconstructed from raw coordinates."
+    ],
+    "notChecked": [
+      "Independent full replay of every lane metric",
+      "New timestep or grid convergence",
+      "Physical causality or validation",
+      "NAS publication/fresh restore"
+    ]
+  }
+}

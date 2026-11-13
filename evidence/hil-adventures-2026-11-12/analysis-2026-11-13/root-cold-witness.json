@@ -1,0 +1,45 @@
+{
+  "method": "Independent Python coordinate-set reconstruction from seed and raw attached coords; first absent hex-radius site determines full core. No project readout called. Selected witness check only, not whole-cohort replication.",
+  "checks": [
+    {
+      "rowId": "adv12-hil-cold-seed-t14p4-r2-h3-neither",
+      "cycle": 1015,
+      "simTimeSeconds": 33.35893598992376,
+      "coreCells": 7,
+      "tipCells": 8,
+      "gapCells": 1,
+      "specSha256": "23394ffb73b27e9c2bda59f0918ef021a527ab9e6e6bbe65061088238f278bf4",
+      "eventsSha256": "1fdc0a8811d695f3137592c98e260df01c45b8ae3113fbfecc47ed8cf0f7104d"
+    },
+    {
+      "rowId": "adv12-hil-cold-seed-t14p4-r2-h3-neither",
+      "cycle": 1016,
+      "simTimeSeconds": 33.37596288726184,
+      "coreCells": 7,
+      "tipCells": 8,
+      "gapCells": 1,
+      "specSha256": "23394ffb73b27e9c2bda59f0918ef021a527ab9e6e6bbe65061088238f278bf4",
+      "eventsSha256": "1fdc0a8811d695f3137592c98e260df01c45b8ae3113fbfecc47ed8cf0f7104d"
+    },
+    {
+      "rowId": "adv12-hil-cold-seed-t14p4-r2-h3-prism-only",
+      "cycle": 389,
+      "simTimeSeconds": 7.398157232040325,
+      "coreCells": 6,
+      "tipCells": 8,
+      "gapCells": 2,
+      "specSha256": "3d3fffb0121b01c1cd8b7cc28e0368a1cadd89f9c11f97736a31e8e7003234e3",
+      "eventsSha256": "63c4f2d23e7a4853b98de922d887788a3d17bd424fbb8e17b76b5112907de3dc"
+    },
+    {
+      "rowId": "adv12-hil-cold-seed-t14p4-r2-h3-prism-only",
+      "cycle": 390,
+      "simTimeSeconds": 7.419864717270996,
+      "coreCells": 6,
+      "tipCells": 8,
+      "gapCells": 2,
+      "specSha256": "3d3fffb0121b01c1cd8b7cc28e0368a1cadd89f9c11f97736a31e8e7003234e3",
+      "eventsSha256": "63c4f2d23e7a4853b98de922d887788a3d17bd424fbb8e17b76b5112907de3dc"
+    }
+  ]
+}

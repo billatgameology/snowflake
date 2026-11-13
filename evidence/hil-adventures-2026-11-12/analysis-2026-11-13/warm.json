@@ -1,0 +1,2381 @@
+{
+  "schema": "hil-adventures-warm-headlines-v1",
+  "analysisHead": "adda2ee30e672edc6b0598bff5e13384823feeef",
+  "node": "v24.13.1",
+  "command": [
+    "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+    "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\warm\\analyze.mjs"
+  ],
+  "scope": "Registered adventure onset and warm-seed saved-data comparisons, implementation only; no new simulation or physical validation.",
+  "provenance": "Codex adventure_current_readout subagent with inherited context; executed existing readers and adapted existing matched-cohort recipe. Not an independent physics review.",
+  "census": {
+    "distinctRows": 30,
+    "availableRegisteredAndPairCohorts": 20,
+    "onsetOperands": 20,
+    "onsetNewRows": 12,
+    "onsetNewRowsWithOriginalOpeningAtStop": 4,
+    "warmSeedOperands": 12,
+    "warmSeedNewRows": 8,
+    "warmSeedNewRowsWithOriginalOpeningAtStop": 2,
+    "retainedStatesRead": 631
+  },
+  "onsetOutcomes": [
+    {
+      "rowId": "cf11-hil-a-t4p5-w3-s4",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 4.9,
+      "original": {
+        "count": 4,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0.35,
+        "maxDepthUm": 0.35
+      },
+      "actualSwitchSeconds": 4.013214020291431,
+      "terminalTimeSeconds": 76.92909865671278
+    },
+    {
+      "rowId": "cf11-hil-a-t4p5-w4-s4",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 4.9,
+      "original": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "actualSwitchSeconds": 4.024584702564979,
+      "terminalTimeSeconds": 76.96288123040168
+    },
+    {
+      "rowId": "adv12-hil-onset-t4p5-w3-s4p25",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 4.9,
+      "original": {
+        "count": 4,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0.35,
+        "maxTipAdvanceWhileOpenUm": 0.7,
+        "maxDepthUm": 0.7
+      },
+      "actualSwitchSeconds": 4.274608592844379,
+      "terminalTimeSeconds": 76.95190333194408
+    },
+    {
+      "rowId": "adv12-hil-onset-t4p5-w4-s4p25",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 4.9,
+      "original": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "actualSwitchSeconds": 4.251150385452198,
+      "terminalTimeSeconds": 76.80030155799003
+    },
+    {
+      "rowId": "adv12-hil-onset-t4p5-w3-s4p5",
+      "terminalDepthUm": 2.0999999999999996,
+      "terminalOpenLayers": 14,
+      "terminalAddedWaistUm": 0,
+      "original": {
+        "count": 4,
+        "survivingAtStop": 4,
+        "maxPostCutoffTipAdvanceUm": 1.75,
+        "maxTipAdvanceWhileOpenUm": 2.0999999999999996,
+        "maxDepthUm": 2.0999999999999996
+      },
+      "actualSwitchSeconds": 4.503949605746254,
+      "terminalTimeSeconds": 76.8028660825055
+    },
+    {
+      "rowId": "adv12-hil-onset-t4p5-w4-s4p5",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 4.9,
+      "original": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "actualSwitchSeconds": 4.513384775645075,
+      "terminalTimeSeconds": 76.75656534627117
+    },
+    {
+      "rowId": "adv12-hil-onset-t4p5-w3-s4p75",
+      "terminalDepthUm": 2.0999999999999996,
+      "terminalOpenLayers": 14,
+      "terminalAddedWaistUm": 0,
+      "original": {
+        "count": 4,
+        "survivingAtStop": 4,
+        "maxPostCutoffTipAdvanceUm": 1.75,
+        "maxTipAdvanceWhileOpenUm": 2.0999999999999996,
+        "maxDepthUm": 2.0999999999999996
+      },
+      "actualSwitchSeconds": 4.77794241137409,
+      "terminalTimeSeconds": 76.65761397182281
+    },
+    {
+      "rowId": "adv12-hil-onset-t4p5-w4-s4p75",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 4.9,
+      "original": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "actualSwitchSeconds": 4.783558209101009,
+      "terminalTimeSeconds": 76.99107814424598
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c025-early5-w3",
+      "terminalDepthUm": 2.0999999999999996,
+      "terminalOpenLayers": 14,
+      "terminalAddedWaistUm": 0,
+      "original": {
+        "count": 4,
+        "survivingAtStop": 4,
+        "maxPostCutoffTipAdvanceUm": 1.75,
+        "maxTipAdvanceWhileOpenUm": 2.0999999999999996,
+        "maxDepthUm": 2.0999999999999996
+      },
+      "actualSwitchSeconds": 5.021064751997452,
+      "terminalTimeSeconds": 77.05818766378351
+    },
+    {
+      "rowId": "gd21-bld-w2-t4p5-w4-early5",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 4.9,
+      "original": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "actualSwitchSeconds": 5.026772717363253,
+      "terminalTimeSeconds": 77.27576076756682
+    },
+    {
+      "rowId": "cf11-hil-a-t5-w3-s4",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 5.6,
+      "original": {
+        "count": 4,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0.35,
+        "maxTipAdvanceWhileOpenUm": 0.35,
+        "maxDepthUm": 0.35
+      },
+      "actualSwitchSeconds": 4.016349819321067,
+      "terminalTimeSeconds": 77.49374968537998
+    },
+    {
+      "rowId": "cf11-hil-a-t5-w4-s4",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 5.6,
+      "original": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "actualSwitchSeconds": 4.027595365950434,
+      "terminalTimeSeconds": 77.71748513748722
+    },
+    {
+      "rowId": "adv12-hil-onset-t5-w3-s4p25",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 5.6,
+      "original": {
+        "count": 4,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0.35,
+        "maxTipAdvanceWhileOpenUm": 0.7,
+        "maxDepthUm": 0.7
+      },
+      "actualSwitchSeconds": 4.259465703423262,
+      "terminalTimeSeconds": 77.83475928110897
+    },
+    {
+      "rowId": "adv12-hil-onset-t5-w4-s4p25",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 5.6,
+      "original": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "actualSwitchSeconds": 4.269586771658589,
+      "terminalTimeSeconds": 77.81132700056338
+    },
+    {
+      "rowId": "adv12-hil-onset-t5-w3-s4p5",
+      "terminalDepthUm": 2.4499999999999997,
+      "terminalOpenLayers": 16,
+      "terminalAddedWaistUm": 0,
+      "original": {
+        "count": 4,
+        "survivingAtStop": 4,
+        "maxPostCutoffTipAdvanceUm": 2.0999999999999996,
+        "maxTipAdvanceWhileOpenUm": 2.4499999999999997,
+        "maxDepthUm": 2.4499999999999997
+      },
+      "actualSwitchSeconds": 4.5043304044726895,
+      "terminalTimeSeconds": 77.79642304777623
+    },
+    {
+      "rowId": "adv12-hil-onset-t5-w4-s4p5",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 5.6,
+      "original": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "actualSwitchSeconds": 4.512819055263831,
+      "terminalTimeSeconds": 78.04516317089703
+    },
+    {
+      "rowId": "adv12-hil-onset-t5-w3-s4p75",
+      "terminalDepthUm": 2.4499999999999997,
+      "terminalOpenLayers": 16,
+      "terminalAddedWaistUm": 0,
+      "original": {
+        "count": 4,
+        "survivingAtStop": 4,
+        "maxPostCutoffTipAdvanceUm": 2.0999999999999996,
+        "maxTipAdvanceWhileOpenUm": 2.4499999999999997,
+        "maxDepthUm": 2.4499999999999997
+      },
+      "actualSwitchSeconds": 4.760810040570786,
+      "terminalTimeSeconds": 78.1200505952054
+    },
+    {
+      "rowId": "adv12-hil-onset-t5-w4-s4p75",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 5.6,
+      "original": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "actualSwitchSeconds": 4.767798310978447,
+      "terminalTimeSeconds": 78.39428080577105
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c025-early5-w3",
+      "terminalDepthUm": 2.4499999999999997,
+      "terminalOpenLayers": 16,
+      "terminalAddedWaistUm": 0,
+      "original": {
+        "count": 4,
+        "survivingAtStop": 4,
+        "maxPostCutoffTipAdvanceUm": 2.0999999999999996,
+        "maxTipAdvanceWhileOpenUm": 2.4499999999999997,
+        "maxDepthUm": 2.4499999999999997
+      },
+      "actualSwitchSeconds": 5.017293754009521,
+      "terminalTimeSeconds": 78.2512821450586
+    },
+    {
+      "rowId": "gd21-bld-w2-t5-w4-early5",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 5.6,
+      "original": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "actualSwitchSeconds": 5.024371940920387,
+      "terminalTimeSeconds": 78.49621194122716
+    }
+  ],
+  "seedOutcomes": [
+    {
+      "rowId": "adv12-hil-warm-seed-t4p5-r2-h3-broad",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 3.5,
+      "original": null,
+      "actualSwitchSeconds": null,
+      "terminalTimeSeconds": 73.03037129412942
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t4p5-r2-h3-early3",
+      "terminalDepthUm": 2.0999999999999996,
+      "terminalOpenLayers": 14,
+      "terminalAddedWaistUm": 0,
+      "original": {
+        "count": 4,
+        "survivingAtStop": 4,
+        "maxPostCutoffTipAdvanceUm": 1.75,
+        "maxTipAdvanceWhileOpenUm": 2.0999999999999996,
+        "maxDepthUm": 2.0999999999999996
+      },
+      "actualSwitchSeconds": 5.017706009082112,
+      "terminalTimeSeconds": 79.92785204806573
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t4p5-r3-h1-broad",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 3.4999999999999996,
+      "original": null,
+      "actualSwitchSeconds": null,
+      "terminalTimeSeconds": 62.56212989615713
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t4p5-r3-h1-early3",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 3.4999999999999996,
+      "original": {
+        "count": 0,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "actualSwitchSeconds": 5.0574317487287335,
+      "terminalTimeSeconds": 63.078425466227365
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t5-r2-h3-broad",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 4.2,
+      "original": null,
+      "actualSwitchSeconds": null,
+      "terminalTimeSeconds": 74.6052930588931
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t5-r2-h3-early3",
+      "terminalDepthUm": 2.4499999999999997,
+      "terminalOpenLayers": 16,
+      "terminalAddedWaistUm": 0,
+      "original": {
+        "count": 4,
+        "survivingAtStop": 4,
+        "maxPostCutoffTipAdvanceUm": 2.0999999999999996,
+        "maxTipAdvanceWhileOpenUm": 2.4499999999999997,
+        "maxDepthUm": 2.4499999999999997
+      },
+      "actualSwitchSeconds": 5.0125434489849505,
+      "terminalTimeSeconds": 81.09191607182957
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t5-r3-h1-broad",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 3.4999999999999996,
+      "original": null,
+      "actualSwitchSeconds": null,
+      "terminalTimeSeconds": 63.895868653928645
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t5-r3-h1-early3",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 3.4999999999999996,
+      "original": {
+        "count": 0,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "actualSwitchSeconds": 5.052394752804059,
+      "terminalTimeSeconds": 63.80315062890071
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c025-broad",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 3.4999999999999996,
+      "original": null,
+      "actualSwitchSeconds": null,
+      "terminalTimeSeconds": 68.14246662448986
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c025-early5-w3",
+      "terminalDepthUm": 2.0999999999999996,
+      "terminalOpenLayers": 14,
+      "terminalAddedWaistUm": 0,
+      "original": {
+        "count": 4,
+        "survivingAtStop": 4,
+        "maxPostCutoffTipAdvanceUm": 1.75,
+        "maxTipAdvanceWhileOpenUm": 2.0999999999999996,
+        "maxDepthUm": 2.0999999999999996
+      },
+      "actualSwitchSeconds": 5.021064751997452,
+      "terminalTimeSeconds": 77.05818766378351
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c025-broad",
+      "terminalDepthUm": 0,
+      "terminalOpenLayers": 0,
+      "terminalAddedWaistUm": 4.2,
+      "original": null,
+      "actualSwitchSeconds": null,
+      "terminalTimeSeconds": 69.66051358642197
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c025-early5-w3",
+      "terminalDepthUm": 2.4499999999999997,
+      "terminalOpenLayers": 16,
+      "terminalAddedWaistUm": 0,
+      "original": {
+        "count": 4,
+        "survivingAtStop": 4,
+        "maxPostCutoffTipAdvanceUm": 2.0999999999999996,
+        "maxTipAdvanceWhileOpenUm": 2.4499999999999997,
+        "maxDepthUm": 2.4499999999999997
+      },
+      "actualSwitchSeconds": 5.017293754009521,
+      "terminalTimeSeconds": 78.2512821450586
+    }
+  ],
+  "primaryCohorts": [
+    {
+      "id": "onset-primary-t4p5",
+      "rows": 10,
+      "commonTimeSeconds": 76.65761397182281,
+      "members": [
+        {
+          "rowId": "cf11-hil-a-t4p5-w3-s4",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 19.164403492955703,
+              "cycle": 507,
+              "actualTimeSeconds": 19.15983621776269,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.0999999999999996,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 508,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 38.328806985911406,
+              "cycle": 874,
+              "actualTimeSeconds": 38.32239001223336,
+              "depthUm": 0,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 4.9,
+              "nextCycle": 875,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 57.49321047886711,
+              "cycle": 1216,
+              "actualTimeSeconds": 57.4570715375374,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.199999999999999,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1217,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 76.65761397182281,
+              "cycle": 1559,
+              "actualTimeSeconds": 76.61934077644266,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": 1560,
+              "nextDepthUm": 0
+            }
+          ]
+        },
+        {
+          "rowId": "cf11-hil-a-t4p5-w4-s4",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 19.164403492955703,
+              "cycle": 511,
+              "actualTimeSeconds": 19.13973359597671,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.0999999999999996,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 512,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 38.328806985911406,
+              "cycle": 880,
+              "actualTimeSeconds": 38.326980949690444,
+              "depthUm": 0,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 4.9,
+              "nextCycle": 881,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 57.49321047886711,
+              "cycle": 1215,
+              "actualTimeSeconds": 57.369363802592346,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.199999999999999,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1216,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 76.65761397182281,
+              "cycle": 1552,
+              "actualTimeSeconds": 76.65312335013155,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": 1553,
+              "nextDepthUm": 0
+            }
+          ]
+        },
+        {
+          "rowId": "adv12-hil-onset-t4p5-w3-s4p25",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 19.164403492955703,
+              "cycle": 491,
+              "actualTimeSeconds": 19.133689214342517,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.0999999999999996,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 492,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 38.328806985911406,
+              "cycle": 833,
+              "actualTimeSeconds": 38.31411643260735,
+              "depthUm": 0,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 4.9,
+              "nextCycle": 834,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 57.49321047886711,
+              "cycle": 1163,
+              "actualTimeSeconds": 57.38500903394439,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.199999999999999,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1164,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 76.65761397182281,
+              "cycle": 1491,
+              "actualTimeSeconds": 76.64214567438869,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": 1492,
+              "nextDepthUm": 0
+            }
+          ]
+        },
+        {
+          "rowId": "adv12-hil-onset-t4p5-w4-s4p25",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 19.164403492955703,
+              "cycle": 488,
+              "actualTimeSeconds": 19.13612451148526,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.0999999999999996,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 489,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 38.328806985911406,
+              "cycle": 818,
+              "actualTimeSeconds": 38.29860626691237,
+              "depthUm": 0,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 4.9,
+              "nextCycle": 819,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 57.49321047886711,
+              "cycle": 1144,
+              "actualTimeSeconds": 57.34992775035089,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.199999999999999,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1145,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 76.65761397182281,
+              "cycle": 1470,
+              "actualTimeSeconds": 76.6454214801677,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": 1471,
+              "nextDepthUm": 0
+            }
+          ]
+        },
+        {
+          "rowId": "adv12-hil-onset-t4p5-w3-s4p5",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 19.164403492955703,
+              "cycle": 485,
+              "actualTimeSeconds": 19.142705330812046,
+              "depthUm": 0.7,
+              "addedAxialSpanUm": 2.0999999999999996,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 486,
+              "nextDepthUm": 0.7
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 38.328806985911406,
+              "cycle": 815,
+              "actualTimeSeconds": 38.28641468773919,
+              "depthUm": 1.4,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 4.9,
+              "nextCycle": 816,
+              "nextDepthUm": 1.4
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 57.49321047886711,
+              "cycle": 1150,
+              "actualTimeSeconds": 57.39681263643274,
+              "depthUm": 1.75,
+              "addedAxialSpanUm": 4.199999999999999,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1151,
+              "nextDepthUm": 1.75
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 76.65761397182281,
+              "cycle": 1478,
+              "actualTimeSeconds": 76.64805190294385,
+              "depthUm": 2.0999999999999996,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": 1479,
+              "nextDepthUm": 2.0999999999999996
+            }
+          ]
+        },
+        {
+          "rowId": "adv12-hil-onset-t4p5-w4-s4p5",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 19.164403492955703,
+              "cycle": 493,
+              "actualTimeSeconds": 19.14942375751817,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 494,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 38.328806985911406,
+              "cycle": 812,
+              "actualTimeSeconds": 38.32390857568778,
+              "depthUm": 0,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 4.9,
+              "nextCycle": 813,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 57.49321047886711,
+              "cycle": 1130,
+              "actualTimeSeconds": 57.379309440277396,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.199999999999999,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1131,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 76.65761397182281,
+              "cycle": 1445,
+              "actualTimeSeconds": 76.60168894852893,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": 1446,
+              "nextDepthUm": 0
+            }
+          ]
+        },
+        {
+          "rowId": "adv12-hil-onset-t4p5-w3-s4p75",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 19.164403492955703,
+              "cycle": 490,
+              "actualTimeSeconds": 19.16281941859407,
+              "depthUm": 1.0499999999999998,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 491,
+              "nextDepthUm": 1.0499999999999998
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 38.328806985911406,
+              "cycle": 813,
+              "actualTimeSeconds": 38.21157014583381,
+              "depthUm": 1.4,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 4.199999999999999,
+              "nextCycle": 814,
+              "nextDepthUm": 1.4
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 57.49321047886711,
+              "cycle": 1133,
+              "actualTimeSeconds": 57.421933092456804,
+              "depthUm": 1.75,
+              "addedAxialSpanUm": 4.199999999999999,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1134,
+              "nextDepthUm": 1.75
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 76.65761397182281,
+              "cycle": 1455,
+              "actualTimeSeconds": 76.65761397182281,
+              "depthUm": 2.0999999999999996,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 8.399999999999999,
+              "nextCycle": null,
+              "nextDepthUm": null
+            }
+          ]
+        },
+        {
+          "rowId": "adv12-hil-onset-t4p5-w4-s4p75",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 19.164403492955703,
+              "cycle": 493,
+              "actualTimeSeconds": 19.156779034248096,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 494,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 38.328806985911406,
+              "cycle": 839,
+              "actualTimeSeconds": 38.25083250885517,
+              "depthUm": 0,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 4.199999999999999,
+              "nextCycle": 840,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 57.49321047886711,
+              "cycle": 1179,
+              "actualTimeSeconds": 57.4514676380458,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.199999999999999,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1180,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 76.65761397182281,
+              "cycle": 1497,
+              "actualTimeSeconds": 76.52641750694924,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": 1498,
+              "nextDepthUm": 0
+            }
+          ]
+        },
+        {
+          "rowId": "gd21-bld-w1-t4p5-c025-early5-w3",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 19.164403492955703,
+              "cycle": 502,
+              "actualTimeSeconds": 19.157336558210485,
+              "depthUm": 1.0499999999999998,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 503,
+              "nextDepthUm": 1.0499999999999998
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 38.328806985911406,
+              "cycle": 851,
+              "actualTimeSeconds": 38.31925790481466,
+              "depthUm": 1.4,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 4.199999999999999,
+              "nextCycle": 852,
+              "nextDepthUm": 1.4
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 57.49321047886711,
+              "cycle": 1196,
+              "actualTimeSeconds": 57.43290332980247,
+              "depthUm": 1.75,
+              "addedAxialSpanUm": 4.199999999999999,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1197,
+              "nextDepthUm": 1.75
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 76.65761397182281,
+              "cycle": 1520,
+              "actualTimeSeconds": 76.59372005523119,
+              "depthUm": 2.0999999999999996,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": 1521,
+              "nextDepthUm": 2.0999999999999996
+            }
+          ]
+        },
+        {
+          "rowId": "gd21-bld-w2-t4p5-w4-early5",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 19.164403492955703,
+              "cycle": 502,
+              "actualTimeSeconds": 19.161348751076854,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 503,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 38.328806985911406,
+              "cycle": 860,
+              "actualTimeSeconds": 38.22431638748102,
+              "depthUm": 0,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 4.199999999999999,
+              "nextCycle": 861,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 57.49321047886711,
+              "cycle": 1213,
+              "actualTimeSeconds": 57.43987295152362,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.199999999999999,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1214,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 76.65761397182281,
+              "cycle": 1554,
+              "actualTimeSeconds": 76.65629361775075,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": 1555,
+              "nextDepthUm": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "onset-primary-t5",
+      "rows": 10,
+      "commonTimeSeconds": 77.49374968537998,
+      "members": [
+        {
+          "rowId": "cf11-hil-a-t5-w3-s4",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 19.373437421344995,
+              "cycle": 504,
+              "actualTimeSeconds": 19.371677110004434,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 505,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 38.74687484268999,
+              "cycle": 850,
+              "actualTimeSeconds": 38.71338264824655,
+              "depthUm": 0,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 4.9,
+              "nextCycle": 851,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 58.120312264034986,
+              "cycle": 1210,
+              "actualTimeSeconds": 57.99538583530181,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1211,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 77.49374968537998,
+              "cycle": 1521,
+              "actualTimeSeconds": 77.49374968537998,
+              "depthUm": 0,
+              "addedAxialSpanUm": 5.6,
+              "addedLateralSpanUm": 8.399999999999999,
+              "nextCycle": null,
+              "nextDepthUm": null
+            }
+          ]
+        },
+        {
+          "rowId": "cf11-hil-a-t5-w4-s4",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 19.373437421344995,
+              "cycle": 503,
+              "actualTimeSeconds": 19.364802077022492,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 504,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 38.74687484268999,
+              "cycle": 853,
+              "actualTimeSeconds": 38.72969593565894,
+              "depthUm": 0,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 4.9,
+              "nextCycle": 854,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 58.120312264034986,
+              "cycle": 1206,
+              "actualTimeSeconds": 58.0769126511333,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1207,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 77.49374968537998,
+              "cycle": 1512,
+              "actualTimeSeconds": 77.39987898461773,
+              "depthUm": 0,
+              "addedAxialSpanUm": 5.6,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": 1513,
+              "nextDepthUm": 0
+            }
+          ]
+        },
+        {
+          "rowId": "adv12-hil-onset-t5-w3-s4p25",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 19.373437421344995,
+              "cycle": 505,
+              "actualTimeSeconds": 19.35221292391416,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 506,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 38.74687484268999,
+              "cycle": 856,
+              "actualTimeSeconds": 38.73327470288588,
+              "depthUm": 0,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 4.9,
+              "nextCycle": 857,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 58.120312264034986,
+              "cycle": 1211,
+              "actualTimeSeconds": 58.09376278103946,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1212,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 77.49374968537998,
+              "cycle": 1517,
+              "actualTimeSeconds": 77.35835005195837,
+              "depthUm": 0,
+              "addedAxialSpanUm": 5.6,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": 1518,
+              "nextDepthUm": 0
+            }
+          ]
+        },
+        {
+          "rowId": "adv12-hil-onset-t5-w4-s4p25",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 19.373437421344995,
+              "cycle": 517,
+              "actualTimeSeconds": 19.355645889916442,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 518,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 38.74687484268999,
+              "cycle": 865,
+              "actualTimeSeconds": 38.7198852379436,
+              "depthUm": 0,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 4.9,
+              "nextCycle": 866,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 58.120312264034986,
+              "cycle": 1200,
+              "actualTimeSeconds": 58.06929308883271,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1201,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 77.49374968537998,
+              "cycle": 1516,
+              "actualTimeSeconds": 77.49372083439634,
+              "depthUm": 0,
+              "addedAxialSpanUm": 5.6,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": 1517,
+              "nextDepthUm": 0
+            }
+          ]
+        },
+        {
+          "rowId": "adv12-hil-onset-t5-w3-s4p5",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 19.373437421344995,
+              "cycle": 522,
+              "actualTimeSeconds": 19.35414518060716,
+              "depthUm": 1.0499999999999998,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 523,
+              "nextDepthUm": 1.0499999999999998
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 38.74687484268999,
+              "cycle": 870,
+              "actualTimeSeconds": 38.718658366076795,
+              "depthUm": 1.4,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 4.9,
+              "nextCycle": 871,
+              "nextDepthUm": 1.4
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 58.120312264034986,
+              "cycle": 1209,
+              "actualTimeSeconds": 58.09977782191047,
+              "depthUm": 2.0999999999999996,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1210,
+              "nextDepthUm": 2.0999999999999996
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 77.49374968537998,
+              "cycle": 1532,
+              "actualTimeSeconds": 77.47895419660054,
+              "depthUm": 2.4499999999999997,
+              "addedAxialSpanUm": 5.6,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": 1533,
+              "nextDepthUm": 2.4499999999999997
+            }
+          ]
+        },
+        {
+          "rowId": "adv12-hil-onset-t5-w4-s4p5",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 19.373437421344995,
+              "cycle": 533,
+              "actualTimeSeconds": 19.370740455686267,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 534,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 38.74687484268999,
+              "cycle": 880,
+              "actualTimeSeconds": 38.74560749840345,
+              "depthUm": 0,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 4.9,
+              "nextCycle": 881,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 58.120312264034986,
+              "cycle": 1213,
+              "actualTimeSeconds": 58.03053492076657,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1214,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 77.49374968537998,
+              "cycle": 1560,
+              "actualTimeSeconds": 77.40995097865782,
+              "depthUm": 0,
+              "addedAxialSpanUm": 5.6,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": 1561,
+              "nextDepthUm": 0
+            }
+          ]
+        },
+        {
+          "rowId": "adv12-hil-onset-t5-w3-s4p75",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 19.373437421344995,
+              "cycle": 539,
+              "actualTimeSeconds": 19.361693813642745,
+              "depthUm": 1.0499999999999998,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 540,
+              "nextDepthUm": 1.0499999999999998
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 38.74687484268999,
+              "cycle": 878,
+              "actualTimeSeconds": 38.744573975039124,
+              "depthUm": 1.75,
+              "addedAxialSpanUm": 4.199999999999999,
+              "addedLateralSpanUm": 4.9,
+              "nextCycle": 879,
+              "nextDepthUm": 1.75
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 58.120312264034986,
+              "cycle": 1225,
+              "actualTimeSeconds": 58.082644134349216,
+              "depthUm": 2.0999999999999996,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1226,
+              "nextDepthUm": 2.0999999999999996
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 77.49374968537998,
+              "cycle": 1582,
+              "actualTimeSeconds": 77.48511259021947,
+              "depthUm": 2.4499999999999997,
+              "addedAxialSpanUm": 5.6,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": 1583,
+              "nextDepthUm": 2.4499999999999997
+            }
+          ]
+        },
+        {
+          "rowId": "adv12-hil-onset-t5-w4-s4p75",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 19.373437421344995,
+              "cycle": 541,
+              "actualTimeSeconds": 19.342710716849965,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 542,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 38.74687484268999,
+              "cycle": 875,
+              "actualTimeSeconds": 38.70694684451452,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.199999999999999,
+              "addedLateralSpanUm": 4.9,
+              "nextCycle": 876,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 58.120312264034986,
+              "cycle": 1234,
+              "actualTimeSeconds": 58.0366249869758,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1235,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 77.49374968537998,
+              "cycle": 1592,
+              "actualTimeSeconds": 77.44146293289118,
+              "depthUm": 0,
+              "addedAxialSpanUm": 5.6,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": 1593,
+              "nextDepthUm": 0
+            }
+          ]
+        },
+        {
+          "rowId": "gd21-bld-w1-t5-c025-early5-w3",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 19.373437421344995,
+              "cycle": 541,
+              "actualTimeSeconds": 19.357938830135005,
+              "depthUm": 1.0499999999999998,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 542,
+              "nextDepthUm": 1.0499999999999998
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 38.74687484268999,
+              "cycle": 874,
+              "actualTimeSeconds": 38.73048060870294,
+              "depthUm": 1.75,
+              "addedAxialSpanUm": 4.199999999999999,
+              "addedLateralSpanUm": 4.9,
+              "nextCycle": 875,
+              "nextDepthUm": 1.75
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 58.120312264034986,
+              "cycle": 1236,
+              "actualTimeSeconds": 58.06586333961676,
+              "depthUm": 2.0999999999999996,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1237,
+              "nextDepthUm": 2.0999999999999996
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 77.49374968537998,
+              "cycle": 1597,
+              "actualTimeSeconds": 77.45761056854204,
+              "depthUm": 2.4499999999999997,
+              "addedAxialSpanUm": 5.6,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": 1598,
+              "nextDepthUm": 2.4499999999999997
+            }
+          ]
+        },
+        {
+          "rowId": "gd21-bld-w2-t5-w4-early5",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 19.373437421344995,
+              "cycle": 536,
+              "actualTimeSeconds": 19.36982077312304,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 537,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 38.74687484268999,
+              "cycle": 869,
+              "actualTimeSeconds": 38.71507234113511,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.199999999999999,
+              "addedLateralSpanUm": 4.9,
+              "nextCycle": 870,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 58.120312264034986,
+              "cycle": 1236,
+              "actualTimeSeconds": 57.998303284755885,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1237,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 77.49374968537998,
+              "cycle": 1578,
+              "actualTimeSeconds": 77.38459327129893,
+              "depthUm": 0,
+              "addedAxialSpanUm": 5.6,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": 1579,
+              "nextDepthUm": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "warm-seed-primary-t4p5",
+      "rows": 6,
+      "commonTimeSeconds": 62.56212989615713,
+      "members": [
+        {
+          "rowId": "gd21-bld-w1-t4p5-c025-broad",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 15.640532474039283,
+              "cycle": 362,
+              "actualTimeSeconds": 15.619915534481665,
+              "depthUm": 0,
+              "addedAxialSpanUm": 1.4,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 363,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 31.281064948078566,
+              "cycle": 655,
+              "actualTimeSeconds": 31.22112783455138,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.0999999999999996,
+              "addedLateralSpanUm": 4.199999999999999,
+              "nextCycle": 656,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 46.92159742211785,
+              "cycle": 898,
+              "actualTimeSeconds": 46.903261016809694,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 899,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 62.56212989615713,
+              "cycle": 1156,
+              "actualTimeSeconds": 62.55154475454507,
+              "depthUm": 0,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": 1157,
+              "nextDepthUm": 0
+            }
+          ]
+        },
+        {
+          "rowId": "gd21-bld-w1-t4p5-c025-early5-w3",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 15.640532474039283,
+              "cycle": 436,
+              "actualTimeSeconds": 15.628563907579922,
+              "depthUm": 0.7,
+              "addedAxialSpanUm": 2.0999999999999996,
+              "addedLateralSpanUm": 2.1,
+              "nextCycle": 437,
+              "nextDepthUm": 0.7
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 31.281064948078566,
+              "cycle": 734,
+              "actualTimeSeconds": 31.26884062779932,
+              "depthUm": 1.4,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 4.199999999999999,
+              "nextCycle": 735,
+              "nextDepthUm": 1.4
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 46.92159742211785,
+              "cycle": 1012,
+              "actualTimeSeconds": 46.91151377408577,
+              "depthUm": 1.75,
+              "addedAxialSpanUm": 4.199999999999999,
+              "addedLateralSpanUm": 5.6,
+              "nextCycle": 1013,
+              "nextDepthUm": 1.75
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 62.56212989615713,
+              "cycle": 1267,
+              "actualTimeSeconds": 62.52202320022428,
+              "depthUm": 2.0999999999999996,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 6.999999999999998,
+              "nextCycle": 1268,
+              "nextDepthUm": 2.0999999999999996
+            }
+          ]
+        },
+        {
+          "rowId": "adv12-hil-warm-seed-t4p5-r2-h3-broad",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 15.640532474039283,
+              "cycle": 345,
+              "actualTimeSeconds": 15.613203474489957,
+              "depthUm": 0,
+              "addedAxialSpanUm": 1.3999999999999997,
+              "addedLateralSpanUm": 2.1,
+              "nextCycle": 346,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 31.281064948078566,
+              "cycle": 682,
+              "actualTimeSeconds": 31.24916791120594,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.0999999999999996,
+              "addedLateralSpanUm": 4.199999999999999,
+              "nextCycle": 683,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 46.92159742211785,
+              "cycle": 946,
+              "actualTimeSeconds": 46.85851271987334,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 5.6,
+              "nextCycle": 947,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 62.56212989615713,
+              "cycle": 1213,
+              "actualTimeSeconds": 62.46931952823189,
+              "depthUm": 0,
+              "addedAxialSpanUm": 3.499999999999999,
+              "addedLateralSpanUm": 6.999999999999998,
+              "nextCycle": 1214,
+              "nextDepthUm": 0
+            }
+          ]
+        },
+        {
+          "rowId": "adv12-hil-warm-seed-t4p5-r2-h3-early3",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 15.640532474039283,
+              "cycle": 410,
+              "actualTimeSeconds": 15.634774696363671,
+              "depthUm": 0.7,
+              "addedAxialSpanUm": 2.0999999999999996,
+              "addedLateralSpanUm": 2.1,
+              "nextCycle": 411,
+              "nextDepthUm": 0.7
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 31.281064948078566,
+              "cycle": 703,
+              "actualTimeSeconds": 31.258272127699726,
+              "depthUm": 1.4,
+              "addedAxialSpanUm": 3.499999999999999,
+              "addedLateralSpanUm": 3.4999999999999996,
+              "nextCycle": 704,
+              "nextDepthUm": 1.4
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 46.92159742211785,
+              "cycle": 993,
+              "actualTimeSeconds": 46.90243188752247,
+              "depthUm": 1.75,
+              "addedAxialSpanUm": 4.199999999999999,
+              "addedLateralSpanUm": 4.9,
+              "nextCycle": 994,
+              "nextDepthUm": 1.75
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 62.56212989615713,
+              "cycle": 1277,
+              "actualTimeSeconds": 62.54729946459876,
+              "depthUm": 2.0999999999999996,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1278,
+              "nextDepthUm": 2.0999999999999996
+            }
+          ]
+        },
+        {
+          "rowId": "adv12-hil-warm-seed-t4p5-r3-h1-broad",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 15.640532474039283,
+              "cycle": 336,
+              "actualTimeSeconds": 15.63166294012275,
+              "depthUm": 0,
+              "addedAxialSpanUm": 1.4,
+              "addedLateralSpanUm": 2.8,
+              "nextCycle": 337,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 31.281064948078566,
+              "cycle": 646,
+              "actualTimeSeconds": 31.172588115047734,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.0999999999999996,
+              "addedLateralSpanUm": 4.2,
+              "nextCycle": 647,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 46.92159742211785,
+              "cycle": 898,
+              "actualTimeSeconds": 46.81294538869156,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 5.6,
+              "nextCycle": 899,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 62.56212989615713,
+              "cycle": 1157,
+              "actualTimeSeconds": 62.56212989615713,
+              "depthUm": 0,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": null,
+              "nextDepthUm": null
+            }
+          ]
+        },
+        {
+          "rowId": "adv12-hil-warm-seed-t4p5-r3-h1-early3",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 15.640532474039283,
+              "cycle": 346,
+              "actualTimeSeconds": 15.627995451890131,
+              "depthUm": 0,
+              "addedAxialSpanUm": 1.4,
+              "addedLateralSpanUm": 2.8,
+              "nextCycle": 347,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 31.281064948078566,
+              "cycle": 663,
+              "actualTimeSeconds": 31.2639307970124,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.0999999999999996,
+              "addedLateralSpanUm": 4.2,
+              "nextCycle": 664,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 46.92159742211785,
+              "cycle": 890,
+              "actualTimeSeconds": 46.82886704142563,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 5.6,
+              "nextCycle": 891,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 62.56212989615713,
+              "cycle": 1140,
+              "actualTimeSeconds": 62.49247823612391,
+              "depthUm": 0,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 7,
+              "nextCycle": 1141,
+              "nextDepthUm": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "warm-seed-primary-t5",
+      "rows": 6,
+      "commonTimeSeconds": 63.80315062890071,
+      "members": [
+        {
+          "rowId": "gd21-bld-w1-t5-c025-broad",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 15.950787657225177,
+              "cycle": 420,
+              "actualTimeSeconds": 15.95077135460867,
+              "depthUm": 0,
+              "addedAxialSpanUm": 1.4,
+              "addedLateralSpanUm": 2.7999999999999994,
+              "nextCycle": 421,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 31.901575314450355,
+              "cycle": 736,
+              "actualTimeSeconds": 31.866452000863305,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.0999999999999996,
+              "addedLateralSpanUm": 4.199999999999999,
+              "nextCycle": 737,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 47.85236297167553,
+              "cycle": 1005,
+              "actualTimeSeconds": 47.84476377612633,
+              "depthUm": 0,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1006,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 63.80315062890071,
+              "cycle": 1257,
+              "actualTimeSeconds": 63.78847284281942,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.199999999999999,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": 1258,
+              "nextDepthUm": 0
+            }
+          ]
+        },
+        {
+          "rowId": "gd21-bld-w1-t5-c025-early5-w3",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 15.950787657225177,
+              "cycle": 463,
+              "actualTimeSeconds": 15.939180820998969,
+              "depthUm": 1.0499999999999998,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 2.1,
+              "nextCycle": 464,
+              "nextDepthUm": 1.0499999999999998
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 31.901575314450355,
+              "cycle": 759,
+              "actualTimeSeconds": 31.86985729755632,
+              "depthUm": 1.4,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 4.199999999999999,
+              "nextCycle": 760,
+              "nextDepthUm": 1.4
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 47.85236297167553,
+              "cycle": 1036,
+              "actualTimeSeconds": 47.846430489965506,
+              "depthUm": 1.75,
+              "addedAxialSpanUm": 4.199999999999999,
+              "addedLateralSpanUm": 5.6,
+              "nextCycle": 1037,
+              "nextDepthUm": 1.75
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 63.80315062890071,
+              "cycle": 1320,
+              "actualTimeSeconds": 63.78795587137938,
+              "depthUm": 2.0999999999999996,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 6.999999999999998,
+              "nextCycle": 1321,
+              "nextDepthUm": 2.0999999999999996
+            }
+          ]
+        },
+        {
+          "rowId": "adv12-hil-warm-seed-t5-r2-h3-broad",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 15.950787657225177,
+              "cycle": 373,
+              "actualTimeSeconds": 15.93125574946406,
+              "depthUm": 0,
+              "addedAxialSpanUm": 1.3999999999999997,
+              "addedLateralSpanUm": 2.1,
+              "nextCycle": 374,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 31.901575314450355,
+              "cycle": 672,
+              "actualTimeSeconds": 31.801139286021634,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.0999999999999996,
+              "addedLateralSpanUm": 4.199999999999999,
+              "nextCycle": 673,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 47.85236297167553,
+              "cycle": 941,
+              "actualTimeSeconds": 47.832633474850915,
+              "depthUm": 0,
+              "addedAxialSpanUm": 3.499999999999999,
+              "addedLateralSpanUm": 5.6,
+              "nextCycle": 942,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 63.80315062890071,
+              "cycle": 1236,
+              "actualTimeSeconds": 63.7832356527183,
+              "depthUm": 0,
+              "addedAxialSpanUm": 4.199999999999999,
+              "addedLateralSpanUm": 6.999999999999998,
+              "nextCycle": 1237,
+              "nextDepthUm": 0
+            }
+          ]
+        },
+        {
+          "rowId": "adv12-hil-warm-seed-t5-r2-h3-early3",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 15.950787657225177,
+              "cycle": 440,
+              "actualTimeSeconds": 15.919300781736975,
+              "depthUm": 1.0499999999999998,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 2.1,
+              "nextCycle": 441,
+              "nextDepthUm": 1.0499999999999998
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 31.901575314450355,
+              "cycle": 726,
+              "actualTimeSeconds": 31.833606207827668,
+              "depthUm": 1.4,
+              "addedAxialSpanUm": 3.499999999999999,
+              "addedLateralSpanUm": 3.4999999999999996,
+              "nextCycle": 727,
+              "nextDepthUm": 1.4
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 47.85236297167553,
+              "cycle": 997,
+              "actualTimeSeconds": 47.8503866264973,
+              "depthUm": 1.75,
+              "addedAxialSpanUm": 4.199999999999999,
+              "addedLateralSpanUm": 5.6,
+              "nextCycle": 998,
+              "nextDepthUm": 1.75
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 63.80315062890071,
+              "cycle": 1303,
+              "actualTimeSeconds": 63.72084857124826,
+              "depthUm": 2.0999999999999996,
+              "addedAxialSpanUm": 4.8999999999999995,
+              "addedLateralSpanUm": 6.299999999999999,
+              "nextCycle": 1304,
+              "nextDepthUm": 2.0999999999999996
+            }
+          ]
+        },
+        {
+          "rowId": "adv12-hil-warm-seed-t5-r3-h1-broad",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 15.950787657225177,
+              "cycle": 378,
+              "actualTimeSeconds": 15.935135910695955,
+              "depthUm": 0,
+              "addedAxialSpanUm": 1.4,
+              "addedLateralSpanUm": 2.8,
+              "nextCycle": 379,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 31.901575314450355,
+              "cycle": 710,
+              "actualTimeSeconds": 31.818238011853257,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.0999999999999996,
+              "addedLateralSpanUm": 4.2,
+              "nextCycle": 711,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 47.85236297167553,
+              "cycle": 957,
+              "actualTimeSeconds": 47.77071547727792,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 5.6,
+              "nextCycle": 958,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 63.80315062890071,
+              "cycle": 1218,
+              "actualTimeSeconds": 63.74883682381961,
+              "depthUm": 0,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 7,
+              "nextCycle": 1219,
+              "nextDepthUm": 0
+            }
+          ]
+        },
+        {
+          "rowId": "adv12-hil-warm-seed-t5-r3-h1-early3",
+          "quarters": [
+            {
+              "fraction": 0.25,
+              "requestedTimeSeconds": 15.950787657225177,
+              "cycle": 379,
+              "actualTimeSeconds": 15.936362108990382,
+              "depthUm": 0,
+              "addedAxialSpanUm": 1.4,
+              "addedLateralSpanUm": 2.8,
+              "nextCycle": 380,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.5,
+              "requestedTimeSeconds": 31.901575314450355,
+              "cycle": 716,
+              "actualTimeSeconds": 31.843383691651425,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.0999999999999996,
+              "addedLateralSpanUm": 4.2,
+              "nextCycle": 717,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 0.75,
+              "requestedTimeSeconds": 47.85236297167553,
+              "cycle": 962,
+              "actualTimeSeconds": 47.80216886192847,
+              "depthUm": 0,
+              "addedAxialSpanUm": 2.8,
+              "addedLateralSpanUm": 5.6,
+              "nextCycle": 963,
+              "nextDepthUm": 0
+            },
+            {
+              "fraction": 1,
+              "requestedTimeSeconds": 63.80315062890071,
+              "cycle": 1218,
+              "actualTimeSeconds": 63.80315062890071,
+              "depthUm": 0,
+              "addedAxialSpanUm": 3.5,
+              "addedLateralSpanUm": 7.699999999999999,
+              "nextCycle": null,
+              "nextDepthUm": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "seedExposure": [
+    {
+      "rowId": "adv12-hil-warm-seed-t4p5-r2-h3-early3",
+      "switchTimeSeconds": 5.017706009082112,
+      "firstPositiveCycle": 1,
+      "firstPositivePreUpdateTimeSeconds": 0,
+      "initialWidthHistogram": {
+        "3": 24,
+        "4": 12,
+        "5": 2
+      },
+      "initialSelectedBasalCells": 24,
+      "updates": 127,
+      "selectedUpdates": 127,
+      "selectedCellUpdates": 3126,
+      "selectedKineticDemandFill": 63.73668116797307,
+      "unselectedKineticDemandFill": 1.9801912060843894,
+      "outcome": {
+        "rowId": "adv12-hil-warm-seed-t4p5-r2-h3-early3",
+        "terminalDepthUm": 2.0999999999999996,
+        "terminalOpenLayers": 14,
+        "terminalAddedWaistUm": 0,
+        "original": {
+          "count": 4,
+          "survivingAtStop": 4,
+          "maxPostCutoffTipAdvanceUm": 1.75,
+          "maxTipAdvanceWhileOpenUm": 2.0999999999999996,
+          "maxDepthUm": 2.0999999999999996
+        },
+        "actualSwitchSeconds": 5.017706009082112,
+        "terminalTimeSeconds": 79.92785204806573
+      }
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t4p5-r3-h1-early3",
+      "switchTimeSeconds": 5.0574317487287335,
+      "firstPositiveCycle": 41,
+      "firstPositivePreUpdateTimeSeconds": 2.663067407709894,
+      "initialWidthHistogram": {
+        "4": 36,
+        "5": 24,
+        "6": 12,
+        "7": 2
+      },
+      "initialSelectedBasalCells": 0,
+      "updates": 96,
+      "selectedUpdates": 40,
+      "selectedCellUpdates": 1404,
+      "selectedKineticDemandFill": 25.338765628449003,
+      "unselectedKineticDemandFill": 64.04602557747432,
+      "outcome": {
+        "rowId": "adv12-hil-warm-seed-t4p5-r3-h1-early3",
+        "terminalDepthUm": 0,
+        "terminalOpenLayers": 0,
+        "terminalAddedWaistUm": 3.4999999999999996,
+        "original": {
+          "count": 0,
+          "survivingAtStop": 0,
+          "maxPostCutoffTipAdvanceUm": 0,
+          "maxTipAdvanceWhileOpenUm": 0,
+          "maxDepthUm": 0
+        },
+        "actualSwitchSeconds": 5.0574317487287335,
+        "terminalTimeSeconds": 63.078425466227365
+      }
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t5-r2-h3-early3",
+      "switchTimeSeconds": 5.0125434489849505,
+      "firstPositiveCycle": 1,
+      "firstPositivePreUpdateTimeSeconds": 0,
+      "initialWidthHistogram": {
+        "3": 24,
+        "4": 12,
+        "5": 2
+      },
+      "initialSelectedBasalCells": 24,
+      "updates": 134,
+      "selectedUpdates": 134,
+      "selectedCellUpdates": 3320,
+      "selectedKineticDemandFill": 65.90332514293736,
+      "unselectedKineticDemandFill": 2.222384288415136,
+      "outcome": {
+        "rowId": "adv12-hil-warm-seed-t5-r2-h3-early3",
+        "terminalDepthUm": 2.4499999999999997,
+        "terminalOpenLayers": 16,
+        "terminalAddedWaistUm": 0,
+        "original": {
+          "count": 4,
+          "survivingAtStop": 4,
+          "maxPostCutoffTipAdvanceUm": 2.0999999999999996,
+          "maxTipAdvanceWhileOpenUm": 2.4499999999999997,
+          "maxDepthUm": 2.4499999999999997
+        },
+        "actualSwitchSeconds": 5.0125434489849505,
+        "terminalTimeSeconds": 81.09191607182957
+      }
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t5-r3-h1-early3",
+      "switchTimeSeconds": 5.052394752804059,
+      "firstPositiveCycle": 41,
+      "firstPositivePreUpdateTimeSeconds": 2.6718328267651175,
+      "initialWidthHistogram": {
+        "4": 36,
+        "5": 24,
+        "6": 12,
+        "7": 2
+      },
+      "initialSelectedBasalCells": 0,
+      "updates": 97,
+      "selectedUpdates": 40,
+      "selectedCellUpdates": 1416,
+      "selectedKineticDemandFill": 24.368760842613934,
+      "unselectedKineticDemandFill": 71.38572153067568,
+      "outcome": {
+        "rowId": "adv12-hil-warm-seed-t5-r3-h1-early3",
+        "terminalDepthUm": 0,
+        "terminalOpenLayers": 0,
+        "terminalAddedWaistUm": 3.4999999999999996,
+        "original": {
+          "count": 0,
+          "survivingAtStop": 0,
+          "maxPostCutoffTipAdvanceUm": 0,
+          "maxTipAdvanceWhileOpenUm": 0,
+          "maxDepthUm": 0
+        },
+        "actualSwitchSeconds": 5.052394752804059,
+        "terminalTimeSeconds": 63.80315062890071
+      }
+    }
+  ],
+  "sameOccupancyWitness": {
+    "method": "Existing readCentralFillingRow decodes each manifest-bound solver.bin through decodeDiscoveryResumeCheckpoint and LKSolver.restoreDiscovery without evolving it; hashes new Uint8Array(solver.a.buffer,solver.a.byteOffset,solver.a.byteLength) with SHA256. Both N64 occupancy arrays have262144 cells/bytes; complete solver bytes, fill and vapor hashes differ.",
+    "members": [
+      {
+        "rowId": "adv12-hil-onset-t4p5-w3-s4p25",
+        "tick": 109,
+        "simTimeSeconds": 4.274608592844379,
+        "attachedCount": 103,
+        "centralAttachedCount": 0,
+        "centralSites": 14,
+        "centralFillRange": [
+          0.5686621161224527,
+          0.5902850966049801
+        ],
+        "arrays": {
+          "occupancy": {
+            "cells": 262144,
+            "bytes": 262144,
+            "sha256": "7b1a7e1047f6aa8f1acb004c8b3860420c9876bfba00533366c4747569be61f8"
+          },
+          "fill": {
+            "cells": 262144,
+            "bytes": 2097152,
+            "sha256": "a089a4821f713901de8855f302febbdfae68eb00c99b4aa4dc58af381c62abcd"
+          },
+          "latticeSupersaturation": {
+            "cells": 262144,
+            "bytes": 2097152,
+            "sha256": "0644b177392e66d1e10a7b33a14941a2fa00b30e76244deefbe5bd9efa277108"
+          }
+        },
+        "solver": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p25\\captures\\generations\\tick-109\\solver.bin",
+          "bytes": 4459377,
+          "sha256": "1db46516a2c6b257f5ddef52a033f1196788270f2ab0b35c29affa49d3c841a7"
+        },
+        "manifest": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p25\\captures\\generations\\tick-109\\manifest.json",
+          "bytes": 2373,
+          "sha256": "549e0867bdf4bef5e4d2be553daa8259e1176270aba0ee6178ec8edd9df8015d"
+        },
+        "label": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p25\\captures\\labels\\width-last-active.json",
+          "bytes": 1092,
+          "sha256": "9e7a515bf7d16edfafcb890c7fea6b04f74fa7aa38650ec08ec6903bfbadd86f"
+        },
+        "terminal": {
+          "rowId": "adv12-hil-onset-t4p5-w3-s4p25",
+          "terminalDepthUm": 0,
+          "terminalOpenLayers": 0,
+          "terminalAddedWaistUm": 4.9,
+          "original": {
+            "count": 4,
+            "survivingAtStop": 0,
+            "maxPostCutoffTipAdvanceUm": 0.35,
+            "maxTipAdvanceWhileOpenUm": 0.7,
+            "maxDepthUm": 0.7
+          },
+          "actualSwitchSeconds": 4.274608592844379,
+          "terminalTimeSeconds": 76.95190333194408
+        }
+      },
+      {
+        "rowId": "adv12-hil-onset-t4p5-w3-s4p5",
+        "tick": 116,
+        "simTimeSeconds": 4.503949605746254,
+        "attachedCount": 103,
+        "centralAttachedCount": 0,
+        "centralSites": 14,
+        "centralFillRange": [
+          0.5707702085705801,
+          0.6005613531305428
+        ],
+        "arrays": {
+          "occupancy": {
+            "cells": 262144,
+            "bytes": 262144,
+            "sha256": "7b1a7e1047f6aa8f1acb004c8b3860420c9876bfba00533366c4747569be61f8"
+          },
+          "fill": {
+            "cells": 262144,
+            "bytes": 2097152,
+            "sha256": "0a5c1ddad6dceefc713b935d948ff4ee50351dc4dd735ceb6fe0127249e6d840"
+          },
+          "latticeSupersaturation": {
+            "cells": 262144,
+            "bytes": 2097152,
+            "sha256": "89b1ab7e570aa529df195a5ec8913dbb03b8ae331bb14069500b18da633c4208"
+          }
+        },
+        "solver": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p5\\captures\\generations\\tick-116\\solver.bin",
+          "bytes": 4459377,
+          "sha256": "6c50860c609df953728363d24adc6441ca497de59abd819d09f44e6e2cb1ccde"
+        },
+        "manifest": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p5\\captures\\generations\\tick-116\\manifest.json",
+          "bytes": 2371,
+          "sha256": "d7218f3d14ba1234f5c0dcbbb30cc7240645f96ed982bf687664bf7789ab4c8e"
+        },
+        "label": {
+          "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p5\\captures\\labels\\width-last-active.json",
+          "bytes": 1090,
+          "sha256": "78faebcb4eb59c53f3cceb1bd835fe55f15d5c019d0beed47c8bfae7d3f6dc74"
+        },
+        "terminal": {
+          "rowId": "adv12-hil-onset-t4p5-w3-s4p5",
+          "terminalDepthUm": 2.0999999999999996,
+          "terminalOpenLayers": 14,
+          "terminalAddedWaistUm": 0,
+          "original": {
+            "count": 4,
+            "survivingAtStop": 4,
+            "maxPostCutoffTipAdvanceUm": 1.75,
+            "maxTipAdvanceWhileOpenUm": 2.0999999999999996,
+            "maxDepthUm": 2.0999999999999996
+          },
+          "actualSwitchSeconds": 4.503949605746254,
+          "terminalTimeSeconds": 76.8028660825055
+        }
+      }
+    ],
+    "equalOccupancySha256": "7b1a7e1047f6aa8f1acb004c8b3860420c9876bfba00533366c4747569be61f8",
+    "occupancyMatches": true,
+    "scope": "The occupied lattice geometry alone does not specify the different subsequent model outcomes under these two preparations. Other state, including fill/vapor/lag/history, remains different; no causal component was isolated."
+  },
+  "nextSuggestedComparisons": [
+    {
+      "rows": 8,
+      "purpose": "Check numerical persistence of observed onset distinction",
+      "conditions": "T{-4.5,-5},width{3,4},cutoff{4.25,4.5}s,CFL.0125,N64,extent29; compare existing.025 controls.",
+      "priority": 1
+    },
+    {
+      "rows": 4,
+      "purpose": "Test wider-seed establishment with an initially active rim selector",
+      "conditions": "T{-4.5,-5},radius3/thickness1,width{4,5},early5,CFL.025,N64,extent29; reuse existing broad/width3 controls. Initial radius3 widths are4:36,5:24,6:12,7:2, so these intervene on different starting subsets.",
+      "priority": 2
+    }
+  ],
+  "limits": [
+    "No exact or universal onset threshold; new onset cases have onlyCFL.025 and N64.",
+    "No physical causality or quantitative-validation claim.",
+    "Intervals/signed layers are not independent cavities, and survival is censored by finite targets.",
+    "Adjacent-event alternatives are observation brackets, not confidence intervals.",
+    "Wider-seed null has delayed/reduced but nonzero selection; it does not demonstrate established memory erased.",
+    "Historical controls lack the new full-state recorder; unavailable states were not fabricated.",
+    "NAS preservation is pending; detailed artifacts remain local."
+  ],
+  "artifacts": [
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\warm\\analyze.mjs",
+      "bytes": 12989,
+      "sha256": "26577d8ae7667acc1729c0ba99964981847642fc2b45aa76dd7343140a4717b6"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\warm\\analyze.log",
+      "bytes": 2568,
+      "sha256": "6bc66f1609876bb2d891e270723a236ba34415acbf78c6ddf70166a16f35c66e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\warm\\warm-comparisons.json",
+      "bytes": 1782526,
+      "sha256": "77e9b18335a9bcd262f14d7b30830b57ad94fb80bfd85eb4fff95a2f4cc70c3c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\warm\\warm-retained.json",
+      "bytes": 11904339,
+      "sha256": "c79b788fab3602b743b53fcede5d30489a4a61d8ddd1ffd123587d79ac78367c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\warm\\inputs.json",
+      "bytes": 631256,
+      "sha256": "ac39fb3225e04caaada738edd0c86222b8a55a86ad1901d0e5e8badff898a296"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-adventures-review-2026-11-13\\warm\\summary.json",
+      "bytes": 515086,
+      "sha256": "4e9e93218cd3483449bece387e7510035373cb3745d446ddaf7ad5010ce01b92"
+    }
+  ]
+}

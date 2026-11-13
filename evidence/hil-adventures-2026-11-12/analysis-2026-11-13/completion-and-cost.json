@@ -1,0 +1,387 @@
+{
+  "checkedSizeEndpoints": 46,
+  "minHours": 1.0528688888888889,
+  "medianHours": 4.028132916666666,
+  "maxHours": 5.4326574999999995,
+  "maxWitness": [
+    {
+      "rowId": "adv12-hil-cold-seed-t14p4-r3-h1-neither",
+      "extent": 29,
+      "cycles": 1821,
+      "hours": 5.4326574999999995,
+      "finishedAt": "2026-11-13T13:26:54.255Z",
+      "resultSha256": "edcbcfdbdfa8721c2b9f63fbe46260df9d7f788df782761b43b8ca572975268d"
+    }
+  ],
+  "lastFinishedAt": "2026-11-13T15:31:24.797Z",
+  "rows": [
+    {
+      "rowId": "adv12-hil-cold-pressure-t14p4-p202650-basal-only",
+      "extent": 29,
+      "cycles": 1735,
+      "hours": 4.655510277777777,
+      "finishedAt": "2026-11-13T13:42:37.153Z",
+      "resultSha256": "2b2cdb73bc7cb7a77dab14c898c8a4ffd0feb9d84b27db2175b2de3a7f3e4a51"
+    },
+    {
+      "rowId": "adv12-hil-cold-pressure-t14p4-p202650-both",
+      "extent": 29,
+      "cycles": 697,
+      "hours": 1.3659630555555555,
+      "finishedAt": "2026-11-13T10:18:56.284Z",
+      "resultSha256": "f436964344cb56e7982a583ff314c44bb49c02d63bf784d0a78cd6be0c7658ea"
+    },
+    {
+      "rowId": "adv12-hil-cold-pressure-t14p4-p202650-neither",
+      "extent": 29,
+      "cycles": 1791,
+      "hours": 4.868422777777778,
+      "finishedAt": "2026-11-13T13:49:13.250Z",
+      "resultSha256": "05ec8f9230692db8d49b8b483dc222de75800bfda7f33124213779c3c7aa5b45"
+    },
+    {
+      "rowId": "adv12-hil-cold-pressure-t14p4-p202650-prism-only",
+      "extent": 29,
+      "cycles": 699,
+      "hours": 1.376426388888889,
+      "finishedAt": "2026-11-13T10:43:40.458Z",
+      "resultSha256": "044c59be22ae9d1a0f24a8c32d1d0b981118260a03f7934e3a4324099adef08d"
+    },
+    {
+      "rowId": "adv12-hil-cold-pressure-t14p4-p50662p5-basal-only",
+      "extent": 29,
+      "cycles": 1578,
+      "hours": 4.5756925,
+      "finishedAt": "2026-11-13T08:09:07.064Z",
+      "resultSha256": "2ddabf8b12508d253e400e0115f7b621131c809597b2c8f974d1afb621a1ca60"
+    },
+    {
+      "rowId": "adv12-hil-cold-pressure-t14p4-p50662p5-both",
+      "extent": 29,
+      "cycles": 704,
+      "hours": 1.2900469444444445,
+      "finishedAt": "2026-11-13T04:51:58.702Z",
+      "resultSha256": "7197b08becaf6d0448e6e7cb295376d7063d78e6cc804f00362c5cb3fd85f228"
+    },
+    {
+      "rowId": "adv12-hil-cold-pressure-t14p4-p50662p5-neither",
+      "extent": 29,
+      "cycles": 1567,
+      "hours": 4.439364444444444,
+      "finishedAt": "2026-11-13T08:00:56.398Z",
+      "resultSha256": "1b06503f8b281b060e839621c45921db6befb48f8e85cf2b71feab4463e456bb"
+    },
+    {
+      "rowId": "adv12-hil-cold-pressure-t14p4-p50662p5-prism-only",
+      "extent": 29,
+      "cycles": 705,
+      "hours": 1.2790058333333334,
+      "finishedAt": "2026-11-13T04:51:19.069Z",
+      "resultSha256": "bfebdaf0f9482eb5bb499924203ecb03e955866a0bc052d00cb297a5efd0582d"
+    },
+    {
+      "rowId": "adv12-hil-cold-seed-t14p4-r2-h3-basal-only",
+      "extent": 29,
+      "cycles": 1464,
+      "hours": 3.9414880555555554,
+      "finishedAt": "2026-11-13T07:31:03.923Z",
+      "resultSha256": "6787ae9090ac6bc2b3f91a94e5cca39d7a24a4e01080cc51aadc85c9fe7f9e5c"
+    },
+    {
+      "rowId": "adv12-hil-cold-seed-t14p4-r2-h3-both",
+      "extent": 29,
+      "cycles": 714,
+      "hours": 1.653815,
+      "finishedAt": "2026-11-13T05:13:48.243Z",
+      "resultSha256": "f480d1438aa0ef963571f9a9c8552b6fd18dc6f9ab9fd51e1114d17596454e72"
+    },
+    {
+      "rowId": "adv12-hil-cold-seed-t14p4-r2-h3-neither",
+      "extent": 29,
+      "cycles": 1524,
+      "hours": 4.2689474999999995,
+      "finishedAt": "2026-11-13T07:50:42.759Z",
+      "resultSha256": "7c5d0a34d0e20f72509515de38d25ec5ca3f1b6dc39f9cb1854a85782d6d9dab"
+    },
+    {
+      "rowId": "adv12-hil-cold-seed-t14p4-r2-h3-prism-only",
+      "extent": 29,
+      "cycles": 714,
+      "hours": 1.6751141666666667,
+      "finishedAt": "2026-11-13T05:15:05.006Z",
+      "resultSha256": "25baa1f2306b7c8cbd8a1e637e94132ee6e13455c9db157474b1f98884264a68"
+    },
+    {
+      "rowId": "adv12-hil-cold-seed-t14p4-r3-h1-basal-only",
+      "extent": 29,
+      "cycles": 1800,
+      "hours": 5.290275555555555,
+      "finishedAt": "2026-11-13T13:26:32.373Z",
+      "resultSha256": "69d00a701344daf96209ff7e86c6d705da376e3cdf7a5848bfe387449b80e4e9"
+    },
+    {
+      "rowId": "adv12-hil-cold-seed-t14p4-r3-h1-both",
+      "extent": 29,
+      "cycles": 623,
+      "hours": 1.139387222222222,
+      "finishedAt": "2026-11-13T09:03:17.062Z",
+      "resultSha256": "26a41568a7a7730a23f87bdd0c8bc472e0cbaafcecf14a8b3242d711fbbdf283"
+    },
+    {
+      "rowId": "adv12-hil-cold-seed-t14p4-r3-h1-neither",
+      "extent": 29,
+      "cycles": 1821,
+      "hours": 5.4326574999999995,
+      "finishedAt": "2026-11-13T13:26:54.255Z",
+      "resultSha256": "edcbcfdbdfa8721c2b9f63fbe46260df9d7f788df782761b43b8ca572975268d"
+    },
+    {
+      "rowId": "adv12-hil-cold-seed-t14p4-r3-h1-prism-only",
+      "extent": 29,
+      "cycles": 622,
+      "hours": 1.0528688888888889,
+      "finishedAt": "2026-11-13T09:23:56.622Z",
+      "resultSha256": "1d4f5e756c79ed5adb319742386c698625619141427565bbf93cbcbe53a7a3b6"
+    },
+    {
+      "rowId": "adv12-hil-forcing-t4p5-f0p05-early3",
+      "extent": 29,
+      "cycles": 1473,
+      "hours": 4.065611111111111,
+      "finishedAt": "2026-11-13T13:27:53.091Z",
+      "resultSha256": "308f633fabbdc26715a086bcc34c70a9f17240cc1f59ee7641256f3d0445a345"
+    },
+    {
+      "rowId": "adv12-hil-forcing-t4p5-f0p05-early4",
+      "extent": 29,
+      "cycles": 1450,
+      "hours": 3.9654652777777777,
+      "finishedAt": "2026-11-13T13:24:51.994Z",
+      "resultSha256": "f5970a28b4cff9d49f4cb4accf710c7b8dc58572ef6f9242d4f52972a848f65c"
+    },
+    {
+      "rowId": "adv12-hil-forcing-t4p5-f0p1-early3",
+      "extent": 29,
+      "cycles": 1535,
+      "hours": 4.112015555555556,
+      "finishedAt": "2026-11-13T14:25:39.799Z",
+      "resultSha256": "354dc93d8c61575d07b68a8c8c1dcf19009962ec55dcd29523a487e4edb3da00"
+    },
+    {
+      "rowId": "adv12-hil-forcing-t4p5-f0p1-early4",
+      "extent": 29,
+      "cycles": 1542,
+      "hours": 4.052576388888888,
+      "finishedAt": "2026-11-13T14:43:34.034Z",
+      "resultSha256": "75e85a88220fe50bc53ed77b89910923c886bd2058c5ddb58603ca9a5de67ffc"
+    },
+    {
+      "rowId": "adv12-hil-forcing-t5-f0p05-broad",
+      "extent": 29,
+      "cycles": 1287,
+      "hours": 3.01748,
+      "finishedAt": "2026-11-13T13:44:30.858Z",
+      "resultSha256": "c8c6870b649ba4406be0f9c1becdc02ef3a00a5ecf3ec3b20164c6eb8d1c10cc"
+    },
+    {
+      "rowId": "adv12-hil-forcing-t5-f0p05-early3",
+      "extent": 29,
+      "cycles": 1470,
+      "hours": 3.893792777777778,
+      "finishedAt": "2026-11-13T14:37:18.362Z",
+      "resultSha256": "896e30838030e5539cc4ada6f123193e815d189735d4571c8cba6c7fae38f568"
+    },
+    {
+      "rowId": "adv12-hil-forcing-t5-f0p05-early4",
+      "extent": 29,
+      "cycles": 1465,
+      "hours": 3.8834458333333335,
+      "finishedAt": "2026-11-13T14:42:36.805Z",
+      "resultSha256": "29258f6e46a308c9c7f3717f2db2358ffa6d17e6ad738ce72d1c1c1030dc7535"
+    },
+    {
+      "rowId": "adv12-hil-forcing-t5-f0p1-broad",
+      "extent": 29,
+      "cycles": 1419,
+      "hours": 3.3150891666666666,
+      "finishedAt": "2026-11-13T14:15:35.006Z",
+      "resultSha256": "ce6ca4f91b89a19dc1ee10dabcac5bd73f946ab8ac2698a0f73949f9c11e9748"
+    },
+    {
+      "rowId": "adv12-hil-forcing-t5-f0p1-early3",
+      "extent": 29,
+      "cycles": 1601,
+      "hours": 3.974594722222222,
+      "finishedAt": "2026-11-13T15:16:47.724Z",
+      "resultSha256": "65a06c4799fbb992b590eeab1475e88056d920ef5264345fb2acec9b80cfecf5"
+    },
+    {
+      "rowId": "adv12-hil-forcing-t5-f0p1-early4",
+      "extent": 29,
+      "cycles": 1599,
+      "hours": 4.003689444444444,
+      "finishedAt": "2026-11-13T15:31:24.797Z",
+      "resultSha256": "6ffd975128adeddb29006e6ce8f14c8a1c559ef93f5f0de2aa66e91f2889f500"
+    },
+    {
+      "rowId": "adv12-hil-onset-t4p5-w3-s4p25",
+      "extent": 29,
+      "cycles": 1493,
+      "hours": 4.099878055555555,
+      "finishedAt": "2026-11-13T07:40:33.957Z",
+      "resultSha256": "20c608e3e18300b55d9b70a9c7d132b6f2ae353221e3404fa8623993c743ab06"
+    },
+    {
+      "rowId": "adv12-hil-onset-t4p5-w3-s4p5",
+      "extent": 29,
+      "cycles": 1479,
+      "hours": 4.182156666666667,
+      "finishedAt": "2026-11-13T07:45:30.138Z",
+      "resultSha256": "48013b0ac32189fb0c83fbfe223f4f04db6cc6302aeda69bc85c10b08983b62a"
+    },
+    {
+      "rowId": "adv12-hil-onset-t4p5-w3-s4p75",
+      "extent": 29,
+      "cycles": 1455,
+      "hours": 3.990349722222222,
+      "finishedAt": "2026-11-13T07:33:59.690Z",
+      "resultSha256": "60384cf45c6784c58118b23d9411adf34a9f24a323498dccee434fbe73e53789"
+    },
+    {
+      "rowId": "adv12-hil-onset-t4p5-w4-s4p25",
+      "extent": 29,
+      "cycles": 1471,
+      "hours": 4.096471944444445,
+      "finishedAt": "2026-11-13T08:57:06.656Z",
+      "resultSha256": "557db0d7896bf6bc065130e4cd892613471a250fb9daab3c31849a526078e1b3"
+    },
+    {
+      "rowId": "adv12-hil-onset-t4p5-w4-s4p5",
+      "extent": 29,
+      "cycles": 1446,
+      "hours": 4.339063888888889,
+      "finishedAt": "2026-11-13T07:54:54.988Z",
+      "resultSha256": "8683798676c4430988c0a76adad9e093b090ab5dac69666b6bba006f4fbe7d6c"
+    },
+    {
+      "rowId": "adv12-hil-onset-t4p5-w4-s4p75",
+      "extent": 29,
+      "cycles": 1500,
+      "hours": 4.083211944444445,
+      "finishedAt": "2026-11-13T08:56:58.542Z",
+      "resultSha256": "c44984a780147dfc644cfeded5270b274700999eaabdd120e5aa9010fd826bfc"
+    },
+    {
+      "rowId": "adv12-hil-onset-t5-w3-s4p25",
+      "extent": 29,
+      "cycles": 1520,
+      "hours": 4.1974366666666665,
+      "finishedAt": "2026-11-13T09:26:56.046Z",
+      "resultSha256": "742e6abe1385ba8136290ab22a5aa29b467f44fd4b540bcc775ba8a7596a5ef0"
+    },
+    {
+      "rowId": "adv12-hil-onset-t5-w3-s4p5",
+      "extent": 29,
+      "cycles": 1534,
+      "hours": 4.121255555555556,
+      "finishedAt": "2026-11-13T09:21:05.043Z",
+      "resultSha256": "2851943e888ae9d08b7d7660703966a33db33b370957cf0639bebfd40b7a79aa"
+    },
+    {
+      "rowId": "adv12-hil-onset-t5-w3-s4p75",
+      "extent": 29,
+      "cycles": 1586,
+      "hours": 4.276115833333333,
+      "finishedAt": "2026-11-13T10:43:27.648Z",
+      "resultSha256": "7c96b0ecfce46ac30a6cb739af0e438c6c036fd8a6117df67ef305686daf7271"
+    },
+    {
+      "rowId": "adv12-hil-onset-t5-w4-s4p25",
+      "extent": 29,
+      "cycles": 1518,
+      "hours": 4.081017222222222,
+      "finishedAt": "2026-11-13T11:18:18.901Z",
+      "resultSha256": "4c94ce635eb218db8f981af8abd70ae88d04346fc26fa088f8fba7960693fe80"
+    },
+    {
+      "rowId": "adv12-hil-onset-t5-w4-s4p5",
+      "extent": 29,
+      "cycles": 1564,
+      "hours": 4.342638888888889,
+      "finishedAt": "2026-11-13T10:56:40.404Z",
+      "resultSha256": "07fd349231881aeef86a707e0fc5f424ce31382f6fe9e669c11f3c1540404d2f"
+    },
+    {
+      "rowId": "adv12-hil-onset-t5-w4-s4p75",
+      "extent": 29,
+      "cycles": 1598,
+      "hours": 4.5533174999999995,
+      "finishedAt": "2026-11-13T12:04:16.157Z",
+      "resultSha256": "e21114c03545fdedca7733a95af6b730c80546b7f3c7e0c9c5039f2400f9b2c5"
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t4p5-r2-h3-broad",
+      "extent": 29,
+      "cycles": 1365,
+      "hours": 3.647916111111111,
+      "finishedAt": "2026-11-13T07:13:26.960Z",
+      "resultSha256": "22d2c96622a7c3829c03f2403b58cd3fa43a5ece2dce106381bf6167e5a987de"
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t4p5-r2-h3-early3",
+      "extent": 29,
+      "cycles": 1625,
+      "hours": 4.769864999999999,
+      "finishedAt": "2026-11-13T08:20:45.996Z",
+      "resultSha256": "b82b3bc3d64b371f6d0416e5115c34ff0c110e0224464b6b083a6d3111e8ca64"
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t4p5-r3-h1-broad",
+      "extent": 29,
+      "cycles": 1157,
+      "hours": 3.02561,
+      "finishedAt": "2026-11-13T06:36:06.635Z",
+      "resultSha256": "f96f0927de3a91b7ac2c22fb38ffc17bffc7667f0da9f533e6583bce2aae9912"
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t4p5-r3-h1-early3",
+      "extent": 29,
+      "cycles": 1144,
+      "hours": 2.871907777777778,
+      "finishedAt": "2026-11-13T06:26:53.359Z",
+      "resultSha256": "ee259f75793c9c58e42301427cbf639f678b998438e2d07853cece3ee6aa1455"
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t5-r2-h3-broad",
+      "extent": 29,
+      "cycles": 1406,
+      "hours": 3.9531352777777777,
+      "finishedAt": "2026-11-13T11:31:11.247Z",
+      "resultSha256": "fae85dd747637367fda2ecded53f2e50c61edaef56e8fb0d7809a08675ba3144"
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t5-r2-h3-early3",
+      "extent": 29,
+      "cycles": 1648,
+      "hours": 4.900429444444444,
+      "finishedAt": "2026-11-13T12:34:35.766Z",
+      "resultSha256": "d65254ac8e50b6cff0afc77dcbf490dfee83459b33c9115f86fff5e10ea53bd2"
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t5-r3-h1-broad",
+      "extent": 29,
+      "cycles": 1219,
+      "hours": 2.9150219444444443,
+      "finishedAt": "2026-11-13T10:40:24.494Z",
+      "resultSha256": "cb72fc80d2381b0c9394ed6b746183971111f6a5b28c946daef59be61a364fac"
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t5-r3-h1-early3",
+      "extent": 29,
+      "cycles": 1218,
+      "hours": 2.9814108333333333,
+      "finishedAt": "2026-11-13T10:49:36.129Z",
+      "resultSha256": "568a20c78ec16f23dd9628eef5755497c760c4888685bcea533afa693d957529"
+    }
+  ]
+}

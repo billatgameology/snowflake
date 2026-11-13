@@ -1,0 +1,1508 @@
+{
+  "schema": "hil-adventures-forcing-headline-v1",
+  "generatedAt": "2026-11-13T17:10:57.634014+00:00",
+  "scope": "Internal model-development judgment from18 complete operands, not physical identification or numerical convergence. No new simulation.",
+  "census": {
+    "rows": 18,
+    "newRows": 10,
+    "reusedRows": 8,
+    "cohorts": 2,
+    "membersPerCohort": 9,
+    "reconstructedUpdates": 26250,
+    "newEarlyRowsWithDecodedCaptures": 8,
+    "decodedRetainedStates": 218
+  },
+  "findings": [
+    "At both temperatures, width3 early5 yields no persistent opening at fraction.05, but persistent advancing openings at.075 and.10. Broad and width4 have zero terminal opening depth at all three fractions.",
+    "The same depth ordering is present at all four common-age quarters: 70 bracketing next-event depths agree with at-or-before depths, and two common-age endpoints are exact recorded terminal times without a next event. Some broad rows have transient zero-depth surface openings.",
+    "All new width3 rows retain zero attached central sites at switch. The low-forcing pair eventually fills all14 central sites, while the high-forcing pair retains zero attached at the endpoint. Lower partial fill at switch did not guarantee persistent opening.",
+    "Higher forcing produces larger geometry at the fixed5s switch; sampled lower-center solved supersaturation is much smaller in the high-forcing pair. This is compatible with a history/geometry-mediated shielding account but does not isolate its components."
+  ],
+  "cohorts": [
+    {
+      "id": "forcing-t4p5",
+      "commonTimeSeconds": 49.24933702695804,
+      "rows": [
+        "gd21-bld-w3-fLow-broad",
+        "adv12-hil-forcing-t4p5-f0p05-early3",
+        "adv12-hil-forcing-t4p5-f0p05-early4",
+        "gd21-bld-w1-t4p5-c025-broad",
+        "gd21-bld-w1-t4p5-c025-early5-w3",
+        "gd21-bld-w2-t4p5-w4-early5",
+        "gd21-bld-w3-fHigh-broad",
+        "adv12-hil-forcing-t4p5-f0p1-early3",
+        "adv12-hil-forcing-t4p5-f0p1-early4"
+      ]
+    },
+    {
+      "id": "forcing-t5",
+      "commonTimeSeconds": 49.249697274778335,
+      "rows": [
+        "adv12-hil-forcing-t5-f0p05-broad",
+        "adv12-hil-forcing-t5-f0p05-early3",
+        "adv12-hil-forcing-t5-f0p05-early4",
+        "gd21-bld-w1-t5-c025-broad",
+        "gd21-bld-w1-t5-c025-early5-w3",
+        "gd21-bld-w2-t5-w4-early5",
+        "adv12-hil-forcing-t5-f0p1-broad",
+        "adv12-hil-forcing-t5-f0p1-early3",
+        "adv12-hil-forcing-t5-f0p1-early4"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "rowId": "gd21-bld-w3-fLow-broad",
+      "tempC": -4.5,
+      "fraction": 0.05,
+      "arm": "broad",
+      "targetCenterSpanUm": 9.8,
+      "terminalDepthUm": 0,
+      "originalOpeningIntervals": null,
+      "commonAgeSeconds": 49.24933702695804,
+      "quarters": [
+        {
+          "fraction": 0.25,
+          "beforeCycle": 164,
+          "beforeTimeSeconds": 12.292012257917126,
+          "nextCycle": 165,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.5,
+          "beforeCycle": 338,
+          "beforeTimeSeconds": 24.59760694615097,
+          "nextCycle": 339,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.75,
+          "beforeCycle": 494,
+          "beforeTimeSeconds": 36.895787117686176,
+          "nextCycle": 495,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 1,
+          "beforeCycle": 640,
+          "beforeTimeSeconds": 49.098282596363816,
+          "nextCycle": 641,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-forcing-t4p5-f0p05-early3",
+      "tempC": -4.5,
+      "fraction": 0.05,
+      "arm": 3,
+      "targetCenterSpanUm": 9.8,
+      "terminalDepthUm": 0,
+      "originalOpeningIntervals": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0.35,
+        "maxTipAdvanceWhileOpenUm": 0.35,
+        "maxDepthUm": 0.35
+      },
+      "commonAgeSeconds": 49.24933702695804,
+      "quarters": [
+        {
+          "fraction": 0.25,
+          "beforeCycle": 203,
+          "beforeTimeSeconds": 12.290064989142959,
+          "nextCycle": 204,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.5,
+          "beforeCycle": 349,
+          "beforeTimeSeconds": 24.5913513637432,
+          "nextCycle": 350,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.75,
+          "beforeCycle": 527,
+          "beforeTimeSeconds": 36.898025228994214,
+          "nextCycle": 528,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 1,
+          "beforeCycle": 630,
+          "beforeTimeSeconds": 49.04424588083894,
+          "nextCycle": 631,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-forcing-t4p5-f0p05-early4",
+      "tempC": -4.5,
+      "fraction": 0.05,
+      "arm": 4,
+      "targetCenterSpanUm": 9.8,
+      "terminalDepthUm": 0,
+      "originalOpeningIntervals": {
+        "count": 0,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "commonAgeSeconds": 49.24933702695804,
+      "quarters": [
+        {
+          "fraction": 0.25,
+          "beforeCycle": 192,
+          "beforeTimeSeconds": 12.21756707685494,
+          "nextCycle": 193,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.5,
+          "beforeCycle": 343,
+          "beforeTimeSeconds": 24.60570512481116,
+          "nextCycle": 344,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.75,
+          "beforeCycle": 520,
+          "beforeTimeSeconds": 36.77994661758564,
+          "nextCycle": 521,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 1,
+          "beforeCycle": 623,
+          "beforeTimeSeconds": 49.092484059733316,
+          "nextCycle": 624,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        }
+      ]
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c025-broad",
+      "tempC": -4.5,
+      "fraction": 0.075,
+      "arm": "broad",
+      "targetCenterSpanUm": 9.8,
+      "terminalDepthUm": 0,
+      "originalOpeningIntervals": null,
+      "commonAgeSeconds": 49.24933702695804,
+      "quarters": [
+        {
+          "fraction": 0.25,
+          "beforeCycle": 294,
+          "beforeTimeSeconds": 12.244191712781298,
+          "nextCycle": 295,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.5,
+          "beforeCycle": 535,
+          "beforeTimeSeconds": 24.61425277909364,
+          "nextCycle": 536,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.75,
+          "beforeCycle": 742,
+          "beforeTimeSeconds": 36.87462549685114,
+          "nextCycle": 743,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 1,
+          "beforeCycle": 942,
+          "beforeTimeSeconds": 49.153528745555235,
+          "nextCycle": 943,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        }
+      ]
+    },
+    {
+      "rowId": "gd21-bld-w1-t4p5-c025-early5-w3",
+      "tempC": -4.5,
+      "fraction": 0.075,
+      "arm": 3,
+      "targetCenterSpanUm": 9.8,
+      "terminalDepthUm": 2.0999999999999996,
+      "originalOpeningIntervals": {
+        "count": 4,
+        "survivingAtStop": 4,
+        "maxPostCutoffTipAdvanceUm": 1.75,
+        "maxTipAdvanceWhileOpenUm": 2.0999999999999996,
+        "maxDepthUm": 2.0999999999999996
+      },
+      "commonAgeSeconds": 49.24933702695804,
+      "quarters": [
+        {
+          "fraction": 0.25,
+          "beforeCycle": 337,
+          "beforeTimeSeconds": 12.256611394232348,
+          "nextCycle": 338,
+          "depthBeforeUm": 0.7,
+          "depthNextUm": 0.7
+        },
+        {
+          "fraction": 0.5,
+          "beforeCycle": 606,
+          "beforeTimeSeconds": 24.622115208341075,
+          "nextCycle": 607,
+          "depthBeforeUm": 1.0499999999999998,
+          "depthNextUm": 1.0499999999999998
+        },
+        {
+          "fraction": 0.75,
+          "beforeCycle": 840,
+          "beforeTimeSeconds": 36.899177659125165,
+          "nextCycle": 841,
+          "depthBeforeUm": 1.4,
+          "depthNextUm": 1.4
+        },
+        {
+          "fraction": 1,
+          "beforeCycle": 1069,
+          "beforeTimeSeconds": 49.13978201717982,
+          "nextCycle": 1070,
+          "depthBeforeUm": 1.75,
+          "depthNextUm": 1.75
+        }
+      ]
+    },
+    {
+      "rowId": "gd21-bld-w2-t4p5-w4-early5",
+      "tempC": -4.5,
+      "fraction": 0.075,
+      "arm": 4,
+      "targetCenterSpanUm": 9.8,
+      "terminalDepthUm": 0,
+      "originalOpeningIntervals": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "commonAgeSeconds": 49.24933702695804,
+      "quarters": [
+        {
+          "fraction": 0.25,
+          "beforeCycle": 332,
+          "beforeTimeSeconds": 12.286557603374678,
+          "nextCycle": 333,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.5,
+          "beforeCycle": 607,
+          "beforeTimeSeconds": 24.572483216833735,
+          "nextCycle": 608,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.75,
+          "beforeCycle": 850,
+          "beforeTimeSeconds": 36.93303983394375,
+          "nextCycle": 851,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 1,
+          "beforeCycle": 1085,
+          "beforeTimeSeconds": 49.21234248159953,
+          "nextCycle": 1086,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        }
+      ]
+    },
+    {
+      "rowId": "gd21-bld-w3-fHigh-broad",
+      "tempC": -4.5,
+      "fraction": 0.1,
+      "arm": "broad",
+      "targetCenterSpanUm": 9.8,
+      "terminalDepthUm": 0,
+      "originalOpeningIntervals": null,
+      "commonAgeSeconds": 49.24933702695804,
+      "quarters": [
+        {
+          "fraction": 0.25,
+          "beforeCycle": 439,
+          "beforeTimeSeconds": 12.301737923544435,
+          "nextCycle": 440,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.5,
+          "beforeCycle": 816,
+          "beforeTimeSeconds": 24.619106428607058,
+          "nextCycle": 817,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.75,
+          "beforeCycle": 1103,
+          "beforeTimeSeconds": 36.863481404613566,
+          "nextCycle": 1104,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 1,
+          "beforeCycle": 1354,
+          "beforeTimeSeconds": 49.24933702695804,
+          "nextCycle": null,
+          "depthBeforeUm": 0,
+          "depthNextUm": null
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-forcing-t4p5-f0p1-early3",
+      "tempC": -4.5,
+      "fraction": 0.1,
+      "arm": 3,
+      "targetCenterSpanUm": 9.8,
+      "terminalDepthUm": 2.8,
+      "originalOpeningIntervals": {
+        "count": 6,
+        "survivingAtStop": 6,
+        "maxPostCutoffTipAdvanceUm": 2.0999999999999996,
+        "maxTipAdvanceWhileOpenUm": 2.8,
+        "maxDepthUm": 2.8
+      },
+      "commonAgeSeconds": 49.24933702695804,
+      "quarters": [
+        {
+          "fraction": 0.25,
+          "beforeCycle": 441,
+          "beforeTimeSeconds": 12.28840988385999,
+          "nextCycle": 442,
+          "depthBeforeUm": 1.0499999999999998,
+          "depthNextUm": 1.0499999999999998
+        },
+        {
+          "fraction": 0.5,
+          "beforeCycle": 832,
+          "beforeTimeSeconds": 24.600118603119967,
+          "nextCycle": 833,
+          "depthBeforeUm": 1.75,
+          "depthNextUm": 1.75
+        },
+        {
+          "fraction": 0.75,
+          "beforeCycle": 1124,
+          "beforeTimeSeconds": 36.845762438808435,
+          "nextCycle": 1125,
+          "depthBeforeUm": 2.0999999999999996,
+          "depthNextUm": 2.0999999999999996
+        },
+        {
+          "fraction": 1,
+          "beforeCycle": 1372,
+          "beforeTimeSeconds": 49.21866691108786,
+          "nextCycle": 1373,
+          "depthBeforeUm": 2.4499999999999997,
+          "depthNextUm": 2.4499999999999997
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-forcing-t4p5-f0p1-early4",
+      "tempC": -4.5,
+      "fraction": 0.1,
+      "arm": 4,
+      "targetCenterSpanUm": 9.8,
+      "terminalDepthUm": 0,
+      "originalOpeningIntervals": {
+        "count": 4,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0.35,
+        "maxTipAdvanceWhileOpenUm": 0.35,
+        "maxDepthUm": 0.35
+      },
+      "commonAgeSeconds": 49.24933702695804,
+      "quarters": [
+        {
+          "fraction": 0.25,
+          "beforeCycle": 438,
+          "beforeTimeSeconds": 12.305589853199388,
+          "nextCycle": 439,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.5,
+          "beforeCycle": 833,
+          "beforeTimeSeconds": 24.621934727839484,
+          "nextCycle": 834,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.75,
+          "beforeCycle": 1134,
+          "beforeTimeSeconds": 36.86993491293461,
+          "nextCycle": 1135,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 1,
+          "beforeCycle": 1380,
+          "beforeTimeSeconds": 49.249140279631256,
+          "nextCycle": 1381,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-forcing-t5-f0p05-broad",
+      "tempC": -5,
+      "fraction": 0.05,
+      "arm": "broad",
+      "targetCenterSpanUm": 9.8,
+      "terminalDepthUm": 0,
+      "originalOpeningIntervals": null,
+      "commonAgeSeconds": 49.249697274778335,
+      "quarters": [
+        {
+          "fraction": 0.25,
+          "beforeCycle": 165,
+          "beforeTimeSeconds": 12.295345045913784,
+          "nextCycle": 166,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.5,
+          "beforeCycle": 319,
+          "beforeTimeSeconds": 24.557541594206448,
+          "nextCycle": 320,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.75,
+          "beforeCycle": 462,
+          "beforeTimeSeconds": 36.75158826569598,
+          "nextCycle": 463,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 1,
+          "beforeCycle": 610,
+          "beforeTimeSeconds": 49.20971652688057,
+          "nextCycle": 611,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-forcing-t5-f0p05-early3",
+      "tempC": -5,
+      "fraction": 0.05,
+      "arm": 3,
+      "targetCenterSpanUm": 9.8,
+      "terminalDepthUm": 0,
+      "originalOpeningIntervals": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0.35,
+        "maxTipAdvanceWhileOpenUm": 0.35,
+        "maxDepthUm": 0.35
+      },
+      "commonAgeSeconds": 49.249697274778335,
+      "quarters": [
+        {
+          "fraction": 0.25,
+          "beforeCycle": 199,
+          "beforeTimeSeconds": 12.219001251613241,
+          "nextCycle": 200,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.5,
+          "beforeCycle": 349,
+          "beforeTimeSeconds": 24.59161802086353,
+          "nextCycle": 350,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.75,
+          "beforeCycle": 507,
+          "beforeTimeSeconds": 36.74169055877826,
+          "nextCycle": 508,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 1,
+          "beforeCycle": 640,
+          "beforeTimeSeconds": 49.2046426370738,
+          "nextCycle": 641,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-forcing-t5-f0p05-early4",
+      "tempC": -5,
+      "fraction": 0.05,
+      "arm": 4,
+      "targetCenterSpanUm": 9.8,
+      "terminalDepthUm": 0,
+      "originalOpeningIntervals": {
+        "count": 0,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "commonAgeSeconds": 49.249697274778335,
+      "quarters": [
+        {
+          "fraction": 0.25,
+          "beforeCycle": 198,
+          "beforeTimeSeconds": 12.283613391124598,
+          "nextCycle": 199,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.5,
+          "beforeCycle": 348,
+          "beforeTimeSeconds": 24.617220466437264,
+          "nextCycle": 349,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.75,
+          "beforeCycle": 501,
+          "beforeTimeSeconds": 36.919086821523344,
+          "nextCycle": 502,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 1,
+          "beforeCycle": 635,
+          "beforeTimeSeconds": 49.079708129686495,
+          "nextCycle": 636,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        }
+      ]
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c025-broad",
+      "tempC": -5,
+      "fraction": 0.075,
+      "arm": "broad",
+      "targetCenterSpanUm": 9.8,
+      "terminalDepthUm": 0,
+      "originalOpeningIntervals": null,
+      "commonAgeSeconds": 49.249697274778335,
+      "quarters": [
+        {
+          "fraction": 0.25,
+          "beforeCycle": 315,
+          "beforeTimeSeconds": 12.30400898982662,
+          "nextCycle": 316,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.5,
+          "beforeCycle": 619,
+          "beforeTimeSeconds": 24.562347464983272,
+          "nextCycle": 620,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.75,
+          "beforeCycle": 847,
+          "beforeTimeSeconds": 36.85762590910109,
+          "nextCycle": 848,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 1,
+          "beforeCycle": 1041,
+          "beforeTimeSeconds": 49.24437401014504,
+          "nextCycle": 1042,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        }
+      ]
+    },
+    {
+      "rowId": "gd21-bld-w1-t5-c025-early5-w3",
+      "tempC": -5,
+      "fraction": 0.075,
+      "arm": 3,
+      "targetCenterSpanUm": 9.8,
+      "terminalDepthUm": 2.4499999999999997,
+      "originalOpeningIntervals": {
+        "count": 4,
+        "survivingAtStop": 4,
+        "maxPostCutoffTipAdvanceUm": 2.0999999999999996,
+        "maxTipAdvanceWhileOpenUm": 2.4499999999999997,
+        "maxDepthUm": 2.4499999999999997
+      },
+      "commonAgeSeconds": 49.249697274778335,
+      "quarters": [
+        {
+          "fraction": 0.25,
+          "beforeCycle": 351,
+          "beforeTimeSeconds": 12.253818575809332,
+          "nextCycle": 352,
+          "depthBeforeUm": 0.7,
+          "depthNextUm": 0.7
+        },
+        {
+          "fraction": 0.5,
+          "beforeCycle": 628,
+          "beforeTimeSeconds": 24.61838768187342,
+          "nextCycle": 629,
+          "depthBeforeUm": 1.0499999999999998,
+          "depthNextUm": 1.0499999999999998
+        },
+        {
+          "fraction": 0.75,
+          "beforeCycle": 835,
+          "beforeTimeSeconds": 36.83919455833653,
+          "nextCycle": 836,
+          "depthBeforeUm": 1.4,
+          "depthNextUm": 1.4
+        },
+        {
+          "fraction": 1,
+          "beforeCycle": 1067,
+          "beforeTimeSeconds": 49.133050603037056,
+          "nextCycle": 1068,
+          "depthBeforeUm": 1.75,
+          "depthNextUm": 1.75
+        }
+      ]
+    },
+    {
+      "rowId": "gd21-bld-w2-t5-w4-early5",
+      "tempC": -5,
+      "fraction": 0.075,
+      "arm": 4,
+      "targetCenterSpanUm": 9.8,
+      "terminalDepthUm": 0,
+      "originalOpeningIntervals": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "commonAgeSeconds": 49.249697274778335,
+      "quarters": [
+        {
+          "fraction": 0.25,
+          "beforeCycle": 350,
+          "beforeTimeSeconds": 12.27714933071384,
+          "nextCycle": 351,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.5,
+          "beforeCycle": 622,
+          "beforeTimeSeconds": 24.516393042898425,
+          "nextCycle": 623,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.75,
+          "beforeCycle": 830,
+          "beforeTimeSeconds": 36.930110475103746,
+          "nextCycle": 831,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 1,
+          "beforeCycle": 1066,
+          "beforeTimeSeconds": 49.15310260093973,
+          "nextCycle": 1067,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-forcing-t5-f0p1-broad",
+      "tempC": -5,
+      "fraction": 0.1,
+      "arm": "broad",
+      "targetCenterSpanUm": 9.8,
+      "terminalDepthUm": 0,
+      "originalOpeningIntervals": null,
+      "commonAgeSeconds": 49.249697274778335,
+      "quarters": [
+        {
+          "fraction": 0.25,
+          "beforeCycle": 460,
+          "beforeTimeSeconds": 12.273411543950022,
+          "nextCycle": 461,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.5,
+          "beforeCycle": 860,
+          "beforeTimeSeconds": 24.623444828230518,
+          "nextCycle": 861,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.75,
+          "beforeCycle": 1124,
+          "beforeTimeSeconds": 36.927002795088164,
+          "nextCycle": 1125,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 1,
+          "beforeCycle": 1419,
+          "beforeTimeSeconds": 49.249697274778335,
+          "nextCycle": null,
+          "depthBeforeUm": 0,
+          "depthNextUm": null
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-forcing-t5-f0p1-early3",
+      "tempC": -5,
+      "fraction": 0.1,
+      "arm": 3,
+      "targetCenterSpanUm": 9.8,
+      "terminalDepthUm": 2.8,
+      "originalOpeningIntervals": {
+        "count": 6,
+        "survivingAtStop": 6,
+        "maxPostCutoffTipAdvanceUm": 2.0999999999999996,
+        "maxTipAdvanceWhileOpenUm": 2.8,
+        "maxDepthUm": 2.8
+      },
+      "commonAgeSeconds": 49.249697274778335,
+      "quarters": [
+        {
+          "fraction": 0.25,
+          "beforeCycle": 472,
+          "beforeTimeSeconds": 12.293613546046759,
+          "nextCycle": 473,
+          "depthBeforeUm": 1.0499999999999998,
+          "depthNextUm": 1.0499999999999998
+        },
+        {
+          "fraction": 0.5,
+          "beforeCycle": 884,
+          "beforeTimeSeconds": 24.605656583844368,
+          "nextCycle": 885,
+          "depthBeforeUm": 1.75,
+          "depthNextUm": 1.75
+        },
+        {
+          "fraction": 0.75,
+          "beforeCycle": 1164,
+          "beforeTimeSeconds": 36.87460494661305,
+          "nextCycle": 1165,
+          "depthBeforeUm": 2.0999999999999996,
+          "depthNextUm": 2.0999999999999996
+        },
+        {
+          "fraction": 1,
+          "beforeCycle": 1457,
+          "beforeTimeSeconds": 49.16642419866972,
+          "nextCycle": 1458,
+          "depthBeforeUm": 2.8,
+          "depthNextUm": 2.8
+        }
+      ]
+    },
+    {
+      "rowId": "adv12-hil-forcing-t5-f0p1-early4",
+      "tempC": -5,
+      "fraction": 0.1,
+      "arm": 4,
+      "targetCenterSpanUm": 9.8,
+      "terminalDepthUm": 0,
+      "originalOpeningIntervals": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0.35,
+        "maxTipAdvanceWhileOpenUm": 0.35,
+        "maxDepthUm": 0.35
+      },
+      "commonAgeSeconds": 49.249697274778335,
+      "quarters": [
+        {
+          "fraction": 0.25,
+          "beforeCycle": 470,
+          "beforeTimeSeconds": 12.301731531299305,
+          "nextCycle": 471,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.5,
+          "beforeCycle": 882,
+          "beforeTimeSeconds": 24.619979631131976,
+          "nextCycle": 883,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 0.75,
+          "beforeCycle": 1161,
+          "beforeTimeSeconds": 36.86394760765905,
+          "nextCycle": 1162,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        },
+        {
+          "fraction": 1,
+          "beforeCycle": 1454,
+          "beforeTimeSeconds": 49.14405993075442,
+          "nextCycle": 1455,
+          "depthBeforeUm": 0,
+          "depthNextUm": 0
+        }
+      ]
+    }
+  ],
+  "switchSummary": [
+    {
+      "rowId": "adv12-hil-forcing-t4p5-f0p05-early3",
+      "tempC": -4.5,
+      "fraction": 0.05,
+      "width": 3,
+      "switchTick": 77,
+      "firstInactiveTick": 78,
+      "actualSwitchTimeSeconds": 5.040328789617788,
+      "centralSites": 14,
+      "centralAttachedAtSwitch": 0,
+      "centralAttachedAtTerminal": 14,
+      "partialFillAtSwitch": [
+        0.3990073890577404,
+        0.4751093926858788
+      ],
+      "axialSpanAtSwitchUm": 0.7,
+      "lateralSpanAtSwitchUm": 1.4,
+      "terminalTick": 1473,
+      "retainedStates": 28,
+      "missingLabels": [],
+      "firstInactiveSolvedBoundary": {
+        "path": "captures/boundaries/cycle-78.json",
+        "sha256": "063de223d34af4c7db7d30fe9fe05e9176f1b6d9ddde378161c61aa92ca9471d",
+        "completedCycles": 77,
+        "lowerCenter": {
+          "offset": [
+            0,
+            0,
+            -1
+          ],
+          "presentOnBoundary": true,
+          "values": {
+            "sigmaBoundary": 0.001066882518382326,
+            "alphaHKBoundary": 0.004434695430131995
+          }
+        },
+        "lowerRing": {
+          "offset": [
+            -1,
+            0,
+            -1
+          ],
+          "presentOnBoundary": true,
+          "values": {
+            "sigmaBoundary": 0.00020077465804872245,
+            "alphaHKBoundary": 1
+          }
+        }
+      }
+    },
+    {
+      "rowId": "adv12-hil-forcing-t4p5-f0p05-early4",
+      "tempC": -4.5,
+      "fraction": 0.05,
+      "width": 4,
+      "switchTick": 73,
+      "firstInactiveTick": 74,
+      "actualSwitchTimeSeconds": 5.026834374183937,
+      "centralSites": 14,
+      "centralAttachedAtSwitch": 14,
+      "centralAttachedAtTerminal": 14,
+      "partialFillAtSwitch": [
+        null,
+        null
+      ],
+      "axialSpanAtSwitchUm": 0.7,
+      "lateralSpanAtSwitchUm": 1.4,
+      "terminalTick": 1450,
+      "retainedStates": 28,
+      "missingLabels": [],
+      "firstInactiveSolvedBoundary": {
+        "path": "captures/boundaries/cycle-74.json",
+        "sha256": "83a9699ead52f5cd1f7b184e89b1a76d0a03adbecadba7f199742cf7fd046c79",
+        "completedCycles": 73,
+        "lowerCenter": {
+          "offset": [
+            0,
+            0,
+            -1
+          ],
+          "presentOnBoundary": false,
+          "values": null
+        },
+        "lowerRing": {
+          "offset": [
+            -1,
+            0,
+            -1
+          ],
+          "presentOnBoundary": false,
+          "values": null
+        }
+      }
+    },
+    {
+      "rowId": "adv12-hil-forcing-t4p5-f0p1-early3",
+      "tempC": -4.5,
+      "fraction": 0.1,
+      "width": 3,
+      "switchTick": 179,
+      "firstInactiveTick": 180,
+      "actualSwitchTimeSeconds": 5.024406103504725,
+      "centralSites": 14,
+      "centralAttachedAtSwitch": 0,
+      "centralAttachedAtTerminal": 0,
+      "partialFillAtSwitch": [
+        0.6730145837362259,
+        0.6853976213006538
+      ],
+      "axialSpanAtSwitchUm": 2.0999999999999996,
+      "lateralSpanAtSwitchUm": 2.8,
+      "terminalTick": 1535,
+      "retainedStates": 25,
+      "missingLabels": [],
+      "firstInactiveSolvedBoundary": {
+        "path": "captures/boundaries/cycle-180.json",
+        "sha256": "24d50fdf151cdb98c64797bb0336cd7efa483358d69180f0d0799fd9be442fba",
+        "completedCycles": 179,
+        "lowerCenter": {
+          "offset": [
+            0,
+            0,
+            -1
+          ],
+          "presentOnBoundary": true,
+          "values": {
+            "sigmaBoundary": 5.1706530657480586e-05,
+            "alphaHKBoundary": 2.797399550602651e-49
+          }
+        },
+        "lowerRing": {
+          "offset": [
+            -1,
+            0,
+            -1
+          ],
+          "presentOnBoundary": true,
+          "values": {
+            "sigmaBoundary": 6.959378836782371e-06,
+            "alphaHKBoundary": 1
+          }
+        }
+      }
+    },
+    {
+      "rowId": "adv12-hil-forcing-t4p5-f0p1-early4",
+      "tempC": -4.5,
+      "fraction": 0.1,
+      "width": 4,
+      "switchTick": 175,
+      "firstInactiveTick": 176,
+      "actualSwitchTimeSeconds": 5.015490831824491,
+      "centralSites": 14,
+      "centralAttachedAtSwitch": 14,
+      "centralAttachedAtTerminal": 14,
+      "partialFillAtSwitch": [
+        null,
+        null
+      ],
+      "axialSpanAtSwitchUm": 2.0999999999999996,
+      "lateralSpanAtSwitchUm": 2.8,
+      "terminalTick": 1542,
+      "retainedStates": 28,
+      "missingLabels": [],
+      "firstInactiveSolvedBoundary": {
+        "path": "captures/boundaries/cycle-176.json",
+        "sha256": "7e739ca089b3bd1dd9f6cbb7c7d38f9bdce6e51088eb3128fd08d50866076c6e",
+        "completedCycles": 175,
+        "lowerCenter": {
+          "offset": [
+            0,
+            0,
+            -1
+          ],
+          "presentOnBoundary": false,
+          "values": null
+        },
+        "lowerRing": {
+          "offset": [
+            -1,
+            0,
+            -1
+          ],
+          "presentOnBoundary": false,
+          "values": null
+        }
+      }
+    },
+    {
+      "rowId": "adv12-hil-forcing-t5-f0p05-early3",
+      "tempC": -5,
+      "fraction": 0.05,
+      "width": 3,
+      "switchTick": 79,
+      "firstInactiveTick": 80,
+      "actualSwitchTimeSeconds": 5.0254121458536245,
+      "centralSites": 14,
+      "centralAttachedAtSwitch": 0,
+      "centralAttachedAtTerminal": 14,
+      "partialFillAtSwitch": [
+        0.41979695573880454,
+        0.5483138288159054
+      ],
+      "axialSpanAtSwitchUm": 0.7,
+      "lateralSpanAtSwitchUm": 1.4,
+      "terminalTick": 1470,
+      "retainedStates": 28,
+      "missingLabels": [],
+      "firstInactiveSolvedBoundary": {
+        "path": "captures/boundaries/cycle-80.json",
+        "sha256": "9c1af1b8bcbf8d514d87c27505a48afeec419b6480ea15e9d576d8ee74b88785",
+        "completedCycles": 79,
+        "lowerCenter": {
+          "offset": [
+            0,
+            0,
+            -1
+          ],
+          "presentOnBoundary": true,
+          "values": {
+            "sigmaBoundary": 0.0011903026045211654,
+            "alphaHKBoundary": 0.00484655863808118
+          }
+        },
+        "lowerRing": {
+          "offset": [
+            -1,
+            0,
+            -1
+          ],
+          "presentOnBoundary": true,
+          "values": {
+            "sigmaBoundary": 0.00022425959667946773,
+            "alphaHKBoundary": 1
+          }
+        }
+      }
+    },
+    {
+      "rowId": "adv12-hil-forcing-t5-f0p05-early4",
+      "tempC": -5,
+      "fraction": 0.05,
+      "width": 4,
+      "switchTick": 76,
+      "firstInactiveTick": 77,
+      "actualSwitchTimeSeconds": 5.060093917467431,
+      "centralSites": 14,
+      "centralAttachedAtSwitch": 14,
+      "centralAttachedAtTerminal": 14,
+      "partialFillAtSwitch": [
+        null,
+        null
+      ],
+      "axialSpanAtSwitchUm": 0.7,
+      "lateralSpanAtSwitchUm": 1.4,
+      "terminalTick": 1465,
+      "retainedStates": 28,
+      "missingLabels": [],
+      "firstInactiveSolvedBoundary": {
+        "path": "captures/boundaries/cycle-77.json",
+        "sha256": "ba9df59f7a34344d72d90866f19a6a39b138096734f2822849eddce721f92df2",
+        "completedCycles": 76,
+        "lowerCenter": {
+          "offset": [
+            0,
+            0,
+            -1
+          ],
+          "presentOnBoundary": false,
+          "values": null
+        },
+        "lowerRing": {
+          "offset": [
+            -1,
+            0,
+            -1
+          ],
+          "presentOnBoundary": false,
+          "values": null
+        }
+      }
+    },
+    {
+      "rowId": "adv12-hil-forcing-t5-f0p1-early3",
+      "tempC": -5,
+      "fraction": 0.1,
+      "width": 3,
+      "switchTick": 190,
+      "firstInactiveTick": 191,
+      "actualSwitchTimeSeconds": 5.019375538854722,
+      "centralSites": 14,
+      "centralAttachedAtSwitch": 0,
+      "centralAttachedAtTerminal": 0,
+      "partialFillAtSwitch": [
+        0.6791559983708486,
+        0.736230455679905
+      ],
+      "axialSpanAtSwitchUm": 2.0999999999999996,
+      "lateralSpanAtSwitchUm": 2.8,
+      "terminalTick": 1601,
+      "retainedStates": 25,
+      "missingLabels": [],
+      "firstInactiveSolvedBoundary": {
+        "path": "captures/boundaries/cycle-191.json",
+        "sha256": "5f8b2ab0e1ed6dcc9cc62c602f15e27b4b1cfdd30ba3e207270656ed0bfff8c7",
+        "completedCycles": 190,
+        "lowerCenter": {
+          "offset": [
+            0,
+            0,
+            -1
+          ],
+          "presentOnBoundary": true,
+          "values": {
+            "sigmaBoundary": 5.868664488683516e-05,
+            "alphaHKBoundary": 1.1354552078320936e-47
+          }
+        },
+        "lowerRing": {
+          "offset": [
+            -1,
+            0,
+            -1
+          ],
+          "presentOnBoundary": true,
+          "values": {
+            "sigmaBoundary": 7.905509392302099e-06,
+            "alphaHKBoundary": 1
+          }
+        }
+      }
+    },
+    {
+      "rowId": "adv12-hil-forcing-t5-f0p1-early4",
+      "tempC": -5,
+      "fraction": 0.1,
+      "width": 4,
+      "switchTick": 187,
+      "firstInactiveTick": 188,
+      "actualSwitchTimeSeconds": 5.024200629388136,
+      "centralSites": 14,
+      "centralAttachedAtSwitch": 14,
+      "centralAttachedAtTerminal": 14,
+      "partialFillAtSwitch": [
+        null,
+        null
+      ],
+      "axialSpanAtSwitchUm": 2.0999999999999996,
+      "lateralSpanAtSwitchUm": 2.8,
+      "terminalTick": 1599,
+      "retainedStates": 28,
+      "missingLabels": [],
+      "firstInactiveSolvedBoundary": {
+        "path": "captures/boundaries/cycle-188.json",
+        "sha256": "4da5041f19d139f943b0dcc2d7a12a7645f671d79c546e7b9ef466d76dec5837",
+        "completedCycles": 187,
+        "lowerCenter": {
+          "offset": [
+            0,
+            0,
+            -1
+          ],
+          "presentOnBoundary": false,
+          "values": null
+        },
+        "lowerRing": {
+          "offset": [
+            -1,
+            0,
+            -1
+          ],
+          "presentOnBoundary": false,
+          "values": null
+        }
+      }
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": 1,
+      "question": "Does the forcing contrast survive a smaller timestep?",
+      "candidateRows": 8,
+      "design": "T{-4.5,-5} x fraction{.05,.10} x early5width{3,4}, CFL.0125, sameN64/target29; reuse current CFL.025 operands.",
+      "limit": "Candidate only, not a frozen/launched protocol."
+    },
+    {
+      "priority": 2,
+      "question": "Does duration adjustment toward baseline development stage rescue weak forcing and suppress strong forcing?",
+      "candidateRows": 8,
+      "design": "T{-4.5,-5} x {fraction.05 cutoff8s, fraction.10 cutoff3s} x width{3,4}, CFL.025, N64/target29; reuse current5s and .075 controls.",
+      "limit": "Times provisional, informed by measured active-preparation width3 stage neighborhoods at -4.5C. Span/count proxies are not full-state or physical-dose equivalence. Transfer to -5C is experimental.",
+      "context": "preparation-stage.json"
+    }
+  ],
+  "limitations": [
+    "Only one grid spacing and CFL.025 in this forcing contrast.",
+    "Fixed5s preparation ends at different geometry/physical development stages across forcing, so supply and preparation stage are not separated.",
+    "This recipe does not import separately recovered .075 switch states; no three-forcing full-state comparison is asserted.",
+    "Filled-region counts exclude partial fill and are not deposited mass; signed plane/side intervals are not independent cavities.",
+    "Existing helper functions are reused, not independently rederived; parent should check selected raw witnesses.",
+    "No NAS backup, physical validation or production rerun was performed."
+  ],
+  "provenance": {
+    "author": "Codex / GPT-6, inherited shared context",
+    "commands": [
+      "node out/hil-adventures-review-2026-11-13/forcing/analyze.mjs",
+      "node out/hil-adventures-review-2026-11-13/forcing/captures.mjs"
+    ],
+    "sourceInputs": "inputs.json",
+    "captureInputs": "Per-row *-retained.json retainedObservations.inputs"
+  },
+  "bindings": [
+    {
+      "path": "inputs.json",
+      "bytes": 62827,
+      "sha256": "912cd16dae8c7d5b3147cc1cd75436a53d6dba35d98a0e5482ab3c79c9a60ad4"
+    },
+    {
+      "path": "forcing-comparisons.json",
+      "bytes": 660228,
+      "sha256": "438250fe507ff17f507dfe0d81cf0ed1df61934037fbbc010e2d5ce7888a684e"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 49026,
+      "sha256": "df227853988e1d56ded8e8ad76bd3ae5c3e287df420ae699456be34ca6ebc000"
+    },
+    {
+      "path": "switch-states.json",
+      "bytes": 491376,
+      "sha256": "b21f16f0624344eb3719e618e72243a6ae787b64d307533c501e83748688ff2d"
+    },
+    {
+      "path": "preparation-stage.json",
+      "bytes": 5794,
+      "sha256": "95cc25d019f7b3db56505784e8deac709e6ae76618c737ea3354294cb7f7ec43"
+    },
+    {
+      "path": "analyze.mjs",
+      "bytes": 11842,
+      "sha256": "b49112639073e4f61da8ae69d44891ed8e0ddba1a0e4983936c2238a5fbf2d16"
+    },
+    {
+      "path": "captures.mjs",
+      "bytes": 2033,
+      "sha256": "3af146ffa78251eb99e05dcbd2e85b799daf47665c5e6af9266e7a1b22de4ca4"
+    }
+  ],
+  "stageProxyContext": {
+    "scope": "Candidate next-protocol selection only. Existing20s active-preparation histories at-4.5C identify first completed state with axial center span>=4cells and extent>=7; not full-state equivalence or a physical scaling law. Prefix checks compare executed observations only.",
+    "checks": [
+      {
+        "fraction": 0.05,
+        "oldRow": "gd21-bld-w3-fLow-early20-w3",
+        "newRow": "adv12-hil-forcing-t4p5-f0p05-early3",
+        "specDifferences": {
+          "id": [
+            "gd21-bld-w3-fLow-early20-w3",
+            "adv12-hil-forcing-t4p5-f0p05-early3"
+          ],
+          "experimentalBasalWidthHistory": [
+            {
+              "mode": "early-only",
+              "cutoffSeconds": 20
+            },
+            {
+              "mode": "early-only",
+              "cutoffSeconds": 5
+            }
+          ]
+        },
+        "matchedScientificPrefixCycles": 77,
+        "prefixIgnoredFields": [
+          "rowId",
+          "rssBytes",
+          "experimentalBasalWidthHistory"
+        ],
+        "firstAtLeastReferenceStage": {
+          "cycle": 107,
+          "simTimeSeconds": 7.125345019255904,
+          "extent": 7,
+          "axialCenterSpanCells": 4,
+          "lateralCenterSpanCells": 6,
+          "attachedCount": 79
+        },
+        "inputs": [
+          {
+            "path": "out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-fLow-early20-w3\\spec.json",
+            "bytes": 1163,
+            "sha256": "8875727eb268d92107da56fd3902225e65f35a5cf1baa0b81fe0e9ef5a7ae33e"
+          },
+          {
+            "path": "out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-fLow-early20-w3\\events.jsonl",
+            "bytes": 6818201,
+            "sha256": "79d77c1955f6e9dc173e5dbf1d599870f69980c34cd236603e0ed5196a8276be"
+          },
+          {
+            "path": "out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-fLow-early20-w3\\result.json",
+            "bytes": 2396,
+            "sha256": "1e93230da6d0cbf4c73469149d06398bcd3a58b7ca5eeca7e311c9fcb17bfa09"
+          },
+          {
+            "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early3\\spec.json",
+            "bytes": 1479,
+            "sha256": "1241292ad6006b7b8dfe638bafdce7e7dac879beb89b23c4db5786a6a19bc416"
+          },
+          {
+            "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early3\\events.jsonl",
+            "bytes": 5160455,
+            "sha256": "b9c3138083240f84bf0c4cf37c9d3c3fa19a42dada08d684ebc0b71316df508f"
+          },
+          {
+            "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p05-early3\\result.json",
+            "bytes": 2394,
+            "sha256": "308f633fabbdc26715a086bcc34c70a9f17240cc1f59ee7641256f3d0445a345"
+          }
+        ]
+      },
+      {
+        "fraction": 0.1,
+        "oldRow": "gd21-bld-w3-fHigh-early20-w3",
+        "newRow": "adv12-hil-forcing-t4p5-f0p1-early3",
+        "specDifferences": {
+          "id": [
+            "gd21-bld-w3-fHigh-early20-w3",
+            "adv12-hil-forcing-t4p5-f0p1-early3"
+          ],
+          "experimentalBasalWidthHistory": [
+            {
+              "mode": "early-only",
+              "cutoffSeconds": 20
+            },
+            {
+              "mode": "early-only",
+              "cutoffSeconds": 5
+            }
+          ]
+        },
+        "matchedScientificPrefixCycles": 179,
+        "prefixIgnoredFields": [
+          "rowId",
+          "rssBytes",
+          "experimentalBasalWidthHistory"
+        ],
+        "firstAtLeastReferenceStage": {
+          "cycle": 87,
+          "simTimeSeconds": 2.558478610180363,
+          "extent": 7,
+          "axialCenterSpanCells": 4,
+          "lateralCenterSpanCells": 6,
+          "attachedCount": 67
+        },
+        "inputs": [
+          {
+            "path": "out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-fHigh-early20-w3\\spec.json",
+            "bytes": 1162,
+            "sha256": "06f3121ccdfc6aa6d48222b7af6b708a7b8045a667cb27f06ffcede60876c8af"
+          },
+          {
+            "path": "out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-fHigh-early20-w3\\events.jsonl",
+            "bytes": 6661392,
+            "sha256": "f3b0f249a6c22298d94f47f40b54b9ce26182f85dcb4bbf89580c4ad649dfcd6"
+          },
+          {
+            "path": "out\\restores\\bld-growth-dynamics-hil-20261024T2048\\extracted\\bld-growth-dynamics-oct21\\rows\\gd21-bld-w3-fHigh-early20-w3\\result.json",
+            "bytes": 2377,
+            "sha256": "fb477887416f5988fd49670a56ec2a6e4bc67731280ed7ed82814791699d11b3"
+          },
+          {
+            "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early3\\spec.json",
+            "bytes": 1476,
+            "sha256": "2dfcfb785fd080c4da55e823de241a547cc08c7688af1dec70fcbd1893122f93"
+          },
+          {
+            "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early3\\events.jsonl",
+            "bytes": 5556614,
+            "sha256": "58936d92114fd079ff6dbd686ee71d4234556140e3a24f7fabc8ad053112aaa4"
+          },
+          {
+            "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-forcing-t4p5-f0p1-early3\\result.json",
+            "bytes": 2401,
+            "sha256": "354dc93d8c61575d07b68a8c8c1dcf19009962ec55dcd29523a487e4edb3da00"
+          }
+        ]
+      }
+    ]
+  },
+  "recommendationScope": "This lane lists options. README.md contains the integrated root recommendation: onset timestep checks first, then supply/duration. None is frozen or approved."
+}

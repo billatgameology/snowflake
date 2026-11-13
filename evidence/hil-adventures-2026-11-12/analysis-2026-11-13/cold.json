@@ -1,0 +1,81 @@
+{
+  "schema": "hil-adventures-cold-headline-v1",
+  "scope": "Internal model-development interpretation of registered complete cold seed/pressure cohorts.",
+  "census": {
+    "rows": 20,
+    "checkedSizeEndpoints": 20,
+    "reconstructedUpdates": 23507
+  },
+  "newRows": 16,
+  "reusedRows": 4,
+  "newRunActiveWallHours": {
+    "min": 1.0528688888888889,
+    "minRow": "adv12-hil-cold-seed-t14p4-r3-h1-prism-only",
+    "max": 5.4326574999999995,
+    "maxRow": "adv12-hil-cold-seed-t14p4-r3-h1-neither",
+    "sum": 48.304986111111106
+  },
+  "seed": {
+    "cohortRows": 12,
+    "TcommonSeconds": 11.553158525682507,
+    "tip8DtipSeconds": 1.4567771961976277,
+    "quarterAndHalfControlGapCells": 1,
+    "quarterAndHalfPrismEnabledGapCells": 2,
+    "threeQuarterControlGapCells": 0,
+    "threeQuarterPrismEnabledGapCells": 2,
+    "tip9Available": false,
+    "missingExitRow": "adv12-hil-cold-seed-t14p4-r2-h3-basal-only"
+  },
+  "pressure": {
+    "cohortRows": 12,
+    "TcommonSeconds": 7.428625264512036,
+    "tip8DtipSeconds": 0.9171581067796537,
+    "tip9DtipSeconds": 0.5030235299333548,
+    "tip9AllQuarterSamplesControlGapCells": 1,
+    "tip9AllQuarterSamplesPrismEnabledGapCells": 2,
+    "tip8HalfAndThreeQuarterControlGapCellsByPressure": {
+      "50662.5": 0,
+      "101325": 1,
+      "202650": 1
+    },
+    "tip8AllQuarterSamplesPrismEnabledGapCells": 2
+  },
+  "dxUm": 0.35,
+  "interpretation": "Prism-associated central-core lag survives the tested seeds and pressures at named matched stages. Same-age gaps differ with growth stage; neither seed independence nor universal pressure clock rescaling follows.",
+  "followupPriority": "Use existing saved fields/captures to inspect tip-versus-core filling before a new cold parameter sweep. If quantitative pressure timing is prioritized, a four-case CFL.0125 test at pressure50662.5/202650 with neither/prism-only can challenge the pressure interaction against existing .025 controls. Not selected or launched.",
+  "limits": [
+    "Two complete12-member cohorts share the same4 normal-seed/normal-pressure reference rows;20 unique rows in total.",
+    "Stage comparisons use each row own entry plus a common elapsed plateau duration, not equal absolute age or normalized individual plateau fraction.",
+    "All gaps are central-plane lattice-radius measures; occupied sites are not deposited mass.",
+    "Seed changes alter volume, surface and transport together; no isolated geometry cause.",
+    "Pressure comparisons do not establish universal clock rescaling, physical validation, grid convergence or domain independence.",
+    "Seed tip9 cohort unavailable because one basal-only thick-seed trajectory lacks an observed plateau exit. No reduced cohort or terminal substitute.",
+    "Saved-state/field mechanism inference, full suite, new simulations and NAS publication are outside this analysis."
+  ],
+  "artifacts": {
+    "readout.json": {
+      "bytes": 1232531,
+      "sha256": "18dfd14cb5a416abca21d3585bbcbcc0da9a7302ee154435da4f960583e379e7"
+    },
+    "summary.json": {
+      "bytes": 199675,
+      "sha256": "167214b5327891ec62d1e4a0aa4b77a151c31b6312e81c220bc9034ba38c5225"
+    },
+    "inputs.json": {
+      "bytes": 24563,
+      "sha256": "9016963f3e18326757bb5c0e0aed7a7815fd67abc5955042ac1bb983365443ca"
+    },
+    "readout.mjs": {
+      "bytes": 12204,
+      "sha256": "b2bff4bf9826eb191d153f3242641480e7516f766e574ce56b46a982d67142cd"
+    },
+    "summarize.py": {
+      "bytes": 8177,
+      "sha256": "dd1c73cd296e178a617e58132ac639a4804dd5a5624c81159a7f6d2ce98ea895"
+    },
+    "execution.json": {
+      "bytes": 2864,
+      "sha256": "a11ae2ac59c96d7224596733686d7b1a89c48fa02fb33410c7d37bde7abf71d0"
+    }
+  }
+}
