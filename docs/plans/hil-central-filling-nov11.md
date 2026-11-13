@@ -1,8 +1,8 @@
 # Plan — HIL central-filling and growth-memory wave
 
 - **Phase:** active Phase 10, charter sections 2.5/3.2; accepted ADRs 0058–0060/0062.
-- **Status:** RUNNING, November12 at19:12Pacific:36/40 size endpoints,4 fine workers active,0 queued, no reported row errors. Keep producer aa20f96 fixed.
-- **Started / last touched:** 2026-11-11 / 2026-11-12 by Codex.
+- **Status:** RUNNING, November13 at07:18Pacific:36/40 endpoints and4 fine workers,0 queued, no reported row errors. Fine extents17/15/17/17 toward57; keep producer aa20f96 fixed.
+- **Started / last touched:** 2026-11-11 / 2026-11-13 by Codex.
 - **Authority:** maker requests the next wave entirely on HIL, using its 20-worker allocation,
   with a finite queue as large as scientifically useful. Existing resumability/no wall-limit direction remains.
 - **Checkout:** reuse `codex/hil-oct31-resume-record` at
@@ -255,6 +255,8 @@ storage. Full campaign output remains local staging; governed NAS publication is
 Next: analyze the complete A/B matched cohorts while C continues, preserving the distinction
 between coarse findings and unresolved finer-representation qualification. No full suite or
 capacity measurement was repeated for this operational status check.
+
+The [November13 live snapshot](../../evidence/hil-adventures-2026-11-12/status-2026-11-13.json) records the four fine rows at632-674 completed updates,7.84611225552792-8.546667805908633 simulated seconds and extents17/15/17/17. All four remain active; the slow growth is not a scientific failure or elapsed-time stopping criterion.
 
 ## Steps
 

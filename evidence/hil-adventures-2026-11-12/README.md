@@ -20,3 +20,6 @@ scoped checks, corrected test/document issues and unchanged restart qualificatio
 plus the original4 fine workers. All16 new checkpoints had advanced and permanent initial payloads
 passed hash checks at observation; startup stderr was empty. Main owns live records while both
 execution producers stay fixed. No scientific endpoint or NAS publication is claimed at launch.
+
+[November13 status](status-2026-11-13.json):45/46 adventure endpoints,1 remaining worker and0 queued.
+The four original fine workers continue. No reported failures; completed cohorts await matched analysis.

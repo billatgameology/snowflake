@@ -1,8 +1,8 @@
 # Plan - HIL short and medium exploration adventures
 
 - **Phase:** active Phase10; charter2.5/3.2 and accepted ADR0055/0058/0059/0060/0062.
-- **Status:** RUNNING since November12 at19:34Pacific, frozen producer `2d94c2d`:16 new workers,30 queued, alongside4 continuing fine workers.
-- **Started / last touched:** 2026-11-12 by Codex.
+- **Status:** RUNNING, November13 at07:18Pacific:45/46 size endpoints,1 worker active,0 queued;4 central-filling fine workers continue separately.
+- **Started / last touched:** 2026-11-12 / 2026-11-13 by Codex.
 - **Checkout:** `codex/hil-adventures-nov12`, `C:/Users/biao3/.codex/worktrees/hil-adventures-nov12/snowflake`.
 
 ## Goal
@@ -205,6 +205,19 @@ exit receipts. The wrapper's exact resume command is the printed launch command 
 A future gaming pause applies to both active coordinators/worker sets; inspect identities first.
 The unchanged resume path retains completed cycles and repeats an interrupted unfinished one.
 No worktree closed and no useful bytes were pruned. NAS publication remains a later required step.
+
+## Operational status - November13
+
+The [07:18Pacific snapshot](../../evidence/hil-adventures-2026-11-12/status-2026-11-13.json)
+records45/46 size endpoints and no queue. Onset12, warm seed8, cold seed8 and cold pressure8
+are complete; forcing is9/10. `adv12-hil-forcing-t5-f0p1-early3` completed during this status
+check; only its width4 companion remains, at extent27 toward29. Four fine central-filling
+workers continue, for5 active simulations total. No reported row errors or nonempty current
+attempt stderr. All24 early-only adventure rows have both switch labels and referenced state/
+boundary files present; this status check is not a full capture hash/decode or NAS verification.
+The newly completed cohorts are ready for their registered matched analyses; no such conclusion
+is inferred merely from endpoint completion. Preserve all output and wait for scientific analysis
+and governed NAS recovery before closeout. No extra simulations were selected or launched.
 
 ## Steps
 
