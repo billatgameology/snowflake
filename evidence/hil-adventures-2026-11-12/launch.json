@@ -1,0 +1,781 @@
+{
+  "schema": "hil-adventures-launch-v1",
+  "source": "2d94c2dd4683ee80f9583c53cf00563eb0d6d597",
+  "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start-hil-adventures-nov12.ps1 -Mode launch -Workers 16",
+  "cwd": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake",
+  "startedUtc": "2026-11-13T03:34:32.0800722Z",
+  "observedUtc": "2026-11-13T03:35:35.6494684Z",
+  "dispatch": {
+    "source": "2d94c2dd4683ee80f9583c53cf00563eb0d6d597",
+    "node": "v24.13.1",
+    "v8": "13.6.233.17-node.40",
+    "startedUtc": "2026-11-13T03:34:32.0800722Z",
+    "wrapperPid": 5440,
+    "cwd": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake",
+    "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start-hil-adventures-nov12.ps1 -Mode launch -Workers 16",
+    "requestedNewWorkers": 16,
+    "existingFineWorkers": [
+      {
+        "ProcessId": 30388,
+        "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h1-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w6-s5"
+      },
+      {
+        "ProcessId": 27176,
+        "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h1-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w8-s5"
+      },
+      {
+        "ProcessId": 26236,
+        "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h3-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w6-s5"
+      },
+      {
+        "ProcessId": 12460,
+        "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h3-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w8-s5"
+      }
+    ],
+    "availablePhysicalBytes": 51505889280,
+    "commitHeadroomBytes": 54565801984,
+    "freeDiskBytes": 3111085080576,
+    "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12-controls\\launch-wrapper-20261112T193432078.stdout.log",
+    "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12-controls\\launch-wrapper-20261112T193432078.stderr.log"
+  },
+  "coordinatorInvocation": {
+    "source": "2d94c2dd4683ee80f9583c53cf00563eb0d6d597",
+    "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12-controls\\campaign-launch-20261112T193432341.stderr.log",
+    "wrapperPid": 5440,
+    "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12-controls\\campaign-launch-20261112T193432341.stdout.log",
+    "command": [
+      "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\runner\\src\\hil-adventures-nov12-main.ts",
+      "launch",
+      "HIL",
+      "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12",
+      "--workers",
+      "16"
+    ],
+    "mode": "launch",
+    "coordinatorPid": 14416,
+    "PSModulePath": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+    "startedUtc": "2026-11-13T03:34:32.3419153Z"
+  },
+  "totalRegisteredRows": 46,
+  "actualNewWorkers": 16,
+  "existingFineWorkers": 4,
+  "actualTotalScienceWorkers": 20,
+  "queuedRows": 30,
+  "initialCapturesVerified": 16,
+  "newRowsWithCommittedAdvance": 16,
+  "nonemptyRowStderr": 0,
+  "coordinatorStderrBytes": 0,
+  "rows": [
+    {
+      "rowId": "adv12-hil-onset-t4p5-w3-s4p5",
+      "pid": 16164,
+      "observedCheckpointTick": 2,
+      "initialCapture": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p5\\captures\\labels\\initial.json",
+        "sha256": "98da833650b882ad91b5cc91b7a3755d279e61e4586d924cd0aace1b6e4910f8",
+        "solverSha256": "f8ee3feadb638a9ac2274839f5eb3463824b21dfe8a8f9765827b48db28ea815",
+        "verifiedPayloadAndManifest": true
+      },
+      "observations": {
+        "ageSeconds": [
+          1,
+          2,
+          3,
+          4,
+          4.25,
+          4.5,
+          4.75,
+          5,
+          6,
+          10,
+          20
+        ],
+        "widthHistorySwitch": true,
+        "centralAttachments": {
+          "maxHexRadiusCells": 1,
+          "absoluteZOffsets": [
+            1
+          ]
+        }
+      },
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p5\\attempts\\initial\\stderr.log",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "adv12-hil-onset-t4p5-w3-s4p25",
+      "pid": 21448,
+      "observedCheckpointTick": 2,
+      "initialCapture": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p25\\captures\\labels\\initial.json",
+        "sha256": "f0a711312ca34559bcf5003ad217ae171f0d95d3f5cc7d3f84d1e21d7770cb54",
+        "solverSha256": "f30d78f25e255367d583b1dcc7965c9d30ff7ce6ac50b2aeebb345cbde80fd9d",
+        "verifiedPayloadAndManifest": true
+      },
+      "observations": {
+        "ageSeconds": [
+          1,
+          2,
+          3,
+          4,
+          4.25,
+          4.5,
+          4.75,
+          5,
+          6,
+          10,
+          20
+        ],
+        "widthHistorySwitch": true,
+        "centralAttachments": {
+          "maxHexRadiusCells": 1,
+          "absoluteZOffsets": [
+            1
+          ]
+        }
+      },
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p25\\attempts\\initial\\stderr.log",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "adv12-hil-onset-t4p5-w3-s4p75",
+      "pid": 7544,
+      "observedCheckpointTick": 2,
+      "initialCapture": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p75\\captures\\labels\\initial.json",
+        "sha256": "a13a0927b8b2f4950a1219e3d3332ad3a71bbdf9dc6e5c35d2994457c234734b",
+        "solverSha256": "d15d61154385ff67965ac10bb6021e97d712df9bb3de43198d55b72bd4e0e513",
+        "verifiedPayloadAndManifest": true
+      },
+      "observations": {
+        "ageSeconds": [
+          1,
+          2,
+          3,
+          4,
+          4.25,
+          4.5,
+          4.75,
+          5,
+          6,
+          10,
+          20
+        ],
+        "widthHistorySwitch": true,
+        "centralAttachments": {
+          "maxHexRadiusCells": 1,
+          "absoluteZOffsets": [
+            1
+          ]
+        }
+      },
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p75\\attempts\\initial\\stderr.log",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "adv12-hil-onset-t4p5-w4-s4p5",
+      "pid": 23204,
+      "observedCheckpointTick": 2,
+      "initialCapture": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p5\\captures\\labels\\initial.json",
+        "sha256": "a6d5b506881da49a2b2492c71f798b52a816bcfe1aa888a25b728fd13010774b",
+        "solverSha256": "9cf11a831c412a10225b9adcdfc97694ed5d1bf9dcc006170c04cbc33c007d0c",
+        "verifiedPayloadAndManifest": true
+      },
+      "observations": {
+        "ageSeconds": [
+          1,
+          2,
+          3,
+          4,
+          4.25,
+          4.5,
+          4.75,
+          5,
+          6,
+          10,
+          20
+        ],
+        "widthHistorySwitch": true,
+        "centralAttachments": {
+          "maxHexRadiusCells": 1,
+          "absoluteZOffsets": [
+            1
+          ]
+        }
+      },
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p5\\attempts\\initial\\stderr.log",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t4p5-r2-h3-broad",
+      "pid": 17392,
+      "observedCheckpointTick": 2,
+      "initialCapture": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r2-h3-broad\\captures\\labels\\initial.json",
+        "sha256": "6e7bf455be76c73420431bad11d4c0099dfb57b439aa13619d37794fdc4f110d",
+        "solverSha256": "ab3c0f3f7e6b434b5258d003aba83a7cba9bfa2f323e8b55d5930299af98e899",
+        "verifiedPayloadAndManifest": true
+      },
+      "observations": {
+        "ageSeconds": [
+          1,
+          2,
+          3,
+          4,
+          4.25,
+          4.5,
+          4.75,
+          5,
+          6,
+          10,
+          20
+        ],
+        "widthHistorySwitch": false,
+        "centralAttachments": {
+          "maxHexRadiusCells": 1,
+          "absoluteZOffsets": [
+            2
+          ]
+        }
+      },
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r2-h3-broad\\attempts\\initial\\stderr.log",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t4p5-r2-h3-early3",
+      "pid": 26268,
+      "observedCheckpointTick": 2,
+      "initialCapture": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r2-h3-early3\\captures\\labels\\initial.json",
+        "sha256": "2d0084992626760c43947a8661fe4ffb4ef382f2512390fe4526ec0a27351f9b",
+        "solverSha256": "856da60e49dc0413849d6cffb9eda9c471c64ae51581edacbcc949adec2c8ab7",
+        "verifiedPayloadAndManifest": true
+      },
+      "observations": {
+        "ageSeconds": [
+          1,
+          2,
+          3,
+          4,
+          4.25,
+          4.5,
+          4.75,
+          5,
+          6,
+          10,
+          20
+        ],
+        "widthHistorySwitch": true,
+        "centralAttachments": {
+          "maxHexRadiusCells": 1,
+          "absoluteZOffsets": [
+            2
+          ]
+        }
+      },
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r2-h3-early3\\attempts\\initial\\stderr.log",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t4p5-r3-h1-broad",
+      "pid": 28704,
+      "observedCheckpointTick": 2,
+      "initialCapture": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r3-h1-broad\\captures\\labels\\initial.json",
+        "sha256": "60f400b1d1e753565d6a964aad8d6d2c53a562b5c47af782e4cd78d735e27e40",
+        "solverSha256": "ee24515cb019b3438055573afab69ed8160638ec1c8ab9ea8ecd4cfbdcdf3fe5",
+        "verifiedPayloadAndManifest": true
+      },
+      "observations": {
+        "ageSeconds": [
+          1,
+          2,
+          3,
+          4,
+          4.25,
+          4.5,
+          4.75,
+          5,
+          6,
+          10,
+          20
+        ],
+        "widthHistorySwitch": false,
+        "centralAttachments": {
+          "maxHexRadiusCells": 1,
+          "absoluteZOffsets": [
+            1
+          ]
+        }
+      },
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r3-h1-broad\\attempts\\initial\\stderr.log",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "adv12-hil-warm-seed-t4p5-r3-h1-early3",
+      "pid": 8408,
+      "observedCheckpointTick": 2,
+      "initialCapture": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r3-h1-early3\\captures\\labels\\initial.json",
+        "sha256": "ea53db8c7fb6f88d3c2bbca015c056eb562b616f0d7093530cdb2d4117631b42",
+        "solverSha256": "f36fa7ae7211e68951df03703457d52894c7bf96ee734da3d14c091b5adc6c6f",
+        "verifiedPayloadAndManifest": true
+      },
+      "observations": {
+        "ageSeconds": [
+          1,
+          2,
+          3,
+          4,
+          4.25,
+          4.5,
+          4.75,
+          5,
+          6,
+          10,
+          20
+        ],
+        "widthHistorySwitch": true,
+        "centralAttachments": {
+          "maxHexRadiusCells": 1,
+          "absoluteZOffsets": [
+            1
+          ]
+        }
+      },
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r3-h1-early3\\attempts\\initial\\stderr.log",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "adv12-hil-cold-seed-t14p4-r2-h3-both",
+      "pid": 2108,
+      "observedCheckpointTick": 2,
+      "initialCapture": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-both\\captures\\labels\\initial.json",
+        "sha256": "e2d57d6ecd0e91b23190c2f37a1a017a7dea894b1e3a2beab596ad8d30999ef8",
+        "solverSha256": "4c069cb78b1e055818e047d688121898645cbe130274ebc72cc13c9d83bc6dd2",
+        "verifiedPayloadAndManifest": true
+      },
+      "observations": {
+        "ageSeconds": [
+          1,
+          2,
+          3,
+          4,
+          4.25,
+          4.5,
+          4.75,
+          5,
+          6,
+          10,
+          20
+        ],
+        "widthHistorySwitch": false,
+        "centralAttachments": {
+          "maxHexRadiusCells": 1,
+          "absoluteZOffsets": [
+            2
+          ]
+        }
+      },
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-both\\attempts\\initial\\stderr.log",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "adv12-hil-cold-seed-t14p4-r2-h3-neither",
+      "pid": 26364,
+      "observedCheckpointTick": 2,
+      "initialCapture": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-neither\\captures\\labels\\initial.json",
+        "sha256": "c007fd7f7efebe9add71d04c9ba10cc6aebd3480c0f68dbff227285fa50eaff8",
+        "solverSha256": "a98b9548303436d64206ca3fab2876161ddb2401e92bb5efc33f45bf8c2cfcf9",
+        "verifiedPayloadAndManifest": true
+      },
+      "observations": {
+        "ageSeconds": [
+          1,
+          2,
+          3,
+          4,
+          4.25,
+          4.5,
+          4.75,
+          5,
+          6,
+          10,
+          20
+        ],
+        "widthHistorySwitch": false,
+        "centralAttachments": {
+          "maxHexRadiusCells": 1,
+          "absoluteZOffsets": [
+            2
+          ]
+        }
+      },
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-neither\\attempts\\initial\\stderr.log",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "adv12-hil-cold-seed-t14p4-r2-h3-basal-only",
+      "pid": 12440,
+      "observedCheckpointTick": 2,
+      "initialCapture": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-basal-only\\captures\\labels\\initial.json",
+        "sha256": "1ee8f762e941b55413f297244874137421181befca1abad31bf37e7f1a0e5b7f",
+        "solverSha256": "07bfbe402765efcf7dd3830c98be7cf8aae407a5a48921515f3ba77c0bfb084b",
+        "verifiedPayloadAndManifest": true
+      },
+      "observations": {
+        "ageSeconds": [
+          1,
+          2,
+          3,
+          4,
+          4.25,
+          4.5,
+          4.75,
+          5,
+          6,
+          10,
+          20
+        ],
+        "widthHistorySwitch": false,
+        "centralAttachments": {
+          "maxHexRadiusCells": 1,
+          "absoluteZOffsets": [
+            2
+          ]
+        }
+      },
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-basal-only\\attempts\\initial\\stderr.log",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "adv12-hil-cold-seed-t14p4-r2-h3-prism-only",
+      "pid": 20604,
+      "observedCheckpointTick": 2,
+      "initialCapture": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-prism-only\\captures\\labels\\initial.json",
+        "sha256": "ed16a4d8be849861f02cd999dea601bc620dd0f1780720875383aa34d939932d",
+        "solverSha256": "01217356a031dc02093f8b27a7240e9bce00c0c890829aabda12d0f941871f14",
+        "verifiedPayloadAndManifest": true
+      },
+      "observations": {
+        "ageSeconds": [
+          1,
+          2,
+          3,
+          4,
+          4.25,
+          4.5,
+          4.75,
+          5,
+          6,
+          10,
+          20
+        ],
+        "widthHistorySwitch": false,
+        "centralAttachments": {
+          "maxHexRadiusCells": 1,
+          "absoluteZOffsets": [
+            2
+          ]
+        }
+      },
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-prism-only\\attempts\\initial\\stderr.log",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "adv12-hil-cold-pressure-t14p4-p50662p5-both",
+      "pid": 13996,
+      "observedCheckpointTick": 2,
+      "initialCapture": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-both\\captures\\labels\\initial.json",
+        "sha256": "960e7877cb82e1c552ed9d7b1dd317adb8b5e2151ca7dff011507b5f8735d571",
+        "solverSha256": "bb77f069abc1d88b1a0b608e4c710cf537a39fac37a33dd7e3c40f09935b664c",
+        "verifiedPayloadAndManifest": true
+      },
+      "observations": {
+        "ageSeconds": [
+          1,
+          2,
+          3,
+          4,
+          4.25,
+          4.5,
+          4.75,
+          5,
+          6,
+          10,
+          20
+        ],
+        "widthHistorySwitch": false,
+        "centralAttachments": {
+          "maxHexRadiusCells": 1,
+          "absoluteZOffsets": [
+            1
+          ]
+        }
+      },
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-both\\attempts\\initial\\stderr.log",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "adv12-hil-cold-pressure-t14p4-p50662p5-neither",
+      "pid": 8172,
+      "observedCheckpointTick": 2,
+      "initialCapture": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-neither\\captures\\labels\\initial.json",
+        "sha256": "c9ee10e26dbdc8104af5c8b5fd399804f8708858ebacc0d03cd7f17236e5bde3",
+        "solverSha256": "36052885effc6d18475e9d9589e2b65c875b8cd69ee672307c6389b6d57d4d2e",
+        "verifiedPayloadAndManifest": true
+      },
+      "observations": {
+        "ageSeconds": [
+          1,
+          2,
+          3,
+          4,
+          4.25,
+          4.5,
+          4.75,
+          5,
+          6,
+          10,
+          20
+        ],
+        "widthHistorySwitch": false,
+        "centralAttachments": {
+          "maxHexRadiusCells": 1,
+          "absoluteZOffsets": [
+            1
+          ]
+        }
+      },
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-neither\\attempts\\initial\\stderr.log",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "adv12-hil-cold-pressure-t14p4-p50662p5-basal-only",
+      "pid": 26260,
+      "observedCheckpointTick": 2,
+      "initialCapture": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-basal-only\\captures\\labels\\initial.json",
+        "sha256": "467cf159ec40f08ada6e3322f3ea65535966e8e6b1bd7bb0b10d5be98d8df184",
+        "solverSha256": "148dcaa74f674d6d0b8aebddf5ad915a824584817b93a3fb94c1cbde205324cc",
+        "verifiedPayloadAndManifest": true
+      },
+      "observations": {
+        "ageSeconds": [
+          1,
+          2,
+          3,
+          4,
+          4.25,
+          4.5,
+          4.75,
+          5,
+          6,
+          10,
+          20
+        ],
+        "widthHistorySwitch": false,
+        "centralAttachments": {
+          "maxHexRadiusCells": 1,
+          "absoluteZOffsets": [
+            1
+          ]
+        }
+      },
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-basal-only\\attempts\\initial\\stderr.log",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "adv12-hil-cold-pressure-t14p4-p50662p5-prism-only",
+      "pid": 25080,
+      "observedCheckpointTick": 2,
+      "initialCapture": {
+        "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-prism-only\\captures\\labels\\initial.json",
+        "sha256": "04e662eb0f3ebd4a8cccd9deadafbb5260f208dc4065f89d0bd7df32e832ea54",
+        "solverSha256": "3b71818352d5e0c9c50f4b4e85fd9eea804ed1d227ecc6abb4404c82b0c20d90",
+        "verifiedPayloadAndManifest": true
+      },
+      "observations": {
+        "ageSeconds": [
+          1,
+          2,
+          3,
+          4,
+          4.25,
+          4.5,
+          4.75,
+          5,
+          6,
+          10,
+          20
+        ],
+        "widthHistorySwitch": false,
+        "centralAttachments": {
+          "maxHexRadiusCells": 1,
+          "absoluteZOffsets": [
+            1
+          ]
+        }
+      },
+      "stderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-prism-only\\attempts\\initial\\stderr.log",
+      "stderrBytes": 0
+    }
+  ],
+  "resourceObservation": {
+    "observedUtc": "2026-11-13T03:35:35.6494684Z",
+    "workers": [
+      {
+        "pid": 30388,
+        "parentPid": 21904,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h1-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w6-s5",
+        "cpuSeconds": 86560.453125,
+        "workingSetBytes": 428273664
+      },
+      {
+        "pid": 27176,
+        "parentPid": 21904,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h1-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w8-s5",
+        "cpuSeconds": 86556.921875,
+        "workingSetBytes": 425254912
+      },
+      {
+        "pid": 26236,
+        "parentPid": 21904,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h3-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w6-s5",
+        "cpuSeconds": 86559.265625,
+        "workingSetBytes": 426352640
+      },
+      {
+        "pid": 12460,
+        "parentPid": 21904,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h3-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w8-s5",
+        "cpuSeconds": 86558.703125,
+        "workingSetBytes": 460447744
+      },
+      {
+        "pid": 16164,
+        "parentPid": 14416,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\runner\\src\\hil-adventures-nov12-main.ts run-row adv12-hil-onset-t4p5-w3-s4p5 C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p5",
+        "cpuSeconds": 60.9375,
+        "workingSetBytes": 132124672
+      },
+      {
+        "pid": 21448,
+        "parentPid": 14416,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\runner\\src\\hil-adventures-nov12-main.ts run-row adv12-hil-onset-t4p5-w3-s4p25 C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p25",
+        "cpuSeconds": 60.65625,
+        "workingSetBytes": 147947520
+      },
+      {
+        "pid": 7544,
+        "parentPid": 14416,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\runner\\src\\hil-adventures-nov12-main.ts run-row adv12-hil-onset-t4p5-w3-s4p75 C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w3-s4p75",
+        "cpuSeconds": 61.015625,
+        "workingSetBytes": 136204288
+      },
+      {
+        "pid": 23204,
+        "parentPid": 14416,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\runner\\src\\hil-adventures-nov12-main.ts run-row adv12-hil-onset-t4p5-w4-s4p5 C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-onset-t4p5-w4-s4p5",
+        "cpuSeconds": 60.828125,
+        "workingSetBytes": 152801280
+      },
+      {
+        "pid": 17392,
+        "parentPid": 14416,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\runner\\src\\hil-adventures-nov12-main.ts run-row adv12-hil-warm-seed-t4p5-r2-h3-broad C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r2-h3-broad",
+        "cpuSeconds": 60.953125,
+        "workingSetBytes": 153395200
+      },
+      {
+        "pid": 26268,
+        "parentPid": 14416,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\runner\\src\\hil-adventures-nov12-main.ts run-row adv12-hil-warm-seed-t4p5-r2-h3-early3 C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r2-h3-early3",
+        "cpuSeconds": 60.921875,
+        "workingSetBytes": 153350144
+      },
+      {
+        "pid": 28704,
+        "parentPid": 14416,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\runner\\src\\hil-adventures-nov12-main.ts run-row adv12-hil-warm-seed-t4p5-r3-h1-broad C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r3-h1-broad",
+        "cpuSeconds": 60.609375,
+        "workingSetBytes": 153092096
+      },
+      {
+        "pid": 8408,
+        "parentPid": 14416,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\runner\\src\\hil-adventures-nov12-main.ts run-row adv12-hil-warm-seed-t4p5-r3-h1-early3 C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-warm-seed-t4p5-r3-h1-early3",
+        "cpuSeconds": 60.8125,
+        "workingSetBytes": 132882432
+      },
+      {
+        "pid": 2108,
+        "parentPid": 14416,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\runner\\src\\hil-adventures-nov12-main.ts run-row adv12-hil-cold-seed-t14p4-r2-h3-both C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-both",
+        "cpuSeconds": 60.890625,
+        "workingSetBytes": 153051136
+      },
+      {
+        "pid": 26364,
+        "parentPid": 14416,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\runner\\src\\hil-adventures-nov12-main.ts run-row adv12-hil-cold-seed-t14p4-r2-h3-neither C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-neither",
+        "cpuSeconds": 60.859375,
+        "workingSetBytes": 157265920
+      },
+      {
+        "pid": 12440,
+        "parentPid": 14416,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\runner\\src\\hil-adventures-nov12-main.ts run-row adv12-hil-cold-seed-t14p4-r2-h3-basal-only C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-basal-only",
+        "cpuSeconds": 60.703125,
+        "workingSetBytes": 156872704
+      },
+      {
+        "pid": 20604,
+        "parentPid": 14416,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\runner\\src\\hil-adventures-nov12-main.ts run-row adv12-hil-cold-seed-t14p4-r2-h3-prism-only C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-seed-t14p4-r2-h3-prism-only",
+        "cpuSeconds": 60.90625,
+        "workingSetBytes": 152604672
+      },
+      {
+        "pid": 13996,
+        "parentPid": 14416,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\runner\\src\\hil-adventures-nov12-main.ts run-row adv12-hil-cold-pressure-t14p4-p50662p5-both C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-both",
+        "cpuSeconds": 60.75,
+        "workingSetBytes": 156831744
+      },
+      {
+        "pid": 8172,
+        "parentPid": 14416,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\runner\\src\\hil-adventures-nov12-main.ts run-row adv12-hil-cold-pressure-t14p4-p50662p5-neither C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-neither",
+        "cpuSeconds": 60.84375,
+        "workingSetBytes": 146354176
+      },
+      {
+        "pid": 26260,
+        "parentPid": 14416,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\runner\\src\\hil-adventures-nov12-main.ts run-row adv12-hil-cold-pressure-t14p4-p50662p5-basal-only C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-basal-only",
+        "cpuSeconds": 60.75,
+        "workingSetBytes": 153292800
+      },
+      {
+        "pid": 25080,
+        "parentPid": 14416,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\runner\\src\\hil-adventures-nov12-main.ts run-row adv12-hil-cold-pressure-t14p4-p50662p5-prism-only C:\\Users\\biao3\\.codex\\worktrees\\hil-adventures-nov12\\snowflake\\out\\hil-adventures-nov12\\rows\\adv12-hil-cold-pressure-t14p4-p50662p5-prism-only",
+        "cpuSeconds": 60.765625,
+        "workingSetBytes": 147337216
+      }
+    ],
+    "availablePhysicalBytes": 49718403072,
+    "commitHeadroomBytes": 52601012224,
+    "freeDiskBytes": 3110868586496
+  },
+  "scope": "Actual process/initial state/capture startup verification. Initial immutable solver and manifest hashes checked; current pointer ticks observed without whole active-checkpoint read. No terminal endpoint or physical-validation claim. Existing four worker identities preserved.",
+  "resumeCommand": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start-hil-adventures-nov12.ps1 -Mode resume -Workers 16"
+}

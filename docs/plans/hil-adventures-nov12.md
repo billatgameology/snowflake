@@ -1,7 +1,7 @@
 # Plan - HIL short and medium exploration adventures
 
 - **Phase:** active Phase10; charter2.5/3.2 and accepted ADR0055/0058/0059/0060/0062.
-- **Status:** implementation checked and ready for dispatch; source implementation `2c138f9`.
+- **Status:** RUNNING since November12 at19:34Pacific, frozen producer `2d94c2d`:16 new workers,30 queued, alongside4 continuing fine workers.
 - **Started / last touched:** 2026-11-12 by Codex.
 - **Checkout:** `codex/hil-adventures-nov12`, `C:/Users/biao3/.codex/worktrees/hil-adventures-nov12/snowflake`.
 
@@ -189,12 +189,29 @@ Root also rechecked all36 triage result hashes and recomputed its scalar census;
 not an independent reconstruction of the entire scientific readout. Preserve this limit.
 Producer/runtime and actual dispatch will be recorded separately after clean-source launch.
 
+## Actual launch - November12
+
+The [launch receipt](../../evidence/hil-adventures-2026-11-12/launch.json) records start19:34Pacific,
+producer `2d94c2dd4683ee80f9583c53cf00563eb0d6d597`, Node24.13.1/V8 13.6.233.17-node.40,
+wrapper PID5440/coordinator PID14416 and exact16-worker command. At19:35Pacific all16 new
+workers had advanced and had verified permanent initial solver/manifest payloads. Thirty rows
+remained queued. All row/coordinator startup stderr files were empty. The four original fine
+workers and coordinator21904 remained alive, for20 science workers total. No endpoint is claimed.
+
+Keep this execution checkout fixed at2d94c2d; later main commits carry live records.
+Coordinator logs are `out/hil-adventures-nov12-controls/campaign-launch-20261112T193432341.{stdout,stderr}.log`;
+row logs are `out/hil-adventures-nov12/rows/<id>/attempts/initial/{stdout,stderr}.log`, with separate
+exit receipts. The wrapper's exact resume command is the printed launch command with `-Mode resume`.
+A future gaming pause applies to both active coordinators/worker sets; inspect identities first.
+The unchanged resume path retains completed cycles and repeats an interrupted unfinished one.
+No worktree closed and no useful bytes were pruned. NAS publication remains a later required step.
+
 ## Steps
 
 - [x] Commit protocol and reused-input/triage bindings before implementation (`0db5b6f`).
 - [x] Add finite roster, existing recorder/coordinator route and hidden wrapper (`2c138f9`).
 - [x] Complete scoped checks and one bounded review; commit clean producer.
-- [ ] Launch16 additional workers, verify total20 and retained state, update main records.
+- [x] Launch16 additional workers, verify total20 and retained state, update main records.
 - [ ] Analyze complete cohorts; preserve bulk output on NAS and verify recovery.
 
 ## Out of scope
