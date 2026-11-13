@@ -72,8 +72,8 @@ quarter fractions; report paired width comparisons separately. Use event-adjacen
 original-opening survival and tip advance, post-switch axial/lateral additions, local central
 fill and exact-size geometry. A shift in terminal extent alone is insufficient. Existing timestep
 sensitivity at cutoff2.5 remains unresolved; a new apparent onset will require a focused numerical
-comparison before being called robust. Use `hil-central-filling-nov11-readout.ts` retained/campaign
-and `hil-bld-growth-dynamics-readout.ts` event/cavity readers, then the established matched recipe.
+comparison before being called robust. Use `hil-central-filling-nov11-readout.ts` in retained mode
+and `hil-growth-dynamics-oct21-readout.ts` event/cavity readers, then the established matched recipe.
 
 Warm seed: compare each broad/prepared pair and each temperature's six-member seed cohort
 (two new seeds plus bound original seed). Predict persistence can survive while dimensions
@@ -173,7 +173,7 @@ named isolated worktree. No other worktree/branch is repurposed or removed.
 
 ## Steps
 
-- [ ] Commit protocol and reused-input/triage bindings before implementation.
+- [x] Commit protocol and reused-input/triage bindings before implementation (`0db5b6f`).
 - [ ] Add finite roster, existing recorder/coordinator route and hidden wrapper.
 - [ ] Complete scoped checks and one bounded review; commit clean producer.
 - [ ] Launch16 additional workers, verify total20 and retained state, update main records.
