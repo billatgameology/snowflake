@@ -1,0 +1,41 @@
+{
+  "observedAt": "2026-11-13T11:05:35.6296211-08:00",
+  "host": "HIL",
+  "logicalProcessors": 24.0,
+  "availablePhysicalBytes": 50600128512,
+  "commitHeadroomBytes": 53129732096,
+  "diskFreeBytes": 3102600314880,
+  "runtime": "{\"node\":\"v24.13.1\",\"v8\":\"13.6.233.17-node.40\"}",
+  "scienceProcesses": [
+    {
+      "pid": 21904,
+      "command": "\"C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe\" \"C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts\" \"resume\" \"HIL\" \"C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\" \"--workers\" \"20\" ",
+      "cpuSeconds": 161.921875,
+      "workingSetBytes": 84963328
+    },
+    {
+      "pid": 30388,
+      "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h1-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w6-s5",
+      "cpuSeconds": 142108.640625,
+      "workingSetBytes": 429543424
+    },
+    {
+      "pid": 27176,
+      "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h1-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w8-s5",
+      "cpuSeconds": 142101.921875,
+      "workingSetBytes": 467238912
+    },
+    {
+      "pid": 26236,
+      "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h3-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w6-s5",
+      "cpuSeconds": 142107.109375,
+      "workingSetBytes": 465936384
+    },
+    {
+      "pid": 12460,
+      "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h3-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w8-s5",
+      "cpuSeconds": 142104.71875,
+      "workingSetBytes": 431513600
+    }
+  ]
+}

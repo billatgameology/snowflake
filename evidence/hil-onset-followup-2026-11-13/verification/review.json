@@ -1,0 +1,157 @@
+{
+  "schema": "bounded-review-v1",
+  "createdAt": "2026-11-13T19:08:20.648Z",
+  "reviewer": {
+    "agent": "/root/adventure_current_readout",
+    "model": "Codex / GPT-6-family; exact model identifier not exposed",
+    "sharedContext": true,
+    "role": "Non-author of four implementation files; participated in prior scientific planning and analysis"
+  },
+  "scope": "Single bounded orchestration review; scientific operands, control matching, capture/create/resume routing, duplicate dispatch and worker ceiling.",
+  "verdict": "no-actionable-finding",
+  "findings": [],
+  "head": "49f1a5d18f84b98d1a08137827ce9bd3d8981f05",
+  "boundFiles": [
+    {
+      "path": "runner/src/hil-onset-followup-nov13-roster.ts",
+      "bytes": 2720,
+      "sha256": "345658339fa09eca11d133deac22a1f8110763482a756978767d96cca7268447"
+    },
+    {
+      "path": "runner/src/hil-onset-followup-nov13-main.ts",
+      "bytes": 2503,
+      "sha256": "2198d0629d877a7904b7bb3ed33d5b6c97aaa45f7bc60d9238dacfe98cba620a"
+    },
+    {
+      "path": "scripts/start-hil-onset-followup-nov13.ps1",
+      "bytes": 2379,
+      "sha256": "c34346980ae09827e65af0a45e498ac1bb17de5ee2968d57478a4128279ec4e3"
+    },
+    {
+      "path": "runner/test/hil-onset-followup-nov13.test.ts",
+      "bytes": 6434,
+      "sha256": "4e5092292a8f4c6454d55e4bd04c258309dc5f8afd9b0b3e5a026861447c5ae3"
+    },
+    {
+      "path": "docs/plans/hil-onset-followup-nov13.md",
+      "bytes": 13065,
+      "sha256": "6f9a38d613e995684383dc30ae0a985a25f89766336e9d745630ee7314465323"
+    },
+    {
+      "path": "evidence/hil-onset-followup-2026-11-13/comparison-inputs.json",
+      "bytes": 35693,
+      "sha256": "ff71ca276d65390a88c6f8084abd3d012938c8b039331eaa0ad78d455faef3ae"
+    }
+  ],
+  "executed": {
+    "list": {
+      "command": [
+        "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+        "runner/src/hil-onset-followup-nov13-main.ts",
+        "list",
+        "HIL"
+      ],
+      "exitCode": 0,
+      "stderr": "",
+      "rows": 16,
+      "stdoutSha256": "4983144730ac8e80e576adf76d2c29cb3e1acb1bba4c4e656cae1be9634d4129"
+    },
+    "controlFilesRehashed": 64,
+    "controls": [
+      {
+        "rowId": "on13-hil-a-t4p5-w3-s4p25",
+        "controlId": "adv12-hil-onset-t4p5-w3-s4p25",
+        "allowedScientificDifference": "cflFill .025 -> .0125"
+      },
+      {
+        "rowId": "on13-hil-a-t4p5-w3-s4p5",
+        "controlId": "adv12-hil-onset-t4p5-w3-s4p5",
+        "allowedScientificDifference": "cflFill .025 -> .0125"
+      },
+      {
+        "rowId": "on13-hil-a-t4p5-w4-s4p25",
+        "controlId": "adv12-hil-onset-t4p5-w4-s4p25",
+        "allowedScientificDifference": "cflFill .025 -> .0125"
+      },
+      {
+        "rowId": "on13-hil-a-t4p5-w4-s4p5",
+        "controlId": "adv12-hil-onset-t4p5-w4-s4p5",
+        "allowedScientificDifference": "cflFill .025 -> .0125"
+      },
+      {
+        "rowId": "on13-hil-a-t5-w3-s4p25",
+        "controlId": "adv12-hil-onset-t5-w3-s4p25",
+        "allowedScientificDifference": "cflFill .025 -> .0125"
+      },
+      {
+        "rowId": "on13-hil-a-t5-w3-s4p5",
+        "controlId": "adv12-hil-onset-t5-w3-s4p5",
+        "allowedScientificDifference": "cflFill .025 -> .0125"
+      },
+      {
+        "rowId": "on13-hil-a-t5-w4-s4p25",
+        "controlId": "adv12-hil-onset-t5-w4-s4p25",
+        "allowedScientificDifference": "cflFill .025 -> .0125"
+      },
+      {
+        "rowId": "on13-hil-a-t5-w4-s4p5",
+        "controlId": "adv12-hil-onset-t5-w4-s4p5",
+        "allowedScientificDifference": "cflFill .025 -> .0125"
+      },
+      {
+        "rowId": "on13-hil-b-t4p5-f0p05-w3-s8",
+        "controlId": "adv12-hil-forcing-t4p5-f0p05-early3",
+        "allowedScientificDifference": "cutoffSeconds 5 -> 8"
+      },
+      {
+        "rowId": "on13-hil-b-t4p5-f0p05-w4-s8",
+        "controlId": "adv12-hil-forcing-t4p5-f0p05-early4",
+        "allowedScientificDifference": "cutoffSeconds 5 -> 8"
+      },
+      {
+        "rowId": "on13-hil-b-t4p5-f0p1-w3-s3",
+        "controlId": "adv12-hil-forcing-t4p5-f0p1-early3",
+        "allowedScientificDifference": "cutoffSeconds 5 -> 3"
+      },
+      {
+        "rowId": "on13-hil-b-t4p5-f0p1-w4-s3",
+        "controlId": "adv12-hil-forcing-t4p5-f0p1-early4",
+        "allowedScientificDifference": "cutoffSeconds 5 -> 3"
+      },
+      {
+        "rowId": "on13-hil-b-t5-f0p05-w3-s8",
+        "controlId": "adv12-hil-forcing-t5-f0p05-early3",
+        "allowedScientificDifference": "cutoffSeconds 5 -> 8"
+      },
+      {
+        "rowId": "on13-hil-b-t5-f0p05-w4-s8",
+        "controlId": "adv12-hil-forcing-t5-f0p05-early4",
+        "allowedScientificDifference": "cutoffSeconds 5 -> 8"
+      },
+      {
+        "rowId": "on13-hil-b-t5-f0p1-w3-s3",
+        "controlId": "adv12-hil-forcing-t5-f0p1-early3",
+        "allowedScientificDifference": "cutoffSeconds 5 -> 3"
+      },
+      {
+        "rowId": "on13-hil-b-t5-f0p1-w4-s3",
+        "controlId": "adv12-hil-forcing-t5-f0p1-early4",
+        "allowedScientificDifference": "cutoffSeconds 5 -> 3"
+      }
+    ],
+    "method": "Executed list CLI in fresh Node process; matched every listed row by deep equality against its exact retained control spec after changing only id and registered CFL (A) or cutoff (B); independently rehashed all control files; invoked existing observation validator and compared complete capture settings; inspected git diff/untracked inventory."
+  },
+  "inspection": {
+    "main": "Both run-row/resume-row resolve only new roster IDs, require exactly ID/output, set create/resume and identical permanent observations, and delegate scientific execution to unchanged runner; remaining commands use unchanged lease/resume coordinator.",
+    "wrapper": "Separate new output/log paths; validates workers 1..16 and registered Node; forwards launch/resume HIL with explicit workers; hidden child, unique stdout/stderr/invocation/exit files. Reviewed without launching.",
+    "tests": "Read all five new tests: explicit independent complete operand table, fixed settings/observations, campaign/worker mutations, mocked create/resume routing for all16, list and invalid-route cases. Did not execute tests; parent owns scoped final checks.",
+    "sharedScience": "No tracked source changes relative protocol commit49f1a5d; only two documentation edits and the four named new files. No solver/codec/recorder/readout/shared coordinator changes.",
+    "plan": "Read registered plan plus clarifying current diff; original-control age8 full-field limitation is explicit."
+  },
+  "limits": [
+    "No simulation, checkpoint/resume interruption, full suite or test suite executed in this review.",
+    "No independent physics derivation, scientific outcome reproduction, NAS publication or current host-capacity certification.",
+    "Actual worker count and initial checkpoint/capture verification must be observed after launch by parent.",
+    "Shared inherited context; this is a bounded non-author implementation review, not blind scientific review."
+  ]
+}

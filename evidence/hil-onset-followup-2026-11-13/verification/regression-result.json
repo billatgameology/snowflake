@@ -1,0 +1,7 @@
+{
+  "log": "out/hil-onset-followup-nov13-verification/regression-20261113.log",
+  "startedAt": "2026-11-13T11:07:29.6867728-08:00",
+  "finishedAt": "2026-11-13T11:07:39.6317173-08:00",
+  "exitCode": 0,
+  "command": "npx.cmd vitest run runner/test/hil-adventures-nov12.test.ts runner/test/hil-central-filling-nov11.test.ts runner/test/hil-bld-batch-resume.test.ts runner/test/hil-bld-batch-execution.test.ts runner/test/discovery-retained-observations.test.ts"
+}

@@ -1,0 +1,7 @@
+{
+  "startedUtc": "2026-11-13T19:06:59.2741446Z",
+  "exitCode": 0,
+  "log": "out/hil-onset-followup-nov13-verification/implementation-focused.log",
+  "finishedUtc": "2026-11-13T19:07:01.8138377Z",
+  "command": "npx.cmd vitest run runner/test/hil-onset-followup-nov13.test.ts"
+}

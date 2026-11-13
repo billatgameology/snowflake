@@ -1,0 +1,92 @@
+{
+  "recordedAt": "2026-11-13T19:09:27.057623+00:00",
+  "protocolCommit": "49f1a5d",
+  "scope": "New thin campaign roster/entry/wrapper and routing tests only; existing solver/codec/recorder/readout unchanged. No full-suite claim.",
+  "checks": [
+    {
+      "command": "npx.cmd vitest run runner/test/hil-onset-followup-nov13.test.ts",
+      "passedTests": 5,
+      "exitCode": 0,
+      "receipt": "verification/implementation-focused-result.json"
+    },
+    {
+      "command": "npm.cmd run typecheck",
+      "checks": [
+        "root tsc --noEmit",
+        "app tsc -p app --noEmit"
+      ],
+      "exitCode": 0,
+      "receipt": "verification/implementation-typecheck-result.json"
+    },
+    {
+      "command": "npx.cmd vitest run runner/test/hil-adventures-nov12.test.ts runner/test/hil-central-filling-nov11.test.ts runner/test/hil-bld-batch-resume.test.ts runner/test/hil-bld-batch-execution.test.ts runner/test/discovery-retained-observations.test.ts",
+      "passedFiles": 5,
+      "passedTests": 33,
+      "exitCode": 0,
+      "receipt": "verification/regression-result.json"
+    },
+    {
+      "command": "npx.cmd vitest run runner/test/evidence-integrity.test.ts runner/test/progress-index.test.ts",
+      "passedFiles": 2,
+      "passedTests": 18,
+      "exitCode": 0
+    },
+    {
+      "command": "npm.cmd run lint:rule7",
+      "exitCode": 0
+    },
+    {
+      "command": "git -c core.whitespace=cr-at-eol diff --cached --check -- . ':(exclude)evidence/hil-onset-followup-2026-11-13/verification/*.log'",
+      "exitCode": 0,
+      "note": "Preserved Windows receipt line endings and raw log bytes; default diff check flags CRLF receipts as trailing whitespace."
+    }
+  ],
+  "review": "verification/review.json",
+  "resources": "verification/prelaunch-resources.json",
+  "implementationFiles": [
+    {
+      "path": "runner/src/hil-onset-followup-nov13-roster.ts",
+      "bytes": 2720,
+      "sha256": "345658339fa09eca11d133deac22a1f8110763482a756978767d96cca7268447"
+    },
+    {
+      "path": "runner/src/hil-onset-followup-nov13-main.ts",
+      "bytes": 2503,
+      "sha256": "2198d0629d877a7904b7bb3ed33d5b6c97aaa45f7bc60d9238dacfe98cba620a"
+    },
+    {
+      "path": "scripts/start-hil-onset-followup-nov13.ps1",
+      "bytes": 2379,
+      "sha256": "c34346980ae09827e65af0a45e498ac1bb17de5ee2968d57478a4128279ec4e3"
+    },
+    {
+      "path": "runner/test/hil-onset-followup-nov13.test.ts",
+      "bytes": 6434,
+      "sha256": "4e5092292a8f4c6454d55e4bd04c258309dc5f8afd9b0b3e5a026861447c5ae3"
+    }
+  ],
+  "historicalWitness": "evidence/hil-central-filling-2026-11-11/verification.json; existing96-update17-state2-boundary uninterrupted/resume witness reused for unchanged recorder/solver/codec contract.",
+  "sourceDisposition": {
+    "primary": "main4db922f clean before integration; its output remains owned there",
+    "newTask": "codex/hil-onset-followup-nov13; only four new orchestration files plus protocol/evidence records",
+    "existingOwners": [
+      {
+        "branch": "codex/hil-adventures-nov12",
+        "head": "2d94c2dd4683ee80f9583c53cf00563eb0d6d597",
+        "state": "tracked clean; completed output retained pending NAS"
+      },
+      {
+        "branch": "codex/hil-growth-dynamics-oct21",
+        "head": "2f2d605f0ed8fdb8d78cdea02a58102a7001cb53",
+        "state": "tracked clean; completed output retained pending NAS"
+      },
+      {
+        "branch": "codex/hil-oct31-resume-record",
+        "head": "aa20f969f8b25ad98cf7a25f1015a4f373080657",
+        "state": "tracked clean; four active fine workers untouched"
+      }
+    ],
+    "pruning": "none; all ignored outputs/dependencies retained; no temporary review worktree or extra refs"
+  },
+  "pending": "Actual launch, processes, checkpoints and permanent initial-state verification; no production case started at this checkpoint."
+}

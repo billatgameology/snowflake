@@ -1,0 +1,7 @@
+{
+  "startedUtc": "2026-11-13T19:06:59.2731843Z",
+  "exitCode": 0,
+  "finishedUtc": "2026-11-13T19:07:08.4142266Z",
+  "log": "out/hil-onset-followup-nov13-verification/implementation-typecheck.log",
+  "command": "npm.cmd run typecheck"
+}

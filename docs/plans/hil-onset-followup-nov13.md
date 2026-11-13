@@ -87,6 +87,8 @@ at z offsets+/-1, last-active/first-inactive complete states and pre-fill solved
 Existing extent maps remain{5,9,13,17,21,25}. Age8 is an existing observation setting, not a
 codec or numerical change. Keep lattice vapor and solved boundary vapor labeled separately.
 The coupled-update cutoff convention remains unchanged; report actual crossing/switch times.
+The old controls have no registered age8 full states: use their event brackets at8s and their
+own cutoff5s switch captures, never claim matched old/new full-field coverage at8s.
 
 Checkpoint every complete update; preserve current/previous restart generations. The existing
 copy-before-rotation/reconcile-on-resume route keeps named analysis captures permanently.
@@ -119,8 +121,8 @@ captures are verified after dispatch. Do not substitute a list-only dry run for 
 16 new single-process workers plus four original fine workers use the authorized20-worker
 allocation. Record live processes/RSS, available RAM, commit headroom and disk before launch;
 retain existing12GiB available-RAM/8GiB commit guards and at least100GiB local free disk.
-The completed46 rows took1.053–5.433 active hours (median4.028); previous12 half-CFL coarse
-central-filling rows took4.553–5.635h. Changed cutoffs/forcing/contention make these anchors
+The completed46 rows took1.053–5.433 active hours (median4.028), bound by the prior analysis
+completion-and-cost.json. Changed cutoffs/forcing/contention make these anchors
 non-transferable, not a completion promise. No additional long-grid commitments or BLD work.
 
 In this fixed checkout:
@@ -152,10 +154,23 @@ The pages still list M1v2 dated2019-11-13 and TAX2v1 dated2023-06-22. No replace
 identified in the bounded later-publication listing. This is no novelty assessment or change
 to parameter mappings/provenance. All existing scientific constants/operators remain frozen.
 
+## Executed readiness — November13
+
+The [verification record](../../evidence/hil-onset-followup-2026-11-13/verification.json)
+binds exact commands, successful exits, raw logs, four implementation-file hashes and the
+bounded shared-context review. Five new tests and33 shared orchestration/capture tests pass;
+both typechecks pass. Root inspected the same four-file seam; no solver/codec/recorder/readout
+source changed. No new capacity ladder or actual pause/resume probe was run for this unchanged
+contract. Direct observation before launch shows four fine workers,50,600,128,512 available
+physical bytes,53,129,732,096 commit-headroom bytes and3,102,600,314,880 free local disk bytes.
+The completed and active producers remain at their original heads with useful ignored output
+retained; primary was clean at4db922f. No worktree closed or bytes pruned. Final18 metadata checks and Rule7 pass; the diff check preserves raw log bytes and accepts
+Windows receipt line endings via `core.whitespace=cr-at-eol`. Launch is separate.
+
 ## Steps
 
-- [ ] Commit protocol and16 reused-control bindings before implementation.
-- [ ] Implement only the thin orchestration seam and complete scoped checks/review.
+- [x] Commit protocol and16 reused-control bindings before implementation (`49f1a5d`).
+- [x] Implement only the thin orchestration seam; five new tests,33 regression tests and both typechecks pass; bounded review has no actionable finding.
 - [ ] Commit/publish clean producer, launch16 workers and verify retained initial state.
 - [ ] Analyze completed cohorts; preserve bulk output/detailed readouts on NAS and verify recovery.
 

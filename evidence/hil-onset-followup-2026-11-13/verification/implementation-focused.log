@@ -1,0 +1,11 @@
+
+ RUN  v3.2.7 C:/Users/biao3/.codex/worktrees/hil-onset-followup-nov13/snowflake
+
+ ✓ runner/test/hil-onset-followup-nov13.test.ts (5 tests) 1145ms
+   ✓ HIL November13 registered follow-up > exercises the list CLI and rejects other hosts, old rows, extra arguments and probes  914ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  11:07:00
+   Duration  1.56s (transform 214ms, setup 0ms, collect 261ms, tests 1.15s, environment 0ms, prepare 64ms)
+
