@@ -1,8 +1,8 @@
 # Plan — HIL central-filling and growth-memory wave
 
 - **Phase:** active Phase 10, charter sections 2.5/3.2; accepted ADRs 0058–0060/0062.
-- **Status:** RUNNING after explicit maker resume direction, November11 at19:27Pacific:20 actual resume workers and20 queued rows. Keep producer aa20f96 fixed.
-- **Started / last touched:** 2026-11-11 by Codex.
+- **Status:** RUNNING, November12 at19:12Pacific:36/40 size endpoints,4 fine workers active,0 queued, no reported row errors. Keep producer aa20f96 fixed.
+- **Started / last touched:** 2026-11-11 / 2026-11-12 by Codex.
 - **Authority:** maker requests the next wave entirely on HIL, using its 20-worker allocation,
   with a finite queue as large as scientifically useful. Existing resumability/no wall-limit direction remains.
 - **Checkout:** reuse `codex/hil-oct31-resume-record` at
@@ -236,6 +236,25 @@ Read status with `node runner/src/hil-central-filling-nov11-main.ts summarize ou
 in the execution checkout. Read immutable captures with
 `node runner/src/hil-central-filling-nov11-readout.ts campaign out/hil-central-filling-nov11 <new-report.json>`.
 Keep cohort conclusions pending until their complete operands are available.
+
+## Operational status — November 12
+
+The [19:12Pacific status receipt](../../evidence/hil-central-filling-2026-11-11/status-2026-11-12.json)
+records36 size endpoints: all24 A timing rows and all12 B smaller-timestep rows reached extent29.
+All four C fine rows remain active at extent15 of57,475-505 completed updates and
+5.847730224112391-6.268478092965259 simulated seconds. The queue is exhausted; only four workers
+remain, with no extra cases dispatched. No row errors or nonempty attempt stderr were observed.
+Checkpoint timestamps and CPU activity show continued work; size fraction is not a runtime forecast.
+
+All40 rows now have both named switch labels:80 labels referencing120 distinct permanent state
+directories and80 converged boundary maps. This census checked row/label identity, manifest and
+boundary hashes and solver file sizes; it did not hash/decode every solver state or verify NAS.
+The four fine rows have crossed the5s switch and saved its observations outside rolling restart
+storage. Full campaign output remains local staging; governed NAS publication is still pending.
+
+Next: analyze the complete A/B matched cohorts while C continues, preserving the distinction
+between coarse findings and unresolved finer-representation qualification. No full suite or
+capacity measurement was repeated for this operational status check.
 
 ## Steps
 

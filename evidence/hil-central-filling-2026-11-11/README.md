@@ -8,13 +8,18 @@ cutoff. The [registered plan](../../docs/plans/hil-central-filling-nov11.md) con
 and permanent initial captures; 16 were already advancing at the launch observation. The
 four fine workers were actively relaxing. No startup stderr was present.
 
-[Current resume](gaming-resume-2026-11-11.json): the maker lifted the
+[November11 resume](gaming-resume-2026-11-11.json): the maker lifted the
 [gaming pause](gaming-pause-2026-11-11.json) and restarted the same queue on November11 at
 19:27Pacific. Twenty workers are running and twenty rows remain queued at the resume observation;
 sixteen coarse rows had saved new checkpoints, while four fine rows were computing their next cycle.
 All worker/coordinator stderr files were empty. The [paused checkpoints](gaming-pause-checkpoints-2026-11-11.json)
 remain verified historical restart evidence. Source, runtime, finite targets and no-wall-limit policy
 are unchanged. Live records belong to main; the execution checkout remains frozen at `aa20f96`.
+
+[November12 status](status-2026-11-12.json),19:12Pacific:36/40 size endpoints (24 timing,
+12 smaller-timestep),4 fine runs active,0 queued and no reported row errors. All40 rows have
+permanent switch-state and boundary-map files; the receipt states the bounded hash/size checks
+and their limits. The complete A/B cohorts are ready for analysis while fine cases continue.
 
 The new optional recorder retains full completed-cycle states around named ages, central
 attachment batches and the early-only switch, outside rolling restart generations. It also saves

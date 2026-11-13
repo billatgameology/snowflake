@@ -1,0 +1,1490 @@
+{
+  "schema": "hil-central-filling-status-v1",
+  "observedUtc": "2026-11-13T03:12:42.5997152Z",
+  "summaryGeneratedAt": "2026-11-13T03:12:03.353Z",
+  "source": "aa20f969f8b25ad98cf7a25f1015a4f373080657",
+  "complete": 36,
+  "running": 4,
+  "queued": 0,
+  "rowsWithReportedErrors": 0,
+  "nonemptyAttemptStderr": 0,
+  "processObservation": {
+    "coordinatorAlive": true,
+    "coordinatorPid": 21904,
+    "observedUtc": "2026-11-13T03:12:42.5997152Z",
+    "coordinatorStderrBytes": 0,
+    "workers": [
+      {
+        "pid": 30388,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h1-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w6-s5",
+        "cpuSeconds": 85193.09375,
+        "workingSetBytes": 459812864
+      },
+      {
+        "pid": 27176,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h1-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w8-s5",
+        "cpuSeconds": 85189.734375,
+        "workingSetBytes": 425545728
+      },
+      {
+        "pid": 26236,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h3-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w6-s5",
+        "cpuSeconds": 85192.171875,
+        "workingSetBytes": 461234176
+      },
+      {
+        "pid": 12460,
+        "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h3-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w8-s5",
+        "cpuSeconds": 85191.515625,
+        "workingSetBytes": 428851200
+      }
+    ]
+  },
+  "summarySource": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11-controls\\status-20261112T1911-summary.json",
+  "summarySha256": "b74a1d5dc9a127bbf80e767b23cb9d119db3f76b542fffab15b084f82d3de0c4",
+  "captureCheck": {
+    "rowsWithBothSwitchLabels": 40,
+    "labels": 80,
+    "distinctStateDirectories": 120,
+    "boundaryMaps": 80,
+    "scope": "Read every switch label; verify row/label identity, manifest and boundary hashes, solver presence and declared byte size. No solver hash/decode, scientific interpretation, or NAS verification in this status check."
+  },
+  "rows": [
+    {
+      "rowId": "cf11-hil-a-t4p5-w3-s2",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1314,
+      "physicalTimeSeconds": 73.17573000245342,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "7b9c8df4d50d719f1757aa87d7831aab34f999f57cd943eec514bed55f178a66",
+          "stateTicks": [
+            49,
+            50
+          ],
+          "boundaryPath": "captures/boundaries/cycle-50.json",
+          "boundarySha256": "baea03fcb5c5b7e764c32dbcd8d92ea2653502150300be0d9b48ca7b4f411d1f"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "231df8298063628819967f3460aeb36e2f628a45c7b2cb317793c01b4626b42e",
+          "stateTicks": [
+            50,
+            51
+          ],
+          "boundaryPath": "captures/boundaries/cycle-51.json",
+          "boundarySha256": "948c13def918e37d1cfce847014a68b5f0c092b17da3dbba588bed1f43387cb2"
+        }
+      ],
+      "resultSha256": "741a4e0f5fbe1a6030f5d6561190d5200c996290a06793abff54b787d79e9cd4",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t4p5-w3-s2p25",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1396,
+      "physicalTimeSeconds": 73.38808586184085,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "9284aa479a776ad11f82778b901c4d4258c80bee44e2279f35d9c24eeb1435c4",
+          "stateTicks": [
+            55,
+            56
+          ],
+          "boundaryPath": "captures/boundaries/cycle-56.json",
+          "boundarySha256": "6e4d32407d3ef222bb4b8f5a678a87612050de0278042b0c4b2edf79b6cd2fae"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "2152c299883e21c76f1d8f02e8d1dc8da10139954c22b5f7d33621dfdefdd4ba",
+          "stateTicks": [
+            56,
+            57
+          ],
+          "boundaryPath": "captures/boundaries/cycle-57.json",
+          "boundarySha256": "f2dab51f60a004efea1e201a95a46776b9a97591479b616ae340155a0e6db384"
+        }
+      ],
+      "resultSha256": "a8a39b1089c6c46a40bfaa3eff53997d1e07a81d64ba542441922df2adc66f0e",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t4p5-w3-s2p5",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1466,
+      "physicalTimeSeconds": 73.9674351300487,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "eb38182ae5e47d2946ef0bac7955dccd1f44433b9c1efffbbdff5ca30603a7cb",
+          "stateTicks": [
+            60,
+            61
+          ],
+          "boundaryPath": "captures/boundaries/cycle-61.json",
+          "boundarySha256": "bf0a891e6c54c27fb7deb40a3dd087fdccbeda92c007ad3eb5ab9faedae03073"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "c3049e4ada55c7ab1bab4f2b2a35d78314914ca572421818412b926f3aeecca0",
+          "stateTicks": [
+            61,
+            62
+          ],
+          "boundaryPath": "captures/boundaries/cycle-62.json",
+          "boundarySha256": "5d558d9740f85bd66270d1a968f2ee65aa045c415d344b604fa97d00e6d45ec0"
+        }
+      ],
+      "resultSha256": "b3e0c0b455072168f510836449e75f3256e3c4013a6503831c4528e15b917f3d",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t4p5-w3-s2p75",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1459,
+      "physicalTimeSeconds": 75.14350363906347,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "865fd077c8d93567888dd16f262eb54dfa18f515854cd05a2c9d948475e404de",
+          "stateTicks": [
+            66,
+            67
+          ],
+          "boundaryPath": "captures/boundaries/cycle-67.json",
+          "boundarySha256": "ac944ffb4de73e0f819f170266c524ccdad227549ae8732304343a232a6dff95"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "443b265efeca72258520e73e9701aaaf63b2a3346db9cd609a2e48de4b5bfe53",
+          "stateTicks": [
+            67,
+            68
+          ],
+          "boundaryPath": "captures/boundaries/cycle-68.json",
+          "boundarySha256": "4fec4a8e5695068acd4a4bb8b4890d0923f7c7f473faff4d3a8dbbf9d6b24a9c"
+        }
+      ],
+      "resultSha256": "15ee3f72b179dfbd8685a5780f816b2a5bf12f921b61f430f804fa0fd8c5438f",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t4p5-w3-s3",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1404,
+      "physicalTimeSeconds": 74.92528922353165,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "bbd4de3e973235b078f7ef5b6f427aa7fb98441974cfb45a56acf3a7da72f1aa",
+          "stateTicks": [
+            71,
+            72
+          ],
+          "boundaryPath": "captures/boundaries/cycle-72.json",
+          "boundarySha256": "2017bb71ba942f5e6581b36b993f82c639253dac9e1d6025ad5bf07043254ee6"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "dfe632dc240ce1e0792e25291bb9dcfec4266f8775e64ea12b20fe95ca14903b",
+          "stateTicks": [
+            72,
+            73
+          ],
+          "boundaryPath": "captures/boundaries/cycle-73.json",
+          "boundarySha256": "561b1a53058bd7ebb372bc52fd8a7a592895a649045bf10436e6bb435eda68ff"
+        }
+      ],
+      "resultSha256": "f378382c01e44a65b3a82388dee8e0018e6637870ea059dcc116cda06c1896d7",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t4p5-w3-s4",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1561,
+      "physicalTimeSeconds": 76.92909865671278,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "27b728a7679e2ae8c3457ea8bb514a41a4a00c4edfc4d967aacddb5b863ae54e",
+          "stateTicks": [
+            100,
+            101
+          ],
+          "boundaryPath": "captures/boundaries/cycle-101.json",
+          "boundarySha256": "a36ce63502dff63cf9282037d25a53047df193d9ec110d2c0e29a47191ac2cb9"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "8eac98f23c009563c2167351aa645a01a7c3f76c34a396bf7795451f54297e0c",
+          "stateTicks": [
+            101,
+            102
+          ],
+          "boundaryPath": "captures/boundaries/cycle-102.json",
+          "boundarySha256": "2d6872906f2c27c95e23a28aae7b2dd2922b615c4bc2a1639af32279e0985cdb"
+        }
+      ],
+      "resultSha256": "a8aa7298ce4977fa8c7599e9b551090b6055d7ed02ce8a436276cf9bd455e97d",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t4p5-w4-s2",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1310,
+      "physicalTimeSeconds": 73.11121692714747,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "acfc3c183c8d8ab6cb61c51ad8edca701201cc428e0614d0b784e5596a081bc8",
+          "stateTicks": [
+            45,
+            46
+          ],
+          "boundaryPath": "captures/boundaries/cycle-46.json",
+          "boundarySha256": "6fc2a125ba4725c92a01420acce70ad537d6820fd7e35b7619326b9a6e4d2ff5"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "3358de41a0a28173394f9e725a0258e2ff199d9e122dea60f54734b36be45112",
+          "stateTicks": [
+            46,
+            47
+          ],
+          "boundaryPath": "captures/boundaries/cycle-47.json",
+          "boundarySha256": "00bc9fb10983d395513c725ddf799f5a5c4376db3a8c9bfe78fc3f387087716e"
+        }
+      ],
+      "resultSha256": "03ce961d041e5b4618d71482d2674e9074819a1e4a54e36e9f66550dd71555cf",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t4p5-w4-s2p25",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1358,
+      "physicalTimeSeconds": 73.33609643281629,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "650bac9e831e137b8d31ae9e26c17863a4303d9819a4c043d6f327faf08f03ac",
+          "stateTicks": [
+            51,
+            52
+          ],
+          "boundaryPath": "captures/boundaries/cycle-52.json",
+          "boundarySha256": "3bc7dd8b01a09c6d653af3463a26ae9b0a4e2ee9e58ec099a6d73f9822fe6e9f"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "a15876f62ed52f163487724316ecb79acbcc39a1aa310271c4bd10059880694a",
+          "stateTicks": [
+            52,
+            53
+          ],
+          "boundaryPath": "captures/boundaries/cycle-53.json",
+          "boundarySha256": "83b50092c8f7599d01c157a41701cad6c3cfbf2bdf1606a43bdd269b305e105b"
+        }
+      ],
+      "resultSha256": "795f413e07b1cb9144b1e1485e70667d1d648bbc2386ac7c080c12f2b3b58eb5",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t4p5-w4-s2p5",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1443,
+      "physicalTimeSeconds": 73.6749229135414,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "cc3146b03501e8fe00b03f2a9e092ee7c84f1522a6a3da52e8ab93218fe82a65",
+          "stateTicks": [
+            56,
+            57
+          ],
+          "boundaryPath": "captures/boundaries/cycle-57.json",
+          "boundarySha256": "218503ded65b54f555a0d941afeafd5768aaeadb5a319408583d0a2f2537ab52"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "8b65f683f02306afdf7b1f8d4ab53349f1a3c427716c87f93f6ad5c49dec7a36",
+          "stateTicks": [
+            57,
+            58
+          ],
+          "boundaryPath": "captures/boundaries/cycle-58.json",
+          "boundarySha256": "c1738945a1ff969023be7df6f9fb964fa026161d0c3653ea7e6e529eeb225b52"
+        }
+      ],
+      "resultSha256": "b84bcf695fa5983f927d5288b07a6a8021c3b4e212294262464bfe17ba8655e9",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t4p5-w4-s2p75",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1504,
+      "physicalTimeSeconds": 75.00097906044122,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "9c551a8362ed25329b5c4cbf8b38b6c81dbdf95c76e0d74515409a233a4e9206",
+          "stateTicks": [
+            62,
+            63
+          ],
+          "boundaryPath": "captures/boundaries/cycle-63.json",
+          "boundarySha256": "0b550eb4efb41f2bb25ece6aae1abe5c205e3c57ba03e9499db97793629297c4"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "5cb50a1513435986c3c77884d1a400d30b0dc69e2958b9f85adb1c1ea835ef68",
+          "stateTicks": [
+            63,
+            64
+          ],
+          "boundaryPath": "captures/boundaries/cycle-64.json",
+          "boundarySha256": "009efe183282bb5df3393ae18e2e956c4840604d4d7570af62cf1880edd6978c"
+        }
+      ],
+      "resultSha256": "018575bf965893a80e7457225699e8f0f52cbf55983635ae27761012132d48c7",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t4p5-w4-s3",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1420,
+      "physicalTimeSeconds": 74.95140685298769,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "2d3518a2f4aff5849ded5409cb2dc4fa49fc1f757e848b49ac9466c6f26df716",
+          "stateTicks": [
+            68,
+            69
+          ],
+          "boundaryPath": "captures/boundaries/cycle-69.json",
+          "boundarySha256": "30e42c8804e7df8db78a233f7a383af4b21bdc731496eec9f0748636b94a8283"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "a7c476856ca404900c2436f82168e56de042071c663ea7a4af87524ff037d26f",
+          "stateTicks": [
+            69,
+            70
+          ],
+          "boundaryPath": "captures/boundaries/cycle-70.json",
+          "boundarySha256": "3ebb98a8db13f7ef8ee39e2d90d34e8c49c04062057d31a48b8a58585765893b"
+        }
+      ],
+      "resultSha256": "cdc1bb197b3342372b2adea90723d70e4c4e3d0c5b0053a439138b7b7b51f92f",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t4p5-w4-s4",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1554,
+      "physicalTimeSeconds": 76.96288123040168,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "8aa5abecb86f1db90552b5f3217d2c9b969d4c06a884e022774952334a73e2ee",
+          "stateTicks": [
+            96,
+            97
+          ],
+          "boundaryPath": "captures/boundaries/cycle-97.json",
+          "boundarySha256": "9aaf010e87dd326322ae27b8c2fa393f4cb1b6686e6bfa89a3f7db384e797b69"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "8ac8e2a4c222b3a925b5f2d570504a89495caf6c67ec862afd84ecfaea7854e6",
+          "stateTicks": [
+            97,
+            98
+          ],
+          "boundaryPath": "captures/boundaries/cycle-98.json",
+          "boundarySha256": "b45681681b2dd2443d19b6c2bb62c78ecd9801a24574f49588be702849e5be50"
+        }
+      ],
+      "resultSha256": "c1999dac1675f8593fb922623079128219694cc5f7ac52c0c13cdcb5b2673ff9",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t5-w3-s2",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1442,
+      "physicalTimeSeconds": 74.62540921593713,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "2e55b29a7296e91eb596c5529365095b6ac134680dafc2c9b775c609446fc09b",
+          "stateTicks": [
+            51,
+            52
+          ],
+          "boundaryPath": "captures/boundaries/cycle-52.json",
+          "boundarySha256": "37ac6a4350ff824f621b5d7b7889181ef795d23d82fb6fb5b313f45a66024dc3"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "c8c8cd8228043efbc1f6e50629d1ca20156ec6b1ed7115343e56913cee7c1de2",
+          "stateTicks": [
+            52,
+            53
+          ],
+          "boundaryPath": "captures/boundaries/cycle-53.json",
+          "boundarySha256": "8dbb53bf3a6fb6711b603fc207135da175a08f2aa002cf2109651ba71ab6af8d"
+        }
+      ],
+      "resultSha256": "832777d97f599ccbf6b820c78a2e90a9d99ef554bb0ee3bc6b0daa37c21741f4",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t5-w3-s2p25",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1469,
+      "physicalTimeSeconds": 75.1334692613468,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "3e889c13fbef2b55ab2742b45570f0992c1bbd9b57ee02bfb1770a0fd06bf0fc",
+          "stateTicks": [
+            57,
+            58
+          ],
+          "boundaryPath": "captures/boundaries/cycle-58.json",
+          "boundarySha256": "d958795e938a3c5a8eb14a7834b699ecca66d0e2333cb66ece6c66748a14c603"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "467fefb0b04c84636c84e800831dd958bda7a2c740f32d45b7e25be62e924fe4",
+          "stateTicks": [
+            58,
+            59
+          ],
+          "boundaryPath": "captures/boundaries/cycle-59.json",
+          "boundarySha256": "03c6d3d7cb93eb8f250c4a0fb889818ef3f1514e9ed4f2fcc28e459fbca39b7b"
+        }
+      ],
+      "resultSha256": "d75982805f4c5265c6d351162cc2ad15fbf5144aee9af6a83a944627d1121bdf",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t5-w3-s2p5",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1466,
+      "physicalTimeSeconds": 75.29065013037199,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "c8e817a317bf3d99c97d61fde856b00518c9915cd786d9f4bd36cd9a791d1e9c",
+          "stateTicks": [
+            62,
+            63
+          ],
+          "boundaryPath": "captures/boundaries/cycle-63.json",
+          "boundarySha256": "33dab3e671234ea6ec8cf9fe2674225fb1ae42a4f81fbf6b0d0ccf0bdd46a43e"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "75577cb37800f20b66e6622a546b24d08ed5c5a0c0b38dc5ed21bc553526a3e1",
+          "stateTicks": [
+            63,
+            64
+          ],
+          "boundaryPath": "captures/boundaries/cycle-64.json",
+          "boundarySha256": "426dc56cc70dfa28abe64573d8a29ac46985644388d5decdf2aee10bf90c4a88"
+        }
+      ],
+      "resultSha256": "bbbc198b44c944121dfa8dfbbec4e18f0fc2d33f1d5141312629f363e762ecbc",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t5-w3-s2p75",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1456,
+      "physicalTimeSeconds": 75.30241494993484,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "212363c5b8d01f2c86c939477cf9533bd97405d22eca21cec058bc158be854b9",
+          "stateTicks": [
+            68,
+            69
+          ],
+          "boundaryPath": "captures/boundaries/cycle-69.json",
+          "boundarySha256": "8d1cf88049e3e4a985ed0de7f020033e456ceef279b5ac125058c6449b7ccee1"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "10e7a4eed90dc5fd7d74093be00b2a0ea4cbaaaf5a5f002f0bc8da2098bbbcfa",
+          "stateTicks": [
+            69,
+            70
+          ],
+          "boundaryPath": "captures/boundaries/cycle-70.json",
+          "boundarySha256": "b46d4487454e76759213cae6dbb7fa2ab479de2f9d6ae944e9f6ad93b107e9c2"
+        }
+      ],
+      "resultSha256": "0111973bcf758b8bfb29abafd064ab65db980ab9213f035b8b08a5688baea537",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t5-w3-s3",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1459,
+      "physicalTimeSeconds": 75.36144552370466,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "f13b60142a26fa13f1a1b0387cfc47bf45186177e7190ae48119ced20d4c70e3",
+          "stateTicks": [
+            74,
+            75
+          ],
+          "boundaryPath": "captures/boundaries/cycle-75.json",
+          "boundarySha256": "c8b66645f323c41f9817f53591a92faedbe1a1b9dccdbf2ab929dbd058a84dcb"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "7f5ed6076595e480bdd7ece402d84a1018767f306afd7eb70d52114fa7eb99fb",
+          "stateTicks": [
+            75,
+            76
+          ],
+          "boundaryPath": "captures/boundaries/cycle-76.json",
+          "boundarySha256": "e8ac6885ca139666b2924da17345289eb0e743e0fb6fe391b17478e68324c1c2"
+        }
+      ],
+      "resultSha256": "cbcc261c813b3078121b4fd7b427a1e54475c33a33779b553bc228d0821d62e3",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t5-w3-s4",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1521,
+      "physicalTimeSeconds": 77.49374968537998,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "626b8a9e0ccaae91a372cd64b55b46f81982959c70a93a66e8e842f14f093205",
+          "stateTicks": [
+            105,
+            106
+          ],
+          "boundaryPath": "captures/boundaries/cycle-106.json",
+          "boundarySha256": "92cd834977e6d0594401e1c4b28f3695bcd5f2635545acfaef85ef4fc01d18c2"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "a107ba63065d7eb421dc1492aa47197695071ea1fc8deb37f119be431eff4afe",
+          "stateTicks": [
+            106,
+            107
+          ],
+          "boundaryPath": "captures/boundaries/cycle-107.json",
+          "boundarySha256": "43d4e9f2a4352eeba4e2572f8e97db2e7045ef9fe0ce7fbf53425598ee9e6c6a"
+        }
+      ],
+      "resultSha256": "ae9a1a117c5559f7e7ea85a974480e51c5beeaf8aa4f722aaa0d4449900b41bb",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t5-w4-s2",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1399,
+      "physicalTimeSeconds": 74.46926615273286,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "1e971e863cea0e20cee0a17f6e5183001c99fa2dc5a93baf7059793bccee865f",
+          "stateTicks": [
+            47,
+            48
+          ],
+          "boundaryPath": "captures/boundaries/cycle-48.json",
+          "boundarySha256": "fe2e0ae187960be16ef67e4628ff667318894c857d30792ef59ee2e827d15d9d"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "4318602a4f4994e4f03d88e92f643e8cd5bba451959001cbcdd9a1240e2b9d41",
+          "stateTicks": [
+            48,
+            49
+          ],
+          "boundaryPath": "captures/boundaries/cycle-49.json",
+          "boundarySha256": "ca4c37ec033c23c1cf83ef47409338a4ac79e6f127ce68bb1d0c004ce3464d83"
+        }
+      ],
+      "resultSha256": "33ed9b5a2a6b024bba6df88d8bd7c7c8080af951b5ecec8ed616ebf8c0759770",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t5-w4-s2p25",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1461,
+      "physicalTimeSeconds": 74.89066500892164,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "259ff9bf9d4bed01d06d79e52f1cc249c434e08c76cc072f634a9bd631d43f00",
+          "stateTicks": [
+            53,
+            54
+          ],
+          "boundaryPath": "captures/boundaries/cycle-54.json",
+          "boundarySha256": "8e4ee91cba0811f35d98a29ef5161d2252dfd2ef2e2f9fdfd5f52c73a5bc6c7e"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "c5f21d211b344f5f6615a58d1540e6964660f9c0e0bfbb634e71b9dd5e750a19",
+          "stateTicks": [
+            54,
+            55
+          ],
+          "boundaryPath": "captures/boundaries/cycle-55.json",
+          "boundarySha256": "4262681029fa2a7c6c80126fa4c02fba016073904ae0e7add8ac22ae04adfee0"
+        }
+      ],
+      "resultSha256": "2a73aad2a44d90fbe2e2823e09ba38bf17a534cc2ef614d3f28bcc71601962e6",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t5-w4-s2p5",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1459,
+      "physicalTimeSeconds": 75.36125968117871,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "109cd0ae96e41d74e2506d38cd7450fd901618c1ce78e661deefbc750f63f26a",
+          "stateTicks": [
+            59,
+            60
+          ],
+          "boundaryPath": "captures/boundaries/cycle-60.json",
+          "boundarySha256": "56c4cfc845c62cdd199671726ab6a552447303408bd7da348e3a43c504c3a56d"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "64a18a40230b9bbb3b1805acbb4fc53d5451c79d2a81aafb4ecc5bb3ce86b75e",
+          "stateTicks": [
+            60,
+            61
+          ],
+          "boundaryPath": "captures/boundaries/cycle-61.json",
+          "boundarySha256": "f64e28240d1558878534aebe7c6607521026e1124d142ac717a7ffb48452dbaf"
+        }
+      ],
+      "resultSha256": "b66d0dc540793f1dbc1d53fb7ef6753c065a859899873ddb8011dca04ee6fc94",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t5-w4-s2p75",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1450,
+      "physicalTimeSeconds": 75.49940529869903,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "decf5519dd8352b2c3a8f6935918b44e972eef87d0fdfe9ea2b45d8eb7421014",
+          "stateTicks": [
+            65,
+            66
+          ],
+          "boundaryPath": "captures/boundaries/cycle-66.json",
+          "boundarySha256": "95740c2c33125f1c9fe8ec09c198e76d8be88ae43ffff6d2a66edfb036730791"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "7c352bd22e8772d9d2bc3b6fa86f4f6b8c76b893d18967c63faf6f9b13a6ccfe",
+          "stateTicks": [
+            66,
+            67
+          ],
+          "boundaryPath": "captures/boundaries/cycle-67.json",
+          "boundarySha256": "22a7dfc194eb3b490734967d95b814d33d405d6f67b0765df7619aa3a4532af5"
+        }
+      ],
+      "resultSha256": "39bfb51692027b54763e4c2141ae8b2c7a7090fc02ee937f306d23f2db85aba9",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t5-w4-s3",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1454,
+      "physicalTimeSeconds": 75.34774673350604,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "7474c962a5af7db2e00f93d2e0f984b38596fab47ea4a817e9fdb6bc13f0bb94",
+          "stateTicks": [
+            70,
+            71
+          ],
+          "boundaryPath": "captures/boundaries/cycle-71.json",
+          "boundarySha256": "9de1dc26c22aabed4736d5e9ee753bb793fb233640078ec94877f29a3a2979ae"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "4eeb819e6d8bdf037f57ee0a2858f3e73ff10907ff038e1daa9dac0bb4204082",
+          "stateTicks": [
+            71,
+            72
+          ],
+          "boundaryPath": "captures/boundaries/cycle-72.json",
+          "boundarySha256": "07365bf0f5ff108764bc94988b09f68431e744b8a23581d8d86a73777eb5eabe"
+        }
+      ],
+      "resultSha256": "7cf40c4a2db12884bc91c67e03ce9b9766e2f8e374434829610321e1beefdee5",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-a-t5-w4-s4",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 1514,
+      "physicalTimeSeconds": 77.71748513748722,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "5ef7efd55bdd2319a85c30133d7de1648bbefed6dfc7a8744343cd9b87014abc",
+          "stateTicks": [
+            101,
+            102
+          ],
+          "boundaryPath": "captures/boundaries/cycle-102.json",
+          "boundarySha256": "e8826523f1689b7ccd01eb5cc2d26466fe3f90af1c00fd1fcbb56b106338c12e"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "096a78b49facc6d0c820cf27c12da1ac8d86f55685eb1480d639a50d6a142c0c",
+          "stateTicks": [
+            102,
+            103
+          ],
+          "boundaryPath": "captures/boundaries/cycle-103.json",
+          "boundarySha256": "567a52de6a85159f40ae763b411cbf1f87853e241343880598f5113abdf7b2ee"
+        }
+      ],
+      "resultSha256": "2f18ed6e2cce306a1ba8fee139f3b709268e6be5ce45638991e82caf79904bba",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-b-t4p5-w3-s2p25",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 2710,
+      "physicalTimeSeconds": 72.87928313038074,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "fcc068bdc7e2b2d8d34c13301e9fe6c4b54a4dcf05d51b4fa02eca6d79ede397",
+          "stateTicks": [
+            109,
+            110
+          ],
+          "boundaryPath": "captures/boundaries/cycle-110.json",
+          "boundarySha256": "aeecf9372a525271b9e096fc58fdcc6152e9596c9bd620f16614e6a1d5579649"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "1b2fe75f75831ec68235b84d3503249fcd6b884777d98b2b1d275600765b5f95",
+          "stateTicks": [
+            110,
+            111
+          ],
+          "boundaryPath": "captures/boundaries/cycle-111.json",
+          "boundarySha256": "140f54d96f451b3a1e4531dc40e14b15ec555dc77d0f4662bc3bb57e6a4f61ac"
+        }
+      ],
+      "resultSha256": "d606cddec255430fbbd0bb384fee64b72f80048f25075b734bb5a389494a98b7",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-b-t4p5-w3-s2p5",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 2900,
+      "physicalTimeSeconds": 73.6145586627316,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "4b971c7ae20df44c1a858c75ae10a80ca23ba7ef1b2a660586fd4637cb128e04",
+          "stateTicks": [
+            120,
+            121
+          ],
+          "boundaryPath": "captures/boundaries/cycle-121.json",
+          "boundarySha256": "75bfacc985893b83aa15f3a9495e6d2ec935d9932dfa075aa8671618ff9dc4b2"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "4e308e5b78c13d31dadea6c96d36460bd79cc2710f6683ed63af4a22a4e69eb3",
+          "stateTicks": [
+            121,
+            122
+          ],
+          "boundaryPath": "captures/boundaries/cycle-122.json",
+          "boundarySha256": "a660493bd9eb8ee60f48f75f936dc15079dbf34f5663f28cad45b5ad5477f5c0"
+        }
+      ],
+      "resultSha256": "afa63fd2d6e82d852d61f1a898064ff3aa76e5924fb2d235e66458df789ed43e",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-b-t4p5-w3-s2p75",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 2998,
+      "physicalTimeSeconds": 74.52400569564843,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "1afc954b6346e2df44314ed5f7632c415ba1ea55c3dd2133d8cf878020b39d74",
+          "stateTicks": [
+            132,
+            133
+          ],
+          "boundaryPath": "captures/boundaries/cycle-133.json",
+          "boundarySha256": "34e70dd1212a87c132c913edc9a0a3754f72f14f783a828587fc11568f1588cd"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "d995d4d8911758b52cb4c7a44e303946b83935c68c665dc795c9d339df0669c9",
+          "stateTicks": [
+            133,
+            134
+          ],
+          "boundaryPath": "captures/boundaries/cycle-134.json",
+          "boundarySha256": "262f57ca46ab79fdf25eac2629a1e102bd72306ffe4908e3cb497f3a541e2b1a"
+        }
+      ],
+      "resultSha256": "3eab8bbf4b9f17a2ff6d954ac989b10dcc51b187c37ff2da9f86a8390b125667",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-b-t4p5-w4-s2p25",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 2651,
+      "physicalTimeSeconds": 72.70115392803262,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "8da9e8a957383a5ec41ba88a200e2fc78258e5f8d9c56e7c9633c160c298f0dc",
+          "stateTicks": [
+            102,
+            103
+          ],
+          "boundaryPath": "captures/boundaries/cycle-103.json",
+          "boundarySha256": "73b08aa77ccf659f12ba9aebd4c0351cf871408a3f65e9112a6e59c59ef945ab"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "ffd7f05c73dba26f22059ac6b5f96b8c563d57b639733d693a2a78c96fa1bb0f",
+          "stateTicks": [
+            103,
+            104
+          ],
+          "boundaryPath": "captures/boundaries/cycle-104.json",
+          "boundarySha256": "c96d11fe2cfd812eac778ea2ddcee8ed19ecdd15ea16b69d96374b56cc211e10"
+        }
+      ],
+      "resultSha256": "13c44d671397ab854b7853c34d61779748314a4ea56f6ef224c3b5779437a4d6",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-b-t4p5-w4-s2p5",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 2845,
+      "physicalTimeSeconds": 73.38205152549452,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "77f73687719ceaef42dbcdab40411b8c194ccac19046a1c66a64410d5e044c03",
+          "stateTicks": [
+            113,
+            114
+          ],
+          "boundaryPath": "captures/boundaries/cycle-114.json",
+          "boundarySha256": "ce24641ac1c20c7da508c470ae326ce0526d2822a62d2f58c03410048f70063d"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "9d86f91752a9d9153d344af47f1546206d2353b5fa01666c6bcd5d399f82c479",
+          "stateTicks": [
+            114,
+            115
+          ],
+          "boundaryPath": "captures/boundaries/cycle-115.json",
+          "boundarySha256": "ec9b2715a35b2279a91ce3d1d343d3f318e4ea3d7cdba1f52540cdec67c91b90"
+        }
+      ],
+      "resultSha256": "971da704c20add73d5f51d27f5ea4d430cd131ad83831254f84f09a15872f05d",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-b-t4p5-w4-s2p75",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 2996,
+      "physicalTimeSeconds": 74.4101713263002,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "88349126349d9cce0177d4186de7ad6e8364d364690ec6769593157844bc4d39",
+          "stateTicks": [
+            124,
+            125
+          ],
+          "boundaryPath": "captures/boundaries/cycle-125.json",
+          "boundarySha256": "2f0c620289b812050d8cab3a5da8f87f470a042e1681cf6cd22e563f9a700dd1"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "1bc3e823644adac5f36c785a4fff6f797df58f5b4fd0a95d2f75e0dece85051e",
+          "stateTicks": [
+            125,
+            126
+          ],
+          "boundaryPath": "captures/boundaries/cycle-126.json",
+          "boundarySha256": "6219e0fc9f41d8abe3fbe17af1e9a901452b33259eb1b4fb124117862b564f8e"
+        }
+      ],
+      "resultSha256": "b3119734da8eae0fb6ba4720532bbf96751991bee9af7484dd22b8a2b4c9938b",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-b-t5-w3-s2p25",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 2915,
+      "physicalTimeSeconds": 74.42166732650686,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "ca7ff87c163130d1b8a1114283e43ce93130ceb70513f0cc7ecf37cda785ad0f",
+          "stateTicks": [
+            113,
+            114
+          ],
+          "boundaryPath": "captures/boundaries/cycle-114.json",
+          "boundarySha256": "2af8f882bb150dd8c216c2a13ac062dd89451c376a158f2b514ecebf71e52428"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "c7854c7902188da72bc7b72b07d81e442086d6f8bb62c856979be269d4484698",
+          "stateTicks": [
+            114,
+            115
+          ],
+          "boundaryPath": "captures/boundaries/cycle-115.json",
+          "boundarySha256": "916dfa261a48998d898d8b9a63807849492bb7e6245cb498e926532b0a7253b7"
+        }
+      ],
+      "resultSha256": "739a828bba323a0841aa57a88178a28a837d8bb43d9d639f18120a287b522caa",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-b-t5-w3-s2p5",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 2915,
+      "physicalTimeSeconds": 75.00130815476439,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "bbfa54831ea1892a8c7de43c9780daab01a4c9701c9bdd374706435eb086fa88",
+          "stateTicks": [
+            125,
+            126
+          ],
+          "boundaryPath": "captures/boundaries/cycle-126.json",
+          "boundarySha256": "96f7dc535e4e45a3a6941668f7ddb21e15d5a0874549f0a7056e635e3c19a42c"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "12a12437a3c4326a5ede66cf096abf95fe33dabc0f87ab0b7a94f23413c14c36",
+          "stateTicks": [
+            126,
+            127
+          ],
+          "boundaryPath": "captures/boundaries/cycle-127.json",
+          "boundarySha256": "485b31ad28aa167e548835d45473495ef9edf85b5074967f6f7bedf1ab318cdf"
+        }
+      ],
+      "resultSha256": "4d3a0ddecfd91bc7989f7152fa454a48c2a767fa126b88a01c441b3e6bf29d0c",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-b-t5-w3-s2p75",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 2905,
+      "physicalTimeSeconds": 75.14610842694043,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "db69a85ac4c05493043a11f007c8b3ac9bb412ae57b5a8b3685aacd90efeb1c5",
+          "stateTicks": [
+            137,
+            138
+          ],
+          "boundaryPath": "captures/boundaries/cycle-138.json",
+          "boundarySha256": "379a19ebd622b26ff0fa578cf5ed635f90ae573d28c65de2038e9405a9b42bbe"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "9e9f069b0955b14687bb3c030fd1bb775b66403fdf9872838bc43e133e2aedac",
+          "stateTicks": [
+            138,
+            139
+          ],
+          "boundaryPath": "captures/boundaries/cycle-139.json",
+          "boundarySha256": "68a99899e902ebfb70bb56c66c0cbf8f13f62188e18500fd61b21c574162f0f2"
+        }
+      ],
+      "resultSha256": "1455a1d1b385e04bb6ac70f84d2a83fb6f8f97219313d3d8a7056aaa79194edc",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-b-t5-w4-s2p25",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 2885,
+      "physicalTimeSeconds": 74.34845407959664,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "409b1cb7fd6aaa4b9eed8c395a4d7f236041cb4be03e0f911d8d80d152aba868",
+          "stateTicks": [
+            106,
+            107
+          ],
+          "boundaryPath": "captures/boundaries/cycle-107.json",
+          "boundarySha256": "f1611920661c530a6619b6c1fd7623545bcde76b86f591e3f23fe8425cabc900"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "d5be7bf81f6ea205b0a0199a9abb016cf3e062a9da512f999002f25ee4130e83",
+          "stateTicks": [
+            107,
+            108
+          ],
+          "boundaryPath": "captures/boundaries/cycle-108.json",
+          "boundarySha256": "185f1f4f5a6872b69d154b4bbf971abe6a4f907ae208ba2f82a23b87d0eca85e"
+        }
+      ],
+      "resultSha256": "3f71397ded497807f33213598257e0921e236b6e1dd992c20e7df96630685e1c",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-b-t5-w4-s2p5",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 2928,
+      "physicalTimeSeconds": 74.89597976898972,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "f3b14831d711ab4715d0ea34630628af6ce09ee8ada4d7bed7812547d3d28856",
+          "stateTicks": [
+            118,
+            119
+          ],
+          "boundaryPath": "captures/boundaries/cycle-119.json",
+          "boundarySha256": "f644d797150eeac481a45592b52ce6dab5d93e09cb5828504680fe5af640b92f"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "795387ebb51aae96966841bc1e9db0f978d93d8db74714211f1ddb62fa676972",
+          "stateTicks": [
+            119,
+            120
+          ],
+          "boundaryPath": "captures/boundaries/cycle-120.json",
+          "boundarySha256": "c22ae91fbac1860cff8bdd74bf1f8dc15857fbb395d739b2abdad9404ec22451"
+        }
+      ],
+      "resultSha256": "cdc0d48b4eddd0f2184f59dabb9c12bf887884826c791c1dfe30bbee7d726b6c",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-b-t5-w4-s2p75",
+      "disposition": "size-endpoint",
+      "stopReason": "size-target",
+      "exitCode": 0,
+      "completedUpdates": 2917,
+      "physicalTimeSeconds": 74.96757357726788,
+      "extent": 29,
+      "errors": [],
+      "targetExtent": 29,
+      "dxUm": 0.35,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "2028716ad1a03ed2ecff64afbca4da8f8eff9dc3d9bdb1eda0ccd8636f01c50c",
+          "stateTicks": [
+            129,
+            130
+          ],
+          "boundaryPath": "captures/boundaries/cycle-130.json",
+          "boundarySha256": "09cf7eeccf37f165643dd170a99a62220613e86e6a51b69e237942d8261099a2"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "1f9a253a005c3ddfff6d6be3ff4c7624f1f1c7cf34790c0ee98b651aaeb8cce4",
+          "stateTicks": [
+            130,
+            131
+          ],
+          "boundaryPath": "captures/boundaries/cycle-131.json",
+          "boundarySha256": "6799f375e0ebaf74df03a91f698b2cac8f7d0546427e5d8db13610b42c213000"
+        }
+      ],
+      "resultSha256": "f2a93a20a5dd9acd9c65ee14d258d9a5a235e3751be83c46c392b793913a8a40",
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-c-h1-w6-s5",
+      "disposition": "unresolved-prefix",
+      "stopReason": "no-terminal-result",
+      "exitCode": null,
+      "completedUpdates": 505,
+      "physicalTimeSeconds": 6.153353270271921,
+      "extent": 15,
+      "errors": [],
+      "targetExtent": 57,
+      "dxUm": 0.175,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "39d4d1857e1803edc2177607ea74997e82fce6286c92ba4563ee998b8849d2f4",
+          "stateTicks": [
+            400,
+            401
+          ],
+          "boundaryPath": "captures/boundaries/cycle-401.json",
+          "boundarySha256": "db7a3ab59e7acf91e895d6b16f7f6868259802eef1951a4a46e632e09a3ce3ed"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "194d632bba23dbce695489e5699a4d4551cc8ae24c031c6de9b0131d4ac98d58",
+          "stateTicks": [
+            401,
+            402
+          ],
+          "boundaryPath": "captures/boundaries/cycle-402.json",
+          "boundarySha256": "7c1e2fa2c9082f16e4917f5f60ae0f2cee55523f7ef89769b01016b0e3f2b675"
+        }
+      ],
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-c-h1-w8-s5",
+      "disposition": "unresolved-prefix",
+      "stopReason": "no-terminal-result",
+      "exitCode": null,
+      "completedUpdates": 475,
+      "physicalTimeSeconds": 5.847730224112391,
+      "extent": 15,
+      "errors": [],
+      "targetExtent": 57,
+      "dxUm": 0.175,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "b097f302fa04aaa78e23e330f64eb906634eeffe642effea344aef9e8e8e1113",
+          "stateTicks": [
+            397,
+            398
+          ],
+          "boundaryPath": "captures/boundaries/cycle-398.json",
+          "boundarySha256": "0d69046864fac94a8eba445312686827d286513878dc668a05b2594dea4de543"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "d69d8755897c36ee2b3788b2ee5993f26a8cfe2011e74e3caf2b77816c66dde6",
+          "stateTicks": [
+            398,
+            399
+          ],
+          "boundaryPath": "captures/boundaries/cycle-399.json",
+          "boundarySha256": "79e0ed619745f47fd9e0d738108083282b16e0721b9b7f035b4507f51ca4a7c4"
+        }
+      ],
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-c-h3-w6-s5",
+      "disposition": "unresolved-prefix",
+      "stopReason": "no-terminal-result",
+      "exitCode": null,
+      "completedUpdates": 498,
+      "physicalTimeSeconds": 6.1657861162672125,
+      "extent": 15,
+      "errors": [],
+      "targetExtent": 57,
+      "dxUm": 0.175,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "15a1a9b51494946552c686236c7d3cdac5d8f0e2354b0be566fffcb826b42d88",
+          "stateTicks": [
+            393,
+            394
+          ],
+          "boundaryPath": "captures/boundaries/cycle-394.json",
+          "boundarySha256": "e92c19ca441e7d0ea1bae7e6c017bbf0b482deadca15c96e72d003fdbdd25ef4"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "e4588a82ad0e5b032dee942f7fc2732b5bb6498460134a1a908abed0c2cdedf0",
+          "stateTicks": [
+            394,
+            395
+          ],
+          "boundaryPath": "captures/boundaries/cycle-395.json",
+          "boundarySha256": "009a18ab6e674fb1707e22a232b8020803f8fc1102806ffa629ac009be7e529c"
+        }
+      ],
+      "attemptStderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-c-h3-w8-s5",
+      "disposition": "unresolved-prefix",
+      "stopReason": "no-terminal-result",
+      "exitCode": null,
+      "completedUpdates": 505,
+      "physicalTimeSeconds": 6.268478092965259,
+      "extent": 15,
+      "errors": [],
+      "targetExtent": 57,
+      "dxUm": 0.175,
+      "switchCaptures": [
+        {
+          "label": "width-last-active",
+          "labelSha256": "1463cd1a849b3a6aa3868cedbfacf5e1685ed6f2caef9e53a59ee763c5453403",
+          "stateTicks": [
+            391,
+            392
+          ],
+          "boundaryPath": "captures/boundaries/cycle-392.json",
+          "boundarySha256": "c765ea4ffb380f60af3a2f59603d593bd7ea3ffb3b394a84d2bc91dcfe8a5beb"
+        },
+        {
+          "label": "width-first-inactive",
+          "labelSha256": "dadbad9d23230d59d8ad07fd7eb887c90c1b09364c52d12ba6ab6a80dacb0b00",
+          "stateTicks": [
+            392,
+            393
+          ],
+          "boundaryPath": "captures/boundaries/cycle-393.json",
+          "boundarySha256": "2583f4215cc8be463d5d62f1973c8590db6a969971bd529d169e0a4eabd2fc6f"
+        }
+      ],
+      "attemptStderrBytes": 0
+    }
+  ]
+}
