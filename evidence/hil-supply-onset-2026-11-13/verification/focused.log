@@ -1,0 +1,91 @@
+
+ RUN  v3.2.7 C:/Users/biao3/.codex/worktrees/hil-supply-onset-nov13/snowflake
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+launch row=fixture-0 active=1 remaining=4
+launch row=fixture-1 active=2 remaining=3
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+finish row=fixture-0 code=0 signal=null active=1 completed=1/5
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+launch row=fixture-2 active=2 remaining=2
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+finish row=fixture-1 code=0 signal=null active=1 completed=2/5
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+launch row=fixture-3 active=2 remaining=1
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+finish row=fixture-2 code=0 signal=null active=1 completed=3/5
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+launch row=fixture-4 active=2 remaining=0
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+finish row=fixture-3 code=0 signal=null active=1 completed=4/5
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit
+finish row=fixture-4 code=0 signal=null active=0 completed=5/5
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > kills its active workers and leaves queued work unstarted when memory falls
+launch row=slow-0 active=1 remaining=2
+launch row=slow-1 active=2 remaining=1
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > kills its active workers and leaves queued work unstarted when memory falls
+finish row=slow-1 code=null signal=SIGTERM active=1 completed=1/3
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > kills its active workers and leaves queued work unstarted when memory falls
+finish row=slow-0 code=null signal=SIGTERM active=0 completed=2/3
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > enforces a hard wall budget and stops a failing probe queue
+launch row=slow-first active=1 remaining=1
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > enforces a hard wall budget and stops a failing probe queue
+finish row=slow-first code=null signal=SIGTERM active=0 completed=1/2
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > retains a crashed worker while allowing independent science rows to continue
+launch row=fail-first active=1 remaining=1
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > retains a crashed worker while allowing independent science rows to continue
+finish row=fail-first code=7 signal=null active=0 completed=1/2
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > retains a crashed worker while allowing independent science rows to continue
+launch row=surviving active=1 remaining=0
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > named batch execution > retains a crashed worker while allowing independent science rows to continue
+finish row=surviving code=0 signal=null active=0 completed=2/2
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > checkpointed attempt records > preserves each resumed process attempt and refuses accidental reuse of its logs
+launch row=checkpointed active=1 remaining=0
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > checkpointed attempt records > preserves each resumed process attempt and refuses accidental reuse of its logs
+finish row=checkpointed code=0 signal=null active=0 completed=1/1
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > checkpointed attempt records > preserves each resumed process attempt and refuses accidental reuse of its logs
+launch row=checkpointed active=1 remaining=0
+
+stdout | runner/test/hil-bld-batch-execution.test.ts > checkpointed attempt records > preserves each resumed process attempt and refuses accidental reuse of its logs
+finish row=checkpointed code=0 signal=null active=0 completed=1/1
+
+ ✓ runner/test/hil-bld-batch-execution.test.ts (9 tests) 2565ms
+   ✓ named batch execution > executes independent processes at the requested overlap and retains each exact command/log/exit  791ms
+   ✓ named batch execution > retains a crashed worker while allowing independent science rows to continue  538ms
+   ✓ checkpointed attempt records > preserves each resumed process attempt and refuses accidental reuse of its logs  573ms
+ ✓ runner/test/hil-bld-batch-resume.test.ts (10 tests) 1271ms
+   ✓ explicit first-batch resume > binds resume to the original checkpointed campaign, exact probe, host, source, runtime and rows  777ms
+ ✓ runner/test/discovery-retained-observations.test.ts (5 tests) 2249ms
+   ✓ permanent discovery observations > retains real switch states and accepted boundaries beyond rotation without changing science  589ms
+   ✓ permanent discovery observations > resumes through switch capture and repairs an interrupted committed copy before rotation  522ms
+   ✓ permanent discovery observations > captures each intersecting central attachment batch and independently checks its geometry  859ms
+ ✓ runner/test/hil-onset-followup-nov13.test.ts (5 tests) 1060ms
+   ✓ HIL November13 registered follow-up > exercises the list CLI and rejects other hosts, old rows, extra arguments and probes  842ms
+ ✓ runner/test/hil-supply-onset-nov13.test.ts (5 tests) 1077ms
+   ✓ HIL November13 registered follow-up > exercises the list CLI and rejects other hosts, old rows, extra arguments and probes  861ms
+
+ Test Files  5 passed (5)
+      Tests  34 passed (34)
+   Start at  22:20:10
+   Duration  9.28s (transform 222ms, setup 0ms, collect 405ms, tests 8.22s, environment 1ms, prepare 256ms)
+

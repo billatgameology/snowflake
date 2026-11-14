@@ -126,10 +126,18 @@ Source currency reuses the executed November13 checks recorded in the preceding 
 2019-11-13, TAX2v1 2023-06-22 and author later-publication listing. No constants, source mappings
 or source versions change. This bounded check is not a novelty assessment or validation.
 
+## Executed readiness
+
+The [receipt](../../evidence/hil-supply-onset-2026-11-13/verification.json) binds34 focused
+tests, both typechecks, exact16-row list and author review. Eight anchors deep-match except
+ID/CFL and all32 retained input files rehash correctly. Live resource checks pass registered
+RAM/commit/disk requirements; four fine workers remain untouched. No full suite, independent
+physics review, new capacity ladder or repeated actual resume witness. Existing contract reused.
+
 ## Steps
 
-- [ ] Commit this protocol and eight control bindings before code.
-- [ ] Implement/check thin entry and record scoped author review.
+- [x] Commit protocol and eight control bindings before code (`02863e3`).
+- [x] Implement/check thin entry:34 focused tests, both typechecks and scoped author review pass.
 - [ ] Commit/publish clean producer, launch16 workers and verify retained initial states.
 - [ ] Complete matched analysis and governed NAS recovery.
 

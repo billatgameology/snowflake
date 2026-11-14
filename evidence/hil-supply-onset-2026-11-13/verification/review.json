@@ -1,0 +1,19 @@
+{
+  "model": "Codex/GPT-6 family",
+  "sharedContext": true,
+  "reviewer": "author; no separate agent or physics review",
+  "checks": [
+    "Independently enumerated16-row fixture passes",
+    "List CLI returns16unique HIL rows",
+    "First8deep-match32hash-verified retained control files except ID/CFL",
+    "No shared solver/codec/recorder changes",
+    "Wrapper retains16-worker limit/hidden process/no wall deadline",
+    "Capture config includes exact switch and new age2.5/6.5"
+  ],
+  "unresolved": [
+    "Physical mechanism, continuum/grid convergence",
+    "Actual worker/checkpoint dispatch remains to be observed",
+    "Raw output NAS publication"
+  ],
+  "actionableFindings": []
+}
