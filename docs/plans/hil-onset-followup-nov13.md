@@ -1,7 +1,7 @@
 # Plan — HIL onset and supply-duration follow-up
 
 - **Phase:** active Phase10; charter sections2.5/3.2 and accepted ADR0058/0059/0060/0062.
-- **Status:** COMPLETE execution, November13 at17:08Pacific:16/16 size endpoints. Matched analysis and NAS preservation pending; four original fine workers continue. Producer4f18ed5 stays fixed.
+- **Status:** COMPLETE execution, November13 at17:08Pacific:16/16 size endpoints. Matched analysis complete; NAS preservation pending; four original fine workers continue. Producer4f18ed5 stays fixed.
 - **Started / last touched:** 2026-11-13 by Codex.
 - **Checkout:** `codex/hil-onset-followup-nov13`, `C:/Users/biao3/.codex/worktrees/hil-onset-followup-nov13/snowflake`.
 
@@ -200,6 +200,15 @@ decode or scientific analysis. The four original fine workers remain active with
 stderr; no queue or new dispatch. Next execute the registered complete matched comparisons,
 then preserve raw output/detailed analysis on NAS before closeout. No new result interpretation
 is inferred from successful termination. All original producer heads/output remain retained.
+
+## Completed matched analysis — November13 evening
+
+The [32-row/898-state analysis](../../evidence/hil-onset-followup-2026-11-13/analysis/README.md)
+confirms the tested onset contrast under timestep halving, rescues low-supply persistence with8s
+preparation, and finds high supply still persistent at3s. No exact threshold or physical cause
+is isolated. The maker requested analysis followed by new runs; the successor will qualify
+supply contrasts and bracket their earlier establishment at the smaller timestep. Detailed
+local readouts and recipes remain subject to NAS preservation before closeout.
 
 ## Steps
 
