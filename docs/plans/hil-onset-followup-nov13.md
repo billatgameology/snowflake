@@ -1,7 +1,7 @@
 # Plan — HIL onset and supply-duration follow-up
 
 - **Phase:** active Phase10; charter sections2.5/3.2 and accepted ADR0058/0059/0060/0062.
-- **Status:** RUNNING, November13 at11:10Pacific:16 new workers plus four original fine workers; no queued rows. Producer4f18ed5 stays fixed.
+- **Status:** COMPLETE execution, November13 at17:08Pacific:16/16 size endpoints. Matched analysis and NAS preservation pending; four original fine workers continue. Producer4f18ed5 stays fixed.
 - **Started / last touched:** 2026-11-13 by Codex.
 - **Checkout:** `codex/hil-onset-followup-nov13`, `C:/Users/biao3/.codex/worktrees/hil-onset-followup-nov13/snowflake`.
 
@@ -187,6 +187,19 @@ separate invocation/process and eventual exit files preserve actual execution. B
 queues checkpoint completed updates with no wall deadline. A gaming pause applies to both
 coordinators before their workers; never duplicate writers or move either producer HEAD.
 All previous outputs and primary analysis remain retained pending governed NAS recovery.
+
+## Evening status — November13
+
+The [22:12Pacific receipt](../../evidence/hil-onset-followup-2026-11-13/status-2026-11-13-evening.json)
+records all16 size-target endpoints, empty operational error lists and exit0. A timestep is8/8;
+B duration is8/8. Final row finished17:08:38Pacific and coordinator/wrapper exited0 one second
+later. Individual active times were3.9810033333333332–5.968128888888889h, median5.2541359722222225h,
+derived from all16 named exit records in the receipt. All32 named switch labels exist; their
+manifest/boundary hashes and referenced solver byte lengths pass. This is not a full capture
+decode or scientific analysis. The four original fine workers remain active with no current
+stderr; no queue or new dispatch. Next execute the registered complete matched comparisons,
+then preserve raw output/detailed analysis on NAS before closeout. No new result interpretation
+is inferred from successful termination. All original producer heads/output remain retained.
 
 ## Steps
 

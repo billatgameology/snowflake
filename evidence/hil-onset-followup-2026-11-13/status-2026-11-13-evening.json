@@ -1,0 +1,1125 @@
+{
+  "observedAt": "2026-11-14T06:12:33.219830+00:00",
+  "scope": "Operational status only; no matched scientific analysis or NAS verification.",
+  "campaigns": {
+    "followup": {
+      "cwd": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake",
+      "command": [
+        "node",
+        "runner/src/hil-onset-followup-nov13-main.ts",
+        "summarize",
+        "out/hil-onset-followup-nov13"
+      ],
+      "counts": {
+        "size-endpoint": 16
+      },
+      "rows": [
+        {
+          "rowId": "on13-hil-a-t4p5-w3-s4p25",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 3037,
+          "physicalTimeSeconds": 76.61556149181988,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "on13-hil-a-t4p5-w3-s4p5",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 2991,
+          "physicalTimeSeconds": 76.56838540042315,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "on13-hil-a-t4p5-w4-s4p25",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 2982,
+          "physicalTimeSeconds": 76.57228882999877,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "on13-hil-a-t4p5-w4-s4p5",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 2891,
+          "physicalTimeSeconds": 76.40948430911806,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "on13-hil-a-t5-w3-s4p25",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 3024,
+          "physicalTimeSeconds": 77.30002815188556,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "on13-hil-a-t5-w3-s4p5",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 3039,
+          "physicalTimeSeconds": 77.42933996747736,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "on13-hil-a-t5-w4-s4p25",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 3036,
+          "physicalTimeSeconds": 77.44249950012836,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "on13-hil-a-t5-w4-s4p5",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 3083,
+          "physicalTimeSeconds": 77.59704164893363,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "on13-hil-b-t4p5-f0p05-w3-s8",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1551,
+          "physicalTimeSeconds": 134.8829415977341,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "on13-hil-b-t4p5-f0p05-w4-s8",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1552,
+          "physicalTimeSeconds": 135.0221076675633,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "on13-hil-b-t4p5-f0p1-w3-s3",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1485,
+          "physicalTimeSeconds": 54.10776432226562,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "on13-hil-b-t4p5-f0p1-w4-s3",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1492,
+          "physicalTimeSeconds": 54.393333287115006,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "on13-hil-b-t5-f0p05-w3-s8",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1569,
+          "physicalTimeSeconds": 140.7864354253919,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "on13-hil-b-t5-f0p05-w4-s8",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1593,
+          "physicalTimeSeconds": 140.7619938574222,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "on13-hil-b-t5-f0p1-w3-s3",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1537,
+          "physicalTimeSeconds": 53.52742974890308,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "on13-hil-b-t5-f0p1-w4-s3",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1538,
+          "physicalTimeSeconds": 53.53961211008532,
+          "extent": 29,
+          "errors": []
+        }
+      ],
+      "completedInputs": [
+        {
+          "rowId": "on13-hil-a-t4p5-w3-s4p25",
+          "resultSha256": "a60878ac29630f30ba93448a2801655ae69c6a7f9b9b8e2b7502d7222cc20895",
+          "exit": {
+            "schema": "post-phase10-discovery-exit-v1",
+            "experimentId": "post-phase10-basal-width-history-v1",
+            "experimentalBasalWidthCells": 3,
+            "experimentalBasalWidthHistory": {
+              "mode": "early-only",
+              "cutoffSeconds": 4.25
+            },
+            "rowId": "on13-hil-a-t4p5-w3-s4p25",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-11-13T19:10:33.021Z",
+            "finishedAt": "2026-11-14T00:56:58.299Z",
+            "wallSeconds": 20785.278,
+            "attemptName": "initial"
+          },
+          "switchLabels": [
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w3-s4p25\\captures\\labels\\width-last-active.json",
+              "sha256": "a36a15ada5be8daca54768ac810b57c736d0b70911e8a82797eb239b1087b3af"
+            },
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w3-s4p25\\captures\\labels\\width-first-inactive.json",
+              "sha256": "ace5f7142c77752f1697682e929a0f521558cc9615d00b12c01edfc7c115260f"
+            }
+          ]
+        },
+        {
+          "rowId": "on13-hil-a-t4p5-w3-s4p5",
+          "resultSha256": "e12c8d92accb68d500e05a1e136c113f22f9263051ffba645ed8b4730a46871f",
+          "exit": {
+            "schema": "post-phase10-discovery-exit-v1",
+            "experimentId": "post-phase10-basal-width-history-v1",
+            "experimentalBasalWidthCells": 3,
+            "experimentalBasalWidthHistory": {
+              "mode": "early-only",
+              "cutoffSeconds": 4.5
+            },
+            "rowId": "on13-hil-a-t4p5-w3-s4p5",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-11-13T19:10:33.030Z",
+            "finishedAt": "2026-11-14T00:51:12.344Z",
+            "wallSeconds": 20439.314,
+            "attemptName": "initial"
+          },
+          "switchLabels": [
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w3-s4p5\\captures\\labels\\width-last-active.json",
+              "sha256": "b0b0fa57a9b96531a333aac5e2cc9cb78f61a21d6142d0359dddce61501cbdb7"
+            },
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w3-s4p5\\captures\\labels\\width-first-inactive.json",
+              "sha256": "ce53bff7f7d4aedad7029bb46593d5aa58b6b15d959c39fda73b7183209c64ab"
+            }
+          ]
+        },
+        {
+          "rowId": "on13-hil-a-t4p5-w4-s4p25",
+          "resultSha256": "84b87c19816134e35bb4e239be7624922c31f2d4b905e399daf74ba53fd5be65",
+          "exit": {
+            "schema": "post-phase10-discovery-exit-v1",
+            "experimentId": "post-phase10-basal-width-history-v1",
+            "experimentalBasalWidthCells": 4,
+            "experimentalBasalWidthHistory": {
+              "mode": "early-only",
+              "cutoffSeconds": 4.25
+            },
+            "rowId": "on13-hil-a-t4p5-w4-s4p25",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-11-13T19:10:33.039Z",
+            "finishedAt": "2026-11-14T00:59:09.581Z",
+            "wallSeconds": 20916.542,
+            "attemptName": "initial"
+          },
+          "switchLabels": [
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w4-s4p25\\captures\\labels\\width-last-active.json",
+              "sha256": "15386ef2da37bcd955998c9c6b42c987a8a94de8edb28c96837005cce44d9aa5"
+            },
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w4-s4p25\\captures\\labels\\width-first-inactive.json",
+              "sha256": "126c0f7094ac0ae600fede24ad9b9def7b0c2717d1bf8a19379006f7a11cf1ce"
+            }
+          ]
+        },
+        {
+          "rowId": "on13-hil-a-t4p5-w4-s4p5",
+          "resultSha256": "910aad2ea76963a1dad074cb45ac4071a07490f69f1fadff7d1c80f6d5a05414",
+          "exit": {
+            "schema": "post-phase10-discovery-exit-v1",
+            "experimentId": "post-phase10-basal-width-history-v1",
+            "experimentalBasalWidthCells": 4,
+            "experimentalBasalWidthHistory": {
+              "mode": "early-only",
+              "cutoffSeconds": 4.5
+            },
+            "rowId": "on13-hil-a-t4p5-w4-s4p5",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-11-13T19:10:33.047Z",
+            "finishedAt": "2026-11-14T00:47:08.480Z",
+            "wallSeconds": 20195.433,
+            "attemptName": "initial"
+          },
+          "switchLabels": [
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w4-s4p5\\captures\\labels\\width-last-active.json",
+              "sha256": "b66e4618213be8019fc95b69b0c8fd9d178185d18a4cd97dac699da009409e05"
+            },
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t4p5-w4-s4p5\\captures\\labels\\width-first-inactive.json",
+              "sha256": "a630245af493ba2356442ed581107709c1ccf8366c9c9ac7e823da74a330cbe8"
+            }
+          ]
+        },
+        {
+          "rowId": "on13-hil-a-t5-w3-s4p25",
+          "resultSha256": "ef27df20cbe6a3486457a95adfe409d0de7b2717152c4a7c48ca794541a35d62",
+          "exit": {
+            "schema": "post-phase10-discovery-exit-v1",
+            "experimentId": "post-phase10-basal-width-history-v1",
+            "experimentalBasalWidthCells": 3,
+            "experimentalBasalWidthHistory": {
+              "mode": "early-only",
+              "cutoffSeconds": 4.25
+            },
+            "rowId": "on13-hil-a-t5-w3-s4p25",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-11-13T19:10:33.057Z",
+            "finishedAt": "2026-11-14T01:08:38.321Z",
+            "wallSeconds": 21485.264,
+            "attemptName": "initial"
+          },
+          "switchLabels": [
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w3-s4p25\\captures\\labels\\width-last-active.json",
+              "sha256": "e499c2cc8ef9114202b92fd694e4c35c8c26b7f8a20c1d545f916c46eaf2a879"
+            },
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w3-s4p25\\captures\\labels\\width-first-inactive.json",
+              "sha256": "6b33eb5e7ec66219c3282289126c8df5cf6562b69f3ee500062a0479ae619898"
+            }
+          ]
+        },
+        {
+          "rowId": "on13-hil-a-t5-w3-s4p5",
+          "resultSha256": "10d415366a74d700255d73cc69a86ac70d9c80724102fed7f0f3fb1311775569",
+          "exit": {
+            "schema": "post-phase10-discovery-exit-v1",
+            "experimentId": "post-phase10-basal-width-history-v1",
+            "experimentalBasalWidthCells": 3,
+            "experimentalBasalWidthHistory": {
+              "mode": "early-only",
+              "cutoffSeconds": 4.5
+            },
+            "rowId": "on13-hil-a-t5-w3-s4p5",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-11-13T19:10:33.066Z",
+            "finishedAt": "2026-11-14T00:48:38.684Z",
+            "wallSeconds": 20285.618,
+            "attemptName": "initial"
+          },
+          "switchLabels": [
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w3-s4p5\\captures\\labels\\width-last-active.json",
+              "sha256": "42af345caec5f2e34f10fe709d8f870cc5b28432293be9ef813619b149ec5f55"
+            },
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w3-s4p5\\captures\\labels\\width-first-inactive.json",
+              "sha256": "d67c9bcfe144595f7a7782a7ee062fccd2ede8d525533d6f894c8e86667a7909"
+            }
+          ]
+        },
+        {
+          "rowId": "on13-hil-a-t5-w4-s4p25",
+          "resultSha256": "787b4bce2cd65ecf5dea037709a30fdc3e26462f10bc81e58a750ef62a2be9cf",
+          "exit": {
+            "schema": "post-phase10-discovery-exit-v1",
+            "experimentId": "post-phase10-basal-width-history-v1",
+            "experimentalBasalWidthCells": 4,
+            "experimentalBasalWidthHistory": {
+              "mode": "early-only",
+              "cutoffSeconds": 4.25
+            },
+            "rowId": "on13-hil-a-t5-w4-s4p25",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-11-13T19:10:33.077Z",
+            "finishedAt": "2026-11-14T00:57:50.631Z",
+            "wallSeconds": 20837.554,
+            "attemptName": "initial"
+          },
+          "switchLabels": [
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w4-s4p25\\captures\\labels\\width-last-active.json",
+              "sha256": "2431672db467e415d1c2a0332766637f57208011f5421ed2ef5e8a8a82a31772"
+            },
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w4-s4p25\\captures\\labels\\width-first-inactive.json",
+              "sha256": "5b797b6f51920fa4bd457c4575988b6c212a7c3e5be42682c64bbc88a3710186"
+            }
+          ]
+        },
+        {
+          "rowId": "on13-hil-a-t5-w4-s4p5",
+          "resultSha256": "c611f59869755350989fa211b265d4a34aa39f6f80b757b69e98d3590e7e1831",
+          "exit": {
+            "schema": "post-phase10-discovery-exit-v1",
+            "experimentId": "post-phase10-basal-width-history-v1",
+            "experimentalBasalWidthCells": 4,
+            "experimentalBasalWidthHistory": {
+              "mode": "early-only",
+              "cutoffSeconds": 4.5
+            },
+            "rowId": "on13-hil-a-t5-w4-s4p5",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-11-13T19:10:33.085Z",
+            "finishedAt": "2026-11-14T01:06:17.580Z",
+            "wallSeconds": 21344.495,
+            "attemptName": "initial"
+          },
+          "switchLabels": [
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w4-s4p5\\captures\\labels\\width-last-active.json",
+              "sha256": "5d7230c85c4dabc3f80762950865f1f1cfac9c43541b9c244f2a6a6395edda7d"
+            },
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-a-t5-w4-s4p5\\captures\\labels\\width-first-inactive.json",
+              "sha256": "a4e4f6344daa6174e7b1712163b148e45a35db7216fb88fd80c34efeeecc9bc2"
+            }
+          ]
+        },
+        {
+          "rowId": "on13-hil-b-t4p5-f0p05-w3-s8",
+          "resultSha256": "8c7d7fd4dced875ef0a10b4efbad22554badd1330ab1c516f7bd904dbd411a46",
+          "exit": {
+            "schema": "post-phase10-discovery-exit-v1",
+            "experimentId": "post-phase10-basal-width-history-v1",
+            "experimentalBasalWidthCells": 3,
+            "experimentalBasalWidthHistory": {
+              "mode": "early-only",
+              "cutoffSeconds": 8
+            },
+            "rowId": "on13-hil-b-t4p5-f0p05-w3-s8",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-11-13T19:10:33.096Z",
+            "finishedAt": "2026-11-13T23:30:04.911Z",
+            "wallSeconds": 15571.815,
+            "attemptName": "initial"
+          },
+          "switchLabels": [
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p05-w3-s8\\captures\\labels\\width-last-active.json",
+              "sha256": "842b3d595fdf8a9db399ce33cb4cf435a7613bbae930c7502f2ba24b23a7ac72"
+            },
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p05-w3-s8\\captures\\labels\\width-first-inactive.json",
+              "sha256": "4685eb3f94c99a48f2ca72c5e4e6f7faac52ae180c651415be0c16452b7b3ccd"
+            }
+          ]
+        },
+        {
+          "rowId": "on13-hil-b-t4p5-f0p05-w4-s8",
+          "resultSha256": "622f6dd42d714d3553495cb496d27806adf1305bfda375a7bbc47106f8dc9759",
+          "exit": {
+            "schema": "post-phase10-discovery-exit-v1",
+            "experimentId": "post-phase10-basal-width-history-v1",
+            "experimentalBasalWidthCells": 4,
+            "experimentalBasalWidthHistory": {
+              "mode": "early-only",
+              "cutoffSeconds": 8
+            },
+            "rowId": "on13-hil-b-t4p5-f0p05-w4-s8",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-11-13T19:10:33.106Z",
+            "finishedAt": "2026-11-13T23:29:01.397Z",
+            "wallSeconds": 15508.291,
+            "attemptName": "initial"
+          },
+          "switchLabels": [
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p05-w4-s8\\captures\\labels\\width-last-active.json",
+              "sha256": "ecdffdd9faeb64c5ea1be1b60fc256329ba3be3bc3b146da1230d6411dd5e996"
+            },
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p05-w4-s8\\captures\\labels\\width-first-inactive.json",
+              "sha256": "b50f0404604771ff0391c597b2165c06c6f22f8285392769d88c619217318716"
+            }
+          ]
+        },
+        {
+          "rowId": "on13-hil-b-t4p5-f0p1-w3-s3",
+          "resultSha256": "3a1e0104d1929b33599f91700fae62102b4a5e05b5103bd06e91297261f16d85",
+          "exit": {
+            "schema": "post-phase10-discovery-exit-v1",
+            "experimentId": "post-phase10-basal-width-history-v1",
+            "experimentalBasalWidthCells": 3,
+            "experimentalBasalWidthHistory": {
+              "mode": "early-only",
+              "cutoffSeconds": 3
+            },
+            "rowId": "on13-hil-b-t4p5-f0p1-w3-s3",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-11-13T19:10:33.114Z",
+            "finishedAt": "2026-11-13T23:09:59.633Z",
+            "wallSeconds": 14366.519,
+            "attemptName": "initial"
+          },
+          "switchLabels": [
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p1-w3-s3\\captures\\labels\\width-last-active.json",
+              "sha256": "82a32b1fbed1ab59e5a248599a79592b000f9c280df0876168d77df2169bae05"
+            },
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p1-w3-s3\\captures\\labels\\width-first-inactive.json",
+              "sha256": "673aa9b2b985c3a087670e2ae9e1b6e40c24086cbc64a925cbad98b48300a1dd"
+            }
+          ]
+        },
+        {
+          "rowId": "on13-hil-b-t4p5-f0p1-w4-s3",
+          "resultSha256": "7055f1eead56e8dd248b12e1b3be3951481642d9816d3089491563558e471cc7",
+          "exit": {
+            "schema": "post-phase10-discovery-exit-v1",
+            "experimentId": "post-phase10-basal-width-history-v1",
+            "experimentalBasalWidthCells": 4,
+            "experimentalBasalWidthHistory": {
+              "mode": "early-only",
+              "cutoffSeconds": 3
+            },
+            "rowId": "on13-hil-b-t4p5-f0p1-w4-s3",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-11-13T19:10:33.123Z",
+            "finishedAt": "2026-11-13T23:09:24.735Z",
+            "wallSeconds": 14331.612,
+            "attemptName": "initial"
+          },
+          "switchLabels": [
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p1-w4-s3\\captures\\labels\\width-last-active.json",
+              "sha256": "34f3f2917bec0b4bba8f9f44564d89a70b38d626a814beed88e56ff72c7a2ed9"
+            },
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t4p5-f0p1-w4-s3\\captures\\labels\\width-first-inactive.json",
+              "sha256": "52b39423c8d267dbce4ccdf2190de95775767233657b5f6078f1a25041006c33"
+            }
+          ]
+        },
+        {
+          "rowId": "on13-hil-b-t5-f0p05-w3-s8",
+          "resultSha256": "42e51cccbfb783c445803cec18808a77b89fe7c21b7e9b376ce1a135eb2f99f7",
+          "exit": {
+            "schema": "post-phase10-discovery-exit-v1",
+            "experimentId": "post-phase10-basal-width-history-v1",
+            "experimentalBasalWidthCells": 3,
+            "experimentalBasalWidthHistory": {
+              "mode": "early-only",
+              "cutoffSeconds": 8
+            },
+            "rowId": "on13-hil-b-t5-f0p05-w3-s8",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-11-13T19:10:33.133Z",
+            "finishedAt": "2026-11-13T23:36:51.461Z",
+            "wallSeconds": 15978.328,
+            "attemptName": "initial"
+          },
+          "switchLabels": [
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p05-w3-s8\\captures\\labels\\width-last-active.json",
+              "sha256": "7260c2a72eae2affc92a2f83876541ed017c25f43bab551f8d009383ea177512"
+            },
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p05-w3-s8\\captures\\labels\\width-first-inactive.json",
+              "sha256": "cdf26a9d7594d5f66b0b50431df5aa1062346157803b686085eaefd398889cd9"
+            }
+          ]
+        },
+        {
+          "rowId": "on13-hil-b-t5-f0p05-w4-s8",
+          "resultSha256": "338c56c9d829dbe72df26ed75d849296d3b28a9a068db118ecdc474b70e68c91",
+          "exit": {
+            "schema": "post-phase10-discovery-exit-v1",
+            "experimentId": "post-phase10-basal-width-history-v1",
+            "experimentalBasalWidthCells": 4,
+            "experimentalBasalWidthHistory": {
+              "mode": "early-only",
+              "cutoffSeconds": 8
+            },
+            "rowId": "on13-hil-b-t5-f0p05-w4-s8",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-11-13T19:10:33.143Z",
+            "finishedAt": "2026-11-14T00:04:27.489Z",
+            "wallSeconds": 17634.346,
+            "attemptName": "initial"
+          },
+          "switchLabels": [
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p05-w4-s8\\captures\\labels\\width-last-active.json",
+              "sha256": "8b1500560cb657227e0cf8767631825f38122175e186ebae2b5236c57ff6d818"
+            },
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p05-w4-s8\\captures\\labels\\width-first-inactive.json",
+              "sha256": "83398624c62b53eed2ed5b503f29670867a5904f0bda37de3566ab6c3dbbbe5f"
+            }
+          ]
+        },
+        {
+          "rowId": "on13-hil-b-t5-f0p1-w3-s3",
+          "resultSha256": "f36fd4e48af21262a839fadc5251fbca0e2fffa25a26770d1ade75ab9b6bc2f3",
+          "exit": {
+            "schema": "post-phase10-discovery-exit-v1",
+            "experimentId": "post-phase10-basal-width-history-v1",
+            "experimentalBasalWidthCells": 3,
+            "experimentalBasalWidthHistory": {
+              "mode": "early-only",
+              "cutoffSeconds": 3
+            },
+            "rowId": "on13-hil-b-t5-f0p1-w3-s3",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-11-13T19:10:33.152Z",
+            "finishedAt": "2026-11-13T23:13:03.131Z",
+            "wallSeconds": 14549.979,
+            "attemptName": "initial"
+          },
+          "switchLabels": [
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p1-w3-s3\\captures\\labels\\width-last-active.json",
+              "sha256": "1423cbbf025437fdda943bad0d53d3dad71cf9273445ad1707141f2e9e9be191"
+            },
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p1-w3-s3\\captures\\labels\\width-first-inactive.json",
+              "sha256": "6283dabfdea9925248de3b3163110b14a14e886d0df606966c22fffa408c9088"
+            }
+          ]
+        },
+        {
+          "rowId": "on13-hil-b-t5-f0p1-w4-s3",
+          "resultSha256": "6419bbbb5082c3e8940f26e7c4686014e08a129c581e95aeeacfb47ab01acca4",
+          "exit": {
+            "schema": "post-phase10-discovery-exit-v1",
+            "experimentId": "post-phase10-basal-width-history-v1",
+            "experimentalBasalWidthCells": 4,
+            "experimentalBasalWidthHistory": {
+              "mode": "early-only",
+              "cutoffSeconds": 3
+            },
+            "rowId": "on13-hil-b-t5-f0p1-w4-s3",
+            "exitCode": 0,
+            "signal": null,
+            "startedAt": "2026-11-13T19:10:33.161Z",
+            "finishedAt": "2026-11-13T23:16:47.247Z",
+            "wallSeconds": 14774.086,
+            "attemptName": "initial"
+          },
+          "switchLabels": [
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p1-w4-s3\\captures\\labels\\width-last-active.json",
+              "sha256": "ec604cf25f8c0b2138e7cca478291338c4af84041eab44aa9033a6d978bdfd66"
+            },
+            {
+              "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13\\rows\\on13-hil-b-t5-f0p1-w4-s3\\captures\\labels\\width-first-inactive.json",
+              "sha256": "81cdfc45b85ef5ecb83d90fe3bb66e51e349d37e973cce70f7c7973f4179094b"
+            }
+          ]
+        }
+      ],
+      "switchLabelsVerified": 32
+    },
+    "central": {
+      "cwd": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+      "command": [
+        "node",
+        "runner/src/hil-central-filling-nov11-main.ts",
+        "summarize",
+        "out/hil-central-filling-nov11"
+      ],
+      "counts": {
+        "size-endpoint": 36,
+        "unresolved-prefix": 4
+      },
+      "rows": [
+        {
+          "rowId": "cf11-hil-a-t4p5-w3-s2",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1314,
+          "physicalTimeSeconds": 73.17573000245342,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t4p5-w3-s2p25",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1396,
+          "physicalTimeSeconds": 73.38808586184085,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t4p5-w3-s2p5",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1466,
+          "physicalTimeSeconds": 73.9674351300487,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t4p5-w3-s2p75",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1459,
+          "physicalTimeSeconds": 75.14350363906347,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t4p5-w3-s3",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1404,
+          "physicalTimeSeconds": 74.92528922353165,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t4p5-w3-s4",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1561,
+          "physicalTimeSeconds": 76.92909865671278,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t4p5-w4-s2",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1310,
+          "physicalTimeSeconds": 73.11121692714747,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t4p5-w4-s2p25",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1358,
+          "physicalTimeSeconds": 73.33609643281629,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t4p5-w4-s2p5",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1443,
+          "physicalTimeSeconds": 73.6749229135414,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t4p5-w4-s2p75",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1504,
+          "physicalTimeSeconds": 75.00097906044122,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t4p5-w4-s3",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1420,
+          "physicalTimeSeconds": 74.95140685298769,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t4p5-w4-s4",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1554,
+          "physicalTimeSeconds": 76.96288123040168,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t5-w3-s2",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1442,
+          "physicalTimeSeconds": 74.62540921593713,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t5-w3-s2p25",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1469,
+          "physicalTimeSeconds": 75.1334692613468,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t5-w3-s2p5",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1466,
+          "physicalTimeSeconds": 75.29065013037199,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t5-w3-s2p75",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1456,
+          "physicalTimeSeconds": 75.30241494993484,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t5-w3-s3",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1459,
+          "physicalTimeSeconds": 75.36144552370466,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t5-w3-s4",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1521,
+          "physicalTimeSeconds": 77.49374968537998,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t5-w4-s2",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1399,
+          "physicalTimeSeconds": 74.46926615273286,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t5-w4-s2p25",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1461,
+          "physicalTimeSeconds": 74.89066500892164,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t5-w4-s2p5",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1459,
+          "physicalTimeSeconds": 75.36125968117871,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t5-w4-s2p75",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1450,
+          "physicalTimeSeconds": 75.49940529869903,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t5-w4-s3",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1454,
+          "physicalTimeSeconds": 75.34774673350604,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-a-t5-w4-s4",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 1514,
+          "physicalTimeSeconds": 77.71748513748722,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-b-t4p5-w3-s2p25",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 2710,
+          "physicalTimeSeconds": 72.87928313038074,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-b-t4p5-w3-s2p5",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 2900,
+          "physicalTimeSeconds": 73.6145586627316,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-b-t4p5-w3-s2p75",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 2998,
+          "physicalTimeSeconds": 74.52400569564843,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-b-t4p5-w4-s2p25",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 2651,
+          "physicalTimeSeconds": 72.70115392803262,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-b-t4p5-w4-s2p5",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 2845,
+          "physicalTimeSeconds": 73.38205152549452,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-b-t4p5-w4-s2p75",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 2996,
+          "physicalTimeSeconds": 74.4101713263002,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-b-t5-w3-s2p25",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 2915,
+          "physicalTimeSeconds": 74.42166732650686,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-b-t5-w3-s2p5",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 2915,
+          "physicalTimeSeconds": 75.00130815476439,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-b-t5-w3-s2p75",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 2905,
+          "physicalTimeSeconds": 75.14610842694043,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-b-t5-w4-s2p25",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 2885,
+          "physicalTimeSeconds": 74.34845407959664,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-b-t5-w4-s2p5",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 2928,
+          "physicalTimeSeconds": 74.89597976898972,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-b-t5-w4-s2p75",
+          "disposition": "size-endpoint",
+          "stopReason": "size-target",
+          "exitCode": 0,
+          "completedUpdates": 2917,
+          "physicalTimeSeconds": 74.96757357726788,
+          "extent": 29,
+          "errors": []
+        },
+        {
+          "rowId": "cf11-hil-c-h1-w6-s5",
+          "disposition": "unresolved-prefix",
+          "stopReason": "no-terminal-result",
+          "exitCode": null,
+          "completedUpdates": 934,
+          "physicalTimeSeconds": 12.934968949558666,
+          "extent": 21,
+          "errors": [],
+          "checkpointModifiedUtc": "2026-11-14T06:09:42.179629+00:00",
+          "currentStderrBytes": 0
+        },
+        {
+          "rowId": "cf11-hil-c-h1-w8-s5",
+          "disposition": "unresolved-prefix",
+          "stopReason": "no-terminal-result",
+          "exitCode": null,
+          "completedUpdates": 855,
+          "physicalTimeSeconds": 11.096677306709799,
+          "extent": 19,
+          "errors": [],
+          "checkpointModifiedUtc": "2026-11-14T06:09:18.023159+00:00",
+          "currentStderrBytes": 0
+        },
+        {
+          "rowId": "cf11-hil-c-h3-w6-s5",
+          "disposition": "unresolved-prefix",
+          "stopReason": "no-terminal-result",
+          "exitCode": null,
+          "completedUpdates": 924,
+          "physicalTimeSeconds": 13.102330309387002,
+          "extent": 19,
+          "errors": [],
+          "checkpointModifiedUtc": "2026-11-14T06:12:45.152590+00:00",
+          "currentStderrBytes": 0
+        },
+        {
+          "rowId": "cf11-hil-c-h3-w8-s5",
+          "disposition": "unresolved-prefix",
+          "stopReason": "no-terminal-result",
+          "exitCode": null,
+          "completedUpdates": 936,
+          "physicalTimeSeconds": 13.45594545711381,
+          "extent": 21,
+          "errors": [],
+          "checkpointModifiedUtc": "2026-11-14T06:12:08.293742+00:00",
+          "currentStderrBytes": 0
+        }
+      ]
+    }
+  },
+  "fineProcesses": [
+    {
+      "cpuIncreaseSeconds": 2.015625,
+      "workingSetBytes": 436535296,
+      "cpuSeconds": 181988.875,
+      "pid": 30388
+    },
+    {
+      "cpuIncreaseSeconds": 2.03125,
+      "workingSetBytes": 437661696,
+      "cpuSeconds": 181980.015625,
+      "pid": 27176
+    },
+    {
+      "cpuIncreaseSeconds": 2.03125,
+      "workingSetBytes": 436576256,
+      "cpuSeconds": 181988.71875,
+      "pid": 26236
+    },
+    {
+      "cpuIncreaseSeconds": 2.0,
+      "workingSetBytes": 438235136,
+      "cpuSeconds": 181988.453125,
+      "pid": 12460
+    }
+  ],
+  "followupActiveHours": {
+    "min": 3.9810033333333332,
+    "median": 5.2541359722222225,
+    "max": 5.968128888888889
+  },
+  "followupCoordinatorExit": {
+    "finishedUtc": "2026-11-14T01:08:39.6744459Z",
+    "exitCode": 0,
+    "startedUtc": "2026-11-13T19:10:31.1818581Z",
+    "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13-controls\\campaign-launch-20261113T111031180.stderr.log",
+    "mode": "launch",
+    "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-onset-followup-nov13\\snowflake\\out\\hil-onset-followup-nov13-controls\\campaign-launch-20261113T111031180.stdout.log"
+  }
+}

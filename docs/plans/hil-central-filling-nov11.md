@@ -1,7 +1,7 @@
 # Plan — HIL central-filling and growth-memory wave
 
 - **Phase:** active Phase 10, charter sections 2.5/3.2; accepted ADRs 0058–0060/0062.
-- **Status:** RUNNING, November13 at07:18Pacific:36/40 endpoints and4 fine workers,0 queued, no reported row errors. Fine extents17/15/17/17 toward57; keep producer aa20f96 fixed.
+- **Status:** RUNNING, November13 at22:12Pacific:36/40 endpoints and4 fine workers,0 queued, no reported errors. Fine extents21/19/19/21 toward57; keep producer aa20f96 fixed.
 - **Started / last touched:** 2026-11-11 / 2026-11-13 by Codex.
 - **Authority:** maker requests the next wave entirely on HIL, using its 20-worker allocation,
   with a finite queue as large as scientifically useful. Existing resumability/no wall-limit direction remains.
