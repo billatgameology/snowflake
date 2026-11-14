@@ -9,7 +9,7 @@ import { SUPPLY_ONSET_CONFIG, supplyOnsetCampaignBinding, validateSupplyOnsetCam
 import { HIL_SUPPLY_ONSET_NOV13 as batch, HIL_SUPPLY_ONSET_NOV13_ROWS as entries,
   supplyOnsetObservations } from "../src/hil-supply-onset-nov13-roster.ts";
 
-describe("HIL November13 registered follow-up", () => {
+describe("HIL November13 supply onset", () => {
   it("covers the complete two cohorts once in registered order without rerunning controls", () => {
     const expected = [
       ["a-t4p5-f0p05-w3-s8", -4.5, .05, 3, 8, .0125],
@@ -59,10 +59,10 @@ describe("HIL November13 registered follow-up", () => {
 
   it("binds the producer and full roster while limiting this queue to sixteen workers", () => {
     const binding = supplyOnsetCampaignBinding();
-    expect(binding).toMatchObject({ host: "HIL", workerCeiling: 16, checkpointFormat: "discovery-resume-v1" });
+    expect(binding).toMatchObject({ batchId: "hil-supply-onset-2026-11-13", host: "HIL", workerCeiling: 16, checkpointFormat: "discovery-resume-v1" });
     expect(binding.rows).toHaveLength(16);
     expect(() => validateSupplyOnsetCampaign(binding)).not.toThrow();
-    for (const mutation of [{ host: "BLD" }, { workerCeiling: 20 }, { rows: [] }, { gitHead: "wrong" }])
+    for (const mutation of [{ batchId: "hil-onset-followup-2026-11-13" }, { host: "BLD" }, { workerCeiling: 20 }, { rows: [] }, { gitHead: "wrong" }])
       expect(() => validateSupplyOnsetCampaign({ ...binding, ...mutation })).toThrow("does not match");
     const changedRows = binding.rows.map((row, i) => i === 0 ? { ...row, cflFill: .025 } : row);
     expect(() => validateSupplyOnsetCampaign({ ...binding, rows: changedRows })).toThrow("rows");

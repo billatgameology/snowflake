@@ -1,0 +1,5 @@
+{
+  "command": "npx.cmd vitest run runner/test/hil-supply-onset-nov13.test.ts runner/test/hil-onset-followup-nov13.test.ts runner/test/hil-bld-batch-resume.test.ts runner/test/hil-bld-batch-execution.test.ts runner/test/discovery-retained-observations.test.ts",
+  "exitCode": 0,
+  "finishedAt": "2026-11-13T22:24:43.3759752-08:00"
+}

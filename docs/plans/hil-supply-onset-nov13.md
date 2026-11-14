@@ -134,6 +134,10 @@ ID/CFL and all32 retained input files rehash correctly. Live resource checks pas
 RAM/commit/disk requirements; four fine workers remain untouched. No full suite, independent
 physics review, new capacity ladder or repeated actual resume witness. Existing contract reused.
 
+Prelaunch final inspection caught the copied preceding batch ID. Corrected to
+`hil-supply-onset-2026-11-13` and pinned the literal identity/refusal in the existing test.
+No run used the mistaken identity; source and receipts were refreshed before launch.
+
 ## Steps
 
 - [x] Commit protocol and eight control bindings before code (`02863e3`).

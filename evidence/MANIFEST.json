@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1388,
- "totalBytes": 328984341,
+ "fileCount": 1393,
+ "totalBytes": 329005133,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -5527,8 +5527,8 @@
    "sha256": "c33ec4288508a435ac15b841ba9be1da3c521dfd4d78920ec4f47ece6d87e2a1"
   },
   "hil-supply-onset-2026-11-13/verification.json": {
-   "bytes": 1218,
-   "sha256": "277a5a85949debbf797f54a656110f2c40a517f5c89871dec94e10355646aee2"
+   "bytes": 1623,
+   "sha256": "d27b24c8175814a5103c9b8106fc39f497db3014e000477a7e3ee803f03555cf"
   },
   "hil-supply-onset-2026-11-13/verification/focused-result.json": {
    "bytes": 338,
@@ -5555,6 +5555,26 @@
    "sha256": "6f2f065b6c0615a28ae79bd51296502c1653d018a50cda2468d8d862e5a57fdc"
   },
   "hil-supply-onset-2026-11-13/verification/typecheck.log": {
+   "bytes": 84,
+   "sha256": "51bcdf34980a17f4afbc6fa075186ba067a673569bc37098441f73a31b975087"
+  },
+  "hil-supply-onset-2026-11-13/verification/focused-final-result.json": {
+   "bytes": 338,
+   "sha256": "66d70150bfa5589c9d913ebcd9c3eff5d898e3c5ce6a6300864cf60024100307"
+  },
+  "hil-supply-onset-2026-11-13/verification/focused-final.log": {
+   "bytes": 6801,
+   "sha256": "bbc21b8b2f6e6c77e0669ec3bf56fc6abd10af983f7dd3b22460ebdd4cf92986"
+  },
+  "hil-supply-onset-2026-11-13/verification/roster-final.json": {
+   "bytes": 13048,
+   "sha256": "a4327edd64eddaee665db829ce5dcfc261985a281c7ed8369345b3ab7f875f8a"
+  },
+  "hil-supply-onset-2026-11-13/verification/typecheck-final-result.json": {
+   "bytes": 116,
+   "sha256": "cf5775dcee13e6c58edabbdc2904ef4501c5f76659bfe3a8677c6c09a9dc0878"
+  },
+  "hil-supply-onset-2026-11-13/verification/typecheck-final.log": {
    "bytes": 84,
    "sha256": "51bcdf34980a17f4afbc6fa075186ba067a673569bc37098441f73a31b975087"
   }

@@ -30,7 +30,7 @@ export const HIL_SUPPLY_ONSET_NOV13_ROWS: readonly FirstBatchEntry[] = Object.fr
     .map(({ fraction, cutoff }) => entry("b", tempC, fraction, 3, cutoff, .0125))),
 ]);
 export const HIL_SUPPLY_ONSET_NOV13: DiscoveryBatchDefinition = Object.freeze({
-  id: "hil-onset-followup-2026-11-13", launchPrefix: "hil-supply-onset-nov13",
+  id: "hil-supply-onset-2026-11-13", launchPrefix: "hil-supply-onset-nov13",
   rows: HIL_SUPPLY_ONSET_NOV13_ROWS, workerCeilings: Object.freeze({ HIL: 16 }),
   representatives: (host: FirstBatchHost) => namedBatchRows(HIL_SUPPLY_ONSET_NOV13, host),
 });
