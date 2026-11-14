@@ -1,7 +1,7 @@
 # Plan â€” HIL supply-dependent opening establishment
 
 - **Phase:** active Phase10, charter2.5/3.2, accepted ADR0058/0059/0060/0062.
-- **Status:** authorized November13: maker requests analysis then new runs; registering before code.
+- **Status:** RUNNING November13 at22:25Pacific;16 workers plus four continuing fine workers.
 - **Started / last touched:** 2026-11-13 by Codex.
 - **Checkout:** `codex/hil-supply-onset-nov13`, `C:/Users/biao3/.codex/worktrees/hil-supply-onset-nov13/snowflake`.
 
@@ -138,11 +138,23 @@ Prelaunch final inspection caught the copied preceding batch ID. Corrected to
 `hil-supply-onset-2026-11-13` and pinned the literal identity/refusal in the existing test.
 No run used the mistaken identity; source and receipts were refreshed before launch.
 
+## Actual launch — November13
+
+The [launch receipt](../../evidence/hil-supply-onset-2026-11-13/launch.json) binds producer
+`fc39356c81c20414a5405548bb58a590422bf6fe`, pinned Node/V8 and exact wrapper/coordinator
+commands. Hidden launch started22:25:42Pacific with16 new workers; all16 strict-decode initial
+solver states and manifest/solver hashes pass, and every row reached checkpoint tick1.
+Four original fine PIDs30388/27176/26236/12460 remain active:20 scientific workers,0 queued.
+Coordinator and row stderr are empty at observation. Logs remain under the named controls
+directory and per-row attempts; resume uses the command above after writer inspection.
+Both typechecks,34 focused orchestration tests,18 metadata tests and Rule7 pass. No full-suite
+claim. Primary main owns subsequent records; leave this execution HEAD fixed.
+
 ## Steps
 
 - [x] Commit protocol and eight control bindings before code (`02863e3`).
 - [x] Implement/check thin entry:34 focused tests, both typechecks and scoped author review pass.
-- [ ] Commit/publish clean producer, launch16 workers and verify retained initial states.
+- [x] Publish producer `fc39356`, launch16 workers and verify retained initial states.
 - [ ] Complete matched analysis and governed NAS recovery.
 
 ## Out of scope

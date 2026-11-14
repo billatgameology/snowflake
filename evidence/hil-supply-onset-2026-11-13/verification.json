@@ -35,11 +35,17 @@
       "sha256": "8b1890ce646082cf16320d78fe81a2ea6613e97388e6fc60f2b4536dc3881e09"
     }
   ],
-  "pending": "Final metadata/Rule7/diff checks then actual launch observation. No full-suite claim.",
+  "pending": "Actual launch verified in launch.json. Complete matched analysis and NAS recovery remain pending.",
   "finalChecks": {
     "focused": "verification/focused-final-result.json",
     "typecheck": "verification/typecheck-final-result.json",
     "roster": "verification/roster-final.json"
   },
-  "identityCorrection": "Final inspection corrected copied prior batch ID before any launch; existing binding test now requires new literal identity and rejects old ID."
+  "identityCorrection": "Final inspection corrected copied prior batch ID before any launch; existing binding test now requires new literal identity and rejects old ID.",
+  "finalMetadata": {
+    "tests": 18,
+    "exitCode": 0,
+    "rule7": "pass",
+    "scopedDiff": "pass"
+  }
 }

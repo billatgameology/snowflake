@@ -1,0 +1,404 @@
+{
+  "recordedAt": "2026-11-14T06:27:15.891479+00:00",
+  "source": "fc39356c81c20414a5405548bb58a590422bf6fe",
+  "producerRoot": "C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake",
+  "node": "v24.13.1",
+  "v8": "13.6.233.17-node.40",
+  "batchId": "hil-supply-onset-2026-11-13",
+  "startedAt": "2026-11-13T22:25:42.9253771-08:00",
+  "exactCommand": [
+    "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+    "C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\runner\\src\\hil-supply-onset-nov13-main.ts",
+    "launch",
+    "HIL",
+    "C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13",
+    "--workers",
+    "16"
+  ],
+  "wrapperPid": 24164,
+  "coordinatorPid": 20956,
+  "logs": {
+    "stdout": "C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13-controls\\campaign-launch-20261113T222543149.stdout.log",
+    "stderr": "C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13-controls\\campaign-launch-20261113T222543149.stderr.log"
+  },
+  "currentCoordinatorStderrBytes": 0,
+  "actualNewWorkers": 16,
+  "continuingFineWorkers": 4,
+  "totalScientificWorkers": 20,
+  "queuedRows": 0,
+  "observedAt": "2026-11-14T06:26:29.927Z",
+  "rows": [
+    {
+      "rowId": "so13-hil-a-t4p5-f0p05-w3-s8",
+      "pid": 24740,
+      "initialManifestSha256": "8809c32c3904a38d025c6dc956b17ac97c678a42112a0464ae60c3b287667840",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "7196272e3b0a2825ca0d149481ba4ace8ea26ffad8face1de23f80b139c7de72"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "f0093dc20c7fa59741c05421b2f4223fc72e4c691aef0f7b5fe7c6fd1ce87696",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "so13-hil-a-t4p5-f0p05-w4-s8",
+      "pid": 22400,
+      "initialManifestSha256": "2626fd1c3a38fcf133ffb0b98ff0e2df411d62ed53de4d52360c802b74fa6949",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "f8b1b5bbfc8cb586811faef537aaeba6a070108f32894249649a370da867bba6"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "162c91a326e198b74018d1a64d43ab2766d9bb448a4303a401938ae60fab38b7",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "so13-hil-a-t4p5-f0p1-w3-s3",
+      "pid": 31548,
+      "initialManifestSha256": "68a816f754621b6c9c18c686d0cf98444dd6197dcc852da6876e992237469ada",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "f5b36fc2541f15a6e270672c1ae7b94c741d58e70a589e1f0f5ab42e9cef6476"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "4809e86ab713f419428e2dd3e1147808439d095c93d064ecf5692f2f6cb5a975",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "so13-hil-a-t4p5-f0p1-w4-s3",
+      "pid": 21336,
+      "initialManifestSha256": "dd5cb7651be41c0dca05152e03a50caf402ad65be907b430d7c696d5dc6d822b",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "8564336f4e33f7ca08cf9aa0c5f7132d5585936c098d0127bb913c3507e0717a"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "79d65e29b71a0fbe97ce64a0155c534054772f4c49df99766ae445cc3cae34bf",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "so13-hil-a-t5-f0p05-w3-s8",
+      "pid": 22656,
+      "initialManifestSha256": "95ce89486a46c58965bbf8ccd230254be1835944b6efe7c8b6bdf1662aeaad58",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "2132c3bcbe3065134e2a53c967ac0c69f7a7bcc74a6c714b869ed8c5df61c296"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "be33a12447188c195c026e3cc3d0bf2e297e5aaafeed2b48beba0023c269e9b5",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "so13-hil-a-t5-f0p05-w4-s8",
+      "pid": 32028,
+      "initialManifestSha256": "308676805296f3855ad79280d204a4abcc7165040202d783a7e36eb0ef726a8b",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "40a006f29ba0ea879c533dee007bd7ad251146ce9bb329d00a4f48b06febfc8e"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "08161d393288b01f4b33f233f652229b3bae8fa05266d06a3fc776ce284aa4fa",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "so13-hil-a-t5-f0p1-w3-s3",
+      "pid": 28308,
+      "initialManifestSha256": "59dec76cf47cdf0809ff0b6f6d1951b26445fff305c4bc5cf7dbebdcd311699f",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "5e1fbbdd29847aeef5159927dc1488a46ba0e4682edf93c095cc3bca86f97f95"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "9d4dff1feb042110d1e503b1ca519451c5fdb441e9d124a28136b19d2994fae8",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "so13-hil-a-t5-f0p1-w4-s3",
+      "pid": 34232,
+      "initialManifestSha256": "af08026893252e70d97b0f36d4067df611b2426f5160f19a2293ba6118b452b9",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "eea9c032f7ff910910db198479915bdb00005d98045c8db794a6550ae3641357"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "6e61785897c7b639352fd2377c3a7f00027b379be3c123b2fff3d96144a02484",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "so13-hil-b-t4p5-f0p05-w3-s5",
+      "pid": 3048,
+      "initialManifestSha256": "44b650212b15e44a09bc8a8b04525b13aab6c1d404c6d5de7bc8c25c0831813d",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "c41ff20bff0dc9c820e1fbbee6d23eccffbe757526dbf73d518c4b929606f503"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "f5071ce770b4aebf8be9597be975043ceb51e738cc0cad320dc96c5416716bfb",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "so13-hil-b-t4p5-f0p05-w3-s6p5",
+      "pid": 6720,
+      "initialManifestSha256": "831d6219c293306aec878ac56ba22bd3c8687bc0fbd9cba2147af9e656c614e9",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "e7c1a37e70ce175374bb08493b848d4ea35b4b514d5904e34d2a9ed0318e62bc"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "1458a45044e7816515c52dc30c5e889024f80e7b949dd6fc0e1105df5458fee7",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "so13-hil-b-t4p5-f0p1-w3-s2",
+      "pid": 1536,
+      "initialManifestSha256": "c70287bdcb078d7dae425ad3f33b5a28bcd0a29693d0a87b1ccae812c49f43ab",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "02332d25e92138896cb38eeca814b526660875a0af9f27d5ac3a3cee1aeda2cc"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "e88f599b73b7ded383e785d7f83946931af13536abfc459dcac3c1400eb13288",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "so13-hil-b-t4p5-f0p1-w3-s2p5",
+      "pid": 32420,
+      "initialManifestSha256": "325a1d0bfe9019ba379088c206c9fa0a14d8756e79a9c633e79a5f9a8d0f5502",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "d9f01a0828e4c7013b8e1cb57c63810ac5d359cadd8bb6a1ce57b5587228b74e"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "deb8dfd152a6bd1af4baf39b4fcc3edd8d326b869284d4821f7ca614b8b9ddb8",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "so13-hil-b-t5-f0p05-w3-s5",
+      "pid": 31556,
+      "initialManifestSha256": "2c47b76c9599ff2222d7f4249922036cb2700fd158849fb079173a29c6a7138b",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "d1738bffc8318b7e5c299f79538dd9f458a87377e01bc415226da7b26d4704e8"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "3df0e9075b1a966aef9e3ea34c12463b553e1d22db7b4a6a4d7b2f75db25685b",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "so13-hil-b-t5-f0p05-w3-s6p5",
+      "pid": 4916,
+      "initialManifestSha256": "a98d94ec63fdf6bb9716e581a7374a12d9173794deac060e0a5207645f60de5d",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "9530a3908d1e65e54a334e31247cb3c188076c5a579169a7586ff075744a4c39"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "68df0c1dba3dab931d94a7e603e8bba7cc1b6129ffb8cd05c87b3f731c9e222c",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "so13-hil-b-t5-f0p1-w3-s2",
+      "pid": 13800,
+      "initialManifestSha256": "645882bfa2c8eed06840329b63b4b83f6857606420e7124752522dda95d70eba",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "c564c2f2d942f93514df971d1b27877b50560c93a9074cb3e7906830a3191350"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "1b388d6e7b939147f43b073337c69a6e948d4d91c0ad26fa643cab389414dbfc",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "so13-hil-b-t5-f0p1-w3-s2p5",
+      "pid": 28624,
+      "initialManifestSha256": "7535c8544df02819aa2890bb027778b6521211d32ef91bb47aae33428cec3466",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "6d087f1089232a238902525e3d2ec1c99725de0b5da9d124f0b0d09e7c801b02"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "d03b49686664234950e9f17771323279e226f615d0147d49b4fcd98d6f19e6c7",
+      "stderrBytes": 0
+    }
+  ],
+  "liveProcesses": [
+    {
+      "ProcessId": 30388,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h1-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w6-s5"
+    },
+    {
+      "ProcessId": 27176,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h1-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w8-s5"
+    },
+    {
+      "ProcessId": 26236,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h3-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w6-s5"
+    },
+    {
+      "ProcessId": 12460,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h3-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w8-s5"
+    },
+    {
+      "ProcessId": 24740,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\runner\\src\\hil-supply-onset-nov13-main.ts run-row so13-hil-a-t4p5-f0p05-w3-s8 C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13\\rows\\so13-hil-a-t4p5-f0p05-w3-s8"
+    },
+    {
+      "ProcessId": 22400,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\runner\\src\\hil-supply-onset-nov13-main.ts run-row so13-hil-a-t4p5-f0p05-w4-s8 C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13\\rows\\so13-hil-a-t4p5-f0p05-w4-s8"
+    },
+    {
+      "ProcessId": 31548,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\runner\\src\\hil-supply-onset-nov13-main.ts run-row so13-hil-a-t4p5-f0p1-w3-s3 C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13\\rows\\so13-hil-a-t4p5-f0p1-w3-s3"
+    },
+    {
+      "ProcessId": 21336,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\runner\\src\\hil-supply-onset-nov13-main.ts run-row so13-hil-a-t4p5-f0p1-w4-s3 C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13\\rows\\so13-hil-a-t4p5-f0p1-w4-s3"
+    },
+    {
+      "ProcessId": 22656,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\runner\\src\\hil-supply-onset-nov13-main.ts run-row so13-hil-a-t5-f0p05-w3-s8 C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13\\rows\\so13-hil-a-t5-f0p05-w3-s8"
+    },
+    {
+      "ProcessId": 32028,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\runner\\src\\hil-supply-onset-nov13-main.ts run-row so13-hil-a-t5-f0p05-w4-s8 C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13\\rows\\so13-hil-a-t5-f0p05-w4-s8"
+    },
+    {
+      "ProcessId": 28308,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\runner\\src\\hil-supply-onset-nov13-main.ts run-row so13-hil-a-t5-f0p1-w3-s3 C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13\\rows\\so13-hil-a-t5-f0p1-w3-s3"
+    },
+    {
+      "ProcessId": 34232,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\runner\\src\\hil-supply-onset-nov13-main.ts run-row so13-hil-a-t5-f0p1-w4-s3 C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13\\rows\\so13-hil-a-t5-f0p1-w4-s3"
+    },
+    {
+      "ProcessId": 3048,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\runner\\src\\hil-supply-onset-nov13-main.ts run-row so13-hil-b-t4p5-f0p05-w3-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13\\rows\\so13-hil-b-t4p5-f0p05-w3-s5"
+    },
+    {
+      "ProcessId": 6720,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\runner\\src\\hil-supply-onset-nov13-main.ts run-row so13-hil-b-t4p5-f0p05-w3-s6p5 C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13\\rows\\so13-hil-b-t4p5-f0p05-w3-s6p5"
+    },
+    {
+      "ProcessId": 1536,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\runner\\src\\hil-supply-onset-nov13-main.ts run-row so13-hil-b-t4p5-f0p1-w3-s2 C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13\\rows\\so13-hil-b-t4p5-f0p1-w3-s2"
+    },
+    {
+      "ProcessId": 32420,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\runner\\src\\hil-supply-onset-nov13-main.ts run-row so13-hil-b-t4p5-f0p1-w3-s2p5 C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13\\rows\\so13-hil-b-t4p5-f0p1-w3-s2p5"
+    },
+    {
+      "ProcessId": 31556,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\runner\\src\\hil-supply-onset-nov13-main.ts run-row so13-hil-b-t5-f0p05-w3-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13\\rows\\so13-hil-b-t5-f0p05-w3-s5"
+    },
+    {
+      "ProcessId": 4916,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\runner\\src\\hil-supply-onset-nov13-main.ts run-row so13-hil-b-t5-f0p05-w3-s6p5 C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13\\rows\\so13-hil-b-t5-f0p05-w3-s6p5"
+    },
+    {
+      "ProcessId": 13800,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\runner\\src\\hil-supply-onset-nov13-main.ts run-row so13-hil-b-t5-f0p1-w3-s2 C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13\\rows\\so13-hil-b-t5-f0p1-w3-s2"
+    },
+    {
+      "ProcessId": 28624,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\runner\\src\\hil-supply-onset-nov13-main.ts run-row so13-hil-b-t5-f0p1-w3-s2p5 C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13\\rows\\so13-hil-b-t5-f0p1-w3-s2p5"
+    }
+  ],
+  "resumeCommand": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start-hil-supply-onset-nov13.ps1 -Mode resume -Workers 16",
+  "resumeCwd": "C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake",
+  "resumeCaution": "Inspect current writers first; preserve producer/runtime. Do not resume completed rows manually.",
+  "wallDeadline": null,
+  "targetExtent": 29,
+  "dimsN": 64,
+  "files": [
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13-verification\\check-launch.mjs",
+      "bytes": 2850,
+      "sha256": "115eca357de54559f38bac3f54635a07f12ff41011085e38fbd24455854b2914"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13-verification\\launch-state-check.json",
+      "bytes": 22430,
+      "sha256": "88f50fac4ba4308add5e8f77533734645b6ecdf19b328c1deeeb50877da97c3d"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13-verification\\live-processes.json",
+      "bytes": 8529,
+      "sha256": "4546ebdab02a2675604379eff347ee905bb054a8a9f51ae04b0f56efd6482dc3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13-controls\\campaign-launch-20261113T222543149-invocation.json",
+      "bytes": 1160,
+      "sha256": "046717db2b1262bb0422a56cac7b2c758f4c276ed2c49332009accd3d28ea512"
+    },
+    {
+      "path": "C:\\Users\\biao3\\.codex\\worktrees\\hil-supply-onset-nov13\\snowflake\\out\\hil-supply-onset-nov13-controls\\bootstrap-20261113T222542875.json",
+      "bytes": 917,
+      "sha256": "b045cc50cd00c47fa4c32162e7bdaaf90c20dc9b7ae2763eb3c2a0de4b2f866c"
+    }
+  ],
+  "preservation": "Local output; NAS publication and fresh restore remain pending. No worktree closure."
+}
