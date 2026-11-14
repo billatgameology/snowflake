@@ -20,8 +20,8 @@ support the survival ordering. Original openings advance after switch: low8 by1.
 high3 by2.10/2.45um. Signed plane intervals are not independent cavities.
 
 These observations support a supply-dependent establishment window in this implementation.
-The failed high-supply suppression prediction means its onset lies earlier than the tested3s
-among observed cases; no universal monotonic threshold is assumed. The new supply contrasts
+The failed high-supply suppression prediction means persistence is already established by the tested3s
+preparation in these observed cases; no universal monotonic threshold is assumed. The new supply contrasts
 still need smaller-timestep qualification. They do not isolate geometry, partial fill, vapor or
 lag as a single causal component, and do not identify new physical ice kinetics.
 
