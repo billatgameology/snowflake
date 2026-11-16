@@ -1,0 +1,125 @@
+# Plan - HIL onset intervals and pressure transfer
+
+- **Phase:** active Phase10; charter2.4/2.5/3.2, accepted ADR0058/0059/0060/0062.
+- **Status:** registered November16 before implementation; maker authorizes short/medium runs alongside the fine tail.
+- **Checkout:** primary main, C:/Users/biao3/Documents/GitHub/snowflake, by explicit maker direction; no new worktree.
+- **Started / last touched:** 2026-11-16 by Codex.
+
+## Goal
+
+Narrow preparation intervals and test transport sensitivity of successful histories. The
+[24-row analysis](../../evidence/hil-supply-onset-2026-11-13/analysis-nov16.json) finds low6.5/high2.5
+lose original openings, low8/high3 preserve them at both temperatures. One timestep halving
+preserves this ordering, but one depth changes a layer. This is model development, not physical cause.
+Solo scientific research; hostile actors excluded. Deliverable:16 finite N64 cases running
+with restart/permanent captures while the four existing fine trajectories continue.
+
+## Done when
+
+> Done when the maker accepts multiple distinct promising model-development leads, each supported by a named matched comparison, a result with its scope and uncertainty, the numerical, representation and observation checks relevant to that result (or a specifically recorded unresolved check), and a concrete next discriminating experiment. Repeated configurations of one effect do not count as separate leads. Current candidates do not close the phase automatically; the maker's portfolio review decides when enough leads are promising. This criterion creates no automatic gate or quantitative-validation label.
+
+Launch slice: committed protocol, exact16 operands/control hashes, focused orchestration checks,
+both typechecks, metadata/Rule7 and16 actual workers with saved initial states/advancing checkpoints.
+Later completion: all terminal dispositions, complete matched readouts and NAS fresh recovery.
+
+## Frozen operands and order
+
+Reuse unchanged November13 solver/recorder: N64, dx.35um, seed2/1 (19 sites), M1 base,
+early-only width3 basal intervention, no-dip prism, aggregate-v6/monopole-matched/hexPrism,
+noise0/RNGseed1, CFL.0125, residual1e-9/divergence1e-7/max200000 relax sweeps/max100000 updates,
+target extent29 (9.8um largest coordinate center span). SigmaInfinity=unchanged table(T)*fraction.
+Constant pressure only; no wall limit or environment event. All rows unconditional HIL work.
+
+| Block | Exact operands | Count |
+|---|---|---:|
+| A interval | T{-4.5,-5} x {(.05,7s),(.05,7.5s),(.10,2.625s),(.10,2.75s)}; pressure101325Pa |8|
+| B pressure | T{-4.5,-5} x {(.05,8s),(.10,3s)} x pressure{50662.5,202650}Pa |8|
+
+A then B, loops in printed order. IDs `op16-hil-a-t{4p5|5}-f{0p05|0p1}-s{7|7p5|2p625|2p75}`
+and `op16-hil-b-t{4p5|5}-f{0p05|0p1}-s{8|3}-p{half|double}`. All width3.
+[Controls](../../evidence/hil-onset-pressure-2026-11-16/comparison-inputs.json) bind12 existing
+rows/48 files: low5/6.5/8 and high2/2.5/3 width3 at bothT. Primary onset uses6.5/8 and2.5/3;
+5/2 are context. Pressure uses4 normal-pressure successful anchors. No redundant reruns.
+
+## Readouts and predictions
+
+A: four complete four-member cohorts (eachT/fraction): earlier failed anchor, two new cutoffs,
+successful anchor. B: four complete pressure triplets (eachT/fraction/cutoff) with normal anchor.
+For every cohort, minimum terminal physical age, quarter fractions, at-or-before plus next-event
+bounds; exact-size endpoints separately. Measure original opening survival/post-switch advance
+on shared windows, central fill/attachment, selected demand and solved boundary vapor at actual
+switch. Reuse executed `analyzeCavityRows`, `bracketCavityTime`, `measureCavityGeometry` and
+retained readers in `out/hil-supply-analysis-20261116/warm/` with cohort selectors only.
+Failed/unavailable members make complete cohorts unavailable; never silently omit them.
+Zero-depth surface-open layers are not surviving original cavities; occupancy is not mass.
+Nonmonotonicity/no transition are allowed. No exact universal threshold, equal dose or single
+state-variable mechanism. Pressure changes model diffusion only; physical attachment-pressure
+independence is unvalidated. No width4 pressure controls, so no width-specific pressure interaction.
+Grid/seed qualification remains unresolved in current fine runs.
+
+## Capture, restart and execution
+
+Reuse unchanged recorder: initial/terminal full state, exact last-active/first-inactive full state
+and pre-fill solved boundary maps; central radius1 patches z+/-1; extent maps{5,9,13,17,21,25};
+age brackets{1,2,2.5,2.625,2.75,3,4,5,6.5,7,7.5,8,10,20}s. Every completed update checkpoints,
+current/previous plus permanent observations. Existing November11 real capture/restart witness
+and family tests cover unchanged contract. No capacity ladder or repeated witness.
+16 new workers plus4 fine=20. Observe processes/RAM/commit/disk before launch; retain12GiB RAM,
+8GiB commit and100GiB disk guards. Prior16 measured5.4057-6.4118active hours; changed pressure/
+contention is non-transferable. Expect hours-scale, no finish guarantee or wall deadline.
+
+```
+node runner/src/hil-onset-pressure-nov16-main.ts list HIL
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start-hil-onset-pressure-nov16.ps1 -Mode launch -Workers 16
+node runner/src/hil-onset-pressure-nov16-main.ts summarize out/hil-onset-pressure-nov16
+```
+
+After interruption inspect writers; same wrapper -Mode resume -Workers16 at exact producer.
+Node24.13.1/V813.6.233.17-node.40 and main HEAD stay fixed while running. Commit all records
+before launch; actual receipt is `out/hil-onset-pressure-nov16-controls/launch-verification.json`,
+record to Git after completion without disrupting producer. Separate controls/per-row attempt
+logs and errors/exits. Fine native crash gets one same-state recovery through a separate existing
+single-row launcher; don't stop three live workers or resume the entire live fine queue.
+
+Bulk output/detailed analysis stay local pending external-evidence NAS collection
+hil-onset-pressure@2026-11-16 publication/fresh restore under ADR0051/0061. Keep all old owners.
+
+## Checks and source currency
+
+Thin roster/entry/wrapper only. Independent literal16 operands, distinct batchID/refusal,
+create/resume capture routing, HIL and worker-limit refusals; prior roster, batch execution/resume,
+recorder tests and both typechecks. Metadata/Rule7/diff checks; one bounded review after stability.
+No shared solver/codec/readout edits or full-suite claim. Rule14A failure: accidental operands,
+copied identity or omitted observations; existing boundaries plus literal tests cheaply cover seam.
+Lessons A1/B1/B2/C3/C6/E5 govern actually saved states, executable complete comparisons and scoped
+claims. No framework, new defense or physical claim. Green checks cover named cases only.
+November16 reopened M1v2 https://arxiv.org/abs/1910.09067, TAX2v1 https://arxiv.org/abs/2306.13087
+and https://www.its.caltech.edu/~atomic/publist/kglpub.htm. Listed versions2019-11-13/2023-06-22
+unchanged; no superseding mapping identified in bounded list check, not novelty assessment.
+Pressure provenance caveat retained: D varies inversely with pressure, attachment laws do not.
+
+## Steps
+
+- [x] Commit protocol and control bindings before implementation.
+- [ ] Check thin orchestration and commit clean main producer.
+- [ ] Launch16 and verify state retention/restart progress; leave main fixed.
+- [ ] Complete matched analysis and governed NAS recovery.
+
+## Out of scope
+
+New physics/state swaps, fine grids, BLD/GPU/S6/Phase7, wall deadline, cleanup/pruning,
+unchanged scientific-failure retries or automatic extra waves.
+
+## Tried and rejected
+
+- More fine jobs or repeated controls: current fine tail/retained anchors already serve these questions.
+- Universal onset or equal-dose claim: geometry/fill/vapor/lag evolve together.
+- New worktree: explicitly declined; main is the producer and stays fixed during execution.
+- Double pressure assumed safe: old BLD T-4.5/f.075/early20/CFL.025 failed subnormal boundary
+  convergence. New operands differ; retain tolerances, failure classification and no automatic retry.
+- Rolling restart alone: permanent exact switch observations remain mandatory.
+
+## Open questions
+
+Do pressure changes alter persistence, and do intermediate cutoffs narrow the interval?
+These are registered outcomes, not launch prerequisites.
