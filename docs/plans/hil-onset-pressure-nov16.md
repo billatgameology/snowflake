@@ -38,8 +38,9 @@ Constant pressure only; no wall limit or environment event. All rows uncondition
 A then B, loops in printed order. IDs `op16-hil-a-t{4p5|5}-f{0p05|0p1}-s{7|7p5|2p625|2p75}`
 and `op16-hil-b-t{4p5|5}-f{0p05|0p1}-s{8|3}-p{half|double}`. All width3.
 [Controls](../../evidence/hil-onset-pressure-2026-11-16/comparison-inputs.json) bind12 existing
-rows/48 files: low5/6.5/8 and high2/2.5/3 width3 at bothT. Primary onset uses6.5/8 and2.5/3;
-5/2 are context. Pressure uses4 normal-pressure successful anchors. No redundant reruns.
+rows/48 files: low6.5/8 and high2.5/3 width3 at bothT, plus low8/high3 width4 context.
+Primary onset uses the8 width3 anchors; pressure uses4 successful width3 normal-pressure
+anchors. The4 width4 rows are context only. No redundant reruns.
 
 ## Readouts and predictions
 
@@ -78,7 +79,8 @@ After interruption inspect writers; same wrapper -Mode resume -Workers16 at exac
 Node24.13.1/V813.6.233.17-node.40 and main HEAD stay fixed while running. Commit all records
 before launch; actual receipt is `out/hil-onset-pressure-nov16-controls/launch-verification.json`,
 record to Git after completion without disrupting producer. Separate controls/per-row attempt
-logs and errors/exits. Fine native crash gets one same-state recovery through a separate existing
+logs and errors/exits. Fine recovery receipt: `out/hil-status-20261116/fine-recovery-launch.json`, same frozen producer.
+Fine native crash gets one same-state recovery through a separate existing
 single-row launcher; don't stop three live workers or resume the entire live fine queue.
 
 Bulk output/detailed analysis stay local pending external-evidence NAS collection
@@ -98,10 +100,20 @@ and https://www.its.caltech.edu/~atomic/publist/kglpub.htm. Listed versions2019-
 unchanged; no superseding mapping identified in bounded list check, not novelty assessment.
 Pressure provenance caveat retained: D varies inversely with pressure, attachment laws do not.
 
+## Executed preparation
+
+Protocol committed at6bcc3b4 before code. [Verification](../../evidence/hil-onset-pressure-2026-11-16/verification.json)
+binds34 focused tests, both typechecks, exact16-row list and one bounded shared-context review
+by an agent distinct from the implementation author. All48 control files rehash correctly;
+review independently matched new rows to controls allowing only registered cutoff/pressure changes.
+Control-description mismatch corrected. No full-suite or independent physical-validation claim.
+Fine native-error diagnosis and recent progress rates are retained in this evidence directory;
+actual recovery receipt remains indexed below until its next complete checkpoint.
+
 ## Steps
 
 - [x] Commit protocol and control bindings before implementation.
-- [ ] Check thin orchestration and commit clean main producer.
+- [x] Check thin orchestration:34 focused tests and both typechecks pass; bounded review corrected control description. Commit this clean main producer before launch.
 - [ ] Launch16 and verify state retention/restart progress; leave main fixed.
 - [ ] Complete matched analysis and governed NAS recovery.
 

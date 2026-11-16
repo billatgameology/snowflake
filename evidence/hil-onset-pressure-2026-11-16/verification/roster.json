@@ -1,0 +1,552 @@
+{
+  "batchId": "hil-onset-pressure-2026-11-16",
+  "host": "HIL",
+  "workerCeiling": 16,
+  "rosterSha256": "52d4cdeaa8bb57e291f5f9e3f9aa3235fd1e8364fbd4202f8ea8bba6ef491bdd",
+  "entries": [
+    {
+      "host": "HIL",
+      "track": "warm-history",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-a-t4p5-f0p05-s7",
+        "tempC": -4.5,
+        "fraction": 0.05,
+        "pressurePa": 101325,
+        "sigmaInfinity": 0.00225,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 7
+        }
+      }
+    },
+    {
+      "host": "HIL",
+      "track": "warm-history",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-a-t4p5-f0p05-s7p5",
+        "tempC": -4.5,
+        "fraction": 0.05,
+        "pressurePa": 101325,
+        "sigmaInfinity": 0.00225,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 7.5
+        }
+      }
+    },
+    {
+      "host": "HIL",
+      "track": "warm-history",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-a-t4p5-f0p1-s2p625",
+        "tempC": -4.5,
+        "fraction": 0.1,
+        "pressurePa": 101325,
+        "sigmaInfinity": 0.0045,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 2.625
+        }
+      }
+    },
+    {
+      "host": "HIL",
+      "track": "warm-history",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-a-t4p5-f0p1-s2p75",
+        "tempC": -4.5,
+        "fraction": 0.1,
+        "pressurePa": 101325,
+        "sigmaInfinity": 0.0045,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 2.75
+        }
+      }
+    },
+    {
+      "host": "HIL",
+      "track": "warm-history",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-a-t5-f0p05-s7",
+        "tempC": -5,
+        "fraction": 0.05,
+        "pressurePa": 101325,
+        "sigmaInfinity": 0.0025000000000000005,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 7
+        }
+      }
+    },
+    {
+      "host": "HIL",
+      "track": "warm-history",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-a-t5-f0p05-s7p5",
+        "tempC": -5,
+        "fraction": 0.05,
+        "pressurePa": 101325,
+        "sigmaInfinity": 0.0025000000000000005,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 7.5
+        }
+      }
+    },
+    {
+      "host": "HIL",
+      "track": "warm-history",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-a-t5-f0p1-s2p625",
+        "tempC": -5,
+        "fraction": 0.1,
+        "pressurePa": 101325,
+        "sigmaInfinity": 0.005000000000000001,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 2.625
+        }
+      }
+    },
+    {
+      "host": "HIL",
+      "track": "warm-history",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-a-t5-f0p1-s2p75",
+        "tempC": -5,
+        "fraction": 0.1,
+        "pressurePa": 101325,
+        "sigmaInfinity": 0.005000000000000001,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 2.75
+        }
+      }
+    },
+    {
+      "host": "HIL",
+      "track": "warm-history",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-b-t4p5-f0p05-s8-phalf",
+        "tempC": -4.5,
+        "fraction": 0.05,
+        "pressurePa": 50662.5,
+        "sigmaInfinity": 0.00225,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 8
+        }
+      }
+    },
+    {
+      "host": "HIL",
+      "track": "warm-history",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-b-t4p5-f0p05-s8-pdouble",
+        "tempC": -4.5,
+        "fraction": 0.05,
+        "pressurePa": 202650,
+        "sigmaInfinity": 0.00225,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 8
+        }
+      }
+    },
+    {
+      "host": "HIL",
+      "track": "warm-history",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-b-t4p5-f0p1-s3-phalf",
+        "tempC": -4.5,
+        "fraction": 0.1,
+        "pressurePa": 50662.5,
+        "sigmaInfinity": 0.0045,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 3
+        }
+      }
+    },
+    {
+      "host": "HIL",
+      "track": "warm-history",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-b-t4p5-f0p1-s3-pdouble",
+        "tempC": -4.5,
+        "fraction": 0.1,
+        "pressurePa": 202650,
+        "sigmaInfinity": 0.0045,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 3
+        }
+      }
+    },
+    {
+      "host": "HIL",
+      "track": "warm-history",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-b-t5-f0p05-s8-phalf",
+        "tempC": -5,
+        "fraction": 0.05,
+        "pressurePa": 50662.5,
+        "sigmaInfinity": 0.0025000000000000005,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 8
+        }
+      }
+    },
+    {
+      "host": "HIL",
+      "track": "warm-history",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-b-t5-f0p05-s8-pdouble",
+        "tempC": -5,
+        "fraction": 0.05,
+        "pressurePa": 202650,
+        "sigmaInfinity": 0.0025000000000000005,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 8
+        }
+      }
+    },
+    {
+      "host": "HIL",
+      "track": "warm-history",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-b-t5-f0p1-s3-phalf",
+        "tempC": -5,
+        "fraction": 0.1,
+        "pressurePa": 50662.5,
+        "sigmaInfinity": 0.005000000000000001,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 3
+        }
+      }
+    },
+    {
+      "host": "HIL",
+      "track": "warm-history",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-b-t5-f0p1-s3-pdouble",
+        "tempC": -5,
+        "fraction": 0.1,
+        "pressurePa": 202650,
+        "sigmaInfinity": 0.005000000000000001,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 3
+        }
+      }
+    }
+  ]
+}

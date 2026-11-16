@@ -1,7 +1,7 @@
 # Plan — HIL supply-dependent opening establishment
 
 - **Phase:** active Phase10, charter2.5/3.2, accepted ADR0058/0059/0060/0062.
-- **Status:** RUNNING November13 at22:25Pacific;16 workers plus four continuing fine workers.
+- **Status:** all16 endpoints complete November14 at04:50Pacific; analyzed November16; NAS recovery pending.
 - **Started / last touched:** 2026-11-13 by Codex.
 - **Checkout:** `codex/hil-supply-onset-nov13`, `C:/Users/biao3/.codex/worktrees/hil-supply-onset-nov13/snowflake`.
 
@@ -149,6 +149,18 @@ Coordinator and row stderr are empty at observation. Logs remain under the named
 directory and per-row attempts; resume uses the command above after writer inspection.
 Both typechecks,34 focused orchestration tests,18 metadata tests and Rule7 pass. No full-suite
 claim. Primary main owns subsequent records; leave this execution HEAD fixed.
+
+## Completed readout - November16
+
+The [24-row/760-state analysis](../../evidence/hil-supply-onset-2026-11-13/analysis-nov16.json)
+finds low6.5/high2.5 lose original openings while low8/high3 persist at both temperatures.
+All four primary cohorts and eight timestep pairs are available. Timestep halving preserves
+persistence, but -5C high3 depth shifts2.8 to2.45um; no exact-metric convergence claim.
+Two zero-depth endpoints retain surface-open layers but no original intervals.
+All16 reached extent29/exit0, last completion November14 at04:50:27Pacific; active durations
+5.405667222222221-6.411814166666667h, median5.869579166666666h. Detailed readouts and all
+raw bytes remain local pending NAS preservation. The maker authorized the separately registered
+[onset/pressure successor](hil-onset-pressure-nov16.md); preserve this completed producer.
 
 ## Steps
 

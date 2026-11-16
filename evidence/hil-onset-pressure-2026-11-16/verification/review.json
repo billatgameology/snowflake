@@ -1,0 +1,199 @@
+{
+  "recordedAt": "2026-11-16T15:20:27.137710+00:00",
+  "reviewer": "Codex/GPT-6-family shared-context subagent; distinct from implementation author",
+  "sharedContext": true,
+  "scope": "One bounded review of four thin orchestration files, committed plan and retained controls; no scientific operator changes.",
+  "executedChecks": [
+    {
+      "check": "Real list CLI",
+      "exitCode": 0,
+      "rows": 16,
+      "batchId": "hil-onset-pressure-2026-11-16"
+    },
+    {
+      "check": "Rehash retained controls",
+      "rows": 12,
+      "files": 48
+    },
+    {
+      "check": "Compare all16 new rows against successful normal-pressure controls permitting only ID plus cutoff or pressure",
+      "matches": [
+        {
+          "newRow": "op16-hil-a-t4p5-f0p05-s7",
+          "control": "so13-hil-a-t4p5-f0p05-w3-s8",
+          "permittedDifferences": [
+            "experimentalBasalWidthHistory",
+            "id"
+          ]
+        },
+        {
+          "newRow": "op16-hil-a-t4p5-f0p05-s7p5",
+          "control": "so13-hil-a-t4p5-f0p05-w3-s8",
+          "permittedDifferences": [
+            "experimentalBasalWidthHistory",
+            "id"
+          ]
+        },
+        {
+          "newRow": "op16-hil-a-t4p5-f0p1-s2p625",
+          "control": "so13-hil-a-t4p5-f0p1-w3-s3",
+          "permittedDifferences": [
+            "experimentalBasalWidthHistory",
+            "id"
+          ]
+        },
+        {
+          "newRow": "op16-hil-a-t4p5-f0p1-s2p75",
+          "control": "so13-hil-a-t4p5-f0p1-w3-s3",
+          "permittedDifferences": [
+            "experimentalBasalWidthHistory",
+            "id"
+          ]
+        },
+        {
+          "newRow": "op16-hil-a-t5-f0p05-s7",
+          "control": "so13-hil-a-t5-f0p05-w3-s8",
+          "permittedDifferences": [
+            "experimentalBasalWidthHistory",
+            "id"
+          ]
+        },
+        {
+          "newRow": "op16-hil-a-t5-f0p05-s7p5",
+          "control": "so13-hil-a-t5-f0p05-w3-s8",
+          "permittedDifferences": [
+            "experimentalBasalWidthHistory",
+            "id"
+          ]
+        },
+        {
+          "newRow": "op16-hil-a-t5-f0p1-s2p625",
+          "control": "so13-hil-a-t5-f0p1-w3-s3",
+          "permittedDifferences": [
+            "experimentalBasalWidthHistory",
+            "id"
+          ]
+        },
+        {
+          "newRow": "op16-hil-a-t5-f0p1-s2p75",
+          "control": "so13-hil-a-t5-f0p1-w3-s3",
+          "permittedDifferences": [
+            "experimentalBasalWidthHistory",
+            "id"
+          ]
+        },
+        {
+          "newRow": "op16-hil-b-t4p5-f0p05-s8-phalf",
+          "control": "so13-hil-a-t4p5-f0p05-w3-s8",
+          "permittedDifferences": [
+            "id",
+            "pressurePa"
+          ]
+        },
+        {
+          "newRow": "op16-hil-b-t4p5-f0p05-s8-pdouble",
+          "control": "so13-hil-a-t4p5-f0p05-w3-s8",
+          "permittedDifferences": [
+            "id",
+            "pressurePa"
+          ]
+        },
+        {
+          "newRow": "op16-hil-b-t4p5-f0p1-s3-phalf",
+          "control": "so13-hil-a-t4p5-f0p1-w3-s3",
+          "permittedDifferences": [
+            "id",
+            "pressurePa"
+          ]
+        },
+        {
+          "newRow": "op16-hil-b-t4p5-f0p1-s3-pdouble",
+          "control": "so13-hil-a-t4p5-f0p1-w3-s3",
+          "permittedDifferences": [
+            "id",
+            "pressurePa"
+          ]
+        },
+        {
+          "newRow": "op16-hil-b-t5-f0p05-s8-phalf",
+          "control": "so13-hil-a-t5-f0p05-w3-s8",
+          "permittedDifferences": [
+            "id",
+            "pressurePa"
+          ]
+        },
+        {
+          "newRow": "op16-hil-b-t5-f0p05-s8-pdouble",
+          "control": "so13-hil-a-t5-f0p05-w3-s8",
+          "permittedDifferences": [
+            "id",
+            "pressurePa"
+          ]
+        },
+        {
+          "newRow": "op16-hil-b-t5-f0p1-s3-phalf",
+          "control": "so13-hil-a-t5-f0p1-w3-s3",
+          "permittedDifferences": [
+            "id",
+            "pressurePa"
+          ]
+        },
+        {
+          "newRow": "op16-hil-b-t5-f0p1-s3-pdouble",
+          "control": "so13-hil-a-t5-f0p1-w3-s3",
+          "permittedDifferences": [
+            "id",
+            "pressurePa"
+          ]
+        }
+      ]
+    }
+  ],
+  "inspected": [
+    "All16 literal roster operands/order and test expectations agree with plan.",
+    "Pressure row override reaches existing LKSolver via candidate.pressurePa ?? FIXED.pressurePa.",
+    "run-row/resume-row both pass permanent observations and correct create/resume checkpoint setting.",
+    "Distinct batch/schema/output identities; HIL16 worker ceiling; wrapper hidden Node process and separated stdout/stderr/exit.",
+    "No wall deadline passed to scientific runner; existing coordinator resumes pending rows and retains failures.",
+    "Exact switch and new cutoff age capture settings match plan."
+  ],
+  "sourceFiles": [
+    {
+      "path": "runner/src/hil-onset-pressure-nov16-main.ts",
+      "bytes": 2540,
+      "sha256": "272b195eaef7766bf04c4ead57a9a8f5ae622ee7227de653fe1fe0f52c6a21be"
+    },
+    {
+      "path": "runner/src/hil-onset-pressure-nov16-roster.ts",
+      "bytes": 3069,
+      "sha256": "1d04629cd97c5c957faec767dc4bb0cfa4837b5ee15f7dc7b811deb66399a1fb"
+    },
+    {
+      "path": "runner/test/hil-onset-pressure-nov16.test.ts",
+      "bytes": 6644,
+      "sha256": "a1b25e168d1f46bf74e1356a463b76978cc3418ccbd2c3f44c2848536f902e6e"
+    },
+    {
+      "path": "scripts/start-hil-onset-pressure-nov16.ps1",
+      "bytes": 2379,
+      "sha256": "a917c15432a02dd577093f92dde8ee1d2fd56f7aedd15f0862c7afbc7ab47745"
+    }
+  ],
+  "findings": [
+    {
+      "severity": "nonblocking-documentation",
+      "location": "docs/plans/hil-onset-pressure-nov16.md frozen controls paragraph",
+      "issue": "Plan names low5/high2 contextual width3 inputs absent from binding; actual four contextual inputs are width4 at low8/high3. All primary onset/pressure anchors are present.",
+      "correction": "Make control paragraph name bound width4 context and omit low5/high2 claim.",
+      "disposition": "Parent reports corrected plan to actual12 bound controls:8 width3 onset anchors plus4 contextual width4; no additional review pass."
+    }
+  ],
+  "blockingFindings": [],
+  "limits": [
+    "Did not rerun author34 tests or typechecks; their receipts inspected only.",
+    "No new simulation, real pause/resume, source-currency web check, physical inference review or NAS publication.",
+    "Live resource and retention/checkpoint verification remain launcher/root responsibility.",
+    "Old double-pressure subnormal convergence failure can recur; new configurations do not guarantee convergence or runtime."
+  ],
+  "unresolvedBlockingFindings": 0
+}

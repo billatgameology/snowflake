@@ -1,0 +1,36 @@
+{
+  "recordedAt": "2026-11-16T15:21:12.605574+00:00",
+  "protocolCommit": "6bcc3b4",
+  "surface": "Thin orchestration only; no shared solver/codec/recorder/readout edits",
+  "focusedTests": 34,
+  "focusedFiles": 5,
+  "focusedExitCode": 0,
+  "rootAndAppTypecheckExitCode": 0,
+  "review": "verification/review.json",
+  "reviewDisposition": "Control-description mismatch corrected; no blocking findings. Shared-context review by agent other than implementation author.",
+  "resourceReceipt": "resources.json",
+  "controlsRehashed": 48,
+  "sourceFiles": [
+    {
+      "path": "runner/src/hil-onset-pressure-nov16-main.ts",
+      "bytes": 2540,
+      "sha256": "272b195eaef7766bf04c4ead57a9a8f5ae622ee7227de653fe1fe0f52c6a21be"
+    },
+    {
+      "path": "runner/src/hil-onset-pressure-nov16-roster.ts",
+      "bytes": 3069,
+      "sha256": "1d04629cd97c5c957faec767dc4bb0cfa4837b5ee15f7dc7b811deb66399a1fb"
+    },
+    {
+      "path": "runner/test/hil-onset-pressure-nov16.test.ts",
+      "bytes": 6644,
+      "sha256": "a1b25e168d1f46bf74e1356a463b76978cc3418ccbd2c3f44c2848536f902e6e"
+    },
+    {
+      "path": "scripts/start-hil-onset-pressure-nov16.ps1",
+      "bytes": 2379,
+      "sha256": "a917c15432a02dd577093f92dde8ee1d2fd56f7aedd15f0862c7afbc7ab47745"
+    }
+  ],
+  "next": "Metadata/Rule7/diff then clean producer commit; actual launch receipt in out/hil-onset-pressure-nov16-controls/launch-verification.json. Freeze main during execution."
+}

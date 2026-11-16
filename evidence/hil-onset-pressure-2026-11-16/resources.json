@@ -1,0 +1,24 @@
+{
+  "observedAt": "2026-11-16T07:18:00.7525100-08:00",
+  "diskFreeBytes": 3076915912704,
+  "commitHeadroomBytes": 53906112512,
+  "scienceWorkers": [
+    {
+      "ProcessId": 27176,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h1-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w8-s5"
+    },
+    {
+      "ProcessId": 26236,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h3-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w6-s5"
+    },
+    {
+      "ProcessId": 12460,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h3-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w8-s5"
+    },
+    {
+      "ProcessId": 612,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h1-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w6-s5"
+    }
+  ],
+  "freePhysicalBytes": 52374900736
+}

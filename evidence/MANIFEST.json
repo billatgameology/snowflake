@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1396,
- "totalBytes": 329154388,
+ "fileCount": 1406,
+ "totalBytes": 329188208,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -5589,6 +5589,46 @@
   "hil-supply-onset-2026-11-13/analysis-nov16.json": {
    "bytes": 100635,
    "sha256": "45b8e56d802e0f1c148f46e2c2e10a928a4ff414ad576cd8abf314760268bdbd"
+  },
+  "hil-onset-pressure-2026-11-16/fine-progress-rate.json": {
+   "bytes": 1438,
+   "sha256": "c09e04ea793bb49aa7dd79fe03ca782af2f337a7b614a102aff8385cb4be6e7d"
+  },
+  "hil-onset-pressure-2026-11-16/fine-recovery-diagnosis.json": {
+   "bytes": 1496,
+   "sha256": "34a2b18b726b69092c7613f87f98bef111b494fee5c68484fabd6773696d2f56"
+  },
+  "hil-onset-pressure-2026-11-16/resources.json": {
+   "bytes": 1924,
+   "sha256": "71512ed5ab86ecf3d23bf6e4c3c404dca5786488b47c5e923c65d6e89c8dc5c1"
+  },
+  "hil-onset-pressure-2026-11-16/verification.json": {
+   "bytes": 1487,
+   "sha256": "c429d22d2d334ad6b0c86688a3345e6dd73963fa9222f18f2824f01f643c3135"
+  },
+  "hil-onset-pressure-2026-11-16/verification/focused-result.json": {
+   "bytes": 391,
+   "sha256": "cdbd0b43b10d21538efca1a7a6b98254359cadf82348428d4b07ce8065ae5315"
+  },
+  "hil-onset-pressure-2026-11-16/verification/focused.log": {
+   "bytes": 6772,
+   "sha256": "04d263148e2965d5706192b37cc03a4658dde77002b0120b74624b1302639d07"
+  },
+  "hil-onset-pressure-2026-11-16/verification/review.json": {
+   "bytes": 6977,
+   "sha256": "b613ea0a8c520edc23f9d952198924665cc7ebc8776df1fa05364c41bad2709b"
+  },
+  "hil-onset-pressure-2026-11-16/verification/roster.json": {
+   "bytes": 13082,
+   "sha256": "48af55e127514633c626e603588a5b75b8db0c26cdc0124a07927911a864e59d"
+  },
+  "hil-onset-pressure-2026-11-16/verification/typecheck-result.json": {
+   "bytes": 169,
+   "sha256": "49cdc793a9bcc4fb79f6edd69ee24ccd63be08aeb02d1c3ad030ae3af01784fa"
+  },
+  "hil-onset-pressure-2026-11-16/verification/typecheck.log": {
+   "bytes": 84,
+   "sha256": "51bcdf34980a17f4afbc6fa075186ba067a673569bc37098441f73a31b975087"
   }
  }
 }

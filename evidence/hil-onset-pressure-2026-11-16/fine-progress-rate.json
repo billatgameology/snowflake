@@ -1,0 +1,56 @@
+[
+  {
+    "row": "cf11-hil-c-h1-w8-s5",
+    "first": {
+      "timestamp": "2026-11-15T12:55:57.214Z",
+      "tick": 1268,
+      "extent": 25
+    },
+    "last": {
+      "timestamp": "2026-11-16T13:10:50.087Z",
+      "tick": 1576,
+      "extent": 29
+    },
+    "hours": 24.24802027777778,
+    "updatesPerHour": 12.702067899632539,
+    "extentGain": 4,
+    "target": 57,
+    "limits": "Local observations, not reliable ETA. Growth and per-cycle costs evolve."
+  },
+  {
+    "row": "cf11-hil-c-h3-w6-s5",
+    "first": {
+      "timestamp": "2026-11-15T12:47:33.297Z",
+      "tick": 1291,
+      "extent": 25
+    },
+    "last": {
+      "timestamp": "2026-11-16T13:32:20.837Z",
+      "tick": 1610,
+      "extent": 29
+    },
+    "hours": 24.74653888888889,
+    "updatesPerHour": 12.8906915602339,
+    "extentGain": 4,
+    "target": 57,
+    "limits": "Local observations, not reliable ETA. Growth and per-cycle costs evolve."
+  },
+  {
+    "row": "cf11-hil-c-h3-w8-s5",
+    "first": {
+      "timestamp": "2026-11-15T12:47:21.544Z",
+      "tick": 1310,
+      "extent": 25
+    },
+    "last": {
+      "timestamp": "2026-11-16T13:34:15.427Z",
+      "tick": 1627,
+      "extent": 29
+    },
+    "hours": 24.781634166666667,
+    "updatesPerHour": 12.791731080688416,
+    "extentGain": 4,
+    "target": 57,
+    "limits": "Local observations, not reliable ETA. Growth and per-cycle costs evolve."
+  }
+]

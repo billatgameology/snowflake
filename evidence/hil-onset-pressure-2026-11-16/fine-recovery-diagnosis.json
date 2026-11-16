@@ -1,0 +1,43 @@
+{
+  "observedAt": "2026-11-16T15:14:07.367Z",
+  "rowId": "cf11-hil-c-h1-w6-s5",
+  "producer": "aa20f969f8b25ad98cf7a25f1015a4f373080657",
+  "exit": {
+    "schema": "post-phase10-discovery-exit-v1",
+    "experimentId": "post-phase10-basal-width-history-v1",
+    "experimentalBasalWidthCells": 6,
+    "experimentalBasalWidthHistory": {
+      "mode": "early-only",
+      "cutoffSeconds": 5
+    },
+    "rowId": "cf11-hil-c-h1-w6-s5",
+    "exitCode": 3221225477,
+    "signal": null,
+    "startedAt": "2026-11-12T03:27:57.034Z",
+    "finishedAt": "2026-11-15T05:17:28.099Z",
+    "wallSeconds": 265771.065,
+    "attemptName": "resume-1794454074449-1a2958a7-9fe9-4084-904b-a2d22086eab3"
+  },
+  "checkpoint": {
+    "tick": 1235,
+    "time": 18.423463876645695,
+    "attached": 8367,
+    "activeWallSeconds": 275539.53599999996,
+    "manifestSha256": "468d0c6b8b43314be4391a549c8ebb08aae8cf7637e726d0fb6bfba74cc1c1e0",
+    "solver": {
+      "bytes": 34018169,
+      "sha256": "8a7615c2dc05007efc60c9f9ef8d3e3118283435f1f3ab7b2c3e6a97b76a07aa"
+    },
+    "eventPrefix": {
+      "bytes": 4496748,
+      "sha256": "a8b9b59cb2b7afde71be5ec4d6c40c1e4156926b409f47705767a509fb3c7f19"
+    },
+    "eventBytes": 4496748,
+    "uncommittedEventTail": 0,
+    "integrityErrors": [],
+    "allRelaxationsConverged": true,
+    "terminalStopReason": null
+  },
+  "stderrBytes": 0,
+  "limits": "Read-only store.load and strict restore; recover callback not invoked. No explanation of native exit cause. No new simulation."
+}
