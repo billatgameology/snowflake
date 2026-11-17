@@ -1,0 +1,243 @@
+{
+  "observedAt": "2026-11-16T15:23:05.459512+00:00",
+  "bootstrap": {
+    "preservedOriginalCoordinatorPid": 21904,
+    "command": [
+      "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+      "C:/Users/biao3/Documents/GitHub/snowflake/out/hil-status-20261116/resume-fine-once.mjs"
+    ],
+    "startedAt": "2026-11-16T07:15:04.1316512-08:00",
+    "preservedOtherWorkerPids": [
+      27176,
+      26236,
+      12460
+    ],
+    "coordinatorPid": 30832,
+    "cwd": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake"
+  },
+  "originalFailure": {
+    "schema": "post-phase10-discovery-exit-v1",
+    "experimentId": "post-phase10-basal-width-history-v1",
+    "experimentalBasalWidthCells": 6,
+    "experimentalBasalWidthHistory": {
+      "mode": "early-only",
+      "cutoffSeconds": 5
+    },
+    "rowId": "cf11-hil-c-h1-w6-s5",
+    "exitCode": 3221225477,
+    "signal": null,
+    "startedAt": "2026-11-12T03:27:57.034Z",
+    "finishedAt": "2026-11-15T05:17:28.099Z",
+    "wallSeconds": 265771.065,
+    "attemptName": "resume-1794454074449-1a2958a7-9fe9-4084-904b-a2d22086eab3"
+  },
+  "verifiedResumeState": {
+    "tick": 1235,
+    "time": 18.423463876645695,
+    "attached": 8367,
+    "activeWallSeconds": 275539.53599999996,
+    "manifestSha256": "468d0c6b8b43314be4391a549c8ebb08aae8cf7637e726d0fb6bfba74cc1c1e0",
+    "solver": {
+      "bytes": 34018169,
+      "sha256": "8a7615c2dc05007efc60c9f9ef8d3e3118283435f1f3ab7b2c3e6a97b76a07aa"
+    },
+    "eventPrefix": {
+      "bytes": 4496748,
+      "sha256": "a8b9b59cb2b7afde71be5ec4d6c40c1e4156926b409f47705767a509fb3c7f19"
+    },
+    "eventBytes": 4496748,
+    "uncommittedEventTail": 0,
+    "integrityErrors": [],
+    "allRelaxationsConverged": true,
+    "terminalStopReason": null
+  },
+  "newWorkerPid": 612,
+  "newCoordinatorPid": 30832,
+  "oldCoordinatorPid": 21904,
+  "oldWorkersUntouched": [
+    27176,
+    26236,
+    12460
+  ],
+  "producer": "aa20f969f8b25ad98cf7a25f1015a4f373080657",
+  "newAttempt": "native-recovery-20261116",
+  "launchRecord": {
+    "schema": "post-phase10-discovery-launch-v1",
+    "experimentId": "post-phase10-basal-width-history-v1",
+    "experimentalRows": [
+      {
+        "rowId": "cf11-hil-c-h1-w6-s5",
+        "experimentId": "post-phase10-basal-width-history-v1",
+        "experimentalBasalWidthCells": 6,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 5
+        }
+      }
+    ],
+    "launchName": "hil-central-filling-nov11-native-recovery-20261116",
+    "gitHead": "aa20f969f8b25ad98cf7a25f1015a4f373080657",
+    "node": "v24.13.1",
+    "attemptName": "native-recovery-20261116",
+    "resumeExistingRows": true,
+    "requestedConcurrency": 1,
+    "rowIds": [
+      "cf11-hil-c-h1-w6-s5"
+    ],
+    "exactWorkerCommandTemplate": "Exact row-specific command is recorded in each rows/<row-id>/process.json and its named attempt",
+    "launchedAt": "2026-11-16T15:15:03.861Z"
+  },
+  "rows": [
+    {
+      "rowId": "cf11-hil-c-h1-w6-s5",
+      "pid": 612,
+      "attempt": "native-recovery-20261116",
+      "checkpointTick": 1236,
+      "checkpointManifestSha256": "486ad4b2f9d4caef2a75f4aaab681795f819ea99ca39e60ccc03d0db306dbedc",
+      "checkpointWrittenUtc": "2026-11-16T15:22:33.368881+00:00",
+      "eventTick": 1236,
+      "extent": 25,
+      "physicalTimeSeconds": 18.43675829199428,
+      "target": 57,
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-c-h1-w8-s5",
+      "pid": 27176,
+      "attempt": "resume-1794454074449-1a2958a7-9fe9-4084-904b-a2d22086eab3",
+      "checkpointTick": 1600,
+      "checkpointManifestSha256": "f59dbff9d7a67344a6bbffcc9d05bbea12053c14c9db278e823905639cf44d71",
+      "checkpointWrittenUtc": "2026-11-16T15:19:31.532093+00:00",
+      "eventTick": 1600,
+      "extent": 29,
+      "physicalTimeSeconds": 24.47486698777247,
+      "target": 57,
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-c-h3-w6-s5",
+      "pid": 26236,
+      "attempt": "resume-1794454074449-1a2958a7-9fe9-4084-904b-a2d22086eab3",
+      "checkpointTick": 1631,
+      "checkpointManifestSha256": "64cc9afb8321ef67ca5b74e2bcc70fa73a5104d6e545ef828833fe44ea51e29f",
+      "checkpointWrittenUtc": "2026-11-16T15:21:34.768677+00:00",
+      "eventTick": 1631,
+      "extent": 29,
+      "physicalTimeSeconds": 24.602824207224057,
+      "target": 57,
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "cf11-hil-c-h3-w8-s5",
+      "pid": 12460,
+      "attempt": "resume-1794454074449-1a2958a7-9fe9-4084-904b-a2d22086eab3",
+      "checkpointTick": 1647,
+      "checkpointManifestSha256": "19bd5efef09cbf77ab09d726fbfb3cc858333d07f04e02afd8332030a9edf6a2",
+      "checkpointWrittenUtc": "2026-11-16T15:22:39.912411+00:00",
+      "eventTick": 1647,
+      "extent": 29,
+      "physicalTimeSeconds": 25.011380686052302,
+      "target": 57,
+      "stderrBytes": 0
+    }
+  ],
+  "cpuSamples": [
+    {
+      "Id": 612,
+      "CPU": 31.3125,
+      "cpuDeltaSeconds": 2.015625,
+      "WorkingSet64": 482951168
+    },
+    {
+      "Id": 12460,
+      "CPU": 386503.328125,
+      "cpuDeltaSeconds": 2.015625,
+      "WorkingSet64": 484511744
+    },
+    {
+      "Id": 26236,
+      "CPU": 386529.15625,
+      "cpuDeltaSeconds": 1.984375,
+      "WorkingSet64": 484741120
+    },
+    {
+      "Id": 27176,
+      "CPU": 386507.5,
+      "cpuDeltaSeconds": 2.03125,
+      "WorkingSet64": 480886784
+    }
+  ],
+  "progressRate": [
+    {
+      "row": "cf11-hil-c-h1-w8-s5",
+      "first": {
+        "timestamp": "2026-11-15T12:55:57.214Z",
+        "tick": 1268,
+        "extent": 25
+      },
+      "last": {
+        "timestamp": "2026-11-16T13:10:50.087Z",
+        "tick": 1576,
+        "extent": 29
+      },
+      "hours": 24.24802027777778,
+      "updatesPerHour": 12.702067899632539,
+      "extentGain": 4,
+      "target": 57,
+      "limits": "Local observations, not reliable ETA. Growth and per-cycle costs evolve."
+    },
+    {
+      "row": "cf11-hil-c-h3-w6-s5",
+      "first": {
+        "timestamp": "2026-11-15T12:47:33.297Z",
+        "tick": 1291,
+        "extent": 25
+      },
+      "last": {
+        "timestamp": "2026-11-16T13:32:20.837Z",
+        "tick": 1610,
+        "extent": 29
+      },
+      "hours": 24.74653888888889,
+      "updatesPerHour": 12.8906915602339,
+      "extentGain": 4,
+      "target": 57,
+      "limits": "Local observations, not reliable ETA. Growth and per-cycle costs evolve."
+    },
+    {
+      "row": "cf11-hil-c-h3-w8-s5",
+      "first": {
+        "timestamp": "2026-11-15T12:47:21.544Z",
+        "tick": 1310,
+        "extent": 25
+      },
+      "last": {
+        "timestamp": "2026-11-16T13:34:15.427Z",
+        "tick": 1627,
+        "extent": 29
+      },
+      "hours": 24.781634166666667,
+      "updatesPerHour": 12.791731080688416,
+      "extentGain": 4,
+      "target": 57,
+      "limits": "Local observations, not reliable ETA. Growth and per-cycle costs evolve."
+    }
+  ],
+  "newCheckpointAdvanced": true,
+  "policy": "One-time native-process interruption recovery; no automatic retry if failure recurs. No new scientific operands, target or time cap. Existing row lease, resume binding and resource monitor reused. Original failure/attempt bytes preserved.",
+  "logs": {
+    "coordinatorStdout": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-status-20261116\\fine-recovery.stdout.log",
+    "coordinatorStderr": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-status-20261116\\fine-recovery.stderr.log",
+    "workerDirectory": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w6-s5\\attempts\\native-recovery-20261116"
+  },
+  "resumeRoute": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-status-20261116\\resume-fine-once.mjs",
+  "limits": "Native exit root cause unknown. ETA is not inferred from extent proportion. Resource and progress observations are point-in-time.",
+  "advancedCheckpointVerification": {
+    "observedAt": "2026-11-16T15:23:05.881Z",
+    "tick": 1236,
+    "physicalTimeSeconds": 18.43675829199428,
+    "strictStoreLoadAndSolverRestore": true,
+    "integrityErrors": [],
+    "allRelaxationsConverged": true
+  }
+}

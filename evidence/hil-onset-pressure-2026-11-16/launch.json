@@ -1,0 +1,410 @@
+{
+  "recordedAt": "2026-11-16T15:22:40.659289+00:00",
+  "source": "bbf1cf18eb61a0c41d89f368f2bc0e2fdff27921",
+  "producerRoot": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake",
+  "branch": "main",
+  "node": "v24.13.1",
+  "v8": "13.6.233.17-node.40",
+  "startedAt": "2026-11-16T07:21:45.5480972-08:00",
+  "exactCommand": [
+    "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+    "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-onset-pressure-nov16-main.ts",
+    "launch",
+    "HIL",
+    "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16",
+    "--workers",
+    "16"
+  ],
+  "wrapperPid": 12540,
+  "coordinatorPid": 19728,
+  "logs": {
+    "stdout": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16-controls\\campaign-launch-20261116T072145749.stdout.log",
+    "stderr": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16-controls\\campaign-launch-20261116T072145749.stderr.log"
+  },
+  "actualNewWorkers": 16,
+  "continuingFineWorkers": 4,
+  "totalScientificWorkers": 20,
+  "queuedRows": 0,
+  "observedAt": "2026-11-16T15:22:16.684Z",
+  "rows": [
+    {
+      "rowId": "op16-hil-a-t4p5-f0p05-s7",
+      "pid": 3056,
+      "initialManifestSha256": "e947ce111eda6ec963dea1a796724363a38aa2c31ac0b0b57cff007ae8add506",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "4514b60215c8c8343561ad07c600b83737c2a6f79e47c30b2053aae41125ebdd"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "144f4cc0baa1ba0c29ea35f994d499a7e5ddc052b52b6a7efdd56f095f786841",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "op16-hil-a-t4p5-f0p05-s7p5",
+      "pid": 7972,
+      "initialManifestSha256": "3b1246ea45a9cbe4b3aef94a22dc3eb4dcc10f6120bf654b6de69e49efd59380",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "77f5515abcd3b3d1d6862d93d677cd7e22f58d2f7fdb4d0ffe6d7b46231f9b87"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "be001eaf9af6258442e2a571e35dcd736a1a6cae0d867f812e3be5f8d3c3eda3",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "op16-hil-a-t4p5-f0p1-s2p625",
+      "pid": 20904,
+      "initialManifestSha256": "f171676b521f03e272aa51431445e433bab2f82819011bcfe9527cde5f78e4d3",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "d5ccc58104427d42481e1c19ea9861f38477048cc9c6a5ca05d71cfce6a736e1"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "c13e0b42d2397f2d2d5803b6d7bf2848821addc2d6e51d782f0616393ba6731b",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "op16-hil-a-t4p5-f0p1-s2p75",
+      "pid": 32620,
+      "initialManifestSha256": "1b940d2fc8d5668ef4b5e1fa8ba198163bbb32975faa841e35299482152b5d21",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "90d72260f816193778092b38312944e5614f6c9db908c00ab28509de8b107b40"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "e6b44cf1f29b71a1e8f87207afa4f666654a59c5d1546daf18969cfd023f6c8f",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "op16-hil-a-t5-f0p05-s7",
+      "pid": 25364,
+      "initialManifestSha256": "f2653c8d6cb0004a286db1bca457b3ad07a50e455376e70681ec5e99518acb10",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "0b68f73cdabf8359c64559f21933723107b74244a1199e4b91f5d992d46f76d3"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "cc3e39d97b5343ecf3f8199942a0d1fafd1ee16b02cd1d41a620d90455508173",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "op16-hil-a-t5-f0p05-s7p5",
+      "pid": 27156,
+      "initialManifestSha256": "52e17d4680ca1291dab6256cf8b5f393ad43ce6041c00991e784644ed3ce1c87",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "6e15451f9380630bd2da4f92f122feda3fce9d82fff464e690b594c737a87b26"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "dbabdf3faec47c8f484b84ae04e0c1fbca16f3cbfa057664cf3502a7136f09cd",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "op16-hil-a-t5-f0p1-s2p625",
+      "pid": 21580,
+      "initialManifestSha256": "e9fcdf5279445af9558ecf26cabf432fff49b53a0cadba9f9e1dfe1e2b30bd4f",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "65cfdc2a58645a5610932f8e6ecfb9262f1f17b12ec5bb8fec294dd6540190e3"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "df900b229345dc4b50992a5789e324a6ab5f53f39e2e83441d0de0874135528d",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "op16-hil-a-t5-f0p1-s2p75",
+      "pid": 33880,
+      "initialManifestSha256": "449e10ee9c12951d8dd9359f88e0e2ee0b8e926ed8d194aae5a8577550be0a18",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "83c95dfe4f8751b760351c78050bc3c1614121d2d573a95b7ca03c57b02830b1"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "57c37da80f19f5ad0b47f9221d66a5abc5554bb9c6bd4e7dd56f98738f216db9",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "op16-hil-b-t4p5-f0p05-s8-phalf",
+      "pid": 22732,
+      "initialManifestSha256": "e01051f689f00329cab018f2637b97566d75223b5d13ad7c1727319606404f6a",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "535c8d2d46f96a0b13cbabfae9abb0f3c294e6eea10a0521b8fd7b9e5f30d375"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "118db8d7c1a7c32fc4323abdf4b12a99a033c82b1eccc84a4a3fc43421389b9b",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "op16-hil-b-t4p5-f0p05-s8-pdouble",
+      "pid": 28004,
+      "initialManifestSha256": "b44223f1affd28641dd4db2c361bdccb51dbf808cb7f3116c5fdf459da8ea751",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "786f037fb9c2101fd1708de2c5ce1093ab882ae5ee2e12145c28a12a0b65696f"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "84a8657ebd02bb0e6ac2bc8f51f9f96c5b4c04b2a04194470e55e5c237303586",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "op16-hil-b-t4p5-f0p1-s3-phalf",
+      "pid": 4428,
+      "initialManifestSha256": "bbf817455de7347725e4ee57d76e07ac80417d0c5921121a0e93522d4eff8c4d",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "53e9f05146dd48fa65a943d806f54efc71df952f4c43e9cdb898548fc0231107"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "3d8b42484772ebfbd7b8c9be71d3efa9601599567370449b910192be63ebedf7",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "op16-hil-b-t4p5-f0p1-s3-pdouble",
+      "pid": 14988,
+      "initialManifestSha256": "51b0276eee224ada2e2b334d4f971c0ca721e93c3f1cbc957622783c0e3662d9",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "5a2c555edfe9a3dd0d50e4b1fb8bcb66e02b056223abbe6884d672804daab5dd"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "979fe8033e3804fc78d4791b4f9369aa90e6f2e828b0b400629c94c66abdea18",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "op16-hil-b-t5-f0p05-s8-phalf",
+      "pid": 33308,
+      "initialManifestSha256": "f3721a684959179e25c2ec61843db2f07ef0c4664b02294bfc8c3021e1c4e884",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "3abf58f98f30ff583197d9a3bce42bc45b1dce8ad8f251f9e86a79ba8d7a3d86"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "c81a55a47753b4daffc8aee826b49c7782082d0071ac441d8c3ceb53a1bc7986",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "op16-hil-b-t5-f0p05-s8-pdouble",
+      "pid": 26416,
+      "initialManifestSha256": "8433afb1ad182e3664a8232ea2eb94bd35cce642bc0e142e1b62a813712bc272",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "1f33fe24e08af23be7038e9500329e0fca4dbea4d9f45cd5520832cc578595c6"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "3830563cf661114f3a40e7597ae6554a0030e4effca9d19f83333ef0291e9670",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "op16-hil-b-t5-f0p1-s3-phalf",
+      "pid": 16204,
+      "initialManifestSha256": "fb323979f931592692f97a71b83d44d54df525ab1980d7634ad96cae7f8083cf",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "ce9dc5e55f3c882615f20850d28ecab673048b743b5495be935a436720f984ee"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "4c3cd961c546786cd2a3dffa48bfcd9e18bca61a735e878e15139f4c5aa2108c",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "op16-hil-b-t5-f0p1-s3-pdouble",
+      "pid": 23604,
+      "initialManifestSha256": "a44b9c7d06053c45c148eb57286dbd16b3ac49f8694dbf343ca9038fc9cbb839",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "3a0c982a62db1be40205a20a944a86cff8e5095f2344c5831233eaef55bde74b"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "6d2628763d18bf8b767845dbbb064b3f13c4ea06c621875a3bbdc861178f60d2",
+      "stderrBytes": 0
+    }
+  ],
+  "currentCoordinatorStderrBytes": 0,
+  "liveProcesses": [
+    {
+      "ProcessId": 27176,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h1-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w8-s5"
+    },
+    {
+      "ProcessId": 26236,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h3-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w6-s5"
+    },
+    {
+      "ProcessId": 12460,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h3-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w8-s5"
+    },
+    {
+      "ProcessId": 612,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h1-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w6-s5"
+    },
+    {
+      "ProcessId": 3056,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-onset-pressure-nov16-main.ts run-row op16-hil-a-t4p5-f0p05-s7 C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-a-t4p5-f0p05-s7"
+    },
+    {
+      "ProcessId": 7972,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-onset-pressure-nov16-main.ts run-row op16-hil-a-t4p5-f0p05-s7p5 C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-a-t4p5-f0p05-s7p5"
+    },
+    {
+      "ProcessId": 20904,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-onset-pressure-nov16-main.ts run-row op16-hil-a-t4p5-f0p1-s2p625 C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-a-t4p5-f0p1-s2p625"
+    },
+    {
+      "ProcessId": 32620,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-onset-pressure-nov16-main.ts run-row op16-hil-a-t4p5-f0p1-s2p75 C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-a-t4p5-f0p1-s2p75"
+    },
+    {
+      "ProcessId": 25364,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-onset-pressure-nov16-main.ts run-row op16-hil-a-t5-f0p05-s7 C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-a-t5-f0p05-s7"
+    },
+    {
+      "ProcessId": 27156,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-onset-pressure-nov16-main.ts run-row op16-hil-a-t5-f0p05-s7p5 C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-a-t5-f0p05-s7p5"
+    },
+    {
+      "ProcessId": 21580,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-onset-pressure-nov16-main.ts run-row op16-hil-a-t5-f0p1-s2p625 C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-a-t5-f0p1-s2p625"
+    },
+    {
+      "ProcessId": 33880,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-onset-pressure-nov16-main.ts run-row op16-hil-a-t5-f0p1-s2p75 C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-a-t5-f0p1-s2p75"
+    },
+    {
+      "ProcessId": 22732,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-onset-pressure-nov16-main.ts run-row op16-hil-b-t4p5-f0p05-s8-phalf C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-b-t4p5-f0p05-s8-phalf"
+    },
+    {
+      "ProcessId": 28004,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-onset-pressure-nov16-main.ts run-row op16-hil-b-t4p5-f0p05-s8-pdouble C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-b-t4p5-f0p05-s8-pdouble"
+    },
+    {
+      "ProcessId": 4428,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-onset-pressure-nov16-main.ts run-row op16-hil-b-t4p5-f0p1-s3-phalf C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-b-t4p5-f0p1-s3-phalf"
+    },
+    {
+      "ProcessId": 14988,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-onset-pressure-nov16-main.ts run-row op16-hil-b-t4p5-f0p1-s3-pdouble C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-b-t4p5-f0p1-s3-pdouble"
+    },
+    {
+      "ProcessId": 33308,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-onset-pressure-nov16-main.ts run-row op16-hil-b-t5-f0p05-s8-phalf C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-b-t5-f0p05-s8-phalf"
+    },
+    {
+      "ProcessId": 26416,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-onset-pressure-nov16-main.ts run-row op16-hil-b-t5-f0p05-s8-pdouble C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-b-t5-f0p05-s8-pdouble"
+    },
+    {
+      "ProcessId": 16204,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-onset-pressure-nov16-main.ts run-row op16-hil-b-t5-f0p1-s3-phalf C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-b-t5-f0p1-s3-phalf"
+    },
+    {
+      "ProcessId": 23604,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-onset-pressure-nov16-main.ts run-row op16-hil-b-t5-f0p1-s3-pdouble C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-b-t5-f0p1-s3-pdouble"
+    }
+  ],
+  "resumeCommand": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start-hil-onset-pressure-nov16.ps1 -Mode resume -Workers 16",
+  "resumeCwd": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake",
+  "producerRule": "Keep main clean and at this commit until terminal; inspect writers before resume. New worktree explicitly declined.",
+  "noWallDeadline": true,
+  "targetExtent": 29,
+  "dimsN": 64,
+  "files": [
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16-verification\\check-launch.mjs",
+      "bytes": 2946,
+      "sha256": "9edc6f545df618ed931c243397fd6419e33091cc13686547b2a717d6c1101f40"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16-verification\\launch-state-check.json",
+      "bytes": 22443,
+      "sha256": "c629e5559f1797087623b7d5845e42f591c8b2a006a42ab778bccf2a702435ba"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16-verification\\metadata-result.json",
+      "bytes": 187,
+      "sha256": "f9a29f9f4bc08f8b17c10e34fa8a68e61e3a92cd3f70ac2fb2d17e1e4afa6f8c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16-controls\\campaign-launch-20261116T072145749-invocation.json",
+      "bytes": 1072,
+      "sha256": "f17052cd64f59db5716079fc329480fe2adc18a4cbc61062cc6e8b4c593e25e0"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16-controls\\bootstrap-20261116T072145499.json",
+      "bytes": 849,
+      "sha256": "6e236c0e7a2f1051d14857a450ff03d3550c84a843268c55c8fa16475ab0c6c8"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16-controls\\live-processes.json",
+      "bytes": 7860,
+      "sha256": "a6d56aea70efdbc9151933a8bdd100cc2885d1f6902e073a2dbd80dd8606917d"
+    }
+  ],
+  "fineRecoveryReceipt": "out/hil-status-20261116/fine-recovery-launch.json",
+  "preservation": "Local output and operational receipts indexed by committed PROGRESS/plan; NAS publication remains pending."
+}

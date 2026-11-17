@@ -1,7 +1,7 @@
 # Plan - HIL onset intervals and pressure transfer
 
 - **Phase:** active Phase10; charter2.4/2.5/3.2, accepted ADR0058/0059/0060/0062.
-- **Status:** registered November16 before implementation; maker authorizes short/medium runs alongside the fine tail.
+- **Status:** all16 endpoints complete November16 at14:57Pacific; analyzing November17. NAS preservation pending.
 - **Checkout:** primary main, C:/Users/biao3/Documents/GitHub/snowflake, by explicit maker direction; no new worktree.
 - **Started / last touched:** 2026-11-16 by Codex.
 
@@ -110,11 +110,21 @@ Control-description mismatch corrected. No full-suite or independent physical-va
 Fine native-error diagnosis and recent progress rates are retained in this evidence directory;
 actual recovery receipt remains indexed below until its next complete checkpoint.
 
+## Completed execution - November17
+
+The [launch receipt](../../evidence/hil-onset-pressure-2026-11-16/launch.json) records16 workers
+from bbf1cf1 on main, all retained initial states hash-checked/decoded and checkpoints advancing.
+All16 are now extent29/exit0 with empty operational error lists; wrapper exited0 at
+2026-11-16T22:57:56.9238027Z. Main may advance for the maker-authorized successor because this
+entire batch is terminal; do not resume completed rows. Old output remains local pending NAS.
+The [fine recovery](../../evidence/hil-onset-pressure-2026-11-16/fine-recovery-launch.json)
+advanced tick1235 to1236 with strict checkpoint verification; its separate producer remains fixed.
+
 ## Steps
 
 - [x] Commit protocol and control bindings before implementation.
 - [x] Check thin orchestration:34 focused tests and both typechecks pass; bounded review corrected control description. Commit this clean main producer before launch.
-- [ ] Launch16 and verify state retention/restart progress; leave main fixed.
+- [x] Launch16 at bbf1cf1 on main; all initial states verified and checkpoints advanced; all16 now terminal.
 - [ ] Complete matched analysis and governed NAS recovery.
 
 ## Out of scope

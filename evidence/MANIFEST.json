@@ -3,8 +3,8 @@
  "movedFrom": "out/ (gitignored), plus the byte-identical tracked arm64 fingerprint formerly under docs/",
  "movedTo": "evidence/ (tracked)",
  "note": "Historical sweep digests were computed before their move and re-verified afterward. The arm64 fingerprint preserves the exact former docs/ Git blob (18398 bytes, SHA-256 d6686f8e...). The x64 fingerprint is the complete 2026-08-01 lightweight fixture re-execution backing the exact per-entry comparison; it reproduces registered digest 2a9f64b3. These are preserved claim-backing bytes, not regenerated production sweeps.",
- "fileCount": 1406,
- "totalBytes": 329188208,
+ "fileCount": 1411,
+ "totalBytes": 329267361,
  "files": {
   "post-phase10-wave-2026-10-01/npm-test.log": {
    "bytes": 114857,
@@ -5629,6 +5629,26 @@
   "hil-onset-pressure-2026-11-16/verification/typecheck.log": {
    "bytes": 84,
    "sha256": "51bcdf34980a17f4afbc6fa075186ba067a673569bc37098441f73a31b975087"
+  },
+  "hil-pressure-check-2026-11-17/comparison-inputs.json": {
+   "bytes": 35248,
+   "sha256": "fb9f7be7786d6a70f5e28140eb6d0a97fc6e8cfa947bb658a7c893498c621056"
+  },
+  "hil-pressure-check-2026-11-17/fine-status.json": {
+   "bytes": 12876,
+   "sha256": "2a20616611d639c9df6aca8f88fc4967f3b5729f99fa2d1e7f425c03f81212db"
+  },
+  "hil-pressure-check-2026-11-17/resources.json": {
+   "bytes": 1924,
+   "sha256": "b01370c7e5d19ee0761f060c1aced6d1b7102be08a29857161f601c031c0cf68"
+  },
+  "hil-onset-pressure-2026-11-16/launch.json": {
+   "bytes": 20911,
+   "sha256": "a457264b749df1c185623dae95e640df2b77c228dee1a93aade96599bb97f657"
+  },
+  "hil-onset-pressure-2026-11-16/fine-recovery-launch.json": {
+   "bytes": 8194,
+   "sha256": "bc08745ab9e4ce997bc7d6b5731efb918ca7ffeab45c33a72a8da67f2ec82d77"
   }
  }
 }
