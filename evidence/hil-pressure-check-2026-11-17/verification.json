@@ -1,0 +1,35 @@
+{
+  "recordedAt": "2026-11-17T14:04:03.604403+00:00",
+  "protocolCommit": "14a6eaa",
+  "scope": "Thin orchestration only; no shared scientific/codec/recorder/readout edits",
+  "focusedTests": 34,
+  "focusedFiles": 5,
+  "focusedExitCode": 0,
+  "rootAndAppTypecheckExitCode": 0,
+  "review": "verification/review.json",
+  "sourceFiles": [
+    {
+      "path": "runner/src/hil-pressure-check-nov17-main.ts",
+      "bytes": 2540,
+      "sha256": "8cdcc7231d88d687c204ddba6f17139668abec828e8665f5c6e766035c469bee"
+    },
+    {
+      "path": "runner/src/hil-pressure-check-nov17-roster.ts",
+      "bytes": 2974,
+      "sha256": "396da84ab81f1de75765eaeae014ef72e372e85461badd4df2cd1afb722107bd"
+    },
+    {
+      "path": "runner/test/hil-pressure-check-nov17.test.ts",
+      "bytes": 6946,
+      "sha256": "ece6966d285632c21c098369ae6de8af39f8f8698126db5fddb94641044f7298"
+    },
+    {
+      "path": "scripts/start-hil-pressure-check-nov17.ps1",
+      "bytes": 2379,
+      "sha256": "0028d5b2424e5ac98fc7545db077d28e3296dede874091d2df71d1356da944b4"
+    }
+  ],
+  "controlsRehashed": 64,
+  "initialFailure": "First focused check found syntax parenthesis error before tests loaded; corrected, separate final log passes. No simulations used initial source.",
+  "pending": "Final metadata/Rule7/diff checks, commit clean main, then launch. Actual receipt out/hil-pressure-check-nov17-controls/launch-verification.json; main frozen during execution."
+}

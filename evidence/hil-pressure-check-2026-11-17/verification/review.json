@@ -1,0 +1,192 @@
+{
+  "recordedAt": "2026-11-17T14:03:14.854884+00:00",
+  "reviewer": "Codex/GPT-6-family shared-context subagent; distinct from implementation author",
+  "sharedContext": true,
+  "scope": "One bounded final orchestration review; no scientific evolution or tracked changes.",
+  "sourceFiles": [
+    {
+      "path": "runner/src/hil-pressure-check-nov17-roster.ts",
+      "bytes": 2974,
+      "sha256": "396da84ab81f1de75765eaeae014ef72e372e85461badd4df2cd1afb722107bd"
+    },
+    {
+      "path": "runner/src/hil-pressure-check-nov17-main.ts",
+      "bytes": 2540,
+      "sha256": "8cdcc7231d88d687c204ddba6f17139668abec828e8665f5c6e766035c469bee"
+    },
+    {
+      "path": "runner/test/hil-pressure-check-nov17.test.ts",
+      "bytes": 6946,
+      "sha256": "ece6966d285632c21c098369ae6de8af39f8f8698126db5fddb94641044f7298"
+    },
+    {
+      "path": "scripts/start-hil-pressure-check-nov17.ps1",
+      "bytes": 2379,
+      "sha256": "0028d5b2424e5ac98fc7545db077d28e3296dede874091d2df71d1356da944b4"
+    }
+  ],
+  "executedChecks": [
+    {
+      "check": "Real list CLI returns16 with registered unique batch identity and ceiling16",
+      "exitCode": 0
+    },
+    {
+      "check": "All16 operands equal separately prepared scientific recommended-roster artifact",
+      "passed": true
+    },
+    {
+      "check": "Control files freshly rehashed",
+      "rows": 16,
+      "files": 64
+    },
+    {
+      "check": "Every new row differs from same-pressure completed width3 control only in ID plus registered CFL or width",
+      "pairs": [
+        {
+          "newRow": "pc17-hil-a-t4p5-f0p05-s8-phalf",
+          "control": "op16-hil-b-t4p5-f0p05-s8-phalf",
+          "differences": [
+            "cflFill",
+            "id"
+          ]
+        },
+        {
+          "newRow": "pc17-hil-a-t4p5-f0p05-s8-pdouble",
+          "control": "op16-hil-b-t4p5-f0p05-s8-pdouble",
+          "differences": [
+            "cflFill",
+            "id"
+          ]
+        },
+        {
+          "newRow": "pc17-hil-a-t4p5-f0p1-s3-phalf",
+          "control": "op16-hil-b-t4p5-f0p1-s3-phalf",
+          "differences": [
+            "cflFill",
+            "id"
+          ]
+        },
+        {
+          "newRow": "pc17-hil-a-t4p5-f0p1-s3-pdouble",
+          "control": "op16-hil-b-t4p5-f0p1-s3-pdouble",
+          "differences": [
+            "cflFill",
+            "id"
+          ]
+        },
+        {
+          "newRow": "pc17-hil-a-t5-f0p05-s8-phalf",
+          "control": "op16-hil-b-t5-f0p05-s8-phalf",
+          "differences": [
+            "cflFill",
+            "id"
+          ]
+        },
+        {
+          "newRow": "pc17-hil-a-t5-f0p05-s8-pdouble",
+          "control": "op16-hil-b-t5-f0p05-s8-pdouble",
+          "differences": [
+            "cflFill",
+            "id"
+          ]
+        },
+        {
+          "newRow": "pc17-hil-a-t5-f0p1-s3-phalf",
+          "control": "op16-hil-b-t5-f0p1-s3-phalf",
+          "differences": [
+            "cflFill",
+            "id"
+          ]
+        },
+        {
+          "newRow": "pc17-hil-a-t5-f0p1-s3-pdouble",
+          "control": "op16-hil-b-t5-f0p1-s3-pdouble",
+          "differences": [
+            "cflFill",
+            "id"
+          ]
+        },
+        {
+          "newRow": "pc17-hil-b-t4p5-f0p05-s8-phalf",
+          "control": "op16-hil-b-t4p5-f0p05-s8-phalf",
+          "differences": [
+            "experimentalBasalWidthCells",
+            "id"
+          ]
+        },
+        {
+          "newRow": "pc17-hil-b-t4p5-f0p05-s8-pdouble",
+          "control": "op16-hil-b-t4p5-f0p05-s8-pdouble",
+          "differences": [
+            "experimentalBasalWidthCells",
+            "id"
+          ]
+        },
+        {
+          "newRow": "pc17-hil-b-t4p5-f0p1-s3-phalf",
+          "control": "op16-hil-b-t4p5-f0p1-s3-phalf",
+          "differences": [
+            "experimentalBasalWidthCells",
+            "id"
+          ]
+        },
+        {
+          "newRow": "pc17-hil-b-t4p5-f0p1-s3-pdouble",
+          "control": "op16-hil-b-t4p5-f0p1-s3-pdouble",
+          "differences": [
+            "experimentalBasalWidthCells",
+            "id"
+          ]
+        },
+        {
+          "newRow": "pc17-hil-b-t5-f0p05-s8-phalf",
+          "control": "op16-hil-b-t5-f0p05-s8-phalf",
+          "differences": [
+            "experimentalBasalWidthCells",
+            "id"
+          ]
+        },
+        {
+          "newRow": "pc17-hil-b-t5-f0p05-s8-pdouble",
+          "control": "op16-hil-b-t5-f0p05-s8-pdouble",
+          "differences": [
+            "experimentalBasalWidthCells",
+            "id"
+          ]
+        },
+        {
+          "newRow": "pc17-hil-b-t5-f0p1-s3-phalf",
+          "control": "op16-hil-b-t5-f0p1-s3-phalf",
+          "differences": [
+            "experimentalBasalWidthCells",
+            "id"
+          ]
+        },
+        {
+          "newRow": "pc17-hil-b-t5-f0p1-s3-pdouble",
+          "control": "op16-hil-b-t5-f0p1-s3-pdouble",
+          "differences": [
+            "experimentalBasalWidthCells",
+            "id"
+          ]
+        }
+      ]
+    }
+  ],
+  "inspected": [
+    "Frozen plan order and literal16-row test fixture agree with roster.",
+    "Existing runner LKSolver uses candidate.pressurePa ?? FIXED.pressurePa, preserving half/double values.",
+    "Both create/resume entry routes pass the same permanent observation configuration, and focused test enumerates32 calls.",
+    "Distinct batch/schema/output IDs; fixed Node runtime check; hidden process with separate stdout/stderr/exit records.",
+    "No maxWallSeconds forwarded; exact switch, initial/terminal, age/central capture route retained.",
+    "New queue capped16; root must establish four fine workers/resource floors before launch."
+  ],
+  "findings": [],
+  "blockingFindings": [],
+  "limits": [
+    "Did not rerun focused tests/typechecks, start simulation, exercise real restart or check NAS publication.",
+    "No physical validation, theorem review, grid/continuum convergence or runtime guarantee.",
+    "Actual16 workers, saved state hashes/decodes and advancing checkpoints remain root launch checks.",
+    "Main must remain at producer revision while this batch is active."
+  ]
+}

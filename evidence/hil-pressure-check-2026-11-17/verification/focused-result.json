@@ -1,0 +1,6 @@
+{
+  "exitCode": 1,
+  "command": "npx.cmd vitest run runner/test/hil-pressure-check-nov17.test.ts runner/test/hil-onset-pressure-nov16.test.ts runner/test/hil-bld-batch-resume.test.ts runner/test/hil-bld-batch-execution.test.ts runner/test/discovery-retained-observations.test.ts",
+  "startedAt": "2026-11-17T06:01:53.1316816-08:00",
+  "finishedAt": "2026-11-17T06:02:02.9589293-08:00"
+}

@@ -1,0 +1,2285 @@
+{
+  "generatedAt": "2026-11-17T13:59:37.494611+00:00",
+  "scope": "Registered saved-data analysis by shared-context Codex/GPT-6-family subagent. Existing scientific readers unchanged; cohort selectors and shared-post-switch grouping adapted. No simulation, physical validation or independent physical review.",
+  "counts": {
+    "newRows": 16,
+    "oldControls": 8,
+    "availableOnsetCohorts": 4,
+    "availablePressureCohorts": 4,
+    "retainedStatesDecoded": 789,
+    "completeNamedLabelRows": 24
+  },
+  "cost": {
+    "minHours": 5.33292,
+    "medianHours": 5.9684655555555555,
+    "maxHours": 7.602094444444445,
+    "lastFinishedAt": "2026-11-16T22:57:55.546Z",
+    "rows": [
+      {
+        "rowId": "op16-hil-a-t4p5-f0p05-s7",
+        "wallSeconds": 20858.433,
+        "hours": 5.794009166666667,
+        "finishedAt": "2026-11-16T21:09:26.164Z",
+        "stopReason": "size-target",
+        "exitCode": 0,
+        "result": {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-a-t4p5-f0p05-s7\\result.json",
+          "bytes": 2389,
+          "sha256": "a9e2549025b7bd300566735a309cbf19b7ae4066893c94eb125bd444ea5d619f"
+        }
+      },
+      {
+        "rowId": "op16-hil-a-t4p5-f0p05-s7p5",
+        "wallSeconds": 22191.926,
+        "hours": 6.164423888888889,
+        "finishedAt": "2026-11-16T21:31:39.726Z",
+        "stopReason": "size-target",
+        "exitCode": 0,
+        "result": {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-a-t4p5-f0p05-s7p5\\result.json",
+          "bytes": 2391,
+          "sha256": "d6f95e985352d691922beb0573eac60afc6bb0e3fc748745b017865b8c8d90b0"
+        }
+      },
+      {
+        "rowId": "op16-hil-a-t4p5-f0p1-s2p625",
+        "wallSeconds": 20715.043,
+        "hours": 5.7541786111111115,
+        "finishedAt": "2026-11-16T21:07:02.772Z",
+        "stopReason": "size-target",
+        "exitCode": 0,
+        "result": {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-a-t4p5-f0p1-s2p625\\result.json",
+          "bytes": 2397,
+          "sha256": "53d465cfb07abca996b18132017fb9a782d627e04d1fec7bb58c153e11c2c853"
+        }
+      },
+      {
+        "rowId": "op16-hil-a-t4p5-f0p1-s2p75",
+        "wallSeconds": 20861.646,
+        "hours": 5.794901666666667,
+        "finishedAt": "2026-11-16T21:09:29.440Z",
+        "stopReason": "size-target",
+        "exitCode": 0,
+        "result": {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-a-t4p5-f0p1-s2p75\\result.json",
+          "bytes": 2393,
+          "sha256": "e1ec0fd1b08cc0767749d5346fc76bfbacf0e3704c7636e9bc339907a04ffbe0"
+        }
+      },
+      {
+        "rowId": "op16-hil-a-t5-f0p05-s7",
+        "wallSeconds": 24333.592,
+        "hours": 6.759331111111111,
+        "finishedAt": "2026-11-16T22:07:21.410Z",
+        "stopReason": "size-target",
+        "exitCode": 0,
+        "result": {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-a-t5-f0p05-s7\\result.json",
+          "bytes": 2388,
+          "sha256": "b35d519c5b8d7364241a2ec524b1180333455d20bb86a6e2d170d30f0d3cee8b"
+        }
+      },
+      {
+        "rowId": "op16-hil-a-t5-f0p05-s7p5",
+        "wallSeconds": 23387.336,
+        "hours": 6.496482222222222,
+        "finishedAt": "2026-11-16T21:51:35.179Z",
+        "stopReason": "size-target",
+        "exitCode": 0,
+        "result": {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-a-t5-f0p05-s7p5\\result.json",
+          "bytes": 2390,
+          "sha256": "198c27eff490a1f49bd947d57f9e0de805ffcbc7cf861ae112643c87ab197f3b"
+        }
+      },
+      {
+        "rowId": "op16-hil-a-t5-f0p1-s2p625",
+        "wallSeconds": 21208.516,
+        "hours": 5.891254444444444,
+        "finishedAt": "2026-11-16T21:15:16.316Z",
+        "stopReason": "size-target",
+        "exitCode": 0,
+        "result": {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-a-t5-f0p1-s2p625\\result.json",
+          "bytes": 2395,
+          "sha256": "7aac6ee5c969b143cad3a596420e1ef29a005c8f19002e7fd1bbf2f8ad47b123"
+        }
+      },
+      {
+        "rowId": "op16-hil-a-t5-f0p1-s2p75",
+        "wallSeconds": 21315.397,
+        "hours": 5.920943611111111,
+        "finishedAt": "2026-11-16T21:17:03.295Z",
+        "stopReason": "size-target",
+        "exitCode": 0,
+        "result": {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-a-t5-f0p1-s2p75\\result.json",
+          "bytes": 2392,
+          "sha256": "b1c9d3fc6cff9766c4020fa0e1f6b184aa1a5ffc3c7f2871c42ec9dd1f41d8f4"
+        }
+      },
+      {
+        "rowId": "op16-hil-b-t4p5-f0p05-s8-phalf",
+        "wallSeconds": 25860.928,
+        "hours": 7.183591111111111,
+        "finishedAt": "2026-11-16T22:32:48.783Z",
+        "stopReason": "size-target",
+        "exitCode": 0,
+        "result": {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-b-t4p5-f0p05-s8-phalf\\result.json",
+          "bytes": 2394,
+          "sha256": "eb4513b951e164c66b1a59ed91b4cfbd93cc8d3958ae8c573ad825cac3b67c57"
+        }
+      },
+      {
+        "rowId": "op16-hil-b-t4p5-f0p05-s8-pdouble",
+        "wallSeconds": 20497.907,
+        "hours": 5.693863055555555,
+        "finishedAt": "2026-11-16T21:03:25.931Z",
+        "stopReason": "size-target",
+        "exitCode": 0,
+        "result": {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-b-t4p5-f0p05-s8-pdouble\\result.json",
+          "bytes": 2396,
+          "sha256": "770a067e24ec1927dec73179c4e2ffde8edd793dbb61724e558a0f5cb366441d"
+        }
+      },
+      {
+        "rowId": "op16-hil-b-t4p5-f0p1-s3-phalf",
+        "wallSeconds": 22717.16,
+        "hours": 6.310322222222222,
+        "finishedAt": "2026-11-16T21:40:25.070Z",
+        "stopReason": "size-target",
+        "exitCode": 0,
+        "result": {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-b-t4p5-f0p1-s3-phalf\\result.json",
+          "bytes": 2397,
+          "sha256": "94a8caaa52829204345379afc91633f97096a7511677ed8bff69b0587c5f71fd"
+        }
+      },
+      {
+        "rowId": "op16-hil-b-t4p5-f0p1-s3-pdouble",
+        "wallSeconds": 19198.512,
+        "hours": 5.33292,
+        "finishedAt": "2026-11-16T20:41:46.441Z",
+        "stopReason": "size-target",
+        "exitCode": 0,
+        "result": {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-b-t4p5-f0p1-s3-pdouble\\result.json",
+          "bytes": 2393,
+          "sha256": "f614dc92d04385d404b24f5c51835d45755060818b8c388a3e68b17009900ef0"
+        }
+      },
+      {
+        "rowId": "op16-hil-b-t5-f0p05-s8-phalf",
+        "wallSeconds": 27367.54,
+        "hours": 7.602094444444445,
+        "finishedAt": "2026-11-16T22:57:55.546Z",
+        "stopReason": "size-target",
+        "exitCode": 0,
+        "result": {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-b-t5-f0p05-s8-phalf\\result.json",
+          "bytes": 2396,
+          "sha256": "7d91b433192adcf3b40549246322d26f8e19549130b4f10de7baa7f193afdf17"
+        }
+      },
+      {
+        "rowId": "op16-hil-b-t5-f0p05-s8-pdouble",
+        "wallSeconds": 21657.555,
+        "hours": 6.0159875000000005,
+        "finishedAt": "2026-11-16T21:22:45.550Z",
+        "stopReason": "size-target",
+        "exitCode": 0,
+        "result": {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-b-t5-f0p05-s8-pdouble\\result.json",
+          "bytes": 2396,
+          "sha256": "7785bcff919b44f2a7541378fb5de43938cdbead79d4ce1db4abd0401729a656"
+        }
+      },
+      {
+        "rowId": "op16-hil-b-t5-f0p1-s3-phalf",
+        "wallSeconds": 23324.684,
+        "hours": 6.479078888888889,
+        "finishedAt": "2026-11-16T21:50:32.650Z",
+        "stopReason": "size-target",
+        "exitCode": 0,
+        "result": {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-b-t5-f0p1-s3-phalf\\result.json",
+          "bytes": 2395,
+          "sha256": "a318fd23fdc37821c7511d6f2643d2b92a7175e1afb0dcbb403bf7be902d1724"
+        }
+      },
+      {
+        "rowId": "op16-hil-b-t5-f0p1-s3-pdouble",
+        "wallSeconds": 20262.718,
+        "hours": 5.628532777777778,
+        "finishedAt": "2026-11-16T20:59:30.624Z",
+        "stopReason": "size-target",
+        "exitCode": 0,
+        "result": {
+          "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-nov16\\rows\\op16-hil-b-t5-f0p1-s3-pdouble\\result.json",
+          "bytes": 2391,
+          "sha256": "125aa65a9ab6ed1952ab507be9821da64db213004c7b00109e88c06a7730a5fd"
+        }
+      }
+    ]
+  },
+  "findings": [
+    "All8 new intermediate onsets lose original openings except -5C/.05/7.5s, which retains4 signed original intervals and2.1um depth. Thus low-supply7.5s differs between tested temperatures.",
+    "All4 half-pressure8s-low/3s-high width3 histories preserve original openings; all4 double-pressure histories lose them. Common-age pressure cohorts and next-event bounds preserve the depth ordering.",
+    "Half-pressure terminal depths for -4.5low/-4.5high/-5low/-5high are2.45/2.8/2.8/3.15um; double-pressure depths0. Normal-pressure size depths1.75/2.45/2.1/2.45um."
+  ],
+  "limits": [
+    "Pressure changes model diffusion only; attachment-pressure physics not qualified. Preparation duration stays fixed while growth state changes.",
+    "No width4 pressure controls yet; no width-specific pressure interaction or exact threshold claim.",
+    "No continuum/grid convergence. Half-CFL check remains next, not assumed.",
+    "Signed intervals are not independent cavities; occupied count/volume is not total ice mass; zero depth is not zero surface-open layers.",
+    "Raw output/detailed analysis remain local pending NAS publication/fresh restore."
+  ],
+  "rows": [
+    {
+      "rowId": "so13-hil-b-t4p5-f0p05-w3-s6p5",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "so13-hil-b-t4p5-f0p05-w3-s6p5",
+        "tempC": -4.5,
+        "fraction": 0.05,
+        "cflFill": 0.0125,
+        "sigmaInfinity": 0.00225,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 6.5
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 3022,
+        "simTimeSeconds": 133.23690147798152,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 7135,
+        "axialCenterSpanUm": 4.199999999999999,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 4.199999999999999,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 264.92853760108443,
+        "probeFullWaistThicknessUm": 4.55,
+        "addedProbeFullWaistThicknessUm": 4.2,
+        "straightAxiallyOpenLayers": 0,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+      },
+      "actualSwitchTimeSeconds": 6.530552103306729,
+      "originalIntervals": {
+        "count": 4,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0.35,
+        "maxDepthUm": 0.35
+      },
+      "newPostCutoffIntervals": {
+        "count": 8,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 197,
+        "updatesWithSelectedBasalCells": 197,
+        "selectedBasalCellUpdates": 4888,
+        "selectedKineticDemandFill": 57.64467694764729
+      }
+    },
+    {
+      "rowId": "op16-hil-a-t4p5-f0p05-s7",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-a-t4p5-f0p05-s7",
+        "tempC": -4.5,
+        "fraction": 0.05,
+        "pressurePa": 101325,
+        "sigmaInfinity": 0.00225,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 7
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 2913,
+        "simTimeSeconds": 133.5828358106324,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 7135,
+        "axialCenterSpanUm": 4.199999999999999,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 4.199999999999999,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 264.92853760108443,
+        "probeFullWaistThicknessUm": 4.55,
+        "addedProbeFullWaistThicknessUm": 4.2,
+        "straightAxiallyOpenLayers": 0,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+      },
+      "actualSwitchTimeSeconds": 7.029234731922902,
+      "originalIntervals": {
+        "count": 4,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0.35,
+        "maxDepthUm": 0.35
+      },
+      "newPostCutoffIntervals": {
+        "count": 8,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 211,
+        "updatesWithSelectedBasalCells": 211,
+        "selectedBasalCellUpdates": 5252,
+        "selectedKineticDemandFill": 61.72587626489382
+      }
+    },
+    {
+      "rowId": "op16-hil-a-t4p5-f0p05-s7p5",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-a-t4p5-f0p05-s7p5",
+        "tempC": -4.5,
+        "fraction": 0.05,
+        "pressurePa": 101325,
+        "sigmaInfinity": 0.00225,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 7.5
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 3061,
+        "simTimeSeconds": 133.6708596069135,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 7135,
+        "axialCenterSpanUm": 4.199999999999999,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 4.199999999999999,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 264.92853760108443,
+        "probeFullWaistThicknessUm": 4.55,
+        "addedProbeFullWaistThicknessUm": 4.2,
+        "straightAxiallyOpenLayers": 0,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+      },
+      "actualSwitchTimeSeconds": 7.513891891074618,
+      "originalIntervals": {
+        "count": 4,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0.35,
+        "maxTipAdvanceWhileOpenUm": 0.7,
+        "maxDepthUm": 0.7
+      },
+      "newPostCutoffIntervals": {
+        "count": 8,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 231,
+        "updatesWithSelectedBasalCells": 231,
+        "selectedBasalCellUpdates": 5772,
+        "selectedKineticDemandFill": 65.38802362041791
+      }
+    },
+    {
+      "rowId": "so13-hil-a-t4p5-f0p05-w3-s8",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "so13-hil-a-t4p5-f0p05-w3-s8",
+        "tempC": -4.5,
+        "fraction": 0.05,
+        "cflFill": 0.0125,
+        "sigmaInfinity": 0.00225,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 8
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 3087,
+        "simTimeSeconds": 133.99607592800274,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 7099,
+        "axialCenterSpanUm": 4.199999999999999,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 4.199999999999999,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 263.5918273903431,
+        "probeFullWaistThicknessUm": 0.35,
+        "addedProbeFullWaistThicknessUm": 0,
+        "straightAxiallyOpenLayers": 12,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 1.75
+      },
+      "actualSwitchTimeSeconds": 8.022983953131547,
+      "originalIntervals": {
+        "count": 4,
+        "survivingAtStop": 4,
+        "maxPostCutoffTipAdvanceUm": 1.4,
+        "maxTipAdvanceWhileOpenUm": 1.75,
+        "maxDepthUm": 1.75
+      },
+      "newPostCutoffIntervals": {
+        "count": 8,
+        "survivingAtStop": 8,
+        "maxPostCutoffTipAdvanceUm": 1.0499999999999998,
+        "maxTipAdvanceWhileOpenUm": 1.0499999999999998,
+        "maxDepthUm": 1.0499999999999998
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 253,
+        "updatesWithSelectedBasalCells": 253,
+        "selectedBasalCellUpdates": 6344,
+        "selectedKineticDemandFill": 69.03723198657445
+      }
+    },
+    {
+      "rowId": "so13-hil-b-t4p5-f0p1-w3-s2p5",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "so13-hil-b-t4p5-f0p1-w3-s2p5",
+        "tempC": -4.5,
+        "fraction": 0.1,
+        "cflFill": 0.0125,
+        "sigmaInfinity": 0.0045,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 2.5
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 2930,
+        "simTimeSeconds": 53.08587787705935,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 9045,
+        "axialCenterSpanUm": 5.6,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 5.6,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 335.84844044874677,
+        "probeFullWaistThicknessUm": 5.25,
+        "addedProbeFullWaistThicknessUm": 4.9,
+        "straightAxiallyOpenLayers": 2,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+      },
+      "actualSwitchTimeSeconds": 2.509068149085828,
+      "originalIntervals": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0.35,
+        "maxTipAdvanceWhileOpenUm": 0.35,
+        "maxDepthUm": 0.35
+      },
+      "newPostCutoffIntervals": {
+        "count": 14,
+        "survivingAtStop": 2,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 170,
+        "updatesWithSelectedBasalCells": 170,
+        "selectedBasalCellUpdates": 4234,
+        "selectedKineticDemandFill": 46.69037357413483
+      }
+    },
+    {
+      "rowId": "op16-hil-a-t4p5-f0p1-s2p625",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-a-t4p5-f0p1-s2p625",
+        "tempC": -4.5,
+        "fraction": 0.1,
+        "pressurePa": 101325,
+        "sigmaInfinity": 0.0045,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 2.625
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 2953,
+        "simTimeSeconds": 53.24176768027943,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 9201,
+        "axialCenterSpanUm": 5.6,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 5.6,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 341.640851361959,
+        "probeFullWaistThicknessUm": 5.25,
+        "addedProbeFullWaistThicknessUm": 4.9,
+        "straightAxiallyOpenLayers": 2,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+      },
+      "actualSwitchTimeSeconds": 2.630410526602668,
+      "originalIntervals": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0.35,
+        "maxDepthUm": 0.35
+      },
+      "newPostCutoffIntervals": {
+        "count": 14,
+        "survivingAtStop": 2,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 180,
+        "updatesWithSelectedBasalCells": 180,
+        "selectedBasalCellUpdates": 4446,
+        "selectedKineticDemandFill": 48.368422255966195
+      }
+    },
+    {
+      "rowId": "op16-hil-a-t4p5-f0p1-s2p75",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-a-t4p5-f0p1-s2p75",
+        "tempC": -4.5,
+        "fraction": 0.1,
+        "pressurePa": 101325,
+        "sigmaInfinity": 0.0045,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 2.75
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 2971,
+        "simTimeSeconds": 53.44480182940299,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 9333,
+        "axialCenterSpanUm": 5.6,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 5.6,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 346.542122134677,
+        "probeFullWaistThicknessUm": 5.25,
+        "addedProbeFullWaistThicknessUm": 4.9,
+        "straightAxiallyOpenLayers": 2,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+      },
+      "actualSwitchTimeSeconds": 2.7515368993961715,
+      "originalIntervals": {
+        "count": 4,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0.35,
+        "maxTipAdvanceWhileOpenUm": 0.35,
+        "maxDepthUm": 0.35
+      },
+      "newPostCutoffIntervals": {
+        "count": 12,
+        "survivingAtStop": 2,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 190,
+        "updatesWithSelectedBasalCells": 190,
+        "selectedBasalCellUpdates": 4646,
+        "selectedKineticDemandFill": 49.99331586845168
+      }
+    },
+    {
+      "rowId": "so13-hil-a-t4p5-f0p1-w3-s3",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "so13-hil-a-t4p5-f0p1-w3-s3",
+        "tempC": -4.5,
+        "fraction": 0.1,
+        "cflFill": 0.0125,
+        "sigmaInfinity": 0.0045,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 3
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 2956,
+        "simTimeSeconds": 53.70510358548482,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 9271,
+        "axialCenterSpanUm": 5.6,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 5.6,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 344.2400101050671,
+        "probeFullWaistThicknessUm": 0.35,
+        "addedProbeFullWaistThicknessUm": 0,
+        "straightAxiallyOpenLayers": 16,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 2.4499999999999997
+      },
+      "actualSwitchTimeSeconds": 3.00480723987492,
+      "originalIntervals": {
+        "count": 4,
+        "survivingAtStop": 4,
+        "maxPostCutoffTipAdvanceUm": 2.0999999999999996,
+        "maxTipAdvanceWhileOpenUm": 2.4499999999999997,
+        "maxDepthUm": 2.4499999999999997
+      },
+      "newPostCutoffIntervals": {
+        "count": 12,
+        "survivingAtStop": 12,
+        "maxPostCutoffTipAdvanceUm": 1.75,
+        "maxTipAdvanceWhileOpenUm": 1.75,
+        "maxDepthUm": 1.75
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 210,
+        "updatesWithSelectedBasalCells": 210,
+        "selectedBasalCellUpdates": 5166,
+        "selectedKineticDemandFill": 53.8232813797062
+      }
+    },
+    {
+      "rowId": "so13-hil-b-t5-f0p05-w3-s6p5",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "so13-hil-b-t5-f0p05-w3-s6p5",
+        "tempC": -5,
+        "fraction": 0.05,
+        "cflFill": 0.0125,
+        "sigmaInfinity": 0.0025000000000000005,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 6.5
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 3028,
+        "simTimeSeconds": 138.5909883900327,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 8253,
+        "axialCenterSpanUm": 4.8999999999999995,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 4.8999999999999995,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 306.4408158124386,
+        "probeFullWaistThicknessUm": 5.25,
+        "addedProbeFullWaistThicknessUm": 4.9,
+        "straightAxiallyOpenLayers": 0,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+      },
+      "actualSwitchTimeSeconds": 6.501424672734959,
+      "originalIntervals": {
+        "count": 4,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0.35,
+        "maxDepthUm": 0.35
+      },
+      "newPostCutoffIntervals": {
+        "count": 10,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 202,
+        "updatesWithSelectedBasalCells": 202,
+        "selectedBasalCellUpdates": 5018,
+        "selectedKineticDemandFill": 59.014217335457545
+      }
+    },
+    {
+      "rowId": "op16-hil-a-t5-f0p05-s7",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-a-t5-f0p05-s7",
+        "tempC": -5,
+        "fraction": 0.05,
+        "pressurePa": 101325,
+        "sigmaInfinity": 0.0025000000000000005,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 7
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 3162,
+        "simTimeSeconds": 139.5313505077282,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 8229,
+        "axialCenterSpanUm": 4.8999999999999995,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 4.8999999999999995,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 305.54967567194444,
+        "probeFullWaistThicknessUm": 5.25,
+        "addedProbeFullWaistThicknessUm": 4.9,
+        "straightAxiallyOpenLayers": 0,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+      },
+      "actualSwitchTimeSeconds": 7.019574075097117,
+      "originalIntervals": {
+        "count": 4,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0.35,
+        "maxDepthUm": 0.35
+      },
+      "newPostCutoffIntervals": {
+        "count": 10,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 217,
+        "updatesWithSelectedBasalCells": 217,
+        "selectedBasalCellUpdates": 5408,
+        "selectedKineticDemandFill": 63.38426987107766
+      }
+    },
+    {
+      "rowId": "op16-hil-a-t5-f0p05-s7p5",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-a-t5-f0p05-s7p5",
+        "tempC": -5,
+        "fraction": 0.05,
+        "pressurePa": 101325,
+        "sigmaInfinity": 0.0025000000000000005,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 7.5
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 3094,
+        "simTimeSeconds": 140.1697893787887,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 8191,
+        "axialCenterSpanUm": 4.8999999999999995,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 4.8999999999999995,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 304.13870378282866,
+        "probeFullWaistThicknessUm": 0.35,
+        "addedProbeFullWaistThicknessUm": 0,
+        "straightAxiallyOpenLayers": 14,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 2.0999999999999996
+      },
+      "actualSwitchTimeSeconds": 7.508475118558225,
+      "originalIntervals": {
+        "count": 4,
+        "survivingAtStop": 4,
+        "maxPostCutoffTipAdvanceUm": 1.75,
+        "maxTipAdvanceWhileOpenUm": 2.0999999999999996,
+        "maxDepthUm": 2.0999999999999996
+      },
+      "newPostCutoffIntervals": {
+        "count": 10,
+        "survivingAtStop": 10,
+        "maxPostCutoffTipAdvanceUm": 1.4,
+        "maxTipAdvanceWhileOpenUm": 1.4,
+        "maxDepthUm": 1.4
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 235,
+        "updatesWithSelectedBasalCells": 235,
+        "selectedBasalCellUpdates": 5876,
+        "selectedKineticDemandFill": 67.33346166292773
+      }
+    },
+    {
+      "rowId": "so13-hil-a-t5-f0p05-w3-s8",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "so13-hil-a-t5-f0p05-w3-s8",
+        "tempC": -5,
+        "fraction": 0.05,
+        "cflFill": 0.0125,
+        "sigmaInfinity": 0.0025000000000000005,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 8
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 3109,
+        "simTimeSeconds": 140.2663590964614,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 8191,
+        "axialCenterSpanUm": 4.8999999999999995,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 4.8999999999999995,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 304.13870378282866,
+        "probeFullWaistThicknessUm": 0.35,
+        "addedProbeFullWaistThicknessUm": 0,
+        "straightAxiallyOpenLayers": 14,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 2.0999999999999996
+      },
+      "actualSwitchTimeSeconds": 8.020002468654068,
+      "originalIntervals": {
+        "count": 4,
+        "survivingAtStop": 4,
+        "maxPostCutoffTipAdvanceUm": 1.4,
+        "maxTipAdvanceWhileOpenUm": 2.0999999999999996,
+        "maxDepthUm": 2.0999999999999996
+      },
+      "newPostCutoffIntervals": {
+        "count": 10,
+        "survivingAtStop": 10,
+        "maxPostCutoffTipAdvanceUm": 1.4,
+        "maxTipAdvanceWhileOpenUm": 1.4,
+        "maxDepthUm": 1.4
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 259,
+        "updatesWithSelectedBasalCells": 259,
+        "selectedBasalCellUpdates": 6488,
+        "selectedKineticDemandFill": 71.1111418924257
+      }
+    },
+    {
+      "rowId": "so13-hil-b-t5-f0p1-w3-s2p5",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "so13-hil-b-t5-f0p1-w3-s2p5",
+        "tempC": -5,
+        "fraction": 0.1,
+        "cflFill": 0.0125,
+        "sigmaInfinity": 0.005000000000000001,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 2.5
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 3016,
+        "simTimeSeconds": 52.80560872592301,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 9323,
+        "axialCenterSpanUm": 5.6,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 5.6,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 346.17081374280446,
+        "probeFullWaistThicknessUm": 5.949999999999999,
+        "addedProbeFullWaistThicknessUm": 5.6,
+        "straightAxiallyOpenLayers": 0,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+      },
+      "actualSwitchTimeSeconds": 2.505896490774475,
+      "originalIntervals": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0.35,
+        "maxDepthUm": 0.35
+      },
+      "newPostCutoffIntervals": {
+        "count": 14,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 179,
+        "updatesWithSelectedBasalCells": 179,
+        "selectedBasalCellUpdates": 4420,
+        "selectedKineticDemandFill": 48.27257924838645
+      }
+    },
+    {
+      "rowId": "op16-hil-a-t5-f0p1-s2p625",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-a-t5-f0p1-s2p625",
+        "tempC": -5,
+        "fraction": 0.1,
+        "pressurePa": 101325,
+        "sigmaInfinity": 0.005000000000000001,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 2.625
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 3036,
+        "simTimeSeconds": 52.95111877502442,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 9323,
+        "axialCenterSpanUm": 5.6,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 5.6,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 346.17081374280446,
+        "probeFullWaistThicknessUm": 5.949999999999999,
+        "addedProbeFullWaistThicknessUm": 5.6,
+        "straightAxiallyOpenLayers": 0,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+      },
+      "actualSwitchTimeSeconds": 2.630052334480591,
+      "originalIntervals": {
+        "count": 4,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0.35,
+        "maxTipAdvanceWhileOpenUm": 0.35,
+        "maxDepthUm": 0.35
+      },
+      "newPostCutoffIntervals": {
+        "count": 12,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 190,
+        "updatesWithSelectedBasalCells": 190,
+        "selectedBasalCellUpdates": 4646,
+        "selectedKineticDemandFill": 50.038907332562346
+      }
+    },
+    {
+      "rowId": "op16-hil-a-t5-f0p1-s2p75",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-a-t5-f0p1-s2p75",
+        "tempC": -5,
+        "fraction": 0.1,
+        "pressurePa": 101325,
+        "sigmaInfinity": 0.005000000000000001,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 2.75
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 3058,
+        "simTimeSeconds": 53.14803143376432,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 9323,
+        "axialCenterSpanUm": 5.6,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 5.6,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 346.17081374280446,
+        "probeFullWaistThicknessUm": 5.949999999999999,
+        "addedProbeFullWaistThicknessUm": 5.6,
+        "straightAxiallyOpenLayers": 0,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+      },
+      "actualSwitchTimeSeconds": 2.7589965121726627,
+      "originalIntervals": {
+        "count": 4,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0.35,
+        "maxTipAdvanceWhileOpenUm": 0.7,
+        "maxDepthUm": 0.7
+      },
+      "newPostCutoffIntervals": {
+        "count": 12,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 201,
+        "updatesWithSelectedBasalCells": 201,
+        "selectedBasalCellUpdates": 4932,
+        "selectedKineticDemandFill": 52.0922641527057
+      }
+    },
+    {
+      "rowId": "so13-hil-a-t5-f0p1-w3-s3",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "pressurePa": 101325,
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "so13-hil-a-t5-f0p1-w3-s3",
+        "tempC": -5,
+        "fraction": 0.1,
+        "cflFill": 0.0125,
+        "sigmaInfinity": 0.005000000000000001,
+        "experimentalBasalWidthCells": 3,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 3
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 3058,
+        "simTimeSeconds": 53.31629012786378,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 9307,
+        "axialCenterSpanUm": 5.6,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 5.6,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 345.5767203158083,
+        "probeFullWaistThicknessUm": 0.35,
+        "addedProbeFullWaistThicknessUm": 0,
+        "straightAxiallyOpenLayers": 16,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 2.4499999999999997
+      },
+      "actualSwitchTimeSeconds": 3.0092526815948686,
+      "originalIntervals": {
+        "count": 4,
+        "survivingAtStop": 4,
+        "maxPostCutoffTipAdvanceUm": 2.0999999999999996,
+        "maxTipAdvanceWhileOpenUm": 2.4499999999999997,
+        "maxDepthUm": 2.4499999999999997
+      },
+      "newPostCutoffIntervals": {
+        "count": 12,
+        "survivingAtStop": 12,
+        "maxPostCutoffTipAdvanceUm": 1.75,
+        "maxTipAdvanceWhileOpenUm": 1.75,
+        "maxDepthUm": 1.75
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 222,
+        "updatesWithSelectedBasalCells": 222,
+        "selectedBasalCellUpdates": 5478,
+        "selectedKineticDemandFill": 56.00856273364848
+      }
+    },
+    {
+      "rowId": "op16-hil-b-t4p5-f0p05-s8-phalf",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-b-t4p5-f0p05-s8-phalf",
+        "tempC": -4.5,
+        "fraction": 0.05,
+        "pressurePa": 50662.5,
+        "sigmaInfinity": 0.00225,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 8
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 3344,
+        "simTimeSeconds": 86.50833612051447,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 9271,
+        "axialCenterSpanUm": 5.6,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 5.6,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 344.2400101050671,
+        "probeFullWaistThicknessUm": 0.35,
+        "addedProbeFullWaistThicknessUm": 0,
+        "straightAxiallyOpenLayers": 16,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 2.4499999999999997
+      },
+      "actualSwitchTimeSeconds": 8.009568660132011,
+      "originalIntervals": {
+        "count": 8,
+        "survivingAtStop": 8,
+        "maxPostCutoffTipAdvanceUm": 1.4,
+        "maxTipAdvanceWhileOpenUm": 2.4499999999999997,
+        "maxDepthUm": 2.4499999999999997
+      },
+      "newPostCutoffIntervals": {
+        "count": 8,
+        "survivingAtStop": 8,
+        "maxPostCutoffTipAdvanceUm": 1.0499999999999998,
+        "maxTipAdvanceWhileOpenUm": 1.0499999999999998,
+        "maxDepthUm": 1.0499999999999998
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 477,
+        "updatesWithSelectedBasalCells": 477,
+        "selectedBasalCellUpdates": 11916,
+        "selectedKineticDemandFill": 107.15800089016892
+      }
+    },
+    {
+      "rowId": "op16-hil-b-t4p5-f0p05-s8-pdouble",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-b-t4p5-f0p05-s8-pdouble",
+        "tempC": -4.5,
+        "fraction": 0.05,
+        "pressurePa": 202650,
+        "sigmaInfinity": 0.00225,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 8
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 2922,
+        "simTimeSeconds": 223.865978411655,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 7087,
+        "axialCenterSpanUm": 4.199999999999999,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 4.199999999999999,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 263.146257320096,
+        "probeFullWaistThicknessUm": 4.55,
+        "addedProbeFullWaistThicknessUm": 4.2,
+        "straightAxiallyOpenLayers": 0,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+      },
+      "actualSwitchTimeSeconds": 8.022046710799135,
+      "originalIntervals": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "newPostCutoffIntervals": {
+        "count": 10,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 137,
+        "updatesWithSelectedBasalCells": 137,
+        "selectedBasalCellUpdates": 3376,
+        "selectedKineticDemandFill": 40.42124493875826
+      }
+    },
+    {
+      "rowId": "op16-hil-b-t4p5-f0p1-s3-phalf",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-b-t4p5-f0p1-s3-phalf",
+        "tempC": -4.5,
+        "fraction": 0.1,
+        "pressurePa": 50662.5,
+        "sigmaInfinity": 0.0045,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 3
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 3059,
+        "simTimeSeconds": 31.747878286165772,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 10387,
+        "axialCenterSpanUm": 6.3,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 6.3,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 385.67802663804673,
+        "probeFullWaistThicknessUm": 0.35,
+        "addedProbeFullWaistThicknessUm": 0,
+        "straightAxiallyOpenLayers": 18,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 2.8
+      },
+      "actualSwitchTimeSeconds": 3.0040520400896225,
+      "originalIntervals": {
+        "count": 6,
+        "survivingAtStop": 6,
+        "maxPostCutoffTipAdvanceUm": 2.0999999999999996,
+        "maxTipAdvanceWhileOpenUm": 2.8,
+        "maxDepthUm": 2.8
+      },
+      "newPostCutoffIntervals": {
+        "count": 12,
+        "survivingAtStop": 12,
+        "maxPostCutoffTipAdvanceUm": 1.75,
+        "maxTipAdvanceWhileOpenUm": 1.75,
+        "maxDepthUm": 1.75
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 370,
+        "updatesWithSelectedBasalCells": 370,
+        "selectedBasalCellUpdates": 9530,
+        "selectedKineticDemandFill": 89.2737700830381
+      }
+    },
+    {
+      "rowId": "op16-hil-b-t4p5-f0p1-s3-pdouble",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-b-t4p5-f0p1-s3-pdouble",
+        "tempC": -4.5,
+        "fraction": 0.1,
+        "pressurePa": 202650,
+        "sigmaInfinity": 0.0045,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 3
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 2897,
+        "simTimeSeconds": 96.0245416564995,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 8229,
+        "axialCenterSpanUm": 4.8999999999999995,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 4.8999999999999995,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 305.54967567194444,
+        "probeFullWaistThicknessUm": 5.25,
+        "addedProbeFullWaistThicknessUm": 4.9,
+        "straightAxiallyOpenLayers": 0,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+      },
+      "actualSwitchTimeSeconds": 3.0118254036846053,
+      "originalIntervals": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "newPostCutoffIntervals": {
+        "count": 12,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 108,
+        "updatesWithSelectedBasalCells": 108,
+        "selectedBasalCellUpdates": 2610,
+        "selectedKineticDemandFill": 31.532160916641097
+      }
+    },
+    {
+      "rowId": "op16-hil-b-t5-f0p05-s8-phalf",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-b-t5-f0p05-s8-phalf",
+        "tempC": -5,
+        "fraction": 0.05,
+        "pressurePa": 50662.5,
+        "sigmaInfinity": 0.0025000000000000005,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 8
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 3427,
+        "simTimeSeconds": 89.5698207136467,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 10363,
+        "axialCenterSpanUm": 6.3,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 6.3,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 384.7868864975526,
+        "probeFullWaistThicknessUm": 0.35,
+        "addedProbeFullWaistThicknessUm": 0,
+        "straightAxiallyOpenLayers": 18,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 2.8
+      },
+      "actualSwitchTimeSeconds": 8.010191604159136,
+      "originalIntervals": {
+        "count": 8,
+        "survivingAtStop": 8,
+        "maxPostCutoffTipAdvanceUm": 1.75,
+        "maxTipAdvanceWhileOpenUm": 2.8,
+        "maxDepthUm": 2.8
+      },
+      "newPostCutoffIntervals": {
+        "count": 10,
+        "survivingAtStop": 10,
+        "maxPostCutoffTipAdvanceUm": 1.4,
+        "maxTipAdvanceWhileOpenUm": 1.4,
+        "maxDepthUm": 1.4
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 499,
+        "updatesWithSelectedBasalCells": 499,
+        "selectedBasalCellUpdates": 12620,
+        "selectedKineticDemandFill": 110.21889154312967
+      }
+    },
+    {
+      "rowId": "op16-hil-b-t5-f0p05-s8-pdouble",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-b-t5-f0p05-s8-pdouble",
+        "tempC": -5,
+        "fraction": 0.05,
+        "pressurePa": 202650,
+        "sigmaInfinity": 0.0025000000000000005,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 8
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 3035,
+        "simTimeSeconds": 231.1399375581022,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 7135,
+        "axialCenterSpanUm": 4.199999999999999,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 4.199999999999999,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 264.92853760108443,
+        "probeFullWaistThicknessUm": 4.55,
+        "addedProbeFullWaistThicknessUm": 4.2,
+        "straightAxiallyOpenLayers": 0,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+      },
+      "actualSwitchTimeSeconds": 8.040232436744546,
+      "originalIntervals": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "newPostCutoffIntervals": {
+        "count": 10,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 142,
+        "updatesWithSelectedBasalCells": 142,
+        "selectedBasalCellUpdates": 3506,
+        "selectedKineticDemandFill": 41.877616370422416
+      }
+    },
+    {
+      "rowId": "op16-hil-b-t5-f0p1-s3-phalf",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-b-t5-f0p1-s3-phalf",
+        "tempC": -5,
+        "fraction": 0.1,
+        "pressurePa": 50662.5,
+        "sigmaInfinity": 0.005000000000000001,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 3
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 3152,
+        "simTimeSeconds": 31.50277474319746,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 10819,
+        "axialCenterSpanUm": 7,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 7,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 401.7185491669422,
+        "probeFullWaistThicknessUm": 0.35,
+        "addedProbeFullWaistThicknessUm": 0,
+        "straightAxiallyOpenLayers": 18,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 3.15
+      },
+      "actualSwitchTimeSeconds": 3.0042857408413037,
+      "originalIntervals": {
+        "count": 6,
+        "survivingAtStop": 6,
+        "maxPostCutoffTipAdvanceUm": 2.4499999999999997,
+        "maxTipAdvanceWhileOpenUm": 3.15,
+        "maxDepthUm": 3.15
+      },
+      "newPostCutoffIntervals": {
+        "count": 12,
+        "survivingAtStop": 12,
+        "maxPostCutoffTipAdvanceUm": 2.0999999999999996,
+        "maxTipAdvanceWhileOpenUm": 2.0999999999999996,
+        "maxDepthUm": 2.0999999999999996
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 393,
+        "updatesWithSelectedBasalCells": 393,
+        "selectedBasalCellUpdates": 10752,
+        "selectedKineticDemandFill": 96.86753321384937
+      }
+    },
+    {
+      "rowId": "op16-hil-b-t5-f0p1-s3-pdouble",
+      "row": {
+        "conditional": false,
+        "lane": "cavity-mechanism",
+        "paramSet": "M1",
+        "dimsN": 64,
+        "dxUm": 0.35,
+        "cflFill": 0.0125,
+        "seedRadius": 2,
+        "seedThickness": 1,
+        "targetExtent": 29,
+        "maxSteps": 100000,
+        "experimentalBasalWidthCells": 3,
+        "spatialSampleExtents": [
+          5,
+          9,
+          13,
+          17,
+          21,
+          25
+        ],
+        "id": "op16-hil-b-t5-f0p1-s3-pdouble",
+        "tempC": -5,
+        "fraction": 0.1,
+        "pressurePa": 202650,
+        "sigmaInfinity": 0.005000000000000001,
+        "experimentalBasalWidthHistory": {
+          "mode": "early-only",
+          "cutoffSeconds": 3
+        }
+      },
+      "status": "size-endpoint",
+      "terminal": {
+        "cycle": 3017,
+        "simTimeSeconds": 95.0447318285551,
+        "extent": 29,
+        "largestCenterSpanUm": 9.799999999999999,
+        "attachedCount": 9321,
+        "axialCenterSpanUm": 5.6,
+        "lateralCenterSpanUm": 9.799999999999999,
+        "addedAxialCenterSpanUm": 5.6,
+        "addedLateralCenterSpanUm": 8.399999999999999,
+        "occupiedCellVolumeUm3": 346.09655206442994,
+        "probeFullWaistThicknessUm": 5.25,
+        "addedProbeFullWaistThicknessUm": 4.9,
+        "straightAxiallyOpenLayers": 2,
+        "maxStraightOpenDepthBelowAxialEnvelopeUm": 0
+      },
+      "actualSwitchTimeSeconds": 3.017565857707612,
+      "originalIntervals": {
+        "count": 2,
+        "survivingAtStop": 0,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "newPostCutoffIntervals": {
+        "count": 14,
+        "survivingAtStop": 2,
+        "maxPostCutoffTipAdvanceUm": 0,
+        "maxTipAdvanceWhileOpenUm": 0,
+        "maxDepthUm": 0
+      },
+      "selectedExposureBefore": {
+        "observedUpdates": 113,
+        "updatesWithSelectedBasalCells": 113,
+        "selectedBasalCellUpdates": 2740,
+        "selectedKineticDemandFill": 33.01491718255031
+      }
+    }
+  ],
+  "cohorts": [
+    {
+      "id": "onset-primary-t4p5-f0p05",
+      "available": true,
+      "commonTimeSeconds": 133.23690147798152,
+      "rows": [
+        {
+          "rowId": "so13-hil-b-t4p5-f0p05-w3-s6p5",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 0,
+            "nextEventUm": null
+          }
+        },
+        {
+          "rowId": "op16-hil-a-t4p5-f0p05-s7",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 0,
+            "nextEventUm": 0
+          }
+        },
+        {
+          "rowId": "op16-hil-a-t4p5-f0p05-s7p5",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 0,
+            "nextEventUm": 0
+          }
+        },
+        {
+          "rowId": "so13-hil-a-t4p5-f0p05-w3-s8",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 1.75,
+            "nextEventUm": 1.75
+          }
+        }
+      ]
+    },
+    {
+      "id": "onset-primary-t4p5-f0p1",
+      "available": true,
+      "commonTimeSeconds": 53.08587787705935,
+      "rows": [
+        {
+          "rowId": "so13-hil-b-t4p5-f0p1-w3-s2p5",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 0,
+            "nextEventUm": null
+          }
+        },
+        {
+          "rowId": "op16-hil-a-t4p5-f0p1-s2p625",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 0,
+            "nextEventUm": 0
+          }
+        },
+        {
+          "rowId": "op16-hil-a-t4p5-f0p1-s2p75",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 0,
+            "nextEventUm": 0
+          }
+        },
+        {
+          "rowId": "so13-hil-a-t4p5-f0p1-w3-s3",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 2.4499999999999997,
+            "nextEventUm": 2.4499999999999997
+          }
+        }
+      ]
+    },
+    {
+      "id": "onset-primary-t5-f0p05",
+      "available": true,
+      "commonTimeSeconds": 138.5909883900327,
+      "rows": [
+        {
+          "rowId": "so13-hil-b-t5-f0p05-w3-s6p5",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 0,
+            "nextEventUm": null
+          }
+        },
+        {
+          "rowId": "op16-hil-a-t5-f0p05-s7",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 0,
+            "nextEventUm": 0
+          }
+        },
+        {
+          "rowId": "op16-hil-a-t5-f0p05-s7p5",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 2.0999999999999996,
+            "nextEventUm": 2.0999999999999996
+          }
+        },
+        {
+          "rowId": "so13-hil-a-t5-f0p05-w3-s8",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 2.0999999999999996,
+            "nextEventUm": 2.0999999999999996
+          }
+        }
+      ]
+    },
+    {
+      "id": "onset-primary-t5-f0p1",
+      "available": true,
+      "commonTimeSeconds": 52.80560872592301,
+      "rows": [
+        {
+          "rowId": "so13-hil-b-t5-f0p1-w3-s2p5",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 0,
+            "nextEventUm": null
+          }
+        },
+        {
+          "rowId": "op16-hil-a-t5-f0p1-s2p625",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 0,
+            "nextEventUm": 0
+          }
+        },
+        {
+          "rowId": "op16-hil-a-t5-f0p1-s2p75",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 0,
+            "nextEventUm": 0
+          }
+        },
+        {
+          "rowId": "so13-hil-a-t5-f0p1-w3-s3",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 2.4499999999999997,
+            "nextEventUm": 2.4499999999999997
+          }
+        }
+      ]
+    },
+    {
+      "id": "pressure-primary-t4p5-f0p05",
+      "available": true,
+      "commonTimeSeconds": 86.50833612051447,
+      "rows": [
+        {
+          "rowId": "op16-hil-b-t4p5-f0p05-s8-phalf",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 2.4499999999999997,
+            "nextEventUm": null
+          }
+        },
+        {
+          "rowId": "so13-hil-a-t4p5-f0p05-w3-s8",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 1.4,
+            "nextEventUm": 1.4
+          }
+        },
+        {
+          "rowId": "op16-hil-b-t4p5-f0p05-s8-pdouble",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 0,
+            "nextEventUm": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "pressure-primary-t4p5-f0p1",
+      "available": true,
+      "commonTimeSeconds": 31.747878286165772,
+      "rows": [
+        {
+          "rowId": "op16-hil-b-t4p5-f0p1-s3-phalf",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 2.8,
+            "nextEventUm": null
+          }
+        },
+        {
+          "rowId": "so13-hil-a-t4p5-f0p1-w3-s3",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 1.75,
+            "nextEventUm": 1.75
+          }
+        },
+        {
+          "rowId": "op16-hil-b-t4p5-f0p1-s3-pdouble",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 0,
+            "nextEventUm": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "pressure-primary-t5-f0p05",
+      "available": true,
+      "commonTimeSeconds": 89.5698207136467,
+      "rows": [
+        {
+          "rowId": "op16-hil-b-t5-f0p05-s8-phalf",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 2.8,
+            "nextEventUm": null
+          }
+        },
+        {
+          "rowId": "so13-hil-a-t5-f0p05-w3-s8",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 1.75,
+            "nextEventUm": 1.75
+          }
+        },
+        {
+          "rowId": "op16-hil-b-t5-f0p05-s8-pdouble",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 0,
+            "nextEventUm": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "pressure-primary-t5-f0p1",
+      "available": true,
+      "commonTimeSeconds": 31.50277474319746,
+      "rows": [
+        {
+          "rowId": "op16-hil-b-t5-f0p1-s3-phalf",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 3.15,
+            "nextEventUm": null
+          }
+        },
+        {
+          "rowId": "so13-hil-a-t5-f0p1-w3-s3",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 1.75,
+            "nextEventUm": 1.75
+          }
+        },
+        {
+          "rowId": "op16-hil-b-t5-f0p1-s3-pdouble",
+          "finalCommonAgeDepth": {
+            "fraction": 1,
+            "atOrBeforeUm": 0,
+            "nextEventUm": 0
+          }
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-analysis-20261117\\summary.json",
+      "bytes": 126445,
+      "sha256": "a4ff0e4fb666f92665d981749f717e702c8f0188bf67a3892e0c04adf1196a4c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-analysis-20261117\\warm\\analyze.mjs",
+      "bytes": 12231,
+      "sha256": "d0e0038268b483ce110fb34ae9d564c12a1e7fe7e1d512a94d373a9d50e8b86b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-analysis-20261117\\warm\\execution.log",
+      "bytes": 1623,
+      "sha256": "2aa14b29aaec9a27cb3eac02c47413318361667bdcf899ed2b22796521a1962a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-analysis-20261117\\warm\\execution-result.json",
+      "bytes": 152,
+      "sha256": "8de4f390b95765ef80bd00a8896f0e933ca5f2dd633077a52278ba23b7e8238b"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-analysis-20261117\\warm\\warm-comparisons.json",
+      "bytes": 1054758,
+      "sha256": "70a54ec837b93b8eb56dd76717e26893b71c9517005c35eee7ee7d1d7ae0181c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-analysis-20261117\\warm\\warm-retained.json",
+      "bytes": 14655929,
+      "sha256": "8317d5035200f3036beb641116bd2571460adaa159e5684211f047fd8a37ec3c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-analysis-20261117\\warm\\inputs.json",
+      "bytes": 702001,
+      "sha256": "5806f752b6695248263f631488f84f8dae25480cb9a3d16a5b48a657c4369cf0"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-analysis-20261117\\comparison-inputs.json",
+      "bytes": 35248,
+      "sha256": "fb9f7be7786d6a70f5e28140eb6d0a97fc6e8cfa947bb658a7c893498c621056"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-analysis-20261117\\switch-observations.json",
+      "bytes": 404247,
+      "sha256": "4d2dc71e5f9f4f03543533e4c6ae64efc6af614416785549ef47fcfbd8c96691"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-analysis-20261117\\recommended-roster.json",
+      "bytes": 11561,
+      "sha256": "aa8509b190ad4500b74bbca8d69715304018811fbe33dc671670017b96f92316"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-onset-pressure-analysis-20261117\\propose.mjs",
+      "bytes": 1791,
+      "sha256": "3ee2cc6dc28a4be08bff61dfcdda0e46d98c9c596471903ef1eaf9d86fb06e2f"
+    }
+  ]
+}

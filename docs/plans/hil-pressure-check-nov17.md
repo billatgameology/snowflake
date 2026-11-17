@@ -102,10 +102,21 @@ and https://www.its.caltech.edu/~atomic/publist/kglpub.htm: listed versions2019-
 unchanged; no superseding mapping identified in bounded list check, not novelty assessment.
 Parameter provenance preserves its physical pressure-independence caveat. No constants change.
 
+## Executed preparation
+
+Protocol committed14a6eaa before implementation. [Verification](../../evidence/hil-pressure-check-2026-11-17/verification.json)
+binds34 tests, both typechecks, literal16-row list, source hashes and one shared-context review
+by an agent distinct from the implementation author. All64 control files rehash; new rows differ
+only by registered CFL or width and identity. No full-suite/physical-validation claim.
+Initial focused execution caught a parenthesis typo before tests loaded; corrected before any
+run and passed final checks, with both logs retained. Main stays at producer after launch.
+The [prior matched readout](../../evidence/hil-onset-pressure-2026-11-16/analysis-nov17.json)
+records24 rows/789 retained states; complete pressure contrasts motivate this batch.
+
 ## Steps
 
 - [x] Commit protocol and16 bound controls before implementation.
-- [ ] Implement/check thin orchestration and commit clean main producer.
+- [x] Thin orchestration passes34 focused tests and both typechecks; bounded review no findings. Commit clean producer before launch.
 - [ ] Launch16; verify actual workers and initial/checkpoint bytes; keep main fixed.
 - [ ] Complete registered comparisons and NAS preservation/fresh recovery.
 

@@ -1,7 +1,7 @@
 # Plan - HIL onset intervals and pressure transfer
 
 - **Phase:** active Phase10; charter2.4/2.5/3.2, accepted ADR0058/0059/0060/0062.
-- **Status:** all16 endpoints complete November16 at14:57Pacific; analyzing November17. NAS preservation pending.
+- **Status:** all16 endpoints complete November16 at14:57Pacific; analyzed November17. NAS preservation pending.
 - **Checkout:** primary main, C:/Users/biao3/Documents/GitHub/snowflake, by explicit maker direction; no new worktree.
 - **Started / last touched:** 2026-11-16 by Codex.
 
@@ -119,6 +119,16 @@ All16 are now extent29/exit0 with empty operational error lists; wrapper exited0
 entire batch is terminal; do not resume completed rows. Old output remains local pending NAS.
 The [fine recovery](../../evidence/hil-onset-pressure-2026-11-16/fine-recovery-launch.json)
 advanced tick1235 to1236 with strict checkpoint verification; its separate producer remains fixed.
+
+## Matched analysis - November17
+
+The [24-row/789-state readout](../../evidence/hil-onset-pressure-2026-11-16/analysis-nov17.json)
+provides all4 onset and4 pressure cohorts. All4 half-pressure histories retain/deepen original
+openings; all4 double-pressure histories lose them. Common-age comparisons and adjacent-event
+bounds preserve depth ordering. Low-supply7.5s survives only at-5C, not-4.5C; no exact universal
+threshold is implied. No numerical convergence or physical-pressure law is established.
+The [successor](hil-pressure-check-nov17.md) qualifies pressure at smaller CFL and completes
+width4 controls. Full local readouts/recipes/switch fields are hash-bound in the concise report.
 
 ## Steps
 
