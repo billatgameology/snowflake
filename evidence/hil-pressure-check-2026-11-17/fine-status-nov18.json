@@ -1,0 +1,173 @@
+{
+  "observedAtUtc": "2026-11-18T23:47:54.637505+00:00",
+  "producer": "aa20f969f8b25ad98cf7a25f1015a4f373080657",
+  "producerRoot": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake",
+  "activeFineWorkers": 4,
+  "queuedFineRows": 0,
+  "rows": [
+    {
+      "rowId": "cf11-hil-c-h1-w6-s5",
+      "pid": 612,
+      "live": true,
+      "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h1-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w6-s5",
+      "attemptName": "native-recovery-20261116",
+      "tick": 1895,
+      "extent": 33,
+      "targetExtent": 57,
+      "physicalTimeSeconds": 28.49498853642099,
+      "checkpointManifestPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w6-s5\\resume\\generation-1895-3c08ca4c-a06c-4270-81d5-f461c716c3eb\\manifest.json",
+      "checkpointManifestSha256": "622420c1caf1e61c0bd4b0627a3e1886cdc9efc03823c5c0eedae2f5808099c0",
+      "checkpointModifiedUtc": "2026-11-18T23:42:49.634227+00:00",
+      "checkpointPointerPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w6-s5\\resume\\latest.json",
+      "committedEventPrefix": {
+        "bytes": 7127475,
+        "sha256": "9cf0287f2c078aa2a7a124e413c8c35fa6aacc8aba787e125e57b504bcfb6e99"
+      },
+      "eventPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w6-s5\\events.jsonl",
+      "currentStderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w6-s5\\attempts\\native-recovery-20261116\\stderr.log",
+      "currentStderrBytes": 0,
+      "currentStdoutPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w6-s5\\attempts\\native-recovery-20261116\\stdout.log",
+      "latestHeartbeat": "2026-11-18T23:46:55.011Z relax row=cf11-hil-c-h1-w6-s5 experimentId=post-phase10-basal-width-history-v1 experimentalBasalWidthCells=6 experimentalBasalWidthHistory=early-only cutoffSeconds=5 cycle=1896 sweeps=10240 residual=6.156363998835148e-10 divergence=0.000011196787639762058",
+      "integrityErrors": [],
+      "allRelaxationsConverged": true,
+      "terminalStopReason": null,
+      "cpuSample": {
+        "pid": 612,
+        "cpuSeconds": 202238.8125,
+        "cpuDeltaSeconds": 2.0,
+        "workingSetBytes": 493592576,
+        "startedAt": "2026-11-16T15:15:05.4112906Z"
+      }
+    },
+    {
+      "rowId": "cf11-hil-c-h1-w8-s5",
+      "pid": 27176,
+      "live": true,
+      "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h1-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w8-s5",
+      "attemptName": "resume-1794454074449-1a2958a7-9fe9-4084-904b-a2d22086eab3",
+      "tick": 2269,
+      "extent": 37,
+      "targetExtent": 57,
+      "physicalTimeSeconds": 33.87680659399816,
+      "checkpointManifestPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w8-s5\\resume\\generation-2269-79122917-03d1-47bb-9fca-6ad3eed08405\\manifest.json",
+      "checkpointManifestSha256": "3fd462cb44e762ccccd13f6390e233cf1d2f6d32a61d2da40e58e0d1dcaf0bd4",
+      "checkpointModifiedUtc": "2026-11-18T23:42:31.217669+00:00",
+      "checkpointPointerPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w8-s5\\resume\\latest.json",
+      "committedEventPrefix": {
+        "bytes": 8715606,
+        "sha256": "e2cafd861037cb44d96c64e0ea38d6c7243027314d61c5a3b07fb94518da6fb7"
+      },
+      "eventPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w8-s5\\events.jsonl",
+      "currentStderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w8-s5\\attempts\\resume-1794454074449-1a2958a7-9fe9-4084-904b-a2d22086eab3\\stderr.log",
+      "currentStderrBytes": 0,
+      "currentStdoutPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w8-s5\\attempts\\resume-1794454074449-1a2958a7-9fe9-4084-904b-a2d22086eab3\\stdout.log",
+      "latestHeartbeat": "2026-11-18T23:47:04.658Z relax row=cf11-hil-c-h1-w8-s5 experimentId=post-phase10-basal-width-history-v1 experimentalBasalWidthCells=8 experimentalBasalWidthHistory=early-only cutoffSeconds=5 cycle=2270 sweeps=11264 residual=3.2290798121812103e-10 divergence=0.000005059152002309412",
+      "integrityErrors": [],
+      "allRelaxationsConverged": true,
+      "terminalStopReason": null,
+      "cpuSample": {
+        "pid": 27176,
+        "cpuSeconds": 588735.296875,
+        "cpuDeltaSeconds": 2.015625,
+        "workingSetBytes": 546979840,
+        "startedAt": "2026-11-12T03:27:57.0462828Z"
+      }
+    },
+    {
+      "rowId": "cf11-hil-c-h3-w6-s5",
+      "pid": 26236,
+      "live": true,
+      "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h3-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w6-s5",
+      "attemptName": "resume-1794454074449-1a2958a7-9fe9-4084-904b-a2d22086eab3",
+      "tick": 2275,
+      "extent": 35,
+      "targetExtent": 57,
+      "physicalTimeSeconds": 33.33684218834044,
+      "checkpointManifestPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w6-s5\\resume\\generation-2275-6450456d-733c-42f7-889c-24fb6ad1562a\\manifest.json",
+      "checkpointManifestSha256": "dc18fc2643ad874d91da653db1c345a1ba94b531fb28e2dbd294586baff55610",
+      "checkpointModifiedUtc": "2026-11-18T23:46:45.016732+00:00",
+      "checkpointPointerPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w6-s5\\resume\\latest.json",
+      "committedEventPrefix": {
+        "bytes": 8791570,
+        "sha256": "58de21f67ed7c7a574c4dccf9d0b5dd5ac55d8b74c18f9a627275d0dfe3a04e2"
+      },
+      "eventPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w6-s5\\events.jsonl",
+      "currentStderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w6-s5\\attempts\\resume-1794454074449-1a2958a7-9fe9-4084-904b-a2d22086eab3\\stderr.log",
+      "currentStderrBytes": 0,
+      "currentStdoutPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w6-s5\\attempts\\resume-1794454074449-1a2958a7-9fe9-4084-904b-a2d22086eab3\\stdout.log",
+      "latestHeartbeat": "2026-11-18T23:47:08.430Z relax row=cf11-hil-c-h3-w6-s5 experimentId=post-phase10-basal-width-history-v1 experimentalBasalWidthCells=6 experimentalBasalWidthHistory=early-only cutoffSeconds=5 cycle=2276 sweeps=1024 residual=3.9460654394291235e-9 divergence=0.00008748977555229338",
+      "integrityErrors": [],
+      "allRelaxationsConverged": true,
+      "terminalStopReason": null,
+      "cpuSample": {
+        "pid": 26236,
+        "cpuSeconds": 588747.921875,
+        "cpuDeltaSeconds": 2.015625,
+        "workingSetBytes": 550322176,
+        "startedAt": "2026-11-12T03:27:57.0538099Z"
+      }
+    },
+    {
+      "rowId": "cf11-hil-c-h3-w8-s5",
+      "pid": 12460,
+      "live": true,
+      "command": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h3-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w8-s5",
+      "attemptName": "resume-1794454074449-1a2958a7-9fe9-4084-904b-a2d22086eab3",
+      "tick": 2306,
+      "extent": 35,
+      "targetExtent": 57,
+      "physicalTimeSeconds": 34.00567379011322,
+      "checkpointManifestPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w8-s5\\resume\\generation-2306-42a91544-aae4-41cb-9741-e3768945e30d\\manifest.json",
+      "checkpointManifestSha256": "c7b338b4a9f28c6fb686825b8799dae58d0e0b601acaecee68a754cbe688490f",
+      "checkpointModifiedUtc": "2026-11-18T23:45:11.277579+00:00",
+      "checkpointPointerPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w8-s5\\resume\\latest.json",
+      "committedEventPrefix": {
+        "bytes": 8923431,
+        "sha256": "accd414b0ae9fd95041d6bae504d19fb4b302d6054b64a2495dbe456cfbad113"
+      },
+      "eventPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w8-s5\\events.jsonl",
+      "currentStderrPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w8-s5\\attempts\\resume-1794454074449-1a2958a7-9fe9-4084-904b-a2d22086eab3\\stderr.log",
+      "currentStderrBytes": 0,
+      "currentStdoutPath": "C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w8-s5\\attempts\\resume-1794454074449-1a2958a7-9fe9-4084-904b-a2d22086eab3\\stdout.log",
+      "latestHeartbeat": "2026-11-18T23:47:15.661Z relax row=cf11-hil-c-h3-w8-s5 experimentId=post-phase10-basal-width-history-v1 experimentalBasalWidthCells=8 experimentalBasalWidthHistory=early-only cutoffSeconds=5 cycle=2307 sweeps=5120 residual=3.7467624167839717e-10 divergence=0.000005804713113872094",
+      "integrityErrors": [],
+      "allRelaxationsConverged": true,
+      "terminalStopReason": null,
+      "cpuSample": {
+        "pid": 12460,
+        "cpuSeconds": 588729.5625,
+        "cpuDeltaSeconds": 2.0,
+        "workingSetBytes": 553873408,
+        "startedAt": "2026-11-12T03:27:57.0620487Z"
+      }
+    }
+  ],
+  "cpuInterval": {
+    "sampleStartedUtc": "2026-11-18T23:47:52.3293462Z",
+    "sampleEndedUtc": "2026-11-18T23:47:54.3486977Z",
+    "elapsedSeconds": 2.0193515
+  },
+  "liveCoordinators": [
+    {
+      "ProcessId": 21904,
+      "CommandLine": "\"C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe\" \"C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts\" \"resume\" \"HIL\" \"C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\" \"--workers\" \"20\" "
+    },
+    {
+      "ProcessId": 30832,
+      "CommandLine": "\"C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe\" \"C:/Users/biao3/Documents/GitHub/snowflake/out/hil-status-20261116/resume-fine-once.mjs\""
+    }
+  ],
+  "priorReceipts": [
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-status-20261117\\fine-status.json",
+      "bytes": 12876,
+      "sha256": "2a20616611d639c9df6aca8f88fc4967f3b5729f99fa2d1e7f425c03f81212db"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-status-20261116\\fine-recovery-launch.json",
+      "bytes": 8194,
+      "sha256": "bc08745ab9e4ce997bc7d6b5731efb918ca7ffeab45c33a72a8da67f2ec82d77"
+    }
+  ],
+  "limits": "Read-only snapshot: verified current manifests and committed event prefixes, observed live process commands/CPU and stderr. Did not decode all current solver bytes, run a gate, alter processes or verify NAS; no exact completion forecast."
+}

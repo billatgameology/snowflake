@@ -1,0 +1,409 @@
+{
+  "recordedAt": "2026-11-17T14:05:09.099446+00:00",
+  "source": "8df617e43ac9b7f6d3271b7128dc15bc24a07169",
+  "producerRoot": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake",
+  "branch": "main",
+  "node": "v24.13.1",
+  "v8": "13.6.233.17-node.40",
+  "startedAt": "2026-11-17T06:04:29.9256144-08:00",
+  "exactCommand": [
+    "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe",
+    "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-pressure-check-nov17-main.ts",
+    "launch",
+    "HIL",
+    "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17",
+    "--workers",
+    "16"
+  ],
+  "wrapperPid": 22220,
+  "coordinatorPid": 18424,
+  "logs": {
+    "stdout": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17-controls\\campaign-launch-20261117T060430120.stdout.log",
+    "stderr": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17-controls\\campaign-launch-20261117T060430120.stderr.log"
+  },
+  "actualNewWorkers": 16,
+  "continuingFineWorkers": 4,
+  "totalScientificWorkers": 20,
+  "queuedRows": 0,
+  "observedAt": "2026-11-17T14:05:09.017Z",
+  "rows": [
+    {
+      "rowId": "pc17-hil-a-t4p5-f0p05-s8-phalf",
+      "pid": 33344,
+      "initialManifestSha256": "3d5cc93b1b4c4d4594cd1d7a7ee44ae65f74fa59b08ae57bf27413934f3367d6",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "e3bee5f3d9b4a007c5064cd4b8e730a6265b8d7d9bc0de6bb8d75f5f0cf3a0e4"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "591492471ffd488ac270a8e8a7d1fcc72b39a323503c1e958f67acd7addb4757",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "pc17-hil-a-t4p5-f0p05-s8-pdouble",
+      "pid": 21848,
+      "initialManifestSha256": "cc31b35c28b631a8888ddabb68624f3ee34bf3e1dc4dc6b87d5593e379f717b5",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "9b45b08412812a207b43e8a7f72135e7d5aff9cd4bfff0e73674a4cea33017a4"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "a7cd46c194d9aea68a14052318f903905bcb76764089aaa474a5eb37e018147c",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "pc17-hil-a-t4p5-f0p1-s3-phalf",
+      "pid": 30440,
+      "initialManifestSha256": "01a8a417e595c0164774b682291c5f19bea95de2ca2851424c82c05befc2385d",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "fdef8f00d8676de7a4bc2226cbfce8495da4218c3b4f890ae06697814b1efbcc"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "41045ac35798b9f8def402f34b4c46172468096b61e701ae0e76b28e5ad0ff8e",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "pc17-hil-a-t4p5-f0p1-s3-pdouble",
+      "pid": 20344,
+      "initialManifestSha256": "c0acc7d99d0909221a5fe3dc614f42e7f8ca3e5b238e19d94a0f8412dab94c71",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "fa3a56f0494bcbda7629ad789409dffb7bd11983dbd33ca0dc607e7ba6a01825"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "472378e2e64ae4e2abffeb61f6c3965059442e1940cfd31087b70bf95908440f",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "pc17-hil-a-t5-f0p05-s8-phalf",
+      "pid": 10100,
+      "initialManifestSha256": "561ccb2fdba9308ee35bc460811b8d160f4ed177def3e047b89b66fac8f7129c",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "0189edbaf3f47774301531607cf666a2b990383c75d45076ea28c16562cbd178"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "242d7897e2d3ebdb227aec81ef217be97eb48f86758ab0f341fd380d7fd250bb",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "pc17-hil-a-t5-f0p05-s8-pdouble",
+      "pid": 30404,
+      "initialManifestSha256": "f49064845bde224bc0c538916028b6f174927c48a6f69267342fc13f7b787f2c",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "990681565b68d4d0f5fb011779f3d3844b3b031dadd1faf67d1b83d358ed69ec"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "43fa5d7f1dcd5ff16e5007f164d160b1756ae60cf5ac222e97ed68f44ab3dad4",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "pc17-hil-a-t5-f0p1-s3-phalf",
+      "pid": 19288,
+      "initialManifestSha256": "a7482aaab6e0c096208a9ac904d7fc5a6b5be4e7ae053fb4616a9d9c11470c11",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "b09a4de18f81f43d12ccbb9760622e5c214e32cd5b8a17d3838cdcc450a6b462"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "f15bfb0d7ea5759b577e939d8010f88e8e4407237bc63a1f3b9b151e5d1aa6fe",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "pc17-hil-a-t5-f0p1-s3-pdouble",
+      "pid": 22276,
+      "initialManifestSha256": "f8caaec7077b54a7ce9ec9c4cc47861c28a9647da7ce500cb3b1a9be577a952d",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "74f37753c70b3a1a77a814dee8c43d7538e829ac33f278b1a3bfc2b37af2c507"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "07183a4039680c766069b64a2659a9088f3656056e2ab7b4c243405555a7ca4f",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "pc17-hil-b-t4p5-f0p05-s8-phalf",
+      "pid": 10740,
+      "initialManifestSha256": "8198f44f2128bb4c23e8d94ad4fef1c411032970ac0da37a3eaef015b9b9ffb7",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "11c40ca7e317ab112d8668a6572c1b3f2683a55613227e9a4981c8d28233d3f1"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "22c10ade6db11c00cacde1241e5b1faaccbb0279f0d507aff88382ea8c101ffe",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "pc17-hil-b-t4p5-f0p05-s8-pdouble",
+      "pid": 15092,
+      "initialManifestSha256": "8321b85ac81868e5ce260b06a6455a5199afb261c929e882d75b6cc5475248ec",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "862fe0014a13e01a04ae42ba0a1235a2f56430da7af0c774306cc32cf11df487"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "47a88f4739c3459c8449c988b67898a853c8491ccbd7bea19c9be5d87bd0512b",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "pc17-hil-b-t4p5-f0p1-s3-phalf",
+      "pid": 16252,
+      "initialManifestSha256": "65429cae2b079864934c80e3c2b678bdac9839a8d4251eb978226d74229527ed",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "3d7c5a80bdeef145915dd51239eb4fcce12627709c8826479cef136abc7851b9"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "b4ff4476be7d0a825a9c58344a8daa75623f66893af84cc48cc696710da02a05",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "pc17-hil-b-t4p5-f0p1-s3-pdouble",
+      "pid": 31984,
+      "initialManifestSha256": "45c7d41df0fdb08d57791a2bb219e5f944af81d9427c34e65896838a1797bbfc",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "c21b6853a9bc508b12c20cf456e893dea7aa3a28728b40229b3e99ca19591338"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "746d306395d52ca067e172855f1b48e22c903ba5c2c8e27eb932c4492435cae1",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "pc17-hil-b-t5-f0p05-s8-phalf",
+      "pid": 19000,
+      "initialManifestSha256": "518f2c173d64b932d0cdb8d004af85942e5bba4bc90381616130c14cbb1807e0",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "b3b5da3b96b79bbf1fc7d2588b3abbb92dff39dfcc8a19d5f8a6e198680b410f"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "e9ebadfe28aaa8c172ff05e5b490fac5b3eca269fe2cff48113ae2986b7e6e2c",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "pc17-hil-b-t5-f0p05-s8-pdouble",
+      "pid": 10044,
+      "initialManifestSha256": "427651ffe5901cff2f0d5a4710ec8cd2c076175e389d52d383578de753f605d0",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "df3afe52a07d6436808e566a5f3e45a0d4049c007628368ed5bb1e89a1fbbcb9"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "37f0808c0cf2d9d869a541d2743442493a41492323e1c5b362545de138eb63ee",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "pc17-hil-b-t5-f0p1-s3-phalf",
+      "pid": 32380,
+      "initialManifestSha256": "1d3da34cfdb4d1587329aa0ac6be2b2036df4a6daaa842f3c0b33e9a22f91b1b",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "76abd6ec177c7f948979295c3db99ea6e24c457ee6f5a700ce461a4ab1ec0186"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "99fffdcb42199344f426bfa62e15134792791d864d8050e36ecc5631f8e67368",
+      "stderrBytes": 0
+    },
+    {
+      "rowId": "pc17-hil-b-t5-f0p1-s3-pdouble",
+      "pid": 5476,
+      "initialManifestSha256": "a80148408de67389b626ef8e9c5f6f15a8fe691f2d89dbed74cc8f5187db0a17",
+      "initialSolver": {
+        "bytes": 4458605,
+        "sha256": "21c023f19cd570db6d535274560a87d32fa3c1831a83b81fef0e8637eeb66376"
+      },
+      "strictDecode": true,
+      "initialTick": 0,
+      "initialTimeSeconds": 0,
+      "seedSites": 19,
+      "latestTick": 1,
+      "latestManifestSha256": "809c7e083297181f26d853508ad0bd56d67df0727ac1a53525c06b88fae53426",
+      "stderrBytes": 0
+    }
+  ],
+  "currentCoordinatorStderrBytes": 0,
+  "liveProcesses": [
+    {
+      "ProcessId": 27176,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h1-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w8-s5"
+    },
+    {
+      "ProcessId": 26236,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h3-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w6-s5"
+    },
+    {
+      "ProcessId": 12460,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h3-w8-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h3-w8-s5"
+    },
+    {
+      "ProcessId": 612,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\runner\\src\\hil-central-filling-nov11-main.ts resume-row cf11-hil-c-h1-w6-s5 C:\\Users\\biao3\\.codex\\worktrees\\hil-oct31-resume-record\\snowflake\\out\\hil-central-filling-nov11\\rows\\cf11-hil-c-h1-w6-s5"
+    },
+    {
+      "ProcessId": 33344,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-pressure-check-nov17-main.ts run-row pc17-hil-a-t4p5-f0p05-s8-phalf C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17\\rows\\pc17-hil-a-t4p5-f0p05-s8-phalf"
+    },
+    {
+      "ProcessId": 21848,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-pressure-check-nov17-main.ts run-row pc17-hil-a-t4p5-f0p05-s8-pdouble C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17\\rows\\pc17-hil-a-t4p5-f0p05-s8-pdouble"
+    },
+    {
+      "ProcessId": 30440,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-pressure-check-nov17-main.ts run-row pc17-hil-a-t4p5-f0p1-s3-phalf C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17\\rows\\pc17-hil-a-t4p5-f0p1-s3-phalf"
+    },
+    {
+      "ProcessId": 20344,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-pressure-check-nov17-main.ts run-row pc17-hil-a-t4p5-f0p1-s3-pdouble C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17\\rows\\pc17-hil-a-t4p5-f0p1-s3-pdouble"
+    },
+    {
+      "ProcessId": 10100,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-pressure-check-nov17-main.ts run-row pc17-hil-a-t5-f0p05-s8-phalf C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17\\rows\\pc17-hil-a-t5-f0p05-s8-phalf"
+    },
+    {
+      "ProcessId": 30404,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-pressure-check-nov17-main.ts run-row pc17-hil-a-t5-f0p05-s8-pdouble C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17\\rows\\pc17-hil-a-t5-f0p05-s8-pdouble"
+    },
+    {
+      "ProcessId": 19288,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-pressure-check-nov17-main.ts run-row pc17-hil-a-t5-f0p1-s3-phalf C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17\\rows\\pc17-hil-a-t5-f0p1-s3-phalf"
+    },
+    {
+      "ProcessId": 22276,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-pressure-check-nov17-main.ts run-row pc17-hil-a-t5-f0p1-s3-pdouble C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17\\rows\\pc17-hil-a-t5-f0p1-s3-pdouble"
+    },
+    {
+      "ProcessId": 10740,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-pressure-check-nov17-main.ts run-row pc17-hil-b-t4p5-f0p05-s8-phalf C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17\\rows\\pc17-hil-b-t4p5-f0p05-s8-phalf"
+    },
+    {
+      "ProcessId": 15092,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-pressure-check-nov17-main.ts run-row pc17-hil-b-t4p5-f0p05-s8-pdouble C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17\\rows\\pc17-hil-b-t4p5-f0p05-s8-pdouble"
+    },
+    {
+      "ProcessId": 16252,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-pressure-check-nov17-main.ts run-row pc17-hil-b-t4p5-f0p1-s3-phalf C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17\\rows\\pc17-hil-b-t4p5-f0p1-s3-phalf"
+    },
+    {
+      "ProcessId": 31984,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-pressure-check-nov17-main.ts run-row pc17-hil-b-t4p5-f0p1-s3-pdouble C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17\\rows\\pc17-hil-b-t4p5-f0p1-s3-pdouble"
+    },
+    {
+      "ProcessId": 19000,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-pressure-check-nov17-main.ts run-row pc17-hil-b-t5-f0p05-s8-phalf C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17\\rows\\pc17-hil-b-t5-f0p05-s8-phalf"
+    },
+    {
+      "ProcessId": 10044,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-pressure-check-nov17-main.ts run-row pc17-hil-b-t5-f0p05-s8-pdouble C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17\\rows\\pc17-hil-b-t5-f0p05-s8-pdouble"
+    },
+    {
+      "ProcessId": 32380,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-pressure-check-nov17-main.ts run-row pc17-hil-b-t5-f0p1-s3-phalf C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17\\rows\\pc17-hil-b-t5-f0p1-s3-phalf"
+    },
+    {
+      "ProcessId": 5476,
+      "CommandLine": "C:\\Users\\biao3\\AppData\\Local\\Programs\\nodejs\\node-v24.13.1-win-x64\\node.exe C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\runner\\src\\hil-pressure-check-nov17-main.ts run-row pc17-hil-b-t5-f0p1-s3-pdouble C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17\\rows\\pc17-hil-b-t5-f0p1-s3-pdouble"
+    }
+  ],
+  "resumeCommand": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/start-hil-pressure-check-nov17.ps1 -Mode resume -Workers 16",
+  "resumeCwd": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake",
+  "producerRule": "Keep main clean at this commit until terminal. Inspect writers before resume. No new worktree.",
+  "noWallDeadline": true,
+  "targetExtent": 29,
+  "dimsN": 64,
+  "files": [
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17-verification\\check-launch.mjs",
+      "bytes": 2946,
+      "sha256": "02ce2b701af907ee03af3553d28cac1966197ba4b21ba7cbc4bf7bafe6ed8cd0"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17-verification\\launch-state-check.json",
+      "bytes": 22515,
+      "sha256": "17bc2c3595fbc3fa5ece50a80b65bd451dc2a97626db6035d4f5189a75ef7dd0"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17-verification\\metadata-result.json",
+      "bytes": 187,
+      "sha256": "58ccb9f7a5195d5e3e8b27ccf13887b26f88c2a5cc49b0e23c5428acde640ce5"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17-controls\\campaign-launch-20261117T060430120-invocation.json",
+      "bytes": 1072,
+      "sha256": "b0b7bc7211cadf6e933ca94def48839ce90dd95f075d122c9a6f0ceae55c7b3c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17-controls\\bootstrap-20261117T060429877.json",
+      "bytes": 849,
+      "sha256": "20b005cf71286dec3edc287ad2d225f72ba110ad11417bf5edec0be704848c28"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-check-nov17-controls\\live-processes.json",
+      "bytes": 7938,
+      "sha256": "cb8fd3e8edf9949c5e6f41148392b9cc5c029b08a681cf6bbd779530fccfb1d5"
+    }
+  ],
+  "preservation": "Local output and receipt indexed by committed PROGRESS/plan; governed NAS publication remains pending."
+}

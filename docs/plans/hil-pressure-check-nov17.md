@@ -1,7 +1,7 @@
 # Plan - HIL pressure contrast qualification
 
 - **Phase:** active Phase10; charter2.4/2.5/3.2 and accepted ADR0058/0059/0060/0062.
-- **Status:** registered November17 before implementation, maker requests another short/medium batch.
+- **Status:** all16 extent29 endpoints complete November17 at16:40Pacific; operational verification November18; matched analysis and NAS recovery pending.
 - **Checkout:** primary main by explicit maker direction, no new worktree. Prior16 are all terminal.
 - **Started / last touched:** 2026-11-17 by Codex.
 
@@ -113,11 +113,25 @@ run and passed final checks, with both logs retained. Main stays at producer aft
 The [prior matched readout](../../evidence/hil-onset-pressure-2026-11-16/analysis-nov17.json)
 records24 rows/789 retained states; complete pressure contrasts motivate this batch.
 
+## Completion status - November18
+
+The [launch receipt](../../evidence/hil-pressure-check-2026-11-17/launch.json) binds the actual
+November17 dispatch. [Current status](../../evidence/hil-pressure-check-2026-11-17/status-nov18.json)
+verifies16/16 size-target29 endpoints, exit0 and no operational errors, with no queued cases.
+Final completion2026-11-18T00:40:18.331Z (November17,16:40Pacific); wall durations
+5.430929722222222-10.596225555555554h. All32 switch labels and16 terminal labels are present
+and hashed; this status does not decode all saved states or establish the pressure interpretation.
+The [four fine rows](../../evidence/hil-pressure-check-2026-11-17/fine-status-nov18.json) remain
+active at extents33/37/35/35 of57,1895/2269/2275/2306 updates, recent checkpoints, active CPU
+and empty stderr. Keep their separate producer fixed. Main may advance because its batch is
+entirely terminal. Next execute registered CFL/width-pressure comparisons, then NAS recovery.
+No new runs or worktrees were launched for this status request.
+
 ## Steps
 
 - [x] Commit protocol and16 bound controls before implementation.
 - [x] Thin orchestration passes34 focused tests and both typechecks; bounded review no findings. Commit clean producer before launch.
-- [ ] Launch16; verify actual workers and initial/checkpoint bytes; keep main fixed.
+- [x] Launched16 at8df617e on main; initial states/checkpoint progress verified; all16 now complete.
 - [ ] Complete registered comparisons and NAS preservation/fresh recovery.
 
 ## Out of scope
