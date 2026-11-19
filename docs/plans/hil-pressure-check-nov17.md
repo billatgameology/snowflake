@@ -124,7 +124,7 @@ and hashed; this status does not decode all saved states or establish the pressu
 The [four fine rows](../../evidence/hil-pressure-check-2026-11-17/fine-status-nov18.json) remain
 active at extents33/37/35/35 of57,1895/2269/2275/2306 updates, recent checkpoints, active CPU
 and empty stderr. Keep their separate producer fixed. Main may advance because its batch is
-entirely terminal. Next execute registered CFL/width-pressure comparisons, then NAS recovery.
+entirely terminal. Registered comparisons are now complete below; NAS recovery remains pending.
 No new runs or worktrees were launched for this status request.
 
 ## Matched analysis - November18

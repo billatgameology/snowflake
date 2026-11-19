@@ -1,0 +1,7 @@
+{
+  "finishedAt": "2026-11-18T16:47:21.5567507-08:00",
+  "log": "out/hil-exploration-nov18-verification/focused.log",
+  "exitCode": 0,
+  "command": "npx.cmd vitest run runner/test/hil-exploration-nov18.test.ts runner/test/hil-pressure-check-nov17.test.ts runner/test/hil-bld-batch-resume.test.ts runner/test/hil-bld-batch-execution.test.ts runner/test/discovery-retained-observations.test.ts",
+  "startedAt": "2026-11-18T16:47:11.0024169-08:00"
+}

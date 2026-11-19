@@ -1,0 +1,37 @@
+{
+  "recordedAt": "2026-11-19T00:49:06.097163+00:00",
+  "protocolCommit": "9cf9228",
+  "scope": "Thin finite roster/entry/wrapper boundary only; no shared solver/readout/codec/recorder changes",
+  "newRows": 192,
+  "runningSlots": 16,
+  "focusedFiles": 5,
+  "focusedTests": 34,
+  "focusedExitCode": 0,
+  "rootAndAppTypecheckExitCode": 0,
+  "review": "verification/review.json",
+  "controlsRehashed": 96,
+  "sourceFiles": [
+    {
+      "path": "runner/src/hil-exploration-nov18-roster.ts",
+      "bytes": 4396,
+      "sha256": "8da2718a8b328702ec597dc196bbbd11799072f59f9d268b5f5cb62d09ebbcc9"
+    },
+    {
+      "path": "runner/src/hil-exploration-nov18-main.ts",
+      "bytes": 2553,
+      "sha256": "b427467a599b99c3a56ee77f9f94745b1bc2224ddd956d4890564b6a5e345054"
+    },
+    {
+      "path": "runner/test/hil-exploration-nov18.test.ts",
+      "bytes": 7193,
+      "sha256": "aed5b2e0b69b95ae5c22418f086347cfa21af4ee077fdcd57b04a560966a4a2f"
+    },
+    {
+      "path": "scripts/start-hil-exploration-nov18.ps1",
+      "bytes": 2370,
+      "sha256": "0d2ebf6666dda907ac055219b4c0cdc230d90272faa8822ea0e23ffd994e7acd"
+    }
+  ],
+  "pending": "Final metadata/diff, clean source commit/push, launch and first16capture/checkpoint plus176queued verification. Actual launchreceipt: out/hil-exploration-nov18-controls/launch-verification.json; main remains fixed after launch.",
+  "fullSuiteRun": false
+}

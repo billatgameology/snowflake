@@ -1,7 +1,7 @@
 # Plan - HIL preparation, seed and temperature exploration
 
 - **Phase:** active Phase 10; charter sections 2.4, 2.5 and 3.2; accepted ADRs 0058, 0059, 0060 and 0062.
-- **Status:** protocol registration before implementation and launch.
+- **Status:** protocol committed, implementation/checks complete; launch receipt below is live authority for dispatch.
 - **Started / last touched:** 2026-11-18 by Codex.
 - **Checkout:** primary main, explicitly requested by the maker; no new branch or worktree.
 
@@ -175,10 +175,25 @@ TAX2v1 https://arxiv.org/abs/2306.13087 (2023-06-22), and the author's publicati
 https://www.its.caltech.edu/~atomic/publist/kglpub.htm. No superseding adopted mapping identified;
 this is not a novelty assessment. Existing parameter provenance and its pressure caveat remain.
 
+## Executed preparation
+
+Protocol9cf9228 preceded implementation. [Verification](../../evidence/hil-exploration-2026-11-18/verification.json)
+binds5files/34passed focused tests, both typechecks, source hashes and one bounded shared-context
+non-author review with no findings. The reviewer independently ran the list command, checked all192
+operands/order, rehashed96control files and assembled every registered complete cohort. No shared
+scientific code changed and no full-suite or physical-validation claim is made. Initial observed
+resources:48.06072235107422GiB available RAM,49.60820388793945GiB commit headroom; four fine workers
+present. Final metadata receipt remains at `out/hil-exploration-nov18-verification/metadata-result.json`.
+Commit/push the producer, then launch. The live receipt
+`out/hil-exploration-nov18-controls/launch-verification.json` records actual dispatch and first-state
+verification after launch; check it before deciding whether work is pending. While it exists and
+workers remain live, monitor instead of launching/resuming again and keep main at its recorded source.
+No tracked launch update is made while the exact producer must remain fixed.
+
 ## Steps
 
-- [ ] Commit protocol, literal operands, reused controls and latest saved-data analysis.
-- [ ] Implement thin entry/roster/wrapper; pass focused checks, both typechecks and bounded review.
+- [x] Commit protocol9cf9228, literal operands, reused controls and latest saved-data analysis.
+- [x] Implement thin entry/roster/wrapper;34 focused tests, both typechecks and bounded review pass.
 - [ ] Commit/push clean producer; launch16 and verify initial states, checkpoints and176 pending rows.
 - [ ] Monitor finite queue; classify every endpoint/failure and execute complete comparisons.
 - [ ] Preserve bulk output and detailed readouts on NAS with fresh recovery before closeout.

@@ -1,0 +1,31 @@
+{
+  "capturedUtc": "2026-11-19T00:48:07.2201973Z",
+  "availablePhysicalBytes": 51604807680,
+  "commitHeadroomBytes": 53266403328,
+  "children": [
+    {
+      "Id": 612,
+      "CPU": 205840.203125,
+      "WorkingSet64": 459988992,
+      "PeakWorkingSet64": 566906880
+    },
+    {
+      "Id": 12460,
+      "CPU": 592330.375,
+      "WorkingSet64": 555343872,
+      "PeakWorkingSet64": 627245056
+    },
+    {
+      "Id": 26236,
+      "CPU": 592349.390625,
+      "WorkingSet64": 552484864,
+      "PeakWorkingSet64": 624386048
+    },
+    {
+      "Id": 27176,
+      "CPU": 592337.25,
+      "WorkingSet64": 548601856,
+      "PeakWorkingSet64": 620412928
+    }
+  ]
+}

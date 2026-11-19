@@ -1,0 +1,7 @@
+{
+  "finishedAt": "2026-11-18T16:47:20.1291626-08:00",
+  "command": "npm.cmd run typecheck",
+  "log": "out/hil-exploration-nov18-verification/typecheck.log",
+  "startedAt": "2026-11-18T16:47:11.0020837-08:00",
+  "exitCode": 0
+}

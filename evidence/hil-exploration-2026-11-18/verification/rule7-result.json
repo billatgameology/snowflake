@@ -1,0 +1,7 @@
+{
+  "command": "npm.cmd run lint:rule7",
+  "finishedAt": "2026-11-18T16:47:42.4390517-08:00",
+  "exitCode": 0,
+  "log": "out/hil-exploration-nov18-verification/rule7.log",
+  "startedAt": "2026-11-18T16:47:38.4209856-08:00"
+}

@@ -1,0 +1,237 @@
+{
+  "recordedAt": "2026-11-19T00:47:58.729191+00:00",
+  "reviewer": "Codex/GPT-6-family shared-context subagent, distinct from implementation author; exact underlying model identifier not exposed",
+  "sharedContext": true,
+  "scope": "One bounded review of four stable orchestration files against committed9cf9228 protocol and literal192-row fixture. No scientific operator changes or simulation.",
+  "sourceFiles": [
+    {
+      "path": "runner/src/hil-exploration-nov18-roster.ts",
+      "bytes": 4396,
+      "sha256": "8da2718a8b328702ec597dc196bbbd11799072f59f9d268b5f5cb62d09ebbcc9"
+    },
+    {
+      "path": "runner/src/hil-exploration-nov18-main.ts",
+      "bytes": 2553,
+      "sha256": "b427467a599b99c3a56ee77f9f94745b1bc2224ddd956d4890564b6a5e345054"
+    },
+    {
+      "path": "runner/test/hil-exploration-nov18.test.ts",
+      "bytes": 7193,
+      "sha256": "aed5b2e0b69b95ae5c22418f086347cfa21af4ee077fdcd57b04a560966a4a2f"
+    },
+    {
+      "path": "scripts/start-hil-exploration-nov18.ps1",
+      "bytes": 2370,
+      "sha256": "0d2ebf6666dda907ac055219b4c0cdc230d90272faa8822ea0e23ffd994e7acd"
+    }
+  ],
+  "executedChecks": [
+    {
+      "check": "Real list CLI",
+      "exitCode": 0,
+      "rows": 192,
+      "batchId": "hil-exploration-2026-11-18",
+      "workerCeiling": 16
+    },
+    {
+      "check": "Every operand and dispatch position matches independently prepared preimplementation fixture; sigma tolerance1e-15",
+      "rows": 192,
+      "blockCounts": {
+        "a": 48,
+        "b": 64,
+        "c": 64,
+        "d": 16
+      }
+    },
+    {
+      "check": "24 control inputs freshly rehashed",
+      "files": 96
+    },
+    {
+      "check": "Complete A/B/C factor sets assembled with reused anchors",
+      "cohorts": [
+        {
+          "block": "a",
+          "tempC": -4.5,
+          "fraction": 0.05,
+          "members": 16
+        },
+        {
+          "block": "b",
+          "tempC": -4.5,
+          "fraction": 0.05,
+          "members": 18
+        },
+        {
+          "block": "a",
+          "tempC": -4.5,
+          "fraction": 0.1,
+          "members": 16
+        },
+        {
+          "block": "b",
+          "tempC": -4.5,
+          "fraction": 0.1,
+          "members": 18
+        },
+        {
+          "block": "a",
+          "tempC": -5,
+          "fraction": 0.05,
+          "members": 16
+        },
+        {
+          "block": "b",
+          "tempC": -5,
+          "fraction": 0.05,
+          "members": 18
+        },
+        {
+          "block": "a",
+          "tempC": -5,
+          "fraction": 0.1,
+          "members": 16
+        },
+        {
+          "block": "b",
+          "tempC": -5,
+          "fraction": 0.1,
+          "members": 18
+        },
+        {
+          "block": "c",
+          "tempC": -3.5,
+          "fraction": 0.05,
+          "members": 8
+        },
+        {
+          "block": "c",
+          "tempC": -3.5,
+          "fraction": 0.1,
+          "members": 8
+        },
+        {
+          "block": "c",
+          "tempC": -4,
+          "fraction": 0.05,
+          "members": 8
+        },
+        {
+          "block": "c",
+          "tempC": -4,
+          "fraction": 0.1,
+          "members": 8
+        },
+        {
+          "block": "c",
+          "tempC": -5.5,
+          "fraction": 0.05,
+          "members": 8
+        },
+        {
+          "block": "c",
+          "tempC": -5.5,
+          "fraction": 0.1,
+          "members": 8
+        },
+        {
+          "block": "c",
+          "tempC": -6,
+          "fraction": 0.05,
+          "members": 8
+        },
+        {
+          "block": "c",
+          "tempC": -6,
+          "fraction": 0.1,
+          "members": 8
+        }
+      ]
+    },
+    {
+      "check": "All16 D pairs differ only identity and registeredCFL",
+      "pairs": [
+        [
+          "ex18-hil-c-t3p5-f0p05-pnormal-r2-h1-w3-s8",
+          "ex18-hil-d-t3p5-f0p05-pnormal-r2-h1-w3-s8"
+        ],
+        [
+          "ex18-hil-c-t3p5-f0p05-pnormal-r2-h1-w4-s8",
+          "ex18-hil-d-t3p5-f0p05-pnormal-r2-h1-w4-s8"
+        ],
+        [
+          "ex18-hil-c-t3p5-f0p1-pnormal-r2-h1-w3-s3",
+          "ex18-hil-d-t3p5-f0p1-pnormal-r2-h1-w3-s3"
+        ],
+        [
+          "ex18-hil-c-t3p5-f0p1-pnormal-r2-h1-w4-s3",
+          "ex18-hil-d-t3p5-f0p1-pnormal-r2-h1-w4-s3"
+        ],
+        [
+          "ex18-hil-c-t4-f0p05-pnormal-r2-h1-w3-s8",
+          "ex18-hil-d-t4-f0p05-pnormal-r2-h1-w3-s8"
+        ],
+        [
+          "ex18-hil-c-t4-f0p05-pnormal-r2-h1-w4-s8",
+          "ex18-hil-d-t4-f0p05-pnormal-r2-h1-w4-s8"
+        ],
+        [
+          "ex18-hil-c-t4-f0p1-pnormal-r2-h1-w3-s3",
+          "ex18-hil-d-t4-f0p1-pnormal-r2-h1-w3-s3"
+        ],
+        [
+          "ex18-hil-c-t4-f0p1-pnormal-r2-h1-w4-s3",
+          "ex18-hil-d-t4-f0p1-pnormal-r2-h1-w4-s3"
+        ],
+        [
+          "ex18-hil-c-t5p5-f0p05-pnormal-r2-h1-w3-s8",
+          "ex18-hil-d-t5p5-f0p05-pnormal-r2-h1-w3-s8"
+        ],
+        [
+          "ex18-hil-c-t5p5-f0p05-pnormal-r2-h1-w4-s8",
+          "ex18-hil-d-t5p5-f0p05-pnormal-r2-h1-w4-s8"
+        ],
+        [
+          "ex18-hil-c-t5p5-f0p1-pnormal-r2-h1-w3-s3",
+          "ex18-hil-d-t5p5-f0p1-pnormal-r2-h1-w3-s3"
+        ],
+        [
+          "ex18-hil-c-t5p5-f0p1-pnormal-r2-h1-w4-s3",
+          "ex18-hil-d-t5p5-f0p1-pnormal-r2-h1-w4-s3"
+        ],
+        [
+          "ex18-hil-c-t6-f0p05-pnormal-r2-h1-w3-s8",
+          "ex18-hil-d-t6-f0p05-pnormal-r2-h1-w3-s8"
+        ],
+        [
+          "ex18-hil-c-t6-f0p05-pnormal-r2-h1-w4-s8",
+          "ex18-hil-d-t6-f0p05-pnormal-r2-h1-w4-s8"
+        ],
+        [
+          "ex18-hil-c-t6-f0p1-pnormal-r2-h1-w3-s3",
+          "ex18-hil-d-t6-f0p1-pnormal-r2-h1-w3-s3"
+        ],
+        [
+          "ex18-hil-c-t6-f0p1-pnormal-r2-h1-w4-s3",
+          "ex18-hil-d-t6-f0p1-pnormal-r2-h1-w4-s3"
+        ]
+      ]
+    }
+  ],
+  "inspected": [
+    "Dimension/seed/width/CFL/pressure/supply routing agrees with literal factors and plan;192 unique IDs.",
+    "Taller seed3 uses central patch offset2; thickness1 usesoffset1. All capture age/extent/exactswitch settings agree with plan.",
+    "Entry routes all row IDs through create/resume recorder settings; existing focused test enumerates384 route calls.",
+    "Shared coordinator receives all192rows and16concurrency, refills queue, skips completed rows on resume, retains failed attempts, no automatic failure retry.",
+    "No maxWallSeconds passed; hidden wrapper pinsruntime and records separate stdout/stderr/exit.",
+    "Distinct batch/schema/output identity; no shared solver/codec/recorder/readout changes."
+  ],
+  "findings": [],
+  "blockingFindings": [],
+  "limits": [
+    "Did not rerun root focused tests/typechecks or perform actual pause/resume/solver evolution.",
+    "Sourcecurrency was not rechecked by reviewer; no independent physical validation or grid/continuum claim.",
+    "Root must verify actual first16workers, fullstate bytes/checkpointadvancement,176pendingrows and resourcefloors before declaring launchcomplete.",
+    "Main source/runtime must stay at committed producer during active queue; raw output/NAS custody remains separate."
+  ]
+}
