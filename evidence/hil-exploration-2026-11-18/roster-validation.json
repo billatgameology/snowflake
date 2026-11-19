@@ -1,0 +1,33 @@
+{
+  "at": "2026-11-19T00:41:39.342Z",
+  "rows": 192,
+  "uniqueIds": 192,
+  "uniqueOperandTuples": 192,
+  "scannedRosterModules": [
+    "bld-growth-dynamics-oct21-roster.ts",
+    "hil-adventures-nov12-roster.ts",
+    "hil-batch2-roster.ts",
+    "hil-bld-batch-roster.ts",
+    "hil-central-filling-nov11-roster.ts",
+    "hil-domain-seed-oct19-roster.ts",
+    "hil-exploration-oct10-roster.ts",
+    "hil-facet-pressure-oct19-roster.ts",
+    "hil-growth-dynamics-oct21-roster.ts",
+    "hil-large-batch-oct11-roster.ts",
+    "hil-onset-followup-nov13-roster.ts",
+    "hil-onset-pressure-nov16-roster.ts",
+    "hil-pressure-check-nov17-roster.ts",
+    "hil-supplement-roster.ts",
+    "hil-supply-onset-nov13-roster.ts",
+    "hil-two-day-oct12-roster.ts",
+    "hil-warm-refinement-roster.ts"
+  ],
+  "extractedHistoricalExportRows": 722,
+  "duplicateHits": [],
+  "comparisonKey": "T,fraction,pressure,seedRadius,seedThickness,width,historyMode,cutoff,CFL,N,dx,target,maxSteps,paramSet,facetArm,environmentEvent; missing pressure normalized101325",
+  "independentSigmaCheck": {
+    "method": "Independent decimal calculation from docs/libbrecht-parameters.md section5 Table2.1 anchors: (-2,.020),(-5,.050),(-10,.102). Linear interpolation: water fractions {-3.5:.035,-4:.040,-4.5:.045,-5:.050,-5.5:.0552,-6:.0604}; multiply by fraction .05/.10 using integer decimal arithmetic. Values do not call production helper; compare at14decimal places.",
+    "checkedRows": 192,
+    "maxDifferenceFromProductionGeneratedValues": 8.673617379884035e-19
+  }
+}

@@ -1,7 +1,7 @@
 # Plan - HIL pressure contrast qualification
 
 - **Phase:** active Phase10; charter2.4/2.5/3.2 and accepted ADR0058/0059/0060/0062.
-- **Status:** all16 extent29 endpoints complete November17 at16:40Pacific; operational verification November18; matched analysis and NAS recovery pending.
+- **Status:** all16 extent29 endpoints complete November17 at16:40Pacific; operational verification November18; matched analysis complete November18; NAS recovery pending.
 - **Checkout:** primary main by explicit maker direction, no new worktree. Prior16 are all terminal.
 - **Started / last touched:** 2026-11-17 by Codex.
 
@@ -127,12 +127,26 @@ and empty stderr. Keep their separate producer fixed. Main may advance because i
 entirely terminal. Next execute registered CFL/width-pressure comparisons, then NAS recovery.
 No new runs or worktrees were launched for this status request.
 
+## Matched analysis - November18
+
+The [retained-state readout](../../evidence/hil-pressure-check-2026-11-17/analysis-nov18.json)
+and [executed receipt](../../evidence/hil-pressure-check-2026-11-17/analysis-nov18-receipt.json)
+cover32unique rows and988decoded states:8 CFL pairs,4 six-member factorial cohorts and12
+width pairs. The8 width3 half-step rows preserve previous pressure ordering and terminal depths.
+All8 new width4 rows lose original openings, matching4normal-pressure width4 controls.
+Common-age and adjacent-event comparisons preserve this scoped width/pressure contrast.
+No physical causality, grid independence or single fill/vapor criterion is established.
+The maker now authorizes the [192-case follow-up](hil-exploration-nov18.md); duration rescue
+is no longer deferred because the registered qualification is complete. Raw/detailed outputs
+remain local pending NAS preservation. Existing readers were reused with cohort selectors only.
+
 ## Steps
 
 - [x] Commit protocol and16 bound controls before implementation.
 - [x] Thin orchestration passes34 focused tests and both typechecks; bounded review no findings. Commit clean producer before launch.
 - [x] Launched16 at8df617e on main; initial states/checkpoint progress verified; all16 now complete.
-- [ ] Complete registered comparisons and NAS preservation/fresh recovery.
+- [x] Complete registered comparisons:32rows/988 retained states, all24 named cohorts/pairs available.
+- [ ] NAS preservation/fresh recovery.
 
 ## Out of scope
 

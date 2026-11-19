@@ -1,0 +1,16 @@
+{
+  "source": "evidence/hil-pressure-check-2026-11-17/analysis-nov18.json",
+  "definition": "result.json active wallSeconds /3600",
+  "observations": 16,
+  "meanCfl00625Hours": 8.50484295138889,
+  "meanCfl0125Hours": 6.483861493055556,
+  "plannedRows": 192,
+  "workers": 16,
+  "weightedPriorScenarioHours": 79.827319375,
+  "weightedPriorScenarioDays": 3.3261383072916666,
+  "eightToTenHoursPerRowScenarioDays": [
+    4.0,
+    5.0
+  ],
+  "qualification": "non-transferable planning scenarios; changed seed, temperature, cutoff and contention not measured; no wall stop"
+}

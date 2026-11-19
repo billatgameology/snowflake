@@ -1,0 +1,69 @@
+{
+  "recordedAt": "2026-11-19T00:42:09.962885+00:00",
+  "analysisHead": "ccc03e80b9d566f8e166c4994b934382021af562",
+  "node": "v24.13.1",
+  "scope": "Shared-context Codex/GPT-6-family subagent saved-data reconstruction; source/producer states preserved.",
+  "command": "node out/hil-pressure-analysis-20261118/warm/analyze.mjs",
+  "exitCode": 0,
+  "counts": {
+    "newRows": 16,
+    "oldControls": 16,
+    "availableCflPairs": 8,
+    "availableWidthPressureCohorts": 4,
+    "availableWidthPairs": 12,
+    "retainedStatesDecoded": 988,
+    "completeNamedLabelRows": 32
+  },
+  "priorRecipe": "out/hil-onset-pressure-analysis-20261117/warm/analyze.mjs",
+  "adaptation": "Source roots and registered cohort selectors; existing event/geometry/state/cost helpers unchanged. No solver evolution.",
+  "review": "Checked terminal depth and original-opening survival across8 CFL pairs; checked adjacent-event depth agreement for24 primary-cohort final observations. No new independent physics review.",
+  "files": [
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-analysis-20261118\\warm\\analyze.mjs",
+      "bytes": 12548,
+      "sha256": "c6258fcc7219fd496f7e4412130dc58a4364cae4a3da5a2ae7b412feb9a3c32c"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-analysis-20261118\\warm\\execution.log",
+      "bytes": 3042,
+      "sha256": "1f1658e744726b02328d30c442a4df3019a0cad343a883bc1c7f2c6350572b75"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-analysis-20261118\\warm\\execution-result.json",
+      "bytes": 146,
+      "sha256": "2bc99f67cd70be966f9f55d8d9a84a915dd35f854de105756f2a0a6ef130a22e"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-analysis-20261118\\warm\\warm-comparisons.json",
+      "bytes": 1995768,
+      "sha256": "eab5768f54af10db380293a62d01b004591fbb9a41d480a12df66a0a8bd8d649"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-analysis-20261118\\warm\\warm-retained.json",
+      "bytes": 18380532,
+      "sha256": "9599d36395aaa387c5ad1fcc38c3a8fe5559b2dbbeb7a812dea7f518760467f3"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-analysis-20261118\\warm\\inputs.json",
+      "bytes": 881652,
+      "sha256": "647eca52104630c3455ce6ff269bd138d7e5ed96dbf34176f9d7e48ec623cb47"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-analysis-20261118\\concise-summary.json",
+      "bytes": 92839,
+      "sha256": "06dbf43895e5fedf2d0276bb4fba15e67e58a8c594143bb98824849284afb37a"
+    },
+    {
+      "path": "C:\\Users\\biao3\\Documents\\GitHub\\snowflake\\out\\hil-pressure-analysis-20261118\\comparison-inputs.json",
+      "bytes": 52591,
+      "sha256": "e64374c9ff04826986e4cf950a2f736377c64cd0d71b816f03736918e8f6dd59"
+    }
+  ],
+  "limits": [
+    "One timestep halving is not continuum/grid convergence; equal terminal depth does not imply complete trajectories or all metrics equal.",
+    "Pressure varies model diffusion only; fixed cutoff does not match local growth state or selected exposure across pressures.",
+    "Width4 is not a zero-intervention control: it applies the same law to a broader selected support.",
+    "Original signed opening intervals are not independent crystals/cavities; occupancy is not deposited mass.",
+    "All raw output and detailed analyses remain local until governed NAS publication/fresh recovery."
+  ]
+}
